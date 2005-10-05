@@ -14,7 +14,7 @@
 #
 from constants import *
 
-class Data:
+class KickstartData:
     def __init__(self):
         # Set by command handlers.
         self.authconfig = ""
@@ -73,9 +73,9 @@ class Data:
         self.postScripts = []
         self.tracebackScripts = []
 
-class LogVolData:
+class KickstartLogVolData:
     def __init__(self):
-        self.bytesPerInode = 0
+        self.bytesPerInode = 4096
         self.fsopts = ""
         self.fstype = ""
         self.grow = False
@@ -89,7 +89,7 @@ class LogVolData:
         self.vgname = ""
         self.mountpoint = ""
 
-class NetworkData:
+class KickstartNetworkData:
     def __init__(self):
         self.bootProto = "dhcp"
         self.dhcpclass = ""
@@ -106,11 +106,11 @@ class NetworkData:
         self.onboot = True
         self.wepkey = ""
 
-class PartData:
+class KickstartPartData:
     def __init__ (self):
         self.active = False
         self.primOnly = False
-        self.bytesPerInode = 0
+        self.bytesPerInode = 4096
         self.end = 0
         self.fsopts = ""
         self.fstype = ""
@@ -126,7 +126,7 @@ class PartData:
         self.start = 0
         self.mountpoint = ""
 
-class RaidData:
+class KickstartRaidData:
     def __init__ (self):
         self.device = ""
         self.fsopts = ""
@@ -138,7 +138,7 @@ class RaidData:
         self.mountpoint = ""
         self.members = ""
 
-class VolGroupData:
+class KickstartVolGroupData:
     def __init__(self):
         self.format = True
         self.pesize = 32768

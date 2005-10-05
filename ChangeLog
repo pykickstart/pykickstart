@@ -1,3 +1,8 @@
 2005-10-05  Chris Lumens  <clumens@redhat.com>
 
+	* kickstart/data.py:  Rename classes to be consistent with the rest of
+	the module.  Add default bytesPerInode to partition objects.
+
+2005-10-05  Chris Lumens  <clumens@redhat.com>
+
 	* Imported contents from anaconda.
