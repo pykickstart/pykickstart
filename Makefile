@@ -11,7 +11,7 @@ default: all
 all:
 
 clean:
-	-rm *.tar.gz
+	-rm *.tar.gz pykickstart/*.pyc
 	python setup.py -q clean --all
 
 install: all
