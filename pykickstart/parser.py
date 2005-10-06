@@ -16,6 +16,7 @@
 import shlex
 import sys
 import string
+import warnings
 from optparse import OptionParser, Option
 
 from constants import *
@@ -90,7 +91,7 @@ class KSOptionParser(OptionParser):
 
     def __init__(self, map={}):
         self.map = map
-        OptionParser.__init__(self, option_class=MappableOption,
+        OptionParser.__init__(self, option_class=DeprecatedOption,
                               add_help_option=False)
 
 # Creates a new Option type that supports a "required" option attribute.  Any
@@ -100,9 +101,7 @@ class RequiredOption (Option):
 
     def _check_required (self):
         if self.required and not self.takes_value():
-            raise OptionError(
-                "required flag set for option that doesn't take a value",
-                 self)
+            raise OptionError("Required flag set for option that doesn't take a value", self)
 
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
@@ -116,8 +115,8 @@ class RequiredOption (Option):
 # to define an opt -> [val1, ... valn] mapping such that dest gets a list of
 # vals build up when opt is seen.
 class MappableOption(RequiredOption):
-    ACTIONS = Option.ACTIONS + ("map", "map_extend",)
-    STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
+    ACTIONS = RequiredOption.ACTIONS + ("map", "map_extend",)
+    STORE_ACTIONS = RequiredOption.STORE_ACTIONS + ("map", "map_extend",)
 
     def take_action(self, action, dest, opt, value, values, parser):
         if action == "map":
@@ -126,6 +125,18 @@ class MappableOption(RequiredOption):
             values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
         else:
             RequiredOption.take_action(self, action, dest, opt, value, values, parser)
+
+# Creates a new Option type that supports a "deprecated" option attribute.
+# Any option with this attribute will cause a DeprecationWarning to be
+# thrown if the option is used.
+class DeprecatedOption(MappableOption):
+    ATTRS = MappableOption.ATTRS + ['deprecated']
+
+    def _check_deprecated (self):
+        if self.deprecated:
+            warnings.warn("Ignoring deprecated option: %s" % self.get_opt_string(), DeprecationWarning)
+
+    CHECK_METHODS = MappableOption.CHECK_METHODS + [_check_deprecated]
 
 ###
 ### SCRIPT HANDLING
@@ -231,6 +242,9 @@ class KickstartHandlers:
     def resetHandlers (self):
         for key in self.handlers.keys():
             self.handlers[key] = None
+
+    def deprecatedCommand(self, cmd):
+        warnings.warn("The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command." % cmd, DeprecationWarning)
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
@@ -371,7 +385,7 @@ class KickstartHandlers:
         self.ksdata.lang = args[0]
 
     def doLangSupport(self, args):
-        raise KickstartError, "The langsupport keyword has been removed.  Instead, please alter your kickstart file to include the support package groups for the languages you want instead of using langsupport.  For instance, include the french-support group instead of specifying 'langsupport fr'."
+        self.deprecatedCommand("langsupport")
 
     def doLogicalVolume(self, args):
         def lv_cb (option, opt_str, value, parser):
@@ -457,7 +471,7 @@ class KickstartHandlers:
             self.ksdata.monitor[key] = getattr(opts, key)
 
     def doMouse(self, args):
-        raise KickstartError, "The mouse keyword has not been functional for several releases and has now been removed.  Please modify your kickstart file by removing this keyword."
+        self.deprecatedCommand("mouse")
 
     def doNetwork(self, args):
         def onboot_cb (option, opt_str, value, parser):
@@ -680,6 +694,7 @@ class KickstartHandlers:
 
     def doXConfig(self, args):
         op = KSOptionParser()
+        op.add_option("--card", deprecated=1)
         op.add_option("--driver", dest="driver")
         op.add_option("--defaultdesktop", dest="defaultdesktop")
         op.add_option("--depth", dest="depth", action="store", type="int",

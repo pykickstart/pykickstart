@@ -1,7 +1,14 @@
+2005-10-06  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (DeprecatedOption):  Add a "deprecated"
+	attribute so options can be marked as such.
+	(KickstartHandlers):  Change how deprecated commands are printed.  Add
+	--card back to the xconfig command as a deprecated option.
+
 2005-10-05  Chris Lumens  <clumens@redhat.com>
 
-	* kickstart/data.py:  Rename classes to be consistent with the rest of
-	the module.  Add default bytesPerInode to partition objects.
+	* pykickstart/data.py:  Rename classes to be consistent with the rest
+	of the module.  Add default bytesPerInode to partition objects.
 
 2005-10-05  Chris Lumens  <clumens@redhat.com>
 
