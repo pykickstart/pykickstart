@@ -2,7 +2,7 @@
 
 	* pykickstart/constants.py:  Add types for scripts.
 	* pykickstart/data.py:  Collapse scripts into a single list.
-	* pykickstart/parser.py:  Likewise.
+	* pykickstart/parser.py:  Likewise.  Also, fix script printing.
 	* pykickstart/writer.py:  Likewise.  Also, rename class to
 	KickstartWriter.
 

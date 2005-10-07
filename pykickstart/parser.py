@@ -164,7 +164,7 @@ class Script:
     # to a kickstart file.  Add this to the end of the %whatever header.
     def write(self):
         str = ""
-        if self.interp != "/bin/sh":
+        if self.interp != "/bin/sh" and self.interp != "":
             str = str + " --interp %s" % self.interp
         if self.type == KS_SCRIPT_POST and not self.inChroot:
             str = str + " --nochroot"
@@ -173,7 +173,7 @@ class Script:
         if self.errorOnFail:
             str = str + " --erroronfail"
         
-        str = str + "\n%s" % self.script
+        str = str + "\n%s\n" % self.script
         return str
 
 ###
