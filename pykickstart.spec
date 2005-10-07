@@ -1,6 +1,6 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.2
+Version: 0.3
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -33,6 +33,14 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/python?.?/site-packages/pykickstart
 
 %changelog
+* Fri Oct 07 2005 Chris Lumens <clumens@redhat.com> 0.3-1
+- Add a deprecated attribute to options.
+- Add --card option back to xconfig and mark as deprecated.
+- Throw a deprecation warning on mouse and langsupport commands.
+- Rename Writer to KickstartWriter for consistency.
+- Collapse scripts into a single list and add an attribute on Script to
+  differentiate.
+
 * Wed Oct 05 2005 Chris Lumens <clumens@redhat.com> 0.2-1
 - Rename module to pykickstart to avoid conflicts in anaconda.
 - Rename data classes for consistency.
