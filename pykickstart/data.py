@@ -69,9 +69,7 @@ class KickstartData:
         self.groupList = []
         self.packageList = []
         self.excludedList = []
-        self.preScripts = []
-        self.postScripts = []
-        self.tracebackScripts = []
+        self.scripts = []
 
 class KickstartLogVolData:
     def __init__(self):

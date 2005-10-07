@@ -152,12 +152,13 @@ class Script:
         return string.replace(str, "\n", "|")
 
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
-                 logfile = None, errorOnFail = False):
+                 logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
         self.script = string.join(script, "")
         self.interp = interp
         self.inChroot = inChroot
         self.logfile = logfile
         self.errorOnFail = errorOnFail
+        self.type = type
 
     # Produce a string representation of the script suitable for writing
     # to a kickstart file.  Add this to the end of the %whatever header.
@@ -165,7 +166,7 @@ class Script:
         str = ""
         if self.interp != "/bin/sh":
             str = str + " --interp %s" % self.interp
-        if not self.inChroot:
+        if self.type == KS_SCRIPT_POST and not self.inChroot:
             str = str + " --nochroot"
         if self.logfile != None:
             str = str + " --logfile %s" % self.logfile
@@ -761,14 +762,9 @@ class KickstartParser:
 
         s = Script (self.script["body"], self.script["interp"],
                     self.script["chroot"], self.script["log"],
-                    self.script["errorOnFail"])
+                    self.script["errorOnFail"], self.script["type"])
 
-        if self.state == STATE_PRE:
-            self.ksdata.preScripts.append(s)
-        elif self.state == STATE_POST:
-            self.ksdata.postScripts.append(s)
-        elif self.state == STATE_TRACEBACK:
-            self.ksdata.tracebackScripts.append(s)
+        self.ksdata.scripts.append(s)
 
     def addPackages (self, line):
         if line[0] == '@':
@@ -908,10 +904,13 @@ class KickstartParser:
                     self.state = STATE_END
                 elif args[0] == "%pre":
                     self.state = STATE_PRE
+                    self.script["type"] = KS_SCRIPT_PRE
                 elif args[0] == "%post":
                     self.state = STATE_POST
+                    self.script["type"] = KS_SCRIPT_POST
                 elif args[0] == "%traceback":
                     self.state = STATE_TRACEBACK
+                    self.script["type"] = KS_SCRIPT_TRACEBACK
                 elif args[0][0] == '%':
                     raise KickstartParseError, line
 

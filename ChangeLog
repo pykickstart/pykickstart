@@ -1,6 +1,10 @@
 2005-10-07  Chris Lumens  <clumens@redhat.com>
 
-	* pykickstart/writer.py:  Rename class to KickstartWriter.
+	* pykickstart/constants.py:  Add types for scripts.
+	* pykickstart/data.py:  Collapse scripts into a single list.
+	* pykickstart/parser.py:  Likewise.
+	* pykickstart/writer.py:  Likewise.  Also, rename class to
+	KickstartWriter.
 
 2005-10-06  Chris Lumens  <clumens@redhat.com>
 

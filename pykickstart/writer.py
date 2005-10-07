@@ -34,8 +34,7 @@ class KickstartWriter:
                          self.doPartition, self.doLogicalVolume,
                          self.doVolumeGroup, self.doRaid,
 
-                         self.doPreScripts, self.doPostScripts,
-                         self.doTracebackScripts, self.doPackages]
+                         self.doScripts, self.doPackages]
 
         self.ksdata = ksdata
 
@@ -333,7 +332,7 @@ class KickstartWriter:
             str = str + "raid %s" % raid.mountpoint
 
             if raid.device != "":
-                str = str + " --device=%d" % raid.device
+                str = str + " --device=%s" % raid.device
             if raid.fsopts != "":
                 str = str + " --fsoptions=\"%s\"" % raid.fsopts
             if raid.fstype != "":
@@ -347,7 +346,7 @@ class KickstartWriter:
             if raid.preexist == True:
                 str = str + " --useexisting"
 
-            str = str + " %s\n" % raid.members
+            str = str + " %s\n" % string.join(raid.members)
 
         return str.rstrip()
 
@@ -462,29 +461,20 @@ class KickstartWriter:
         if self.ksdata.zfcp["devnum"] != "":
             return "zfcp --devnum=%(devnum)s --fcplun=%(fcplun)s --scsiid=%(scsiid)s --scsilun=%(scsilun)s --wwpn=%(wwpn)s" % self.ksdata.zfcp
 
-    def doPreScripts(self):
-        str = ""
+    def doScripts(self):
+        preStr = ""
+        postStr = ""
+        tracebackStr = ""
 
-        for script in self.ksdata.preScripts:
-            str = str + "%%pre %s" % script.write()
+        for script in self.ksdata.scripts:
+            if script.type == KS_SCRIPT_PRE:
+                preStr = preStr + "%%pre %s" % script.write()
+            elif script.type == KS_SCRIPT_POST:
+                postStr = postStr + "%%post %s" % script.write()
+            elif script.type == KS_SCRIPT_TRACEBACK:
+                tracebackStr = tracebackStr + "%%traceback %s" % script.write()
 
-        return str.rstrip()
-
-    def doPostScripts(self):
-        str = ""
-
-        for script in self.ksdata.postScripts:
-            str = str + "%%post %s" % script.write()
-
-        return str.rstrip()
-
-    def doTracebackScripts(self):
-        str = ""
-
-        for script in self.ksdata.tracebackScripts:
-            str = str + "%%traceback %s" % script.write()
-
-        return str.rstrip()
+        return preStr + postStr + tracebackStr.rstrip()
 
     def doPackages(self):
         if self.ksdata.upgrade == True:
