@@ -1,3 +1,7 @@
+2005-10-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/writer.py:  Rename class to KickstartWriter.
+
 2005-10-06  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (DeprecatedOption):  Add a "deprecated"

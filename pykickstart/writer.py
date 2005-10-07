@@ -15,7 +15,7 @@
 import string
 from constants import *
 
-class Writer:
+class KickstartWriter:
     def __init__(self, ksdata):
         # All the printing handlers in the order they should be called.
         self.handlers = [self.doPlatform,
