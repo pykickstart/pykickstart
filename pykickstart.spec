@@ -1,7 +1,9 @@
+%{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Version: 0.3
-Release: 1
+Release: 2
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
@@ -30,9 +32,12 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root)
 %doc README ChangeLog COPYING
-%{_libdir}/python?.?/site-packages/pykickstart
+%{python_sitelib}/pykickstart
 
 %changelog
+* Thu Oct 13 2005 Chris Lumens <clumens@redhat.com> 0.3-2
+- Correct python lib directory on 64-bit archs (#170621).
+
 * Fri Oct 07 2005 Chris Lumens <clumens@redhat.com> 0.3-1
 - Add a deprecated attribute to options.
 - Add --card option back to xconfig and mark as deprecated.

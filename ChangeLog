@@ -1,3 +1,8 @@
+2005-10-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Correct python lib directory on 64-bit archs
+	(#170621).  Bump build.
+
 2005-10-07  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/constants.py:  Add types for scripts.
