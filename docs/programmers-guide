@@ -1,0 +1,320 @@
+
+
+                        pykickstart Programmer's Guide
+
+                               by Chris Lumens
+
+                              October  14, 2005
+
+
+Introduction
+============
+pykickstart is a Python library for manipulating kickstart files.  It
+contains a common data representation, a parser, and a writer.  This
+library aims to be useful for all Python programs that need to work with
+kickstart files.  The two most obvious examples are anaconda and
+system-config-kickstart.  It is recommended that all other tools that need
+to use kickstart files use this library so that we can maintain equivalent
+levels of support across all tools.
+
+The kickstart file format itself has only been defined in a rather ad-hoc
+manner.  Various documents describe the format, commands, and their
+effects.  However, each kickstart-related program implemented its own
+parser.  As anaconda added support for new commands and options, other
+programs drifted farther and farther out of sync with the "official"
+format.  This leads to the problem that valid kickstart files are not
+accepted by all programs, or that programs will strip out options it
+doesn't understand so that the input and output files do not match.
+
+pykickstart is an effort to correct this.  It was originally designed to
+be a common code base for anaconda and system-config-kickstart, so making
+the code generic and easily extendable were top priorities.  Another
+priority was to formalize the currently recognized grammar in an easily
+understood parser so that files that used to work would continue to.  I
+believe these goals have been met.
+
+This document will cover how to use pykickstart in your programs and how to
+extend the basic parser to get customized behavior.  It includes a
+description of the important classes and several working examples.
+
+
+Getting Started
+===============
+Before diving into the full documentation, it is useful to see an example
+of how simple it is to use the default pykickstart in your programs.  Here
+is a code snippet that imports the required classes, parses a kickstart
+file, and leaves the results in the common data format.
+
+        #!/usr/bin/python
+        from pykickstart.data import *
+        from pykickstart.parser import *
+
+        ksdata = KickstartData()
+        kshandlers = KickstartHandlers(ksdata)
+        ksparser = KickstartParser(ksdata, kshandlers)
+        ksparser.readKickstart("ks.cfg")
+
+The call to readKickstart() reads in the kickstart file and sets values in
+ksdata.  After this call, you don't need kshandlers or ksparser anymore
+but you will want to hold on to ksdata if you are interested in the
+contents of the file.  If you want to do some manipulations and then write
+out the results to a new file, that's as simple as:
+
+        from pykickstart.writer import KickstartWriter
+        kswriter = KickstartWriter(ksdata)
+        outfile = open("out.cfg", 'w")
+        outfile.write(kswriter.write())
+        outfile.close()
+
+
+Classes
+=======
+The important classes that make up pykickstart are spread across a handful
+of files.
+
+constants.py
+------------
+This file includes no classes, though it does include several important
+constants representing various things in the KickstartData.  You should
+import its contents like so:
+
+        from pykickstart.constants import *
+
+data.py
+-------
+This file contains the classes that make up the common data
+representation.  The center of the data format is the KickstartData class,
+which contains many attributes representing the values from the input
+file.  When a new KickstartData is instantiated, these attributes are set
+to appropriate default values.  Some attributes are a simple string or
+boolean, while some are a list of other classes or dictionaries.  For the
+most part, each lines up with a single kickstart command.
+
+The KickstartLogVolData, KickstartNetworkData, KickstartPartData,
+KickstartRaidData, and KickstartVolGroupData classes are contained as list
+elements in KickstartData.  Each corresponds to a command that may appear
+multiple times.  They exist as separate classes so that attributes are
+guaranteed to exist.
+
+There are three different types of scripts - pre, post, and traceback -
+but all are represented in the kickstart data by a single list.  The
+Script class is contained in parser.py and contains an attribute that may
+be used to discriminate between classes.
+
+The install package list, excluded package list, and install groups list
+are kept as separate.  Excluded packages have the leading "-" stripped
+off, and groups have the leading "@" stripped.
+
+See the class reference at the end of this documentation for a brief
+explanation of useful functions in each class.
+
+parser.py
+---------
+This file represents the bulk of pykickstart code.
+
+writer.py
+---------
+This file contains the class that makes up the Kickstart writer.  The job
+of this class is to take a KickstartData object and convert it into a
+string.  This string should be a valid kickstart file that can then be
+used in any program.  Ideally, it should be the same as the input file
+though the order of options may have been shifted, as well as other
+cosmetic differences.
+
+It is important to note that KickstartWriter.write returns a string, but
+does no file output.
+
+See the class reference at the end of this documentation for a brief
+explanation of useful functions in each class.
+
+
+Class Reference
+===============
+class DeprecatedOption:
+    def __init__ ():
+        Creates a new Option type that supports a "deprecated" option
+        attribute.  Command options with deprecated=1 will still be
+        processed, but will raise a DeprecationWarning that may be logged.
+
+class KickstartData:
+    def __init__ ():
+        Creates a new KickstartData object and sets default values on
+        attributes.
+
+class KickstartError:
+    def __init__ (val):
+        Creates a new KickstartError exception object with the given val
+        as the message.  This is a generic exception.
+
+class KickstartHandlers:
+    def __init__ (ksdata):
+        Creates a new KickstartHandlers object and initializes the handler
+        dictionary to point at the default handlers.
+
+    def resetHandlers ():
+        Clears each handler to None.  This can be used to quickly clear
+        out the handlers before setting only the handlers a subclass is
+        interested in.
+
+    def deprecatedCommand (cmd):
+        Uses the Python warnings framework to issue a DeprecationWarning
+        for the given command keyword.
+
+    handlers:
+        A dictionary mapping commands to handling methods.  Individual
+        handlers may be set to None, in which case the command will be
+        ignored.  A subclass may override any or all of the handlers,
+        though each one should call the superclass's method to ensure the
+        ksdata is correct.  The default handlers only set ksdata.
+
+class KickstartLogVolData:
+    def __init__ ():
+        Creates a new KickstartLogVolData object and sets default values
+        on attributes.  Instances of this class should be appended to
+        KickstartData.logVolList.
+
+class KickstartNetworkData:
+    def __init__ ():
+        Creates a new KickstartNetworkData object and sets default values
+        on attributes.  Instances of this class should be appended to
+        KickstartData.networkList.
+
+class KickstartParser:
+    def __init__ (ksdata, kshandlers):
+        Creates a new KickstartParser object and initializes the parser
+        state.  kshandlers may be None, in which case no function will be
+        run when a kickstart command is seen in the input file.
+
+    def addScript ():
+        Called when the parser determines that it has found the end of
+        a script section and should add the script to the ksdata's list.
+        This method may be overriden if specialized behavior is required,
+        though the superclass's method should still be called to make sure
+        the script ends up in the ksdata.
+
+    def addPackages (line):
+        Called while in the %packages section.  Takes a line from the
+        file, determines whether it is a group, package, or excluded
+        package, and adds it to the correct list in the ksdata.  This
+        method may be overriden if specialized behavior is required,
+        though the superclass's method should still be called to make sure
+        the package lists in the ksdata are correct.
+
+    def handleCommand (cmd, args):
+        Called while in the commands section.  Takes a line from the
+        file, gets the commands from the head of the line, and dispatches
+        the correct method from the KickstartHandlers.  If the
+        KickstartParser object is created with kshandlers=None, no method
+        will be called for the command but no error will be raised.  This
+        method may be overridden if specialized behavior is needed.
+
+    def handlePackageHdr (args):
+        Called when the %packages section header is first seen.  Handles
+        the options that may be given to %packages and sets these values
+        in the ksdata.  This method may be overridden if specialized
+        behavior is needed, though the superclass's method should still be
+        called.
+
+    def handleScriptHdr (args):
+        Called when one of the script headers - %pre, %post, or %traceback -
+        is first seen.  Handles the optiosn that may be given to those
+        sections headers and sets those falues in the internal script
+        representation.  This method may be overridden if specialized
+        behavior is needed, though the superclass's method should still be
+        called.
+
+    def readKickstart (file):
+        Parse the input file.  This method reads the input file, switches
+        between states, and calls the handlers listed above.  This
+        method should not need to be overridden by any subclass as it
+        defines the kickstart file format.
+
+    followIncludes:
+        Defaults to True.  Set to False if you don't want %include
+        files to be parsed as well.
+
+class KickstartParseError:
+    def __init__ (line):
+        Creates a new KickstartParseError exception object.  The message
+        will include line, which should be the line in the kickstart file
+        that caused a parse error.
+
+class KickstartPartData:
+    def __init__ ():
+        Creates a new KickstartPartData object and sets default values
+        on attributes.  Instances of this class should be appended to
+        KickstartData.partList.
+
+class KickstartRaidData:
+    def __init__ ():
+        Creates a new KickstartRaidData object and sets default values
+        on attributes.  Instances of this class should be appended to
+        KickstartData.raidList.
+
+class KickstartValueError:
+    def __init (val):
+        Creates a new KickstartValueError exception object corresponding
+        to a problem with the provided val.
+
+class KickstartVolGroupData:
+    def __init__ ():
+        Creates a new KickstartVolGroupData object and sets default values
+        on attributes.  Instances of this class should be appended to
+        KickstartData.volGroupList.
+
+class KickstartWriter:
+    def __init__ (ksdata):
+        Creates a new KickstartWriter object and initializes the order
+        KickstartData options should be printed out in.
+
+    def write ():
+        Returns a valid kickstart file generated from ksdata as a string
+        that is suitable for writing out to a file.
+
+class KSOptionParser:
+    def __init__ (map=[]):
+        Creates a specialized subclass of python's OptionParser making use
+        of the MappableOption, RequiredOption, and DeprecatedOption
+        classes.  This class is used within command handlers and should
+        not need to be subclassed unless extremely complex behavior is
+        required.  The map option is needed if this object will have any
+        MappableOption instances.
+
+class MappableOption:
+    def __init__ ():
+        Creates a new Option type that supports a "map" action.  A map
+        action on a given option stores into the destination the value
+        given by:
+
+                KSOptionParser.map[key]
+
+        where key is the option with leading dashes stripped off.
+
+        This also adds a "map_extend" action.  A map_extend action on
+        a given set of options appends to the destination the value
+        given by:
+
+                KSOptionParser.map[key]
+
+        where key is the option with leading dashes stripped off.
+
+class RequiredOption:
+    def __init__ ():
+        Creates a new Option type that supports a "required" option
+        attribute.  Command options with required=1 must be provided or
+        an OptionError exception is raised.
+
+class Script:
+    def __init__ (script, interp="/bin/sh", inChroot=False, logfile=None,
+                  errorOnFail=False, type=KS_SCRIPT_PRE):
+        Creates a new Script object and sets the defaults for a %pre
+        script.  inChroot only makes sense for %post scripts.
+
+    def __repr__ ():
+        Returns a string representation of the script useful for debugging
+        output.
+
+    def write ():
+        Returns a valid kickstart file script generated from ksdata as a
+        string that is suitable for writing out to a file.  This string
+        includes the script header.
