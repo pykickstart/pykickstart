@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                              October  14, 2005
+                              October  17, 2005
 
 
 Introduction
@@ -110,7 +110,49 @@ explanation of useful functions in each class.
 
 parser.py
 ---------
-This file represents the bulk of pykickstart code.
+This file represents the bulk of pykickstart code.  At its core is the
+KickstartParser class, which is essentially a state machine.  There is one
+state for each of the sections in a kickstart file, plus some specialized
+ones to make the parser work.  The readKickstart method is the entry point
+into this class and is designed to be as generic as possible.  You should
+never have to override this method in a subclass.  All the other methods
+handle a change into a specific state and may be overridden in a
+superclass.
+
+If the KickstartParser encounters an error while reading your input file,
+it will raise a KickstartParseError with the line in question.  Examples
+of errors include bad options given to section headers, include files not
+existing, or headers given for sections that are not recognized (for
+instance, typos).
+
+The other major class within parser.py is KickstartHeaders.  This makes up
+the largest amount of the code and also does the most work as it deals
+with processing all the options on all the kickstart commands.
+KickstartHandlers.handlers is a dictionary mapping command names to
+handling methods.  KickstartParser takes the current command and
+dispatches the correct method based on this mapping.  If the command name
+maps to None, no method is called and no error is issued, a handy feature
+which will be discussed later in this documentation.
+
+Each of the handlers makes use of Python's OptionParser module to parse
+command arguments and set values in the KickstartData object.  For this
+reason, any subclass of KickstartHandlers must call the superclass's
+handler to ensure that the KickstartData is correct.  Our option parsing
+code allows commands to be marked as deprecated, which causes a message to
+be generated and logged by anaconda.  It also allows marking options as
+deprecated or required.
+
+There are a few other minor points to note about KickstartParser and
+KickstartHandlers.  When creating a KickstartParser object, you can set
+the followIncludes attribute to False if you do not wish for include files
+to be looked up and parsed as well.  There are several instances when this
+is handy.  The order of instantiation for these objects is fixed, as each
+object requires certain ones created before it.  KickstartData must be
+first, as KickstartHandlers and KickstartParser require it.
+KickstartHandlers must come second, and then finally KickstartParser.
+Note that you can pass None in for kshandlers in the special case if you
+do not care about handling any commands at all.  As we will see in the
+next section, this is useful in one special case.
 
 writer.py
 ---------
@@ -122,10 +164,196 @@ though the order of options may have been shifted, as well as other
 cosmetic differences.
 
 It is important to note that KickstartWriter.write returns a string, but
-does no file output.
+does no file output.  KickstartWriter is laid out similarly to
+KickstartParser.  It consists of one handler per command plus special ones
+for scripts and packages, plus a list specifying the order these handlers
+should be called in.  It is possible to add your own handlers to
+KickstartWriter if you are extending kickstart with special commands, as
+will be discussed in the next section.
 
 See the class reference at the end of this documentation for a brief
 explanation of useful functions in each class.
+
+
+Extending pykickstart
+=====================
+By default, pykickstart reads in a kickstart file and sets values in a
+KickstartData object.  This is useful for some applications, but not all.
+anaconda in particular has some odd requirements for kickstart so it will
+be our basis for examples on extending pykickstart.
+
+Only paying attention to one command
+------------------------------------
+Sometimes, you only want to take action on a single kickstart command and
+don't care about any of the others.  anaconda, for instance, supports a
+vnc command that needs to be processed well before any of the other
+commands.  Remember from earlier that any command mapping to None in the
+handlers is skipped.  That makes this fairly easy, then.  All we need to
+do is make a specialized KickstartHandlers subclass and hook this into a
+regular parser:
+
+	from pykickstart.data import *
+	from pykickstart.parser import *
+
+	class VNCHandlers(KickstartHandlers):
+		def __init__ (self, ksdata):
+			KickstartHandlers.__init__(self, ksdata)
+			self.resetHandlers()
+			self.handlers["vnc"] = self.doVnc
+
+	ksdata = KickstartData()
+	kshandlers = VNCHandlers(ksdata)
+	ksparser = KickstartParser(ksdata, kshandlers)
+	ksparser.readKickstart("ks.cfg")
+
+Here, we make use of the KickstartHandlers.resetHandlers method.  This
+method blanks out every entry in the handlers dictionary.  We then set the
+vnc command handler to the default value, which you can easily get from
+checking out the pykickstart source.  Then, make an instance of our new
+class and pass this to KickstartParser().  When readKickstart is called,
+the file will be parsed as usual but only the vnc command will ever be
+handled.
+
+You can then check the results by examining ksdata.vnc.
+
+Customized handlers
+-------------------
+In other cases, you may want to include some customized behavior in your
+kickstart handlers.  In this case, you'll still want to create a subclass
+of KickstartHandlers, though you will need to make sure your handler calls
+the superclass still.
+
+	from pykickstart.data import *
+	from pykickstart.parser import *
+
+	class KSHandlers(KickstartHandlers):
+		def doBootloader (self, args):
+			KickstartHandlers.doBootloader(self, args)
+			print "bootloader location = %s" % self.ksdata.bootloader["location"]
+
+	ksdata = KickstartData()
+	kshandlers = VNCHandlers(ksdata)
+	ksparser = KickstartParser(ksdata, kshandlers)
+	ksparser.readKickstart("ks.cfg")
+
+This example is very simple, but you can still see what would be required
+for complex cases.  Your handler needs to accept an args argument, which
+is a list of arguments provided to the command.  Then, make sure to call
+the superclass's method of the same name to set the KickstartData.
+Finally, do your specialized behavior.
+
+It is even possible to force your handlers to accept more arguments,
+though it is slightly more complicated.  This requires making a subclass
+of KickstartParser in addition to KickstartHandlers.
+
+	from pykickstart.data import *
+	from pykickstart.parser import *
+
+	class KSHandlers(KickstartHandlers):
+		def doBootloader (self, userarg, args):
+			KickstartHandlers.doBootloader(self, args)
+			print "%s bootloader location = %s" % (userarg, self.ksdata.bootloader["location"])
+
+		...
+
+	class KSParser(KickstartParser):
+		def __init__ (self, ksdata, kshandlers, userarg):
+			self.userarg = userarg
+			KickstartParser.__init__(self, ksdata, kshandlers)
+
+		def handleCommand (self, cmd, args):
+			if not self.handler:
+				return
+
+			if not self.handler.handlers.has_key(cmd):
+				raise KickstartParseError, (cmd + " " + string.join(args))
+			else:
+				if self.handler.handlers[cmd] != None:
+					self.handler.currentCmd = cmd
+					self.handler.handlers[cmd](self.userarg,
+args)
+
+	ksdata = KickstartData()
+	kshandlers = VNCHandlers(ksdata)
+	ksparser = KSParser(ksdata, kshandlers, "note: ")
+	ksparser.readKickstart("ks.cfg")
+
+Let's examine this example a little more closely.  First, you need to
+create a subclass of KickstartParser whose __init__ method stores your
+argument.  Then you also need to override handleCommand.  In the
+overridden method, the only difference is that on the last line you'll
+need to pass your argument.
+
+In your subclassed KickstartHandlers, you will need to make sure every
+handler accepts your new argument.  You could possibly get around this
+requirement by further modifying handleCommand to strip off your argument
+for commands that do not accept it.  However, I'm not demonstrating that
+here.  Then, make sure to call the superclass's handler method without any
+additional arguments.
+
+Adding a new command
+--------------------
+Adding support for a new command is fairly straightforward.  You'll need
+to create a KickstartHandlers and KickstartWriter subclass and add your
+methods to the handler lists.
+
+	from pykickstart.data import *
+	from pykickstart.parser import *
+	from pykickstart.writer import *
+
+	class SpecialHandlers(KickstartHandlers):
+		def __init__ (self, ksdata):
+			KickstartHandlers.__init__(self, ksdata)
+			self.handlers["log"] = self.doLog
+
+		def doLog (self, args):
+			op = KSOptionParser()
+			op.add_option("--level", dest="level")
+			op.add_option("--host", dest="host")
+
+			(opts, extra) = op.parse_args(args=args)
+
+			self.ksdata.log["level"] = getattr(opts, "level")
+			self.ksdata.log["host"] = getattr(opts, "host")
+
+	class SpecialWriter(KickstartWriter):
+		def __init__ (self, ksdata):
+			KickstartWriter.__init__(self, ksdata)
+			self.handlers.insert(1, self.doLog)
+
+		def doLog(self):
+			argstr = ""
+
+			if self.ksdata.log["level"]:
+				argstr = "--level=%s" % self.ksdata.log["level"]
+			if self.ksdata.log["host"]:
+				argstr = argstr + "--host=%s" % self.ksdata.log["host"]
+
+			if argstr != "":
+				return "log %s" % argstr
+			else
+				return
+
+	ksdata = KickstartData()
+	kshandlers = SpecialHandlers(ksdata)
+	ksparser = KickstartParser(ksdata, kshandlers)
+	ksparser.readKickstart("ks.cfg")
+
+This is all fairly straightforward, with the possible exception of the
+OptionParser stuff.  Without getting into it too much, you'll need to
+create a new instance of KSOptionParser, and then use the Python
+documentation on how to use it.  It's a very complex, powerful class.
+Make sure to set the KickstartData afterwards.
+
+The KickstartWriter object is also pretty simple.  Make sure your method
+returns an empty string if there's nothing set on this option, and the
+appropriate string otherwise.
+
+Adding a new section
+--------------------
+Currently, there is no simple way to add a new section.  This requires
+adding more code to readKickstart as well as additional states.
+readKickstart is not set up to do this sort of thing easily.
 
 
 Class Reference
