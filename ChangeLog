@@ -1,3 +1,13 @@
+2005-10-18  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py:  Correct deprecated attribute so warnings are
+	thrown when a deprecated option is seen, not when it's defined.
+
+2005-10-17  Chris Lumens  <clumens@redhat.com>
+
+	* docs/programmers-guide:  Added documentation for extending and
+	programming with pykickstart.
+
 2005-10-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Correct python lib directory on 64-bit archs

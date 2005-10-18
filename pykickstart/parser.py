@@ -83,9 +83,13 @@ class KSOptionParser(OptionParser):
 
     def check_values (self, values, args):
         for option in self.option_list:
-            if (isinstance(option, Option) and option.required and
+            if (isinstance(option, Option) and option.required and \
                 not self.option_seen.has_key(option)):
                 raise KickstartError, "Option %s is required" % option
+            elif isinstance(option, Option) and option.deprecated and \
+                self.option_seen.has_key(option):
+                warnings.warn("Ignoring deprecated option: %s" % option,
+                              DeprecationWarning)
 
         return (values, args)
 
@@ -132,11 +136,9 @@ class MappableOption(RequiredOption):
 class DeprecatedOption(MappableOption):
     ATTRS = MappableOption.ATTRS + ['deprecated']
 
-    def _check_deprecated (self):
-        if self.deprecated:
-            warnings.warn("Ignoring deprecated option: %s" % self.get_opt_string(), DeprecationWarning)
-
-    CHECK_METHODS = MappableOption.CHECK_METHODS + [_check_deprecated]
+    def process (self, opt, value, values, parser):
+        MappableOption.process(self, opt, value, values, parser)
+        parser.option_seen[self] = 1
 
 ###
 ### SCRIPT HANDLING
