@@ -1,1 +1,2 @@
 include COPYING ChangeLog Makefile pykickstart.spec
+recursive-include docs programmers-guide

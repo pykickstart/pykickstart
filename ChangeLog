@@ -1,3 +1,7 @@
+2005-10-19  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Bump version.
+
 2005-10-18  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py:  Correct deprecated attribute so warnings are
