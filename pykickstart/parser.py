@@ -34,6 +34,12 @@ STATE_TRACEBACK = 6
 ### ERROR HANDLING
 ###
 
+def formatErrorMsg(lineno, msg=""):
+    if msg != "":
+        return "The following problem occurred on line %s of the kickstart file:\n\n%s\n" % (lineno, msg)
+    else:
+        return "There was a problem reading from line %s of the kickstart file" % lineno
+
 class KickstartError(Exception):
     def __init__(self, val = ""):
         self.value = val
@@ -42,15 +48,15 @@ class KickstartError(Exception):
         return self.value
 
 class KickstartParseError(KickstartError):
-    def __init__(self, line = ""):
-        self.value = "There was a problem reading the following line from the kickstart file.  This could be due to an error on the line or using a keyword that no longer exists.\n\n%s" % line
+    def __init__(self, msg):
+        self.value = msg
 
     def __str__(self):
         return self.value
 
 class KickstartValueError(KickstartError):
-    def __init__(self, val = ""):
-        self.value = val
+    def __init__(self, msg):
+        self.value = msg
 
     def __str__ (self):
         return self.value
@@ -66,7 +72,10 @@ class KSOptionParser(OptionParser):
         pass
 
     def error(self, msg):
-        raise KickstartParseError, msg
+        if self.lineno != None:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=msg)
+        else:
+            raise KickstartParseError, msg
 
     def keys(self):
         retval = []
@@ -84,17 +93,17 @@ class KSOptionParser(OptionParser):
     def check_values (self, values, args):
         for option in self.option_list:
             if (isinstance(option, Option) and option.required and \
-                not self.option_seen.has_key(option)):
-                raise KickstartError, "Option %s is required" % option
+               not self.option_seen.has_key(option)):
+                raise KickstartValueError, formatErrorMsg(self.lineno, "Option %s is required" % option)
             elif isinstance(option, Option) and option.deprecated and \
-                self.option_seen.has_key(option):
-                warnings.warn("Ignoring deprecated option: %s" % option,
-                              DeprecationWarning)
+                 self.option_seen.has_key(option):
+                warnings.warn("Ignoring deprecated option on line %s: %s" % (self.lineno, option), DeprecationWarning)
 
         return (values, args)
 
-    def __init__(self, map={}):
+    def __init__(self, map={}, lineno=None):
         self.map = map
+        self.lineno = lineno
         OptionParser.__init__(self, option_class=DeprecatedOption,
                               add_help_option=False)
 
@@ -256,7 +265,7 @@ class KickstartHandlers:
         self.ksdata.autopart = True
 
     def doAutoStep(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--autoscreenshot", dest="autoscreenshot",
                       action="store_true", default=False)
 
@@ -268,7 +277,7 @@ class KickstartHandlers:
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
             
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--append", dest="appendLine")
         op.add_option("--location", dest="location", type="choice",
                       default="mbr",
@@ -292,7 +301,7 @@ class KickstartHandlers:
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
             
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--all", dest="type", action="store_const",
                       const=CLEARPART_TYPE_ALL)
         op.add_option("--drives", dest="drives", action="callback",
@@ -334,9 +343,9 @@ class KickstartHandlers:
                     p = "%s:tcp" % p
                 parser.values.ensure_value(option.dest, []).append(p)
 
-        op = KSOptionParser({"ssh":["22:tcp"], "telnet":["23:tcp"],
+        op = KSOptionParser(map={"ssh":["22:tcp"], "telnet":["23:tcp"],
                              "smtp":["25:tcp"], "http":["80:tcp", "443:tcp"],
-                             "ftp":["21:tcp"]})
+                             "ftp":["21:tcp"]}, lineno=self.lineno)
 
         op.add_option("--disable", "--disabled", dest="enabled",
                       action="store_false")
@@ -354,7 +363,7 @@ class KickstartHandlers:
             self.ksdata.firewall[key] = getattr(opts, key)
 
     def doFirstboot(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--disable", "--disabled", dest="firstboot",
                       action="store_const", const=FIRSTBOOT_SKIP)
         op.add_option("--enable", "--enabled", dest="firstboot",
@@ -370,7 +379,7 @@ class KickstartHandlers:
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
             
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--drives", dest="drives", action=callback,
                       callback=drive_cb, nargs=1, type="string")
 
@@ -395,7 +404,7 @@ class KickstartHandlers:
             parser.values.ensure_value(option.dest, False)
             parser.values.ensure_value("preexist", True)
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
         op.add_option("--fsoptions", dest="fsopts")
@@ -420,7 +429,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, "Mount point required on line:\n\nlogvol %s" % string.join (args)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for logvol")
 
         lvd = KickstartLogVolData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -433,7 +442,7 @@ class KickstartHandlers:
         self.ksdata.mediacheck = True
 
     def doMethod(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
 
         self.ksdata.method["method"] = self.currentCmd
 
@@ -460,7 +469,7 @@ class KickstartHandlers:
             self.ksdata.method["url"] = opts.url
 
     def doMonitor(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--hsync", dest="hsync")
         op.add_option("--monitor", dest="monitor")
         op.add_option("--vsync", dest="vsync")
@@ -468,7 +477,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
-            raise KickstartValueError, "Unexpected arguments to monitor: %s" % string.join(args)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Unexpected arguments to monitor command: %s" % extra)
 
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.monitor[key] = getattr(opts, key)
@@ -483,7 +492,7 @@ class KickstartHandlers:
             else:
                 parser.values.ensure_value(option.dest, True)
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bootproto", dest="bootProto", default="dhcp")
         op.add_option("--class", dest="dhcpclass")
         op.add_option("--device", dest="device")
@@ -517,7 +526,7 @@ class KickstartHandlers:
             else:
                 parser.values.ensure_value(option.dest, value)
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--active", dest="active", action="store_true",
                       default=False)
         op.add_option("--asprimary", dest="primOnly", action="store_true",
@@ -548,7 +557,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:
-            raise KickstartValueError, "Mount point required on line:\n\npartition %s" % string.join (args)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for partition")
 
         pd = KickstartPartData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -581,7 +590,7 @@ class KickstartHandlers:
             elif value == "RAID6" or value == "6":
                 parser.values.ensure_value(option.dest, "RAID6")
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--device", action="callback", callback=device_cb,
                       dest="device", type="string", nargs=1, required=1)
         op.add_option("--fsoptions", dest="fsopts")
@@ -598,7 +607,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, "Mount point required on line:\n\nraid %s" % string.join (args)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for raid")
 
         rd = KickstartRaidData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -609,7 +618,7 @@ class KickstartHandlers:
         self.ksdata.raidList.append(rd)
 
     def doRootPw(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--iscrypted", dest="isCrypted", action="store_true",
                       default=False)
 
@@ -617,12 +626,12 @@ class KickstartHandlers:
         self.ksdata.rootpw["isCrypted"] = opts.isCrypted
 
         if len(extra) != 1:
-            raise KickstartValueError, "A single argument is expected for rootpw"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="A single argument is expected for rootpw")
 
         self.ksdata.rootpw["password"] = extra[0]
 
     def doSELinux(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--disabled", dest="sel", action="store_const",
                       const=SELINUX_DISABLED)
         op.add_option("--enforcing", dest="sel", action="store_const",
@@ -637,14 +646,14 @@ class KickstartHandlers:
         self.ksdata.skipx = True
 
     def doTimezone(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--utc", dest="isUtc", action="store_true", default=False)
 
         (opts, extra) = op.parse_args(args=args)
         self.ksdata.timezone["isUtc"] = opts.isUtc
 
         if len(extra) != 1:
-            raise KickstartValueError, "A single argument is expected for timezone"
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="A single argument is expected for timezone")
 
         self.ksdata.timezone["timezone"] = extra[0]
 
@@ -659,7 +668,7 @@ class KickstartHandlers:
             if len(cargs) > 1:
                 parser.values.ensure_value("port", cargs[1])
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--connect", action="callback", callback=connect_cb,
                       nargs=1, type="string", required=1)
         op.add_option("--password", dest="password")
@@ -677,7 +686,7 @@ class KickstartHandlers:
             parser.values.ensure_value(option.dest, False)
             parser.values.ensure_value("preexist", True)
 
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--noformat", action="callback", callback=vg_cb,
                       dest="format", default=True, nargs=0)
         op.add_option("--pesize", dest="pesize", type="int", nargs=1,
@@ -696,7 +705,7 @@ class KickstartHandlers:
         self.ksdata.vgList.append(vgd)
 
     def doXConfig(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--card", deprecated=1)
         op.add_option("--driver", dest="driver")
         op.add_option("--defaultdesktop", dest="defaultdesktop")
@@ -714,7 +723,7 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
-            raise KickstartValueError, "Unexpected arguments to xconfig: %s" % string.join (args)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Unexpected arguments to xconfig command: %s" % extra)
 
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.xconfig[key] = getattr(opts, key)
@@ -723,7 +732,7 @@ class KickstartHandlers:
         self.ksdata.zerombr = True
 
     def doZFCP(self, args):
-        op = KSOptionParser()
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--devnum", dest="devnum", required=1)
         op.add_option("--fcplun", dest="fcplun", required=1)
         op.add_option("--scsiid", dest="scsiid", required=1)
@@ -778,16 +787,20 @@ class KickstartParser:
         else:
             self.ksdata.packageList.append(line.lstrip())
 
-    def handleCommand (self, cmd, args):
+    def handleCommand (self, lineno, args):
         if not self.handler:
             return
 
+        cmd = args[0]
+        cmdArgs = args[1:]
+
         if not self.handler.handlers.has_key(cmd):
-            raise KickstartParseError, (cmd + " " + string.join (args))
+            raise KickstartParseError, formatErrorMsg(lineno)
         else:
             if self.handler.handlers[cmd] != None:
                 setattr(self.handler, "currentCmd", cmd)
-                self.handler.handlers[cmd](args)
+                setattr(self.handler, "lineno", lineno)
+                self.handler.handlers[cmd](cmdArgs)
 
     def handlePackageHdr (self, args):
         op = KSOptionParser()
@@ -834,12 +847,16 @@ class KickstartParser:
         groups = []
         excludedPackages = []
 
+        # For error reporting.
+        lineno = 0
+
         fh = open(file)
         needLine = True
 
         while True:
             if needLine:
                 line = fh.readline()
+                lineno += 1
                 needLine = False
 
             if line == "" and self.includeDepth > 0:
@@ -862,7 +879,7 @@ class KickstartParser:
 
             if args and args[0] == "%include" and self.followIncludes:
                 if not args[1]:
-                    raise KickstartParseError, line
+                    raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     self.includeDepth += 1
                     self.readKickstart (args[1])
@@ -878,10 +895,10 @@ class KickstartParser:
                 elif args[0] == "%packages":
                     self.state = STATE_PACKAGES
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
-                    self.handleCommand(args[0], args[1:])
+                    self.handleCommand(lineno, args)
 
             elif self.state == STATE_PACKAGES:
                 if not args and self.includeDepth == 0:
@@ -892,7 +909,7 @@ class KickstartParser:
                     needLine = True
                     self.handlePackageHdr (args)
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
                     self.addPackages (string.rstrip(line))
@@ -914,7 +931,7 @@ class KickstartParser:
                     self.state = STATE_TRACEBACK
                     self.script["type"] = KS_SCRIPT_TRACEBACK
                 elif args[0][0] == '%':
-                    raise KickstartParseError, line
+                    raise KickstartParseError, formatErrorMsg(lineno)
 
                 self.handleScriptHdr (args)
 

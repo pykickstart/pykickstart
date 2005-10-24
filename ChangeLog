@@ -1,3 +1,7 @@
+2005-10-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py:  Report the line number on exceptions.
+
 2005-10-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Bump version.
