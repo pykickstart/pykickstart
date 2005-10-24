@@ -1,6 +1,10 @@
 2005-10-24  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec:  Bump version.
+
 	* pykickstart/parser.py:  Report the line number on exceptions.
+	* validator/ksvalidator:  Added a stand-alone program to validate
+	kickstart files.
 
 2005-10-19  Chris Lumens  <clumens@redhat.com>
 

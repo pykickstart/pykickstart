@@ -2,8 +2,8 @@
 
 from distutils.core import setup
 
-setup(name='pykickstart', version='0.4',
+setup(name='pykickstart', version='0.5',
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='http://fedoraproject.org/wiki/pykickstart',
-      packages=['pykickstart'])
+      scripts=['validator/ksvalidator'], packages=['pykickstart'])
