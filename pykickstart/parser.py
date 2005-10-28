@@ -802,14 +802,18 @@ class KickstartParser:
                 setattr(self.handler, "lineno", lineno)
                 self.handler.handlers[cmd](cmdArgs)
 
-    def handlePackageHdr (self, args):
-        op = KSOptionParser()
+    def handlePackageHdr (self, lineno, args):
+        op = KSOptionParser(lineno=lineno)
         op.add_option("--excludedocs", dest="excludedocs", action="store_true",
                       default=False)
         op.add_option("--ignoremissing", dest="ignoremissing",
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
                       default=False)
+        op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
+                      deprecated=1)
+        op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
+                      deprecated=1)
 
         (opts, extra) = op.parse_args(args=args[1:])
 
@@ -820,8 +824,8 @@ class KickstartParser:
         else:
             self.ksdata.handleMissing = KS_MISSING_PROMPT
 
-    def handleScriptHdr (self, args):
-        op = KSOptionParser()
+    def handleScriptHdr (self, lineno, args):
+        op = KSOptionParser(lineno=lineno)
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
         op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
@@ -907,7 +911,7 @@ class KickstartParser:
                     self.state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
                     needLine = True
-                    self.handlePackageHdr (args)
+                    self.handlePackageHdr (lineno, args)
                 elif args[0][0] == '%':
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
@@ -933,7 +937,7 @@ class KickstartParser:
                 elif args[0][0] == '%':
                     raise KickstartParseError, formatErrorMsg(lineno)
 
-                self.handleScriptHdr (args)
+                self.handleScriptHdr (lineno, args)
 
             elif self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                 # If this is part of a script, append to it.
