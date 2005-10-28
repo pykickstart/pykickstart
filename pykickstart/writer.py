@@ -87,8 +87,10 @@ class KickstartWriter:
             clearstr = "--none"
         elif self.ksdata.clearpart["type"] == CLEARPART_TYPE_LINUX:
             clearstr = "--linux"
-        elif self.ksdata.clearpart["type"] == CLEARPART_TYPE_LINUX:
+        elif self.ksdata.clearpart["type"] == CLEARPART_TYPE_ALL:
             clearstr = "--all"
+        else:
+            clearstr = ""
 
         if self.ksdata.clearpart["initAll"] == True:
             initstr = "--initlabel"
