@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.5
+Version: 0.6
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Fri Oct 28 2005 Chris Lumens <clumens@redhat.com> 0.6-1
+- Add --resolvedeps and --ignoredeps as deprecated options.
+- Pass line number to header functions.
+
 * Mon Oct 24 2005 Chris Lumens <clumens@redhat.com> 0.5-1
 - Add line numbers to exception reporting.
 - Added ksvalidator.
