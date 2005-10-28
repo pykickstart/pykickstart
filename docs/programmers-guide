@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                              October  17, 2005
+                              October  28, 2005
 
 
 Introduction
@@ -124,6 +124,11 @@ it will raise a KickstartParseError with the line in question.  Examples
 of errors include bad options given to section headers, include files not
 existing, or headers given for sections that are not recognized (for
 instance, typos).
+
+Error messages should call the formatErrorMsg function to be properly
+formatted before being sent into an exception.  A properly formatted error
+message includes the line number in the kickstart file where the problem
+occurred and optionally, a more descriptive message.
 
 The other major class within parser.py is KickstartHeaders.  This makes up
 the largest amount of the code and also does the most work as it deals
@@ -428,7 +433,7 @@ class KickstartParser:
         though the superclass's method should still be called to make sure
         the package lists in the ksdata are correct.
 
-    def handleCommand (cmd, args):
+    def handleCommand (cmd, lineno, args):
         Called while in the commands section.  Takes a line from the
         file, gets the commands from the head of the line, and dispatches
         the correct method from the KickstartHandlers.  If the
@@ -436,14 +441,14 @@ class KickstartParser:
         will be called for the command but no error will be raised.  This
         method may be overridden if specialized behavior is needed.
 
-    def handlePackageHdr (args):
+    def handlePackageHdr (lineno, args):
         Called when the %packages section header is first seen.  Handles
         the options that may be given to %packages and sets these values
         in the ksdata.  This method may be overridden if specialized
         behavior is needed, though the superclass's method should still be
         called.
 
-    def handleScriptHdr (args):
+    def handleScriptHdr (lineno, args):
         Called when one of the script headers - %pre, %post, or %traceback -
         is first seen.  Handles the optiosn that may be given to those
         sections headers and sets those falues in the internal script
@@ -462,10 +467,10 @@ class KickstartParser:
         files to be parsed as well.
 
 class KickstartParseError:
-    def __init__ (line):
+    def __init__ (msg):
         Creates a new KickstartParseError exception object.  The message
-        will include line, which should be the line in the kickstart file
-        that caused a parse error.
+        will include msg, which should be a properly formatted error
+        message produced by formatErrorMsg.
 
 class KickstartPartData:
     def __init__ ():
@@ -482,7 +487,8 @@ class KickstartRaidData:
 class KickstartValueError:
     def __init (val):
         Creates a new KickstartValueError exception object corresponding
-        to a problem with the provided val.
+        to a problem with the provided val, which should be a properly
+        formatted error message produced by formatErrorMsg.
 
 class KickstartVolGroupData:
     def __init__ ():
@@ -500,13 +506,13 @@ class KickstartWriter:
         that is suitable for writing out to a file.
 
 class KSOptionParser:
-    def __init__ (map=[]):
+    def __init__ (map=[], lineno=None):
         Creates a specialized subclass of python's OptionParser making use
         of the MappableOption, RequiredOption, and DeprecatedOption
         classes.  This class is used within command handlers and should
         not need to be subclassed unless extremely complex behavior is
         required.  The map option is needed if this object will have any
-        MappableOption instances.
+        MappableOption instances.  lineno is used in error reporting.
 
 class MappableOption:
     def __init__ ():
