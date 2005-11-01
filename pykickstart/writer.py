@@ -132,13 +132,13 @@ class KickstartWriter:
         if self.ksdata.firewall["enabled"]:
             portstr = string.join (self.ksdata.firewall["ports"], ",")
             if len(portstr) > 0:
-                portstr = "--ports= " + portstr
+                portstr = "--ports=" + portstr
             else:
                 portstr = ""
 
             truststr = string.join (self.ksdata.firewall["trusts"], ",")
             if len(truststr) > 0:
-                truststr = "--trust= " + truststr
+                truststr = "--trust=" + truststr
 
             return "# Firewall configuration\nfirewall --enabled %s %s" % (portstr, truststr)
         else:
