@@ -670,7 +670,7 @@ class KickstartHandlers:
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--connect", action="callback", callback=connect_cb,
-                      nargs=1, type="string", required=1)
+                      nargs=1, type="string")
         op.add_option("--password", dest="password")
 
         (opts, extra) = op.parse_args(args=args)
