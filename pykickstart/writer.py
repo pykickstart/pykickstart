@@ -129,18 +129,44 @@ class KickstartWriter:
         if self.ksdata.upgrade == True:
             return
 
+        extra = []
+        filteredPorts = []
+
         if self.ksdata.firewall["enabled"]:
-            portstr = string.join (self.ksdata.firewall["ports"], ",")
+            # It's possible we have words in the ports list instead of
+            # port:proto (s-c-kickstart may do this).  So, filter those
+            # out into their own list leaving what we expect.
+            for port in self.ksdata.firewall["ports"]:
+                if port == "ssh":
+                    extra.append("--ssh")
+                elif port == "telnet":
+                    extra.append("--telnet")
+                elif port == "smtp":
+                    extra.append("--smtp")
+                elif port == "http":
+                    extra.append("--http")
+                elif port == "ftp":
+                    extra.append("--ftp")
+                else:
+                    filteredPorts.append(port)
+
+            # All the port:proto strings go into a comma-separated list.
+            portstr = string.join (filteredPorts, ",")
             if len(portstr) > 0:
                 portstr = "--ports=" + portstr
             else:
                 portstr = ""
 
+            extrastr = string.join (extra, " ")
+
             truststr = string.join (self.ksdata.firewall["trusts"], ",")
             if len(truststr) > 0:
                 truststr = "--trust=" + truststr
 
-            return "# Firewall configuration\nfirewall --enabled %s %s" % (portstr, truststr)
+            # The output port list consists only of port:proto for
+            # everything that we don't recognize, and special options for
+            # those that we do.
+            return "# Firewall configuration\nfirewall --enabled %s %s %s" % (extrastr, portstr, truststr)
         else:
             return "# Firewall configuration\nfirewall --disabled"
 
