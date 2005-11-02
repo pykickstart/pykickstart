@@ -486,12 +486,6 @@ class KickstartHandlers:
         self.deprecatedCommand("mouse")
 
     def doNetwork(self, args):
-        def onboot_cb (option, opt_str, value, parser):
-            if value == "no":
-                parser.values.ensure_value(option.dest, False)
-            else:
-                parser.values.ensure_value(option.dest, True)
-
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bootproto", dest="bootProto", default="dhcp")
         op.add_option("--class", dest="dhcpclass")
@@ -507,8 +501,8 @@ class KickstartHandlers:
                       default=False)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="callback",
-                      callback=onboot_cb, nargs=1, type="string")
+        op.add_option("--onboot", dest="onboot", action="store_true",
+                      default=False)
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
