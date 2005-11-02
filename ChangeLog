@@ -1,8 +1,13 @@
 2005-11-01  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec:  Bump version.
+
 	* pykickstart/parser.py (KickstartHandlers.doVnc):  --connect is not
-	required as it may be provided to anaconda on the command line.
-	* pykickstart/writer.py (doFirewall):  Remove extra spaces.
+	required as it may be provided to anaconda on the command line
+	(#172192).
+	(KickstartHandlers.doNetwork):  --onboot takes no options.
+	* pykickstart/writer.py (doFirewall):  Remove extra spaces.  Write out
+	--<service> options if ports are set.
 
 2005-10-28  Chris Lumens  <clumens@redhat.com>
 

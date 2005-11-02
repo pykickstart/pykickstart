@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.6
+Version: 0.7
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Tue Nov 01 2005 Chris Lumens <clumens@redhat.com> 0.7-1
+- Fix clearpart --all.
+- vnc command does not require --connect option (#172192).
+- network --onboot does not take any option.
+- Remove extra spaces from firewall --ports and --trust.
+- Write out network --<service> options.
+
 * Fri Oct 28 2005 Chris Lumens <clumens@redhat.com> 0.6-1
 - Add --resolvedeps and --ignoredeps as deprecated options.
 - Pass line number to header functions.
