@@ -2,6 +2,9 @@
 
 	* pykickstart/data.py:  Default to SELINUX_ENFORCING.
 
+	* pykickstart/parser.py:  Don't call shlex.split on anything inside a
+	script (#172313).
+
 2005-11-01  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Bump version.

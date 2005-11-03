@@ -857,12 +857,13 @@ class KickstartParser:
                 lineno += 1
                 needLine = False
 
+            # At the end of an included file
             if line == "" and self.includeDepth > 0:
                 fh.close()
                 break
 
             # Don't eliminate whitespace or comments from scripts.
-            if line.isspace() or (line != "" and line[0] == '#'):
+            if line.isspace() or (line != "" and line.lstrip()[0] == '#'):
                 # Save the platform for s-c-kickstart, though.
                 if line[:10] == "#platform=" and self.state == STATE_COMMANDS:
                     self.ksdata.platform = line[11:]
@@ -873,7 +874,20 @@ class KickstartParser:
                 needLine = True
                 continue
 
-            args = shlex.split(line)
+            # We only want to split the line if we're outside of a script,
+            # as inside the script might involve some pretty weird quoting
+            # that shlex doesn't understand.
+            if self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+                # Have we found a state transition?  If so, we still want
+                # to split.  Otherwise, args won't be set but we'll fall through
+                # all the way to the last case.
+                if line != "" and string.split(line.lstrip())[0] in \
+                   ["%post", "%pre", "%traceback", "%include", "%packages"]:
+                    args = shlex.split(line)
+                else:
+                    args = None
+            else:
+                args = shlex.split(line)
 
             if args and args[0] == "%include" and self.followIncludes:
                 if not args[1]:
@@ -934,17 +948,19 @@ class KickstartParser:
                 self.handleScriptHdr (lineno, args)
 
             elif self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                # If this is part of a script, append to it.
-                if not args and self.includeDepth == 0:
+                if line == "" and self.includeDepth == 0:
+                    # If we're at the end of the kickstart file, add the script.
                     self.addScript()
                     self.state = STATE_END
-                elif args[0] in ["%pre", "%post", "%traceback", "%packages"]:
-                    # Otherwise, figure out what kind of a script we just
-                    # finished reading, add it to the list, and switch to
-                    # the initial state.
+                elif args and args[0] in ["%pre", "%post", "%traceback", "%packages"]:
+                    # Otherwise we're now at the start of the next section.
+                    # Figure out what kind of a script we just finished
+                    # reading, add it to the list, and switch to the initial
+                    # state.
                     self.addScript()
                     self.state = STATE_COMMANDS
                 else:
+                    # Otherwise just add to the current script body.
                     self.script["body"].append(line)
                     needLine = True
 
