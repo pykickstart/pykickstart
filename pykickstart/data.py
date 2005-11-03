@@ -42,7 +42,7 @@ class KickstartData:
         self.platform = ""
         self.reboot = True
         self.rootpw = {"isCrypted": False, "password": ""}
-        self.selinux = 2
+        self.selinux = SELINUX_ENFORCING
         self.skipx = False
         self.timezone = {"isUtc": False, "timezone": ""}
         self.upgrade = False

@@ -1,3 +1,7 @@
+2005-11-03  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py:  Default to SELINUX_ENFORCING.
+
 2005-11-01  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Bump version.
