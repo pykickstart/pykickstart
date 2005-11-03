@@ -1,5 +1,7 @@
 2005-11-03  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec:  Bump version.
+
 	* pykickstart/data.py:  Default to SELINUX_ENFORCING.
 	anaconda expects partition sizes to start at None as --size=0 --grow
 	is an acceptable combination (#172378).

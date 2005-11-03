@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.7
+Version: 0.8
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Thu Nov 03 2005 Chris Lumens <clumens@redhat.com> 0.8-1
+- Default to SELINUX_ENFORCING.
+- Default partition sizes to None for anaconda (#172378).
+- Don't call shlex.split on anything inside a script (#172313).
+
 * Tue Nov 01 2005 Chris Lumens <clumens@redhat.com> 0.7-1
 - Fix clearpart --all.
 - vnc command does not require --connect option (#172192).
