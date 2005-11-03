@@ -82,7 +82,7 @@ class KickstartLogVolData:
         self.format = True
         self.percent = 0
         self.recommended = False
-        self.size = 0
+        self.size = None
         self.preexist = False
         self.vgname = ""
         self.mountpoint = ""
@@ -120,7 +120,7 @@ class KickstartPartData:
         self.disk = ""
         self.onPart = ""
         self.recommended = False
-        self.size = 0
+        self.size = None
         self.start = 0
         self.mountpoint = ""
 
