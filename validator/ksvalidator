@@ -40,8 +40,9 @@ except (KickstartParseError, KickstartValueError), msg:
 except KickstartError:
     print "General kickstart error in input file"
     os._exit(1)
-except:
+except Exception, e:
     print "General error in input file"
+    print e
     os._exit(1)
 
 os._exit(0)

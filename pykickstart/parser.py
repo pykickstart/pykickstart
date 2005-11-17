@@ -17,6 +17,7 @@ import shlex
 import sys
 import string
 import warnings
+from copy import copy
 from optparse import OptionParser, Option
 
 from constants import *
@@ -104,7 +105,7 @@ class KSOptionParser(OptionParser):
     def __init__(self, map={}, lineno=None):
         self.map = map
         self.lineno = lineno
-        OptionParser.__init__(self, option_class=DeprecatedOption,
+        OptionParser.__init__(self, option_class=KSBooleanOption,
                               add_help_option=False)
 
 # Creates a new Option type that supports a "required" option attribute.  Any
@@ -148,6 +149,21 @@ class DeprecatedOption(MappableOption):
     def process (self, opt, value, values, parser):
         MappableOption.process(self, opt, value, values, parser)
         parser.option_seen[self] = 1
+
+# Creates a new Option type that supports various booleans for values
+class KSBooleanOption(DeprecatedOption):
+    def _check_ksboolean(option, opt, value):
+        if value in ("on", "yes", "1"):
+            return True
+        elif value in ("off", "no", "0"):
+            return False
+        else:
+            raise OptionValueError("option %s: invalid boolean "
+                                   "value: %r" % (opt, value))
+    
+    TYPES = Option.TYPES + ("ksboolean",)
+    TYPE_CHECKER = copy(Option.TYPE_CHECKER)
+    TYPE_CHECKER["ksboolean"] = _check_ksboolean
 
 ###
 ### SCRIPT HANDLING
@@ -501,8 +517,8 @@ class KickstartHandlers:
                       default=False)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="store_true",
-                      default=False)
+        op.add_option("--onboot", dest="onboot", action="store",
+                      type="ksboolean")
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)

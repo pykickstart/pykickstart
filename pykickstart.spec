@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.8
+Version: 0.9
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Wed Nov 16 2005 Jeremy Katz <katzj@redhat.com> - 0.9-1
+- fixup network --onboot
+
 * Thu Nov 03 2005 Chris Lumens <clumens@redhat.com> 0.8-1
 - Default to SELINUX_ENFORCING.
 - Default partition sizes to None for anaconda (#172378).
