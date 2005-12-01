@@ -853,14 +853,10 @@ class KickstartParser:
         self.script["interp"] = opts.interpreter
         self.script["log"] = opts.log
         self.script["errorOnFail"] = opts.errorOnFail
-	if hasattr(opts, "nochroot"):
+        if hasattr(opts, "nochroot"):
             self.script["chroot"] = not opts.nochroot
 
     def readKickstart (self, file):
-        packages = []
-        groups = []
-        excludedPackages = []
-
         # For error reporting.
         lineno = 0
 
