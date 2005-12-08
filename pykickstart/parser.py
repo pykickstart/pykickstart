@@ -601,6 +601,8 @@ class KickstartHandlers:
                 parser.values.ensure_value(option.dest, "RAID6")
 
         op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
+                      type="int", nargs=1)
         op.add_option("--device", action="callback", callback=device_cb,
                       dest="device", type="string", nargs=1, required=1)
         op.add_option("--fsoptions", dest="fsopts")

@@ -359,6 +359,8 @@ class KickstartWriter:
         for raid in self.ksdata.raidList:
             str = str + "raid %s" % raid.mountpoint
 
+            if raid.bytesPerInode != 0:
+                str = str + " --bytes-per-inode=%d" % raid.bytesPerInode
             if raid.device != "":
                 str = str + " --device=%s" % raid.device
             if raid.fsopts != "":

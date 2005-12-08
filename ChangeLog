@@ -1,3 +1,10 @@
+2005-12-08  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py:  Support bytesPerInode on RAID
+	(Curtis Doty <Curtis at GreenKey.net> #175288).
+	* pykickstart/parser.py:  Likewise.
+	* pykickstart/writer.py:  Likewise.
+
 2005-11-03  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Bump version.

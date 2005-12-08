@@ -135,6 +135,7 @@ class KickstartRaidData:
         self.preexist = False
         self.mountpoint = ""
         self.members = ""
+        self.bytesPerInode = 4096
 
 class KickstartVolGroupData:
     def __init__(self):
