@@ -37,7 +37,7 @@ class KickstartData:
         self.lang = ""
         self.mediacheck = False
         self.method = {"method": ""}
-        self.monitor = {"hsync": "", "monitor": "", "vsync": ""}
+        self.monitor = {"hsync": "", "monitor": "", "probe": True, "vsync": ""}
         self.network = []
         self.platform = ""
         self.reboot = True
@@ -48,9 +48,8 @@ class KickstartData:
         self.upgrade = False
         self.vnc = {"enabled": False, "password": "", "host": "", "port": ""}
         self.xconfig = {"driver": "", "defaultdesktop": "", "depth": 0,
-                        "hsync": "", "monitor": "", "probe": True,
-                        "resolution": "", "startX": False,
-                        "videoRam": "", "vsync": ""}
+                        "probe": True, "resolution": "", "startX": False,
+                        "videoRam": ""}
         self.zerombr = False
         self.zfcp = {"devnum": "", "fcplun": "", "scsiid": "", "scsilun": "",
                      "wwpn": ""}

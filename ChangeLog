@@ -1,3 +1,10 @@
+2005-12-12  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py:  Remove monitor information from xconfig.
+	* pykickstart/parser.py:  Remove monitor configuration from xconfig,
+	move --noprobe option to monitor keyword.
+	* pykickstart/writer.py:  Likewise.
+
 2005-12-08  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/data.py:  Support bytesPerInode on RAID

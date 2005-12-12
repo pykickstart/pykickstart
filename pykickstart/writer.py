@@ -252,6 +252,8 @@ class KickstartWriter:
             str = str + " --hsync=%s" % self.ksdata.monitor["hsync"]
         if self.ksdata.monitor["monitor"] != "":
             str = str + " --monitor=%s" % self.ksdata.monitor["monitor"]
+        if self.ksdata.monitor["probe"] == False:
+            str = str + " --noprobe"
         if self.ksdata.monitor["vsync"] != "":
             str = str + " --vsync=%s" % self.ksdata.monitor["vsync"]
 
@@ -465,20 +467,14 @@ class KickstartWriter:
             str = str + " --defaultdesktop=%s" % self.ksdata.xconfig["defaultdesktop"]
         if self.ksdata.xconfig["depth"] != 0:
             str = str + " --depth=%d" % self.ksdata.xconfig["depth"]
-        if self.ksdata.xconfig["hsync"] != "":
-            str = str + " --hsync=%s" % self.ksdata.xconfig["hsync"]
         if self.ksdata.xconfig["monitor"] != "":
             str = str + " --monitor=\"%s\"" % self.ksdata.xconfig["monitor"]
-        if self.ksdata.xconfig["probe"] == False:
-            str = str + " --noprobe"
         if self.ksdata.xconfig["resolution"] != "":
             str = str + " --resolution=%s" % self.ksdata.xconfig["resolution"]
         if self.ksdata.xconfig["startX"] == True:
             str = str + " --startxonboot"
         if self.ksdata.xconfig["videoRam"] != "":
             str = str + " --videoram=%s" % self.ksdata.xconfig["videoRam"]
-        if self.ksdata.xconfig["vsync"] != "":
-            str = str + " --vsync=%s" % self.ksdata.xconfig["vsync"]
 
         if str != "xconfig":
             return str
