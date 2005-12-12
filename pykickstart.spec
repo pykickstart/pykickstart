@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.10
+Version: 0.11
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Mon Dec 12 2005 Chris Lumens <clumens@redhat.com> 0.11-1
+- Deprecate monitor-related options to xconfig.
+
 * Thu Dec 08 2005 Chris Lumens <clumens@redhat.com> 0.10-1
 - Support --bytes-per-inode on raid
   (Curtis Doty <Curtis at GreenKey.net> #175288).
