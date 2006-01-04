@@ -183,7 +183,7 @@ class KickstartWriter:
     def doIgnoreDisk(self):
         if len(self.ksdata.ignoredisk) > 0:
             str = string.join (self.ksdata.ignoredisk, ",")
-            return "ignoredisk --drives= %s" % str
+            return "ignoredisk --drives=%s" % str
 
     def doInteractive(self):
         if self.ksdata.interactive == True:
@@ -251,7 +251,7 @@ class KickstartWriter:
         if self.ksdata.monitor["hsync"] != "":
             str = str + " --hsync=%s" % self.ksdata.monitor["hsync"]
         if self.ksdata.monitor["monitor"] != "":
-            str = str + " --monitor=%s" % self.ksdata.monitor["monitor"]
+            str = str + " --monitor=\"%s\"" % self.ksdata.monitor["monitor"]
         if self.ksdata.monitor["probe"] == False:
             str = str + " --noprobe"
         if self.ksdata.monitor["vsync"] != "":
@@ -278,7 +278,7 @@ class KickstartWriter:
             if nic.essid != "":
                 str = str + " --essid=\"%s\"" % nic.essid
             if nic.ethtool != "":
-                str = str + " --ethtool=%s" % nic.ethtool
+                str = str + " --ethtool=\"%s\"" % nic.ethtool
             if nic.gateway != "":
                 str = str + " --gateway=%s" % nic.gateway
             if nic.hostname != "":
@@ -467,8 +467,6 @@ class KickstartWriter:
             str = str + " --defaultdesktop=%s" % self.ksdata.xconfig["defaultdesktop"]
         if self.ksdata.xconfig["depth"] != 0:
             str = str + " --depth=%d" % self.ksdata.xconfig["depth"]
-        if self.ksdata.xconfig["monitor"] != "":
-            str = str + " --monitor=\"%s\"" % self.ksdata.xconfig["monitor"]
         if self.ksdata.xconfig["resolution"] != "":
             str = str + " --resolution=%s" % self.ksdata.xconfig["resolution"]
         if self.ksdata.xconfig["startX"] == True:

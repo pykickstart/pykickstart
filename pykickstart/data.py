@@ -48,8 +48,7 @@ class KickstartData:
         self.upgrade = False
         self.vnc = {"enabled": False, "password": "", "host": "", "port": ""}
         self.xconfig = {"driver": "", "defaultdesktop": "", "depth": 0,
-                        "probe": True, "resolution": "", "startX": False,
-                        "videoRam": ""}
+                        "resolution": "", "startX": False, "videoRam": ""}
         self.zerombr = False
         self.zfcp = {"devnum": "", "fcplun": "", "scsiid": "", "scsilun": "",
                      "wwpn": ""}
