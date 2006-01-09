@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.11
+Version: 0.12
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Mon Jan 09 2006 Chris Lumens <clumens@redhat.com> 0.12-1
+- Clean up output quoting.
+- Finish removing monitor-related stuff from xconfig.
+
 * Mon Dec 12 2005 Chris Lumens <clumens@redhat.com> 0.11-1
 - Deprecate monitor-related options to xconfig.
 
