@@ -40,7 +40,7 @@ class KickstartData:
         self.monitor = {"hsync": "", "monitor": "", "probe": True, "vsync": ""}
         self.network = []
         self.platform = ""
-        self.reboot = True
+        self.reboot = {"action": KS_WAIT, "eject": False}
         self.rootpw = {"isCrypted": False, "password": ""}
         self.selinux = SELINUX_ENFORCING
         self.skipx = False

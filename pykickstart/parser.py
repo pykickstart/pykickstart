@@ -579,7 +579,17 @@ class KickstartHandlers:
         self.ksdata.partitions.append(pd)
 
     def doReboot(self, args):
-        self.ksdata.reboot = True
+        if self.currentCmd == "reboot":
+            self.ksdata.reboot["action"] = KS_REBOOT
+        else:
+            self.ksdata.reboot["action"] = KS_SHUTDOWN
+
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--eject", dest="eject", action="store_true",
+                      default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+        self.ksdata.reboot["eject"] = opts.eject
 
     def doRaid(self, args):
         def raid_cb (option, opt_str, value, parser):

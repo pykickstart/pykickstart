@@ -349,8 +349,17 @@ class KickstartWriter:
         return str.rstrip()
 
     def doReboot(self):
-        if self.ksdata.reboot == True:
-            return "# Reboot after installation\nreboot"
+        str = ""
+
+        if self.ksdata.reboot["action"] == KS_REBOOT:
+            str = "# Reboot after installation\nreboot"
+        elif self.ksdata.reboot["action"] == KS_SHUTDOWN:
+            str = "# Shutdown after installation\nshutdown"
+
+        if self.ksdata.reboot["eject"] == True:
+            str = str + " --eject"
+
+        return "%s\n" % str
 
     def doRaid(self):
         if self.ksdata.upgrade == True:

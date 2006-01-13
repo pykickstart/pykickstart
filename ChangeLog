@@ -1,3 +1,11 @@
+2006-01-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/constants.py:  Add constants for the various
+	reboot/shutdown actions.
+	* pykickstart/data.py:  Add support for --eject on reboot.
+	* pykickstart/parser.py:  Likewise.
+	* pykickstart/writer.py:  Likewise.
+
 2006-01-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/data.py:  Finish removing monitor information.
