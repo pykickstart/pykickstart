@@ -686,7 +686,7 @@ class KickstartHandlers:
 
     def doVnc(self, args):
         def connect_cb (option, opt_str, value, parser):
-            cargs = opt_str.split(":")
+            cargs = value.split(":")
             parser.values.ensure_value("host", cargs[0])
 
             if len(cargs) > 1:
@@ -694,8 +694,10 @@ class KickstartHandlers:
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--connect", action="callback", callback=connect_cb,
-                      nargs=1, type="string")
+                      nargs=1, type="string", deprecated=1)
         op.add_option("--password", dest="password")
+        op.add_option("--host", dest="host")
+        op.add_option("--port", dest="port", default="5500")
 
         (opts, extra) = op.parse_args(args=args)
 
