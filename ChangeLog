@@ -1,5 +1,7 @@
 2006-01-30  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/parser.py (kickstartHandlers.doVnc):  Fix connecting to
 	a remote viewer.  Deprecate --connect, and add --host and --port as
 	the new preferred way (#179209).

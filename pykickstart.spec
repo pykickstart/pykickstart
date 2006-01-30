@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.13
+Version: 0.14
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Mon Jan 30 2006 Chris Lumens <clumens@redhat.com> 0.14-1
+- Fix VNC parameter parsing (#179209).
+- Deprecate --connect.  Add --host and --port instead.
+
 * Thu Jan 19 2006 Chris Lumens <clumens@redhat.com> 0.13-1
 - Recognize the --eject parameter to shutdown/halt.
 - Store the exact post-installation action in ksdata.
