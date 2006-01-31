@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.14
+Version: 0.15
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Tue Jan 31 2006 Peter Jones <pjones@redhat.com> 0.15-1
+- Add dmraid support
+
 * Mon Jan 30 2006 Chris Lumens <clumens@redhat.com> 0.14-1
 - Fix VNC parameter parsing (#179209).
 - Deprecate --connect.  Add --host and --port instead.
