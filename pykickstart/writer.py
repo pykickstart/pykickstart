@@ -20,7 +20,8 @@ class KickstartWriter:
         # All the printing handlers in the order they should be called.
         self.handlers = [self.doPlatform,
 
-                         self.doAuthconfig, self.doAutoPart, self.doAutoStep,
+                         self.doAuthconfig, self.doDmRaid,
+                         self.doAutoPart, self.doAutoStep,
                          self.doBootloader, self.doClearPart, self.doDevice,
                          self.doDeviceProbe, self.doDisplayMode,
                          self.doDriverDisk, self.doFirewall, self.doFirstboot,
@@ -51,6 +52,16 @@ class KickstartWriter:
     def doAuthconfig(self):
         if self.ksdata.authconfig != "" and self.ksdata.upgrade == False:
             return "# System authorization information\nauth %s" % self.ksdata.authconfig
+
+    def doDmRaid(self):
+        for raid in self.ksdata.dmraids:
+            str = "dmraid --name=%s" % (raid.name,)
+
+            for dev in raid.devices:
+                str = str + "--dev=\"%s\"" % (dev,)
+
+            str = str + "\n"
+        return str
 
     def doAutoPart(self):
         if self.ksdata.autopart:

@@ -23,6 +23,7 @@ class KickstartData:
         self.bootloader = {"appendLine": "", "driveorder": [],
                            "forceLBA": False, "location": "mbr", "md5pass": "",
                            "password": "", "upgrade": False}
+        self.dmraids = []
         self.clearpart = {"drives": [], "initAll": False,
                           "type": CLEARPART_TYPE_NONE}
         self.device = ""
@@ -142,3 +143,9 @@ class KickstartVolGroupData:
         self.preexist = False
         self.vgname = ""
         self.physvols = ""
+
+class KickstartDmRaidData:
+    def __init__(self):
+        self.name = ""
+        self.devices = []
+        self.dmset = None

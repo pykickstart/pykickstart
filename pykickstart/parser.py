@@ -247,6 +247,7 @@ class KickstartHandlers:
                      "mouse"        : self.doMouse,
                      "network"      : self.doNetwork,
                      "nfs"          : self.doMethod,
+                     "dmraid"       : self.doDmRaid,
                      "part"         : self.doPartition,
                      "partition"    : self.doPartition,
                      "poweroff"     : self.doReboot,
@@ -530,6 +531,25 @@ class KickstartHandlers:
             setattr(nd, key, getattr(opts, key))
 
         self.ksdata.network.append(nd)
+
+    def doDmRaid(self, args):
+        def name_cb(option, opt_str, value, parser):
+            pass
+            
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--name", dest="name", action="store", type="string",
+                      nargs=1, required=1)
+        op.add_option("--dev", dest="devices", action="append", type="string",
+                      required=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        dd = KickstartDmRaidData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(dd, key, getattr(opts, key))
+        dd.name = dd.name.split('/')[-1]
+
+        self.ksdata.dmraids.append(dd)
 
     def doPartition(self, args):
         def part_cb (option, opt_str, value, parser):
