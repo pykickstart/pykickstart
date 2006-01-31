@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.15
+Version: 0.16
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Tue Jan 31 2006 Chris Lumens <clumens@redhat.com> 0.16-1
+- Give dmraid string an initial value.
+- Handle None on partition size.
+
 * Tue Jan 31 2006 Peter Jones <pjones@redhat.com> 0.15-1
 - Add dmraid support
 
