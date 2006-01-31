@@ -54,8 +54,10 @@ class KickstartWriter:
             return "# System authorization information\nauth %s" % self.ksdata.authconfig
 
     def doDmRaid(self):
+        str = ""
+
         for raid in self.ksdata.dmraids:
-            str = "dmraid --name=%s" % (raid.name,)
+            str = str + "dmraid --name=%s" % (raid.name,)
 
             for dev in raid.devices:
                 str = str + "--dev=\"%s\"" % (dev,)
@@ -350,8 +352,8 @@ class KickstartWriter:
                 str = str + " --onpart=%s" % part.onPart
             if part.recommended == True:
                 str = str + " --recommended"
-            if part.size != 0:
-                str = str + " --size=%d" % part.size
+            if part.size and part.size != 0:
+                str = str + " --size=%d" % int(part.size)
             if part.start != 0:
                 str = str + " --start=%d" % part.start
 
