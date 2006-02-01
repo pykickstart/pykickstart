@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.16
+Version: 0.17
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Wed Feb 01 2006 Chris Lumens <clumens@redhat.com> 0.17-1
+- Don't set a default port for vnc.
+
 * Tue Jan 31 2006 Chris Lumens <clumens@redhat.com> 0.16-1
 - Give dmraid string an initial value.
 - Handle None on partition size.

@@ -1,5 +1,7 @@
 2006-02-01  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/parser.py (KickstartHandlers.doVnc):  No default port.
 
 2006-01-31  Chris Lumens  <clumens@redhat.com>
