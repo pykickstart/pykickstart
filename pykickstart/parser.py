@@ -717,7 +717,7 @@ class KickstartHandlers:
                       nargs=1, type="string", deprecated=1)
         op.add_option("--password", dest="password")
         op.add_option("--host", dest="host")
-        op.add_option("--port", dest="port", default="5500")
+        op.add_option("--port", dest="port")
 
         (opts, extra) = op.parse_args(args=args)
 

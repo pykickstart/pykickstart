@@ -1,3 +1,7 @@
+2006-02-01  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (KickstartHandlers.doVnc):  No default port.
+
 2006-01-31  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.
@@ -10,7 +14,7 @@
 
 	* pykickstart.spec, setup.py:  Bump version.
 
-	* pykickstart/parser.py (kickstartHandlers.doVnc):  Fix connecting to
+	* pykickstart/parser.py (KickstartHandlers.doVnc):  Fix connecting to
 	a remote viewer.  Deprecate --connect, and add --host and --port as
 	the new preferred way (#179209).
 
