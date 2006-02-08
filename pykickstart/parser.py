@@ -640,7 +640,7 @@ class KickstartHandlers:
         op.add_option("--fsoptions", dest="fsopts")
         op.add_option("--fstype", dest="fstype")
         op.add_option("--level", dest="level", action="callback",
-                      callback=level_cb, type="string", nargs=1, required=1)
+                      callback=level_cb, type="string", nargs=1)
         op.add_option("--noformat", action="callback", callback=raid_cb,
                       dest="format", default=True, nargs=0)
         op.add_option("--spares", dest="spares", action="store", type="int",
