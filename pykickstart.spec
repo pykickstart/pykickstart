@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.17
+Version: 0.18
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Thu Feb 09 2006 Chris Lumens <clumens@redhat.com> 0.18-1
+- Fix some errors pychecker caught.
+- Allow exceptions to not be fatal so ksvalidator can spot more errors in
+  a single pass (#179894).
+
 * Wed Feb 01 2006 Chris Lumens <clumens@redhat.com> 0.17-1
 - Don't set a default port for vnc.
 

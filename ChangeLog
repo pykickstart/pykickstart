@@ -1,5 +1,7 @@
 2006-02-09  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/parser.py, pykickstart/writer.py:  Fix pychecker
 	warnings.
 
