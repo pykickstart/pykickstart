@@ -18,7 +18,7 @@ import sys
 import string
 import warnings
 from copy import copy
-from optparse import OptionParser, Option
+from optparse import *
 
 from constants import *
 from data import *
@@ -43,6 +43,7 @@ def formatErrorMsg(lineno, msg=""):
 
 class KickstartError(Exception):
     def __init__(self, val = ""):
+        Exception.__init__(self)
         self.value = val
 
     def __str__ (self):
@@ -50,14 +51,14 @@ class KickstartError(Exception):
 
 class KickstartParseError(KickstartError):
     def __init__(self, msg):
-        self.value = msg
+        KickstartError.__init__(self, msg)
 
     def __str__(self):
         return self.value
 
 class KickstartValueError(KickstartError):
     def __init__(self, msg):
-        self.value = msg
+        KickstartError.__init__(self, msg)
 
     def __str__ (self):
         return self.value
@@ -167,9 +168,9 @@ class KSOption (Option):
 # this to add a run method.
 class Script:
     def __repr__(self):
-        str = ("(s: '%s' i: %s c: %d)") %  \
-              (self.script, self.interp, self.inChroot)
-        return string.replace(str, "\n", "|")
+        retval = ("(s: '%s' i: %s c: %d)") %  \
+                  (self.script, self.interp, self.inChroot)
+        return string.replace(retval, "\n", "|")
 
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
                  logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
@@ -183,18 +184,18 @@ class Script:
     # Produce a string representation of the script suitable for writing
     # to a kickstart file.  Add this to the end of the %whatever header.
     def write(self):
-        str = ""
+        retval = ""
         if self.interp != "/bin/sh" and self.interp != "":
-            str = str + " --interp %s" % self.interp
+            retval = retval + " --interp %s" % self.interp
         if self.type == KS_SCRIPT_POST and not self.inChroot:
-            str = str + " --nochroot"
+            retval = retval + " --nochroot"
         if self.logfile != None:
-            str = str + " --logfile %s" % self.logfile
+            retval = retval + " --logfile %s" % self.logfile
         if self.errorOnFail:
-            str = str + " --erroronfail"
+            retval = retval + " --erroronfail"
         
-        str = str + "\n%s\n" % self.script
-        return str
+        retval = retval + "\n%s\n" % self.script
+        return retval
 
 ###
 ### COMMAND HANDLERS
@@ -210,6 +211,10 @@ class Script:
 class KickstartHandlers:
     def __init__ (self, ksdata):
         self.ksdata = ksdata
+
+        # These will get set by the handleCommand method in the parser.
+        self.lineno = 0
+        self.currentCmd = ""
 
         self.handlers = { "auth"    : self.doAuthconfig,
                      "authconfig"   : self.doAuthconfig,
@@ -390,12 +395,12 @@ class KickstartHandlers:
                 parser.values.ensure_value(option.dest, []).append(d)
             
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--drives", dest="drives", action=callback,
+        op.add_option("--drives", dest="drives", action="callback",
                       callback=drive_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
 
-        self.ksdata.ignoredisk = opt.ignoredisk
+        self.ksdata.ignoredisk = opts.ignoredisk
 
     def doInteractive(self, args):
         self.ksdata.interactive = True
@@ -838,8 +843,8 @@ class KickstartParser:
             raise KickstartParseError, formatErrorMsg(lineno)
         else:
             if self.handler.handlers[cmd] != None:
-                setattr(self.handler, "currentCmd", cmd)
-                setattr(self.handler, "lineno", lineno)
+                self.handler.currentCmd = cmd
+                self.handler.lineno = lineno
                 self.handler.handlers[cmd](cmdArgs)
 
     def handlePackageHdr (self, lineno, args):

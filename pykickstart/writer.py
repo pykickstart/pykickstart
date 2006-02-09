@@ -50,20 +50,20 @@ class KickstartWriter:
             return "#platform=%s" % self.ksdata.platform
 
     def doAuthconfig(self):
-        if self.ksdata.authconfig != "" and self.ksdata.upgrade == False:
+        if self.ksdata.authconfig != "" and not self.ksdata.upgrade:
             return "# System authorization information\nauth %s" % self.ksdata.authconfig
 
     def doDmRaid(self):
-        str = ""
+        retval = ""
 
         for raid in self.ksdata.dmraids:
-            str = str + "dmraid --name=%s" % (raid.name,)
+            retval = retval + "dmraid --name=%s" % (raid.name,)
 
             for dev in raid.devices:
-                str = str + "--dev=\"%s\"" % (dev,)
+                retval = retval + "--dev=\"%s\"" % (dev,)
 
-            str = str + "\n"
-        return str
+            retval = retval + "\n"
+        return retval
 
     def doAutoPart(self):
         if self.ksdata.autopart:
@@ -74,26 +74,26 @@ class KickstartWriter:
             return "autostep --autoscreenshot"
 
     def doBootloader(self):
-        str = "# System bootloader configuration\nbootloader"
+        retval = "# System bootloader configuration\nbootloader"
 
         if self.ksdata.bootloader["appendLine"] != "":
-            str = str + " --append=\"%s\"" % self.ksdata.bootloader["appendLine"]
+            retval = retval + " --append=\"%s\"" % self.ksdata.bootloader["appendLine"]
         if self.ksdata.bootloader["location"]:
-            str = str + " --location=%s" % self.ksdata.bootloader["location"]
-        if self.ksdata.bootloader["forceLBA"] == True:
-            str = str + " --lba32"
+            retval = retval + " --location=%s" % self.ksdata.bootloader["location"]
+        if self.ksdata.bootloader["forceLBA"]:
+            retval = retval + " --lba32"
         if self.ksdata.bootloader["password"] != "":
-            str = str + " --password=%s" % self.ksdata.bootloader["password"]
+            retval = retval + " --password=%s" % self.ksdata.bootloader["password"]
         if self.ksdata.bootloader["md5pass"] != "":
-            str = str + " --md5pass=%s" % self.ksdata.bootloader["md5pass"]
-        if self.ksdata.bootloader["upgrade"] == True:
-            str = str + " --upgrade"
+            retval = retval + " --md5pass=%s" % self.ksdata.bootloader["md5pass"]
+        if self.ksdata.bootloader["upgrade"]:
+            retval = retval + " --upgrade"
         if len(self.ksdata.bootloader["driveorder"]) > 0:
-            str = str + " --driveorder=%s" % \
-                        string.join(self.ksdata.bootloader["driveorder"], ",")
+            retval = retval + " --driveorder=%s" % \
+                     string.join(self.ksdata.bootloader["driveorder"], ",")
 
-        if str != "bootloader":
-            return str
+        if retval != "bootloader":
+            return retval
 
     def doClearPart(self):
         if self.ksdata.clearpart["type"] == CLEARPART_TYPE_NONE:
@@ -105,7 +105,7 @@ class KickstartWriter:
         else:
             clearstr = ""
 
-        if self.ksdata.clearpart["initAll"] == True:
+        if self.ksdata.clearpart["initAll"]:
             initstr = "--initlabel"
         else:
             initstr = ""
@@ -139,7 +139,7 @@ class KickstartWriter:
             return "driverdisk %s" % self.ksdata.driverdisk
 
     def doFirewall(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return
 
         extra = []
@@ -184,22 +184,22 @@ class KickstartWriter:
             return "# Firewall configuration\nfirewall --disabled"
 
     def doFirstboot(self):
-        str = "# Run the Setup Agent on first boot\n"
+        retval = "# Run the Setup Agent on first boot\n"
 
         if self.ksdata.firstboot == FIRSTBOOT_SKIP:
-            return str + "firstboot --disable"
+            return retval + "firstboot --disable"
         elif self.ksdata.firstboot == FIRSTBOOT_DEFAULT:
-            return str + "firstboot --enable"
+            return retval + "firstboot --enable"
         elif self.ksdata.firstboot == FIRSTBOOT_RECONFIG:
-            return str + "firstboot --reconfig"
+            return retval + "firstboot --reconfig"
 
     def doIgnoreDisk(self):
         if len(self.ksdata.ignoredisk) > 0:
-            str = string.join (self.ksdata.ignoredisk, ",")
-            return "ignoredisk --drives=%s" % str
+            retval = string.join (self.ksdata.ignoredisk, ",")
+            return "ignoredisk --drives=%s" % retval
 
     def doInteractive(self):
-        if self.ksdata.interactive == True:
+        if self.ksdata.interactive:
             return "# Use interactive kickstart installation method\ninteractive"
 
     def doKeyboard(self):
@@ -211,41 +211,41 @@ class KickstartWriter:
             return "# System language\nlang %s" % self.ksdata.lang
 
     def doLogicalVolume(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return
 
-        str = ""
+        retval = ""
 
         for part in self.ksdata.lvList:
-            str = str + "logvol %s" % part.mountpoint
+            retval = retval + "logvol %s" % part.mountpoint
 
             if part.bytesPerInode > 0:
-                str = str + " --bytes-per-inode= %d" % part.bytesPerInode
+                retval = retval + " --bytes-per-inode= %d" % part.bytesPerInode
             if part.fsopts != "":
-                str = str + " --fsoptions=\"%s\"" % part.fsopts
+                retval = retval + " --fsoptions=\"%s\"" % part.fsopts
             if part.fstype != "":
-                str = str + " --fstype=\"%s\"" % part.fstype
-            if part.grow == True:
-                str = str + " --grow"
+                retval = retval + " --fstype=\"%s\"" % part.fstype
+            if part.grow:
+                retval = retval + " --grow"
             if part.maxSizeMB > 0:
-                str = str + " --maxsize=%d" % part.maxSizeMB
-            if part.format == False:
-                str = str + " --noformat"
+                retval = retval + " --maxsize=%d" % part.maxSizeMB
+            if not part.format:
+                retval = retval + " --noformat"
             if part.percent > 0:
-                str = str + " --percent=%d" % part.percent
-            if part.recommended == True:
-                str = str + " --recommended"
+                retval = retval + " --percent=%d" % part.percent
+            if part.recommended:
+                retval = retval + " --recommended"
             if part.size > 0:
-                str = str + " --size=%d" % part.size
-            if part.preexist == True:
-                str = str + " --useexisting"
+                retval = retval + " --size=%d" % part.size
+            if part.preexist:
+                retval = retval + " --useexisting"
 
-            str = str + " --name=%s --vgname=%s\n" % (part.name, part.vgname)
+            retval = retval + " --name=%s --vgname=%s\n" % (part.name, part.vgname)
 
-        return str.rstrip()
+        return retval.rstrip()
 
     def doMediaCheck(self):
-        if self.ksdata.mediacheck == True:
+        if self.ksdata.mediacheck:
             return "mediacheck"
 
     def doMethod(self):
@@ -259,154 +259,154 @@ class KickstartWriter:
             return "# Use network installation\nurl --url=%s" % self.ksdata.method["url"]
 
     def doMonitor(self):
-        str = "monitor"
+        retval = "monitor"
 
         if self.ksdata.monitor["hsync"] != "":
-            str = str + " --hsync=%s" % self.ksdata.monitor["hsync"]
+            retval = retval + " --hsync=%s" % self.ksdata.monitor["hsync"]
         if self.ksdata.monitor["monitor"] != "":
-            str = str + " --monitor=\"%s\"" % self.ksdata.monitor["monitor"]
-        if self.ksdata.monitor["probe"] == False:
-            str = str + " --noprobe"
+            retval = retval + " --monitor=\"%s\"" % self.ksdata.monitor["monitor"]
+        if not self.ksdata.monitor["probe"]:
+            retval = retval + " --noprobe"
         if self.ksdata.monitor["vsync"] != "":
-            str = str + " --vsync=%s" % self.ksdata.monitor["vsync"]
+            retval = retval + " --vsync=%s" % self.ksdata.monitor["vsync"]
 
-        if str != "monitor":
-            return str
+        if retval != "monitor":
+            return retval
 
     def doNetwork(self):
         if self.ksdata.network == []:
             return
 
-        str = "# Network information\n"
+        retval = "# Network information\n"
 
         for nic in self.ksdata.network:
-            str = str + "network"
+            retval = retval + "network"
 
             if nic.bootProto != "":
-                str = str + " --bootproto=%s" % nic.bootProto
+                retval = retval + " --bootproto=%s" % nic.bootProto
             if nic.dhcpclass != "":
-                str = str + " --dhcpclass=%s" % nic.dhcpclass
+                retval = retval + " --dhcpclass=%s" % nic.dhcpclass
             if nic.device != "":
-                str = str + " --device=%s" % nic.device
+                retval = retval + " --device=%s" % nic.device
             if nic.essid != "":
-                str = str + " --essid=\"%s\"" % nic.essid
+                retval = retval + " --essid=\"%s\"" % nic.essid
             if nic.ethtool != "":
-                str = str + " --ethtool=\"%s\"" % nic.ethtool
+                retval = retval + " --ethtool=\"%s\"" % nic.ethtool
             if nic.gateway != "":
-                str = str + " --gateway=%s" % nic.gateway
+                retval = retval + " --gateway=%s" % nic.gateway
             if nic.hostname != "":
-                str = str + " --hostname=%s" % nic.hostname
+                retval = retval + " --hostname=%s" % nic.hostname
             if nic.ip != "":
-                str = str + " --ip=%s" % nic.ip
+                retval = retval + " --ip=%s" % nic.ip
             if nic.nameserver != "":
-                str = str + " --nameserver=%s" % nic.nameserver
+                retval = retval + " --nameserver=%s" % nic.nameserver
             if nic.netmask != "":
-                str = str + " --netmask=%s" % nic.netmask
-            if nic.nodns == True:
-                str = str + " --nodns"
-            if nic.notksdevice == True:
-                str = str + " --notksdevice"
-            if nic.onboot == True:
-                str = str + " --onboot"
+                retval = retval + " --netmask=%s" % nic.netmask
+            if nic.nodns:
+                retval = retval + " --nodns"
+            if nic.notksdevice:
+                retval = retval + " --notksdevice"
+            if nic.onboot:
+                retval = retval + " --onboot"
             if nic.wepkey != "":
-                str = str + " --wepkey=%s" % nic.wepkey
+                retval = retval + " --wepkey=%s" % nic.wepkey
 
-            str = str + "\n"
+            retval = retval + "\n"
 
-        return str.rstrip()
+        return retval.rstrip()
 
     def doPartition(self):
-        if self.ksdata.upgrade == True or self.ksdata.partitions == []:
+        if self.ksdata.upgrade or self.ksdata.partitions == []:
             return
 
-        str = "# Disk partitioning information\n"
+        retval = "# Disk partitioning information\n"
 
         for part in self.ksdata.partitions:
-            str = str + "part %s" % part.mountpoint
+            retval = retval + "part %s" % part.mountpoint
 
-            if part.active == True:
-                str = str + " --active"
-            if part.primOnly == True:
-                str = str + " --asprimary"
+            if part.active:
+                retval = retval + " --active"
+            if part.primOnly:
+                retval = retval + " --asprimary"
             if part.bytesPerInode != 0:
-                str = str + " --bytes-per-inode=%d" % part.bytesPerInode
+                retval = retval + " --bytes-per-inode=%d" % part.bytesPerInode
             if part.end != 0:
-                str = str + " --end=%d" % part.end
+                retval = retval + " --end=%d" % part.end
             if part.fsopts != "":
-                str = str + " --fsoptions=\"%s\"" % part.fsopts
+                retval = retval + " --fsoptions=\"%s\"" % part.fsopts
             if part.fstype != "":
-                str = str + " --fstype=\"%s\"" % part.fstype
-            if part.grow == True:
-                str = str + " --grow"
+                retval = retval + " --fstype=\"%s\"" % part.fstype
+            if part.grow:
+                retval = retval + " --grow"
             if part.label != "":
-                str = str + " --label=%s" % part.label
+                retval = retval + " --label=%s" % part.label
             if part.maxSizeMB > 0:
-                str = str + " --maxsize=%d" % part.maxSizeMB
-            if part.format == False:
-                str = str + " --noformat"
+                retval = retval + " --maxsize=%d" % part.maxSizeMB
+            if not part.format:
+                retval = retval + " --noformat"
             if part.onbiosdisk != "":
-                str = str + " --onbiosdisk=%s" % part.onbiosdisk
+                retval = retval + " --onbiosdisk=%s" % part.onbiosdisk
             if part.disk != "":
-                str = str + " --ondisk=%s" % part.disk
+                retval = retval + " --ondisk=%s" % part.disk
             if part.onPart != "":
-                str = str + " --onpart=%s" % part.onPart
-            if part.recommended == True:
-                str = str + " --recommended"
+                retval = retval + " --onpart=%s" % part.onPart
+            if part.recommended:
+                retval = retval + " --recommended"
             if part.size and part.size != 0:
-                str = str + " --size=%d" % int(part.size)
+                retval = retval + " --size=%d" % int(part.size)
             if part.start != 0:
-                str = str + " --start=%d" % part.start
+                retval = retval + " --start=%d" % part.start
 
-            str = str + "\n"
+            retval = retval + "\n"
 
-        return str.rstrip()
+        return retval.rstrip()
 
     def doReboot(self):
-        str = ""
+        retval = ""
 
         if self.ksdata.reboot["action"] == KS_REBOOT:
-            str = "# Reboot after installation\nreboot"
+            retval = "# Reboot after installation\nreboot"
         elif self.ksdata.reboot["action"] == KS_SHUTDOWN:
-            str = "# Shutdown after installation\nshutdown"
+            retval = "# Shutdown after installation\nshutdown"
 
-        if self.ksdata.reboot["eject"] == True:
-            str = str + " --eject"
+        if self.ksdata.reboot["eject"]:
+            retval = retval + " --eject"
 
-        return "%s\n" % str
+        return "%s\n" % retval
 
     def doRaid(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return
 
-        str = ""
+        retval = ""
 
         for raid in self.ksdata.raidList:
-            str = str + "raid %s" % raid.mountpoint
+            retval = retval + "raid %s" % raid.mountpoint
 
             if raid.bytesPerInode != 0:
-                str = str + " --bytes-per-inode=%d" % raid.bytesPerInode
+                retval = retval + " --bytes-per-inode=%d" % raid.bytesPerInode
             if raid.device != "":
-                str = str + " --device=%s" % raid.device
+                retval = retval + " --device=%s" % raid.device
             if raid.fsopts != "":
-                str = str + " --fsoptions=\"%s\"" % raid.fsopts
+                retval = retval + " --fsoptions=\"%s\"" % raid.fsopts
             if raid.fstype != "":
-                str = str + " --fstype=\"%s\"" % raid.fstype
+                retval = retval + " --fstype=\"%s\"" % raid.fstype
             if raid.level != "":
-                str = str + " --level=%s" % raid.level
-            if raid.format == False:
-                str = str + " --noformat"
+                retval = retval + " --level=%s" % raid.level
+            if not raid.format:
+                retval = retval + " --noformat"
             if raid.spares != 0:
-                str = str + " --spares=%d" % raid.spares
-            if raid.preexist == True:
-                str = str + " --useexisting"
+                retval = retval + " --spares=%d" % raid.spares
+            if raid.preexist:
+                retval = retval + " --useexisting"
 
-            str = str + " %s\n" % string.join(raid.members)
+            retval = retval + " %s\n" % string.join(raid.members)
 
-        return str.rstrip()
+        return retval.rstrip()
 
     def doRootPw(self):
         if self.ksdata.rootpw["password"] != "":
-            if self.ksdata.rootpw["isCrypted"] == True:
+            if self.ksdata.rootpw["isCrypted"]:
                 crypted = "--iscrypted"
             else:
                 crypted = ""
@@ -414,22 +414,22 @@ class KickstartWriter:
             return "#Root password\nrootpw %s %s" % (crypted, self.ksdata.rootpw["password"])
 
     def doSELinux(self):
-        str = "# SELinux configuration\n"
+        retval = "# SELinux configuration\n"
 
         if self.ksdata.selinux == SELINUX_DISABLED:
-            return str + "selinux --disabled"
+            return retval + "selinux --disabled"
         elif self.ksdata.selinux == SELINUX_ENFORCING:
-            return str + "selinux --enforcing"
+            return retval + "selinux --enforcing"
         elif self.ksdata.selinux == SELINUX_PERMISSIVE:
-            return str + "selinux --permissive"
+            return retval + "selinux --permissive"
 
     def doSkipX(self):
-        if self.ksdata.skipx == True and self.ksdata.upgrade == False:
+        if self.ksdata.skipx and not self.ksdata.upgrade:
             return "# Do not configure the X Window System\nskipx"
 
     def doTimezone(self):
         if self.ksdata.timezone["timezone"] != "":
-            if self.ksdata.timezone["isUtc"] == True:
+            if self.ksdata.timezone["isUtc"]:
                 utc = "--isUtc"
             else:
                 utc = ""
@@ -437,13 +437,13 @@ class KickstartWriter:
             return "# System timezone\ntimezone %s %s" %(utc, self.ksdata.timezone["timezone"])
 
     def doUpgrade(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return "# Upgrade existing installation\nupgrade"
         else:
             return "# Install OS instead of upgrade\ninstall"
 
     def doVnc(self):
-        if self.ksdata.vnc["enabled"] == True:
+        if self.ksdata.vnc["enabled"]:
             if self.ksdata.vnc["password"] != "":
                 password = "--password=%s" % self.ksdata.vnc["password"]
             else:
@@ -458,49 +458,49 @@ class KickstartWriter:
                                               port)
 
     def doVolumeGroup(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return
 
-        str = ""
+        retval = ""
 
         for vg in self.ksdata.vgList:
-            str = str + "volgroup %s" % vg.vgname
+            retval = retval + "volgroup %s" % vg.vgname
 
-            if vg.format == False:
-                str = str + " --noformat"
+            if not vg.format:
+                retval = retval + " --noformat"
             if vg.pesize != 0:
-                str = str + " --pesize=%d" % vg.pesize
-            if vg.preexist == True:
-                str = str + " --useexisting"
+                retval = retval + " --pesize=%d" % vg.pesize
+            if vg.preexist:
+                retval = retval + " --useexisting"
 
-            str = str + " %s\n" % string.join(vg.physvols, ",")
+            retval = retval + " %s\n" % string.join(vg.physvols, ",")
 
-        return str.rstrip()
+        return retval.rstrip()
 
     def doXConfig(self):
-        if self.ksdata.upgrade == True or self.ksdata.skipx == True:
+        if self.ksdata.upgrade or self.ksdata.skipx:
             return
 
-        str = "# X Window System configuration information\nxconfig"
+        retval = "# X Window System configuration information\nxconfig"
 
         if self.ksdata.xconfig["driver"] != "":
-            str = str + " --driver=%s" % self.ksdata.xconfig["driver"]
+            retval = retval + " --driver=%s" % self.ksdata.xconfig["driver"]
         if self.ksdata.xconfig["defaultdesktop"] != "":
-            str = str + " --defaultdesktop=%s" % self.ksdata.xconfig["defaultdesktop"]
+            retval = retval + " --defaultdesktop=%s" % self.ksdata.xconfig["defaultdesktop"]
         if self.ksdata.xconfig["depth"] != 0:
-            str = str + " --depth=%d" % self.ksdata.xconfig["depth"]
+            retval = retval + " --depth=%d" % self.ksdata.xconfig["depth"]
         if self.ksdata.xconfig["resolution"] != "":
-            str = str + " --resolution=%s" % self.ksdata.xconfig["resolution"]
-        if self.ksdata.xconfig["startX"] == True:
-            str = str + " --startxonboot"
+            retval = retval + " --resolution=%s" % self.ksdata.xconfig["resolution"]
+        if self.ksdata.xconfig["startX"]:
+            retval = retval + " --startxonboot"
         if self.ksdata.xconfig["videoRam"] != "":
-            str = str + " --videoram=%s" % self.ksdata.xconfig["videoRam"]
+            retval = retval + " --videoram=%s" % self.ksdata.xconfig["videoRam"]
 
-        if str != "xconfig":
-            return str
+        if retval != "xconfig":
+            return retval
 
     def doZeroMbr(self):
-        if self.ksdata.zerombr == True:
+        if self.ksdata.zerombr:
             return "# Clear the Master Boot Record\nzerombr"
 
     def doZFCP(self):
@@ -523,18 +523,18 @@ class KickstartWriter:
         return preStr + postStr + tracebackStr.rstrip()
 
     def doPackages(self):
-        if self.ksdata.upgrade == True:
+        if self.ksdata.upgrade:
             return
 
-        str = "\n%packages\n"
+        retval = "\n%packages\n"
 
         for pkg in self.ksdata.packageList:
-            str = str + "%s\n" % pkg
+            retval = retval + "%s\n" % pkg
 
         for pkg in self.ksdata.excludedList:
-            str = str + "-%s\n" % pkg
+            retval = retval + "-%s\n" % pkg
 
         for grp in self.ksdata.groupList:
-            str = str + "@%s\n" % grp
+            retval = retval + "@%s\n" % grp
 
-        return str.rstrip()
+        return retval.rstrip()

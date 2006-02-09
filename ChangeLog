@@ -1,5 +1,8 @@
 2006-02-09  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py, pykickstart/writer.py:  Fix pychecker
+	warnings.
+
 	* pykickstart/parser.py (KSOption):  Condense all those option classes
 	into a single one.
 
