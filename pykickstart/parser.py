@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005, 2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -98,7 +98,7 @@ class KSOptionParser(OptionParser):
                 raise KickstartValueError, formatErrorMsg(self.lineno, "Option %s is required" % option)
             elif isinstance(option, Option) and option.deprecated and \
                  self.option_seen.has_key(option):
-                warnings.warn("Ignoring deprecated option on line %s: %s" % (self.lineno, option), DeprecationWarning)
+                warnings.warn("Ignoring deprecated option on line %s:  The %s command has been reprecated anod no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
 
         return (values, args)
 
@@ -273,7 +273,7 @@ class KickstartHandlers:
             self.handlers[key] = None
 
     def deprecatedCommand(self, cmd):
-        warnings.warn("The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command." % cmd, DeprecationWarning)
+        warnings.warn("Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command." % (self.lineno, cmd), DeprecationWarning)
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
@@ -801,13 +801,15 @@ class KickstartHandlers:
 # Passing None for kshandlers is valid just in case you don't care about
 # handling any commands.
 class KickstartParser:
-    def __init__ (self, ksdata, kshandlers):
+    def __init__ (self, ksdata, kshandlers, followIncludes=True,
+                  errorsAreFatal=True):
         self.handler = kshandlers
         self.ksdata = ksdata
-        self.followIncludes = True
+        self.followIncludes = followIncludes
         self.state = STATE_COMMANDS
         self.script = None
         self.includeDepth = 0
+        self.errorsAreFatal = errorsAreFatal
 
     # Functions to be called when we are at certain points in the
     # kickstart file parsing.  Override these if you need special
@@ -891,6 +893,7 @@ class KickstartParser:
         if hasattr(opts, "nochroot"):
             self.script["chroot"] = not opts.nochroot
 
+    # Parser state machine.  Don't override this in a subclass.
     def readKickstart (self, file):
         # For error reporting.
         lineno = 0
@@ -936,7 +939,12 @@ class KickstartParser:
             else:
                 args = shlex.split(line)
 
-            if args and args[0] == "%include" and self.followIncludes:
+            if args and args[0] == "%include":
+                # This case comes up primarily in ksvalidator.
+                if not self.followIncludes:
+                    needLine = True
+                    continue
+
                 if not args[1]:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
@@ -954,10 +962,19 @@ class KickstartParser:
                 elif args[0] == "%packages":
                     self.state = STATE_PACKAGES
                 elif args[0][0] == '%':
+                    # This error is too difficult to continue from, without
+                    # lots of resync code.  So just print this one and quit.
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
-                    self.handleCommand(lineno, args)
+
+                    if self.errorsAreFatal:
+                        self.handleCommand(lineno, args)
+                    else:
+                        try:
+                            self.handleCommand(lineno, args)
+                        except Exception, msg:
+                            print msg
 
             elif self.state == STATE_PACKAGES:
                 if not args and self.includeDepth == 0:
@@ -966,8 +983,17 @@ class KickstartParser:
                     self.state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
                     needLine = True
-                    self.handlePackageHdr (lineno, args)
+
+                    if self.errorsAreFatal:
+                        self.handlePackageHdr (lineno, args)
+                    else:
+                        try:
+                            self.handlePackageHdr (lineno, args)
+                        except Exception, msg:
+                            print msg
                 elif args[0][0] == '%':
+                    # This error is too difficult to continue from, without
+                    # lots of resync code.  So just print this one and quit.
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
@@ -990,9 +1016,17 @@ class KickstartParser:
                     self.state = STATE_TRACEBACK
                     self.script["type"] = KS_SCRIPT_TRACEBACK
                 elif args[0][0] == '%':
+                    # This error is too difficult to continue from, without
+                    # lots of resync code.  So just print this one and quit.
                     raise KickstartParseError, formatErrorMsg(lineno)
 
-                self.handleScriptHdr (lineno, args)
+                if self.errorsAreFatal:
+                    self.handleScriptHdr (lineno, args)
+                else:
+                    try:
+                        self.handleScriptHdr (lineno, args)
+                    except Exception, msg:
+                        print msg
 
             elif self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                 if line == "" and self.includeDepth == 0:

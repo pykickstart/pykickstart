@@ -1,3 +1,16 @@
+2006-02-09  Chris Lumens  <clumens@redhat.com>
+
+	 * pykickstart/parser.py (KickstartParser.readKickstart):  Allow
+	 exceptions to not be fatal so ksvalidator can report multiple
+	 problems in one pass.
+	 (KickstartHandlers.deprecatedCommand):  Add line number to message.
+	 (KSOptionParser.check_values):  Make deprecated option message more
+	 helpful.
+
+	* validator/ksvalidator:  Default to not following include files and
+	to not halting on the first error.  Add options to change this
+	behavior (#179894).
+
 2006-02-08  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (KickstartHandlers.doRaid):  --level is not

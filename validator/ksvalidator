@@ -2,7 +2,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005, 2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -12,25 +12,39 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import optparse
 import os
 import sys
 import warnings
 from pykickstart.data import *
 from pykickstart.parser import *
 
-if len(sys.argv) != 2:
-    print "usage: %s ksfile" % sys.argv[0]
+op = OptionParser(usage="usage: %prog [options] ksfile")
+op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
+              default=False, help="halt after the first error or warning")
+op.add_option("-i", "--followincludes", dest="followincludes",
+              action="store_true", default=False,
+              help="parse include files when %include is seen")
+
+(opts, extra) = op.parse_args(sys.argv[1:])
+
+if len(extra) != 1:
+    op.print_help()
     os._exit(1)
+else:
+    f = extra[0]
 
 ksdata = KickstartData()
 kshandlers = KickstartHandlers(ksdata)
-ksparser = KickstartParser(ksdata, kshandlers)
+ksparser = KickstartParser(ksdata, kshandlers,
+                           followIncludes=opts.followincludes,
+                           errorsAreFatal=opts.firsterror)
 
 # turn DeprecationWarnings into errors
 warnings.filterwarnings("error")
 
 try:
-    ksparser.readKickstart(sys.argv[1])
+    ksparser.readKickstart(f)
 except DeprecationWarning, msg:
     print "File uses a deprecated option or command.\n%s" % msg
     os._exit(1)
@@ -41,8 +55,7 @@ except KickstartError:
     print "General kickstart error in input file"
     os._exit(1)
 except Exception, e:
-    print "General error in input file"
-    print e
+    print "General error in input file:  %s" % e
     os._exit(1)
 
 os._exit(0)
