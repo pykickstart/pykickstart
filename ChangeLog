@@ -1,5 +1,8 @@
 2006-02-09  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py (KSOption):  Condense all those option classes
+	into a single one.
+
 	 * pykickstart/parser.py (KickstartParser.readKickstart):  Allow
 	 exceptions to not be fatal so ksvalidator can report multiple
 	 problems in one pass.
