@@ -1,3 +1,8 @@
+2006-02-10  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py:  Be more strict about commands that don't
+	take any arguments.
+
 2006-02-09  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.

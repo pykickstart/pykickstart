@@ -277,6 +277,9 @@ class KickstartHandlers:
         self.ksdata.authconfig = string.join(args)
 
     def doAutoPart(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.autopart = True
 
     def doAutoStep(self, args):
@@ -403,12 +406,21 @@ class KickstartHandlers:
         self.ksdata.ignoredisk = opts.ignoredisk
 
     def doInteractive(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.interactive = True
 
     def doKeyboard(self, args):
+        if len(args) > 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command only takes one argument")
+
         self.ksdata.keyboard = args[0]
 
     def doLang(self, args):
+        if len(args) > 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command only takes one argument")
+
         self.ksdata.lang = args[0]
 
     def doLangSupport(self, args):
@@ -454,6 +466,9 @@ class KickstartHandlers:
         self.ksdata.lvList.append(lvd)
 
     def doMediaCheck(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.mediacheck = True
 
     def doMethod(self, args):
@@ -531,12 +546,9 @@ class KickstartHandlers:
         self.ksdata.network.append(nd)
 
     def doDmRaid(self, args):
-        def name_cb(option, opt_str, value, parser):
-            pass
-            
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", action="store", type="string",
-                      nargs=1, required=1)
+                      required=1)
         op.add_option("--dev", dest="devices", action="append", type="string",
                       required=1)
 
@@ -685,6 +697,9 @@ class KickstartHandlers:
         self.ksdata.selinux = opts.sel
 
     def doSkipX(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.skipx = True
 
     def doTimezone(self, args):
@@ -700,6 +715,9 @@ class KickstartHandlers:
         self.ksdata.timezone["timezone"] = extra[0]
 
     def doUpgrade(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.upgrade = True
 
     def doVnc(self, args):
@@ -772,6 +790,9 @@ class KickstartHandlers:
             self.ksdata.xconfig[key] = getattr(opts, key)
 
     def doZeroMbr(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+
         self.ksdata.zerombr = True
 
     def doZFCP(self, args):
