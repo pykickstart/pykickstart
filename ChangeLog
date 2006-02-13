@@ -1,5 +1,7 @@
 2006-02-13  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/parser.py:  Don't trust ensure_value in complicated
 	cases in callbacks, as it wasn't setting values.
 
