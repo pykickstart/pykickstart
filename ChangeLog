@@ -1,5 +1,7 @@
 2006-02-13  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/writer.py (KickstartWriter.doNetwork):  --onboot
 	requires a value (#180987).
 

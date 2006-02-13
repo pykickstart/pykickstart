@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.18
+Version: 0.19
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Mon Feb 13 2006 Chris Lumens <clumens@redhat.com> 0.19-1
+- --onboot requires a value (#180987).
+- Be more strict about commands that don't take arguments.
+
 * Thu Feb 09 2006 Chris Lumens <clumens@redhat.com> 0.18-1
 - Fix some errors pychecker caught.
 - Allow exceptions to not be fatal so ksvalidator can spot more errors in
