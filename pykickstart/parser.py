@@ -428,8 +428,8 @@ class KickstartHandlers:
 
     def doLogicalVolume(self, args):
         def lv_cb (option, opt_str, value, parser):
-            parser.values.ensure_value(option.dest, False)
-            parser.values.ensure_value("preexist", True)
+            parser.values.format = False
+            parser.values.preexist = True
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
@@ -623,8 +623,8 @@ class KickstartHandlers:
 
     def doRaid(self, args):
         def raid_cb (option, opt_str, value, parser):
-            parser.values.ensure_value(option.dest, False)
-            parser.values.ensure_value("preexist", True)
+            parser.values.format = False
+            parser.values.preexist = True
 
         def device_cb (option, opt_str, value, parser):
             if value[0:2] == "md":
@@ -745,8 +745,8 @@ class KickstartHandlers:
     def doVolumeGroup(self, args):
         # Have to be a little more complicated to set two values.
         def vg_cb (option, opt_str, value, parser):
-            parser.values.ensure_value(option.dest, False)
-            parser.values.ensure_value("preexist", True)
+            parser.values.format = False
+            parser.values.preexist = True
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--noformat", action="callback", callback=vg_cb,
