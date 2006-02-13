@@ -307,7 +307,7 @@ class KickstartWriter:
             if nic.notksdevice:
                 retval = retval + " --notksdevice"
             if nic.onboot:
-                retval = retval + " --onboot"
+                retval = retval + " --onboot=on"
             if nic.wepkey != "":
                 retval = retval + " --wepkey=%s" % nic.wepkey
 

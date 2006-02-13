@@ -1,3 +1,8 @@
+2006-02-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/writer.py (KickstartWriter.doNetwork):  --onboot
+	requires a value (#180987).
+
 2006-02-10  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py:  Be more strict about commands that don't
