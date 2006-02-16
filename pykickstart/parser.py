@@ -99,7 +99,7 @@ class KSOptionParser(OptionParser):
                 raise KickstartValueError, formatErrorMsg(self.lineno, "Option %s is required" % option)
             elif isinstance(option, Option) and option.deprecated and \
                  self.option_seen.has_key(option):
-                warnings.warn("Ignoring deprecated option on line %s:  The %s command has been reprecated anod no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
+                warnings.warn("Ignoring deprecated option on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
 
         return (values, args)
 

@@ -5,6 +5,7 @@
 	* pykickstart/parser.py:  Provide an option to not traceback if an
 	included file is not present.  This should have very limited
 	usefulness.  (#181760).
+	* pykickstart/parser.py (KSOptionParser.check_values):  Typos.
 
 2006-02-13  Chris Lumens  <clumens@redhat.com>
 
