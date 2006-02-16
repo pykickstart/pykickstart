@@ -1,5 +1,7 @@
 2006-02-16  Chris Lumens  <clumens@redhat.com>
 
+	* docs/programmers-guide:  Update documentation.
+
 	* pykickstart/parser.py:  Provide an option to not traceback if an
 	included file is not present.  This should have very limited
 	usefulness.  (#181760).

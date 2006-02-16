@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                              October  28, 2005
+                              February 16, 2006
 
 
 Introduction
@@ -363,15 +363,14 @@ readKickstart is not set up to do this sort of thing easily.
 
 Class Reference
 ===============
-class DeprecatedOption:
-    def __init__ ():
-        Creates a new Option type that supports a "deprecated" option
-        attribute.  Command options with deprecated=1 will still be
-        processed, but will raise a DeprecationWarning that may be logged.
-
 class KickstartData:
     def __init__ ():
         Creates a new KickstartData object and sets default values on
+        attributes.
+
+class KickstartDmRaidData:
+   def __init__ ():
+        Creates a new KickstartDmRaidData object and sets default values on
         attributes.
 
 class KickstartError:
@@ -413,10 +412,20 @@ class KickstartNetworkData:
         KickstartData.networkList.
 
 class KickstartParser:
-    def __init__ (ksdata, kshandlers):
+    def __init__ (ksdata, kshandlers, followIncludes=True,
+                  errorsAreFatal=True, missingIncludeIsFatal=True):
         Creates a new KickstartParser object and initializes the parser
         state.  kshandlers may be None, in which case no function will be
         run when a kickstart command is seen in the input file.
+
+        If followIncludes is not set, the parser will ignore %include
+        lines, proceeding as if they were not there.  If errorsAreFatal
+        is set, the parser will halt on the first error with a traceback.
+        Otherwise, it will attempt to continue on issuing a warning for
+        each error.  This is used in ksvalidator to print out as many
+        errors as possible in a single pass.  If missingIncludeIsFatal is
+        not set, the parser will not error if a specified include file
+        does not exist but will still parse included files that do exist.
 
     def addScript ():
         Called when the parser determines that it has found the end of
@@ -462,10 +471,6 @@ class KickstartParser:
         method should not need to be overridden by any subclass as it
         defines the kickstart file format.
 
-    followIncludes:
-        Defaults to True.  Set to False if you don't want %include
-        files to be parsed as well.
-
 class KickstartParseError:
     def __init__ (msg):
         Creates a new KickstartParseError exception object.  The message
@@ -505,38 +510,46 @@ class KickstartWriter:
         Returns a valid kickstart file generated from ksdata as a string
         that is suitable for writing out to a file.
 
+class KSOption:
+    This class extends python's Option class with a variety of extra
+    attributes, types, and actions.
+
+    deprecated attribute:
+        Command options with deprecated=1 will still be processed, but will
+        raise a DeprecationWarning that may be logged.
+
+    ksboolean type:
+        Allows options to be specified with various boolean values such as
+        yes, no, on, off, 1, and 0.
+
+    map action:
+        A map action on a given option stores into the destination the value
+        given by:
+
+                KSOptionParser.map[key]
+
+        where key is the option with leading dashes stripped off.
+
+    map_extend action:
+        A map_extend action on a given set of options appends to the
+        destination the value given by:
+
+                KSOptionParser.map[key]
+
+        where key is the option with leading dashes stripped off.
+
+    required attribute:
+        Command options with required=1 must be provided or an OptionError
+        exception is raised.
+
 class KSOptionParser:
-    def __init__ (map=[], lineno=None):
+    def __init__ (map={}, lineno=None):
         Creates a specialized subclass of python's OptionParser making use
-        of the MappableOption, RequiredOption, and DeprecatedOption
-        classes.  This class is used within command handlers and should
-        not need to be subclassed unless extremely complex behavior is
-        required.  The map option is needed if this object will have any
-        MappableOption instances.  lineno is used in error reporting.
-
-class MappableOption:
-    def __init__ ():
-        Creates a new Option type that supports a "map" action.  A map
-        action on a given option stores into the destination the value
-        given by:
-
-                KSOptionParser.map[key]
-
-        where key is the option with leading dashes stripped off.
-
-        This also adds a "map_extend" action.  A map_extend action on
-        a given set of options appends to the destination the value
-        given by:
-
-                KSOptionParser.map[key]
-
-        where key is the option with leading dashes stripped off.
-
-class RequiredOption:
-    def __init__ ():
-        Creates a new Option type that supports a "required" option
-        attribute.  Command options with required=1 must be provided or
-        an OptionError exception is raised.
+        of the KSOption class.  This class is used within command handlers
+        and should not need to be subclassed unless extremely complex
+        behavior is required.  The map option is needed if this object will
+        have any map or map_extend actions.  lineno is used in error
+        reporting.
 
 class Script:
     def __init__ (script, interp="/bin/sh", inChroot=False, logfile=None,
