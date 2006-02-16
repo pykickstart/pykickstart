@@ -821,10 +821,11 @@ class KickstartHandlers:
 # handling any commands.
 class KickstartParser:
     def __init__ (self, ksdata, kshandlers, followIncludes=True,
-                  errorsAreFatal=True):
+                  errorsAreFatal=True, missingIncludeIsFatal=True):
         self.handler = kshandlers
         self.ksdata = ksdata
         self.followIncludes = followIncludes
+        self.missingIncludeIsFatal = missingIncludeIsFatal
         self.state = STATE_COMMANDS
         self.script = None
         self.includeDepth = 0
@@ -968,7 +969,16 @@ class KickstartParser:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     self.includeDepth += 1
-                    self.readKickstart (args[1])
+
+                    try:
+                        self.readKickstart (args[1])
+                    except IOError:
+                        # Handle the include file being provided over the
+                        # network in a %pre script.  This case comes up in the
+                        # early parsing in anaconda.
+                        if self.missingIncludeIsFatal:
+                            raise
+
                     self.includeDepth -= 1
                     needLine = True
                     continue
