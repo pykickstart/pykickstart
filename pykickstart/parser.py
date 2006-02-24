@@ -403,7 +403,7 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
 
-        self.ksdata.ignoredisk = opts.ignoredisk
+        self.ksdata.ignoredisk = opts.drives
 
     def doInteractive(self, args):
         if len(args) > 0:

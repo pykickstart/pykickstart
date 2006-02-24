@@ -1,3 +1,8 @@
+2006-02-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser (KickstartHandlers.doIgnoreDisk):  Get ksdata
+	from the correct option parser variable (#182934).
+
 2006-02-17  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.
