@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.21
+Version: 0.22
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Fri Feb 24 2006 Chris Lumens <clumens@redhat.com> 0.22-1
+- Get ignoredisk working again (#182934).
+
 * Fri Feb 17 2006 Chris Lumens <clumens@redhat.com> 0.21-1
 - Provide an option to not traceback on missing include files (#181760).
 - Update programming documentation.
