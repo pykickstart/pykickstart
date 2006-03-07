@@ -1,8 +1,15 @@
+2006-03-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  Bump version.
+
+	* pykickstart/parser.py (KickstartHandlers.doZeroMbr):  Backwards
+	compatibility support for options to zerombr.
+
 2006-02-24  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.
 
-	* pykickstart/parser (KickstartHandlers.doIgnoreDisk):  Get ksdata
+	* pykickstart/parser.py (KickstartHandlers.doIgnoreDisk):  Get ksdata
 	from the correct option parser variable (#182934).
 
 2006-02-17  Chris Lumens  <clumens@redhat.com>

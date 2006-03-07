@@ -99,7 +99,7 @@ class KSOptionParser(OptionParser):
                 raise KickstartValueError, formatErrorMsg(self.lineno, "Option %s is required" % option)
             elif isinstance(option, Option) and option.deprecated and \
                  self.option_seen.has_key(option):
-                warnings.warn("Ignoring deprecated option on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
+                warnings.warn("Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
 
         return (values, args)
 
@@ -791,7 +791,7 @@ class KickstartHandlers:
 
     def doZeroMbr(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            warnings.warn("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options." % self.lineno, DeprecationWarning)
 
         self.ksdata.zerombr = True
 
