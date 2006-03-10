@@ -23,6 +23,11 @@ from optparse import *
 from constants import *
 from data import *
 
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
+
 STATE_END = 0
 STATE_COMMANDS = 1
 STATE_PACKAGES = 2
@@ -37,9 +42,9 @@ STATE_TRACEBACK = 6
 
 def formatErrorMsg(lineno, msg=""):
     if msg != "":
-        return "The following problem occurred on line %s of the kickstart file:\n\n%s\n" % (lineno, msg)
+        return _("The following problem occurred on line %s of the kickstart file:\n\n%s\n") % (lineno, msg)
     else:
-        return "There was a problem reading from line %s of the kickstart file" % lineno
+        return _("There was a problem reading from line %s of the kickstart file") % lineno
 
 class KickstartError(Exception):
     def __init__(self, val = ""):
@@ -96,10 +101,10 @@ class KSOptionParser(OptionParser):
         for option in self.option_list:
             if (isinstance(option, Option) and option.required and \
                not self.option_seen.has_key(option)):
-                raise KickstartValueError, formatErrorMsg(self.lineno, "Option %s is required" % option)
+                raise KickstartValueError, formatErrorMsg(self.lineno, _("Option %s is required") % option)
             elif isinstance(option, Option) and option.deprecated and \
                  self.option_seen.has_key(option):
-                warnings.warn("Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option." % (self.lineno, option), DeprecationWarning)
+                warnings.warn(_("Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % (self.lineno, option), DeprecationWarning)
 
         return (values, args)
 
@@ -131,7 +136,7 @@ class KSOption (Option):
 
     def _check_required(self):
         if self.required and not self.takes_value():
-            raise OptionError("Required flag set for option that doesn't take a value", self)
+            raise OptionError(_("Required flag set for option that doesn't take a value"), self)
 
     def _check_ksboolean(option, opt, value):
         if value.lower() in ("on", "yes", "true", "1"):
@@ -139,8 +144,7 @@ class KSOption (Option):
         elif value.lower() in ("off", "no", "false", "0"):
             return False
         else:
-            raise OptionValueError("option %s: invalid boolean "
-                                   "value: %r" % (opt, value))
+            raise OptionValueError(_("Option %s: invalid boolean value: %r") % (opt, value))
 
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
@@ -271,14 +275,14 @@ class KickstartHandlers:
             self.handlers[key] = None
 
     def deprecatedCommand(self, cmd):
-        warnings.warn("Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command." % (self.lineno, cmd), DeprecationWarning)
+        warnings.warn(_("Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % (self.lineno, cmd), DeprecationWarning)
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
 
     def doAutoPart(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "autopart")
 
         self.ksdata.autopart = True
 
@@ -407,19 +411,19 @@ class KickstartHandlers:
 
     def doInteractive(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "interactive")
 
         self.ksdata.interactive = True
 
     def doKeyboard(self, args):
         if len(args) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command only takes one argument")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "keyboard")
 
         self.ksdata.keyboard = args[0]
 
     def doLang(self, args):
         if len(args) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command only takes one argument")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "lang")
 
         self.ksdata.lang = args[0]
 
@@ -456,7 +460,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for logvol")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
         lvd = KickstartLogVolData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -467,7 +471,7 @@ class KickstartHandlers:
 
     def doMediaCheck(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "mediacheck")
 
         self.ksdata.mediacheck = True
 
@@ -509,7 +513,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Unexpected arguments to monitor command: %s" % extra)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("monitor", extra))
 
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.monitor[key] = getattr(opts, key)
@@ -599,7 +603,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for partition")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
         pd = KickstartPartData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -661,7 +665,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Mount point required for raid")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
         rd = KickstartRaidData()
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
@@ -680,7 +684,7 @@ class KickstartHandlers:
         self.ksdata.rootpw["isCrypted"] = opts.isCrypted
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="A single argument is expected for rootpw")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
 
         self.ksdata.rootpw["password"] = extra[0]
 
@@ -698,7 +702,7 @@ class KickstartHandlers:
 
     def doSkipX(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "skipx")
 
         self.ksdata.skipx = True
 
@@ -710,13 +714,13 @@ class KickstartHandlers:
         self.ksdata.timezone["isUtc"] = opts.isUtc
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="A single argument is expected for timezone")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
 
         self.ksdata.timezone["timezone"] = extra[0]
 
     def doUpgrade(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Command does not take any arguments")
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "upgrade")
 
         self.ksdata.upgrade = True
 
@@ -784,14 +788,14 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Unexpected arguments to xconfig command: %s" % extra)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s" % ("xconfig", extra)))
 
         for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
             self.ksdata.xconfig[key] = getattr(opts, key)
 
     def doZeroMbr(self, args):
         if len(args) > 0:
-            warnings.warn("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options." % self.lineno, DeprecationWarning)
+            warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, DeprecationWarning)
 
         self.ksdata.zerombr = True
 

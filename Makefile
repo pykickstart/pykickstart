@@ -9,12 +9,15 @@ PREFIX=/usr
 default: all
 
 all:
+	$(MAKE) -C po
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc
+	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
 install: all
+	$(MAKE) -C po install
 	python setup.py install --root=$(DESTDIR)
 
 tag:

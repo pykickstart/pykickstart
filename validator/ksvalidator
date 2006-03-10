@@ -19,12 +19,17 @@ import warnings
 from pykickstart.data import *
 from pykickstart.parser import *
 
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
+
 op = OptionParser(usage="usage: %prog [options] ksfile")
 op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
-              default=False, help="halt after the first error or warning")
+              default=False, help=_("halt after the first error or warning"))
 op.add_option("-i", "--followincludes", dest="followincludes",
               action="store_true", default=False,
-              help="parse include files when %include is seen")
+              help=_("parse include files when %include is seen"))
 
 (opts, extra) = op.parse_args(sys.argv[1:])
 
@@ -46,16 +51,16 @@ warnings.filterwarnings("error")
 try:
     ksparser.readKickstart(f)
 except DeprecationWarning, msg:
-    print "File uses a deprecated option or command.\n%s" % msg
+    print _("File uses a deprecated option or command.\n%s") % msg
     os._exit(1)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
     os._exit(1)
 except KickstartError:
-    print "General kickstart error in input file"
+    print _("General kickstart error in input file")
     os._exit(1)
 except Exception, e:
-    print "General error in input file:  %s" % e
+    print _("General error in input file:  %s") % e
     os._exit(1)
 
 os._exit(0)
