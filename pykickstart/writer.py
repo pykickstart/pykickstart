@@ -481,7 +481,7 @@ class KickstartWriter:
         if self.ksdata.upgrade or self.ksdata.skipx:
             return
 
-        retval = "# X Window System configuration information\nxconfig"
+        retval = ""
 
         if self.ksdata.xconfig["driver"] != "":
             retval = retval + " --driver=%s" % self.ksdata.xconfig["driver"]
@@ -496,8 +496,8 @@ class KickstartWriter:
         if self.ksdata.xconfig["videoRam"] != "":
             retval = retval + " --videoram=%s" % self.ksdata.xconfig["videoRam"]
 
-        if retval != "xconfig":
-            return retval
+        if retval != "":
+            return "# X Window System configuration information\nxconfig %s" % retval
 
     def doZeroMbr(self):
         if self.ksdata.zerombr:

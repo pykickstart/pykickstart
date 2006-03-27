@@ -1,3 +1,8 @@
+2006-03-27  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/writer.py (KickstartWriter.doXConfig):  Don't write out
+	a blank xconfig line.
+
 2006-03-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/writer.py (KickstartWriter.__init__):  Reorder output
