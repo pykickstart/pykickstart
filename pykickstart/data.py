@@ -36,6 +36,7 @@ class KickstartData:
         self.interactive = False
         self.keyboard = ""
         self.lang = ""
+        self.logging = {"host": "", "level": "info", "port": ""}
         self.mediacheck = False
         self.method = {"method": ""}
         self.monitor = {"hsync": "", "monitor": "", "probe": True, "vsync": ""}

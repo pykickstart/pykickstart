@@ -2,6 +2,17 @@
 
 	* pykickstart.spec, setup.py:  Bump version.
 
+	* pykickstart/data.py (KickstartData.__init__):  Add support for the
+	logging command.
+	* pykickstart/writer.py (KickstartWriter.doLogging):  Likewise.
+	(KickstartWriter.doRepo):  Stub out funtion for the future.
+	* pykickstart/parser.py (KickstartHandlers.doLogging):  Likewise.
+	(KickstartHandlers.doRepo):  Stub out function for the future.
+
+2006-03-27  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/writer.py (KickstartWriter.doXConfig):  Don't write out
 	a blank xconfig line.
 

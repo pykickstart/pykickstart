@@ -23,14 +23,14 @@ class KickstartWriter:
                          self.doAuthconfig, self.doDmRaid, self.doAutoPart,
                          self.doAutoStep, self.doBootloader, self.doZeroMbr,
                          self.doClearPart, self.doDevice, self.doDeviceProbe,
-                         self.doDisplayMode, self.doDriverDisk,
-                         self.doFirewall, self.doFirstboot, self.doIgnoreDisk,
+                         self.doDisplayMode, self.doDriverDisk, self.doFirewall,
+                         self.doFirstboot, self.doIgnoreDisk,
                          self.doInteractive, self.doKeyboard, self.doLang,
-                         self.doMediaCheck, self.doMethod, self.doNetwork,
-                         self.doReboot, self.doRootPw, self.doSELinux,
-                         self.doSkipX, self.doTimezone, self.doUpgrade,
-                         self.doVnc, self.doXConfig, self.doMonitor,
-                         self.doZFCP,
+                         self.doLogging, self.doMediaCheck, self.doMethod,
+                         self.doNetwork, self.doReboot, self.doRepo,
+                         self.doRootPw, self.doSELinux, self.doSkipX,
+                         self.doTimezone, self.doUpgrade, self.doVnc,
+                         self.doXConfig, self.doMonitor, self.doZFCP,
 
                          self.doPartition, self.doLogicalVolume,
                          self.doVolumeGroup, self.doRaid,
@@ -210,6 +210,17 @@ class KickstartWriter:
         if self.ksdata.lang != "":
             return "# System language\nlang %s" % self.ksdata.lang
 
+    def doLogging(self):
+        retval = "logging %s" % self.ksdata.logging["level"]
+
+        if self.ksdata.logging["host"] != "":
+            retval = retval + " --host=%s" % self.ksdata.logging["host"]
+
+            if self.ksdata.logging["port"] != "":
+                retval = retval + " --port=%s" % self.ksdata.logging["port"]
+
+        return retval
+
     def doLogicalVolume(self):
         if self.ksdata.upgrade:
             return
@@ -373,6 +384,9 @@ class KickstartWriter:
             retval = retval + " --eject"
 
         return "%s\n" % retval
+
+    def doRepo(self):
+        pass
 
     def doRaid(self):
         if self.ksdata.upgrade:

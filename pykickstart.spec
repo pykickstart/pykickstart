@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.24
+Version: 0.25
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Mon Mar 27 2006 Chris Lumens <clumens@redhat.com> 0.25-1
+- Add support for the logging command.
+
 * Mon Mar 27 2006 Chris Lumens <clumens@redhat.com> 0.24-1 
 - Don't write out a blank xconfig line.
 - Reorder output handlers to group like commands together.

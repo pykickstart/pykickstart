@@ -244,6 +244,7 @@ class KickstartHandlers:
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
                      "logvol"       : self.doLogicalVolume,
+                     "logging"      : self.doLogging,
                      "mediacheck"   : self.doMediaCheck,
                      "monitor"      : self.doMonitor,
                      "mouse"        : self.doMouse,
@@ -255,6 +256,7 @@ class KickstartHandlers:
                      "poweroff"     : self.doReboot,
                      "raid"         : self.doRaid,
                      "reboot"       : self.doReboot,
+                     "repo"         : self.doRepo,
                      "rootpw"       : self.doRootPw,
                      "selinux"      : self.doSELinux,
                      "shutdown"     : self.doReboot,
@@ -469,6 +471,18 @@ class KickstartHandlers:
         lvd.mountpoint = extra[0]
         self.ksdata.lvList.append(lvd)
 
+    def doLogging(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--host")
+        op.add_option("--level", type="choice",
+                      choices=["debug", "info", "warning", "error", "critical"])
+        op.add_option("--port")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            self.ksdata.logging[key] = getattr(opts, key)
+
     def doMediaCheck(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "mediacheck")
@@ -624,6 +638,9 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         self.ksdata.reboot["eject"] = opts.eject
+
+    def doRepo(self, args):
+        pass
 
     def doRaid(self, args):
         def raid_cb (option, opt_str, value, parser):
