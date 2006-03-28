@@ -1,0 +1,130 @@
+# translation of hi.po to Hindi
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Rajesh Ranjan <rranjan@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: hi\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"PO-Revision-Date: 2006-03-28 16:19+0530\n"
+"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+
+#: ../pykickstart/parser.py:45
+#, python-format
+msgid ""
+"The following problem occurred on line %s of the kickstart file:\n"
+"\n"
+"%s\n"
+msgstr ""
+"किकस्टार्ट फाइल %s के पंक्ति पर समस्या आयी:\n"
+"\n"
+"%s\n"
+
+#: ../pykickstart/parser.py:47
+#, python-format
+msgid "There was a problem reading from line %s of the kickstart file"
+msgstr "किकस्टार्ट फाइल के %s पंक्ति से पढ़ने में समस्या था"
+
+#: ../pykickstart/parser.py:104
+#, python-format
+msgid "Option %s is required"
+msgstr "%s विकल्प जरूरी है"
+
+#: ../pykickstart/parser.py:107
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %s:  The %s option has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this option."
+msgstr "%s पंक्ति पर पदावनत विकल्प अनदेखा किया:  %s विकल्प पदावनत किया गया है और अब कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है, जो किकस्टार्ट से गंभीर परिणाम लायेगा.  यह विकल्प हटाने के लिये अपना किकस्टार्ट फाइल बदलें."
+
+#: ../pykickstart/parser.py:139
+msgid "Required flag set for option that doesn't take a value"
+msgstr "विकल्प के लिये फ्लैग सेट जरूरी जो कि एक मान नहीं रखता है"
+
+#: ../pykickstart/parser.py:147
+#, python-format
+msgid "Option %s: invalid boolean value: %r"
+msgstr "विकल्प %s: अवैध बुलियन मान: %r"
+
+#: ../pykickstart/parser.py:278
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %s:  The %s command has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this command."
+msgstr "%s पंक्ति पर पदावनत कमांड अनदेखा कर रहा है:  %s कमांड पदावनत किया जा रहा है और अब कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है जो कि किकस्टार्ट से गंभीर त्रुटि लायेगा.  कृपया यह कमांड हटाने के लिये अपना किकस्टार्ट रूपांतरित करें."
+
+#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
+#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
+#: ../pykickstart/parser.py:723
+#, python-format
+msgid "Command %s does not take any arguments"
+msgstr "%s कमांड किसी तर्क को नहीं लेता है"
+
+#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#, python-format
+msgid "Command %s only takes one argument"
+msgstr "%s कमांड सिर्फ एक तर्क लेता है"
+
+#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
+#: ../pykickstart/parser.py:668
+#, python-format
+msgid "Mount point required for %s"
+msgstr "%s के लिये आरोह बिंदु जरूरी"
+
+#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#, python-format
+msgid "Unexpected arguments to %s command: %s"
+msgstr "%s कमांड में अप्रत्याशित तर्क: %s"
+
+#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr "%s कमांड के लिये एकल तर्क प्रत्याशित है"
+
+#: ../pykickstart/parser.py:798
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr "%s पंक्ति पर पदावनत विकल्प अनदेखा कर रहा है:  zerombr कमांड अब किसी विकल्प को नहीं लेता है.  भविष्य के रिलीज में, यह किकस्टार्ट से गंभीर परिणाम के रूप में परिमाम लायेगा.  किसी विकल्प को हटाने के लिये अपने किकस्टार्ट फाइल रूपांतरित करें."
+
+#: ../validator/ksvalidator:29
+msgid "halt after the first error or warning"
+msgstr "पहले त्रुटि या चेतावनी के बाद रोकें"
+
+#: ../validator/ksvalidator:32
+#, python-format
+msgid "parse include files when %include is seen"
+msgstr "जब %include देखा जाता है विश्लेषण फाइल शामिल करता है"
+
+#: ../validator/ksvalidator:54
+#, python-format
+msgid ""
+"File uses a deprecated option or command.\n"
+"%s"
+msgstr ""
+"फाइल एक पदावनत संस्करण या कमांड प्रयोग करता है.\n"
+"%s"
+
+#: ../validator/ksvalidator:60
+msgid "General kickstart error in input file"
+msgstr "इनपुट फाइल में सामान्य किकस्टार्ट त्रुटि"
+
+#: ../validator/ksvalidator:63
+#, python-format
+msgid "General error in input file:  %s"
+msgstr "इनपुट फाइल में सामान्य त्रुटि:  %s"
+
