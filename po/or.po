@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of or.po to Oriya
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Subhransu Behera <sbehera@redhat.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 11:19-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-03-29 11:23+0530\n"
+"Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
+"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +24,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+" କିକଷ୍ଟାର୍ଟ ଫାଇଲ ର %s ଲାଇନ ରେ ନିମ୍ନଲିଖିତ ତ୍ରୁଟି ମାନ ପରିଲିଖିତ ହେଲା:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "କିକଷ୍ଟାର୍ଟ ଫାଇଲ ର %s ଲାଇନ ରେ ପଢିବା ସମୟ ରେ ତ୍ରୁଟି"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "%s ପସନ୍ଦ ଟି ଆବଶ୍ଯକ"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +46,18 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"%s ଲାଇନ ରେ ଥିବା ଅଦରକାରି ପସନ୍ଦ କୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %s ପସନ୍ଦ ଟି ଅଦରକାରି ଅଟେ ଏବଂ ଏବେ ଏହାର କୌଣସି ପ୍ରଭାବ"
+"ନାହିଁ | ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି କରିପାରେ"
+"ଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ୍ଯ ଗ୍ରହଣ କରନ୍ତି ନାହିଁ ତାଙ୍କ ପାଇଁ ବିଶେଷ ସୂଚକ ସେଟ କରିବା ଆବଶ୍ଯକ"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "ପସନ୍ଦ %s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %r"
 
 #: ../pykickstart/parser.py:278
 #, python-format
@@ -60,34 +67,37 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"%s ଲାଇନ ରେ ଥିବା ଅଦରକାରି ପସନ୍ଦ କୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %s ନିର୍ଦ୍ଦେଶ ଟି ଅଦରକାରି ହୋଇ ଆସୁଅଛି"
+"ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି କରିପାରେ"
+"ଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
 #: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
 #: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
 #: ../pykickstart/parser.py:723
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "%s ନିର୍ଦ୍ଦେଶ ଟି କୌଣସି ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁନାହିଁ"
 
 #: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "କେବଳ %s ନିର୍ଦ୍ଦେଶ ଟି ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁଅଛି"
 
 #: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
 #: ../pykickstart/parser.py:668
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚକ ଆବଶ୍ଯକ"
 
 #: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
 #: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର ଆଶା କରାଯାଉ ଥିଲା"
 
 #: ../pykickstart/parser.py:798
 #, python-format
@@ -96,15 +106,18 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"%s ଲାଇନ ରେ ଥିବା ଅଦରକାରି ପସନ୍ଦ କୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: zerombr ନିର୍ଦ୍ଦେଶ ଟି ଏବେ କୌଣସି ପସନ୍ଦ କୁ ଗ୍ରହଣ କରୁନାହିଁ |"
+"ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ, ଏହା କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି କରିପାରେ"
+"ଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "ସର୍ବପ୍ରଥମ ତ୍ରୁଟି କିମ୍ବା ଚେତାବନୀ ପରେ କିଛି କ୍ଷଣ ବିରାମ ଦିଅ"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include ଦେଖାଗଲା ବେଳେ ଅନ୍ତର୍ବେଶିତ ଫାଇଲ ମାନଙ୍କ ବିଶ୍ଳେଷଣ କର"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -112,12 +125,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"ଫାଇଲ ଟି ଗୋଟିଏ ଅଦରକାରି ପସନ୍ଦ କିମ୍ବା ନିର୍ଦ୍ଦେଶ କୁ ବ୍ଯବହାର କରୁଅଛି \n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍ଟାର୍ଟ ତ୍ରୁଟି"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତ୍ରୁଟି:  %s"
+
