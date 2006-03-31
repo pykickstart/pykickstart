@@ -1,20 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Runa Bhattacharjee <runab@redhat.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 11:19-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-03-31 13:10+0530\n"
+"Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
+"Language-Team: Bangla (INDIA) <redhat-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +29,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"kickstart ফাইলের %s পংক্তির মধ্যে নিম্নলিখিত সমস্যা উত্‌পন্ন হয়েছে:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Kickstart ফাইলের %s পংক্তি থেকে পড়তে সমস্যা"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "%s অপশন উল্লেখ করা আবশ্যক"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -41,16 +50,16 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr ""
+msgstr "%s পংক্তির মধ্যে উল্লিখিত অবচিত অপশন অগ্রাহ্য করা হচ্ছে:  %s অপশনটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart ফাইলের মধ্যে এই অপশনটি মুছে ফেলুন।"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "কোনো মান গ্রহণ করতে অক্ষম অপশনের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "%s অপশন: বুলিয়ান মান বৈধ নয়: %r"
 
 #: ../pykickstart/parser.py:278
 #, python-format
@@ -59,35 +68,35 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr ""
+msgstr "%s পংক্তির মধ্যে উল্লিখিত অবচিত কমান্ড অগ্রাহ্য করা হচ্ছে:  %s কমান্ডটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart ফাইলের মধ্যে এই কমান্ডটি মুছে ফেলুন।"
 
 #: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
 #: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
 #: ../pykickstart/parser.py:723
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "%s কমান্ডের দ্বারা কোনো আর্গুমেন্ট গ্রহণ করা হয় না"
 
 #: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "%s কমান্ডের দ্বারা শুধুমাত্র একটি আর্গুমেন্ট গ্রহণ করা হয়"
 
 #: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
 #: ../pykickstart/parser.py:668
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s'র জন্য মাউন্ট-পয়েন্ট আবশ্যক"
 
 #: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %s"
 
 #: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "%s কমান্ডের জন্য শুধুমাত্র একটি আর্গুমেন্ট আবশ্যক"
 
 #: ../pykickstart/parser.py:798
 #, python-format
@@ -95,16 +104,16 @@ msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
+msgstr "%s পংক্তির মধ্যে উল্লিখিত অবচিত অপশন অগ্রাহ্য করা হচ্ছে:  zerombr কমান্ডের দ্বারা বর্তমানে কোনো অপশন গ্রহণ করা হয় না। ভবিষ্যতের কোনো রিলিজে এই সমস্যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart ফাইলের মধ্যে এই কমান্ডের জন্য উল্লিখিত কোনো ধরনের অপশন মুছে ফেলুন।"
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "প্রথম ত্রুটি অথবা সতর্কবার্তা উত্‌পন্ন হলে স্থগিত করা হবেে"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include প্রদর্শিত হলে include ফাইল পার্স করা হবে"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -112,12 +121,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"ফাইলের মধ্যে কোনো অবিচত অপশন অথবা কমান্ড প্রয়োগ করা হয়েছে।\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক্রান্ত সাধারণ সমস্যা"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
+
