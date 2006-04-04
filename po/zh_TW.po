@@ -1,0 +1,129 @@
+# translation of zh_TW.po to Chinese, Traditional
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Chester Cheng <ccheng@redhat.com>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: zh_TW\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"PO-Revision-Date: 2006-04-04 10:37+1000\n"
+"Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
+"Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+
+#: ../pykickstart/parser.py:45
+#, python-format
+msgid ""
+"The following problem occurred on line %s of the kickstart file:\n"
+"\n"
+"%s\n"
+msgstr ""
+"以下問題發生在 kickstart 檔案的第 %s 行：\n"
+"\n"
+"%s\n"
+
+#: ../pykickstart/parser.py:47
+#, python-format
+msgid "There was a problem reading from line %s of the kickstart file"
+msgstr "讀取 kickstart 檔案時，在第 %s 行發生問題"
+
+#: ../pykickstart/parser.py:104
+#, python-format
+msgid "Option %s is required"
+msgstr "選項 %s 是必需的"
+
+#: ../pykickstart/parser.py:107
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %s:  The %s option has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this option."
+msgstr "忽略第 %s 行中的過時選項：%s 選項已經淘汰，不再起任何作用。這選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+
+#: ../pykickstart/parser.py:139
+msgid "Required flag set for option that doesn't take a value"
+msgstr "不需要數值的選項所必須設定的旗標"
+
+#: ../pykickstart/parser.py:147
+#, python-format
+msgid "Option %s: invalid boolean value: %r"
+msgstr "選項 %s：不合規定的布林值：%r"
+
+#: ../pykickstart/parser.py:278
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %s:  The %s command has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this command."
+msgstr "忽略第 %s 行的過時指令：%s 已經淘汰，不再起任何作用。這指令可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+
+#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
+#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
+#: ../pykickstart/parser.py:723
+#, python-format
+msgid "Command %s does not take any arguments"
+msgstr "%s 指令並不帶有任何參數"
+
+#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#, python-format
+msgid "Command %s only takes one argument"
+msgstr "%s 指令只能帶一個指令"
+
+#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
+#: ../pykickstart/parser.py:668
+#, python-format
+msgid "Mount point required for %s"
+msgstr "%s 需要掛載點"
+
+#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#, python-format
+msgid "Unexpected arguments to %s command: %s"
+msgstr "%s 指令所無預期的參數：%s"
+
+#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr "%s 指令應該要有一個參數"
+
+#: ../pykickstart/parser.py:798
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr "忽略第 %s 行的過時指令：zerombe 指令不再起任何作用。這指令可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+
+#: ../validator/ksvalidator:29
+msgid "halt after the first error or warning"
+msgstr "在第一次錯誤或警告時中止執行"
+
+#: ../validator/ksvalidator:32
+#, python-format
+msgid "parse include files when %include is seen"
+msgstr "遇到 %include 時，解析引入檔（include file）"
+
+#: ../validator/ksvalidator:54
+#, python-format
+msgid ""
+"File uses a deprecated option or command.\n"
+"%s"
+msgstr ""
+"檔案使用了一個過時的選項或指令。\n"
+"%s"
+
+#: ../validator/ksvalidator:60
+msgid "General kickstart error in input file"
+msgstr "在輸入檔中發生一般 kickstart 錯誤"
+
+#: ../validator/ksvalidator:63
+#, python-format
+msgid "General error in input file:  %s"
+msgstr "輸入檔中發生一般錯誤：%s"
+
