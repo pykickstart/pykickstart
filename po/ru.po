@@ -1,20 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of ru.po to Russian
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Andrew Martynov <andrewm@inventa.ru>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 11:19-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-04-05 17:27+0400\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +23,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Обнаружена следующая проблема в строке %s файла kickstart:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Ошибка при чтении строки %s kickstart файла"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Параметр %s является обязательным"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +45,20 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"Устаревший параметр игнорируется в строке %s:  Параметр %s был объявлен "
+"устаревающим и более не оказывает влияния.  Он может быть удален в будущих "
+"выпусках, что приведет к фатальным ошибкам в kickstart`е.  Пожалуйста, "
+"измените ваш kickstart файл и удалите этот параметр."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
+"Для параметра, который не принимает значения, установлен флаг обязательности"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Параметр %s: недопустимое булевое значение: %r"
 
 #: ../pykickstart/parser.py:278
 #, python-format
@@ -60,34 +68,38 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Устаревший параметр игнорируется в строке %s:  Команда %s была объявлена "
+"устаревающей и более не оказывает влияния.  Она может быть удалена в будущих "
+"выпусках, что приведет к фатальным ошибкам в kickstart`е.  Пожалуйста, "
+"измените ваш kickstart файл и удалите эту команду."
 
 #: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
 #: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
 #: ../pykickstart/parser.py:723
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Команда %s не принимает ни каких аргументов"
 
 #: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Команда %s принимает только один аргумент"
 
 #: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
 #: ../pykickstart/parser.py:668
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Для %s требуется точка монтирования"
 
 #: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Неожиданные аргументы команды %s: %s"
 
 #: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Для команды %s ожидается один аргумент"
 
 #: ../pykickstart/parser.py:798
 #, python-format
@@ -96,15 +108,19 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Устаревший параметр игнорируется в строке %s:  Команда zerombr более не "
+"принимает параметров.  В будущих выпусках это приведет к фатальным ошибкам в "
+"kickstart`е.  Пожалуйта, измените ваш файл kickstart и удалите любые "
+"параметры."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "останов после первой ошибки или предупреждения"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "обработать включаемые файлы при обнаружении %include"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -112,12 +128,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"В файле используется устаревший параметр или команда.\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Общая ошибка kickstart во входном файле"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Общая ошибка во входном файле:  %s"
