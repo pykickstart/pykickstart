@@ -1,19 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# translation of pl.po to Polish
+# Piotr Drąg <raven@pmail.pl>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-03-10 11:19-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-04-04 23:26+0200\n"
+"Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
+"Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,16 +20,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Wystąpił następujący problem w wierszu %s pliku kickstart:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Wystąpił problem podczas odczytywania z wiersza %s pliku kickstart"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Opcja %s jest wymagana"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +42,19 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"Ignorowanie przestarzałej opcji w wierszu %s: opcja %s jest przestarzała i "
+"jej zmiana nie powoduje żadnych zmian. Może zostać usunięta z przyszłych "
+"wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj swój plik "
+"kickstart, aby usunąć tę opcję."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Wymagane ustawienie flagi dla opcji, która nie przyjmuje wartości"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Opcja %s: nieprawidłowa wartość zmiennej logicznej: %r"
 
 #: ../pykickstart/parser.py:278
 #, python-format
@@ -60,34 +64,38 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Ignorowanie przestarzałego polecenia w wierszu %s: polecenie %s jest "
+"przestarzałe i jego użycie nie powoduje żadnych zmian. Może zostać usunięty "
+"z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj swój "
+"plik kickstart, aby usunąć te polecenie."
 
 #: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
 #: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
 #: ../pykickstart/parser.py:723
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Polecenie %s nie przyjmuje żadnych argumentów"
 
 #: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Polecenie %s przyjmuje tylko jeden argument"
 
 #: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
 #: ../pykickstart/parser.py:668
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Wymagany jest punk montowania dla %s"
 
 #: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Nieoczekiwane argumenty dla polecenia %s: %s"
 
 #: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Pojedynczy argument jest oczekiwany dla polecenia %s"
 
 #: ../pykickstart/parser.py:798
 #, python-format
@@ -96,15 +104,18 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Ignorowanie przestarzałej opcji w wierszu %s: polecenie zerombr nie "
+"przyjmuje już żadnych opcji. W przyszłych wydaniach spowoduje to krytyczny "
+"błąd kickstartu. Zmodyfikuj swój plik kickstart, aby usunąć wszystkie opcje."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "wyłącz po pierwszym błędzie lub ostrzeżeniu"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "zanalizuj pliki nagłówków, gdy zobaczysz %include"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -112,12 +123,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Plik używa przestarzałej opcji lub polecenia.\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Ogólny błąd kickstart w pliku wejściowym"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Ogólny błąd kickstart w pliku wejściowy  %s"
