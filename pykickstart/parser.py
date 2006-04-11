@@ -866,14 +866,14 @@ class KickstartParser:
         self.ksdata.scripts.append(s)
 
     def addPackages (self, line):
-        if line[0] == '@':
-            line = line[1:]
-            self.ksdata.groupList.append(line.lstrip())
-        elif line[0] == '-':
-            line = line[1:]
-            self.ksdata.excludedList.append(line.lstrip())
+        stripped = line.strip()
+
+        if stripped[0] == '@':
+            self.ksdata.groupList.append(stripped[1:].lstrip())
+        elif stripped[0] == '-':
+            self.ksdata.excludedList.append(stripped[1:].lstrip())
         else:
-            self.ksdata.packageList.append(line.lstrip())
+            self.ksdata.packageList.append(stripped)
 
     def handleCommand (self, lineno, args):
         if not self.handler:
