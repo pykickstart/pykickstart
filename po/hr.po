@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-04-03 03:52+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Renato Pavicic <renato@translator-shop.org>\n"
@@ -41,8 +41,16 @@ msgstr "Potrebna je opcija %s"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Ignorirat će se zastarjela opcija u retku %s:  Opcija %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ove opcije."
+msgid ""
+"Ignoring deprecated option on line %s:  The %s option has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this option."
+msgstr ""
+"Ignorirat će se zastarjela opcija u retku %s:  Opcija %s zanemaruje se i "
+"nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi "
+"moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu "
+"kickstar datoteku radi uklanjanja ove opcije."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -53,49 +61,67 @@ msgstr "Zahtjevani komplet zastavica za opciju koja ne prihvaća vrijednosti"
 msgid "Option %s: invalid boolean value: %r"
 msgstr "Opcija %s: nepravilna Booleova vrijednost: %r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
-msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Ignorirat će se zastarjela naredba u retku %s:  Naredba %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ove naredbe."
+msgid ""
+"Ignoring deprecated command on line %s:  The %s command has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this command."
+msgstr ""
+"Ignorirat će se zastarjela naredba u retku %s:  Naredba %s zanemaruje se i "
+"nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi "
+"moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu "
+"kickstar datoteku radi uklanjanja ove naredbe."
 
-#: ../pykickstart/parser.py:285
-#: ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474
-#: ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Naredba %s ne prihvaća ikakve vrijednosti"
 
-#: ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Naredba %s prihvaća samo jedan argument"
 
-#: ../pykickstart/parser.py:463
-#: ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Potrebna je točka pristupa za %s"
 
-#: ../pykickstart/parser.py:516
-#: ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "NEočekivani argumenti za naredbu %s : %s"
 
-#: ../pykickstart/parser.py:687
-#: ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Za naredbu %s očekuje se samo jedan srgument"
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Ignorirat će se zastarjela opcija u retku %s:  Naredba 'zerombr' više ne prihvaća ikakve opcije.  U budućim verzijama ovo bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ikakvih opcija."
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr ""
+"Ignorirat će se zastarjela opcija u retku %s:  Naredba 'zerombr' više ne "
+"prihvaća ikakve opcije.  U budućim verzijama ovo bi moglo rezultirati "
+"ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi "
+"uklanjanja ikakvih opcija."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -123,4 +149,3 @@ msgstr "Opća kickstart pogreška unutar ulazne datoteke"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Opća pogreška unutar ulazne datoteke:  %s"
-

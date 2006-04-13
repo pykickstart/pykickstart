@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-03-30 10:28+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -44,10 +44,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
-"%s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %s 옵션은 삭제되었으며 더이상 "
-"아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오는 이 옵션은 "
-"다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 제거하기 위해 킥스타트 파일을 "
-"수정해 주시기 바랍니다."
+"%s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %s 옵션은 삭제되었으며 더이"
+"상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오"
+"는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 제거하기 위해 "
+"킥스타트 파일을 수정해 주시기 바랍니다."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -58,7 +58,7 @@ msgstr "값을 가지지 않는 옵션을 위해 사용되는 플래그 모음�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "옵션 %s: 유효하지 않은 부울(boolean) 값: %r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -66,49 +66,59 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
-"%s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %s 명령은 삭제되었으며 더이상 "
-"아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오는 이 명령은 "
-"다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 제거하기 위해 킥스타트 파일을 "
-"수정해 주시기 바랍니다."
+"%s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %s 명령은 삭제되었으며 더이"
+"상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오"
+"는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 제거하기 위해 "
+"킥스타트 파일을 수정해 주시기 바랍니다."
 
-#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "명령 %s는 어떤 인자(argument)도 가지지 않습니다"
 
-#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "명령 %s는 오직 하나의 인자(argument)만을 갖습니다"
 
-#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s을 위한 마운트 지점 요구됩니다"
 
-#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s 명령에 대한 예상치 않은 인자(argument): %s"
 
-#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s 명령에 대해 하나의 인자(argument)가 요구됩니다."
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
-"%s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  zerombr 명령은 더이상 아무런 효과를 "
-"가지고 있지 않습니다.  다음의 배포판에서, 이것은 킥스타트에서 치명적인 오류를 "
-"가져올 것입니다. 옵션을 제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
+"%s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  zerombr 명령은 더이상 아무"
+"런 효과를 가지고 있지 않습니다.  다음의 배포판에서, 이것은 킥스타트에서 치명"
+"적인 오류를 가져올 것입니다. 옵션을 제거하기 위해 킥스타트 파일을 수정해 주시"
+"기 바랍니다."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -136,4 +146,3 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
-

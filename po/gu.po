@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-03-28 15:22+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -45,7 +46,10 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr "લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %s વિકલ્પ કાઢી નાંખવામાં આવેલ છે અને તેની લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે તમારી કિકસ્ટાર્ટ સુધારો."
+msgstr ""
+"લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %s વિકલ્પ કાઢી નાંખવામાં આવેલ છે અને તેની "
+"લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી "
+"ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે તમારી કિકસ્ટાર્ટ સુધારો."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -56,50 +60,66 @@ msgstr "વિકલ્પ માટે સુયોજિત જરૂરી �
 msgid "Option %s: invalid boolean value: %r"
 msgstr "વિકલ્પ %s: અયોગ્ય બુલિયન કિંમત: %r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr "લીટી %s પર કાઢી નાંખવામાં આવેલ આદેશ અવગણી રહ્યા છીએ:  %s આદેશ કાઢી નાંખવામાં આવેલ છે અને લાંબા સમય સુધી અસર આપશે નહિં.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી કિકસ્ટાર્ટમાંથી દૂર કરીને તેને સુધારો."
+msgstr ""
+"લીટી %s પર કાઢી નાંખવામાં આવેલ આદેશ અવગણી રહ્યા છીએ:  %s આદેશ કાઢી નાંખવામાં આવેલ છે "
+"અને લાંબા સમય સુધી અસર આપશે નહિં.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે "
+"કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી કિકસ્ટાર્ટમાંથી દૂર "
+"કરીને તેને સુધારો."
 
-#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "આદેશ %s કોઈપણ દલીલો લેતો નથી"
 
-#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "આદેશ %s માત્ર એક દલીલ જ લે છે"
 
-#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s માટે માઉન્ટ પોઈન્ટ જરૂરી છે"
 
-#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "આદેશ %s ને અનિચ્છનીય દલીલો: %s"
 
-#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s આદેશ માટે એક દલીલ ઈચ્છિત છે"
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  zerombr આદેશ લાંબા સમય સુધી કોઈ વિકલ્પો લેતો નથી.  ભવષ્યના પ્રકાસનોમાં, આ કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  કોઈપણ વિકલ્પો દૂર કરવા માટે મહેરબાની કરીને તમારી કિકસ્ટાર્ટ ફાઈલ સુધારો."
+msgstr ""
+"લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  zerombr આદેશ લાંબા સમય સુધી કોઈ "
+"વિકલ્પો લેતો નથી.  ભવષ્યના પ્રકાસનોમાં, આ કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  કોઈપણ "
+"વિકલ્પો દૂર કરવા માટે મહેરબાની કરીને તમારી કિકસ્ટાર્ટ ફાઈલ સુધારો."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -127,4 +147,3 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
-

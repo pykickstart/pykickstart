@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-04-05 17:27+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
@@ -60,7 +60,7 @@ msgstr ""
 msgid "Option %s: invalid boolean value: %r"
 msgstr "Параметр %s: недопустимое булевое значение: %r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -73,35 +73,44 @@ msgstr ""
 "выпусках, что приведет к фатальным ошибкам в kickstart`е.  Пожалуйста, "
 "измените ваш kickstart файл и удалите эту команду."
 
-#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Команда %s не принимает ни каких аргументов"
 
-#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Команда %s принимает только один аргумент"
 
-#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Для %s требуется точка монтирования"
 
-#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "Неожиданные аргументы команды %s: %s"
 
-#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Для команды %s ожидается один аргумент"
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "

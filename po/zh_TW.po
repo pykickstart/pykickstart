@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-04-04 10:37+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -44,7 +44,10 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr "忽略第 %s 行中的過時選項：%s 選項已經淘汰，不再起任何作用。這選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+msgstr ""
+"忽略第 %s 行中的過時選項：%s 選項已經淘汰，不再起任何作用。這選項可能會自未來"
+"的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔"
+"案，移除這選項。"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -55,50 +58,65 @@ msgstr "不需要數值的選項所必須設定的旗標"
 msgid "Option %s: invalid boolean value: %r"
 msgstr "選項 %s：不合規定的布林值：%r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr "忽略第 %s 行的過時指令：%s 已經淘汰，不再起任何作用。這指令可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+msgstr ""
+"忽略第 %s 行的過時指令：%s 已經淘汰，不再起任何作用。這指令可能會自未來的版本"
+"中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移"
+"除這選項。"
 
-#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s 指令並不帶有任何參數"
 
-#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s 指令只能帶一個指令"
 
-#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s 需要掛載點"
 
-#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s 指令所無預期的參數：%s"
 
-#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s 指令應該要有一個參數"
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "忽略第 %s 行的過時指令：zerombe 指令不再起任何作用。這指令可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
+msgstr ""
+"忽略第 %s 行的過時指令：zerombe 指令不再起任何作用。這指令可能會自未來的版本"
+"中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移"
+"除這選項。"
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -126,4 +144,3 @@ msgstr "在輸入檔中發生一般 kickstart 錯誤"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"
-

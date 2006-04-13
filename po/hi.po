@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 11:19-0500\n"
+"POT-Creation-Date: 2006-04-13 12:02-0400\n"
 "PO-Revision-Date: 2006-03-28 16:19+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -45,7 +46,10 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr "%s पंक्ति पर पदावनत विकल्प अनदेखा किया:  %s विकल्प पदावनत किया गया है और अब कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है, जो किकस्टार्ट से गंभीर परिणाम लायेगा.  यह विकल्प हटाने के लिये अपना किकस्टार्ट फाइल बदलें."
+msgstr ""
+"%s पंक्ति पर पदावनत विकल्प अनदेखा किया:  %s विकल्प पदावनत किया गया है और अब कोई "
+"प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है, जो किकस्टार्ट से गंभीर "
+"परिणाम लायेगा.  यह विकल्प हटाने के लिये अपना किकस्टार्ट फाइल बदलें."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -56,50 +60,65 @@ msgstr "विकल्प के लिये फ्लैग सेट जर�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "विकल्प %s: अवैध बुलियन मान: %r"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:280
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr "%s पंक्ति पर पदावनत कमांड अनदेखा कर रहा है:  %s कमांड पदावनत किया जा रहा है और अब कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है जो कि किकस्टार्ट से गंभीर त्रुटि लायेगा.  कृपया यह कमांड हटाने के लिये अपना किकस्टार्ट रूपांतरित करें."
+msgstr ""
+"%s पंक्ति पर पदावनत कमांड अनदेखा कर रहा है:  %s कमांड पदावनत किया जा रहा है और अब "
+"कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है जो कि किकस्टार्ट से "
+"गंभीर त्रुटि लायेगा.  कृपया यह कमांड हटाने के लिये अपना किकस्टार्ट रूपांतरित करें."
 
-#: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
-#: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
-#: ../pykickstart/parser.py:723
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s कमांड किसी तर्क को नहीं लेता है"
 
-#: ../pykickstart/parser.py:420 ../pykickstart/parser.py:426
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s कमांड सिर्फ एक तर्क लेता है"
 
-#: ../pykickstart/parser.py:463 ../pykickstart/parser.py:606
-#: ../pykickstart/parser.py:668
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s के लिये आरोह बिंदु जरूरी"
 
-#: ../pykickstart/parser.py:516 ../pykickstart/parser.py:791
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s कमांड में अप्रत्याशित तर्क: %s"
 
-#: ../pykickstart/parser.py:687 ../pykickstart/parser.py:717
+#: ../pykickstart/parser.py:653
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:656
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s कमांड के लिये एकल तर्क प्रत्याशित है"
 
-#: ../pykickstart/parser.py:798
+#: ../pykickstart/parser.py:834
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "%s पंक्ति पर पदावनत विकल्प अनदेखा कर रहा है:  zerombr कमांड अब किसी विकल्प को नहीं लेता है.  भविष्य के रिलीज में, यह किकस्टार्ट से गंभीर परिणाम के रूप में परिमाम लायेगा.  किसी विकल्प को हटाने के लिये अपने किकस्टार्ट फाइल रूपांतरित करें."
+msgstr ""
+"%s पंक्ति पर पदावनत विकल्प अनदेखा कर रहा है:  zerombr कमांड अब किसी विकल्प को नहीं "
+"लेता है.  भविष्य के रिलीज में, यह किकस्टार्ट से गंभीर परिणाम के रूप में परिमाम लायेगा.  "
+"किसी विकल्प को हटाने के लिये अपने किकस्टार्ट फाइल रूपांतरित करें."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -127,4 +146,3 @@ msgstr "इनपुट फाइल में सामान्य किक�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल में सामान्य त्रुटि:  %s"
-
