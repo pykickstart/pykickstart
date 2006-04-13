@@ -1,6 +1,7 @@
 2006-04-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/data.py (KickstartRepoData):  Added.
+	(KickstartRaidData):  Initialize members to a list instead of string.
 	* pykickstart/parser.py (KickstartHandlers.doRepo):  Add options.
 	* pykickstart/writer.py (KickstartWriter.doRepo):  Likewise.
 	(KickstartWriter.doPackages):  Reorder package output.  Output header

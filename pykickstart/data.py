@@ -136,7 +136,7 @@ class KickstartRaidData:
         self.spares = 0
         self.preexist = False
         self.mountpoint = ""
-        self.members = ""
+        self.members = []
         self.bytesPerInode = 4096
 
 class KickstartRepoData:
