@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.25
+Version: 0.26
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -36,6 +36,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/bin/ksvalidator
 
 %changelog
+* Thu Apr 13 2006 Chris Lumens <clumens@redhat.com> 0.26-1
+- Ignore spaces before group names (#188095).
+- Added some translations.
+- Add options for repo command.
+- Reorder %packages section output.
+- Output %packages header options.
+- Initialize RAID and volume group members to empty lists.
+
 * Mon Mar 27 2006 Chris Lumens <clumens@redhat.com> 0.25-1
 - Add support for the logging command.
 
