@@ -151,7 +151,7 @@ class KickstartVolGroupData:
         self.pesize = 32768
         self.preexist = False
         self.vgname = ""
-        self.physvols = ""
+        self.physvols = []
 
 class KickstartDmRaidData:
     def __init__(self):
