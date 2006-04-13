@@ -3,6 +3,8 @@
 	* pykickstart/data.py (KickstartRepoData):  Added.
 	* pykickstart/parser.py (KickstartHandlers.doRepo):  Add options.
 	* pykickstart/writer.py (KickstartWriter.doRepo):  Likewise.
+	(KickstartWriter.doPackages):  Reorder package output.  Output header
+	options.
 
 2006-04-11  Chris Lumens  <clumens@redhat.com>
 
