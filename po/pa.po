@@ -1,6 +1,7 @@
 # translation of pa.po to Punjabi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Amanpreet Singh Alam <aalam@redhat.com>, 2006
 # Jaswinder Singh Phulewala <jsingh@redhat.com>, 2006.
 #
 msgid ""
@@ -45,7 +46,9 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਨੂੰ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਰੱਦ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲੀਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਚੋਣ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
+msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਨੂੰ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਰੱਦ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ "
+"ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ "
+"ਘਾਤਕ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਚੋਣ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -63,7 +66,9 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਰੱਦ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲੀਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
+msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਰੱਦ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ "
+"ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ "
+"ਘਾਤਕ ਗਲਤੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
 
 #: ../pykickstart/parser.py:285 ../pykickstart/parser.py:414
 #: ../pykickstart/parser.py:474 ../pykickstart/parser.py:705
@@ -99,7 +104,9 @@ msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: zerombr ਕਮਾਂਡ ਕੋਈ ਚੋਣ ਨਹੀਂ ਲਵੇਗੀ। ਆਉਣ ਵਾਲੇ ਰੀਲੀਜ਼ਾਂ ਵਿੱਚ, ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਵਿੱਚ ਘਾਤਕ ਗਲਤੀ ਹੋਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਕੋਈ ਚੋਣ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਵਿੱਚ ਸੋਧ ਕਰੋ।"
+msgstr "%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਰੱਦ ਕਰ ਰਿਹਾ ਹੈ: zerombr ਕਮਾਂਡ ਕੋਈ ਚੋਣ ਨਹੀਂ ਲਵੇਗੀ। ਆਉਣ "
+"ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚ, ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਵਿੱਚ ਘਾਤਕ ਗਲਤੀ ਹੋਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਕੋਈ ਚੋਣ "
+"ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਵਿੱਚ ਸੋਧ ਕਰੋ।"
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -116,7 +123,7 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
-"ਫਾਇਲ ਦੁਆਰਾ ਗਲਤ ਚੋਣ ਜਾਂ ਕਮਾਂਡ ਵਰਤੀ ਗਈ ਹੈ।\n"
+"ਫਾਇਲ ਵਲੋਂ ਗਲਤ ਚੋਣ ਜਾਂ ਕਮਾਂਡ ਵਰਤੀ ਗਈ ਹੈ।\n"
 "%s"
 
 #: ../validator/ksvalidator:60
