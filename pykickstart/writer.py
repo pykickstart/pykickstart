@@ -386,7 +386,17 @@ class KickstartWriter:
         return "%s\n" % retval
 
     def doRepo(self):
-        pass
+        retval = ""
+
+        for repo in self.ksdata.repoList:
+            if repo.baseurl:
+                urlopt = "--baseurl=%s" % repo.baseurl
+            elif repo.mirrorlist:
+                urlopt = "--mirrorlist=%s" % repo.mirrorlist
+
+            retval = retval + "repo --name=%s %s" % (repo["name"], urlopt)
+
+        return "%s\n" % retval
 
     def doRaid(self):
         if self.ksdata.upgrade:

@@ -60,6 +60,8 @@ class KickstartData:
         self.raidList = []
         self.vgList = []
 
+        self.repoList = []
+
         # Set by %package header.
         self.excludeDocs = False
         self.addBase = True
@@ -136,6 +138,12 @@ class KickstartRaidData:
         self.mountpoint = ""
         self.members = ""
         self.bytesPerInode = 4096
+
+class KickstartRepoData:
+    def __init__ (self):
+        self.baseurl = ""
+        self.mirrorlist = ""
+        self.name = ""
 
 class KickstartVolGroupData:
     def __init__(self):

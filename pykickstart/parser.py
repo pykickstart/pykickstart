@@ -640,7 +640,26 @@ class KickstartHandlers:
         self.ksdata.reboot["eject"] = opts.eject
 
     def doRepo(self, args):
-        pass
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--name", dest="name", required=1)
+        op.add_option("--baseurl")
+        op.add_option("--mirrorlist")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        # This is lame, but I can't think of a better way to make sure only
+        # one of these two is specified.
+        if opts.baseurl and opts.mirrorlist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command."))
+
+        if not opts.baseurl and not opts.mirrorlist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
+
+        rd = KickstartRepoData()
+        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
+            setattr(rd, key, getattr(opts, key))
+
+        self.ksdata.repoList.append(rd)
 
     def doRaid(self, args):
         def raid_cb (option, opt_str, value, parser):
