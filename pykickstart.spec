@@ -24,7 +24,7 @@ make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-python setup.py install --root=${RPM_BUILD_ROOT}
+make DESTDIR=${RPM_BUILD_ROOT} install
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -34,9 +34,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc README ChangeLog COPYING docs/programmers-guide
 %{python_sitelib}/pykickstart
 /usr/bin/ksvalidator
+/usr/share/locale/*/*/*
 
 %changelog
-* Thu Apr 13 2006 Chris Lumens <clumens@redhat.com> 0.26-1
+* Mon Apr 17 2006 Chris Lumens <clumens@redhat.com> 0.26-1
 - Ignore spaces before group names (#188095).
 - Added some translations.
 - Add options for repo command.

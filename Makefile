@@ -17,8 +17,8 @@ clean:
 	python setup.py -q clean --all
 
 install: all
-	$(MAKE) -C po install
 	python setup.py install --root=$(DESTDIR)
+	$(MAKE) -C po install
 
 tag:
 	cvs tag -FR $(CVSTAG)
