@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: 2006-03-31 13:54+1000\n"
+"PO-Revision-Date: 2006-04-18 09:06+1000\n"
 "Last-Translator: Nadine Reissle <nreissle@redhat.com>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,13 +100,12 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "Unerwartete Argumente auf %s Befehl: %s"
 
 #: ../pykickstart/parser.py:653
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "Nur eine der --baseurl und --mirrorlist können für den repo Befehl ausgewählt werden."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Eine der --baseurl und --mirrorlist müssen für den repo Befehl ausgewählt werden."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
@@ -151,3 +150,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
