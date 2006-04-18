@@ -1,4 +1,5 @@
 # translation of ko.po to 
+# translation of ko.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
@@ -7,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: 2006-03-30 10:28+1000\n"
+"PO-Revision-Date: 2006-04-18 09:18+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,13 +96,12 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "%s 명령에 대한 예상치 않은 인자(argument): %s"
 
 #: ../pykickstart/parser.py:653
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "--baseurl 과 --mirrorlist 에서 하나만이 repo 명령을 위해 지정될 것입니다."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "--baseurl 과 --mirrorlist 에서 하나가 repo 명령을 위해 지정되어져야 합니다."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
@@ -146,3 +146,4 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
+
