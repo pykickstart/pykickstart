@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 
 #: ../pykickstart/parser.py:45
@@ -97,12 +98,14 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "આદેશ %s ને અનિચ્છનીય દલીલો: %s"
 
 #: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo આદેશ માટે માત્ર --baseurl અને --mirrorlist માંના સ્પષ્ટ થયેલ હોઈ શકે."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
+msgstr ""
+"repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
@@ -146,4 +149,3 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
-
