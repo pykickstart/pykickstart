@@ -103,12 +103,16 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "%s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %s"
 
 #: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা যাবে।"
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
+"যাবে।"
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
+msgstr ""
+"repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
@@ -153,4 +157,3 @@ msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
-
