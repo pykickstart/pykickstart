@@ -10,9 +10,9 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-CLEARPART_TYPE_LINUX = 1
-CLEARPART_TYPE_ALL = 2
-CLEARPART_TYPE_NONE = 3
+CLEARPART_TYPE_LINUX = 0
+CLEARPART_TYPE_ALL = 1
+CLEARPART_TYPE_NONE = 2
 
 DISPLAY_MODE_CMDLINE = 0
 DISPLAY_MODE_GRAPHICAL = 1
