@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: 2006-04-05 17:27+0400\n"
+"PO-Revision-Date: 2006-04-14 14:49+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -100,10 +100,14 @@ msgstr "Неожиданные аргументы команды %s: %s"
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Только один параметр --baseurl и --mirrorlist может быть передан команде "
+"repo."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
+"Один из параметров --baseurl или --mirrorlist должен быть передан команде "
+"repo."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
