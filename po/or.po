@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 
 #: ../pykickstart/parser.py:45
@@ -97,12 +98,17 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
 #: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ କରାଯିବା ଉଚିତ"
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ "
+"ଉଲ୍ଲେକ୍ଷିତ କରାଯିବା ଉଚିତ"
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ କରାଯିବା ଉଚିତ"
+msgstr ""
+"--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ "
+"କରାଯିବା ଉଚିତ"
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
@@ -146,4 +152,3 @@ msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତ୍ରୁଟି:  %s"
-
