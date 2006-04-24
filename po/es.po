@@ -22,14 +22,16 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
-"El siguiente problema ocurrió en la línea %s del archivo de respuestas (kickstart):\n"
+"El siguiente problema ocurrió en la línea %s del archivo de respuestas "
+"(kickstart):\n"
 "\n"
 "%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
+msgstr ""
+"Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
 
 #: ../pykickstart/parser.py:104
 #, python-format
@@ -38,8 +40,16 @@ msgstr "Se requiere la opción %s"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Se ignora opción obsoleta en línea %s: la opción %s ha sido descartada y ya no tiene efecto. Puede ser borrada de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine esta opción."
+msgid ""
+"Ignoring deprecated option on line %s:  The %s option has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this option."
+msgstr ""
+"Se ignora opción obsoleta en línea %s: la opción %s ha sido descartada y ya "
+"no tiene efecto. Puede ser borrada de versiones futuras, lo que resultará en "
+"un error fatal desde el archivo de respuestas (kickstart). Por favor, "
+"modifique su archivo de respuestas (kickstart) y elimine esta opción."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -52,55 +62,65 @@ msgstr "Opción %s: valor booleano inválido: %r"
 
 #: ../pykickstart/parser.py:280
 #, python-format
-msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Se ignora comando descartado en línea %s: El comando %s fue descartado y ya no produce efecto. Puede ser eliminado de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
+msgid ""
+"Ignoring deprecated command on line %s:  The %s command has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this command."
+msgstr ""
+"Se ignora comando descartado en línea %s: El comando %s fue descartado y ya "
+"no produce efecto. Puede ser eliminado de versiones futuras, lo que "
+"resultará en un error fatal desde el archivo de respuestas (kickstart). Por "
+"favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
 
-#: ../pykickstart/parser.py:287
-#: ../pykickstart/parser.py:416
-#: ../pykickstart/parser.py:488
-#: ../pykickstart/parser.py:741
+#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
 #: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "El comando %s no tiene argumentos"
 
-#: ../pykickstart/parser.py:422
-#: ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "El comando %s sólo tiene un argumento"
 
-#: ../pykickstart/parser.py:465
-#: ../pykickstart/parser.py:620
+#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
 #: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Se requiere un punto de montaje para %s"
 
-#: ../pykickstart/parser.py:530
-#: ../pykickstart/parser.py:827
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "Argumento inesperado para el comando %s: %s"
 
 #: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "Sólo un --baseurl y --mirrorlist se puede especificar al comando repo."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "Debe especificar o --baseurl, o bién --mirrorlist al comando repo."
 
-#: ../pykickstart/parser.py:723
-#: ../pykickstart/parser.py:753
+#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "El comando %s recibe un solo argumento"
 
 #: ../pykickstart/parser.py:834
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Se ignora opción obsoleta en línea %s: el comando zerombr ya no lleva opciones. En versiones futuras, esto puede resultar en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine cualquier opción."
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr ""
+"Se ignora opción obsoleta en línea %s: el comando zerombr ya no lleva "
+"opciones. En versiones futuras, esto puede resultar en un error fatal desde "
+"el archivo de respuestas (kickstart). Por favor, modifique su archivo de "
+"respuestas (kickstart) y elimine cualquier opción."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
@@ -128,4 +148,3 @@ msgstr "Error general en el archivo de respuestas (kickstart) de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Error general en el archivo de entrada: %s"
-
