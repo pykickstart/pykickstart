@@ -211,7 +211,7 @@ class KickstartWriter:
             return "# System language\nlang %s" % self.ksdata.lang
 
     def doLogging(self):
-        retval = "logging %s" % self.ksdata.logging["level"]
+        retval = "# Installation logging level\nlogging %s" % self.ksdata.logging["level"]
 
         if self.ksdata.logging["host"] != "":
             retval = retval + " --host=%s" % self.ksdata.logging["host"]
@@ -383,7 +383,7 @@ class KickstartWriter:
         if self.ksdata.reboot["eject"]:
             retval = retval + " --eject"
 
-        return "%s\n" % retval
+        return retval
 
     def doRepo(self):
         retval = ""
@@ -394,9 +394,9 @@ class KickstartWriter:
             elif repo.mirrorlist:
                 urlopt = "--mirrorlist=%s" % repo.mirrorlist
 
-            retval = retval + "repo --name=%s %s" % (repo["name"], urlopt)
+            retval = retval + "repo --name=%s %s\n" % (repo["name"], urlopt)
 
-        return "%s\n" % retval
+        return retval
 
     def doRaid(self):
         if self.ksdata.upgrade:

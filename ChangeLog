@@ -1,3 +1,7 @@
+2006-04-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/writer.py:  More output formatting fixes.
+
 2006-04-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/constants.py:  Start CLEARPART_ constants at 0.
