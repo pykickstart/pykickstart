@@ -435,7 +435,7 @@ class KickstartWriter:
             else:
                 crypted = ""
 
-            return "#Root password\nrootpw %s %s" % (crypted, self.ksdata.rootpw["password"])
+            return "#Root password\nrootpw %s %s\n" % (crypted, self.ksdata.rootpw["password"])
 
     def doSELinux(self):
         retval = "# SELinux configuration\n"
