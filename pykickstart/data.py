@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005, 2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -45,6 +45,7 @@ class KickstartData:
         self.reboot = {"action": KS_WAIT, "eject": False}
         self.rootpw = {"isCrypted": False, "password": ""}
         self.selinux = SELINUX_ENFORCING
+        self.services = {"disabled": [], "enabled": []}
         self.skipx = False
         self.timezone = {"isUtc": False, "timezone": ""}
         self.upgrade = False
@@ -61,6 +62,7 @@ class KickstartData:
         self.vgList = []
 
         self.repoList = []
+        self.userList = []
 
         # Set by %package header.
         self.excludeDocs = False
@@ -144,6 +146,16 @@ class KickstartRepoData:
         self.baseurl = ""
         self.mirrorlist = ""
         self.name = ""
+
+class KickstartUserData:
+    def __init__ (self):
+        self.groups = []
+        self.homedir = ""
+        self.isCrypted = False
+        self.name = ""
+        self.password = ""
+        self.shell = ""
+        self.uid = None
 
 class KickstartVolGroupData:
     def __init__(self):

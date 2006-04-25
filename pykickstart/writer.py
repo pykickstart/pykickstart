@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005, 2006 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -28,9 +28,10 @@ class KickstartWriter:
                          self.doInteractive, self.doKeyboard, self.doLang,
                          self.doLogging, self.doMediaCheck, self.doMethod,
                          self.doNetwork, self.doReboot, self.doRepo,
-                         self.doRootPw, self.doSELinux, self.doSkipX,
-                         self.doTimezone, self.doUpgrade, self.doVnc,
-                         self.doXConfig, self.doMonitor, self.doZFCP,
+                         self.doRootPw, self.doSELinux, self.doServices,
+                         self.doSkipX, self.doTimezone, self.doUpgrade,
+                         self.doUser, self.doVnc, self.doXConfig,
+                         self.doMonitor, self.doZFCP,
 
                          self.doPartition, self.doLogicalVolume,
                          self.doVolumeGroup, self.doRaid,
@@ -447,6 +448,17 @@ class KickstartWriter:
         elif self.ksdata.selinux == SELINUX_PERMISSIVE:
             return retval + "selinux --permissive"
 
+    def doServices(self):
+        retval = ""
+
+        if len(self.ksdata.services["disabled"]) > 0:
+            retval = retval + " --disabled=%s" % string.join(self.ksdata.services["disabled"], ",")
+        if len(self.ksdata.services["enabled"]) > 0:
+            retval = retval + " --enabled=%s" % string.join(self.ksdata.services["enabled"], ",")
+
+        if retval != "":
+            return "# System services\nservices %s\n" % retval
+
     def doSkipX(self):
         if self.ksdata.skipx and not self.ksdata.upgrade:
             return "# Do not configure the X Window System\nskipx"
@@ -465,6 +477,31 @@ class KickstartWriter:
             return "# Upgrade existing installation\nupgrade"
         else:
             return "# Install OS instead of upgrade\ninstall"
+
+    def doUser(self):
+        retval = ""
+
+        for user in self.ksdata.userList:
+            retval = retval + "user"
+
+            if len(user.groups) > 0:
+                retval = retval + " --groups=%s" % string.join(user.groups, ",")
+            if user.homedir:
+                retval = retval + " --homedir=%s" % user.homedir
+            if user.name:
+                retval = retval + " --name=%s" % user.name
+            if user.password:
+                retval = retval + " --password=%s" % user.password
+            if user.isCrypted:
+                retval = retval + " --isCrypted"
+            if user.shell:
+                retval = retval + " --shell=%s" % user.shell
+            if user.uid:
+                retval = retval + " --uid=%s" % user.uid
+
+            retval = retval + "\n"
+
+        return retval.rstrip()
 
     def doVnc(self):
         if self.ksdata.vnc["enabled"]:

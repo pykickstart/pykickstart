@@ -1,3 +1,13 @@
+2006-04-25  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py (KickstartUserData):  Added.
+	(KickstartData):  Added lists for services and users.
+	* pykickstart/parser.py (KickstartParser.doServices,
+	KickstartParser.doUser):  Add new command handlers.
+	Consolidate code to copy from option parsers to ksdata.
+	* pykickstart/writer.py (KickstartWriter.doServices,
+	KickstartParser.doUser):  Add new command handlers.
+
 2006-04-24  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/writer.py:  More output formatting fixes.
@@ -5,6 +15,10 @@
 2006-04-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/constants.py:  Start CLEARPART_ constants at 0.
+
+2006-04-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  Bump version.
 
 2006-04-13  Chris Lumens  <clumens@redhat.com>
 

@@ -259,11 +259,13 @@ class KickstartHandlers:
                      "repo"         : self.doRepo,
                      "rootpw"       : self.doRootPw,
                      "selinux"      : self.doSELinux,
+                     "services"     : self.doServices,
                      "shutdown"     : self.doReboot,
                      "skipx"        : self.doSkipX,
                      "text"         : self.doDisplayMode,
                      "timezone"     : self.doTimezone,
                      "url"          : self.doMethod,
+                     "user"         : self.doUser,
                      "upgrade"      : self.doUpgrade,
                      "vnc"          : self.doVnc,
                      "volgroup"     : self.doVolumeGroup,
@@ -271,6 +273,14 @@ class KickstartHandlers:
                      "zerombr"      : self.doZeroMbr,
                      "zfcp"         : self.doZFCP,
                    }
+
+    def _setToDict(self, optParser, opts, dict):
+        for key in filter (lambda k: getattr(opts, k) != None, optParser.keys()):
+            dict[key] = getattr(opts, key)
+
+    def _setToObj(self, optParser, opts, obj):
+        for key in filter (lambda k: getattr(opts, k) != None, optParser.keys()):
+            setattr(obj, key, getattr(opts, key))
 
     def resetHandlers (self):
         for key in self.handlers.keys():
@@ -294,7 +304,7 @@ class KickstartHandlers:
                       action="store_true", default=False)
 
         (opts, extra) = op.parse_args(args=args)
-        self.ksdata.autostep["autoscreenshot"] = opts.autoscreenshot
+        self._setToDict(op, opts, self.ksdata.autostep)
 
     def doBootloader(self, args):
         def driveorder_cb (option, opt_str, value, parser):
@@ -316,9 +326,7 @@ class KickstartHandlers:
                       callback=driveorder_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
-
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.bootloader[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.bootloader)
 
     def doClearPart(self, args):
         def drive_cb (option, opt_str, value, parser):
@@ -338,9 +346,7 @@ class KickstartHandlers:
                       const=CLEARPART_TYPE_NONE)
 
         (opts, extra) = op.parse_args(args=args)
-
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.clearpart[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.clearpart)
 
     def doDevice(self, args):
         self.ksdata.device = string.join(args)
@@ -382,9 +388,7 @@ class KickstartHandlers:
         op.add_option("--trust", dest="trusts", action="append")
 
         (opts, extra) = op.parse_args(args=args)
-
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.firewall[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.firewall)
 
     def doFirstboot(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -465,9 +469,7 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
         lvd = KickstartLogVolData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(lvd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, lvd)
         lvd.mountpoint = extra[0]
         self.ksdata.lvList.append(lvd)
 
@@ -479,9 +481,7 @@ class KickstartHandlers:
         op.add_option("--port")
 
         (opts, extra) = op.parse_args(args=args)
-
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.logging[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.logging)
 
     def doMediaCheck(self, args):
         if len(args) > 0:
@@ -495,26 +495,18 @@ class KickstartHandlers:
         self.ksdata.method["method"] = self.currentCmd
 
         if self.currentCmd == "cdrom":
-            pass
+            return
         elif self.currentCmd == "harddrive":
             op.add_option("--partition", dest="partition", required=1)
             op.add_option("--dir", dest="dir", required=1)
-
-            (opts, extra) = op.parse_args(args=args)
-            self.ksdata.method["partition"] = opts.partition
-            self.ksdata.method["dir"] = opts.dir
         elif self.currentCmd == "nfs":
             op.add_option("--server", dest="server", required=1)
             op.add_option("--dir", dest="dir", required=1)
-
-            (opts, extra) = op.parse_args(args=args)
-            self.ksdata.method["server"] = opts.server
-            self.ksdata.method["dir"] = opts.dir
         elif self.currentCmd == "url":
             op.add_option("--url", dest="url", required=1)
 
-            (opts, extra) = op.parse_args(args=args)
-            self.ksdata.method["url"] = opts.url
+        (opts, extra) = op.parse_args(args=args)
+        self._setToDict(op, opts, self.ksdata.method)
 
     def doMonitor(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -529,8 +521,7 @@ class KickstartHandlers:
         if extra:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("monitor", extra))
 
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.monitor[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.monitor)
 
     def doMouse(self, args):
         self.deprecatedCommand("mouse")
@@ -558,9 +549,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         nd = KickstartNetworkData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(nd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, nd)
         self.ksdata.network.append(nd)
 
     def doDmRaid(self, args):
@@ -573,10 +562,8 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         dd = KickstartDmRaidData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(dd, key, getattr(opts, key))
+        self._setToObj(op, opts, dd)
         dd.name = dd.name.split('/')[-1]
-
         self.ksdata.dmraids.append(dd)
 
     def doPartition(self, args):
@@ -620,9 +607,7 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
         pd = KickstartPartData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(pd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, pd)
         pd.mountpoint = extra[0]
         self.ksdata.partitions.append(pd)
 
@@ -637,7 +622,7 @@ class KickstartHandlers:
                       default=False)
 
         (opts, extra) = op.parse_args(args=args)
-        self.ksdata.reboot["eject"] = opts.eject
+        self._setToDict(op, opts, self.ksdata.reboot)
 
     def doRepo(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -656,9 +641,7 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
         rd = KickstartRepoData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(rd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, rd)
         self.ksdata.repoList.append(rd)
 
     def doRaid(self, args):
@@ -704,9 +687,7 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
         rd = KickstartRaidData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(rd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, rd)
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
         self.ksdata.raidList.append(rd)
@@ -717,7 +698,7 @@ class KickstartHandlers:
                       default=False)
 
         (opts, extra) = op.parse_args(args=args)
-        self.ksdata.rootpw["isCrypted"] = opts.isCrypted
+        self._setToDict(op, opts, self.ksdata.rootpw)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
@@ -736,6 +717,20 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
         self.ksdata.selinux = opts.sel
 
+    def doServices(self, args):
+        def services_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--disabled", dest="disabled", action="callback",
+                      callback=services_cb, nargs=1, type="string")
+        op.add_option("--enabled", dest="enabled", action="callback",
+                      callback=services_cb, nargs=1, type="string")
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToDict(op, opts, self.ksdata.services)
+
     def doSkipX(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "skipx")
@@ -747,7 +742,7 @@ class KickstartHandlers:
         op.add_option("--utc", dest="isUtc", action="store_true", default=False)
 
         (opts, extra) = op.parse_args(args=args)
-        self.ksdata.timezone["isUtc"] = opts.isUtc
+        self._setToDict(op, opts, self.ksdata.timezone)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
@@ -759,6 +754,28 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "upgrade")
 
         self.ksdata.upgrade = True
+
+    def doUser(self, args):
+        def groups_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+            
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--groups", dest="groups", action="callback",
+                      callback=groups_cb, nargs=1, type="string")
+        op.add_option("--homedir")
+        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
+                      default=False)
+        op.add_option("--name", required=1)
+        op.add_option("--password")
+        op.add_option("--shell")
+        op.add_option("--uid", type="int")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        user = KickstartUserData()
+        self._setToObj(op, opts, user)
+        self.ksdata.userList.append(user)
 
     def doVnc(self, args):
         def connect_cb (option, opt_str, value, parser):
@@ -775,12 +792,10 @@ class KickstartHandlers:
         op.add_option("--host", dest="host")
         op.add_option("--port", dest="port")
 
-        (opts, extra) = op.parse_args(args=args)
-
         self.ksdata.vnc["enabled"] = True
 
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.vnc[key] = getattr(opts, key)
+        (opts, extra) = op.parse_args(args=args)
+        self._setToDict(op, opts, self.ksdata.vnc)
 
     def doVolumeGroup(self, args):
         # Have to be a little more complicated to set two values.
@@ -799,9 +814,7 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         vgd = KickstartVolGroupData()
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            setattr(vgd, key, getattr(opts, key))
-
+        self._setToObj(op, opts, vgd)
         vgd.vgname = extra[0]
         vgd.physvols = extra[1:]
         self.ksdata.vgList.append(vgd)
@@ -826,8 +839,7 @@ class KickstartHandlers:
         if extra:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s" % ("xconfig", extra)))
 
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.xconfig[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.xconfig)
 
     def doZeroMbr(self, args):
         if len(args) > 0:
@@ -844,9 +856,7 @@ class KickstartHandlers:
         op.add_option("--wwpn", dest="wwpn", required=1)
 
         (opts, extra) = op.parse_args(args=args)
-
-        for key in filter (lambda k: getattr(opts, k) != None, op.keys()):
-            self.ksdata.zfcp[key] = getattr(opts, key)
+        self._setToDict(op, opts, self.ksdata.zfcp)
 
 ###
 ### PARSER
