@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of ml.po to Malayalam
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Ani Peter <apeter@redhat.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-04-25 17:26+0530\n"
+"Last-Translator: Ani Peter <apeter@redhat.com>\n"
+"Language-Team: Malayalam\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +24,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"കിക്ക്സ്റ്റാറ്‍ട്ട് ഫൈലില്‍   %s ാം ലൈനില്‍ ആണ് ഈ പ്രശ്നം ഉണ്ടായത്:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "കിക്ക്സ്റ്റാറ്‍ട്ട് ഫൈലില്‍   %s ാം ലൈന്‍ വായിക്കുന്നതില്‍ ഒരു പ്രശ്നം കാണപ്പെട്ടിരുന്നു"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "%s എന്ന ഉപാധി ആവശ്യമുണ്ട്"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -45,12 +49,12 @@ msgstr ""
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "ഒരു മൂല്യവും അടങ്ങാത്ത ഉപാധിയ്ക്ക് ആവശ്യപ്പെട്ട ഫ്ളാഗ് സെറ്റ് ചെയ്യപ്പെട്ടിരിക്കുന്നു"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "%s ാം ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %r"
 
 #: ../pykickstart/parser.py:280
 #, python-format
@@ -66,37 +70,36 @@ msgstr ""
 #: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "%s എന്ന കമാന്‍ഡ് ആറ്‍ഗ്യുമെന്‍റുകള്‍ ഒന്നും എടുക്കുന്നതല്ല "
 
 #: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "%s എന്ന കമാന്‍ഡ് ഒരു ആറ്‍ഗ്യുമെന്‍റ് എടുക്കുന്നതാണ്"
 
 #: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
 #: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%sന് മൌണ്ട് പോയിന്‍റ് ആവശ്യമുണ്ട്"
 
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s എന്ന കമാന്‍ഡിന് അപ്രതീക്ഷമായ ആറ്‍ഗ്യുമെന്‍റുകള്‍: %s"
 
 #: ../pykickstart/parser.py:653
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "Only one of --baseurl and --mirrorlist may be specified for repo command."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "One of --baseurl or --mirrorlist must be specified for repo command."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "A single argument is expected for the %s command"
 
 #: ../pykickstart/parser.py:834
 #, python-format
@@ -108,12 +111,12 @@ msgstr ""
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "halt after the first error or warning"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "parse include files when %include is seen"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -121,12 +124,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"File uses a deprecated option or command.\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ കിക്ക്സ്റ്റാറ്‍ട്ട് പിഴവ്"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
+
