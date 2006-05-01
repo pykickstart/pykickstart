@@ -1,20 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# sandeep shedmake <sandeepshedmake@yahoo.co.in>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-05-01 10:13+0530\n"
+"Last-Translator: sandeep shedmake <sandeepshedmake@yahoo.co.in>\n"
+"Language-Team: marathi <marathiopensource@yahoo.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +23,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"किकस्टार्ट फाइलच्या %s ओळीवर खालील समस्या आढळली:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "किकस्टार्ट फाइलच्या %s ओळी वाचताना समस्या आढळली होती"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "पर्याय %s आवश्यक आहे"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -41,16 +44,16 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
-msgstr ""
+msgstr "%s ओळीवर नापसंत पर्यायाकडे दुर्लक्ष केल्यास:  %s पर्याय नापसंत केले आणि त्यामुळे त्याचा ह्यापुढे काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ शकते, ज्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  हा पर्याय काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "फ्लैग सेटची पर्यायाकरीता आवश्यकता आहे जे मूल्ये घेत नाही"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "पर्याय %s: अप्रमाणीत बुलियन मूल्य: %r"
 
 #: ../pykickstart/parser.py:280
 #, python-format
@@ -59,44 +62,43 @@ msgid ""
 "and no longer has any effect.  It may be removed from future releases, which "
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
-msgstr ""
+msgstr "%s ओळीवर नापसंत आदेशाकडे दुर्लक्ष केल्यास:  %s आदेश नापसंत केले आणि त्यामुळे त्याचा ह्यापुढे काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ शकते, ज्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  हा आदेश काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
 #: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
 #: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
 #: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "आदेश %s कोणताही पर्याय घेत नाही"
 
 #: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "आदेश %s फक्त एकच पर्याय घेतो"
 
 #: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
 #: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s करीता आरोह बिंदु (Mount point) जरूरीचा आहे"
 
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s आदेशाकरीता अनपेक्षीत पर्याय: %s"
 
 #: ../pykickstart/parser.py:653
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "repo आदेशाकरीता --baseurl आणि --mirrorlist ह्यापैकी कुठलाही एक नमुद करू शकता."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "repo आदेशाकरीता --baseurl किंवा --mirrorlist ह्यापैकी कुठलाही एकच नमुद करा."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "%s आदेशाकरीता एकच पर्याय अपेक्षीत आहे"
 
 #: ../pykickstart/parser.py:834
 #, python-format
@@ -104,16 +106,16 @@ msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
+msgstr "%s ओळीवर नापसंत पर्यायाकडे दुर्लक्ष केल्यास:  zerombr आदेश यापुढे कुठलाही पर्याय घेणार नाही.  पुढच्या प्रकाशनात, ह्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  कुठलाही पर्याय काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "पहिली चूक किंवा चेतावनी नंतर थांबावे"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "जेव्हा %include दिसते तेव्हा include फाइल्सचे विश्लेषण करा"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -121,12 +123,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"नापसंत पर्याय किंवा आदेश यांचा फाइल वापर करते.\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "इनपुट फाइल मध्ये सर्वसाधारण किकस्टार्ट चूका"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "इनपुट फाइल मध्ये सर्वसाधारण चूका:  %s"
+
