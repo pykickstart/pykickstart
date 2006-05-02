@@ -94,7 +94,8 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "%s 指令所無預期的參數：%s"
 
 #: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo 指令只能擇一指定 --baseurl 與 --mirrorlist。"
 
 #: ../pykickstart/parser.py:656
@@ -143,4 +144,3 @@ msgstr "在輸入檔中發生一般 kickstart 錯誤"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"
-
