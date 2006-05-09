@@ -1,19 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
+# pykickstart Bahasa Indonesia (Id).
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# This file is distributed under the same license as the pykickstart package.
+# Teguh DC <dheche@bradjamoesti.or.id>, 2006.
+# $Id$
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-04-13 12:02-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-05-10 00:05+7\n"
+"Last-Translator: Teguh DC <dheche@brawijaya.ac.id>\n"
+"Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,16 +22,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Masalah berikut ini terdapat pada baris %s dalam berkas kickstart:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Ada masalah pada saat membaca dari baris %s dalam berkas kickstart"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Opsi %s dibutuhkan"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -45,12 +47,12 @@ msgstr ""
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Flag yang dibutuhkan untuk opsi tidak memiliki nilai"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Opsi %s: nilai boolean tidak valid: %r"
 
 #: ../pykickstart/parser.py:280
 #, python-format
@@ -60,43 +62,50 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Mengabaikan perintah usang pada baris %s: Perintah %s telah usang dan tidak "
+"memiliki efek apapun. Perintah ini mungkin akan dihilangkan dari rilis selanjutnya, "
+"yang akan mengakibatkan kesalahan fatal dari kickstart. Silakan modifikasi berkas "
+"kickstart untuk menghapus perintah ini."
 
 #: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
 #: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
 #: ../pykickstart/parser.py:759
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Perintah %s tidak menerima argumen apapun"
 
 #: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Perintah %s hanya menerima satu argumen"
 
 #: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
 #: ../pykickstart/parser.py:704
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Mount poin dibutuhkan untuk %s"
 
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Argumen yang tidak dibutuhkan untuk perintah %s: %s"
 
 #: ../pykickstart/parser.py:653
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Hanya salah satu dari --baseurl dan --mirrorlist yang dapat dipakai untuk "
+"perintah repo."
 
 #: ../pykickstart/parser.py:656
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Salah satu dari --baseurl atau --mirrorlist harus ditentukan untuk "
+"perintah repo."
 
 #: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Argumen tunggal dibutuhkan untuk perintah %s"
 
 #: ../pykickstart/parser.py:834
 #, python-format
@@ -105,15 +114,19 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Mengabaikan opsi usang pada baris %s: perintah zerombr tidak lagi menerima "
+"opsi apa pun. Pada rilis selanjutnya, ini kemungkinan akan menyebabkan "
+"kesalahan fatal dari kickstart. Silakan modifikasi berkas kickstart anda "
+"untuk menghilangkan opsi ini."
 
 #: ../validator/ksvalidator:29
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "halt setelah kesalahan atau peringatan pertama"
 
 #: ../validator/ksvalidator:32
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "parse berkas include ketika terlihat %include"
 
 #: ../validator/ksvalidator:54
 #, python-format
@@ -121,12 +134,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Berkas mempergunakan opsi atau perintah "
+"usang.\n"
+"%s"
 
 #: ../validator/ksvalidator:60
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Kesalahan kickstart yang umum pada berkas masukan"
 
 #: ../validator/ksvalidator:63
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Kesalahan umum pada berkas masukan: %s"
