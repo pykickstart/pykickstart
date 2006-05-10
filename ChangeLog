@@ -1,3 +1,8 @@
+2006-05-10  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (KickstartHandlers.doTimezone):  Accept
+	--isUtc for backwards compatibility.
+
 2006-05-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.

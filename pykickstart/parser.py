@@ -739,7 +739,7 @@ class KickstartHandlers:
 
     def doTimezone(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--utc", dest="isUtc", action="store_true", default=False)
+        op.add_option("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
 
         (opts, extra) = op.parse_args(args=args)
         self._setToDict(op, opts, self.ksdata.timezone)
