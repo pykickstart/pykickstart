@@ -101,6 +101,7 @@ class KickstartNetworkData:
         self.gateway = ""
         self.hostname = ""
         self.ip = ""
+        self.mtu = ""
         self.nameserver = ""
         self.netmask = ""
         self.nodns = False

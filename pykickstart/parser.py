@@ -536,6 +536,7 @@ class KickstartHandlers:
         op.add_option("--gateway", dest="gateway")
         op.add_option("--hostname", dest="hostname")
         op.add_option("--ip", dest="ip")
+        op.add_option("--mtu", dest="mtu")
         op.add_option("--nameserver", dest="nameserver")
         op.add_option("--netmask", dest="netmask")
         op.add_option("--nodns", dest="nodns", action="store_true",

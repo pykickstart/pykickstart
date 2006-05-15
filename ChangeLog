@@ -1,3 +1,9 @@
+2006-05-15  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py (KickstartNetworkData):  Add MTU (#191328).
+	* pykickstart/parser.py (KickstartHandlers.doNetwork):  Likewise.
+	* pykickstart/writer.py (KickstartWriter.doNetwork):  Likweise.
+
 2006-05-10  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (KickstartHandlers.doTimezone):  Accept
