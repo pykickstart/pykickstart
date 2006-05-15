@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-13 12:02-0400\n"
+"POT-Creation-Date: 2006-05-15 17:24-0400\n"
 "PO-Revision-Date: 2006-04-04 23:26+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
@@ -56,7 +56,7 @@ msgstr "Wymagane ustawienie flagi dla opcji, która nie przyjmuje wartości"
 msgid "Option %s: invalid boolean value: %r"
 msgstr "Opcja %s: nieprawidłowa wartość zmiennej logicznej: %r"
 
-#: ../pykickstart/parser.py:280
+#: ../pykickstart/parser.py:290
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -69,44 +69,44 @@ msgstr ""
 "z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj swój "
 "plik kickstart, aby usunąć te polecenie."
 
-#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
-#: ../pykickstart/parser.py:759
+#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
+#: ../pykickstart/parser.py:755
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Polecenie %s nie przyjmuje żadnych argumentów"
 
-#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Polecenie %s przyjmuje tylko jeden argument"
 
-#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
-#: ../pykickstart/parser.py:704
+#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
+#: ../pykickstart/parser.py:688
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Wymagany jest punk montowania dla %s"
 
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
+#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "Nieoczekiwane argumenty dla polecenia %s: %s"
 
-#: ../pykickstart/parser.py:653
+#: ../pykickstart/parser.py:639
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 
-#: ../pykickstart/parser.py:656
+#: ../pykickstart/parser.py:642
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 
-#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
+#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Pojedynczy argument jest oczekiwany dla polecenia %s"
 
-#: ../pykickstart/parser.py:834
+#: ../pykickstart/parser.py:847
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "

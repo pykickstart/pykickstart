@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-13 12:02-0400\n"
+"POT-Creation-Date: 2006-05-15 17:24-0400\n"
 "PO-Revision-Date: 2006-04-17 09:17+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bangla (INDIA) <redhat-translation@bengalinux.org>\n"
@@ -66,7 +66,7 @@ msgstr "কোনো মান গ্রহণ করতে অক্ষম অ�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "%s অপশন: বুলিয়ান মান বৈধ নয়: %r"
 
-#: ../pykickstart/parser.py:280
+#: ../pykickstart/parser.py:290
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -79,47 +79,47 @@ msgstr ""
 "যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart "
 "ফাইলের মধ্যে এই কমান্ডটি মুছে ফেলুন।"
 
-#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
-#: ../pykickstart/parser.py:759
+#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
+#: ../pykickstart/parser.py:755
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s কমান্ডের দ্বারা কোনো আর্গুমেন্ট গ্রহণ করা হয় না"
 
-#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s কমান্ডের দ্বারা শুধুমাত্র একটি আর্গুমেন্ট গ্রহণ করা হয়"
 
-#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
-#: ../pykickstart/parser.py:704
+#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
+#: ../pykickstart/parser.py:688
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s'র জন্য মাউন্ট-পয়েন্ট আবশ্যক"
 
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
+#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %s"
 
-#: ../pykickstart/parser.py:653
+#: ../pykickstart/parser.py:639
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
 "যাবে।"
 
-#: ../pykickstart/parser.py:656
+#: ../pykickstart/parser.py:642
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
 
-#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
+#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s কমান্ডের জন্য শুধুমাত্র একটি আর্গুমেন্ট আবশ্যক"
 
-#: ../pykickstart/parser.py:834
+#: ../pykickstart/parser.py:847
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-13 12:02-0400\n"
+"POT-Creation-Date: 2006-05-15 17:24-0400\n"
 "PO-Revision-Date: 2006-04-19 16:53+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -62,7 +62,7 @@ msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "ପସନ୍ଦ %s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %r"
 
-#: ../pykickstart/parser.py:280
+#: ../pykickstart/parser.py:290
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -74,48 +74,48 @@ msgstr ""
 "ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି "
 "କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
-#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
-#: ../pykickstart/parser.py:759
+#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
+#: ../pykickstart/parser.py:755
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ଟି କୌଣସି ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁନାହିଁ"
 
-#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "କେବଳ %s ନିର୍ଦ୍ଦେଶ ଟି ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁଅଛି"
 
-#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
-#: ../pykickstart/parser.py:704
+#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
+#: ../pykickstart/parser.py:688
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚକ ଆବଶ୍ଯକ"
 
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
+#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
-#: ../pykickstart/parser.py:653
+#: ../pykickstart/parser.py:639
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ "
 "ଉଲ୍ଲେକ୍ଷିତ କରାଯିବା ଉଚିତ"
 
-#: ../pykickstart/parser.py:656
+#: ../pykickstart/parser.py:642
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ "
 "କରାଯିବା ଉଚିତ"
 
-#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
+#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର ଆଶା କରାଯାଉ ଥିଲା"
 
-#: ../pykickstart/parser.py:834
+#: ../pykickstart/parser.py:847
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "

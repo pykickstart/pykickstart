@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-04-13 12:02-0400\n"
+"POT-Creation-Date: 2006-05-15 17:24-0400\n"
 "PO-Revision-Date: 2006-04-27 13:51+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -60,7 +61,7 @@ msgstr "ഒരു മൂല്യവും അടങ്ങാത്ത ഉപാ
 msgid "Option %s: invalid boolean value: %r"
 msgstr "%s ാം ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %r"
 
-#: ../pykickstart/parser.py:280
+#: ../pykickstart/parser.py:290
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -73,43 +74,45 @@ msgstr ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 
-#: ../pykickstart/parser.py:287 ../pykickstart/parser.py:416
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:741
-#: ../pykickstart/parser.py:759
+#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
+#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
+#: ../pykickstart/parser.py:755
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s എന്ന കമാന്‍ഡ് ആറ്‍ഗ്യുമെന്‍റുകള്‍ ഒന്നും എടുക്കുന്നതല്ല "
 
-#: ../pykickstart/parser.py:422 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s എന്ന കമാന്‍ഡ് ഒരു ആറ്‍ഗ്യുമെന്‍റ് എടുക്കുന്നതാണ്"
 
-#: ../pykickstart/parser.py:465 ../pykickstart/parser.py:620
-#: ../pykickstart/parser.py:704
+#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
+#: ../pykickstart/parser.py:688
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%sന് മൌണ്ട് പോയിന്‍റ് ആവശ്യമുണ്ട്"
 
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:827
+#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s എന്ന കമാന്‍ഡിന് അപ്രതീക്ഷമായ ആറ്‍ഗ്യുമെന്‍റുകള്‍: %s"
 
-#: ../pykickstart/parser.py:653
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#: ../pykickstart/parser.py:639
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 
-#: ../pykickstart/parser.py:656
+#: ../pykickstart/parser.py:642
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "One of --baseurl or --mirrorlist must be specified for repo command."
 
-#: ../pykickstart/parser.py:723 ../pykickstart/parser.py:753
+#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "A single argument is expected for the %s command"
 
-#: ../pykickstart/parser.py:834
+#: ../pykickstart/parser.py:847
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -146,4 +149,3 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
-
