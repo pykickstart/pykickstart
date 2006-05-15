@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.27
+Version: 0.28
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -37,6 +37,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Mon May 15 2006 Chris Lumens <clumens@redhat.com> 0.28-1
+- Support --mtu for the network command (#191328).
+- Accept --isUtc for backwards compatibility.
+
 * Wed May 04 2006 Chris Lumens <clumens@redhat.com> 0.27-1
 - Output formatting fixes.
 - Added commands for managing users and services.
