@@ -24,6 +24,7 @@ class KickstartData:
                            "forceLBA": False, "location": "mbr", "md5pass": "",
                            "password": "", "upgrade": False}
         self.dmraids = []
+        self.mpaths = []
         self.clearpart = {"drives": [], "initAll": False,
                           "type": CLEARPART_TYPE_NONE}
         self.device = ""
@@ -171,3 +172,14 @@ class KickstartDmRaidData:
         self.name = ""
         self.devices = []
         self.dmset = None
+
+class KickstartMpPathData:
+    def __init__(self):
+        self.mpdev = ""
+        self.device = ""
+        self.rule = ""
+
+class KickstartMultiPathData:
+    def __init__(self):
+        self.name = ""
+        self.paths = []

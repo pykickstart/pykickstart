@@ -369,7 +369,7 @@ class KickstartData:
         attributes.
 
 class KickstartDmRaidData:
-   def __init__ ():
+    def __init__ ():
         Creates a new KickstartDmRaidData object and sets default values on
         attributes.
 
@@ -404,6 +404,16 @@ class KickstartLogVolData:
         Creates a new KickstartLogVolData object and sets default values
         on attributes.  Instances of this class should be appended to
         KickstartData.logVolList.
+
+class KickstartMpPathData:
+    def __init__ ():
+    	Creates a new KickstartMpPathData object and sets default values on
+	attributes.
+
+class KickstartMultiPathData:
+    def __init__ ():
+    	Creates a new KickstartMultiPathData object and sets default values on
+	attributes.
 
 class KickstartNetworkData:
     def __init__ ():

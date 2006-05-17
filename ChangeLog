@@ -1,3 +1,14 @@
+2006-05-17  Peter Jones  <pjones@redhat.com>
+
+	* pykickstart/parser.py: Add "multipath" command and doMultiPath
+	handler.
+	* pykickstart/data.py: Add kickstartMpPathData and
+	KickstartMultiPathData objects to handle multipath info, as well as
+	KickstartData.mpaths .
+	* pykickstart/writer.py: add doMultiPath
+	* docs/programmers-guide: add completely useless documentation for
+	multipath kickstart objects.
+
 2006-05-15  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.

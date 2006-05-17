@@ -20,10 +20,11 @@ class KickstartWriter:
         # All the printing handlers in the order they should be called.
         self.handlers = [self.doPlatform,
 
-                         self.doAuthconfig, self.doDmRaid, self.doAutoPart,
-                         self.doAutoStep, self.doBootloader, self.doZeroMbr,
-                         self.doClearPart, self.doDevice, self.doDeviceProbe,
-                         self.doDisplayMode, self.doDriverDisk, self.doFirewall,
+                         self.doAuthconfig, self.doMultiPath, self.doDmRaid,
+                         self.doAutoPart, self.doAutoStep, self.doBootloader,
+                         self.doZeroMbr, self.doClearPart, self.doDevice,
+                         self.doDeviceProbe, self.doDisplayMode,
+                         self.doDriverDisk, self.doFirewall,
                          self.doFirstboot, self.doIgnoreDisk,
                          self.doInteractive, self.doKeyboard, self.doLang,
                          self.doLogging, self.doMediaCheck, self.doMethod,
@@ -53,6 +54,16 @@ class KickstartWriter:
     def doAuthconfig(self):
         if self.ksdata.authconfig != "" and not self.ksdata.upgrade:
             return "# System authorization information\nauth %s" % self.ksdata.authconfig
+
+    def doMultiPath(self):
+        rets = []
+
+        for mpath in self.ksdata.mpaths:
+            for path in mpath.paths:
+                rets.append("multipath --mpdev=%s --device=%s --rule=\"%s\"" \
+                    % (mpath.name, path.device, path.rule))
+
+        return string.join(rets, "\n")
 
     def doDmRaid(self):
         retval = ""

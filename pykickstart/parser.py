@@ -250,6 +250,7 @@ class KickstartHandlers:
                      "mouse"        : self.doMouse,
                      "network"      : self.doNetwork,
                      "nfs"          : self.doMethod,
+                     "multipath"    : self.doMultiPath,
                      "dmraid"       : self.doDmRaid,
                      "part"         : self.doPartition,
                      "partition"    : self.doPartition,
@@ -552,6 +553,38 @@ class KickstartHandlers:
         nd = KickstartNetworkData()
         self._setToObj(op, opts, nd)
         self.ksdata.network.append(nd)
+
+    def doMultiPath(self, args)
+        op.KSOptionParser(lineno=self.lineno)
+        op.add_option("--name", dest="name", action="store", type="string",
+                      required=1)
+        op.add_option("--device", dest="device", action="store", type="string",
+                      required=1)
+        op.add_option("--rule", dest="rule", action="store", type="string",
+                      required=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        dd = KickstartMpPathData()
+        self._setToObj(op, opts, dd)
+        dd.mpdev = dd.mpdev.split('/')[-1]
+
+        parent = None
+        for x in range(0, len(self.ksdata.mpaths)):
+            mpath = self.ksdata.mpaths[x]
+            for path in mpath.paths:
+                if path.device == dd.device:
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%s' is already used in multipath '%s'") % (path.device, path.mpdev))
+            if mpath.name == dd.mpdev:
+                parent = x
+
+        if parent is None:
+            mpath = KickstartMultiPathData()
+            self.ksdata.mpaths.append(mpath)
+        else:
+            mpath = self.ksdata.mpaths[x]
+
+        mpath.paths.append(dd)
 
     def doDmRaid(self, args):
         op = KSOptionParser(lineno=self.lineno)
