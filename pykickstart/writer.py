@@ -178,7 +178,7 @@ class KickstartWriter:
             # All the port:proto strings go into a comma-separated list.
             portstr = string.join (filteredPorts, ",")
             if len(portstr) > 0:
-                portstr = "--ports=" + portstr
+                portstr = "--port=" + portstr
             else:
                 portstr = ""
 
