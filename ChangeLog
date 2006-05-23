@@ -1,5 +1,7 @@
 2006-05-23  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/writer.py (KickstartWriter.doFirewall):  Rename --ports
 	to match the parser.
 
