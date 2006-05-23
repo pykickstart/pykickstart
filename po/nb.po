@@ -3,17 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-15 17:24-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2006-05-24 00:37+0200\n"
+"Last-Translator: FULL NAME <kmaraas@gnome.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -66,7 +65,7 @@ msgstr ""
 #: ../pykickstart/parser.py:755
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Kommando %s tar ingen argumenter"
 
 #: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
 #, python-format
@@ -77,7 +76,7 @@ msgstr ""
 #: ../pykickstart/parser.py:688
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Monteringspunkt kreves for %s"
 
 #: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
 #, python-format
