@@ -554,8 +554,8 @@ class KickstartHandlers:
         self._setToObj(op, opts, nd)
         self.ksdata.network.append(nd)
 
-    def doMultiPath(self, args)
-        op.KSOptionParser(lineno=self.lineno)
+    def doMultiPath(self, args):
+        op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", action="store", type="string",
                       required=1)
         op.add_option("--device", dest="device", action="store", type="string",
