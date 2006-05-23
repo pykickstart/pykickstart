@@ -600,24 +600,27 @@ class KickstartWriter:
         if self.ksdata.upgrade:
             return
 
+        pkgs = ""
+
+        for grp in self.ksdata.groupList:
+            pkgs += "@%s\n" % grp
+
+        for pkg in self.ksdata.packageList:
+            pkgs += "%s\n" % pkg
+
+        for pkg in self.ksdata.excludedList:
+            pkgs += "-%s\n" % pkg
+
+        if pkgs == "":
+            return
+
         retval = "\n%packages"
 
         if self.ksdata.excludeDocs:
-            retval = retval + " --excludedocs"
+            retval += " --excludedocs"
         if not self.ksdata.addBase:
-            retval = retval + " --nobase"
+            retval += " --nobase"
         if self.ksdata.handleMissing == KS_MISSING_IGNORE:
-            retval = retval + " --ignoremissing"
+            retval += " --ignoremissing"
 
-        retval = retval + "\n"
-
-        for grp in self.ksdata.groupList:
-            retval = retval + "@%s\n" % grp
-
-        for pkg in self.ksdata.packageList:
-            retval = retval + "%s\n" % pkg
-
-        for pkg in self.ksdata.excludedList:
-            retval = retval + "-%s\n" % pkg
-
-        return retval.rstrip()
+        return retval + "\n" + pkgs

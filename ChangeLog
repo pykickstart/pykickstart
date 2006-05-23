@@ -1,5 +1,11 @@
 2006-05-23  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/writer.py (KickstartWriter.doPackages):  Don't write out
+	an empty packages section, since we may want this step to be
+	interactive (#192851).
+
+2006-05-23  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart.spec, setup.py:  Bump version.
 
 	* pykickstart/writer.py (KickstartWriter.doFirewall):  Rename --ports
