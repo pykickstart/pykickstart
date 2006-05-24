@@ -16,6 +16,9 @@ import optparse
 import os
 import sys
 import warnings
+import tempfile
+import urlgrabber
+import shutil
 from pykickstart.data import *
 from pykickstart.parser import *
 
@@ -24,7 +27,11 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-op = OptionParser(usage="usage: %prog [options] ksfile")
+def cleanup(destdir, exitval=1):
+    shutil.rmtree(destdir)
+    os._exit(exitval)
+
+op = OptionParser(usage="usage: %prog [options] ksfile|url")
 op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
               default=False, help=_("halt after the first error or warning"))
 op.add_option("-i", "--followincludes", dest="followincludes",
@@ -37,7 +44,8 @@ if len(extra) != 1:
     op.print_help()
     os._exit(1)
 else:
-    f = extra[0]
+    destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
+    f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
 
 ksdata = KickstartData()
 kshandlers = KickstartHandlers(ksdata)
@@ -52,15 +60,15 @@ try:
     ksparser.readKickstart(f)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
-    os._exit(1)
+    cleanup(destdir)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
-    os._exit(1)
+    cleanup(destdir)
 except KickstartError:
     print _("General kickstart error in input file")
-    os._exit(1)
+    cleanup(destdir)
 except Exception, e:
     print _("General error in input file:  %s") % e
-    os._exit(1)
+    cleanup(destdir)
 
-os._exit(0)
+cleanup(destdir, exitval=0)
