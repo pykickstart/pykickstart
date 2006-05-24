@@ -1,5 +1,16 @@
 2006-05-23  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec:  Require urlgrabber now.
+
+	* po/*:  Update translation files.
+
+	* pykickstart/parser.py (KickstartParser.handleCommand):  Return a
+	more useful error message on unknown command.
+
+	* validator/ksvalidator:  Accept a URL in addition to a file name.
+
+2006-05-23  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/writer.py (KickstartWriter.doPackages):  Don't write out
 	an empty packages section, since we may want this step to be
 	interactive (#192851).
