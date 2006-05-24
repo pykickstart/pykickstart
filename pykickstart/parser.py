@@ -946,7 +946,7 @@ class KickstartParser:
         cmdArgs = args[1:]
 
         if not self.handler.handlers.has_key(cmd):
-            raise KickstartParseError, formatErrorMsg(lineno)
+            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
         else:
             if self.handler.handlers[cmd] != None:
                 self.handler.currentCmd = cmd
