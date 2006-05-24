@@ -243,7 +243,7 @@ class KickstartWriter:
             retval = retval + "logvol %s" % part.mountpoint
 
             if part.bytesPerInode > 0:
-                retval = retval + " --bytes-per-inode= %d" % part.bytesPerInode
+                retval = retval + " --bytes-per-inode=%d" % part.bytesPerInode
             if part.fsopts != "":
                 retval = retval + " --fsoptions=\"%s\"" % part.fsopts
             if part.fstype != "":
