@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-17 05:02+0100\n"
+"PO-Revision-Date: 2006-05-24 20:40+0100\n"
 "Last-Translator: Jos Nuno Coelho Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,7 +93,7 @@ msgstr "Os argumentos do comando %s são inesperados: %s"
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "O dispositivo '%s' já está está a ser usado no multi-ponto '%s'"
 
 #: ../pykickstart/parser.py:672
 msgid ""
@@ -128,7 +128,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Comando desconhecido: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
