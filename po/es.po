@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-04-13 15:21-0300\n"
 "Last-Translator: Domingo E. Becker <beckerde@hotmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,7 @@ msgstr "Se requiere poner una bandera para una opción que no toma un valor"
 msgid "Option %s: invalid boolean value: %r"
 msgstr "Opción %s: valor booleano inválido: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -73,44 +73,49 @@ msgstr ""
 "resultará en un error fatal desde el archivo de respuestas (kickstart). Por "
 "favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "El comando %s no tiene argumentos"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "El comando %s sólo tiene un argumento"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Se requiere un punto de montaje para %s"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "Argumento inesperado para el comando %s: %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "Sólo un --baseurl y --mirrorlist se puede especificar al comando repo."
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "Debe especificar o --baseurl, o bién --mirrorlist al comando repo."
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "El comando %s recibe un solo argumento"
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -122,16 +127,21 @@ msgstr ""
 "el archivo de respuestas (kickstart). Por favor, modifique su archivo de "
 "respuestas (kickstart) y elimine cualquier opción."
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "parar después del primer error o advertencia"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "examinar archivos include cuando se vea %include"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -140,11 +150,11 @@ msgstr ""
 "El archivo está usando una opción o comando obsoleto.\n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "Error general en el archivo de respuestas (kickstart) de entrada"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Error general en el archivo de entrada: %s"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-04-18 09:18+1000\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -59,7 +59,7 @@ msgstr "값을 가지지 않는 옵션을 위해 사용되는 플래그 모음�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "옵션 %s: 유효하지 않은 부울(boolean) 값: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -72,46 +72,51 @@ msgstr ""
 "는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 제거하기 위해 "
 "킥스타트 파일을 수정해 주시기 바랍니다."
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "명령 %s는 어떤 인자(argument)도 가지지 않습니다"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "명령 %s는 오직 하나의 인자(argument)만을 갖습니다"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s을 위한 마운트 지점 요구됩니다"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s 명령에 대한 예상치 않은 인자(argument): %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "--baseurl 과 --mirrorlist 에서 하나만이 repo 명령을 위해 지정될 것입니다."
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "--baseurl 과 --mirrorlist 에서 하나가 repo 명령을 위해 지정되어져야 합니다."
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s 명령에 대해 하나의 인자(argument)가 요구됩니다."
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -123,16 +128,21 @@ msgstr ""
 "적인 오류를 가져올 것입니다. 옵션을 제거하기 위해 킥스타트 파일을 수정해 주시"
 "기 바랍니다."
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "처음 오류 혹은 경고 후에 정지"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include 가 보여질때 include 파일을 구문분석합니다"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -141,11 +151,11 @@ msgstr ""
 "파일은 앞으로 삭제될 옵션이나 명령을 사용합니다.\n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "입력 파일에서 일반적인 킥스타트 오류"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"

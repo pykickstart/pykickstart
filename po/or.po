@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-04-19 16:53+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -62,7 +62,7 @@ msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "ପସନ୍ଦ %s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -74,48 +74,53 @@ msgstr ""
 "ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି "
 "କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ଟି କୌଣସି ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁନାହିଁ"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "କେବଳ %s ନିର୍ଦ୍ଦେଶ ଟି ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁଅଛି"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚକ ଆବଶ୍ଯକ"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ "
 "ଉଲ୍ଲେକ୍ଷିତ କରାଯିବା ଉଚିତ"
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ "
 "କରାଯିବା ଉଚିତ"
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର ଆଶା କରାଯାଉ ଥିଲା"
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -126,16 +131,21 @@ msgstr ""
 "ଗ୍ରହଣ କରୁନାହିଁ |ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ, ଏହା କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତ୍ରୁଟି ସ୍ରୁଷ୍ଟି "
 "କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ"
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "ସର୍ବପ୍ରଥମ ତ୍ରୁଟି କିମ୍ବା ଚେତାବନୀ ପରେ କିଛି କ୍ଷଣ ବିରାମ ଦିଅ"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include ଦେଖାଗଲା ବେଳେ ଅନ୍ତର୍ବେଶିତ ଫାଇଲ ମାନଙ୍କ ବିଶ୍ଳେଷଣ କର"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -144,11 +154,11 @@ msgstr ""
 "ଫାଇଲ ଟି ଗୋଟିଏ ଅଦରକାରି ପସନ୍ଦ କିମ୍ବା ନିର୍ଦ୍ଦେଶ କୁ ବ୍ଯବହାର କରୁଅଛି \n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍ଟାର୍ଟ ତ୍ରୁଟି"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତ୍ରୁଟି:  %s"

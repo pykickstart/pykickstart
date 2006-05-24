@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-04-17 11:06+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -61,7 +61,7 @@ msgstr "વિકલ્પ માટે સુયોજિત જરૂરી �
 msgid "Option %s: invalid boolean value: %r"
 msgstr "વિકલ્પ %s: અયોગ્ય બુલિયન કિંમત: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -74,45 +74,50 @@ msgstr ""
 "કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી કિકસ્ટાર્ટમાંથી દૂર "
 "કરીને તેને સુધારો."
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "આદેશ %s કોઈપણ દલીલો લેતો નથી"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "આદેશ %s માત્ર એક દલીલ જ લે છે"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s માટે માઉન્ટ પોઈન્ટ જરૂરી છે"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "આદેશ %s ને અનિચ્છનીય દલીલો: %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo આદેશ માટે માત્ર --baseurl અને --mirrorlist માંના સ્પષ્ટ થયેલ હોઈ શકે."
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s આદેશ માટે એક દલીલ ઈચ્છિત છે"
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -123,16 +128,21 @@ msgstr ""
 "વિકલ્પો લેતો નથી.  ભવષ્યના પ્રકાસનોમાં, આ કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  કોઈપણ "
 "વિકલ્પો દૂર કરવા માટે મહેરબાની કરીને તમારી કિકસ્ટાર્ટ ફાઈલ સુધારો."
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "પ્રથમ ભૂલ અથવા ચેતવણી પછી અટકાવો"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "જ્યારે %include એ દેખાય ત્યારે સમાવિષ્ટ ફાઈલોનું પદચ્છેદન કરો"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -141,11 +151,11 @@ msgstr ""
 "ફાઈલ કાઢી નાંખવામાં આવેલ વિકલ્પ અથવા આદેશ વાપરે છે.\n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ્ટાર્ટ ભૂલ"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"

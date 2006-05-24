@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-05-01 10:13+0530\n"
 "Last-Translator: sandeep shedmake <sandeepshedmake@yahoo.co.in>\n"
 "Language-Team: marathi <marathiopensource@yahoo.com>\n"
@@ -59,7 +59,7 @@ msgstr "फ्लैग सेटची पर्यायाकरीता आ
 msgid "Option %s: invalid boolean value: %r"
 msgstr "पर्याय %s: अप्रमाणीत बुलियन मूल्य: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -72,45 +72,50 @@ msgstr ""
 "किकस्टार्टकडून गंभीर चूका घडतील.  हा आदेश काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल "
 "मध्ये सुधारणा करा."
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "आदेश %s कोणताही पर्याय घेत नाही"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "आदेश %s फक्त एकच पर्याय घेतो"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s करीता आरोह बिंदु (Mount point) जरूरीचा आहे"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s आदेशाकरीता अनपेक्षीत पर्याय: %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "repo आदेशाकरीता --baseurl आणि --mirrorlist ह्यापैकी कुठलाही एक नमुद करू शकता."
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "repo आदेशाकरीता --baseurl किंवा --mirrorlist ह्यापैकी कुठलाही एकच नमुद करा."
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s आदेशाकरीता एकच पर्याय अपेक्षीत आहे"
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -121,16 +126,21 @@ msgstr ""
 "नाही.  पुढच्या प्रकाशनात, ह्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  कुठलाही "
 "पर्याय काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "पहिली चूक किंवा चेतावनी नंतर थांबावे"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "जेव्हा %include दिसते तेव्हा include फाइल्सचे विश्लेषण करा"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -139,11 +149,11 @@ msgstr ""
 "नापसंत पर्याय किंवा आदेश यांचा फाइल वापर करते.\n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "इनपुट फाइल मध्ये सर्वसाधारण किकस्टार्ट चूका"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल मध्ये सर्वसाधारण चूका:  %s"

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 17:24-0400\n"
+"POT-Creation-Date: 2006-05-24 13:59-0400\n"
 "PO-Revision-Date: 2006-04-17 09:17+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bangla (INDIA) <redhat-translation@bengalinux.org>\n"
@@ -66,7 +66,7 @@ msgstr "কোনো মান গ্রহণ করতে অক্ষম অ�
 msgid "Option %s: invalid boolean value: %r"
 msgstr "%s অপশন: বুলিয়ান মান বৈধ নয়: %r"
 
-#: ../pykickstart/parser.py:290
+#: ../pykickstart/parser.py:291
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %s:  The %s command has been deprecated "
@@ -79,47 +79,52 @@ msgstr ""
 "যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart "
 "ফাইলের মধ্যে এই কমান্ডটি মুছে ফেলুন।"
 
-#: ../pykickstart/parser.py:297 ../pykickstart/parser.py:420
-#: ../pykickstart/parser.py:488 ../pykickstart/parser.py:737
-#: ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s কমান্ডের দ্বারা কোনো আর্গুমেন্ট গ্রহণ করা হয় না"
 
-#: ../pykickstart/parser.py:426 ../pykickstart/parser.py:432
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s কমান্ডের দ্বারা শুধুমাত্র একটি আর্গুমেন্ট গ্রহণ করা হয়"
 
-#: ../pykickstart/parser.py:469 ../pykickstart/parser.py:608
-#: ../pykickstart/parser.py:688
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s'র জন্য মাউন্ট-পয়েন্ট আবশ্যক"
 
-#: ../pykickstart/parser.py:522 ../pykickstart/parser.py:841
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "%s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %s"
 
-#: ../pykickstart/parser.py:639
+#: ../pykickstart/parser.py:577
+#, python-format
+msgid "Device '%s' is already used in multipath '%s'"
+msgstr ""
+
+#: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
 "যাবে।"
 
-#: ../pykickstart/parser.py:642
+#: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
 
-#: ../pykickstart/parser.py:705 ../pykickstart/parser.py:749
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s কমান্ডের জন্য শুধুমাত্র একটি আর্গুমেন্ট আবশ্যক"
 
-#: ../pykickstart/parser.py:847
+#: ../pykickstart/parser.py:880
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -131,16 +136,21 @@ msgstr ""
 "kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart ফাইলের "
 "মধ্যে এই কমান্ডের জন্য উল্লিখিত কোনো ধরনের অপশন মুছে ফেলুন।"
 
-#: ../validator/ksvalidator:29
+#: ../pykickstart/parser.py:949
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "প্রথম ত্রুটি অথবা সতর্কবার্তা উত্‌পন্ন হলে স্থগিত করা হবেে"
 
-#: ../validator/ksvalidator:32
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include প্রদর্শিত হলে include ফাইল পার্স করা হবে"
 
-#: ../validator/ksvalidator:54
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -149,11 +159,11 @@ msgstr ""
 "ফাইলের মধ্যে কোনো অবিচত অপশন অথবা কমান্ড প্রয়োগ করা হয়েছে।\n"
 "%s"
 
-#: ../validator/ksvalidator:60
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক্রান্ত সাধারণ সমস্যা"
 
-#: ../validator/ksvalidator:63
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
