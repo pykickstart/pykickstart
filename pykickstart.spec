@@ -11,6 +11,7 @@ BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: python-devel
 Requires: python >= %(%{__python} -c "import sys; print sys.version[:3]")
+Requires: python-urlgrabber
 
 %description
 The pykickstart package is a python library for manipulating kickstart
