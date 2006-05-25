@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.29
+Version: 0.30
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Thu May 25 2006 Chris Lumens <clumens@redhat.com> 0.30-1
+- Change order of LVM-related writing functions (#193073).
+- Require urlgrabber.
+- Return a more useful error message on unknown commands.
+- Fix logvol writing typo.
+- Make ksvalidator validate from a URL in addition to a file.
+- Don't write out an empty packages section (#192851).
+
 * Tue May 23 2006 Chris Lumens <clumens@redhat.com> 0.29-1
 - Add multipath command, handlers, and data objects (pjones).
 - Rename --ports to --port in writer.
