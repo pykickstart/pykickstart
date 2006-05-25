@@ -34,8 +34,8 @@ class KickstartWriter:
                          self.doUser, self.doVnc, self.doXConfig,
                          self.doMonitor, self.doZFCP,
 
-                         self.doPartition, self.doLogicalVolume,
-                         self.doVolumeGroup, self.doRaid,
+                         self.doPartition, self.doVolumeGroup,
+                         self.doLogicalVolume, self.doRaid,
 
                          self.doScripts, self.doPackages]
 
