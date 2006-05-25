@@ -5,6 +5,7 @@
 # translation of bn_IN.po to Bangla (INDIA)
 # translation of bn_IN.po to Bangla (INDIA)
 # translation of bn_IN.po to Bangla (INDIA)
+# translation of bn_IN.po to Bangla (INDIA)
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Runa Bhattacharjee <runab@redhat.com>, 2006.
@@ -14,7 +15,7 @@ msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-17 09:17+0530\n"
+"PO-Revision-Date: 2006-05-25 15:48+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bangla (INDIA) <redhat-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,19 +106,17 @@ msgstr "%s কমান্ডের জন্য অপ্রত্যাশি�
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "'%s' নামক ডিভাইস বর্তমানে মাল্টিপাথ '%s'-এ ব্যবহৃত হচ্ছে"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
 "যাবে।"
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
+msgstr "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
@@ -139,7 +138,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "অজানা কমান্ড: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -167,3 +166,4 @@ msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
+
