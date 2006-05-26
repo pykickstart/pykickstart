@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-14 14:49+0400\n"
+"PO-Revision-Date: 2006-05-26 10:33+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -99,7 +99,7 @@ msgstr "Неожиданные аргументы команды %s: %s"
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Устройство '%s' уже задействовано в конструкции multipath для '%s'"
 
 #: ../pykickstart/parser.py:672
 msgid ""
@@ -134,7 +134,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Неизвестная команда: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
