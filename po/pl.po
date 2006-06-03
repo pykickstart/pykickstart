@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-04 23:26+0200\n"
+"PO-Revision-Date: 2006-05-25 15:38+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,16 +95,20 @@ msgstr "Nieoczekiwane argumenty dla polecenia %s: %s"
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Urządzenie \"%s\" zostało już użyte w wielościeżce \"%s\""
 
 #: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Tylko jedno z --baseurl i --mirrorlist może być określone dla polecenia "
+"repozytorium."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
+"Tylko jedno z --baseurl i --mirrorlist musi być określone dla polecenia "
+"repozytorium."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
@@ -125,7 +129,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Nieznane polecenie: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -152,4 +156,4 @@ msgstr "Ogólny błąd kickstart w pliku wejściowym"
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr "Ogólny błąd kickstart w pliku wejściowy  %s"
+msgstr "Ogólny błąd kickstart w pliku wejściowym: %s"
