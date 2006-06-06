@@ -1,3 +1,7 @@
+2006-06-06  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Fix BuildRequires (#194156).
+
 2006-05-25  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.
