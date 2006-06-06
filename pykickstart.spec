@@ -3,13 +3,14 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Version: 0.30
-Release: 1
+Release: 2
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-root
 BuildRequires: python-devel
+BuildRequires: gettext
 Requires: python >= %(%{__python} -c "import sys; print sys.version[:3]")
 Requires: python-urlgrabber
 
@@ -38,6 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Jun 06 2006 Chris Lumens <clumens@redhat.com> 0.30-2
+- Add BuildRequires to fix building under mock (#194156,  Joost Soeterbroek
+  <fedora AT soeterbroek.com>).
+
 * Thu May 25 2006 Chris Lumens <clumens@redhat.com> 0.30-1
 - Change order of LVM-related writing functions (#193073).
 - Require urlgrabber.
