@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -45,8 +45,8 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
-"Ignorando opção obsoleta na linha %s:  A opção %s está obsoleta e não "
-"tem mais nenhum efeito.  Ela pode ser removida em futuras versões, o que "
+"Ignorando opção obsoleta na linha %s:  A opção %s está obsoleta e não tem "
+"mais nenhum efeito.  Ela pode ser removida em futuras versões, o que "
 "resultará em um erro fatal no kickstart.  Por favor modifique o seu arquivo "
 "kickstart para remover essa opção."
 
@@ -67,10 +67,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
-"Ignorando comando obsoleto na linha %s:  O comando %s está obsoleto e "
-"não tem mais efeito.  Ele pode ser removido das futuras versões, o que "
-"resultará em um erro fatal do kickstart.  Por favor modifique o seu arquivo "
-"kickstart para remover esse comando."
+"Ignorando comando obsoleto na linha %s:  O comando %s está obsoleto e não "
+"tem mais efeito.  Ele pode ser removido das futuras versões, o que resultará "
+"em um erro fatal do kickstart.  Por favor modifique o seu arquivo kickstart "
+"para remover esse comando."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
@@ -159,4 +159,3 @@ msgstr "Erro geral do kickstart no arquivo de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erro geral no arquivo de entrada:  %s"
-
