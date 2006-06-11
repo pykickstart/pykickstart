@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-05-05 23:35+0800\n"
+"PO-Revision-Date: 2006-06-11 18:39+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -35,11 +35,7 @@ msgstr "Nama Perkongsian diperlukan"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
+msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
 msgstr ""
 
 #: ../pykickstart/parser.py:139
@@ -53,35 +49,36 @@ msgstr "Nilai untuk pilihan ini"
 
 #: ../pykickstart/parser.py:291
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
+msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:298
+#: ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489
+#: ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:427
+#: ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr ""
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:470
+#: ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
-#, fuzzy, python-format
+#, python-format
 msgid "Mount point required for %s"
-msgstr "Nyatakan titik lekapan bagi partisyen ini."
+msgstr "Titik lekapan diperlukan untuk %s"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
-#, fuzzy, python-format
+#: ../pykickstart/parser.py:523
+#: ../pykickstart/parser.py:874
+#, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr "Gagal untuk melaksanakan arahan \"%s\": %s\n"
+msgstr "Hujah tidak dijangka pada arahan %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
@@ -89,31 +86,28 @@ msgid "Device '%s' is already used in multipath '%s'"
 msgstr ""
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:738
+#: ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr ""
 
 #: ../pykickstart/parser.py:880
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
+msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Arahan tidak diketahui: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -132,11 +126,11 @@ msgid ""
 msgstr ""
 
 #: ../validator/ksvalidator:68
-#, fuzzy
 msgid "General kickstart error in input file"
-msgstr "Ralat pada %s pada baris %d bagi fail kickstart%s"
+msgstr "Ralat umum kickstart dalam fail masukan"
 
 #: ../validator/ksvalidator:71
-#, fuzzy, python-format
+#, python-format
 msgid "General error in input file:  %s"
-msgstr "Ralat pada %s pada baris %d bagi fail kickstart%s"
+msgstr "Ralat umum dalam fail masukan: %s"
+
