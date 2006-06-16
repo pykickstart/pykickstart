@@ -1,3 +1,7 @@
+2006-06-16  Jeremy Katz  <katzj@redhat.com>
+
+	* pykickstart/parser.py (KickstartHandlers.doMethod): Handle nfs --opts
+
 2006-06-06  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec:  Fix BuildRequires (#194156).

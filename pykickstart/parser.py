@@ -503,6 +503,7 @@ class KickstartHandlers:
         elif self.currentCmd == "nfs":
             op.add_option("--server", dest="server", required=1)
             op.add_option("--dir", dest="dir", required=1)
+            op.add_option("--opts", dest="opts", required=0)
         elif self.currentCmd == "url":
             op.add_option("--url", dest="url", required=1)
 
