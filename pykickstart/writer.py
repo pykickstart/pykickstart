@@ -24,15 +24,15 @@ class KickstartWriter:
                          self.doAutoPart, self.doAutoStep, self.doBootloader,
                          self.doZeroMbr, self.doClearPart, self.doDevice,
                          self.doDeviceProbe, self.doDisplayMode,
-                         self.doDriverDisk, self.doFirewall,
-                         self.doFirstboot, self.doIgnoreDisk,
-                         self.doInteractive, self.doKeyboard, self.doLang,
-                         self.doLogging, self.doMediaCheck, self.doMethod,
-                         self.doNetwork, self.doReboot, self.doRepo,
-                         self.doRootPw, self.doSELinux, self.doServices,
-                         self.doSkipX, self.doTimezone, self.doUpgrade,
-                         self.doUser, self.doVnc, self.doXConfig,
-                         self.doMonitor, self.doZFCP,
+                         self.doDriverDisk, self.doFirewall, self.doFirstboot,
+                         self.doIgnoreDisk, self.doInteractive, self.doIscsi,
+                         self.doKeyboard, self.doLang, self.doLogging,
+                         self.doMediaCheck, self.doMethod, self.doNetwork,
+                         self.doReboot, self.doRepo, self.doRootPw,
+                         self.doSELinux, self.doServices, self.doSkipX,
+                         self.doTimezone, self.doUpgrade, self.doUser,
+                         self.doVnc, self.doXConfig, self.doMonitor,
+                         self.doZFCP,
 
                          self.doPartition, self.doVolumeGroup,
                          self.doLogicalVolume, self.doRaid,
@@ -213,6 +213,17 @@ class KickstartWriter:
     def doInteractive(self):
         if self.ksdata.interactive:
             return "# Use interactive kickstart installation method\ninteractive"
+
+    def doIscsi(self):
+        if self.ksdata.iscsi["target"] == "":
+            return
+
+        retval = "iscsi --target=%s --initiatorname=%s" % (self.ksdata.iscsi["target"], self.ksdata.iscsi["initiator"])
+
+        if self.ksdata.iscsi["port"] != "3260":
+            retval += " --port=%s" % self.ksdata.iscsi["port"]
+
+        return retval
 
     def doKeyboard(self):
         if self.ksdata.keyboard != "":
