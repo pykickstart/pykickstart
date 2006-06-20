@@ -1,3 +1,8 @@
+2006-06-20  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser (KickstartHandlers.doRaid):  Handle a RAID device
+	as an integer instead of a string (#176537).
+
 2006-06-16  Jeremy Katz  <katzj@redhat.com>
 
 	* pykickstart/parser.py (KickstartHandlers.doMethod): Handle nfs --opts

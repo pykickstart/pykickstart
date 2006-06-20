@@ -132,7 +132,7 @@ class KickstartPartData:
 
 class KickstartRaidData:
     def __init__ (self):
-        self.device = ""
+        self.device = None
         self.fsopts = ""
         self.fstype = ""
         self.level = ""

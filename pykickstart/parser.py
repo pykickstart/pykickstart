@@ -723,6 +723,11 @@ class KickstartHandlers:
 
         rd = KickstartRaidData()
         self._setToObj(op, opts, rd)
+
+        # --device can't just take an int in the callback above, because it
+        # could be specificed as "mdX", which causes optparse to error when
+        # it runs int().
+        rd.device = int(rd.device)
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
         self.ksdata.raidList.append(rd)
