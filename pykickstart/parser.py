@@ -240,6 +240,7 @@ class KickstartHandlers:
                      # implied by lack of "upgrade" command
                      "install"      : None,
                      "interactive"  : self.doInteractive,
+                     "iscsi"        : self.doIscsi,
                      "keyboard"     : self.doKeyboard,
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
@@ -421,6 +422,21 @@ class KickstartHandlers:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "interactive")
 
         self.ksdata.interactive = True
+
+    def doIscsi(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--target", dest="target", action="store",
+                      type="string", required=1)
+        op.add_option("--port", dest="port", action="store",
+                      type="string")
+        op.add_option("--initiatorname", dest="initiator", action="store",
+                      type="string", required=1)
+        (opts, extra) = op.parse_args(args=args)
+
+        if len(extra) != 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments for iscsi command"))
+
+        self._setToDict(op, opts, self.ksdata.iscsi)
 
     def doKeyboard(self, args):
         if len(args) > 1:

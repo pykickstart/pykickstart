@@ -35,6 +35,7 @@ class KickstartData:
         self.firstboot = FIRSTBOOT_SKIP
         self.ignoredisk = []
         self.interactive = False
+        self.iscsi = {"target": "", "port": "3260", "initiator": ""}
         self.keyboard = ""
         self.lang = ""
         self.logging = {"host": "", "level": "info", "port": ""}
