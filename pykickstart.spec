@@ -2,8 +2,8 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.30
-Release: 2
+Version: 0.31
+Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
@@ -39,6 +39,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Jun 20 2006 Chris Lumens <clumens@redhat.com> 0.31-1
+- Handle nfs --opts (katzj).
+- RAID devices should be integers instead of strings (#176537).
+- Add initial support for iscsi (katzj).
+
 * Tue Jun 06 2006 Chris Lumens <clumens@redhat.com> 0.30-2
 - Add BuildRequires to fix building under mock (#194156,  Joost Soeterbroek
   <fedora AT soeterbroek.com>).

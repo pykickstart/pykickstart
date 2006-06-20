@@ -1,5 +1,7 @@
 2006-06-20  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  Bump version.
+
 	* pykickstart/writer.py (KickstartWriter.doIscsi):  Add iscsi writer.
 
 2006-06-20  Jeremy Katz  <katzj@redhat.com>
