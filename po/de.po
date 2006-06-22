@@ -1,20 +1,22 @@
 # translation of de.po to German
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# This file is distributed under the same license as the de package.
+# Copyright (C) 2006 THE de'S COPYRIGHT HOLDER.
 # Nadine Reissle <nreissle@redhat.com>, 2006.
-#
+# Marcus Gloeckner <mgloeckner@gmail.com>, 2006
+# Nadine Reissle <nreissle@redhat.com>, 2006.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-18 09:06+1000\n"
-"Last-Translator: Nadine Reissle <nreissle@redhat.com>\n"
-"Language-Team: German <de@li.org>\n"
+"PO-Revision-Date: 2006-06-22 18:44+0200\n"
+"Last-Translator: Marcus Gloeckner <mgloeckner@gmail.com>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -46,21 +48,21 @@ msgid ""
 "file to remove this option."
 msgstr ""
 "Abgelehnte Option auf Linie %s nicht beachten:  Die %s Option wurde "
-"abgelehnt und hat keine Wirkung mehr.  Sie wird vielleicht von zukÃ¼nftigen "
+"abgelehnt und hat keine Wirkung mehr.  Sie wird vielleicht von zukünftigen "
 "Versionen entfernt werden, was dann zu einem unbehebbaren Fehler vom "
-"Kickstart fÃ¼hren wird. Bitte Ã¤ndern Sie Ihre Kickstart- Datei um diese "
+"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart- Datei um diese "
 "Option zu entfernen."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
-"Vorgeschriebene Bitschalter-Einstellung fÃ¼r die Option , die keinen Wert "
+"Vorgeschriebene Bitschalter-Einstellung für die Option , die keinen Wert "
 "nimmt"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr "Option %s: ungÃ¼ltiger boolescher Wert: %r"
+msgstr "Option %s: ungültiger boolescher Wert: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -71,9 +73,9 @@ msgid ""
 "file to remove this command."
 msgstr ""
 "Abgelehnter Befehl auf Linie %s nicht beachten:  Der %s Befehl wurde "
-"abgelehnt und hat keine Wirkung mehr.  Er wird vielleicht von zukÃ¼nftigen "
+"abgelehnt und hat keine Wirkung mehr.  Er wird vielleicht von zukünftigen "
 "Versionen entfernt werden, was dann zu einem unbehebbaren Fehler vom "
-"Kickstart fÃ¼hren wird. Bitte Ã¤ndern Sie Ihre Kickstart- Datei um diesen "
+"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart- Datei um diesen "
 "Befehl zu entfernen."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
@@ -92,7 +94,7 @@ msgstr "Befehl %s nimmt nur ein Argument"
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr "EinhÃ¤ngepunkt vorgeschrieben fÃ¼r %s"
+msgstr "Einhängepunkt vorgeschrieben für %s"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
@@ -102,25 +104,25 @@ msgstr "Unerwartete Argumente auf %s Befehl: %s"
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Laufwerk '%s' wird bereits in multipath '%s' verwendet"
 
 #: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
-"Nur eine der --baseurl und --mirrorlist kÃ¶nnen fÃ¼r den repo Befehl "
-"ausgewÃ¤hlt werden."
+"Nur eine der --baseurl und --mirrorlist können für den repo Befehl "
+"ausgewählt werden."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
-"Eine der --baseurl und --mirrorlist mÃ¼ssen fÃ¼r den repo Befehl ausgewÃ¤hlt "
+"Eine der --baseurl und --mirrorlist müssen für den repo Befehl ausgewählt "
 "werden."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr "Ein einzelnes Argument wird fÃ¼r den %s Befehl erwartet"
+msgstr "Ein einzelnes Argument wird für den %s Befehl erwartet"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -130,14 +132,14 @@ msgid ""
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
 "Abgelehnte Option auf Linie %s nicht beachten:  Der zerombr Befehl nimmt "
-"keine Optionen mehr.  In zukÃ¼nftigen Versionen wird das dann zu einem "
-"unbehebbaren Fehler vom Kickstart fÃ¼hren. Bitte Ã¤ndern Sie Ihre Kickstart-"
+"keine Optionen mehr.  In zukünftigen Versionen wird das dann zu einem "
+"unbehebbaren Fehler vom Kickstart führen. Bitte ändern Sie Ihre Kickstart-"
 "Datei um jegliche Optionen zu entfernen."
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Unbekannter Befehl: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -165,3 +167,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
