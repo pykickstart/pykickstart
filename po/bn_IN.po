@@ -109,14 +109,16 @@ msgid "Device '%s' is already used in multipath '%s'"
 msgstr "'%s' নামক ডিভাইস বর্তমানে মাল্টিপাথ '%s'-এ ব্যবহৃত হচ্ছে"
 
 #: ../pykickstart/parser.py:672
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "repo কমানডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
 "যাবে।"
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
+msgstr ""
+"repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
@@ -166,4 +168,3 @@ msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
-
