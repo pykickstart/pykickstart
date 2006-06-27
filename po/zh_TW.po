@@ -1,3 +1,4 @@
+# translation of pykickstart.po to Chinese, Traditional
 # translation of zh_TW.po to Chinese, Traditional
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -5,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_TW\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-21 13:42+1000\n"
+"PO-Revision-Date: 2006-06-27 13:29+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,11 +97,10 @@ msgstr "%s 指令所無預期的參數：%s"
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "裝置「%s」已經在多路徑「%s」中使用"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo 指令只能擇一指定 --baseurl 與 --mirrorlist。"
 
 #: ../pykickstart/parser.py:675
@@ -126,7 +126,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "未知的指令：%s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -154,3 +154,4 @@ msgstr "在輸入檔中發生一般 kickstart 錯誤"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"
+
