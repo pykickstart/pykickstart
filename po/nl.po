@@ -1,19 +1,21 @@
 # translation of pykickstart to Dutch
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Roland Hermans <rolandh@users.sourceforge.net>, 2006.
+# Copyright (C) 2006 Free Software Foundation, Inc.
+# This file is distributed under the same license as the pykickstart package.
 #
+# Roland Hermans <rolandh@users.sourceforge.net>, 2006.
+# Peter van Egdom <p.van.egdom@gmail.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-06-10 17:52+0100\n"
-"Last-Translator: Roland Hermans <rolandh@users.sourceforge.net>\n"
+"PO-Revision-Date: 2006-06-29 00:19+0200\n"
+"Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -22,14 +24,14 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
-"Het volgende probleem deed zich voor op regel %s van het kickstart bestand:\n"
+"Het volgende probleem deed zich voor op regel %s van het kickstart-bestand:\n"
 "\n"
 "%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Er was een probleem met het lezen van regel %s van het kickstart bestand"
+msgstr "Er was een probleem met het lezen van regel %s van het kickstart-bestand"
 
 #: ../pykickstart/parser.py:104
 #, python-format
@@ -39,12 +41,11 @@ msgstr "Optie %s is verplicht"
 #: ../pykickstart/parser.py:107
 #, python-format
 msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Negeer verouderde optie op regel %s:  De %s optie is verouderd en heeft niet langer een effect.  Ze kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas alstublieft uw kickstart bestand aan om deze optie te verwijderen."
+msgstr "Verouderde optie op regel %s wordt genegeerd:  De %s optie is verouderd en heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om deze optie te verwijderen."
 
 #: ../pykickstart/parser.py:139
-#, fuzzy
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Verplichte vlag gezet voor optie die geen waarde neemt"
+msgstr "Vereiste vlag gezet voor optie die geen waarde neemt"
 
 #: ../pykickstart/parser.py:147
 #, python-format
@@ -54,7 +55,7 @@ msgstr "Optie %s: ongeldige booleaanse waarde: %r"
 #: ../pykickstart/parser.py:291
 #, python-format
 msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Negeer verouderd commando op regel %s:  Het %s commando is verouderd en heeft niet langer een effect.  Het kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas alstublieft uw kickstart bestand aan om dit commando te verwijderen."
+msgstr "Verouderd commando op regel %s wordt genegeerd:  Het %s commando is verouderd en heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om dit commando te verwijderen."
 
 #: ../pykickstart/parser.py:298
 #: ../pykickstart/parser.py:421
@@ -85,7 +86,7 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "Onverwachte argumenten voor %s commando: %s"
 
 #: ../pykickstart/parser.py:577
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' is already used in multipath '%s'"
 msgstr "Apparaat '%s' is al gebruikt in multipath '%s'"
 
@@ -106,7 +107,7 @@ msgstr "Een enkel argument wordt verwacht voor het %s commando"
 #: ../pykickstart/parser.py:880
 #, python-format
 msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Negeer verouderde optie op regel %s:  Het zerombr commando neemt niet langer een optie.  In toekomstige releases zal dit resulteren in een fatale fout van kickstart.  Pas alstublieft uw kickstart bestand aan om de opties te verwijderen."
+msgstr "Verouderde optie op regel %s wordt genegeerd:  Het zerombr commando neemt niet langer een optie.  In toekomstige versies zal dit resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om de opties te verwijderen."
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -118,9 +119,9 @@ msgid "halt after the first error or warning"
 msgstr "gestopt na de eerste fout of waarschuwing"
 
 #: ../validator/ksvalidator:39
-#, fuzzy, python-format
+#, python-format
 msgid "parse include files when %include is seen"
-msgstr "parse include bestanden wanneer %include is gezien"
+msgstr "Verwerk include-bestanden wanneer %include is gezien"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -133,7 +134,7 @@ msgstr ""
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr "Algemene kickstart fout in invoerbestand"
+msgstr "Algemene kickstart-fout in invoerbestand"
 
 #: ../validator/ksvalidator:71
 #, python-format
