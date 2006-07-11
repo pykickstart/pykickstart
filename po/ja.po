@@ -1,20 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# translation of ja.po to Japanese
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-07-11 16:19\n"
+"Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
+"Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +23,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"以下の問題がキックスタートファイルの %s 行で発生しました:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "キックスタートファイルの %s の行の読み込みに問題がありました"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "オプション %s は必須です"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -45,12 +48,12 @@ msgstr ""
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "値を取らないオプションに必要なフラグが設定されています"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "オプション %s: 無効なブーリアン値: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -66,42 +69,43 @@ msgstr ""
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "コマンド %s はどの引数も取りません"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "コマンド %s は１つの引数だけ取ります"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s に必要なマウントポイント"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s コマンドへの想定外の引数: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "デバイス '%s' は既にマルチパス '%s' で使用中です"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。 "
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
+"--baseurl か --mirrorlist のどちらか１つを repo コマンド用に指定する必要が"
+"あります。"
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "１つの引数が %s コマンド用に想定されています"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -114,16 +118,16 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "未知のコマンド: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "最初のエラー又は警告で止める"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include が表示された時に include ファイルを構文解析"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -131,12 +135,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"ファイルは無用になったオプションかコマンドを使用します。\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "入力ファイル内の全般的キックスタートエラー"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "入力ファイル内の全般的エラー:  %s"
+
