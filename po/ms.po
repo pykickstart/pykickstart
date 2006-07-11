@@ -1,19 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-06-11 18:39+0800\n"
+"PO-Revision-Date: 2006-07-11 14:59+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -22,35 +23,41 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Masalah berikut berlaku pada baris %s untuk fail kickstart:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Terdapat masalah membaca dari baris %s untuk fail kickstart"
 
 #: ../pykickstart/parser.py:104
-#, fuzzy, python-format
+#, python-format
 msgid "Option %s is required"
-msgstr "Nama Perkongsian diperlukan"
+msgstr "Pilihan %s diperlukan"
 
 #: ../pykickstart/parser.py:107
 #, python-format
+#, fuzzy
 msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr ""
+msgstr "buka s s dan tidak inci fail hingga."
 
 #: ../pykickstart/parser.py:139
+#, fuzzy
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Dikehendaki for"
 
 #: ../pykickstart/parser.py:147
 #, fuzzy, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr "Nilai untuk pilihan ini"
+msgstr "Pilihan s"
 
 #: ../pykickstart/parser.py:291
 #, python-format
+#, fuzzy
 msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr ""
+msgstr "buka s s dan tidak inci fail hingga."
 
 #: ../pykickstart/parser.py:298
 #: ../pykickstart/parser.py:421
@@ -58,14 +65,16 @@ msgstr ""
 #: ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
+#, fuzzy
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Arahan s"
 
 #: ../pykickstart/parser.py:427
 #: ../pykickstart/parser.py:433
 #, python-format
+#, fuzzy
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Arahan s"
 
 #: ../pykickstart/parser.py:470
 #: ../pykickstart/parser.py:641
@@ -82,27 +91,32 @@ msgstr "Hujah tidak dijangka pada arahan %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
+#, fuzzy
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Peranti s ialah inci s"
 
 #: ../pykickstart/parser.py:672
+#, fuzzy
 msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgstr "bagi dan for."
 
 #: ../pykickstart/parser.py:675
+#, fuzzy
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Satu bagi atau for."
 
 #: ../pykickstart/parser.py:738
 #: ../pykickstart/parser.py:782
 #, python-format
+#, fuzzy
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "A ialah for s"
 
 #: ../pykickstart/parser.py:880
 #, python-format
+#, fuzzy
 msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
+msgstr "buka s tidak Dalam inci fail hingga."
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -110,20 +124,23 @@ msgid "Unknown command: %s"
 msgstr "Arahan tidak diketahui: %s"
 
 #: ../validator/ksvalidator:36
+#, fuzzy
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "atau"
 
 #: ../validator/ksvalidator:39
 #, python-format
+#, fuzzy
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "ialah"
 
 #: ../validator/ksvalidator:62
 #, python-format
+#, fuzzy
 msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
-msgstr ""
+msgstr "Fail atau s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
