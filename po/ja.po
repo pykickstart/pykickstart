@@ -1,16 +1,18 @@
+# translation of ja.po to 
 # translation of ja.po to Japanese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# kiyoto james hashida <khashida@brisbane.redhat.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-07-11 16:19\n"
-"Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
-"Language-Team: Japanese <ja@li.org>\n"
+"PO-Revision-Date: 2006-07-12 10:58+0000\n"
+"Last-Translator: kiyoto james hashida <khashida@brisbane.redhat.com>\n"
+"Language-Team:  <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,6 +47,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"%s 行の無用なオプションを無視します: %s オプションは無用となっており、どんな効果も "
+"持ちません。将来のリリースでは削除される可能性がありますが、これがキックスタートの "
+"致命的なエラーになるでしょう。使用中のキックスタートファイルを修正して、このオプションを "
+"取り除いて下さい。"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -63,6 +69,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"%s 行の無用なコマンドを無視します: %s コマンドは無用となっており、なんの効果も "
+"持ちません。将来のリリースでは削除される可能性もありますが、これがキックスタートの "
+"致命的なエラーになるでしょう。使用中のキックスタートファイルを修正してこのコマンドを "
+"取り除いて下さい。"
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
@@ -114,6 +124,9 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"%s 行の無用のオプションを無視します: zerombr コマンドはどのオプションも取らなく "
+"なりました。将来のリリースでは、これが、キックスタートの致命的エラーとなるでしょう。 "
+"使用中のキックスタートを修正して、全てのオプションを取り除いて下さい。"
 
 #: ../pykickstart/parser.py:949
 #, python-format
