@@ -1,3 +1,12 @@
+2006-07-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py:  Add noipv4 and noipv6 to KickstartNetworkData.
+	* pykickstart/parser.py (KickstartHandlers.doNetwork):  Limit
+	bootproto choices to what anaconda can handle.  Add support for
+	--noipv4 and --noipv6 options.
+	* pykickstart/writer.py (KickstartWriter.doNetwork):  Write out new
+	networking options.
+
 2006-06-20  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.

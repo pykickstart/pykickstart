@@ -332,6 +332,10 @@ class KickstartWriter:
                 retval = retval + " --hostname=%s" % nic.hostname
             if nic.ip != "":
                 retval = retval + " --ip=%s" % nic.ip
+            if not nic.ipv4:
+                retval += " --noipv4"
+            if not nic.ipv6:
+                retval += " --noipv6"
             if nic.mtu != "":
                 retval = retval + " --mtu=%s" % nic.mtu
             if nic.nameserver != "":

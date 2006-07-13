@@ -546,7 +546,8 @@ class KickstartHandlers:
 
     def doNetwork(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--bootproto", dest="bootProto", default="dhcp")
+        op.add_option("--bootproto", dest="bootProto", default="dhcp",
+                      choices=["dhcp", "bootp", "static"])
         op.add_option("--class", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
@@ -559,6 +560,10 @@ class KickstartHandlers:
         op.add_option("--netmask", dest="netmask")
         op.add_option("--nodns", dest="nodns", action="store_true",
                       default=False)
+        op.add_option("--noipv4", dest="ipv4", action="store_false",
+                      default=True)
+        op.add_option("--noipv6", dest="ipv6", action="store_false",
+                      default=True)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
         op.add_option("--onboot", dest="onboot", action="store",
