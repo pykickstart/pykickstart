@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.31
+Version: 0.32
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -39,6 +39,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Thu Jul 20 2006 Chris Lumens <clumens@redhat.com> 0.32-1
+- Limit --bootproto to what anaconda supports.
+- Add --noipv4 and --noipv6 network options.
+
 * Tue Jun 20 2006 Chris Lumens <clumens@redhat.com> 0.31-1
 - Handle nfs --opts (katzj).
 - RAID devices should be integers instead of strings (#176537).
