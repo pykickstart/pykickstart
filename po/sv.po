@@ -1,19 +1,19 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Swedish messages for pykickstart.
+# Copyright (C) 2006 Christian Rose.
+# Christian Rose <menthos@menthos.com>, 2006.
 #
-#, fuzzy
+# $Id$
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-07-21 00:26+0200\n"
+"Last-Translator: Christian Rose <menthos@menthos.com>\n"
+"Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,16 +23,28 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Följande fel inträffade på rad %s i kickstart-filen:\n"
+"\n"
+"%s\n"
+
+msgid ""
+"The following problem occurred on line %s of the kickstart file:\n"
+"\n"
+"%s"
+msgstr ""
+"Följande fel inträffade på rad %s i kickstart-filen:\n"
+"\n"
+"%s"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Det uppstod ett problem vid inläsning från rad %s av kickstart-filen"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Flaggan %s krävs"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +54,20 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"Ignorerar föråldrad flagga på rad %s: %s-flaggan är föråldrad och har "
+"inte längre någon effekt. Den kan komma att tas bort från framtida utgåvor, "
+"vilket kommer att resultera i ett ödesdigert fel från kickstart. Ändra din "
+"kickstart-fil och ta bort denna flagga."
 
+# Här blir det konstigt...
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Nödvändig flagga satt för flagga som inte tar ett värde"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Flagga %s: ogiltigt booleskt värde: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -60,48 +77,53 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Ignorerar föråldrat kommando på rad %s: %s-kommandot är föråldrat och har "
+"inte längre någon effekt. Det kan komma att tas bort från framtida utgåvor, "
+"vilket kommer att resultera i ett ödesdigert fel från kickstart. Ändra din "
+"kickstart-fil och ta bort detta kommando."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Kommandot %s tar inga argument"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Kommandot %s tar endast ett argument"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Monteringspunkt krävs för %s"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Oväntade argument till %s-kommandot: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Enheten \"%s\" används redan i multisökvägen \"%s\""
 
 #: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Endast en av --baseurl och --mirrorlist kan anges för repo-kommandot."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "En av --baseurl eller --mirrorlist måste anges för repo-kommandot."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Ett ensamt argument förväntas för %s-kommandot"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -110,20 +132,24 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Ignorerar föråldrad flagga på rad %s: zerombr-kommandot tar inte längre "
+"några flaggor. I framtida utgåvor kommer detta att resultera i ett "
+"ödesdigert fel från kickstart. Ändra din kickstart-fil och ta bort alla "
+"flaggor."
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Okänt kommando: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "stanna efter det första felet eller den första varningen"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "tolka inkluderingsfiler då %include hittas"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -131,12 +157,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Filen använder en föråldrad flagga eller ett föråldrat kommando.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Allmänt kickstart-fel i indatafil"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Allmänt fel i indatafil: %s"
