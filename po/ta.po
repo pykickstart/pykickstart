@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-12 17:53+0530\n"
+"PO-Revision-Date: 2006-08-11 15:50+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 
 #: ../pykickstart/parser.py:45
@@ -25,11 +25,14 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"கிக்ஸ்டார்ட் கோப்பு வரி %sல் பின்வரும் பிழை ஏற்பட்டுள்ளது:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "கிக்ஸ்டார்ட் கோப்பின் வரி %sல் வாசிக்கும் போது சிக்கல் உள்ளது"
 
 #: ../pykickstart/parser.py:104
 #, python-format
@@ -79,7 +82,7 @@ msgstr "கட்டளை %s ஒரு மதிப்பினை மட்ட
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "ஏற்றப்புள்ளி %sக்கு தேவைப்படுகிறது"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
@@ -89,11 +92,10 @@ msgstr " %s கட்டளை: %sக்கு எதிர்பாராத �
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "சாதனம் '%s' ஏற்கெனவே பல பாதை '%s'ல் பயன்படுத்தப்படுகிறது"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 
 #: ../pykickstart/parser.py:675
@@ -116,16 +118,16 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "தெரியாத கட்டளை: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "முதல் பிழை அல்லது எச்சரிக்கைக்கு பின் நிறுத்தவும்"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include தெரிந்தால் பகுத்தல் கோப்புகளை சேர்க்கிறது"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -133,6 +135,8 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"கோப்பு எதிரிடையான விருப்பம் அல்லது கட்டளை பயன்படுத்துகிறது.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
@@ -142,3 +146,4 @@ msgstr "உள்ளீடு கோப்பில் பொதுவான க
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
+
