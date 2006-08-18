@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# translation of Pykickstart.
+# Copyright (C) 2006 THE Pykickstart'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the Pykickstart package.
+# <>, 2006.
+# , fuzzy
+# 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: Pykickstart 1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-08-18 14:46-0400\n"
+"Last-Translator:  <>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Type: text/plain; charset=\n"
+"Content-Transfer-Encoding: "
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -23,16 +24,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Следећи проблем се десио на линији %s kickstart датотеке:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Десио се проблем читајући линију %s kickstart датотеке"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Опција %s је обавезна"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +46,19 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"Занемаривање застареле опције на линији %s:  Опција %s је застарeла и више "
+"нема никакво дејство.  Може бити избачена у следећим издањима што ће "
+"довести до кобне грешке у kickstart-у.  Молим измените kickstart "
+"датотеку тако што ћете избацити ову опцију."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Захтевана ознака подешена за опцију која не узима вредност"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Опција %s: неважећа буловска вредност: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -60,48 +68,53 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Занемаривање застареле команде на линији %s:  Команда %s је застарeла и "
+"више нема никакво дејство.  Може бити избачена из следећих издања што "
+"ће довести до кобне грешке у kickstart-у.  Молим измените kickstart "
+"датотеку тако што ћете избацити ову команду."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Команда %s нема аргументе"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Команда %s има само један аргумент"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Тачка монтирања захтевана за %s"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Неочекивани аргумент за команду %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Уређај „%s“ је се већ користи у више-путањи „%s“"
 
 #: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Само једно од --basеurl и --mirrorlist може бити наведено за repo команду."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Једно од --basеurl и --mirrorlist може бити наведено за repo команду."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Само један аргумент је очекиван за команду %s."
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -110,20 +123,23 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Занемаривање застареле опције на линији %s:  zerombr команда не узима више"
+"никакву опцију.  У следећим издањима ово ће довести до кобне грешке "
+"у kickstart-у.  Молимо измените kickstart датотеку тако што ћете избацити све опције."
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Непозната команда: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "заустави после прве грешке или упозорења"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "разчлани укључене датотеке када је %include виђен"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -131,12 +147,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Датотека користи застарелу опцију или команду.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Општа kickstart грешка у улазној дадотеци"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Општа грешка у улазној дадотеци:  %s"
+
