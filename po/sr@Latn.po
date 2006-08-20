@@ -1,19 +1,18 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Serbian(Latin) translations for pykickstart.
+# Copyright (C) 2006 Red Hat, Inc.
+# This file is distributed under the same license as the pykickstart package.
+# Igor Miletic <grejigl-gnomeprevod@yahoo.ca>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-08-20 18:38+0100\n"
+"Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
+"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,107 +22,104 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Sledeći problem se desio na liniji %s kickstart datoteke:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Desio se problem čitajući liniju %s kickstart datoteke"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Opcija %s je obavezna"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
-msgstr ""
+msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Zanemarivanje zastarele opcije na liniji %s:  Opcija %s je zastarela i više nema nikakvo dejstvo.  Može biti izbačena u sledećim izdanjima što će dovesti do kobne greške u kickstart-u.  Molim izmenite kickstart datoteku tako što ćete izbaciti ovu opciju."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Zahtevana oznaka podešena za opciju koja ne uzima vrednost"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "Opcija %s: nevažeća bulovska vrednost: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
-msgstr ""
+msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Zanemarivanje zastarele komande na liniji %s:  Komanda %s je zastarela i više nema nikakvo dejstvo.  Može biti izbačena iz sledećih izdanja što će dovesti do kobne greške u kickstart-u.  Molim izmenite kickstart datoteku tako što ćete izbaciti ovu komandu."
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:298
+#: ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489
+#: ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Komanda %s nema argumente"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:427
+#: ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Komanda %s ima samo jedan argument"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:470
+#: ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Tačka montiranja obavezna za %s"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
+#: ../pykickstart/parser.py:523
+#: ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Neočekivani argument za komandu %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Uređaj „%s“ je se već koristi u višestrukoj putanji „%s“"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "Samo jedno od --baseurl i --mirrorlist može biti navedeno za repo komandu."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Jedno od --baseurl i --mirrorlist može biti navedeno za repo komandu."
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:738
+#: ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Samo jedan argument je očekivan za komandu %s."
 
 #: ../pykickstart/parser.py:880
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
+msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
+msgstr "Zanemarivanje zastarele opcije na liniji %s:  zerombr komanda ne uzima više nikakvu opciju.  U sledećim izdanjima ovo će dovesti do kobne greške u kickstart-u.  Molimo izmenite kickstart datoteku tako što ćete izbaciti sve opcije."
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Nepoznata komanda: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "zaustavi posle prve greške ili upozorenja"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "raščlani uključene datoteke kada je %include viđen"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -131,12 +127,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Datoteka koristi zastarelu opciju ili komandu.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Opšta kickstart greška u ulaznoj datoteci"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Opšta greška u ulaznoj datoteci:  %s"
+
