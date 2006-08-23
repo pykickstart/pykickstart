@@ -3,17 +3,16 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: pykickstart\n"
+"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-08-23 01:22+0000\n"
+"Last-Translator: Richard Allen <ra@ra.is>\n"
+"Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,16 +22,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Eftirfarandi vandi kom upp á línu %s í hraðuppsetningarskránni:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Það kom upp villa við að lesa úr línu %s í hraðuppsetningarskránni"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Rofann %s vantar"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -66,28 +68,28 @@ msgstr ""
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "Skipunin %s tekur engin viðföng"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "Skipunin %s tekur einungis eitt viðfang"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Tengipunkt vantar fyrir %s"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Viðföngum ofaukið við skipunina %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "Tækið '%s' er þegar í notkun í fjölslóðatækinu '%s'"
 
 #: ../pykickstart/parser.py:672
 msgid ""
@@ -114,7 +116,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Óþekkt skipun: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
