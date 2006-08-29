@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-06-26 14:04+1000\n"
+"PO-Revision-Date: 2006-08-29 16:56+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "킥스타트파일의 %s번째 줄을 읽는데 문제가 발생했습�
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr "옵션 %s가 요구됩니다"
+msgstr "옵션 %s가 필요합니다"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -54,7 +54,7 @@ msgstr ""
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr "값을 가지지 않는 옵션을 위해 사용되는 플래그 모음이 요구됩니다"
+msgstr "값을 가지지 않는 옵션을 위해 사용되는 플래그 모음이 필요합니다"
 
 #: ../pykickstart/parser.py:147
 #, python-format
@@ -90,7 +90,7 @@ msgstr "명령 %s는 오직 하나의 인자(argument)만을 갖습니다"
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr "%s을 위한 마운트 지점 요구됩니다"
+msgstr "%s을 위한 마운트 지점 필요합니다"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
@@ -108,12 +108,12 @@ msgstr "--baseurl 과 --mirrorlist 에서 하나만이 repo 명령을 위해 지
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "--baseurl 과 --mirrorlist 에서 하나가 repo 명령을 위해 지정되어져야 합니다."
+msgstr "--baseurl 과 --mirrorlist 중 하나가 repo 명령을 위해 지정되어져야 합니다."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr "%s 명령에 대해 하나의 인자(argument)가 요구됩니다."
+msgstr "%s 명령에 대해 하나의 인자(argument)가 필요합니다"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -139,7 +139,7 @@ msgstr "처음 오류 혹은 경고 후에 정지"
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "%include 가 보여질때 include 파일을 구문분석합니다"
+msgstr "%include 가 보여질때 include 파일을 구문 분석합니다"
 
 #: ../validator/ksvalidator:62
 #, python-format
