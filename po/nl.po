@@ -31,7 +31,8 @@ msgstr ""
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Er was een probleem met het lezen van regel %s van het kickstart-bestand"
+msgstr ""
+"Er was een probleem met het lezen van regel %s van het kickstart-bestand"
 
 #: ../pykickstart/parser.py:104
 #, python-format
@@ -40,8 +41,16 @@ msgstr "Optie %s is verplicht"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Verouderde optie op regel %s wordt genegeerd:  De %s optie is verouderd en heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om deze optie te verwijderen."
+msgid ""
+"Ignoring deprecated option on line %s:  The %s option has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this option."
+msgstr ""
+"Verouderde optie op regel %s wordt genegeerd:  De %s optie is verouderd en "
+"heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, "
+"wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-"
+"bestand aan om deze optie te verwijderen."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -54,33 +63,36 @@ msgstr "Optie %s: ongeldige booleaanse waarde: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
-msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Verouderd commando op regel %s wordt genegeerd:  Het %s commando is verouderd en heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om dit commando te verwijderen."
+msgid ""
+"Ignoring deprecated command on line %s:  The %s command has been deprecated "
+"and no longer has any effect.  It may be removed from future releases, which "
+"will result in a fatal error from kickstart.  Please modify your kickstart "
+"file to remove this command."
+msgstr ""
+"Verouderd commando op regel %s wordt genegeerd:  Het %s commando is "
+"verouderd en heeft geen effect meer.  Het kan worden verwijderd in "
+"toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  "
+"Pas uw kickstart-bestand aan om dit commando te verwijderen."
 
-#: ../pykickstart/parser.py:298
-#: ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489
-#: ../pykickstart/parser.py:770
+#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
+#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Commando %s neemt geen enkel argument"
 
-#: ../pykickstart/parser.py:427
-#: ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Commando %s neemt slechts een enkel argument"
 
-#: ../pykickstart/parser.py:470
-#: ../pykickstart/parser.py:641
+#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Koppelpunt vereist voor %s"
 
-#: ../pykickstart/parser.py:523
-#: ../pykickstart/parser.py:874
+#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
 msgstr "Onverwachte argumenten voor %s commando: %s"
@@ -91,23 +103,34 @@ msgid "Device '%s' is already used in multipath '%s'"
 msgstr "Apparaat '%s' is al gebruikt in multipath '%s'"
 
 #: ../pykickstart/parser.py:672
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "Slechts een van --baseurl en --mirrorlist mag worden gespecificeerd voor repo commando."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"Slechts een van --baseurl en --mirrorlist mag worden gespecificeerd voor "
+"repo commando."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "Een van --baseurl of --mirrorlist moet worden gespecificeerd voor repo commando."
+msgstr ""
+"Een van --baseurl of --mirrorlist moet worden gespecificeerd voor repo "
+"commando."
 
-#: ../pykickstart/parser.py:738
-#: ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Een enkel argument wordt verwacht voor het %s commando"
 
 #: ../pykickstart/parser.py:880
 #, python-format
-msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Verouderde optie op regel %s wordt genegeerd:  Het zerombr commando neemt niet langer een optie.  In toekomstige versies zal dit resulteren in een fatale fout van kickstart.  Pas uw kickstart-bestand aan om de opties te verwijderen."
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr ""
+"Verouderde optie op regel %s wordt genegeerd:  Het zerombr commando neemt "
+"niet langer een optie.  In toekomstige versies zal dit resulteren in een "
+"fatale fout van kickstart.  Pas uw kickstart-bestand aan om de opties te "
+"verwijderen."
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -140,4 +163,3 @@ msgstr "Algemene kickstart-fout in invoerbestand"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Algemene fout in invoerbestand:  %s"
-
