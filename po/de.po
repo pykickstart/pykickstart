@@ -1,22 +1,25 @@
+# translation of de.po to 
 # translation of de.po to German
 # This file is distributed under the same license as the de package.
 # Copyright (C) 2006 THE de'S COPYRIGHT HOLDER.
 # Nadine Reissle <nreissle@redhat.com>, 2006.
-# Marcus Gloeckner <mgloeckner@gmail.com>, 2006
+# Marcus Gloeckner <mgloeckner@gmail.com>, 2006.
 # Nadine Reissle <nreissle@redhat.com>, 2006.
-# 
-# 
+# Timo Trinks <ttrinks@redhat.com>, 2006.
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-06-22 18:44+0200\n"
-"Last-Translator: Marcus Gloeckner <mgloeckner@gmail.com>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"PO-Revision-Date: 2006-09-01 12:58+1000\n"
+"Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -25,19 +28,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
-"Das folgende Problem trat in Linie %s der Kickstart-Datei auf:\n"
+"Das folgende Problem trat in Zeile %s der Kickstart-Datei auf:\n"
 "\n"
 "%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Es gab ein Problem beim Lesen von Linie %s der Kickstart-Datei"
+msgstr "Es gab ein Problem beim Lesen von Zeile %s der Kickstart-Datei"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr "Option %s ist vorgeschrieben"
+msgstr "Option %s ist erforderlich"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -47,17 +50,17 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
-"Abgelehnte Option auf Linie %s nicht beachten:  Die %s Option wurde "
-"abgelehnt und hat keine Wirkung mehr.  Sie wird vielleicht von zukünftigen "
-"Versionen entfernt werden, was dann zu einem unbehebbaren Fehler vom "
-"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart- Datei um diese "
+"Veraltete Option in Zeile %s nicht beachten:  Die %s Option ist "
+"veraltet und hat keine Wirkung mehr.  Sie wird vielleicht von zukünftigen "
+"Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von "
+"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese "
 "Option zu entfernen."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 "Vorgeschriebene Bitschalter-Einstellung für die Option , die keinen Wert "
-"nimmt"
+"annimmt"
 
 #: ../pykickstart/parser.py:147
 #, python-format
@@ -72,10 +75,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
-"Abgelehnter Befehl auf Linie %s nicht beachten:  Der %s Befehl wurde "
+"Veralteter Befehl in Zeile %s nicht beachten:  Der %s Befehl wurde "
 "abgelehnt und hat keine Wirkung mehr.  Er wird vielleicht von zukünftigen "
-"Versionen entfernt werden, was dann zu einem unbehebbaren Fehler vom "
-"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart- Datei um diesen "
+"Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von "
+"Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diesen "
 "Befehl zu entfernen."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
@@ -83,12 +86,12 @@ msgstr ""
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr "Befehl %s nimmt keine Argumente"
+msgstr "Befehl %s nimmt keine Argumente an"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr "Befehl %s nimmt nur ein Argument"
+msgstr "Befehl %s nimmt nur ein Argument an"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
@@ -99,7 +102,7 @@ msgstr "Einhängepunkt vorgeschrieben für %s"
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr "Unerwartete Argumente auf %s Befehl: %s"
+msgstr "Unerwartete Argumente für den %s Befehl: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
@@ -107,16 +110,15 @@ msgid "Device '%s' is already used in multipath '%s'"
 msgstr "Laufwerk '%s' wird bereits in multipath '%s' verwendet"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
-"Nur eine der --baseurl und --mirrorlist können für den repo Befehl "
+"Nur entweder --baseurl oder --mirrorlist kann für den repo-Befehl "
 "ausgewählt werden."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
-"Eine der --baseurl und --mirrorlist müssen für den repo Befehl ausgewählt "
+"Entweder --baseurl oder --mirrorlist muss für den repo-Befehl ausgewählt "
 "werden."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
@@ -131,10 +133,10 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
-"Abgelehnte Option auf Linie %s nicht beachten:  Der zerombr Befehl nimmt "
-"keine Optionen mehr.  In zukünftigen Versionen wird das dann zu einem "
-"unbehebbaren Fehler vom Kickstart führen. Bitte ändern Sie Ihre Kickstart-"
-"Datei um jegliche Optionen zu entfernen."
+"Abgelehnte Option in Zeile %s nicht beachten:  Der zerombr-Befehl nimmt "
+"keine Optionen mehr an.  In zukünftigen Versionen wird das dann zu einem "
+"nicht behebbaren Fehler vom Kickstart führen. Bitte ändern Sie Ihre Kickstart-"
+"Datei, um jegliche Optionen zu entfernen."
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -156,7 +158,7 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
-"Datei benutzt eine abgelehnte Option oder Befehl.\n"
+"Datei benutzt eine veraltete Option oder Befehl.\n"
 "%s"
 
 #: ../validator/ksvalidator:68
