@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-07-11 14:59+0800\n"
+"PO-Revision-Date: 2006-08-31 21:03+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -39,7 +39,6 @@ msgstr "Pilihan %s diperlukan"
 
 #: ../pykickstart/parser.py:107
 #, python-format
-#, fuzzy
 msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
 msgstr "buka s s dan tidak inci fail hingga."
 
@@ -51,11 +50,10 @@ msgstr "Dikehendaki for"
 #: ../pykickstart/parser.py:147
 #, fuzzy, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr "Pilihan s"
+msgstr "nilai `%s' --ignore-initial tidak sah"
 
 #: ../pykickstart/parser.py:291
 #, python-format
-#, fuzzy
 msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
 msgstr "buka s s dan tidak inci fail hingga."
 
@@ -65,14 +63,12 @@ msgstr "buka s s dan tidak inci fail hingga."
 #: ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
-#, fuzzy
 msgid "Command %s does not take any arguments"
 msgstr "Arahan s"
 
 #: ../pykickstart/parser.py:427
 #: ../pykickstart/parser.py:433
 #, python-format
-#, fuzzy
 msgid "Command %s only takes one argument"
 msgstr "Arahan s"
 
@@ -91,30 +87,25 @@ msgstr "Hujah tidak dijangka pada arahan %s: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
-#, fuzzy
 msgid "Device '%s' is already used in multipath '%s'"
 msgstr "Peranti s ialah inci s"
 
 #: ../pykickstart/parser.py:672
-#, fuzzy
 msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "bagi dan for."
+msgstr "Salah satu dari --baseurl dan --mirrorlist boleh dinyatakan untuk arahan repo."
 
 #: ../pykickstart/parser.py:675
-#, fuzzy
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "Satu bagi atau for."
+msgstr "Satu daripada --baseurl atau --mirrorlist mesti dinyatakan untuk arahan repo."
 
 #: ../pykickstart/parser.py:738
 #: ../pykickstart/parser.py:782
 #, python-format
-#, fuzzy
 msgid "A single argument is expected for the %s command"
 msgstr "A ialah for s"
 
 #: ../pykickstart/parser.py:880
 #, python-format
-#, fuzzy
 msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
 msgstr "buka s tidak Dalam inci fail hingga."
 
@@ -124,19 +115,16 @@ msgid "Unknown command: %s"
 msgstr "Arahan tidak diketahui: %s"
 
 #: ../validator/ksvalidator:36
-#, fuzzy
 msgid "halt after the first error or warning"
-msgstr "atau"
+msgstr "henti selepas ralat atau amaran pertama"
 
 #: ../validator/ksvalidator:39
 #, python-format
-#, fuzzy
 msgid "parse include files when %include is seen"
 msgstr "ialah"
 
 #: ../validator/ksvalidator:62
 #, python-format
-#, fuzzy
 msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
