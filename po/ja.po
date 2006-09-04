@@ -49,7 +49,9 @@ msgid ""
 "file to remove this option."
 msgstr ""
 "%s 行の無用なオプションを無視します: %s オプションは無用となっており、どんな"
-"効果も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削除される可能性があります。使用中のキックスタートファイルを修正して、このオプションを取り除いてください。"
+"効果も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースで"
+"は削除される可能性があります。使用中のキックスタートファイルを修正して、この"
+"オプションを取り除いてください。"
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -69,7 +71,9 @@ msgid ""
 "file to remove this command."
 msgstr ""
 "%s 行の無用なコマンドを無視します: %s コマンドは無用となっており、なんの効果"
-"も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削除される可能性があります。使用中のキックスタートファイルを修正してこのコマンドを取り除いてください。"
+"も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削"
+"除される可能性があります。使用中のキックスタートファイルを修正してこのコマン"
+"ドを取り除いてください。"
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
@@ -100,8 +104,10 @@ msgid "Device '%s' is already used in multipath '%s'"
 msgstr "デバイス '%s' は既にマルチパス '%s' で使用中です"
 
 #: ../pykickstart/parser.py:672
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。"
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。"
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
@@ -121,9 +127,10 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
-"%s 行の無用のオプションを無視します: zerombr コマンドはいずれのオプションも取らな"
-"くなりました。将来のリリースでは、これがキックスタートの致命的エラーとなります。"
-"使用中のキックスタートを修正して、すべてのオプションを取り除いてください。"
+"%s 行の無用のオプションを無視します: zerombr コマンドはいずれのオプションも取"
+"らなくなりました。将来のリリースでは、これがキックスタートの致命的エラーとな"
+"ります。使用中のキックスタートを修正して、すべてのオプションを取り除いてくだ"
+"さい。"
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -156,4 +163,3 @@ msgstr "入力ファイル内の一般的なキックスタートエラー"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "入力ファイル内の一般的なエラー:  %s"
-
