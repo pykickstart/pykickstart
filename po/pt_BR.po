@@ -4,19 +4,20 @@
 # Rodrigo Padula de Oliveira <rodrigopadula@projetofedora.org>, 2006.
 # Igor Pires Soares <igorpsoares@uol.com.br>, 2006.
 # Diego Búrigo Zacarão <diegobz@gmail.com>, 2006.
+# Valnir Ferreira Jr. <vferreir@redhat.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-08-11 11:48-0300\n"
-"Last-Translator: Diego Búrigo Zacarão <diegobz@gmail.com>\n"
-"Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
+"PO-Revision-Date: 2006-09-11 11:46+1000\n"
+"Last-Translator: Valnir Ferreira Jr. <vferreir@redhat.com>\n"
+"Language-Team: Brazilian Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:45
 #, python-format
@@ -59,7 +60,7 @@ msgstr "Sinalização requerida definida para opção que não aceita um valor"
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr "Opção %s: valor booleano inválido: %r"
+msgstr "Opção %s: valor Booleano inválido: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
