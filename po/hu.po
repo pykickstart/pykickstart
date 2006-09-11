@@ -1,19 +1,16 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Tamas Szanto <tszanto@interware.hu>, 2006.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: PyKickStart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-09-11 11:11+0100\n"
+"Last-Translator: Tamas Szanto <tszanto@interware.hu>\n"
+"Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:45
@@ -23,16 +20,19 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
+"Az alábbi hiba történt a Kickstart-fájl %s. sorában:\n"
+"\n"
+"%s\n"
 
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Hiba történt a Kickstart-fájl %s. sorának beolvasása közben"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "A(z) %s opciót kötelező megadni"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +42,19 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"Elavult beállítás szerepel a(z) %s. sorban, figyelmen kívül lesz hagyva: a(z) %s beállítás már elavult, "
+"nincs hatása. A későbbi kiadások esetleg már nem fogják elfogadni, és "
+"a Kickstart végzetes hibát jelezhet. Célszerű ezért eltávolítani ezt a beállítást a "
+"Kickstart-fájlból."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Kötelező attribútumú egy olyan beállítás, melynek nincs értéke"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "%s beállítás: érvénytelen logikai érték: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -60,48 +64,53 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"Figyelmen kívül lesz hagyva egy elavult parancs a(z) %s. sorban: a(z) %s parancs elavult, már "
+"nincs hatása. A későbbi kiadások esetleg már nem fogják elfogadni, és "
+"a Kickstart végzetes hibát jelezhet. Célszerű ezért eltávolítani ezt a beállítást "
+"a Kickstart-fájlból."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "A(z) %s parancs nem fogad el argumentumokat"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "A(z) %s parancs csak egy argumentumot fogad el"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "Csatlakoztatási pont kell ehhez: %s"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "Nem várt argumentumok a(z) %s parancsnál: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "A(z) '%s' eszköz már szerepel a(z) '%s' többszörös útvonalban"
 
 #: ../pykickstart/parser.py:672
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"A repo parancsban csak egy --baseurl vagy --mirrorlist argumentum adható meg."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "A repo parancsban vagy a --baseurl, vagy a --mirrorlist argumentumot meg kell adni."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "A(z) %s parancsban egy argumentumot kell megadni"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -110,20 +119,23 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Egy elavult opció figyelmen kívül lesz hagyva a(z) %s. sorban: a zerombr parancs már nem fogad el argumentumot. "
+"A későbbi kiadásokban esetleg már végzetes hibát okozhat ez a beállítás a "
+"Kickstartban. Célszerű ezért a Kickstart-fájlból eltávolítani a parancs argumentumait."
 
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Ismeretlen parancs: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "leállás az első hiba vagy figyelmeztetés után"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "az include fájlok feldolgozása %include argumentum előfordulásakor"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -131,12 +143,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"A fájlban elavult parancs vagy beállítás szerepel.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Általános Kickstart-hiba történt egy bemeneti fájlban"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Általános hiba történt egy bemeneti fájlban: %s"
