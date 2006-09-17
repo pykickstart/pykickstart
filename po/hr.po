@@ -1,14 +1,9 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-05-25 00:57+0100\n"
+"PO-Revision-Date: 2006-09-17 18:00+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Renato Pavicic <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,11 +37,11 @@ msgstr "Potrebna je opcija %s"
 #: ../pykickstart/parser.py:107
 #, python-format
 msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Ignorirat će se zastarjela opcija u retku %s:  Opcija %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ove opcije."
+msgstr "Ignorirat će se zastarjela opcija u retku %s:  Opcija %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstart datoteku radi uklanjanja ove opcije."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Zahtjevani komplet zastavica za opciju koja ne prihvaća vrijednosti"
+msgstr "Zahtijevani komplet zastavica za opciju koja ne prihvaća vrijednosti"
 
 #: ../pykickstart/parser.py:147
 #, python-format
@@ -56,7 +51,7 @@ msgstr "Opcija %s: nepravilna Booleova vrijednost: %r"
 #: ../pykickstart/parser.py:291
 #, python-format
 msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Ignorirat će se zastarjela naredba u retku %s:  Naredba %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ove naredbe."
+msgstr "Ignorirat će se zastarjela naredba u retku %s:  Naredba %s zanemaruje se i nema više ikakva učinka.  Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstart datoteku radi uklanjanja ove naredbe."
 
 #: ../pykickstart/parser.py:298
 #: ../pykickstart/parser.py:421
@@ -84,7 +79,7 @@ msgstr "Potrebna je točka pristupa za %s"
 #: ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr "NEočekivani argumenti za naredbu %s : %s"
+msgstr "Neočekivani argumenti za naredbu %s : %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
@@ -108,7 +103,7 @@ msgstr "Za naredbu %s očekuje se samo jedan srgument"
 #: ../pykickstart/parser.py:880
 #, python-format
 msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Ignorirat će se zastarjela opcija u retku %s:  Naredba 'zerombr' više ne prihvaća ikakve opcije.  U budućim verzijama ovo bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstar datoteku radi uklanjanja ikakvih opcija."
+msgstr "Ignorirat će se zastarjela opcija u retku %s:  Naredba 'zerombr' više ne prihvaća ikakve opcije.  U budućim verzijama ovo bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  Uredite vašu kickstart datoteku radi uklanjanja ikakvih opcija."
 
 #: ../pykickstart/parser.py:949
 #, python-format
