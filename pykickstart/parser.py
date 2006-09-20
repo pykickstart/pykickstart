@@ -241,6 +241,7 @@ class KickstartHandlers:
                      "install"      : None,
                      "interactive"  : self.doInteractive,
                      "iscsi"        : self.doIscsi,
+                     "iscsiname"    : self.doIscsiName,     
                      "keyboard"     : self.doKeyboard,
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
@@ -425,18 +426,27 @@ class KickstartHandlers:
 
     def doIscsi(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--target", dest="target", action="store",
-                      type="string", required=1)
-        op.add_option("--port", dest="port", action="store",
+        op.add_option("--target", dest="ipaddr", action="store", type="string")
+        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string")
+        op.add_option("--port", dest="port", action="store", type="string")
+        op.add_option("--user", dest="user", action="store", type="string")
+        op.add_option("--password", dest="password", action="store",
                       type="string")
-        op.add_option("--initiatorname", dest="initiator", action="store",
-                      type="string", required=1)
-        (opts, extra) = op.parse_args(args=args)
 
+        (opts, extra) = op.parse_args(args=args)
+        if not opts.ipaddr:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("IP Address of iSCSI target required"))
         if len(extra) != 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments for iscsi command"))
 
-        self._setToDict(op, opts, self.ksdata.iscsi)
+        dd = KickstartIscsiData()
+        self._setToObj(op, opts, dd)
+        self.ksdata.iscsi.append(dd)
+
+    def doIscsiName(self, args):
+        if len(args) > 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
+        self.ksdata.iscsiname = args[0]
 
     def doKeyboard(self, args):
         if len(args) > 1:
@@ -912,12 +922,15 @@ class KickstartHandlers:
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--devnum", dest="devnum", required=1)
         op.add_option("--fcplun", dest="fcplun", required=1)
-        op.add_option("--scsiid", dest="scsiid", required=1)
-        op.add_option("--scsilun", dest="scsilun", required=1)
+        op.add_option("--scsiid", dest="scsiid")
+        op.add_option("--scsilun", dest="scsilun")
         op.add_option("--wwpn", dest="wwpn", required=1)
 
         (opts, extra) = op.parse_args(args=args)
-        self._setToDict(op, opts, self.ksdata.zfcp)
+
+        dd = KickstartZFCPData()
+        self._setToObj(op, opts, dd)
+        self.ksdata.zfcp.append(dd)
 
 ###
 ### PARSER

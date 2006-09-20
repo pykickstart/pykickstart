@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.32
+Version: 0.33
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL

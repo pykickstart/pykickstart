@@ -1,3 +1,11 @@
+2006-09-20  Jeremy Katz  <katzj@redhat.com>
+
+	* pykickstart.spec, setup.py: Bump version
+
+	* pykickstart/parser.py (KickstartHandlers.doIscsi): New and
+	improved iscsi syntax.  Also, allow multiple zfcp devs
+	* pykickstart/data.py: Likewise.
+
 2006-07-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/data.py:  Add noipv4 and noipv6 to KickstartNetworkData.

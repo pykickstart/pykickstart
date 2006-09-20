@@ -35,7 +35,8 @@ class KickstartData:
         self.firstboot = FIRSTBOOT_SKIP
         self.ignoredisk = []
         self.interactive = False
-        self.iscsi = {"target": "", "port": "3260", "initiator": ""}
+        self.iscsi = []
+        self.iscsiname = ""
         self.keyboard = ""
         self.lang = ""
         self.logging = {"host": "", "level": "info", "port": ""}
@@ -55,8 +56,7 @@ class KickstartData:
         self.xconfig = {"driver": "", "defaultdesktop": "", "depth": 0,
                         "resolution": "", "startX": False, "videoRam": ""}
         self.zerombr = False
-        self.zfcp = {"devnum": "", "fcplun": "", "scsiid": "", "scsilun": "",
-                     "wwpn": ""}
+        self.zfcp = []
 
         self.lvList = []
         self.partitions = []
@@ -186,3 +186,18 @@ class KickstartMultiPathData:
     def __init__(self):
         self.name = ""
         self.paths = []
+
+class KickstartIscsiData:
+    def __init__(self):
+        self.ipaddr = ""
+        self.port = ""
+        self.user = None
+        self.password = None
+
+class KickstartZFCPData:
+    def __init__(self):
+        self.devnum = ""
+        self.wwpn = ""
+        self.fcplun = ""
+        self.scsiid = ""
+        self.scsilun = ""
