@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-09-09 10:52+0800\n"
+"PO-Revision-Date: 2006-09-25 01:44+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -99,14 +99,14 @@ msgstr "Satu daripada --baseurl atau --mirrorlist mesti dinyatakan untuk arahan 
 
 #: ../pykickstart/parser.py:738
 #: ../pykickstart/parser.py:782
-#, fuzzy, python-format
+#, python-format
 msgid "A single argument is expected for the %s command"
-msgstr "A ialah for s"
+msgstr "Hujah tunggal dijangka untuk arahan %s"
 
 #: ../pykickstart/parser.py:880
-#, fuzzy, python-format
+#, python-format
 msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
-msgstr "buka s tidak Dalam inci fail hingga."
+msgstr "Mengabaikan pilihan tidak diguna pada baris %s:  Arahan zerombr tidak lagi menerima sebarang pilihan. Pada keluaran akan datang, ini akan menyebabkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda untuk membuang sebarang pilihan."
 
 #: ../pykickstart/parser.py:949
 #, python-format
@@ -118,9 +118,9 @@ msgid "halt after the first error or warning"
 msgstr "henti selepas ralat atau amaran pertama"
 
 #: ../validator/ksvalidator:39
-#, fuzzy, python-format
+#, python-format
 msgid "parse include files when %include is seen"
-msgstr "ialah"
+msgstr "huraian menyertakan fail apabila %include kelihatan"
 
 #: ../validator/ksvalidator:62
 #, python-format
