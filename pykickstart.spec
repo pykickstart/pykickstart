@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.33
+Version: 0.34
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -39,6 +39,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Mon Sep 25 2006 Chris Lumens <clumens@redhat.com> - 0.34-1
+- Add support for --biospart option to harddrive (#207585).
+- Update writer for syntax changes.
+
+* Wed Sep 20 2006 Jeremy Katz <katzj@redhat.com> - 0.33-1
+- improved iscsi syntax
+- allow multiple zfcp devs
+
 * Thu Jul 20 2006 Chris Lumens <clumens@redhat.com> 0.32-1
 - Limit --bootproto to what anaconda supports.
 - Add --noipv4 and --noipv6 network options.
