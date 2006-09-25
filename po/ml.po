@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-04-27 13:51+0530\n"
+"PO-Revision-Date: 2006-09-25 14:21+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 
 #: ../pykickstart/parser.py:45
@@ -101,12 +101,12 @@ msgstr "%s എന്ന കമാന്‍ഡിന് അപ്രതീക്�
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
 msgstr ""
+"ഡിവൈസ് '%s' നിലവില്‍ '%s' എന്ന മള്‍ട്ടിപാഥില്‍\n"
+"ഉപയോഗിച്ചിരിക്കുന്നു"
 
 #: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "Only one of --baseurl and --mirrorlist may be specified for repo command."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
@@ -131,7 +131,7 @@ msgstr ""
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "അപരിചിതമായ കമാന്‍ഡ്: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -159,3 +159,4 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
+
