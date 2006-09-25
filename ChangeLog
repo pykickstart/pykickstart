@@ -4,6 +4,10 @@
 	--biospart option (#207585).
 	* pykickstart/writer.py (KickstartWriter.doMethod):  Likewise.
 
+	* pykickstart/writer.py (KickstartWriter.doIscsi):  Output new syntax.
+	(KickstartWriter.doZFCP):  Likewise.
+	(KickstartWriter.doIscsiName):  Added.
+
 2006-09-20  Jeremy Katz  <katzj@redhat.com>
 
 	* pykickstart.spec, setup.py: Bump version

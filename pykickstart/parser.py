@@ -437,7 +437,7 @@ class KickstartHandlers:
         if not opts.ipaddr:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("IP Address of iSCSI target required"))
         if len(extra) != 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments for iscsi command"))
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("scsi", extra))
 
         dd = KickstartIscsiData()
         self._setToObj(op, opts, dd)

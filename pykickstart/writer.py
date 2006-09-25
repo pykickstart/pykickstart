@@ -26,13 +26,13 @@ class KickstartWriter:
                          self.doDeviceProbe, self.doDisplayMode,
                          self.doDriverDisk, self.doFirewall, self.doFirstboot,
                          self.doIgnoreDisk, self.doInteractive, self.doIscsi,
-                         self.doKeyboard, self.doLang, self.doLogging,
-                         self.doMediaCheck, self.doMethod, self.doNetwork,
-                         self.doReboot, self.doRepo, self.doRootPw,
-                         self.doSELinux, self.doServices, self.doSkipX,
-                         self.doTimezone, self.doUpgrade, self.doUser,
-                         self.doVnc, self.doXConfig, self.doMonitor,
-                         self.doZFCP,
+                         self.doIscsiName, self.doKeyboard, self.doLang,
+                         self.doLogging, self.doMediaCheck, self.doMethod,
+                         self.doNetwork, self.doReboot, self.doRepo,
+                         self.doRootPw, self.doSELinux, self.doServices,
+                         self.doSkipX, self.doTimezone, self.doUpgrade,
+                         self.doUser, self.doVnc, self.doXConfig,
+                         self.doMonitor, self.doZFCP,
 
                          self.doPartition, self.doVolumeGroup,
                          self.doLogicalVolume, self.doRaid,
@@ -215,15 +215,32 @@ class KickstartWriter:
             return "# Use interactive kickstart installation method\ninteractive"
 
     def doIscsi(self):
-        if self.ksdata.iscsi["target"] == "":
+        if self.ksdata.iscsi == []:
             return
 
-        retval = "iscsi --target=%s --initiatorname=%s" % (self.ksdata.iscsi["target"], self.ksdata.iscsi["initiator"])
+        retval = ""
 
-        if self.ksdata.iscsi["port"] != "3260":
-            retval += " --port=%s" % self.ksdata.iscsi["port"]
+        for i in self.ksdata.iscsi:
+            retval += "iscsi"
 
-        return retval
+            if i.target != "":
+                retval += " --target=%s" % i.target
+            if i.ipaddr != "":
+                retval += " --ipaddr=%s" % i.ipaddr
+            if i.port != "":
+                retval += " --port=%s" % i.port
+            if i.user is not None:
+                retval += " --user=%s" % i.user
+            if i.password is not None:
+                retval += " --password=%s" % i.password
+
+            retval += "\n"
+
+        return retval.rstrip()
+
+    def doIscsiName(self):
+        if self.ksdata.iscsiname != "":
+            return "iscsiname %s" % self.ksdata.iscsiname
 
     def doKeyboard(self):
         if self.ksdata.keyboard != "":
@@ -598,8 +615,28 @@ class KickstartWriter:
             return "# Clear the Master Boot Record\nzerombr"
 
     def doZFCP(self):
-        if self.ksdata.zfcp["devnum"] != "":
-            return "zfcp --devnum=%(devnum)s --fcplun=%(fcplun)s --scsiid=%(scsiid)s --scsilun=%(scsilun)s --wwpn=%(wwpn)s" % self.ksdata.zfcp
+        if self.ksdata.zfcp == []:
+            return
+
+        retval = ""
+
+        for i in self.ksdata.zfcp:
+            retval += "zfcp"
+
+            if i.devnum != "":
+                retval += " --devnum=%s" % i.devnum
+            if i.wwpn != "":
+                retval += " --wwpn=%s" % i.wwpn
+            if i.fcplun != "":
+                retval += " --fcplun=%s" % i.fcplun
+            if i.scsiid != "":
+                retval += " --scsiid=%s" % i.scsiid
+            if i.scsilun != "":
+                retval += " --scsilun=%s" % i.scsilun
+
+            retval += "\n"
+
+        return retval.rstrip()
 
     def doScripts(self):
         preStr = ""

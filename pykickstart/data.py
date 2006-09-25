@@ -191,6 +191,7 @@ class KickstartIscsiData:
     def __init__(self):
         self.ipaddr = ""
         self.port = ""
+        self.target = ""
         self.user = None
         self.password = None
 
