@@ -286,7 +286,12 @@ class KickstartWriter:
         if self.ksdata.method["method"] == "cdrom":
             return "# Use CDROM installation media\ncdrom"
         elif self.ksdata.method["method"] == "harddrive":
-            return "# Use hard drive installation media\nharddrive --partition=%s --dir=%s" % (self.ksdata.method["partition"], self.ksdata.method["dir"])
+            msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.ksdata.method["dir"]
+
+            if self.ksdata.method.has_key("biospart"):
+                return msg + " --biospart=%s" % self.ksdata.method["biospart"]
+            else:
+                return msg + " --partition=%s" % self.ksdata.method["partition"]
         elif self.ksdata.method["method"] == "nfs":
             return "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.ksdata.method["server"], self.ksdata.method["dir"])
         elif self.ksdata.method["method"] == "url":

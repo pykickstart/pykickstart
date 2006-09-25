@@ -524,7 +524,8 @@ class KickstartHandlers:
         if self.currentCmd == "cdrom":
             return
         elif self.currentCmd == "harddrive":
-            op.add_option("--partition", dest="partition", required=1)
+            op.add_option("--biospart", dest="biospart")
+            op.add_option("--partition", dest="partition")
             op.add_option("--dir", dest="dir", required=1)
         elif self.currentCmd == "nfs":
             op.add_option("--server", dest="server", required=1)
@@ -534,6 +535,12 @@ class KickstartHandlers:
             op.add_option("--url", dest="url", required=1)
 
         (opts, extra) = op.parse_args(args=args)
+
+        if self.currentCmd == "harddrive":
+            if not (opts.has_key("biospart") or opts.has_key("partition")) or \
+                   (opts.has_key("biospart") and opts.has_key("partition")):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
+
         self._setToDict(op, opts, self.ksdata.method)
 
     def doMonitor(self, args):
