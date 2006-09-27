@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-08-11 15:50+0530\n"
+"PO-Revision-Date: 2006-09-27 12:19+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,10 +47,14 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
+"%s வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: %s விருப்பம் எதிரிடையாகவும் "
+"ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், "
+"இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க "
+"உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "ஒரு மதிப்பினை ஏற்காத விருப்பத்திற்கு கொடி அமைவு தேவைப்படுகிறது"
 
 #: ../pykickstart/parser.py:147
 #, python-format
@@ -65,6 +69,10 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
+"%s வரியில் எதிரிடையான கட்டளையை நிராகரிக்கிறது: %s கட்டளை எதிரிடையாகவும் "
+"ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், "
+"இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க "
+"உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
@@ -96,11 +104,11 @@ msgstr "சாதனம் '%s' ஏற்கெனவே பல பாதை '%s
 
 #: ../pykickstart/parser.py:672
 msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgstr "--baseurl மற்றும் --mirrorlistஇல் ஒன்று மட்டும் repo கட்டளைக்கு குறிப்பிடப்படலாம்."
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "--baseurl மற்றும் --mirrorlist இல் ஒன்று repo கட்டளைக்கு குறிப்பிடப்பட வேண்டும்."
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
@@ -114,6 +122,9 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"%s வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: zerombr  கட்டளை  ஒருபோதும் "
+"எந்த விருப்பத்தையும் ஏற்காது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் "
+"முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
 #: ../pykickstart/parser.py:949
 #, python-format
