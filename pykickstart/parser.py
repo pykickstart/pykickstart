@@ -537,8 +537,9 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if self.currentCmd == "harddrive":
-            if not (opts.has_key("biospart") or opts.has_key("partition")) or \
-                   (opts.has_key("biospart") and opts.has_key("partition")):
+            if (getattr(opts, "biospart") == None and getattr(opts, "partition") == None) or \
+               (getattr(opts, "biospart") != None and getattr(opts, "partition") != None):
+
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
 
         self._setToDict(op, opts, self.ksdata.method)

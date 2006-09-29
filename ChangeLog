@@ -1,3 +1,8 @@
+2006-09-29  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (KickstartHandlers.doMethod):  Fix traceback
+	and test (#208557).
+
 2006-09-25  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py: Bump version
