@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.34
+Version: 0.35
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Fri Sep 29 2006 Chris Lumens <clumens@redhat.com> - 0.35-1
+- Fix traceback in harddrive command (#208557).
+
 * Mon Sep 25 2006 Chris Lumens <clumens@redhat.com> - 0.34-1
 - Add support for --biospart option to harddrive (#207585).
 - Update writer for syntax changes.
