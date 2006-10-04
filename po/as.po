@@ -23,16 +23,18 @@ msgid ""
 "\n"
 "%s\n"
 msgstr ""
-
+"kickstart নথি-পত্ৰৰ %s শাৰীত নিম্নলিখিত ভুল হ'ল:\n"
+"\n"
+"%s\n"
 #: ../pykickstart/parser.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "kickstart নথি-পত্ৰৰ %s শাৰীৰ পৰা পঢ়োঁতে এটা সমস্যা হ'ল"
 
 #: ../pykickstart/parser.py:104
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "%s বিকল্পৰ প্ৰয়োজন"
 
 #: ../pykickstart/parser.py:107
 #, python-format
@@ -42,15 +44,15 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this option."
 msgstr ""
-
+"%s শাৰীত অবচিত বিকল্প আওকাণ কৰা হৈছে:  %s বিকল্পৰ অবচয় হৈছে আৰু কোনো প্ৰভাব নোহোৱা হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ kickstart নথি-পত্ৰ সলনি কৰক ।"
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "মান গ্ৰহণ নকৰা বিকল্পৰ বাবে প্ৰয়োজনীয় সংকেত নিৰ্ধাৰিত কৰা হৈছে"
 
 #: ../pykickstart/parser.py:147
 #, python-format
 msgid "Option %s: invalid boolean value: %r"
-msgstr ""
+msgstr "বিকল্প %s: অবৈধ বুলিয়েন্ মান: %r"
 
 #: ../pykickstart/parser.py:291
 #, python-format
@@ -60,47 +62,47 @@ msgid ""
 "will result in a fatal error from kickstart.  Please modify your kickstart "
 "file to remove this command."
 msgstr ""
-
+"%s শাৰীত অবচিত আদেশ আওকাণ কৰা হৈছে:  %s আদেশৰ অবচয় হৈছে আৰু কোনো প্ৰভাব নোহোৱা হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ kickstart নথি-পত্ৰ সলনি কৰক ।"
 #: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
 #: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "%s আদেশে কোনো তৰ্ক গ্ৰহণ নকৰে"
 
 #: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "%s আদেশে অকল এটা তৰ্ক গ্ৰহণ কৰে"
 
 #: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
 #: ../pykickstart/parser.py:721
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s-ৰ বাবে অভ্যুত্থানৰ স্থান প্ৰয়োজনীয়"
 
 #: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
 #, python-format
 msgid "Unexpected arguments to %s command: %s"
-msgstr ""
+msgstr "%s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %s"
 
 #: ../pykickstart/parser.py:577
 #, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgstr "'%s' যন্ত্ৰ ইতিমধ্যে '%s' একাধিক পথত ব্যৱহৃত হৈছে"
 
 #: ../pykickstart/parser.py:672
 msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgstr "repo আদেশৰ বাবে যিকোনো এটা --baseurl আৰু --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
 
 #: ../pykickstart/parser.py:675
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "repo আদেশৰ বাবে যিকোনো এটা --baseurl বা --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
 
 #: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "%s আদেশৰ বাবে এটা তৰ্ক আশা কৰা হয়"
 
 #: ../pykickstart/parser.py:880
 #, python-format
@@ -109,20 +111,20 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
-
+"%s শাৰীত অবচিত বিকল্প আওকাণ কৰা হৈছে:  zerombr আদেশে এতিয়া আৰু কোনো বিকল্প নলই । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । সকলো বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ kickstart নথি-পত্ৰ সলনি কৰক ।"
 #: ../pykickstart/parser.py:949
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "অজ্ঞাত আদেশ: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "প্ৰথম ভুল বা সকীয়নিৰ পিছত ৰখি যাব"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include দেখোঁতে অন্তৰ্ভুক্ত নথি-পত্ৰ বিশ্লেষণ কৰক"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -130,13 +132,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
-
+"নথি-পত্ৰই অবচিত বিকল্প বা আদেশ ব্যৱহাৰ কৰে ।\n"
+"%s"
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ kickstart ভুল"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ ভুল:  %s"
 
