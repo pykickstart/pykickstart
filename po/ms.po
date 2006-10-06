@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-09-25 01:44+0800\n"
+"PO-Revision-Date: 2006-10-06 23:46+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -63,13 +63,13 @@ msgstr "buka s s dan tidak inci fail hingga."
 #: ../pykickstart/parser.py:788
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr "Arahan s"
+msgstr "Arahan %s tidak mengambil apa-apa hujah"
 
 #: ../pykickstart/parser.py:427
 #: ../pykickstart/parser.py:433
-#, fuzzy, python-format
+#, python-format
 msgid "Command %s only takes one argument"
-msgstr "Arahan s"
+msgstr "Arahan %s hanya mengambil satu hujah"
 
 #: ../pykickstart/parser.py:470
 #: ../pykickstart/parser.py:641
@@ -85,9 +85,9 @@ msgid "Unexpected arguments to %s command: %s"
 msgstr "Hujah tidak dijangka pada arahan %s: %s"
 
 #: ../pykickstart/parser.py:577
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%s' is already used in multipath '%s'"
-msgstr "Peranti s ialah inci s"
+msgstr "Peranti '%s' telah digunakan dalam multipath '%s'"
 
 #: ../pykickstart/parser.py:672
 msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
