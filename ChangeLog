@@ -1,3 +1,13 @@
+2006-10-13  Bill Nottingham  <notting@redhat.com>
+
+	* af.po, am.po, ar.po, be.po, bg.po, bn.po, cy.po, et.po,
+	  eu_ES.po, fa.po, fi.po, he.po, hy.po, kn.po, ku.po, lo.po, lt.po,
+	  lv.po, mk.po, my.po, nn.po, no.po, nso.po, ro.po, si.po, sq.po, th.po,
+	  ur.po, vi.po, zu.po: Use a valid charset (#210720)
+	
+	* pykickstart.spec, setup.py: Bump version
+
+
 2006-09-29  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py: Bump version

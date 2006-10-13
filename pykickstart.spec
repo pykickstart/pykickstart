@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.35
+Version: 0.36
 Release: 1
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Fri Oct 13 2006 Bill Nottingham <notting@redhat.com> - 0.36-1
+- use valid charsets in translations (#210720)
+
 * Fri Sep 29 2006 Chris Lumens <clumens@redhat.com> - 0.35-1
 - Fix traceback in harddrive command (#208557).
 
