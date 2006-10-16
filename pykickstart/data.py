@@ -37,6 +37,7 @@ class KickstartData:
         self.interactive = False
         self.iscsi = []
         self.iscsiname = ""
+        self.key = ""
         self.keyboard = ""
         self.lang = ""
         self.logging = {"host": "", "level": "info", "port": ""}

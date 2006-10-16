@@ -241,7 +241,8 @@ class KickstartHandlers:
                      "install"      : None,
                      "interactive"  : self.doInteractive,
                      "iscsi"        : self.doIscsi,
-                     "iscsiname"    : self.doIscsiName,     
+                     "iscsiname"    : self.doIscsiName,
+                     "key"          : self.doKey,
                      "keyboard"     : self.doKeyboard,
                      "lang"         : self.doLang,
                      "langsupport"  : self.doLangSupport,
@@ -447,6 +448,12 @@ class KickstartHandlers:
         if len(args) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
         self.ksdata.iscsiname = args[0]
+
+    def doKey(self, args):
+        if len(args) > 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "key")
+
+        self.ksdata.key = args[0]
 
     def doKeyboard(self, args):
         if len(args) > 1:
