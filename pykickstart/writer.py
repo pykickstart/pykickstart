@@ -26,13 +26,13 @@ class KickstartWriter:
                          self.doDeviceProbe, self.doDisplayMode,
                          self.doDriverDisk, self.doFirewall, self.doFirstboot,
                          self.doIgnoreDisk, self.doInteractive, self.doIscsi,
-                         self.doIscsiName, self.doKeyboard, self.doLang,
-                         self.doLogging, self.doMediaCheck, self.doMethod,
-                         self.doNetwork, self.doReboot, self.doRepo,
-                         self.doRootPw, self.doSELinux, self.doServices,
-                         self.doSkipX, self.doTimezone, self.doUpgrade,
-                         self.doUser, self.doVnc, self.doXConfig,
-                         self.doMonitor, self.doZFCP,
+                         self.doIscsiName, self.doKey, self.doKeyboard,
+                         self.doLang, self.doLogging, self.doMediaCheck,
+                         self.doMethod, self.doNetwork, self.doReboot,
+                         self.doRepo, self.doRootPw, self.doSELinux,
+                         self.doServices, self.doSkipX, self.doTimezone,
+                         self.doUpgrade, self.doUser, self.doVnc,
+                         self.doXConfig, self.doMonitor, self.doZFCP,
 
                          self.doPartition, self.doVolumeGroup,
                          self.doLogicalVolume, self.doRaid,
@@ -241,6 +241,13 @@ class KickstartWriter:
     def doIscsiName(self):
         if self.ksdata.iscsiname != "":
             return "iscsiname %s" % self.ksdata.iscsiname
+
+    def doKey(self):
+        if self.ksdata.key != "":
+            if self.ksdata.key == KS_INSTKEY_SKIP:
+                return "key --skip"
+            else:
+                return "key %s" % self.ksdata.key
 
     def doKeyboard(self):
         if self.ksdata.keyboard != "":
