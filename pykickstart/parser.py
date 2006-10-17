@@ -453,7 +453,10 @@ class KickstartHandlers:
         if len(args) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "key")
 
-        self.ksdata.key = args[0]
+        if args[0] == "--skip":
+            self.ksdata.key = KS_INSTKEY_SKIP
+        else:
+            self.ksdata.key = args[0]
 
     def doKeyboard(self, args):
         if len(args) > 1:
