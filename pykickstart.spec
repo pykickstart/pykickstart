@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Version: 0.39
-Release: 1
+Release: 2%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
@@ -39,6 +39,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Oct 24 2006 Chris Lumens <clumens@redhat.com> - 0.39-2
+- Fix release number.
+
 * Tue Oct 24 2006 Chris Lumens <clumens@redhat.com> - 0.39-1
 - Add writer for --key (#211997).
 
