@@ -20,6 +20,8 @@ import tempfile
 import urlgrabber
 import shutil
 from pykickstart.data import *
+from pykickstart.errors import *
+from pykickstart.handlers import KickstartHandlers
 from pykickstart.parser import *
 
 from rhpl.translate import _
@@ -48,8 +50,7 @@ else:
     f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
 
 ksdata = KickstartData()
-kshandlers = KickstartHandlers(ksdata)
-ksparser = KickstartParser(ksdata, kshandlers,
+ksparser = KickstartParser(ksdata, KickstartHandlers(ksdata),
                            followIncludes=opts.followincludes,
                            errorsAreFatal=opts.firsterror)
 

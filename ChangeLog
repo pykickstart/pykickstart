@@ -1,3 +1,13 @@
+2006-10-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/__init__.py:  Import new files by default.
+	* pykickstart/errors.py:  Split out from parser.py.
+	* pykickstart/handlers.py:  Split out from parser.py
+	* pykickstart/options.py:  Split out from parser.py.
+	* pykickstart/parser.py:  Updated for new files.
+
+	* validator/ksvalidator:  Updated for new files.
+
 2006-10-17  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/writer.py:  Add writer for key command.
