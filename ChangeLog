@@ -1,5 +1,14 @@
 2006-10-24  Chris Lumens  <clumens@redhat.com>
 
+	* Merge from HEAD:
+	  - Makefile:  Update to handle new release format.
+	  - setup.py:  New version.
+	  - pykickstart.spec: Fix spec file to use %{?dist} in release.
+	  - pykickstart/writer.py (KickstartWriter.doKey):  Better way to
+	    write key.
+
+2006-10-24  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/__init__.py:  Import new files by default.
 	* pykickstart/errors.py:  Split out from parser.py.
 	* pykickstart/handlers.py:  Split out from parser.py
