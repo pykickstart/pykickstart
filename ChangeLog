@@ -2,6 +2,8 @@
 
 	* pykickstart.spec, setup.py:  Bump version.
 
+	* Makefile:  Fix for new Release format.
+
 2006-10-17  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/writer.py:  Add writer for key command.
