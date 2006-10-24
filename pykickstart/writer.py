@@ -243,11 +243,10 @@ class KickstartWriter:
             return "iscsiname %s" % self.ksdata.iscsiname
 
     def doKey(self):
-        if self.ksdata.key != "":
-            if self.ksdata.key == KS_INSTKEY_SKIP:
-                return "key --skip"
-            else:
-                return "key %s" % self.ksdata.key
+        if self.ksdata.key == KS_INSTKEY_SKIP:
+            return "key --skip"
+        elif self.ksdata.key != "":
+            return "key %s" % self.ksdata.key
 
     def doKeyboard(self):
         if self.ksdata.keyboard != "":
