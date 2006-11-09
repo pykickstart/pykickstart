@@ -1,3 +1,7 @@
+2006-11-09  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/writer.py (KickstartWriter.doLogging):  Add --level.
+
 2006-10-24  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  Bump version.
