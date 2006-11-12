@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-10-06 23:46+0800\n"
+"PO-Revision-Date: 2006-11-12 19:06+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Pilihan %s diperlukan"
 #: ../pykickstart/parser.py:107
 #, python-format
 msgid "Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "buka s s dan tidak inci fail hingga."
+msgstr "Mengabaikan pilihan tidak disokong pada baris %s: Pilihan %s telah tidak disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda untuk membuang pilihan ini."
 
 #: ../pykickstart/parser.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -54,7 +54,7 @@ msgstr "Pilihan %s: nilai boolean tidak sah: %r"
 #: ../pykickstart/parser.py:291
 #, python-format
 msgid "Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "buka s s dan tidak inci fail hingga."
+msgstr "Mengabaikan arahan tidak disokong pada baris %s: Arahan %s telah tidak disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda untuk membuang arahan ini."
 
 #: ../pykickstart/parser.py:298
 #: ../pykickstart/parser.py:421
