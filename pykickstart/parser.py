@@ -428,15 +428,15 @@ class KickstartHandlers:
     def doIscsi(self, args):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--target", dest="ipaddr", action="store", type="string")
-        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string")
+        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
+                      required=1)
         op.add_option("--port", dest="port", action="store", type="string")
         op.add_option("--user", dest="user", action="store", type="string")
         op.add_option("--password", dest="password", action="store",
                       type="string")
 
         (opts, extra) = op.parse_args(args=args)
-        if not opts.ipaddr:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("IP Address of iSCSI target required"))
+
         if len(extra) != 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("scsi", extra))
 
