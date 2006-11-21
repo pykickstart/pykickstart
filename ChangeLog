@@ -1,3 +1,8 @@
+2006-11-21  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py:  Update string formats to make translation
+	easier.
+
 2006-11-14  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (KickstartHandlers.doIscsi):  Use required

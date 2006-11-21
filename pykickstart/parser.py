@@ -42,7 +42,8 @@ STATE_TRACEBACK = 6
 
 def formatErrorMsg(lineno, msg=""):
     if msg != "":
-        return _("The following problem occurred on line %s of the kickstart file:\n\n%s\n") % (lineno, msg)
+        mapping = {"lineno": lineno, "msg": msg}
+        return _("The following problem occurred on line %(lineno)s of the kickstart file:\n\n%(msg)s\n") % mapping
     else:
         return _("There was a problem reading from line %s of the kickstart file") % lineno
 
@@ -104,7 +105,8 @@ class KSOptionParser(OptionParser):
                 raise KickstartValueError, formatErrorMsg(self.lineno, _("Option %s is required") % option)
             elif isinstance(option, Option) and option.deprecated and \
                  self.option_seen.has_key(option):
-                warnings.warn(_("Ignoring deprecated option on line %s:  The %s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % (self.lineno, option), DeprecationWarning)
+                mapping = {"lineno": self.lineno, "option": option}
+                warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
 
         return (values, args)
 
@@ -144,7 +146,8 @@ class KSOption (Option):
         elif value.lower() in ("off", "no", "false", "0"):
             return False
         else:
-            raise OptionValueError(_("Option %s: invalid boolean value: %r") % (opt, value))
+            mapping = {"opt": opt, "value": value}
+            raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
 
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
@@ -291,7 +294,8 @@ class KickstartHandlers:
             self.handlers[key] = None
 
     def deprecatedCommand(self, cmd):
-        warnings.warn(_("Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % (self.lineno, cmd), DeprecationWarning)
+        mapping = {"lineno": lineno, "cmd": cmd}
+        warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
@@ -438,7 +442,8 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("scsi", extra))
+            mapping = {"command": "scsi", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         dd = KickstartIscsiData()
         self._setToObj(op, opts, dd)
@@ -565,7 +570,8 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("monitor", extra))
+            mapping = {"cmd": "monitor", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
 
         self._setToDict(op, opts, self.ksdata.monitor)
 
@@ -624,7 +630,8 @@ class KickstartHandlers:
             mpath = self.ksdata.mpaths[x]
             for path in mpath.paths:
                 if path.device == dd.device:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%s' is already used in multipath '%s'") % (path.device, path.mpdev))
+                    mapping = {"device": path.device, "multipathdev": path.mpdev}
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping)
             if mpath.name == dd.mpdev:
                 parent = x
 
@@ -926,7 +933,8 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s" % ("xconfig", extra)))
+            mapping = {"command": "xconfig", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s" % mapping))
 
         self._setToDict(op, opts, self.ksdata.xconfig)
 
