@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-24 13:59-0400\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
 "PO-Revision-Date: 2006-07-22 15:38+0200\n"
 "Last-Translator: Nikola Štohanzl <niko@srnet.cz>\n"
 "Language-Team: Czech\n"
@@ -15,106 +15,130 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../pykickstart/parser.py:45
-#, python-format
+#: ../pykickstart/parser.py:46
+#, fuzzy, python-format
 msgid ""
-"The following problem occurred on line %s of the kickstart file:\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 msgstr ""
 "Na řádku %s kickstart souboru nastala následující chyba:\n"
 "\n"
 "%s\n"
 
-#: ../pykickstart/parser.py:47
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Došlo k problému při čtení řádku %s kickstart souboru."
 
-#: ../pykickstart/parser.py:104
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "Volba %s je povinná"
 
-#: ../pykickstart/parser.py:107
-#, python-format
+#: ../pykickstart/parser.py:109
+#, fuzzy, python-format
 msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
-msgstr "Ignoruji zastaralou volbu na řádku %s:  Volba %s je zastaralá a nemá žádný efekt. V budoucnosti může být odstraněna, což by mohlo způsobit závažné chyby. Upravte prosím Váš kickstart soubor tak, aby tuto volbu neobsahoval."
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Ignoruji zastaralou volbu na řádku %s:  Volba %s je zastaralá a nemá žádný "
+"efekt. V budoucnosti může být odstraněna, což by mohlo způsobit závažné "
+"chyby. Upravte prosím Váš kickstart soubor tak, aby tuto volbu neobsahoval."
 
-#: ../pykickstart/parser.py:139
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Povinný přepínač pro volbu nemá žádnou hodnotu "
 
-#: ../pykickstart/parser.py:147
-#, python-format
-msgid "Option %s: invalid boolean value: %r"
+#: ../pykickstart/parser.py:150
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Volba %s: neplatná boolean hodnota: %r"
 
-#: ../pykickstart/parser.py:291
-#, python-format
+#: ../pykickstart/parser.py:298
+#, fuzzy, python-format
 msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
-msgstr "Ignoruji zastaralý příkaz na řádku %s:  Příkaz %s je zastaralý a nemá žádný efekt. V budoucnosti může být odstraněn, což by mohlo způsobit závažné chyby. Upravte prosím Váš kickstart soubor tak, aby tento příkaz neobsahoval."
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Ignoruji zastaralý příkaz na řádku %s:  Příkaz %s je zastaralý a nemá žádný "
+"efekt. V budoucnosti může být odstraněn, což by mohlo způsobit závažné "
+"chyby. Upravte prosím Váš kickstart soubor tak, aby tento příkaz neobsahoval."
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
-#: ../pykickstart/parser.py:788
+#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Příkaz %s nemá žádné parametry"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
+#, fuzzy, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "Neočekávané parametry příkazu %s: %s"
+
+#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Příkaz %s akceptuje pouze jeden parametr"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
-#: ../pykickstart/parser.py:721
+#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Pro %s je vyžadován bod připojení"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
-#, python-format
-msgid "Unexpected arguments to %s command: %s"
+#: ../pykickstart/parser.py:558
+#, fuzzy
+msgid "One of biospart or partition options must be specified."
+msgstr ""
+"Jeden z parametrů --baseurl a --mirrorlist musí být použit pro příkaz repo."
+
+#: ../pykickstart/parser.py:574
+#, fuzzy, python-format
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr "Neočekávané parametry příkazu %s: %s"
 
-#: ../pykickstart/parser.py:577
-#, python-format
-msgid "Device '%s' is already used in multipath '%s'"
+#: ../pykickstart/parser.py:634
+#, fuzzy, python-format
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr "Zařízení '%s' je již použito v cestě '%s'"
 
-#: ../pykickstart/parser.py:672
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#: ../pykickstart/parser.py:729
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "Může být použit pouze jeden z parametrů --baseurl a --mirrorlist."
 
-#: ../pykickstart/parser.py:675
+#: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "Jeden z parametrů --baseurl a --mirrorlist musí být použit pro příkaz repo."
+msgstr ""
+"Jeden z parametrů --baseurl a --mirrorlist musí být použit pro příkaz repo."
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Pro příkaz %s je očekáván jediný parametr "
 
-#: ../pykickstart/parser.py:880
+#: ../pykickstart/parser.py:943
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "Ignoruji zastarlou volbu na řádku %s. Příkaz zerombr již nemá žádné volby. V budoucnosti můžd dojít k závažné chybě. Upravte prosím Váš kickstart soubor tak, aby nebyly použity žádné volby."
+msgstr ""
+"Ignoruji zastarlou volbu na řádku %s. Příkaz zerombr již nemá žádné volby. V "
+"budoucnosti můžd dojít k závažné chybě. Upravte prosím Váš kickstart soubor "
+"tak, aby nebyly použity žádné volby."
 
-#: ../pykickstart/parser.py:949
+#: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Neznámý příkaz: %s"
@@ -145,4 +169,3 @@ msgstr "Kickstart chyba ve vstupním souboru"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Chyba ve vstupním souboru: %s"
-

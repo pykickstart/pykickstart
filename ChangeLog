@@ -1,5 +1,7 @@
 2006-11-21  Chris Lumens  <clumens@redhat.com>
 
+	* po/pykickstart.pot:  Updated (#216620).
+
 	* pykickstart/parser.py:  Update string formats to make translation
 	easier.
 

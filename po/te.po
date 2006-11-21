@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-24 13:59-0400\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
 "PO-Revision-Date: 2006-10-04 16:41+0530\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -15,104 +15,125 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../pykickstart/parser.py:45
-#, python-format
+#: ../pykickstart/parser.py:46
+#, fuzzy, python-format
 msgid ""
-"The following problem occurred on line %s of the kickstart file:\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 msgstr ""
 "kickstart ఫైలులోని %s లైనులో ఈ కింది సమస్య సంభవించింది:\n"
 "\n"
 "%s\n"
 
-#: ../pykickstart/parser.py:47
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "kickstart ఫైలు %s లైను నుండీ చదవటంలో సమస్య ఉంది"
 
-#: ../pykickstart/parser.py:104
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "%s ఐచ్చికం కావలసి ఉంది"
 
-#: ../pykickstart/parser.py:107
-#, python-format
+#: ../pykickstart/parser.py:109
+#, fuzzy, python-format
 msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
-msgstr "%s లైనులోని ఐచ్ఛికాన్ని తక్కువ చేయటాన్ని గుర్తించకు:  ఈ %s ఐచ్ఛికం తక్కువ చేయబడుతోంది మరియూ ఎటువంటి ప్రభావాన్నీ కలిగిలేదు.  ఇది తదుపరి విడుదలలో తొలగించబడవచ్చు, ఇది kickstartలో పూర్తి దోషంగా ఉంది. ఈ ఐచ్ఛికాన్ని తొలగించటానికి దయచేసి మీ kickstart ఫైలుని మార్చండి."
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"%s లైనులోని ఐచ్ఛికాన్ని తక్కువ చేయటాన్ని గుర్తించకు:  ఈ %s ఐచ్ఛికం తక్కువ చేయబడుతోంది మరియూ ఎటువంటి "
+"ప్రభావాన్నీ కలిగిలేదు.  ఇది తదుపరి విడుదలలో తొలగించబడవచ్చు, ఇది kickstartలో పూర్తి దోషంగా ఉంది. ఈ "
+"ఐచ్ఛికాన్ని తొలగించటానికి దయచేసి మీ kickstart ఫైలుని మార్చండి."
 
-#: ../pykickstart/parser.py:139
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "ఐచ్ఛికం కోసం ఏ విలువనీ తీసుకోని flag అమర్పు కావలసి ఉంది"
 
-#: ../pykickstart/parser.py:147
-#, python-format
-msgid "Option %s: invalid boolean value: %r"
+#: ../pykickstart/parser.py:150
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ఐచ్ఛికం %s: చెల్లని boolean viluva: %r"
 
-#: ../pykickstart/parser.py:291
-#, python-format
+#: ../pykickstart/parser.py:298
+#, fuzzy, python-format
 msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
-msgstr "%s లైనులోని తక్కువగా ఉన్న ఆదేశాన్ని గుర్తించకు:  ఆ %s ఆదేశం తక్కువచేయబడింది మరియూ ఎక్కువ ప్రభావం కలది కాదు.  ఇది తదుపరి విడుదలలో తొలగించదగింది,ఇది kickstartలో పెద్ద దోషంగా ఉంది.  ఈ ఆదేశాన్ని తొలగించటానికి దయచేసి మీ kickstart ఫైలుని సరిచూసుకోండి."
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%s లైనులోని తక్కువగా ఉన్న ఆదేశాన్ని గుర్తించకు:  ఆ %s ఆదేశం తక్కువచేయబడింది మరియూ ఎక్కువ ప్రభావం "
+"కలది కాదు.  ఇది తదుపరి విడుదలలో తొలగించదగింది,ఇది kickstartలో పెద్ద దోషంగా ఉంది.  ఈ ఆదేశాన్ని "
+"తొలగించటానికి దయచేసి మీ kickstart ఫైలుని సరిచూసుకోండి."
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
-#: ../pykickstart/parser.py:788
+#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "%s ఆదేశం ఎటువంటి తర్కాన్నీ తీసుకోవటంలేదు"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
+#, fuzzy, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "%s ఆదేశానికి ఊహించని వాదన: %s"
+
+#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "%s ఆదేశం కేవలం ఒక వాదాన్ని మాత్రమే తీసుకుంటుంది"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
-#: ../pykickstart/parser.py:721
+#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s కోసం మరల్పు కేంద్రం అవసరం"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
-#, python-format
-msgid "Unexpected arguments to %s command: %s"
-msgstr "%s ఆదేశానికి ఊహించని వాదన: %s"
-
-#: ../pykickstart/parser.py:577
-#, python-format
-msgid "Device '%s' is already used in multipath '%s'"
-msgstr "'%s' drive ఇప్పటికే బహుళ మార్గాలు '%s'లో ఉపయోగంలో ఉంది. "
-
-#: ../pykickstart/parser.py:672
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#: ../pykickstart/parser.py:558
+#, fuzzy
+msgid "One of biospart or partition options must be specified."
 msgstr "ఒక  --baseurl మరియూ --mirrorlist తప్పక repo ఆదేశం కోసం తెలియచేయబడాలి."
 
-#: ../pykickstart/parser.py:675
+#: ../pykickstart/parser.py:574
+#, fuzzy, python-format
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr "%s ఆదేశానికి ఊహించని వాదన: %s"
+
+#: ../pykickstart/parser.py:634
+#, fuzzy, python-format
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+msgstr "'%s' drive ఇప్పటికే బహుళ మార్గాలు '%s'లో ఉపయోగంలో ఉంది. "
+
+#: ../pykickstart/parser.py:729
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "ఒక  --baseurl మరియూ --mirrorlist తప్పక repo ఆదేశం కోసం తెలియచేయబడాలి."
+
+#: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "ఒక  --baseurl మరియూ --mirrorlist తప్పక repo ఆదేశం కోసం తెలియచేయబడాలి."
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s ఆదేశం కోసం ఒక ఏకైక వాదన ఊహించబడింది"
 
-#: ../pykickstart/parser.py:880
+#: ../pykickstart/parser.py:943
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr "%s లైనులోని తక్కువ చేయబడ్డ ఐచ్ఛికాన్ని గుర్తించకు:  ఈ సూన్య mbr ఎటువంటి ఐచ్ఛికాన్నీ తీసుకోదు.  ముందలి విడుదలలో ఇది kickstart నుందీ పెద్ద దోషం కావచ్చు.  ఎటువంటి ఐచ్ఛికాన్నయినా తొలగించటానికి దయచేసి మీ kickstart ఫైలుని సరిచేయండి."
+msgstr ""
+"%s లైనులోని తక్కువ చేయబడ్డ ఐచ్ఛికాన్ని గుర్తించకు:  ఈ సూన్య mbr ఎటువంటి ఐచ్ఛికాన్నీ తీసుకోదు.  "
+"ముందలి విడుదలలో ఇది kickstart నుందీ పెద్ద దోషం కావచ్చు.  ఎటువంటి ఐచ్ఛికాన్నయినా తొలగించటానికి దయచేసి "
+"మీ kickstart ఫైలుని సరిచేయండి."
 
-#: ../pykickstart/parser.py:949
+#: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
 msgstr "తెలియని ఆదేశం: %s"
@@ -143,4 +164,3 @@ msgstr "input ఫైలులో సాధారణ kickstart దోషం"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr " input ఫైలులో సాధరణ దోషం:  %s"
-
