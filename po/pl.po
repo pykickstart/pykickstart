@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-05-25 15:38+0200\n"
+"PO-Revision-Date: 2006-11-21 20:41+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,15 +14,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Wystąpił następujący problem w wierszu %s pliku kickstart:\n"
+"Wystąpił następujący problem w wierszu %(lineno)s pliku kickstart:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -35,39 +35,39 @@ msgid "Option %s is required"
 msgstr "Opcja %s jest wymagana"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Ignorowanie przestarzałej opcji w wierszu %s: opcja %s jest przestarzała i "
-"jej zmiana nie powoduje żadnych zmian. Może zostać usunięta z przyszłych "
-"wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj swój plik "
-"kickstart, aby usunąć tę opcję."
+"Ignorowanie przestarzałej opcji w wierszu %(lineno)s: opcja %(option)s jest "
+"przestarzała i jej użycie nie powoduje żadnych zmian. Może zostać "
+"usunięta z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. "
+"Zmodyfikuj plik kickstart, aby usunąć tę opcję."
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Wymagane ustawienie flagi dla opcji, która nie przyjmuje wartości"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Opcja %s: nieprawidłowa wartość zmiennej logicznej: %r"
+msgstr "Opcja %(opt)s: nieprawidłowa wartość zmiennej logicznej: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Ignorowanie przestarzałego polecenia w wierszu %s: polecenie %s jest "
-"przestarzałe i jego użycie nie powoduje żadnych zmian. Może zostać usunięty "
-"z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj swój "
-"plik kickstart, aby usunąć te polecenie."
+"Ignorowanie przestarzałego polecenia w wierszu %(lineno)s: polecenie %(cmd)s "
+"jest przestarzałe i jego użycie nie powoduje żadnych zmian. Może zostać "
+"usunięte z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. "
+"Zmodyfikuj swój plik kickstart, aby usunąć te polecenie."
 
 #: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
@@ -77,9 +77,9 @@ msgid "Command %s does not take any arguments"
 msgstr "Polecenie %s nie przyjmuje żadnych argumentów"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Nieoczekiwane argumenty dla polecenia %s: %s"
+msgstr "Nieoczekiwane argumenty dla polecenia %(command)s: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -94,21 +94,19 @@ msgid "Mount point required for %s"
 msgstr "Wymagany jest punk montowania dla %s"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr ""
-"Tylko jedno z --baseurl i --mirrorlist musi być określone dla polecenia "
-"repozytorium."
+msgstr "tylko  jedno z biospart lub opcji partycji musi być określone."
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Nieoczekiwane argumenty dla polecenia %s: %s"
+msgstr "Nieoczekiwane argumenty dla polecenia %(cmd)s: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "Urządzenie \"%s\" zostało już użyte w wielościeżce \"%s\""
+msgstr ""
+"Urządzenie \"%(device)s\" zostało już użyte w wielościeżce \"%(multipathdev)s\""
 
 #: ../pykickstart/parser.py:729
 msgid ""
@@ -151,7 +149,7 @@ msgstr "wyłącz po pierwszym błędzie lub ostrzeżeniu"
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "zanalizuj pliki nagłówków, gdy zobaczysz %include"
+msgstr "przeanalizuj pliki nagłówków, gdy zobaczysz %include"
 
 #: ../validator/ksvalidator:62
 #, python-format
