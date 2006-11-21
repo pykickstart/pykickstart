@@ -1,4 +1,5 @@
 # translation of de.po to 
+# translation of de.po to
 # translation of de.po to German
 # This file is distributed under the same license as the de package.
 # Copyright (C) 2006 THE de'S COPYRIGHT HOLDER.
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-09-01 12:58+1000\n"
+"PO-Revision-Date: 2006-11-22 08:41+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -22,15 +23,15 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Das folgende Problem trat in Zeile %s der Kickstart-Datei auf:\n"
+"Das folgende Problem trat in Zeile %(lineno)s der Kickstart-Datei auf:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -43,14 +44,14 @@ msgid "Option %s is required"
 msgstr "Option %s ist erforderlich"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Veraltete Option in Zeile %s nicht beachten:  Die %s Option ist veraltet und "
+"Veraltete Option in Zeile %(lineno)s nicht beachten:  Die %(option)s Option ist veraltet und "
 "hat keine Wirkung mehr.  Sie wird vielleicht von zukünftigen Versionen "
 "entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart "
 "führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese Option zu "
@@ -63,19 +64,19 @@ msgstr ""
 "annimmt"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Option %s: ungültiger boolescher Wert: %r"
+msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Veralteter Befehl in Zeile %s nicht beachten:  Der %s Befehl wurde abgelehnt "
+"Veralteter Befehl in Zeile %(lineno)s nicht beachten:  Der %(cmd)s Befehl wurde abgelehnt "
 "und hat keine Wirkung mehr.  Er wird vielleicht von zukünftigen Versionen "
 "entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart "
 "führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diesen Befehl zu "
@@ -89,9 +90,9 @@ msgid "Command %s does not take any arguments"
 msgstr "Befehl %s nimmt keine Argumente an"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Unerwartete Argumente für den %s Befehl: %s"
+msgstr "Unerwartete Argumente für den %(command)s Befehl: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -106,25 +107,21 @@ msgid "Mount point required for %s"
 msgstr "Einhängepunkt vorgeschrieben für %s"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr ""
-"Entweder --baseurl oder --mirrorlist muss für den repo-Befehl ausgewählt "
-"werden."
+msgstr "Eine der Optionen Biospart oder Partition muss angegeben werden."
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Unerwartete Argumente für den %s Befehl: %s"
+msgstr "Unerwartete Argumente für den %(cmd)s Befehl: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "Laufwerk '%s' wird bereits in multipath '%s' verwendet"
+msgstr "Laufwerk '%(device)s' wird bereits in multipath '%(multipathdev)s' verwendet"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "Nur entweder --baseurl oder --mirrorlist kann für den repo-Befehl ausgewählt "
 "werden."
@@ -183,3 +180,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
