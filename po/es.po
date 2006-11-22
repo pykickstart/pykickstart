@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-05-29 10:20+1000\n"
-"Last-Translator: Manuel Ospina <mospina@redhat.com>\n"
+"PO-Revision-Date: 2006-11-22 18:45-0300\n"
+"Last-Translator: Domingo E. Becker <beckerde@hotmail.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,22 +17,20 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"El siguiente problema ocurrió en la línea %s del archivo de respuestas "
-"(kickstart):\n"
+"El siguiente problema ocurrió en la línea %(lineno)s del archivo de respuestas (kickstart):\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
-"Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
+msgstr "Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
 
 #: ../pykickstart/parser.py:105
 #, python-format
@@ -40,104 +38,86 @@ msgid "Option %s is required"
 msgstr "Se requiere la opción %s"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Se ignora opción obsoleta en línea %s: la opción %s ha sido descartada y ya "
-"no tiene efecto. Puede ser borrada de versiones futuras, lo que resultará en "
-"un error fatal desde el archivo de respuestas (kickstart). Por favor, "
-"modifique su archivo de respuestas (kickstart) y elimine esta opción."
+#, python-format
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Se ignora opción obsoleta en línea %(lineno)s: la opción %(option)s ha sido descartada y ya no tiene efecto. Puede ser borrada de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine esta opción."
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Se requiere poner una bandera para una opción que no toma un valor"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Opción %s: valor booleano inválido: %r"
+msgstr "Opción %(opt)s: valor booleano inválido: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Se ignora comando descartado en línea %s: El comando %s fue descartado y ya "
-"no produce efecto. Puede ser eliminado de versiones futuras, lo que "
-"resultará en un error fatal desde el archivo de respuestas (kickstart). Por "
-"favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
+#, python-format
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Se ignora comando descartado en línea %(lineno)s: El comando %(cmd)s fue descartado y ya no produce efecto. Puede ser eliminado de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
 
-#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:305
+#: ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530
+#: ../pykickstart/parser.py:832
 #: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "El comando %s no tiene argumentos"
 
-#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#: ../pykickstart/parser.py:446
+#: ../pykickstart/parser.py:937
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Argumento inesperado para el comando %s: %s"
+msgstr "Argumento inesperado para el comando %(command)s: %(options)s"
 
-#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
-#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
+#: ../pykickstart/parser.py:454
+#: ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468
+#: ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "El comando %s sólo tiene un argumento"
 
-#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:511
+#: ../pykickstart/parser.py:698
 #: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Se requiere un punto de montaje para %s"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr "Debe especificar o --baseurl, o bién --mirrorlist al comando repo."
+msgstr "Debe especificar al menos una biospart u opción de partición."
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Argumento inesperado para el comando %s: %s"
+msgstr "Argumento inesperado para el comando %(cmd)s: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "El dispositivo '%s' ya está siendo utilizado en el multipath '%s'"
+msgstr "El dispositivo '%(device)s' ya está siendo utilizado en el multipath '%(multipathdev)s'"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "Sólo un --baseurl y --mirrorlist se puede especificar al comando repo."
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "Debe especificar o --baseurl, o bién --mirrorlist al comando repo."
 
-#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
+#: ../pykickstart/parser.py:800
+#: ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "El comando %s recibe un solo argumento"
 
 #: ../pykickstart/parser.py:943
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-"Se ignora opción obsoleta en línea %s: el comando zerombr ya no lleva "
-"opciones. En versiones futuras, esto puede resultar en un error fatal desde "
-"el archivo de respuestas (kickstart). Por favor, modifique su archivo de "
-"respuestas (kickstart) y elimine cualquier opción."
+msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
+msgstr "Se ignora opción obsoleta en línea %s: el comando zerombr ya no lleva opciones. En versiones futuras, esto puede resultar en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine cualquier opción."
 
 #: ../pykickstart/parser.py:1015
 #, python-format
@@ -170,3 +150,4 @@ msgstr "Error general en el archivo de respuestas (kickstart) de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Error general en el archivo de entrada: %s"
+
