@@ -8,28 +8,28 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-05-25 11:12+0530\n"
+"PO-Revision-Date: 2006-11-22 10:50+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"કિકસ્ટાર્ટ ફાઈલમાં લીટી %s પર નીચેની સમસ્યા ઉદ્દભવી:\n"
+"નીચેની સમસ્યા કિકસ્ટાર્ટ ફાઈલની %(lineno)s લીટી પર ઉદ્ભવેલ છે:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -42,38 +42,31 @@ msgid "Option %s is required"
 msgstr "વિકલ્પ %s જરૂરી છે"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
-msgstr ""
-"લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %s વિકલ્પ કાઢી નાંખવામાં આવેલ છે અને તેની "
-"લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી "
-"ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે તમારી કિકસ્ટાર્ટ સુધારો."
+msgstr "લીટી %(lineno)s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %(option)s વિકલ્પ કાઢી નાંખવામાં આવેલ છે અને તેની લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે તમારી કિકસ્ટાર્ટ સુધારો."
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "વિકલ્પ માટે સુયોજિત જરૂરી નિશાની કે જે કિંમત લેતી નથી"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "વિકલ્પ %s: અયોગ્ય બુલિયન કિંમત: %r"
+msgstr "વિકલ્પ %(opt)s: અયોગ્ય બુલિયન કિંમત: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
-msgstr ""
-"લીટી %s પર કાઢી નાંખવામાં આવેલ આદેશ અવગણી રહ્યા છીએ:  %s આદેશ કાઢી નાંખવામાં આવેલ છે "
-"અને લાંબા સમય સુધી અસર આપશે નહિં.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે "
-"કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી કિકસ્ટાર્ટમાંથી દૂર "
-"કરીને તેને સુધારો."
+msgstr "લીટી %(lineno)s પર કાઢી નાંખવામાં આવેલ આદેશ અવગણી રહ્યા છીએ:  %(cmd)s આદેશ કાઢી નાંખવામાં આવેલ છે અને લાંબા સમય સુધી અસર આપશે નહિં.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી કિકસ્ટાર્ટમાંથી દૂર કરીને તેને સુધારો."
 
 #: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
@@ -83,9 +76,9 @@ msgid "Command %s does not take any arguments"
 msgstr "આદેશ %s કોઈપણ દલીલો લેતો નથી"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "આદેશ %s ને અનિચ્છનીય દલીલો: %s"
+msgstr "આદેશ %(command)s ને અનિચ્છનીય દલીલો: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -100,30 +93,26 @@ msgid "Mount point required for %s"
 msgstr "%s માટે માઉન્ટ પોઈન્ટ જરૂરી છે"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr ""
-"repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
+msgstr "biospart અથવા પાર્ટીશન વિકલ્પોમાંના એક સ્પષ્ટ થયેલ હોવા જ જોઈએ."
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "આદેશ %s ને અનિચ્છનીય દલીલો: %s"
+msgstr "આદેશ %(cmd)s ને અનિચ્છનીય દલીલો: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "ઉપકરણ '%s' એ પહેલાથી જ મલ્ટીપાથ '%s' માં વપરાયેલ છે"
+msgstr "ઉપકરણ '%(device)s' એ પહેલાથી જ મલ્ટીપાથ '%(multipathdev)s' માં વપરાયેલ છે"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo આદેશ માટે માત્ર --baseurl અને --mirrorlist માંના સ્પષ્ટ થયેલ હોઈ શકે."
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
+msgstr "repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
 
 #: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
@@ -172,3 +161,4 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
+
