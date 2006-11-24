@@ -10,26 +10,26 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-04-15 08:58+0530\n"
+"PO-Revision-Date: 2006-11-24 09:18+0530\n"
 "Last-Translator: A S Alam <apbrar@gmail.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"ਕਿੱਕਸਟਾਰਟ ਫਾਈਲ ਦੀ %s ਸਤਰ ਵਿੱਚ ਹੇਠਲੀ ਗਲਤੀ ਹੈ:\n"
+"ਕਿੱਕਸਟਾਰਟ ਫਾਈਲ ਦੀ %(lineno)s ਸਤਰ ਵਿੱਚ ਹੇਠਲੀ ਗਲਤੀ ਹੈ:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -42,14 +42,14 @@ msgid "Option %s is required"
 msgstr "ਚੋਣ %s ਦੀ ਲੋੜ ਹੈ"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਨੂੰ ਬਰਤਰਫ਼ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ "
+"%(lineno)s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਨੂੰ ਬਰਤਰਫ਼ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %(option)s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ "
 "ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ "
 "ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਆਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਚੋਣ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
 
@@ -58,19 +58,19 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "ਲੋੜੀਂਦੇ ਚਿੰਨ ਦੀ ਚੋਣ ਦਰਸਾਈ ਹੈ ਜੋ ਮੁੱਲ ਨਹੀਂ ਲੈਂਦੀ"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "ਚੋਣ %s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %r"
+msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ "
+"%(lineno)s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %(cmd)s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ "
 "ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ।  ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ "
 "ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ "
 "ਦੀ ਸੋਧ ਕਰੋ।"
@@ -83,9 +83,9 @@ msgid "Command %s does not take any arguments"
 msgstr "ਕਮਾਂਡ %s ਕੋਈ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਲੈਂਦੀ ਹੈ"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "%s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %s"
+msgstr "%(command)s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -100,23 +100,21 @@ msgid "Mount point required for %s"
 msgstr "%s ਲਈ ਮਾਊਂਟ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr "repo ਕਮਾਂਡ ਲਈ --baseurl ਅਤੇ--mirrorlist ਵਿੱਚੋਂ ਇੱਕ ਦੇਣਾ ਲਾਜ਼ਮੀ ਹੈ।"
+msgstr "biospart ਜਾਂ ਭਾਗ ਵਿੱਚ ਇੱਕ ਲਈ ਚੋਣ ਦੇਣੀ ਲਾਜ਼ਮੀ ਹੈ।"
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "%s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %s"
+msgstr "%(cmd)s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %(options)s"
 
 #: ../pykickstart/parser.py:634
 #, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr ""
+msgstr "ਜੰਤਰ '%(device)s' ਪਹਿਲਾਂ ਹੀ ਬਹੁ-ਮਾਰਗ'%(multipathdev)s' ਵਿੱਚ ਵਰਤਿਆ ਗਿਆ ਹੈ"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo ਕਮਾਂਡ ਲਈ --baseurl ਅਤੇ--mirrorlist ਵਿੱਚੋਂ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ।"
 
 #: ../pykickstart/parser.py:732
@@ -142,7 +140,7 @@ msgstr ""
 #: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "ਅਣਜਾਣ ਕਮਾਂਡ: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -170,3 +168,4 @@ msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸ�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
+
