@@ -1,31 +1,32 @@
 # translation of as.po to Assamese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
 #
+# Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
+# Amitakhya Phukan <aphukan@redhat.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-09-29 12:45+0530\n"
-"Last-Translator: Amitakhya Phukan <amitakhya.phukan@gmail.com>\n"
-"Language-Team: Assamese\n"
+"PO-Revision-Date: 2006-11-24 11:58+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
+"Language-Team: Assamese <assam@mm.assam-glug.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"kickstart নথি-পত্ৰৰ %s শাৰীত নিম্নলিখিত ভুল হ'ল:\n"
+"kickstart নথি-পত্ৰৰ %(lineno)s শাৰীত নিম্নলিখিত ভুল হ'ল:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -38,36 +39,36 @@ msgid "Option %s is required"
 msgstr "%s বিকল্পৰ প্ৰয়োজন"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"%s শাৰীত অবচিত বিকল্প আওকাণ কৰা হৈছে:  %s বিকল্পৰ অবচয় হৈছে আৰু কোনো প্ৰভাব "
+"%(lineno)s শাৰীত অবচিত বিকল্প আওকাণ কৰা হৈছে:  %(option)s বিকল্পৰ অবচয় হৈছে আৰু কোনো প্ৰভাব "
 "নোহোৱা হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব "
 "kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ "
-"kickstart নথি-পত্ৰ সলনি কৰক ।"
+"kickstart নথিপত্ৰ সলনি কৰক ।"
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "মান গ্ৰহণ নকৰা বিকল্পৰ বাবে প্ৰয়োজনীয় সংকেত নিৰ্ধাৰিত কৰা হৈছে"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "বিকল্প %s: অবৈধ বুলিয়েন্ মান: %r"
+msgstr "বিকল্প %(opt)s: অবৈধ বুলিয়েন্ মান: %(value)r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%s শাৰীত অবচিত আদেশ আওকাণ কৰা হৈছে:  %s আদেশৰ অবচয় হৈছে আৰু কোনো প্ৰভাব নোহোৱা "
+"%(lineno)s শাৰীত অবচিত আদেশ আওকাণ কৰা হৈছে:  %(cmd)s আদেশৰ অবচয় হৈছে আৰু কোনো প্ৰভাব নোহোৱা "
 "হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব "
 "kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ "
 "kickstart নথি-পত্ৰ সলনি কৰক ।"
@@ -80,9 +81,9 @@ msgid "Command %s does not take any arguments"
 msgstr "%s আদেশে কোনো তৰ্ক গ্ৰহণ নকৰে"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "%s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %s"
+msgstr "%(command)s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -97,31 +98,26 @@ msgid "Mount point required for %s"
 msgstr "%s-ৰ বাবে অভ্যুত্থানৰ স্থান প্ৰয়োজনীয়"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr ""
-"repo আদেশৰ বাবে যিকোনো এটা --baseurl বা --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
+msgstr "biospart বা বিভাজন বিকল্পসমূহৰ যিকোনো এটা নিৰ্দ্দিষ্ট কৰিব লাগে ।"
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "%s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %s"
+msgstr "%(cmd)s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "'%s' যন্ত্ৰ ইতিমধ্যে '%s' একাধিক পথত ব্যৱহৃত হৈছে"
+msgstr "'%(device)s' যন্ত্ৰ ইতিমধ্যে '%(multipathdev)s' একাধিক পথত ব্যৱহৃত হৈছে"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"repo আদেশৰ বাবে যিকোনো এটা --baseurl আৰু --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "repo আদেশৰ বাবে যিকোনো এটা --baseurl আৰু --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"repo আদেশৰ বাবে যিকোনো এটা --baseurl বা --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
+msgstr "repo আদেশৰ বাবে যিকোনো এটা --baseurl বা --mirrorlist নিৰ্ধাৰিত কৰা যাব পাৰে ।"
 
 #: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
@@ -171,3 +167,4 @@ msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ kickstart �
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ ভুল:  %s"
+
