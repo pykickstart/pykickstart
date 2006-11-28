@@ -46,9 +46,9 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"忽略第 %(lineno)s 行中的過時選項：%(option)s 選項已經淘汰，不再起任何作用。這選項可能會自未來"
-"的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔"
-"案，移除這選項。"
+"忽略第 %(lineno)s 行中的過時選項：%(option)s 選項已經淘汰，不再起任何作用。這"
+"選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您"
+"的 kickstart 檔案，移除這選項。"
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
@@ -67,9 +67,9 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可能會自未來的版本"
-"中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移"
-"除這選項。"
+"忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可能"
+"會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 "
+"kickstart 檔案，移除這選項。"
 
 #: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
@@ -110,7 +110,8 @@ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr "裝置「%(device)s」已經在多路徑「%(multipathdev)s」中使用"
 
 #: ../pykickstart/parser.py:729
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo 指令只能擇一指定 --baseurl 與 --mirrorlist。"
 
 #: ../pykickstart/parser.py:732
@@ -164,4 +165,3 @@ msgstr "在輸入檔中發生一般 kickstart 錯誤"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"
-

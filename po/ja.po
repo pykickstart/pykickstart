@@ -48,9 +48,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"%(lineno)s 行の無用なオプションを無視します: %(lineno)s オプションは無用となっており、"
-"どんな効果も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削除される"
-"可能性があります。使用中のキックスタートファイルを修正して、このオプションを取り除いてください。"
+"%(lineno)s 行の無用なオプションを無視します: %(lineno)s オプションは無用と"
+"なっており、どんな効果も持ちません。キックスタートの致命的なエラーとなるた"
+"め、将来のリリースでは削除される可能性があります。使用中のキックスタートファ"
+"イルを修正して、このオプションを取り除いてください。"
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
@@ -69,8 +70,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s 行の無用なコマンドを無視します: %(cmd)s コマンドは無用となっており、"
-"どんな効果も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削除される可能性があります。使用中のキックスタートファイルを修正して、このオプションを取り除いてください。"
+"%(lineno)s 行の無用なコマンドを無視します: %(cmd)s コマンドは無用となってお"
+"り、どんな効果も持ちません。キックスタートの致命的なエラーとなるため、将来の"
+"リリースでは削除される可能性があります。使用中のキックスタートファイルを修正"
+"して、このオプションを取り除いてください。"
 
 #: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
@@ -98,7 +101,8 @@ msgstr "%s に必要なマウントポイント"
 
 #: ../pykickstart/parser.py:558
 msgid "One of biospart or partition options must be specified."
-msgstr "BIOS 部分かパーティションのオプションのうちの 1 つを指定する必要があります。"
+msgstr ""
+"BIOS 部分かパーティションのオプションのうちの 1 つを指定する必要があります。"
 
 #: ../pykickstart/parser.py:574
 #, python-format
@@ -111,8 +115,10 @@ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr "デバイス '%(device)s' は既にマルチパス '%(multipathdev)s' で使用中です"
 
 #: ../pykickstart/parser.py:729
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。"
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr ""
+"--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。"
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
@@ -168,4 +174,3 @@ msgstr "入力ファイル内の一般的なキックスタートエラー"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "入力ファイル内の一般的なエラー:  %s"
-
