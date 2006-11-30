@@ -1,3 +1,7 @@
+2006-11-30  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  Bump version.
+
 2006-11-21  Chris Lumens  <clumens@redhat.com>
 
 	* po/pykickstart.pot:  Updated (#216620).
