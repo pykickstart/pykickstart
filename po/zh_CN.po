@@ -1,14 +1,16 @@
 # translation of zh_CN.po to 
+# translation of zh_CN.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
+# Xi Huang <xhuang@redhat.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-08-18 10:48+1000\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2006-11-30 20:22+1000\n"
+"Last-Translator: Xi Huang <xhuang@redhat.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -16,7 +18,7 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
@@ -37,7 +39,7 @@ msgid "Option %s is required"
 msgstr "选项 %s 是必需的"
 
 #: ../pykickstart/parser.py:109
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
@@ -53,12 +55,12 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "不需要数值的选项需要设定标志"
 
 #: ../pykickstart/parser.py:150
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "选项 %s ：无效的布尔值： %r"
 
 #: ../pykickstart/parser.py:298
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
@@ -77,9 +79,9 @@ msgid "Command %s does not take any arguments"
 msgstr "%s 命令不带有任何参数"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "%s 命令错误的参数： %s"
+msgstr "意外的 %(command)s 命令的参数: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -94,23 +96,21 @@ msgid "Mount point required for %s"
 msgstr "%s 需要挂载点"
 
 #: ../pykickstart/parser.py:558
-#, fuzzy
 msgid "One of biospart or partition options must be specified."
-msgstr "repo 命令必须选择 --baseurl 与 --mirrorlist 其中之一"
+msgstr "必须指定 biospart 或 partition 选项中的一个。"
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "%s 命令错误的参数： %s"
+msgstr "意外的 %(cmd)s 命令的参数：%(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr "设备 '%s' 已经在多路径 '%s' 中被使用"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo 命令只能选择 --baseurl 与 --mirrorlist 其中之一。"
 
 #: ../pykickstart/parser.py:732
@@ -163,3 +163,4 @@ msgstr "输入文件中的 kickstart 错误"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "输入文件有错误： %s"
+
