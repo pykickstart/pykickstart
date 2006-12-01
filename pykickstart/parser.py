@@ -294,7 +294,7 @@ class KickstartHandlers:
             self.handlers[key] = None
 
     def deprecatedCommand(self, cmd):
-        mapping = {"lineno": lineno, "cmd": cmd}
+        mapping = {"lineno": self.lineno, "cmd": cmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
     def doAuthconfig(self, args):
