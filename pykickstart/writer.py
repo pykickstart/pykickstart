@@ -451,7 +451,7 @@ class KickstartWriter:
             elif repo.mirrorlist:
                 urlopt = "--mirrorlist=%s" % repo.mirrorlist
 
-            retval = retval + "repo --name=%s %s\n" % (repo["name"], urlopt)
+            retval = retval + "repo --name=%s %s\n" % (repo.name, urlopt)
 
         return retval
 
