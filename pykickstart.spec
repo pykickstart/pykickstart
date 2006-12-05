@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.41
+Version: 0.42
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Dec 05 2006 Chris Lumens <clumens@redhat.com> - 0.42-1
+- Fix traceback when writing out repo command (#218274).
+
 * Fri Dec 01 2006 Chris Lumens <clumens@redhat.com> - 0.41-1
 - Fix traceback when using deprecated commands (#218047, #218059).
 

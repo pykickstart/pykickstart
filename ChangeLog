@@ -1,3 +1,7 @@
+2006-12-05  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  Bump version.
+
 2006-12-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/writer.py (KickstartWriter.doRepo):  Fix traceback
