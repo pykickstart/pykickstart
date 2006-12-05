@@ -257,7 +257,7 @@ class KickstartWriter:
             return "# System language\nlang %s" % self.ksdata.lang
 
     def doLogging(self):
-        retval = "# Installation logging level\nlogging %s" % self.ksdata.logging["level"]
+        retval = "# Installation logging level\nlogging --level=%s" % self.ksdata.logging["level"]
 
         if self.ksdata.logging["host"] != "":
             retval = retval + " --host=%s" % self.ksdata.logging["host"]
@@ -451,7 +451,7 @@ class KickstartWriter:
             elif repo.mirrorlist:
                 urlopt = "--mirrorlist=%s" % repo.mirrorlist
 
-            retval = retval + "repo --name=%s %s\n" % (repo["name"], urlopt)
+            retval = retval + "repo --name=%s %s\n" % (repo.name, urlopt)
 
         return retval
 

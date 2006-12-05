@@ -1,121 +1,132 @@
+# translation of mr.po to Marathi
 # translation of mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # sandeep shedmake <sandeepshedmake@yahoo.co.in>, 2006.
+# Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-05-01 10:13+0530\n"
-"Last-Translator: sandeep shedmake <sandeepshedmake@yahoo.co.in>\n"
-"Language-Team: marathi <marathiopensource@yahoo.com>\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"PO-Revision-Date: 2006-11-29 17:00+0530\n"
+"Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
+"Language-Team: Marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../pykickstart/parser.py:45
+#: ../pykickstart/parser.py:46
 #, python-format
 msgid ""
-"The following problem occurred on line %s of the kickstart file:\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 msgstr ""
-"किकस्टार्ट फाइलच्या %s ओळीवर खालील समस्या आढळली:\n"
+"किकस्टार्ट फाइलच्या %(lineno)s ओळीवर खालील समस्या आढळली:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
-#: ../pykickstart/parser.py:47
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "किकस्टार्ट फाइलच्या %s ओळी वाचताना समस्या आढळली होती"
 
-#: ../pykickstart/parser.py:104
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "पर्याय %s आवश्यक आहे"
 
-#: ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:109
 #, python-format
 msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
 msgstr ""
-"%s ओळीवर नापसंत पर्यायाकडे दुर्लक्ष केल्यास:  %s पर्याय नापसंत केले आणि त्यामुळे त्याचा "
+"%(lineno)s ओळीवर नापसंत पर्यायाकडे दुर्लक्ष केल्यास:  %(option)s पर्याय नापसंत केले आणि त्यामुळे त्याचा "
 "ह्यापुढे काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ शकते, ज्याचा "
 "परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  हा पर्याय काढून टाकण्साठी कृपया तुमच्या "
 "किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
-#: ../pykickstart/parser.py:139
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "फ्लैग सेटची पर्यायाकरीता आवश्यकता आहे जे मूल्ये घेत नाही"
 
-#: ../pykickstart/parser.py:147
+#: ../pykickstart/parser.py:150
 #, python-format
-msgid "Option %s: invalid boolean value: %r"
-msgstr "पर्याय %s: अप्रमाणीत बुलियन मूल्य: %r"
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
+msgstr "पर्याय %(opt)s: अप्रमाणीत बुलियन मूल्य: %(value)r"
 
-#: ../pykickstart/parser.py:291
+#: ../pykickstart/parser.py:298
 #, python-format
 msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
 msgstr ""
-"%s ओळीवर नापसंत आदेशाकडे दुर्लक्ष केल्यास:  %s आदेश नापसंत केले आणि त्यामुळे त्याचा ह्यापुढे "
-"काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ शकते, ज्याचा परिणाम "
-"किकस्टार्टकडून गंभीर चूका घडतील.  हा आदेश काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल "
-"मध्ये सुधारणा करा."
+"%(lineno)s ओळीवर नापसंत आदेशाकडे दुर्लक्ष केल्यास:  %(cmd)s आदेश नापसंत केले आणि "
+"त्यामुळे त्याचा ह्यापुढे काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ शकते, "
+"ज्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  हा आदेश काढून टाकण्साठी कृपया तुमच्या "
+"किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
-#: ../pykickstart/parser.py:788
+#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "आदेश %s कोणताही पर्याय घेत नाही"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "%(command)s आदेशाकरीता अनपेक्षीत पर्याय: %(options)s"
+
+#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "आदेश %s फक्त एकच पर्याय घेतो"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
-#: ../pykickstart/parser.py:721
+#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s करीता आरोह बिंदु (Mount point) जरूरीचा आहे"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
+#: ../pykickstart/parser.py:558
+msgid "One of biospart or partition options must be specified."
+msgstr "विभाजन किंवा biospart यांपैकी एक पर्याय निवडलाच पाहिजे."
+
+#: ../pykickstart/parser.py:574
 #, python-format
-msgid "Unexpected arguments to %s command: %s"
-msgstr "%s आदेशाकरीता अनपेक्षीत पर्याय: %s"
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr "%(cmd)s आदेशाकरीता अनपेक्षीत पर्याय: %(options)s"
 
-#: ../pykickstart/parser.py:577
+#: ../pykickstart/parser.py:634
 #, python-format
-msgid "Device '%s' is already used in multipath '%s'"
-msgstr ""
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+msgstr "यंत्र '%(device)s' आधिच बहूपथ '%(multipathdev)s' मध्ये वापरले आहे"
 
-#: ../pykickstart/parser.py:672
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"repo आदेशाकरीता --baseurl आणि --mirrorlist ह्यापैकी कुठलाही एक नमुद करू शकता."
+#: ../pykickstart/parser.py:729
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "repo आदेशाकरीता --baseurl आणि --mirrorlist ह्यापैकी कुठलाही एक नमुद करू शकता."
 
-#: ../pykickstart/parser.py:675
+#: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr "repo आदेशाकरीता --baseurl किंवा --mirrorlist ह्यापैकी कुठलाही एकच नमुद करा."
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s आदेशाकरीता एकच पर्याय अपेक्षीत आहे"
 
-#: ../pykickstart/parser.py:880
+#: ../pykickstart/parser.py:943
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -126,10 +137,10 @@ msgstr ""
 "नाही.  पुढच्या प्रकाशनात, ह्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  कुठलाही "
 "पर्याय काढून टाकण्साठी कृपया तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
-#: ../pykickstart/parser.py:949
+#: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "अपरिचित आदेश: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
@@ -157,3 +168,4 @@ msgstr "इनपुट फाइल मध्ये सर्वसाधार
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल मध्ये सर्वसाधारण चूका:  %s"
+

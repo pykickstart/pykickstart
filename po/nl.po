@@ -8,119 +8,130 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-06-29 00:19+0200\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"PO-Revision-Date: 2006-12-03 21:27+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/parser.py:45
+#: ../pykickstart/parser.py:46
 #, python-format
 msgid ""
-"The following problem occurred on line %s of the kickstart file:\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 msgstr ""
-"Het volgende probleem deed zich voor op regel %s van het kickstart-bestand:\n"
+"Het volgende probleem deed zich voor op regel %(lineno)s van het "
+"kickstart-bestand:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
-#: ../pykickstart/parser.py:47
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 "Er was een probleem met het lezen van regel %s van het kickstart-bestand"
 
-#: ../pykickstart/parser.py:104
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "Optie %s is verplicht"
 
-#: ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:109
 #, python-format
 msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
 msgstr ""
-"Verouderde optie op regel %s wordt genegeerd:  De %s optie is verouderd en "
-"heeft geen effect meer.  Het kan worden verwijderd in toekomstige versies, "
-"wat zal resulteren in een fatale fout van kickstart.  Pas uw kickstart-"
-"bestand aan om deze optie te verwijderen."
+"Verouderde optie op regel %(lineno)s wordt genegeerd:  De %(option)s optie is "
+"verouderd en heeft geen effect meer. Het kan worden verwijderd in toekomstige "
+"versies, wat zal resulteren in een fatale fout van kickstart.  Pas uw "
+"kickstart-bestand aan om deze optie te verwijderen."
 
-#: ../pykickstart/parser.py:139
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Vereiste vlag gezet voor optie die geen waarde neemt"
 
-#: ../pykickstart/parser.py:147
+#: ../pykickstart/parser.py:150
 #, python-format
-msgid "Option %s: invalid boolean value: %r"
-msgstr "Optie %s: ongeldige booleaanse waarde: %r"
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
+msgstr "Optie %(opt)s: ongeldige booleaanse waarde: %(value)r"
 
-#: ../pykickstart/parser.py:291
+#: ../pykickstart/parser.py:298
 #, python-format
 msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
 msgstr ""
-"Verouderd commando op regel %s wordt genegeerd:  Het %s commando is "
-"verouderd en heeft geen effect meer.  Het kan worden verwijderd in "
-"toekomstige versies, wat zal resulteren in een fatale fout van kickstart.  "
+"Verouderd commando op regel %(lineno)s wordt genegeerd:  Het %(cmd)s "
+"commando is verouderd en heeft geen effect meer. Het kan worden verwijderd "
+"in toekomstige versies, wat zal resulteren in een fatale fout van kickstart. "
 "Pas uw kickstart-bestand aan om dit commando te verwijderen."
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
-#: ../pykickstart/parser.py:788
+#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "Commando %s neemt geen enkel argument"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "Onverwachte argumenten voor %(command)s commando: %(options)s"
+
+#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "Commando %s neemt slechts een enkel argument"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
-#: ../pykickstart/parser.py:721
+#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "Koppelpunt vereist voor %s"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
-#, python-format
-msgid "Unexpected arguments to %s command: %s"
-msgstr "Onverwachte argumenten voor %s commando: %s"
+#: ../pykickstart/parser.py:558
+msgid "One of biospart or partition options must be specified."
+msgstr "Een van de biospart of partitie opties moet worden opgegeven."
 
-#: ../pykickstart/parser.py:577
+#: ../pykickstart/parser.py:574
 #, python-format
-msgid "Device '%s' is already used in multipath '%s'"
-msgstr "Apparaat '%s' is al gebruikt in multipath '%s'"
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr "Onverwachte argumenten voor %(cmd)s commando: %(options)s"
 
-#: ../pykickstart/parser.py:672
+#: ../pykickstart/parser.py:634
+#, python-format
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+msgstr "Apparaat '%(device)s' is al gebruikt in multipath '%(multipathdev)s'"
+
+#: ../pykickstart/parser.py:729
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
-"Slechts een van --baseurl en --mirrorlist mag worden gespecificeerd voor "
-"repo commando."
+"Slechts een van de --baseurl en --mirrorlist opties mag worden opgegeven voor "
+"het repo commando."
 
-#: ../pykickstart/parser.py:675
+#: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
-"Een van --baseurl of --mirrorlist moet worden gespecificeerd voor repo "
-"commando."
+"Een van de --baseurl of --mirrorlist opties moet worden opgegeven voor het "
+"repo commando."
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "Een enkel argument wordt verwacht voor het %s commando"
 
-#: ../pykickstart/parser.py:880
+#: ../pykickstart/parser.py:943
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -132,19 +143,19 @@ msgstr ""
 "fatale fout van kickstart.  Pas uw kickstart-bestand aan om de opties te "
 "verwijderen."
 
-#: ../pykickstart/parser.py:949
+#: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Onbekend commando: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr "gestopt na de eerste fout of waarschuwing"
+msgstr "na de eerste fout of waarschuwing stoppen"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "Verwerk include-bestanden wanneer %include is gezien"
+msgstr "include-bestanden verwerken wanneer %include is gezien"
 
 #: ../validator/ksvalidator:62
 #, python-format

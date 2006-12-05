@@ -109,7 +109,8 @@ class KickstartHandlers:
             self.handlers[key] = None
 
     def deprecatedCommand(self, cmd):
-        warnings.warn(_("Ignoring deprecated command on line %s:  The %s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % (self.lineno, cmd), DeprecationWarning)
+        mapping = {"lineno": self.lineno, "cmd": cmd}
+        warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
     def doAuthconfig(self, args):
         self.ksdata.authconfig = string.join(args)
@@ -246,17 +247,18 @@ class KickstartHandlers:
     def doIscsi(self, args):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--target", dest="ipaddr", action="store", type="string")
-        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string")
+        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
+                      required=1)
         op.add_option("--port", dest="port", action="store", type="string")
         op.add_option("--user", dest="user", action="store", type="string")
         op.add_option("--password", dest="password", action="store",
                       type="string")
 
         (opts, extra) = op.parse_args(args=args)
-        if not opts.ipaddr:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("IP Address of iSCSI target required"))
+
         if len(extra) != 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("scsi", extra))
+            mapping = {"command": "scsi", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         dd = KickstartIscsiData()
         self._setToObj(op, opts, dd)
@@ -383,7 +385,8 @@ class KickstartHandlers:
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s") % ("monitor", extra))
+            mapping = {"cmd": "monitor", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
 
         self._setToDict(op, opts, self.ksdata.monitor)
 
@@ -442,7 +445,8 @@ class KickstartHandlers:
             mpath = self.ksdata.mpaths[x]
             for path in mpath.paths:
                 if path.device == dd.device:
-                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%s' is already used in multipath '%s'") % (path.device, path.mpdev))
+                    mapping = {"device": path.device, "multipathdev": path.mpdev}
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping)
             if mpath.name == dd.mpdev:
                 parent = x
 
@@ -744,7 +748,8 @@ class KickstartHandlers:
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %s command: %s" % ("xconfig", extra)))
+            mapping = {"command": "xconfig", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s" % mapping))
 
         self._setToDict(op, opts, self.ksdata.xconfig)
 

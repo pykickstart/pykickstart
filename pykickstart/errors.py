@@ -19,7 +19,8 @@ translate.textdomain("pykickstart")
 
 def formatErrorMsg(lineno, msg=""):
     if msg != "":
-        return _("The following problem occurred on line %s of the kickstart file:\n\n%s\n") % (lineno, msg)
+        mapping = {"lineno": lineno, "msg": msg}
+        return _("The following problem occurred on line %(lineno)s of the kickstart file:\n\n%(msg)s\n") % mapping
     else:
         return _("There was a problem reading from line %s of the kickstart file") % lineno
 

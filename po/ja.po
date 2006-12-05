@@ -10,117 +10,128 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-24 13:59-0400\n"
-"PO-Revision-Date: 2006-08-30 17:15+1000\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"PO-Revision-Date: 2006-11-27 15:31+1000\n"
 "Last-Translator: Noriko Mizumoto <noriko@redhat.com>\n"
-"Language-Team: Japanese <doc-i18n-list@redhat.com>\n"
+"Language-Team: Japanese <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../pykickstart/parser.py:45
+#: ../pykickstart/parser.py:46
 #, python-format
 msgid ""
-"The following problem occurred on line %s of the kickstart file:\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 msgstr ""
-"以下の問題がキックスタートファイルの %s 行で発生しました:\n"
+"以下の問題がキックスタートファイルの %(lineno)s 行で発生しました:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
-#: ../pykickstart/parser.py:47
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "キックスタートファイルの %s の行の読み込みに問題がありました"
 
-#: ../pykickstart/parser.py:104
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "オプション %s は必須です"
 
-#: ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:109
 #, python-format
 msgid ""
-"Ignoring deprecated option on line %s:  The %s option has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this option."
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
 msgstr ""
-"%s 行の無用なオプションを無視します: %s オプションは無用となっており、どんな"
-"効果も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースで"
-"は削除される可能性があります。使用中のキックスタートファイルを修正して、この"
-"オプションを取り除いてください。"
+"%(lineno)s 行の無用なオプションを無視します: %(lineno)s オプションは無用と"
+"なっており、どんな効果も持ちません。キックスタートの致命的なエラーとなるた"
+"め、将来のリリースでは削除される可能性があります。使用中のキックスタートファ"
+"イルを修正して、このオプションを取り除いてください。"
 
-#: ../pykickstart/parser.py:139
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "値を取らないオプションに必要なフラグが設定されています"
 
-#: ../pykickstart/parser.py:147
+#: ../pykickstart/parser.py:150
 #, python-format
-msgid "Option %s: invalid boolean value: %r"
-msgstr "オプション %s: 無効なブーリアン値: %r"
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
+msgstr "オプション %(opt)s: 無効なブーリアン値: %(value)r"
 
-#: ../pykickstart/parser.py:291
+#: ../pykickstart/parser.py:298
 #, python-format
 msgid ""
-"Ignoring deprecated command on line %s:  The %s command has been deprecated "
-"and no longer has any effect.  It may be removed from future releases, which "
-"will result in a fatal error from kickstart.  Please modify your kickstart "
-"file to remove this command."
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
 msgstr ""
-"%s 行の無用なコマンドを無視します: %s コマンドは無用となっており、なんの効果"
-"も持ちません。キックスタートの致命的なエラーとなるため、将来のリリースでは削"
-"除される可能性があります。使用中のキックスタートファイルを修正してこのコマン"
-"ドを取り除いてください。"
+"%(lineno)s 行の無用なコマンドを無視します: %(cmd)s コマンドは無用となってお"
+"り、どんな効果も持ちません。キックスタートの致命的なエラーとなるため、将来の"
+"リリースでは削除される可能性があります。使用中のキックスタートファイルを修正"
+"して、このオプションを取り除いてください。"
 
-#: ../pykickstart/parser.py:298 ../pykickstart/parser.py:421
-#: ../pykickstart/parser.py:489 ../pykickstart/parser.py:770
-#: ../pykickstart/parser.py:788
+#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
 msgstr "コマンド %s は引数を取りません"
 
-#: ../pykickstart/parser.py:427 ../pykickstart/parser.py:433
+#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "%(command)s コマンドへの想定外の引数: %(options)s"
+
+#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
 msgstr "コマンド %s は引数を 1 つしか取りません"
 
-#: ../pykickstart/parser.py:470 ../pykickstart/parser.py:641
-#: ../pykickstart/parser.py:721
+#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
 msgstr "%s に必要なマウントポイント"
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:874
-#, python-format
-msgid "Unexpected arguments to %s command: %s"
-msgstr "%s コマンドへの想定外の引数: %s"
+#: ../pykickstart/parser.py:558
+msgid "One of biospart or partition options must be specified."
+msgstr ""
+"BIOS 部分かパーティションのオプションのうちの 1 つを指定する必要があります。"
 
-#: ../pykickstart/parser.py:577
+#: ../pykickstart/parser.py:574
 #, python-format
-msgid "Device '%s' is already used in multipath '%s'"
-msgstr "デバイス '%s' は既にマルチパス '%s' で使用中です"
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr "%(cmd)s コマンドへの想定外の引数: %(options)s"
 
-#: ../pykickstart/parser.py:672
+#: ../pykickstart/parser.py:634
+#, python-format
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+msgstr "デバイス '%(device)s' は既にマルチパス '%(multipathdev)s' で使用中です"
+
+#: ../pykickstart/parser.py:729
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できます。"
 
-#: ../pykickstart/parser.py:675
+#: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 "--baseurl か --mirrorlist のどちらか１つを repo コマンド用に指定する必要があ"
 "ります。"
 
-#: ../pykickstart/parser.py:738 ../pykickstart/parser.py:782
+#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr "%s コマンドに使用する引数は 1 つです"
 
-#: ../pykickstart/parser.py:880
+#: ../pykickstart/parser.py:943
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -132,7 +143,7 @@ msgstr ""
 "ります。使用中のキックスタートを修正して、すべてのオプションを取り除いてくだ"
 "さい。"
 
-#: ../pykickstart/parser.py:949
+#: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
 msgstr "未知のコマンド: %s"
