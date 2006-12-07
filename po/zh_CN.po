@@ -110,7 +110,8 @@ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr "设备 '%s' 已经在多路径 '%s' 中被使用"
 
 #: ../pykickstart/parser.py:729
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid ""
+"Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr "repo 命令只能选择 --baseurl 与 --mirrorlist 其中之一。"
 
 #: ../pykickstart/parser.py:732
@@ -163,4 +164,3 @@ msgstr "输入文件中的 kickstart 错误"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "输入文件有错误： %s"
-
