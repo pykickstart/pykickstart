@@ -1,0 +1,9 @@
+- audit options for what's new/deprecated/removed from FC5->FC6
+- add more versious, of course
+- move makeHandler in test.py to a real location
+- rewrite ksvalidator
+- add script, package, and platform handling back into the parser and data
+- should the three kinds of scripts be three different objects?
+- redo documentation
+- add back in multipath support
+- make sure this is all still easy to use in anaconda and s-c-kickstart

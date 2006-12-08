@@ -15,7 +15,6 @@ from copy import copy
 from optparse import *
 
 from constants import *
-from data import *
 from errors import *
 
 from rhpl.translate import _

@@ -45,3 +45,10 @@ class KickstartValueError(KickstartError):
 
     def __str__ (self):
         return self.value
+
+class KickstartVersionError(KickstartError):
+    def __init__(self, version):
+        KickstartError.__init__(self, "Unsupported version specified; see version.py for now.")
+
+    def __str__ (self):
+        return self.value

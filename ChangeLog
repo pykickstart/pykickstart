@@ -1,3 +1,31 @@
+2006-12-08  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/data.py:  Removed.
+	* pykickstart/handlers.py:  Removed.
+	* pykickstart/writer.py:  Removed.
+
+	* pykickstart/__init__.py:  Updated.
+	* pykickstart/errors.py (KickstartVersionError):  Add a new exception
+	that will be useful in the future.
+	* pykickstart/options.py:  Don't need this import anymore.
+	* pykickstart/parser.py:  Rework string representation in String.
+	Create a new Packages class, even though it's not in use yet.  Hack in
+	changes to the parser to make it basically work for now.
+	* pykickstart/version.py:  Added initial symbolic version numbers.
+
+	* pykickstart/commands/__init__.py:  Added.
+	* pykickstart/commands/base.py:  Added base classes useful for all
+	syntax versions.
+	* pykickstart/commands/fc5.py:  Added first run at data and command
+	handling support for Fedora Core 5 syntax.  Most of this used to be
+	in data.py, handlers.py, and writer.py
+	* pykickstart/commands/fc6.py:  Added first run at data and command
+	handling support for Fedora Core 6 syntax.  Most of this used to be in
+	data.py, handlers.py, and writer.py
+
+	* TODO:  Added.
+	* test.py:  Added quick test harness.
+
 2006-12-05  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/options.py (KSOptionParser.check_values):  Check

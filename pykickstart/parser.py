@@ -16,12 +16,10 @@
 import shlex
 import sys
 import string
-import warnings
 from copy import copy
 from optparse import *
 
 from constants import *
-from data import *
 from errors import *
 from options import *
 
@@ -46,11 +44,6 @@ STATE_TRACEBACK = 6
 # besides just a data representation.  For instance, anaconda may subclass
 # this to add a run method.
 class Script:
-    def __repr__(self):
-        retval = ("(s: '%s' i: %s c: %d)") %  \
-                  (self.script, self.interp, self.inChroot)
-        return string.replace(retval, "\n", "|")
-
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
                  logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
         self.script = string.join(script, "")
@@ -62,19 +55,63 @@ class Script:
 
     # Produce a string representation of the script suitable for writing
     # to a kickstart file.  Add this to the end of the %whatever header.
-    def write(self):
-        retval = ""
+    def __str__(self):
+        if self.type == KS_SCRIPT_PRE:
+            retval = "%%pre"
+        elif self.type == KS_SCRIPT_POST:
+            retval = "%%post"
+        elif self.type == KS_SCRIPT_TRACEBACK:
+            retval = "%%traceback"
+
         if self.interp != "/bin/sh" and self.interp != "":
-            retval = retval + " --interp %s" % self.interp
+            retval += " --interp %s" % self.interp
         if self.type == KS_SCRIPT_POST and not self.inChroot:
-            retval = retval + " --nochroot"
+            retval += " --nochroot"
         if self.logfile != None:
-            retval = retval + " --logfile %s" % self.logfile
+            retval += " --logfile %s" % self.logfile
         if self.errorOnFail:
-            retval = retval + " --erroronfail"
-        
-        retval = retval + "\n%s\n" % self.script
-        return retval
+            retval += " --erroronfail"
+
+        return retval + "\n%s" % self.script
+
+
+##
+## PACKAGE HANDLING
+##
+class Packages:
+    def __init__(self):
+        self.groupList = []
+        self.packageList = []
+        self.excludedList = []
+        self.excludeDocs = False
+        self.addBase = True
+        self.handleMissing = KS_MISSING_PROMPT
+
+    def __str__(self):
+        pkgs = ""
+
+        for grp in self.groupList:
+            pkgs += "@%s\n" % grp
+
+        for pkg in self.packageList:
+            pkgs += "%s\n" % pkg
+
+        for pkg in self.excludedList:
+            pkgs += "-%s\n" % pkg
+
+        if pkgs == "":
+            return ""
+
+        retval = "\n%packages"
+
+        if self.excludeDocs:
+            retval += " --excludedocs"
+        if not self.addBase:
+            retval += " --nobase"
+        if self.handleMissing == KS_MISSING_IGNORE:
+            retval += " --ignoremissing"
+
+        return retval + "\n" + pkgs
 
 
 ###
@@ -89,10 +126,9 @@ class Script:
 # Passing None for kshandlers is valid just in case you don't care about
 # handling any commands.
 class KickstartParser:
-    def __init__ (self, ksdata, kshandlers, followIncludes=True,
+    def __init__ (self, kshandlers, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         self.handler = kshandlers
-        self.ksdata = ksdata
         self.followIncludes = followIncludes
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self.state = STATE_COMMANDS
@@ -111,32 +147,23 @@ class KickstartParser:
                     self.script["chroot"], self.script["log"],
                     self.script["errorOnFail"], self.script["type"])
 
-        self.ksdata.scripts.append(s)
+### FIXME
+#        self.ksdata.scripts.append(s)
 
     def addPackages (self, line):
         stripped = line.strip()
 
-        if stripped[0] == '@':
-            self.ksdata.groupList.append(stripped[1:].lstrip())
-        elif stripped[0] == '-':
-            self.ksdata.excludedList.append(stripped[1:].lstrip())
-        else:
-            self.ksdata.packageList.append(stripped)
+### FIXME
+#        if stripped[0] == '@':
+#            self.ksdata.packages.groupList.append(stripped[1:].lstrip())
+#        elif stripped[0] == '-':
+#            self.ksdata.packages.excludedList.append(stripped[1:].lstrip())
+#        else:
+#            self.ksdata.packages.packageList.append(stripped)
 
     def handleCommand (self, lineno, args):
-        if not self.handler:
-            return
-
-        cmd = args[0]
-        cmdArgs = args[1:]
-
-        if not self.handler.handlers.has_key(cmd):
-            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
-        else:
-            if self.handler.handlers[cmd] != None:
-                self.handler.currentCmd = cmd
-                self.handler.lineno = lineno
-                self.handler.handlers[cmd](cmdArgs)
+        if self.handler:
+            self.handler.dispatcher(args[0], args[1:], lineno)
 
     def handlePackageHdr (self, lineno, args):
         op = KSOptionParser(lineno=lineno)
@@ -153,12 +180,13 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        self.ksdata.excludeDocs = opts.excludedocs
-        self.ksdata.addBase = not opts.nobase
-        if opts.ignoremissing:
-            self.ksdata.handleMissing = KS_MISSING_IGNORE
-        else:
-            self.ksdata.handleMissing = KS_MISSING_PROMPT
+### FIXME
+#        self.ksdata.excludeDocs = opts.excludedocs
+#        self.ksdata.addBase = not opts.nobase
+#        if opts.ignoremissing:
+#            self.ksdata.handleMissing = KS_MISSING_IGNORE
+#        else:
+#            self.ksdata.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, lineno, args):
         op = KSOptionParser(lineno=lineno)
@@ -205,7 +233,9 @@ class KickstartParser:
             if line.isspace() or (line != "" and line.lstrip()[0] == '#'):
                 # Save the platform for s-c-kickstart, though.
                 if line[:10] == "#platform=" and self.state == STATE_COMMANDS:
-                    self.ksdata.platform = line[11:]
+                    pass
+### FIXME
+#                    self.ksdata.platform = line[11:]
 
                 if self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                     self.script["body"].append(line)
