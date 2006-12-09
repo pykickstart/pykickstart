@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
+# Icelandic translation of pykickstart
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Richard Allen <ra@ra.is>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
-"Report-Msgid-Bugs-To: \n"
+"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-08-23 01:22+0000\n"
+"PO-Revision-Date: 2006-12-08 01:22+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/parser.py:46
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Eftirfarandi vandi kom upp á línu %s í hraðuppsetningarskránni:\n"
+"Eftirfarandi vandi kom upp á línu %(lineno)s í hraðuppsetningarskránni:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
@@ -44,6 +44,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
+"Hunsa úreltann rofa á línu %(lineno)s:  Rofinn %(option)s er nú úreltur "
+"og hefur ekki lengur nein áhrif.  Hann verður líkast til fjarlægður í "
+"næstu útgáfum sem verður til þess að villa kemur upp í hraðuppsetningum."
+"Vinsamlega breyttu hraðuppsetningaskránum þínum og fjarlægðu þennan rofa."
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
@@ -71,9 +75,9 @@ msgid "Command %s does not take any arguments"
 msgstr "Skipunin %s tekur engin viðföng"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Viðföngum ofaukið við skipunina %s: %s"
+msgstr "Viðföngum ofaukið við skipunina %(command)s: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -89,31 +93,32 @@ msgstr "Tengipunkt vantar fyrir %s"
 
 #: ../pykickstart/parser.py:558
 msgid "One of biospart or partition options must be specified."
-msgstr ""
+msgstr "Annað hvort biospart eða partition rofinn verður að vera til staðar."
 
 #: ../pykickstart/parser.py:574
-#, fuzzy, python-format
+#, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Viðföngum ofaukið við skipunina %s: %s"
+msgstr "Viðföngum ofaukið við skipunina %(cmd)s: %(options)s"
 
 #: ../pykickstart/parser.py:634
-#, fuzzy, python-format
+#, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "Tækið '%s' er þegar í notkun í fjölslóðatækinu '%s'"
+msgstr "Tækið '%(device)' er þegar í notkun í fjölslóðatækinu '%(multipathdev)s'"
 
 #: ../pykickstart/parser.py:729
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
+"Ekki má gefa upp bæði --baseurl og --mirrorlist skipanirnar."
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "Annað hvort --baseurl eða --mirrorlist verður að vera til staðar"
 
 #: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "Eitt viðfang á að vera til staðar fyrir %s skipunina"
 
 #: ../pykickstart/parser.py:943
 #, python-format
@@ -122,6 +127,9 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"Hunsa úreltann rofa á línu %s:  zerombr skipunin tekur ekki lengur nein "
+"viðföng.  Í framtíðinni verður þetta að banvænni villu í hraðuppsetningum."
+"Vinsamlega breyttu hraðuppsetningaskrám þínum og fjarlægðu alla rofa."
 
 #: ../pykickstart/parser.py:1015
 #, python-format
@@ -130,12 +138,12 @@ msgstr "Óþekkt skipun: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "stöðva eftir fyrstu villu eða viðvörun"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "þáttun innifelur skrár meðan %include er til staðar"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -143,12 +151,14 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Skráin inniheldur úreltann rofa eða skipun.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Almenn hraðuppsetningarvilla í ílagsskrá"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Almenn villa í ílagsskrá:  %s"
