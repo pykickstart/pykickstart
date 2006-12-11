@@ -19,10 +19,9 @@ import warnings
 import tempfile
 import urlgrabber
 import shutil
-from pykickstart.data import *
 from pykickstart.errors import *
-from pykickstart.handlers import KickstartHandlers
 from pykickstart.parser import *
+from pykickstart.version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -39,6 +38,8 @@ op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
 op.add_option("-i", "--followincludes", dest="followincludes",
               action="store_true", default=False,
               help=_("parse include files when %include is seen"))
+op.add_option("-v", "--version", dest="version", default=DEVEL,
+              help=_("version of kickstart syntax to validate against"))
 
 (opts, extra) = op.parse_args(sys.argv[1:])
 
@@ -49,9 +50,13 @@ else:
     destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
     f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
 
-ksdata = KickstartData()
-ksparser = KickstartParser(ksdata, KickstartHandlers(ksdata),
-                           followIncludes=opts.followincludes,
+try:
+    handler = makeHandler(opts.version)
+except KickstartVersionError:
+    print _("The version %s is not supported by pykickstart" % opts.version)
+    cleanup(destdir)
+
+ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
                            errorsAreFatal=opts.firsterror)
 
 # turn DeprecationWarnings into errors
