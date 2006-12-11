@@ -147,19 +147,17 @@ class KickstartParser:
                     self.script["chroot"], self.script["log"],
                     self.script["errorOnFail"], self.script["type"])
 
-### FIXME
-#        self.ksdata.scripts.append(s)
+        self.handler.scripts.append(s)
 
     def addPackages (self, line):
         stripped = line.strip()
 
-### FIXME
-#        if stripped[0] == '@':
-#            self.ksdata.packages.groupList.append(stripped[1:].lstrip())
-#        elif stripped[0] == '-':
-#            self.ksdata.packages.excludedList.append(stripped[1:].lstrip())
-#        else:
-#            self.ksdata.packages.packageList.append(stripped)
+        if stripped[0] == '@':
+            self.handler.packages.groupList.append(stripped[1:].lstrip())
+        elif stripped[0] == '-':
+            self.handler.packages.excludedList.append(stripped[1:].lstrip())
+        else:
+            self.handler.packages.packageList.append(stripped)
 
     def handleCommand (self, lineno, args):
         if self.handler:
@@ -180,13 +178,12 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-### FIXME
-#        self.ksdata.excludeDocs = opts.excludedocs
-#        self.ksdata.addBase = not opts.nobase
-#        if opts.ignoremissing:
-#            self.ksdata.handleMissing = KS_MISSING_IGNORE
-#        else:
-#            self.ksdata.handleMissing = KS_MISSING_PROMPT
+        self.handler.packages.excludeDocs = opts.excludedocs
+        self.handler.packages.addBase = not opts.nobase
+        if opts.ignoremissing:
+            self.handler.packages.handleMissing = KS_MISSING_IGNORE
+        else:
+            self.handler.packages.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, lineno, args):
         op = KSOptionParser(lineno=lineno)
@@ -233,9 +230,7 @@ class KickstartParser:
             if line.isspace() or (line != "" and line.lstrip()[0] == '#'):
                 # Save the platform for s-c-kickstart, though.
                 if line[:10] == "#platform=" and self.state == STATE_COMMANDS:
-                    pass
-### FIXME
-#                    self.ksdata.platform = line[11:]
+                    self.handler.platform = line[11:]
 
                 if self.state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                     self.script["body"].append(line)

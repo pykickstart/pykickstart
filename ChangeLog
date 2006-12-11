@@ -3,6 +3,9 @@
 	* pykickstart/options.py (KSOptionParser.check_values):  Use
 	self.lineno instead of lineno.
 
+	* pykickstart/parser.py:  Set packages, scripts, and platform on the
+	handler.
+
 	* pykickstart/commands/base.py (BaseHandler.__init__):  This looks
 	like the best place to add packages, scripts, and platform.
 	(BaseHandler.__str__):  Write out the whole ks file, though we still
