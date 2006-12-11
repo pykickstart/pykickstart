@@ -16,6 +16,7 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 import warnings
+from pykickstart.parser import Packages
 
 # The base command class.  This holds all methods and data that are common to
 # to every subclass - shouldn't be much stuff.
@@ -56,9 +57,17 @@ class BaseHandler:
     def __init__(self):
         self.handlers = {}
 
-    # Writing out the command section of the kickstart file is easy.
+        # This isn't really a good place for these, but it's better than
+        # everything else I can think of.
+        self.scripts = []
+        self.packages = Packages()
+        self.platform = ""
+
     def __str__(self):
         retval = ""
+
+        if self.platform != "":
+            retval += "#platform=%s" % self.platform
 
         # Have to use this slightly roundabout method because we can't iterate
         # over the handler keys.  That's because multiple handler keys can map
@@ -66,6 +75,11 @@ class BaseHandler:
         for (key, val) in self.__dict__.items():
             if key.startswith("_cmd_"):
                 retval += val.__str__()
+
+        for script in self.scripts:
+            retval += script.__str__()
+
+        retval += self.packages.__str__()
 
         return retval
 
