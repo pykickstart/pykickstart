@@ -48,10 +48,10 @@ class FC6Handler(FC5Handler):
 ###
 
 class KickstartDmRaidData:
-    def __init__(self):
-        self.name = ""
-        self.devices = []
-        self.dmset = None
+    def __init__(self, name="", devices=[], dmset=None):
+        self.name = name
+        self.devices = devices
+        self.dmset = dmset
 
     def __str__(self):
         retval = "dmraid --name=%s" % self.name
@@ -62,12 +62,12 @@ class KickstartDmRaidData:
         return retval + "\n"
 
 class KickstartIscsiData:
-    def __init__(self):
-        self.ipaddr = ""
-        self.port = ""
-        self.target = ""
-        self.user = None
-        self.password = None
+    def __init__(self, ipaddr="", port="", target="", user=None, password=None):
+        self.ipaddr = ipaddr
+        self.port = port
+        self.target = target
+        self.user = user
+        self.password = password
 
     def __str__(self):
         retval = "iscsi"
@@ -86,10 +86,10 @@ class KickstartIscsiData:
         return retval + "\n"
 
 class KickstartRepoData:
-    def __init__(self):
-        self.baseurl = ""
-        self.mirrorlist = ""
-        self.name = ""
+    def __init__(self, baseurl="", mirrorlist="", name=""):
+        self.baseurl = baseurl
+        self.mirrorlist = mirrorlist
+        self.name = name
 
     def __str__(self):
         if self.baseurl:
@@ -100,14 +100,15 @@ class KickstartRepoData:
         return "repo --name=%s %s\n" % (self.name, urlopt)
 
 class KickstartUserData:
-    def __init__(self):
-        self.groups = []
-        self.homedir = ""
-        self.isCrypted = False
-        self.name = ""
-        self.password = ""
-        self.shell = ""
-        self.uid = None
+    def __init__(self, groups=[], homedir="", isCrypted=False, name="",
+                 password="", shell="", uid=None):
+        self.groups = groups
+        self.homedir = homedir
+        self.isCrypted = isCrypted
+        self.name = name
+        self.password = password
+        self.shell = shell
+        self.uid = uid
 
     def __str__(self):
         retval = "user"

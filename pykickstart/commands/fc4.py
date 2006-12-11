@@ -74,20 +74,23 @@ class FC4Handler(BaseHandler):
 ### DATA CLASSES
 ###
 class KickstartLogVolData:
-    def __init__(self):
-        self.bytesPerInode = 4096
-        self.fsopts = ""
-        self.fstype = ""
-        self.grow = False
-        self.maxSizeMB = 0
-        self.name = ""
-        self.format = True
-        self.percent = 0
-        self.recommended = False
-        self.size = None
-        self.preexist = False
-        self.vgname = ""
-        self.mountpoint = ""
+    def __init__(self, bytesPerInode=4096, fsopts="", fstype="", grow=False,
+                 maxSizeMB=0, name="", format=True, percent=0,
+                 recommended=False, size=None, preexist=False, vgname="",
+                 mountpoint=""):
+        self.bytesPerInode = bytesPerInode
+        self.fsopts = fsopts
+        self.fstype = fstype
+        self.grow = grow
+        self.maxSizeMB = maxSizeMB
+        self.name = name
+        self.format = format
+        self.percent = percent
+        self.recommended = recommended
+        self.size = size
+        self.preexist = preexist
+        self.vgname = vgname
+        self.mountpoint = mountpoint
 
     def __str__(self):
         retval = "logvol %s" % self.mountpoint
@@ -116,24 +119,27 @@ class KickstartLogVolData:
         return retval + " --name=%s --vgname=%s\n" % (self.name, self.vgname)
 
 class KickstartNetworkData:
-    def __init__(self):
-        self.bootProto = "dhcp"
-        self.dhcpclass = ""
-        self.device = ""
-        self.essid = ""
-        self.ethtool = ""
-        self.gateway = ""
-        self.hostname = ""
-        self.ip = ""
-        self.ipv4 = True
-        self.ipv6 = True
-        self.mtu = ""
-        self.nameserver = ""
-        self.netmask = ""
-        self.nodns = False
-        self.notksdevice = False
-        self.onboot = True
-        self.wepkey = ""
+    def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
+                 ethtool="", gateway="", hostname="", ip="", ipv4=True,
+                 ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
+                 notksdevice=False, onboot=True, wepkey=""):
+        self.bootProto = bootProto
+        self.dhcpclass = dhcpclass
+        self.device = device
+        self.essid = essid
+        self.ethtool = ethtool
+        self.gateway = gateway
+        self.hostname = hostname
+        self.ip = ip
+        self.ipv4 = ipv4
+        self.ipv6 = ipv6
+        self.mtu = mtu
+        self.nameserver = nameserver
+        self.netmask = netmask
+        self.nodns = nodns
+        self.notksdevice = notksdevice
+        self.onboot = onboot
+        self.wepkey = wepkey
 
     def __str__(self):
         retval = "network"
@@ -176,24 +182,27 @@ class KickstartNetworkData:
         return retval + "\n"
 
 class KickstartPartData:
-    def __init__(self):
-        self.active = False
-        self.primOnly = False
-        self.bytesPerInode = 4096
-        self.end = 0
-        self.fsopts = ""
-        self.fstype = ""
-        self.grow = False
-        self.label = ""
-        self.maxSizeMB = 0
-        self.format = True
-        self.onbiosdisk = ""
-        self.disk = ""
-        self.onPart = ""
-        self.recommended = False
-        self.size = None
-        self.start = 0
-        self.mountpoint = ""
+    def __init__(self, active=False, primOnly=False, bytesPerInode=4096, end=0,
+                 fsopts="", fstype="", grow=False, label="", maxSizeMB=0,
+                 format=True, onbiosdisk="", disk="", onPart="",
+                 recommended=False, size=None, start=0, mountpoint=""):
+        self.active = active
+        self.primOnly = primOnly
+        self.bytesPerInode = bytesPerInode
+        self.end = end
+        self.fsopts = fsopts
+        self.fstype = fstype
+        self.grow = grow
+        self.label = label
+        self.maxSizeMB = maxSizeMB
+        self.format = format
+        self.onbiosdisk = onbiosdisk
+        self.disk = disk
+        self.onPart = onPart
+        self.recommended = recommended
+        self.size = size
+        self.start = start
+        self.mountpoint = mountpoint
 
     def __str__(self):
         retval = "part %s" % self.mountpoint
@@ -234,17 +243,19 @@ class KickstartPartData:
         return retval + "\n"
 
 class KickstartRaidData:
-    def __init__(self):
-        self.device = None
-        self.fsopts = ""
-        self.fstype = ""
-        self.level = ""
-        self.format = True
-        self.spares = 0
-        self.preexist = False
-        self.mountpoint = ""
-        self.members = []
-        self.bytesPerInode = 4096
+    def __init__(self, device=None, fsopts="", fstype="", level="", format=True,
+                 spares=0, preexist=False, mountpoint="", members=[],
+                 bytesPerInode=4096):
+        self.device = device
+        self.fsopts = fsopts
+        self.fstype = fstype
+        self.level = level
+        self.format = format
+        self.spares = spares
+        self.preexist = preexist
+        self.mountpoint = mountpoint
+        self.members = members
+        self.bytesPerInode = bytesPerInode
 
     def __str__(self):
         retval = "raid %s" % self.mountpoint
@@ -269,12 +280,13 @@ class KickstartRaidData:
         return retval + " %s\n" % string.join(self.members)
 
 class KickstartVolGroupData:
-    def __init__(self):
-        self.format = True
-        self.pesize = 32768
-        self.preexist = False
-        self.vgname = ""
-        self.physvols = []
+    def __init__(self, format=True, pesize=32768, preexist=False, vgname="",
+                 physvols=[]):
+        self.format = format
+        self.pesize = pesize
+        self.preexist = preexist
+        self.vgname = vgname
+        self.physvols = physvols
 
     def __str__(self):
         retval = "volgroup %s" % self.vgname
@@ -289,12 +301,12 @@ class KickstartVolGroupData:
         return retval + " " + string.join(self.physvols, ",") + "\n"
 
 class KickstartZFCPData:
-    def __init__(self):
-        self.devnum = ""
-        self.wwpn = ""
-        self.fcplun = ""
-        self.scsiid = ""
-        self.scsilun = ""
+    def __init__(self, devnum="", wwpn="", fcplun="", scsiid="", scsilun=""):
+        self.devnum = devnum
+        self.wwpn = wwpn
+        self.fcplun = fcplun
+        self.scsiid = scsiid
+        self.scsilun = scsilun
 
     def __str__(self):
         retval = "zfcp"
