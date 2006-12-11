@@ -767,8 +767,11 @@ class CommandLogVol(KickstartCommand):
 
         lvd = KickstartLogVolData()
         self._setToObj(op, opts, lvd)
-        self.lvd = extra[0]
-        self.lvList.append(lvd)
+        lvd.mountpoint=extra[0]
+        self.add(lvd)
+
+    def add(self, newObj):
+        self.lvList.append(newObj)
 
 class CommandMediaCheck(KickstartCommand):
     def __init__(self):
@@ -922,7 +925,10 @@ class CommandNetwork(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         nd = KickstartNetworkData()
         self._setToObj(op, opts, nd)
-        self.network.append(nd)
+        self.add(nd)
+
+    def add(self, newObj):
+        self.network.append(newObj)
 
 class CommandPartition(KickstartCommand):
     def __init__(self):
@@ -979,8 +985,11 @@ class CommandPartition(KickstartCommand):
 
         pd = KickstartPartData()
         self._setToObj(op, opts, pd)
-        pd.mountpoint = extra[0]
-        self.partitions.append(pd)
+        pd.mountpoint=extra[0]
+        self.add(pd)
+
+    def add(self, newObj):
+        self.partitions.append(newObj)
 
 class CommandRaid(KickstartCommand):
     def __init__(self):
@@ -1046,7 +1055,10 @@ class CommandRaid(KickstartCommand):
         rd.device = int(rd.device)
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
-        self.raidList.append(rd)
+        self.add(rd)
+
+    def add(self, newObj):
+        self.raidList.append(newObj)
 
 class CommandReboot(KickstartCommand):
     def __init__(self):
@@ -1272,7 +1284,10 @@ class CommandVolGroup(KickstartCommand):
         self._setToObj(op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
-        self.vgList.append(vg)
+        self.add(vg)
+
+    def add(self, newObj):
+        self.vgList.append(newObj)
 
 class CommandXConfig(KickstartCommand):
     def __init__(self):
@@ -1368,3 +1383,7 @@ class CommandZFCP(KickstartCommand):
         zd = KickstartZFCPData()
         (opts, extra) = op.parse_args(args)
         self._setToObj(op, opts, zd)
+        self.add(zd)
+
+    def add(self, newObj):
+        self.zfcp.append(newObj)

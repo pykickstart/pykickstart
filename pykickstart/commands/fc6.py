@@ -158,6 +158,10 @@ class CommandDmRaid(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(op, opts, dm)
+        self.add(dm)
+
+    def add(self, newObj):
+        self.dmraids.append(newObj)
 
 class CommandIscsi(KickstartCommand):
     def __init__(self):
@@ -187,7 +191,12 @@ class CommandIscsi(KickstartCommand):
             mapping = {"command": "scsi", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
-        self._setToSelf(op, opts)
+        dd = KickstartIscsiData()
+        self._setToObj(op, opts, dd)
+        self.add(dd)
+
+    def add(self, newObj):
+        self.iscsi.append(newObj)
 
 class CommandIscsiName(KickstartCommand):
     def __init__(self):
@@ -327,6 +336,10 @@ class CommandRepo(KickstartCommand):
 
         rd = KickstartRepoData()
         self._setToObj(op, opts, rd)
+        self.add(rd)
+
+    def add(self, newObj):
+        self.repoList.append(newObj)
 
 class CommandServices(KickstartCommand):
     def __init__(self):
@@ -392,3 +405,7 @@ class CommandUser(KickstartCommand):
         ud = KickstartUserData()
         (opts, extra) = op.parse_args(args=args)
         self._setToObj(op, opts, ud)
+        self.add(ud)
+
+    def add(self, newObj):
+        self.userList.append(newObj)
