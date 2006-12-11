@@ -16,6 +16,7 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 import warnings
+from pykickstart.errors import *
 from pykickstart.parser import Packages
 
 # The base command class.  This holds all methods and data that are common to

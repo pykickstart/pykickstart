@@ -1,7 +1,9 @@
 2006-12-11  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/version.py (makeHandler):  Add a function to create the
-	right handler for a given syntax version).
+	right handler for a given syntax version.
+
+	* pykickstart/commands/base.py:  Need to import errors here.
 
 2006-12-11  Chris Lumens  <clumens@redhat.com>
 
