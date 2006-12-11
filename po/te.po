@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-11-30 15:57+0530\n"
+"PO-Revision-Date: 2006-12-05 20:39+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,14 +24,14 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"కిక్ స్టార్టు ఫైలు యొక్క on line %(lineno)sలో కింది సమస్య తలెత్తింది:\n"
+"కిక్ స్టార్టు ఫైలు యొక్క పంక్తిలో %(lineno)sలో కింది సమస్య తలెత్తింది:\n"
 "\n"
 "%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "kickstart ఫైలు %s లైను నుండీ చదవటంలో సమస్య ఉంది"
+msgstr "కిక్ స్టార్టు ఫైలు %s లైను నుండీ చదవటంలో సమస్య ఉంది"
 
 #: ../pykickstart/parser.py:105
 #, python-format
@@ -46,10 +46,6 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"

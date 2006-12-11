@@ -1,20 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# shankar Prasad <svenkate@redhat.com>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2006-12-11 14:05+0530\n"
+"Last-Translator: shankar Prasad <svenkate@redhat.com>\n"
+"Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: Plural-Forms: nplural=2;plural=(n !=1);\n"
 
 #: ../pykickstart/parser.py:46
 #, python-format
@@ -23,16 +24,19 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
+"ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತದ  %(lineno)s ಸಾಲಿನಲ್ಲಿ ಈ ಕೆಳಗಿನ ತೊಂದರೆಯು ಕಂಡುಬಂದಿದೆ:\n"
+"\n"
+"%(msg)s\n"
 
 #: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "ಕಿಕ್ ಸ್ಟಾರ್ಟಿನ ಕಡತದ್ %s ಸಾಲಿನಿಂದ ಓದುವಲ್ಲಿ ತೊಂದರೆ ಉಂಟಾಗಿದೆ"
 
 #: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "ಆಯ್ಕೆ %s ನ ಆವಶ್ಯಕತೆ ಇದೆ"
 
 #: ../pykickstart/parser.py:109
 #, python-format
@@ -42,15 +46,19 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
+"ಸಾಲು %(lineno)s ನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(option)s ಯು "
+"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
+"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  ದಯವಿಟ್ಟು "
+"ಈ ಆಯ್ಕೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
 
 #: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "ಮೌಲ್ಯವನ್ನು ಹೊಂದದ ಆಯ್ಕೆಗಳಿಗೆ ತಲೆಚೀಟಿಯ ಅಗತ್ಯವಿದೆ"
 
 #: ../pykickstart/parser.py:150
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr ""
+msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌಲ್ಯ: %(value)r"
 
 #: ../pykickstart/parser.py:298
 #, python-format
@@ -60,58 +68,61 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
+"%(lineno)s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(cmd)s ಯು "
+"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
+"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  ದಯವಿಟ್ಟು "
+"ಈ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
 
 #: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
 #: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
 #: ../pykickstart/parser.py:850
 #, python-format
 msgid "Command %s does not take any arguments"
-msgstr ""
+msgstr "ಆಜ್ಞೆ %s ಯಾವುದೆ ಆರ್ಗ್ಯುಮೆಂಟುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದಿಲ್ಲ"
 
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr ""
+msgstr "%(command)s ಆಜ್ಞೆಗೆ ಅನಿರೀಕ್ಷಿತ ಆರ್ಗ್ಯುಮೆಂಟುಗಳು: %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
 #, python-format
 msgid "Command %s only takes one argument"
-msgstr ""
+msgstr "ಆಜ್ಞೆ %s ಕೇವಲ ಒಂದು ಆರ್ಗ್ಯುಮೆಂಟನ್ನು ಮಾತ್ರ ತೆಗೆದು ಕೊಳ್ಳತ್ತದೆ"
 
 #: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
 #: ../pykickstart/parser.py:778
 #, python-format
 msgid "Mount point required for %s"
-msgstr ""
+msgstr "%s ಗೆ ಆರೋಹಣ ತಾಣದ ಅಗತ್ಯವಿದೆ"
 
 #: ../pykickstart/parser.py:558
 msgid "One of biospart or partition options must be specified."
-msgstr ""
+msgstr "ಒಂದು ಬಯೋಸ್ಪಾರ್ಟ್ ಅಥವ ವಿಭಜನೆಗಳನ್ನುನಿಗದಿಪಡಿಸ ಬೇಕು."
 
 #: ../pykickstart/parser.py:574
 #, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr ""
+msgstr "%(cmd)s ನ ಆಜ್ಞೆಗೆ ಅನಿರೀಕ್ಷಿತ ಆರ್ಗುಮೆಂಟು: %(options)s"
 
 #: ../pykickstart/parser.py:634
 #, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr ""
+msgstr "ಸಾಧನ '%(device)s' ವು ಈಗಾಗಲೆ ಬಹುಪಥ '%(multipathdev)s'ದಲ್ಲಿ ಉಪಯೋಗಿಸಲ್ಪಟ್ಟಿದೆ"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "ರೆಪೋ ಆಜ್ಞೆಗೆ --baseurl ಮತ್ತು --mirrorlist ಗಳಲ್ಲಿ ಒಂದನ್ನು ಮಾತ್ರ ನಿಗದಿಪಡಿಸಬಹುದು."
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
+msgstr "ರೆಪೋ ಆಜ್ಞೆಗೆ --baseurl ಮತ್ತು --mirrorlist ಗಳಲ್ಲಿ ಒಂದನ್ನು ನಿಗದಿಪಡಿಸಬಹುದು."
 
 #: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
 msgid "A single argument is expected for the %s command"
-msgstr ""
+msgstr "%s ಆಜ್ಞೆಗೆ ಒಂದು ಆರ್ಗ್ಯುಮೆಂಟನ್ನುನಿರೀಕ್ಷಿಸಲಾಗಿದೆ"
 
 #: ../pykickstart/parser.py:943
 #, python-format
@@ -120,20 +131,23 @@ msgid ""
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
+"%s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  zerombr ಆಜ್ಞೆ ಯಾವುದೇ ಆಯ್ಕೆಯನ್ನು "
+"ತೆಗೆದು ಕೊಳ್ಳುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ "
+"ಕಾರಣವಾಗುತ್ತದೆ.  ದಯವಿಟ್ಟು ಯಾವುದೇ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
 
 #: ../pykickstart/parser.py:1015
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "ಗೊತ್ತಿರದ ಆಜ್ಞೆ: %s"
 
 #: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "ಪ್ರಥಮ ದೋಷ ಅಥವ ಎಚ್ಚರಿಕೆಯ ನಂತರ ನಿಲ್ಲು"
 
 #: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "%include ಕಂಡಾಗ ವಿಶ್ಲೇಷಣೆಯು ಕಡತಗಳನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
 #: ../validator/ksvalidator:62
 #, python-format
@@ -141,12 +155,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"ಕಡತವು ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆ ಅಥವ ಆಜ್ಞೆಯನ್ನು ಉಪಯೋಗಿಸುತ್ತದೆ.\n"
+"%s"
 
 #: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ದೋಷ"
 
 #: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
+
