@@ -1,5 +1,10 @@
 2006-12-11  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/version.py (makeHandler):  Add a function to create the
+	right handler for a given syntax version).
+
+2006-12-11  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/options.py (KSOptionParser.check_values):  Use
 	self.lineno instead of lineno.
 
