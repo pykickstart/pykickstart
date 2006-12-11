@@ -113,6 +113,17 @@ class Packages:
 
         return retval + "\n" + pkgs
 
+    def add (self, pkgList):
+        for pkg in pkgList:
+            stripped = pkg.strip()
+
+            if stripped[0] == "@":
+                self.groupList.append(stripped[1:])
+            elif stripped[0] == "-":
+                self.excludedList.append(stripped[1:])
+            else:
+                self.packageList.append(stripped)
+
 
 ###
 ### PARSER
@@ -150,14 +161,7 @@ class KickstartParser:
         self.handler.scripts.append(s)
 
     def addPackages (self, line):
-        stripped = line.strip()
-
-        if stripped[0] == '@':
-            self.handler.packages.groupList.append(stripped[1:].lstrip())
-        elif stripped[0] == '-':
-            self.handler.packages.excludedList.append(stripped[1:].lstrip())
-        else:
-            self.handler.packages.packageList.append(stripped)
+        self.handler.packages.add([line])
 
     def handleCommand (self, lineno, args):
         if self.handler:

@@ -2,6 +2,10 @@
 
 	* validator/ksvalidator:  Update to handle multiple versions.
 
+	* pykickstart/parser.py (Packages.add):  Move Parser.addPackages here
+	since this seems like a sensible method for the Packages object to
+	have.
+
 	* pykickstart/version.py (makeHandler):  Add a function to create the
 	right handler for a given syntax version.
 	(stringToVersion):  Add a function to convert string versions into
