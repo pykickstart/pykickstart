@@ -1,5 +1,10 @@
 2006-12-11  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/fc4.py:  Added first run at data and command
+	handling support for Fedora Core 4.
+
+2006-12-11  Chris Lumens  <clumens@redhat.com>
+
 	* validator/ksvalidator:  Update to handle multiple versions.
 
 	* pykickstart/parser.py (Packages.add):  Move Parser.addPackages here

@@ -1,5 +1,5 @@
 - audit options for what's new/deprecated/removed from FC5->FC6
-- add FC4, RHEL4, RHEL5
+- add RHEL4, RHEL5
 - set up real DEVEL version
 - should the three kinds of scripts be three different objects?
 - redo documentation
