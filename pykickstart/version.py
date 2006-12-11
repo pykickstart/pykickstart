@@ -19,10 +19,23 @@ FC6 = 150
 # This always points at the latest version and is the default.
 DEVEL = FC6
 
+def stringToVersion(string):
+    if string == "FC5":
+        return FC5
+    elif string == "FC6":
+        return FC6
+    elif string == "DEVEL":
+        return DEVEL
+    else:
+        raise KickstartVersionError(string)
+
 # Given a version of the kickstart syntax, this function imports the correct
 # handler for that version and returns an instance of it.
 def makeHandler(version):
-    version = int(version)
+    try:
+        version = int(version)
+    except ValueError:
+        version = stringToVersion(version)
 
     if version == FC5:
         from pykickstart.commands.fc5 import FC5Handler

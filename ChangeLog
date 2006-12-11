@@ -2,6 +2,8 @@
 
 	* pykickstart/version.py (makeHandler):  Add a function to create the
 	right handler for a given syntax version.
+	(stringToVersion):  Add a function to convert string versions into
+	integer versions.
 
 	* pykickstart/commands/base.py:  Need to import errors here.
 
