@@ -1,3 +1,10 @@
+2006-12-12  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/fc4.py (CommandLang):  Add lang attribute.
+
+	* pykickstart/commands/fc5.py (FC5Handler):  Import from the
+	FC4Handler.
+
 2006-12-11  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py:  Added first run at data and command

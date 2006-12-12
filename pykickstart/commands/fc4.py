@@ -703,6 +703,7 @@ class CommandKeyboard(KickstartCommand):
 class CommandLang(KickstartCommand):
     def __init__(self):
         KickstartCommand.__init__(self)
+        self.lang = ""
 
     def __str__(self):
         if self.lang != "":
