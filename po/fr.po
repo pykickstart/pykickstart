@@ -1,25 +1,27 @@
+# translation of fr.po to French
 # translation of fr.po to Français
 # translation of fr.po to
 # translation of fr.po to
 # translation of fr.
 # Copyright (C) 2006 THE fr'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the fr package.
-#
-#
 # Damien Durand <splinux@fedoraproject.org>, 2006.
 # Thomas Canniot <thomas.canniot@laposte.net>, 2006.
+# Decroux Fabien <fdecroux@redhat.com>, 2006.
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-21 11:34-0500\n"
-"PO-Revision-Date: 2006-11-21 18:22+0100\n"
-"Last-Translator: Thomas Canniot <thomas.canniot@laposte.net>\n"
-"Language-Team: Français <fedora-trans-fr-request@redhat.com>\n"
+"PO-Revision-Date: 2006-12-14 17:14+1000\n"
+"Last-Translator: Decroux Fabien <fdecroux@redhat.com>\n"
+"Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/parser.py:46
 #, python-format
@@ -90,7 +92,7 @@ msgstr "La commande %s ne prend pas d'arguments"
 #: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Arguments inattendus à %(command)s pour la commande : %(option)s"
+msgstr "Arguments inattendus à %(command)s pour la commande : %(options)s"
 
 #: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
 #: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
@@ -106,13 +108,12 @@ msgstr "Point de montage requis pour %s"
 
 #: ../pykickstart/parser.py:558
 msgid "One of biospart or partition options must be specified."
-msgstr ""
-"Une des parties du bios ou des options de partition doit être spécifiée."
+msgstr "Une des parties du bios ou des options de partition doit être spécifiée."
 
 #: ../pykickstart/parser.py:574
 #, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Arguments inattendus à %(cmd)s pour la commande : %(option)s"
+msgstr "Arguments inattendus à %(cmd)s pour la commande : %(options)s"
 
 #: ../pykickstart/parser.py:634
 #, python-format
@@ -122,16 +123,14 @@ msgstr ""
 "(multipathdev)s'"
 
 #: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 "Seulement une des --baseurl et  --mirrorlist peut être spécifiée pour la "
 "commande repo."
 
 #: ../pykickstart/parser.py:732
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"Une des --baseurl ou --mirrorlist  doit être spécifiée pour la commande repo."
+msgstr "Une des --baseurl ou --mirrorlist  doit être spécifiée pour la commande repo."
 
 #: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
 #, python-format
@@ -181,3 +180,4 @@ msgstr "Erreur générale de kickstart due au fichier source"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erreur générale dans le fichier source : %s"
+
