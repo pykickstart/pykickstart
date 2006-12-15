@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Dec 15 2006 Chris Lumens <clumens@redhat.com> - 0.43-1
 - Pull in new translations (#216620).
 
+* Thu Dec  7 2006 Jeremy Katz <katzj@redhat.com> - 0.42-2
+- rebuild against python 2.5
+
 * Tue Dec 05 2006 Chris Lumens <clumens@redhat.com> - 0.42-1
 - Fix traceback when writing out repo command (#218274).
 
