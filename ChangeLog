@@ -4,6 +4,9 @@
 	functions for all command handlers.
 	* pykickstart/commands/fc6.py:  Likewise.
 
+	* pykickstart/commands/fc4.py:  Various minor fixes to default
+	arguments and __str__ methods throughout.
+
 2006-12-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py (CommandLang):  Add lang attribute.

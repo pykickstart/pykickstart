@@ -511,8 +511,8 @@ class CommandDeviceProbe(KickstartCommand):
         self.deviceprove = string.join(args)
 
 class CommandDisplayMode(KickstartCommand):
-    def __init__(self):
-        KickstartCommand.__init__(self, displayMode=DISPLAY_MODE_GRAPHICAL)
+    def __init__(self, displayMode=DISPLAY_MODE_GRAPHICAL):
+        KickstartCommand.__init__(self)
         self.displayMode = displayMode
 
     def __str__(self):
@@ -620,8 +620,8 @@ class CommandFirewall(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandFirstboot(KickstartCommand):
-    def __init__(self):
-        KickstartCommand.__init__(self, firstboot=FIRSTBOOT_SKIP)
+    def __init__(self, firstboot=FIRSTBOOT_SKIP):
+        KickstartCommand.__init__(self)
         self.firstboot = firstboot
 
     def __str__(self):
@@ -811,6 +811,8 @@ class CommandMethod(KickstartCommand):
             return "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
         elif self.method == "url":
             return "# Use network installation\nurl --url=%s\n" % self.url
+        else:
+            return ""
 
     def parse(self, args):
         op = KSOptionParser(self.lineno)
@@ -891,12 +893,15 @@ class CommandNetwork(KickstartCommand):
         self.network = network
 
     def __str__(self):
-        retval = "# Network information\n"
+        retval = ""
 
         for nic in self.network:
             retval += nic.__str__()
 
-        return retval
+        if retval != "":
+            return "# Network information\n" + retval
+        else:
+            return ""
 
     def parse(self, args):
         op = KSOptionParser(self.lineno)
@@ -938,12 +943,15 @@ class CommandPartition(KickstartCommand):
         self.partitions = partitions
 
     def __str__(self):
-        retval = "# Disk partitioning information\n"
+        retval = ""
 
         for part in self.partitions:
             retval += part.__str__()
 
-        return retval
+        if retval != "":
+            return "# Disk partitioning information\n" + retval
+        else:
+            return ""
 
     def parse(self, args):
         def part_cb (option, opt_str, value, parser):
@@ -1107,7 +1115,7 @@ class CommandRootPw(KickstartCommand):
             else:
                 crypted = ""
 
-            return "#Root password\nrootpw %s %s\n" % (crypted, self.password)
+            return "# Root password\nrootpw %s %s\n" % (crypted, self.password)
         else:
             return ""
 
