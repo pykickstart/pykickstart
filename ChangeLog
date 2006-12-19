@@ -1,13 +1,19 @@
 2006-12-19  Chris Lumens  <clumens@redhat.com>
 
-	* pykickstart/base.py (KickstartCommand.__call__):  Add a function to
-	set all the attributes of a command object at once.
+	* pykickstart/commands/base.py (KickstartCommand.__call__):  Add a
+	function to set all the attributes of a command object at once.
 	(BaseHandler._registerHandler):  Don't need to do so much goofy stuff
 	to register a command handler anymore.
 
 	* pykickstart/version.py (returnClassForVersion):  Add a function to
 	return the class matching a given kickstart syntax version.  This does
 	not return an instance of that class.
+
+	* Makefile:  Add pykickstart/commands/*.pyc to what gets cleaned.
+
+	* setup.py:  Package up commands as well.
+
+	* test.py:  This isn't needed anymore.
 
 2006-12-19  Chris Lumens  <clumens@redhat.com>
 
