@@ -136,9 +136,9 @@ class KickstartUserData:
 ###
 
 class CommandDmRaid(KickstartCommand):
-    def __init__(self):
+    def __init__(self, dmraids=[]):
         KickstartCommand.__init__(self)
-        self.dmraids = []
+        self.dmraids = dmraids
 
     def __str__(self):
         retval = ""
@@ -164,9 +164,9 @@ class CommandDmRaid(KickstartCommand):
         self.dmraids.append(newObj)
 
 class CommandIscsi(KickstartCommand):
-    def __init__(self):
+    def __init__(self, iscsi=[]):
         KickstartCommand.__init__(self)
-        self.iscsi = []
+        self.iscsi = iscsi
 
     def __str__(self):
         retval = ""
@@ -199,9 +199,9 @@ class CommandIscsi(KickstartCommand):
         self.iscsi.append(newObj)
 
 class CommandIscsiName(KickstartCommand):
-    def __init__(self):
+    def __init__(self, iscsiname=""):
         KickstartCommand.__init__(self)
-        self.iscsiname = ""
+        self.iscsiname = iscsiname
 
     def __str__(self):
         if self.iscsiname != "":
@@ -215,9 +215,9 @@ class CommandIscsiName(KickstartCommand):
         self.iscsiname = args[0]
 
 class CommandKey(KickstartCommand):
-    def __init__(self):
+    def __init__(self, key=""):
         KickstartCommand.__init__(self)
-        self.key = ""
+        self.key = key
 
     def __str__(self):
         if self.key == KS_INSTKEY_SKIP:
@@ -237,11 +237,11 @@ class CommandKey(KickstartCommand):
             self.key = args[0]
 
 class CommandLogging(KickstartCommand):
-    def __init__(self):
+    def __init__(self, host="", level="info", port=""):
         KickstartCommand.__init__(self)
-        self.host = ""
-        self.level = "info"
-        self.port = ""
+        self.host = host
+        self.level = level
+        self.port = port
 
     def __str__(self):
         retval = "# Installation logging level\nlogging --level=%s" % self.level
@@ -265,11 +265,11 @@ class CommandLogging(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMultiPath(KickstartCommand):
-    def __init__(self):
+    def __init__(self, mpdev="", device="", rule=""):
         KickstartCommand.__init__(self)
-        self.mpdev = ""
-        self.device = ""
-        self.rule = ""
+        self.mpdev = mpdev
+        self.device = device
+        self.rule = rule
 
     def __str__(self):
         return ""
@@ -307,9 +307,9 @@ class CommandMultiPath(KickstartCommand):
 #        mpath.paths.append(dd)
 
 class CommandRepo(KickstartCommand):
-    def __init__(self):
+    def __init__(self, repoList=[]):
         KickstartCommand.__init__(self)
-        self.repoList = []
+        self.repoList = repoList
 
     def __str__(self):
         retval = ""
@@ -342,10 +342,10 @@ class CommandRepo(KickstartCommand):
         self.repoList.append(newObj)
 
 class CommandServices(KickstartCommand):
-    def __init__(self):
+    def __init__(self, disabled=[], enabled=[]):
         KickstartCommand.__init__(self)
-        self.disabled = []
-        self.enabled = []
+        self.disabled = disabled
+        self.enabled = enabled
 
     def __str__(self):
         retval = ""
@@ -375,9 +375,9 @@ class CommandServices(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandUser(KickstartCommand):
-    def __init__(self):
+    def __init__(self, userList=[]):
         KickstartCommand.__init__(self)
-        self.userList = []
+        self.userList = userList
 
     def __str__(self):
         retval = ""

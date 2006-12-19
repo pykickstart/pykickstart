@@ -330,9 +330,9 @@ class KickstartZFCPData:
 ###
 
 class CommandAuthconfig(KickstartCommand):
-    def __init__(self):
+    def __init__(self, authconfig=""):
         KickstartCommand.__init__(self)
-        self.authconfig = ""
+        self.authconfig = authconfig
 
     def __str__(self):
         if self.authconfig:
@@ -344,9 +344,9 @@ class CommandAuthconfig(KickstartCommand):
         self.authconfig = string.join(args)
 
 class CommandAutoPart(KickstartCommand):
-    def __init__(self):
+    def __init__(self, autopart=False):
         KickstartCommand.__init__(self)
-        self.autopart = False
+        self.autopart = autopart
 
     def __str__(self):
         if self.autopart:
@@ -361,7 +361,7 @@ class CommandAutoPart(KickstartCommand):
         self.autopart = True
 
 class CommandAutoStep(KickstartCommand):
-    def __init__(self):
+    def __init__(self, autoscreenshot=False):
         KickstartCommand.__init__(self)
         self.autoscreenshot = False
 
@@ -380,15 +380,16 @@ class CommandAutoStep(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandBootloader(KickstartCommand):
-    def __init__(self):
+    def __init__(self, appendLine="", driveorder=[], forceLBA=False,
+                 location="mbr", md5pass="", password="", upgrade=""):
         KickstartCommand.__init__(self)
-        self.appendLine = ""
-        self.driveorder = []
-        self.forceLBA = False
-        self.location = "mbr"
-        self.md5pass = ""
-        self.password = ""
-        self.upgrade = ""
+        self.appendLine = appendLine
+        self.driveorder = driveorder
+        self.forceLBA = forceLBA
+        self.location = location
+        self.md5pass = md5pass
+        self.password = password
+        self.upgrade = upgrade
 
     def __str__(self):
         retval = "# System bootloader configuration\nbootloader"
@@ -433,11 +434,11 @@ class CommandBootloader(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandClearPart(KickstartCommand):
-    def __init__(self):
+    def __init__(self, drives=[], initAll=False, type=CLEARPART_TYPE_NONE):
         KickstartCommand.__init__(self)
-        self.drives = []
-        self.initAll = False
-        self.type = CLEARPART_TYPE_NONE
+        self.drives = drives
+        self.initAll = initAll
+        self.type = type
 
     def __str__(self):
         if self.type == CLEARPART_TYPE_NONE:
@@ -482,9 +483,9 @@ class CommandClearPart(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandDevice(KickstartCommand):
-    def __init__(self):
+    def __init__(self, device=""):
         KickstartCommand.__init__(self)
-        self.device = ""
+        self.device = device
 
     def __str__(self):
         if self.device != "":
@@ -496,9 +497,9 @@ class CommandDevice(KickstartCommand):
         self.device = string.join(args)
 
 class CommandDeviceProbe(KickstartCommand):
-    def __init__(self):
+    def __init__(self, deviceprobe=""):
         KickstartCommand.__init__(self)
-        self.deviceprobe = ""
+        self.deviceprobe = deviceprobe
 
     def __str__(self):
         if self.deviceprobe != "":
@@ -511,8 +512,8 @@ class CommandDeviceProbe(KickstartCommand):
 
 class CommandDisplayMode(KickstartCommand):
     def __init__(self):
-        KickstartCommand.__init__(self)
-        self.displayMode = DISPLAY_MODE_GRAPHICAL
+        KickstartCommand.__init__(self, displayMode=DISPLAY_MODE_GRAPHICAL)
+        self.displayMode = displayMode
 
     def __str__(self):
         if self.displayMode == DISPLAY_MODE_CMDLINE:
@@ -531,9 +532,9 @@ class CommandDisplayMode(KickstartCommand):
             self.displayMode = DISPLAY_MODE_TEXT
 
 class CommandDriverDisk(KickstartCommand):
-    def __init__(self):
+    def __init__(self, driverdisk=""):
         KickstartCommand.__init__(self)
-        self.driverdisk = ""
+        self.driverdisk = driverdisk
 
     def __str__(self):
         if self.driverdisk != "":
@@ -545,11 +546,11 @@ class CommandDriverDisk(KickstartCommand):
         self.driverdisk = string.join(args)
 
 class CommandFirewall(KickstartCommand):
-    def __init__(self):
+    def __init__(self, enabled=True, ports=[], trusts=[]):
         KickstartCommand.__init__(self)
-        self.enabled = True
-        self.ports = []
-        self.trusts = []
+        self.enabled = enabled
+        self.ports = ports
+        self.trusts = trusts
 
     def __str__(self):
         extra = []
@@ -620,8 +621,8 @@ class CommandFirewall(KickstartCommand):
 
 class CommandFirstboot(KickstartCommand):
     def __init__(self):
-        KickstartCommand.__init__(self)
-        self.firstboot = FIRSTBOOT_SKIP
+        KickstartCommand.__init__(self, firstboot=FIRSTBOOT_SKIP)
+        self.firstboot = firstboot
 
     def __str__(self):
         if self.firstboot == FIRSTBOOT_SKIP:
@@ -644,9 +645,9 @@ class CommandFirstboot(KickstartCommand):
         self.firstboot = opts.firstboot
 
 class CommandIgnoreDisk(KickstartCommand):
-    def __init__(self):
+    def __init__(self, ignoredisk=[]):
         KickstartCommand.__init__(self)
-        self.ignoredisk = []
+        self.ignoredisk = ignoredisk
 
     def __str__(self):
         if len(self.ignoredisk) > 0:
@@ -667,9 +668,9 @@ class CommandIgnoreDisk(KickstartCommand):
         self.ignoredisk = opts.drives
 
 class CommandInteractive(KickstartCommand):
-    def __init__(self):
+    def __init__(self, interactive=False):
         KickstartCommand.__init__(self)
-        self.interactive = False
+        self.interactive = interactive
 
     def __str__(self):
         if self.interactive:
@@ -684,9 +685,9 @@ class CommandInteractive(KickstartCommand):
         self.interactive = True
 
 class CommandKeyboard(KickstartCommand):
-    def __init__(self):
+    def __init__(self, keyboard=""):
         KickstartCommand.__init__(self)
-        self.keyboard = ""
+        self.keyboard = keyboard
 
     def __str__(self):
         if self.keyboard != "":
@@ -701,9 +702,9 @@ class CommandKeyboard(KickstartCommand):
         self.keyboard = args[0]
 
 class CommandLang(KickstartCommand):
-    def __init__(self):
+    def __init__(self, lang=""):
         KickstartCommand.__init__(self)
-        self.lang = ""
+        self.lang = lang
 
     def __str__(self):
         if self.lang != "":
@@ -722,9 +723,9 @@ class CommandLangSupport(DeprecatedCommand):
         DeprecatedCommand.__init__(self)
 
 class CommandLogVol(KickstartCommand):
-    def __init__(self):
+    def __init__(self, lvList=[]):
         KickstartCommand.__init__(self)
-        self.lvList = []
+        self.lvList = lvList
 
     def __str__(self):
         retval = ""
@@ -775,9 +776,9 @@ class CommandLogVol(KickstartCommand):
         self.lvList.append(newObj)
 
 class CommandMediaCheck(KickstartCommand):
-    def __init__(self):
+    def __init__(self, mediacheck=False):
         KickstartCommand.__init__(self)
-        self.mediacheck = False
+        self.mediacheck = mediacheck
 
     def __str__(self):
         if self.mediacheck:
@@ -792,9 +793,9 @@ class CommandMediaCheck(KickstartCommand):
         self.mediacheck = True
 
 class CommandMethod(KickstartCommand):
-    def __init__(self):
+    def __init__(self, method=""):
         KickstartCommand.__init__(self)
-        self.method = ""
+        self.method = method
 
     def __str__(self):
         if self.method == "cdrom":
@@ -840,12 +841,12 @@ class CommandMethod(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMonitor(KickstartCommand):
-    def __init__(self):
+    def __init__(self, hsync="", monitor="", probe=True, vsync=""):
         KickstartCommand.__init__(self)
-        self.hsync = ""
-        self.monitor = ""
-        self.probe = True
-        self.vsync = ""
+        self.hsync = hsync
+        self.monitor = monitor
+        self.probe = probe
+        self.vsync = vsync
 
     def __str__(self):
         retval = "monitor"
@@ -885,9 +886,9 @@ class CommandMouse(DeprecatedCommand):
         DeprecatedCommand.__init__(self)
 
 class CommandNetwork(KickstartCommand):
-    def __init__(self):
+    def __init__(self, network=[]):
         KickstartCommand.__init__(self)
-        self.network = []
+        self.network = network
 
     def __str__(self):
         retval = "# Network information\n"
@@ -932,9 +933,9 @@ class CommandNetwork(KickstartCommand):
         self.network.append(newObj)
 
 class CommandPartition(KickstartCommand):
-    def __init__(self):
+    def __init__(self, partitions=[]):
         KickstartCommand.__init__(self)
-        self.partitions = []
+        self.partitions = partitions
 
     def __str__(self):
         retval = "# Disk partitioning information\n"
@@ -993,9 +994,9 @@ class CommandPartition(KickstartCommand):
         self.partitions.append(newObj)
 
 class CommandRaid(KickstartCommand):
-    def __init__(self):
+    def __init__(self, raidList=[]):
         KickstartCommand.__init__(self)
-        self.raidList = []
+        self.raidList = raidList
 
     def __str__(self):
         retval = ""
@@ -1062,10 +1063,10 @@ class CommandRaid(KickstartCommand):
         self.raidList.append(newObj)
 
 class CommandReboot(KickstartCommand):
-    def __init__(self):
+    def __init__(self, action=KS_WAIT, eject=False):
         KickstartCommand.__init__(self)
-        self.action = KS_WAIT
-        self.eject = False
+        self.action = action
+        self.eject = eject
 
     def __str__(self):
         retval = ""
@@ -1094,10 +1095,10 @@ class CommandReboot(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandRootPw(KickstartCommand):
-    def __init__(self):
+    def __init__(self, isCrypted=False, password=""):
         KickstartCommand.__init__(self)
-        self.isCrypted = False
-        self.password = ""
+        self.isCrypted = isCrypted
+        self.password = password
 
     def __str__(self):
         if self.password != "":
@@ -1124,9 +1125,9 @@ class CommandRootPw(KickstartCommand):
         self.rootpw = extra[0]
 
 class CommandSELinux(KickstartCommand):
-    def __init__(self):
+    def __init__(self, selinux=SELINUX_ENFORCING):
         KickstartCommand.__init__(self)
-        self.selinux = SELINUX_ENFORCING
+        self.selinux = selinux
 
     def __str__(self):
         retval = "# SELinux configuration\n"
@@ -1151,9 +1152,9 @@ class CommandSELinux(KickstartCommand):
         self.selinux = opts.sel
 
 class CommandSkipX(KickstartCommand):
-    def __init__(self):
+    def __init__(self, skipx=False):
         KickstartCommand.__init__(self)
-        self.skipx = False
+        self.skipx = skipx
 
     def __str__(self):
         if self.skipx:
@@ -1168,10 +1169,10 @@ class CommandSkipX(KickstartCommand):
         self.skipx = True
 
 class CommandTimezone(KickstartCommand):
-    def __init__(self):
+    def __init__(self, isUtc=False, timezone=""):
         KickstartCommand.__init__(self)
-        self.isUtc = False
-        self.timezone = ""
+        self.isUtc = isUtc
+        self.timezone = timezone
 
     def __str__(self):
         if self.timezone != "":
@@ -1197,9 +1198,9 @@ class CommandTimezone(KickstartCommand):
         self.timezone = extra[0]
 
 class CommandUpgrade(KickstartCommand):
-    def __init__(self):
+    def __init__(self, upgrade=False):
         KickstartCommand.__init__(self)
-        self.upgrade = False
+        self.upgrade = upgrade
 
     def __str__(self):
         if self.upgrade:
@@ -1214,12 +1215,12 @@ class CommandUpgrade(KickstartCommand):
         self.upgrade = True
 
 class CommandVnc(KickstartCommand):
-    def __init__(self):
+    def __init__(self, enabled=False, password="", host="", port=""):
         KickstartCommand.__init__(self)
-        self.enabled = False
-        self.password = ""
-        self.host = ""
-        self.port = ""
+        self.enabled = enabled
+        self.password = password
+        self.host = host
+        self.port = port
 
     def __str__(self):
         if not self.enabled:
@@ -1255,9 +1256,9 @@ class CommandVnc(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandVolGroup(KickstartCommand):
-    def __init__(self):
+    def __init__(self, vgList=[]):
         KickstartCommand.__init__(self)
-        self.vgList = []
+        self.vgList = vgList
 
     def __str__(self):
         retval = ""
@@ -1291,14 +1292,15 @@ class CommandVolGroup(KickstartCommand):
         self.vgList.append(newObj)
 
 class CommandXConfig(KickstartCommand):
-    def __init__(self):
+    def __init__(self, driver="", defaultdesktop="", depth=0, resolution="",
+                 startX=False, videoRam=""):
         KickstartCommand.__init__(self)
-        self.driver = ""
-        self.defaultdesktop = ""
-        self.depth = 0
-        self.resolution = ""
-        self.startX = False
-        self.videoRam = ""
+        self.driver = driver
+        self.defaultdesktop = defaultdesktop
+        self.depth = depth
+        self.resolution = resolution
+        self.startX = startX
+        self.videoRam = videoRam
 
     def __str__(self):
         retval = ""
@@ -1345,9 +1347,9 @@ class CommandXConfig(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandZeroMbr(KickstartCommand):
-    def __init__(self):
+    def __init__(self, zerombr=False):
         KickstartCommand.__init__(self)
-        self.zerombr = False
+        self.zerombr = zerombr
 
     def __str__(self):
         if self.zerombr:
@@ -1362,9 +1364,9 @@ class CommandZeroMbr(KickstartCommand):
         self.zerombr = True
 
 class CommandZFCP(KickstartCommand):
-    def __init__(self):
+    def __init__(self, zfcp=[]):
         KickstartCommand.__init__(self)
-        self.zfcp = []
+        self.zfcp = zfcp
 
     def __str__(self):
         retval = ""
