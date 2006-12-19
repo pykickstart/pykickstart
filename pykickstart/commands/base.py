@@ -23,11 +23,18 @@ from pykickstart.parser import Packages
 # to every subclass - shouldn't be much stuff.
 class KickstartCommand:
     def __init__(self):
+        # A list of kickstart commands that will cause this object's methods
+        # to be run.
         self.listeningFor = []
 
-        # These will be set on the command object by the dispatcher.
+        # These will be set by the dispatcher.
         self.currentCmd = ""
         self.lineno = 0
+
+    def __call__(self, *args, **kwargs):
+        for (key, val) in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, val)
 
     def __str__(self):
         return ""
@@ -56,6 +63,8 @@ class DeprecatedCommand(KickstartCommand):
 # parsing, extracting data, and writing out kickstart files.
 class BaseHandler:
     def __init__(self):
+        # A mapping from a command name (a string) to an object that handles
+        # that command.  Multiple strings can map to the same object.
         self.handlers = {}
 
         # This isn't really a good place for these, but it's better than
@@ -73,9 +82,9 @@ class BaseHandler:
         # Have to use this slightly roundabout method because we can't iterate
         # over the handler keys.  That's because multiple handler keys can map
         # to the same command object due to aliased commands.
-        for (key, val) in self.__dict__.items():
-            if key.startswith("_cmd_"):
-                retval += val.__str__()
+        for (name, obj) in self.__dict__.items():
+            if name.startswith("Command"):
+                retval += obj.__str__()
 
         for script in self.scripts:
             retval += script.__str__()
@@ -85,22 +94,14 @@ class BaseHandler:
         return retval
 
     def _registerHandler(self, cmdObj, cmdList):
-        # Convert the object's class name into a string that we can use as an
-        # attribute to add.
-        if cmdObj.__class__.__name__.startswith("Command"):
-            cmdName = "_cmd_" + cmdObj.__class__.__name__[7:].lower()
-        else:
-            cmdName = "_cmd_" + cmdObj.__class__.__name__.lower()
-
         # Set up a mapping from each command string to an object that
         # handles it.  Multiple strings can map to the same instance
         # of an object.
         for str in cmdList:
             self.handlers[str] = cmdObj
 
-        # Add an attribute on this handler object as well to control
-        # access to this object.
-        setattr(self, cmdName, cmdObj)
+        # Add an attribute on this command object as well.
+        setattr(self, cmdObj.__class__.__name__, cmdObj)
 
     # Called by the parser to handle an individual command.  This mainly exists
     # to internalize understanding of how the handler object is laid out and to
