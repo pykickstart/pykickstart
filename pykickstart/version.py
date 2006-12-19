@@ -32,9 +32,7 @@ def stringToVersion(string):
     else:
         raise KickstartVersionError(string)
 
-# Given a version of the kickstart syntax, this function imports the correct
-# handler for that version and returns an instance of it.
-def makeHandler(version):
+def returnClassForVersion(version):
     try:
         version = int(version)
     except ValueError:
@@ -42,12 +40,18 @@ def makeHandler(version):
 
     if version == FC4:
         from pykickstart.commands.fc4 import FC4Handler
-        return FC4Handler()
+        return FC4Handler
     elif version == FC5:
         from pykickstart.commands.fc5 import FC5Handler
-        return FC5Handler()
+        return FC5Handler
     elif version == FC6:
         from pykickstart.commands.fc6 import FC6Handler
-        return FC6Handler()
+        return FC6Handler
     else:
         raise KickstartVersionError(version)
+
+# Given a version of the kickstart syntax, this function imports the correct
+# handler for that version and returns an instance of it.
+def makeHandler(version):
+    super = returnClassForVersion(version)
+    return super()

@@ -1,5 +1,11 @@
 2006-12-19  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/version.py (returnClassForVersion):  Add a function to
+	return the class matching a given kickstart syntax version.  This does
+	not return an instance of that class.
+
+2006-12-19  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/commands/fc4.py:  Add named arguments to __init__
 	functions for all command handlers.
 	* pykickstart/commands/fc6.py:  Likewise.
