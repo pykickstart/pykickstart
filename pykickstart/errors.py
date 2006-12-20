@@ -12,6 +12,25 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""
+Error handling classes and functions.
+
+This module exports a single function:
+
+    formatErrorMsg - Properly formats an error message.
+
+It also exports several exception classes:
+
+    KickstartError - A generic exception class.
+
+    KickstartParseError - An exception for errors relating to parsing.
+
+    KickstartValueError - An exception for errors relating to option
+                          processing.
+
+    KickstartVersionError - An exception for errors relating to unsupported
+                            syntax versions.
+"""
 from rhpl.translate import _
 import rhpl.translate as translate
 

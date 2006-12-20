@@ -10,6 +10,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""
+Base classes for creating commands and handlers.
+
+This module exports several important base classes:
+
+    KickstartCommand - The base abstract class for all kickstart commands.
+
+    DeprecatedCommand - A concrete subclass of KickstartCommand that should
+                        be further subclassed by users of this module.  When
+                        a subclass is used, a warning message will be
+                        printed.
+
+    BaseHandler - The base abstract class from which versioned kickstart
+                  syntax handlers are derived.
+"""
 from rhpl.translate import _
 import rhpl.translate as translate
 

@@ -10,6 +10,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""
+Methods for working with kickstart versions.
+
+This module defines several symbolic constants that specify kickstart syntax
+versions.  Each version corresponds roughly to one release of Red Hat Linux,
+Red Hat Enterprise Linux, or Fedora Core as these are where most syntax
+changes take place.
+
+This module also exports several functions:
+
+    stringToVersion - Convert a string representation of a version number
+                      into the symbolic constant.
+
+    returnClassForVersion - Given a version number, return the matching
+                            handler class.  This does not return an
+                            instance of that class, however.
+
+    makeHandler - Given a version number, return an instance of the
+                  matching handler class.
+"""
 from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.

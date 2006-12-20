@@ -12,6 +12,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""
+Main kickstart file processing module.
+
+This module exports several important classes:
+
+    Script - Representation of a single %pre, %post, or %traceback script.
+
+    Packages - Representation of the %packages section.
+
+    KickstartParser - The kickstart file parser state machine.
+"""
 
 import shlex
 import sys
@@ -164,9 +175,6 @@ class Packages:
 ###
 ### PARSER
 ###
-
-# Passing None for kshandlers is valid just in case you don't care about
-# handling any commands.
 class KickstartParser:
     """The kickstart file parser class as represented by a basic state
        machine.  To create a specialized parser, make a subclass and override

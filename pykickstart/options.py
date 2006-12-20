@@ -10,6 +10,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""
+Specialized option handling.
+
+This module exports two classes:
+
+    KSOptionParser - A specialized subclass of OptionParser to be used
+                     in BaseHandler subclasses.
+
+    KSOption - A specialized subclass of Option.
+"""
 import warnings
 from copy import copy
 from optparse import *
