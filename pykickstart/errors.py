@@ -1,5 +1,5 @@
 #
-# parser.py:  Kickstart file parser.
+# errors.py:  Kickstart error handling.
 #
 # Chris Lumens <clumens@redhat.com>
 #
@@ -18,6 +18,7 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 def formatErrorMsg(lineno, msg=""):
+    """Properly format the error message msg for inclusion in an exception."""
     if msg != "":
         mapping = {"lineno": lineno, "msg": msg}
         return _("The following problem occurred on line %(lineno)s of the kickstart file:\n\n%(msg)s\n") % mapping
@@ -25,7 +26,11 @@ def formatErrorMsg(lineno, msg=""):
         return _("There was a problem reading from line %s of the kickstart file") % lineno
 
 class KickstartError(Exception):
+    """A generic exception class for unspecific error conditions."""
     def __init__(self, val = ""):
+        """Create a new KickstartError exception instance with the descriptive
+           message val.  val should be the return value of formatErrorMsg.
+        """
         Exception.__init__(self)
         self.value = val
 
@@ -33,21 +38,43 @@ class KickstartError(Exception):
         return self.value
 
 class KickstartParseError(KickstartError):
+    """An exception class for errors when processing the input file, such as
+       unknown options, commands, or sections.
+    """
     def __init__(self, msg):
+        """Create a new KickstartParseError exception instance with the
+           descriptive message val.  val should be the return value of
+           formatErrorMsg.
+        """
         KickstartError.__init__(self, msg)
 
     def __str__(self):
         return self.value
 
 class KickstartValueError(KickstartError):
+    """An exception class for errors when processing arguments to commands,
+       such as too many arguments, too few arguments, or missing required
+       arguments.
+    """
     def __init__(self, msg):
+        """Create a new KickstartValueError exception instance with the
+           descriptive message val.  val should be the return value of
+           formatErrorMsg.
+        """
         KickstartError.__init__(self, msg)
 
     def __str__ (self):
         return self.value
 
 class KickstartVersionError(KickstartError):
+    """An exception class for errors related to using an incorrect version of
+       kickstart syntax.
+    """
     def __init__(self, version):
+        """Create a new KickstartVersionError exception instance with the
+           descriptive message val.  val should be the return value of
+           formatErrorMsg.
+        """
         KickstartError.__init__(self, "Unsupported version specified; see version.py for now.")
 
     def __str__ (self):

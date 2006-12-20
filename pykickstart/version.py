@@ -21,6 +21,9 @@ FC6 = 200
 DEVEL = FC6
 
 def stringToVersion(string):
+    """Convert string into one of the provided version constants.  Raises
+       KickstartVersionError if string does not match anything.
+    """
     if string == "FC4":
         return FC4
     elif string == "FC5":
@@ -33,6 +36,10 @@ def stringToVersion(string):
         raise KickstartVersionError(string)
 
 def returnClassForVersion(version):
+    """Return the class of the syntax handler for version.  version can be
+       either a string or the matching constant.  Raises KickstartValueError
+       if version does not match anything.
+    """
     try:
         version = int(version)
     except ValueError:
@@ -53,5 +60,11 @@ def returnClassForVersion(version):
 # Given a version of the kickstart syntax, this function imports the correct
 # handler for that version and returns an instance of it.
 def makeHandler(version):
+    """Return a new instance of the syntax handler for version.  version can be
+       either a string or the matching constant.  This function is useful for
+       standalone programs which just need to handle a specific version of
+       kickstart syntax (as provided by a command line argument, for example)
+       and need to instantiate the correct object.
+    """
     super = returnClassForVersion(version)
     return super()

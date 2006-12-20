@@ -22,9 +22,11 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-# Specialized OptionParser, mainly to handle the MappableOption and to turn
-# off help.
 class KSOptionParser(OptionParser):
+    """A specialized subclass of optparse.OptionParser to handle extra option
+       attribute checking, work error reporting into the KickstartParseError
+       framework, and to turn off the default help.
+    """
     def exit(self, status=0, msg=None):
         pass
 
@@ -76,6 +78,17 @@ class KSOptionParser(OptionParser):
         return (values, args)
 
     def __init__(self, map={}, lineno=None, version=None):
+        """Create a new KSOptionParser instance.  Each KickstartCommand
+           subclass should create one instance of KSOptionParser, providing
+           at least the lineno attribute.  map and version are not required.
+           Instance attributes:
+
+           map     -- A mapping from option strings to different values.
+           lineno  -- The line number of the line this KSOptionParser instance
+                      is processing.
+           version -- The version of the kickstart syntax we are checking
+                      against.
+        """
         self.map = map
         self.lineno = lineno
         self.version = version
