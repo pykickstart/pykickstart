@@ -1080,7 +1080,7 @@ class CommandReboot(KickstartCommand):
         retval = ""
 
         if self.action == KS_REBOOT:
-            retval = "# Reboot after installation\nreboot\,"
+            retval = "# Reboot after installation\nreboot\n"
         elif self.action == KS_SHUTDOWN:
             retval = "# Shutdown after installation\nshutdown\n"
 
