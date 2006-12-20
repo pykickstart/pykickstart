@@ -1,5 +1,9 @@
 2006-12-20  Chris Lumens  <clumens@redhat.com>
 
+	* Merge from HEAD:  Updated translations.
+
+2006-12-20  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/__init__.py:  Clear this out.
 
 	* pykickstart/errors.py:  Add __doc__ strings to all classes and
