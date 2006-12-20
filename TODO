@@ -2,7 +2,12 @@
 - add RHEL4, RHEL5
 - set up real DEVEL version
 - should the three kinds of scripts be three different objects?
-- redo documentation
+- redo documentation:
+   - __doc__ strings for methods/classes/attrs
+   - __doc__ strings for each file
+   - describe how to subclass the important things
+   - remove stuff in the programmer's guide that's in __doc__ strings,
+     update everything else
 - add back in multipath support
 - make sure this is all still easy to use in anaconda and s-c-kickstart
 - write out commands in the correct order
