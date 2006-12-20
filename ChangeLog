@@ -17,6 +17,9 @@
 	* pykickstart/commands/fc5.py (FC5Handler.__init__):  Likewise.
 	* pykickstart/commands/fc6.py (FC6Handler.__init__):  Likewise.
 
+	* docs/programmers-guide:  Remove stuff that's now duplicated by
+	__doc__ strings.
+
 2006-12-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (KickstartCommand.__call__):  Add a
