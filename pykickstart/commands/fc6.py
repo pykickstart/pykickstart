@@ -32,15 +32,15 @@ class FC6Handler(FC5Handler):
     def __init__(self):
         FC5Handler.__init__(self)
 
-        self._registerHandler(CommandDmRaid(), ["dmraid"])
-        self._registerHandler(CommandIscsi(), ["iscsi"])
-        self._registerHandler(CommandIscsiName(), ["iscsiname"])
-        self._registerHandler(CommandKey(), ["key"])
-        self._registerHandler(CommandLogging(), ["logging"])
-        self._registerHandler(CommandMultiPath(), ["multipath"])
-        self._registerHandler(CommandRepo(), ["repo"])
-        self._registerHandler(CommandServices(), ["services"])
-        self._registerHandler(CommandUser(), ["user"])
+        self.registerHandler(CommandDmRaid(), ["dmraid"])
+        self.registerHandler(CommandIscsi(), ["iscsi"])
+        self.registerHandler(CommandIscsiName(), ["iscsiname"])
+        self.registerHandler(CommandKey(), ["key"])
+        self.registerHandler(CommandLogging(), ["logging"])
+        self.registerHandler(CommandMultiPath(), ["multipath"])
+        self.registerHandler(CommandRepo(), ["repo"])
+        self.registerHandler(CommandServices(), ["services"])
+        self.registerHandler(CommandUser(), ["user"])
 
 
 ###

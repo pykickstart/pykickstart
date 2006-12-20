@@ -32,7 +32,7 @@ from fc4 import *
 class FC5Handler(FC4Handler):
     def __init__(self):
         FC4Handler.__init__(self)
-        self._registerHandler(CommandLangSupport(), ["langsupport"])
+        self.registerHandler(CommandLangSupport(), ["langsupport"])
 
 
 ###
