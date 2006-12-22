@@ -7,6 +7,10 @@
 	* pykickstart/commands/fc4.py:  Use BaseData.
 	* pykickstart/commands/fc6.py:  Likewise.
 
+	* pykickstart/commands/base.py:  Clarify API for subclasses a little
+	bit.  Make KickstartCommand.__str__ an abstract method.  Add
+	DeprecatedCommand.__str__.
+
 2006-12-20  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py (CommandReboot.__str__):  Fix output

@@ -42,7 +42,9 @@ from pykickstart.parser import Packages
 class KickstartCommand:
     """The base class for all kickstart commands.  This is an abstract class."""
     def __init__(self):
-        """Create a new KickstartCommand instance.  Instance attributes:
+        """Create a new KickstartCommand instance.  This method must be
+           provided by all subclasses, but subclasses must call
+           KickstartCommand.__init__ first.  Instance attributes:
 
            currentCmd -- The name of the command in the input file that caused
                          this handler to be run.
@@ -67,13 +69,14 @@ class KickstartCommand:
                 setattr(self, key, val)
 
     def __str__(self):
-        """Return a string formatted for output to a kickstart file."""
-        return ""
+        """Return a string formatted for output to a kickstart file.  This
+           method must be provided by all subclasses.
+        """
+        raise TypeError, "__str__() not implemented for KickstartCommand"
 
     def parse(self, args):
         """Parse the list of args and set data on the KickstartCommand object.
-           This method must be provided by all subclasses as it will be
-           called from the dispatcher.
+           This method must be provided by all subclasses.
         """
         raise TypeError, "parse() not implemented for KickstartCommand"
 
@@ -103,6 +106,10 @@ class DeprecatedCommand(KickstartCommand):
         """Create a new DeprecatedCommand instance."""
         KickstartCommand.__init__(self)
 
+    def __str__(self):
+        """Placeholder since DeprecatedCommands don't work anymore."""
+        return ""
+
     def parse(self, args):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
@@ -118,7 +125,9 @@ class BaseHandler:
        class.
     """
     def __init__(self):
-        """Create a new BaseHandler instance.  Instance attributes:
+        """Create a new BaseHandler instance.  This method must be provided by
+           all subclasses, but subclasses must call BaseHandler.__init__ first.
+           Instance attributes:
 
            handlers -- A mapping from a string command to a KickstartCommand
                        subclass object that handles it.  Multiple strings can
