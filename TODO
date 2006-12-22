@@ -8,3 +8,4 @@
 - add back in multipath support
 - make sure this is all still easy to use in anaconda and s-c-kickstart
 - write out commands in the correct order
+- how to expose data objects to users?
