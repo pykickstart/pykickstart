@@ -15,15 +15,17 @@ Base classes for creating commands and handlers.
 
 This module exports several important base classes:
 
-    KickstartCommand - The base abstract class for all kickstart commands.
+    BaseData - The base abstract class for all data objects.
+
+    BaseHandler - The base abstract class from which versioned kickstart
+                  syntax handlers are derived.
 
     DeprecatedCommand - A concrete subclass of KickstartCommand that should
                         be further subclassed by users of this module.  When
                         a subclass is used, a warning message will be
                         printed.
 
-    BaseHandler - The base abstract class from which versioned kickstart
-                  syntax handlers are derived.
+    KickstartCommand - The base abstract class for all kickstart commands.
 """
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -34,6 +36,9 @@ import warnings
 from pykickstart.errors import *
 from pykickstart.parser import Packages
 
+###
+### COMMANDS
+###
 class KickstartCommand:
     """The base class for all kickstart commands.  This is an abstract class."""
     def __init__(self):
@@ -64,6 +69,13 @@ class KickstartCommand:
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         return ""
+
+    def parse(self, args):
+        """Parse the list of args and set data on the KickstartCommand object.
+           This method must be provided by all subclasses as it will be
+           called from the dispatcher.
+        """
+        raise TypeError, "parse() not implemented for KickstartCommand"
 
     # Set the contents of the opts object (an instance of optparse.Values
     # returned by parse_args) as attributes on the KickstartCommand object.
@@ -96,6 +108,9 @@ class DeprecatedCommand(KickstartCommand):
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
+###
+### HANDLERS
+###
 class BaseHandler:
     """Each version of kickstart syntax is provided by a subclass of this
        class.  These subclasses are what users will interact with for parsing,
@@ -185,3 +200,28 @@ class BaseHandler:
                 self.handlers[cmd].currentCmd = cmd
                 self.handlers[cmd].lineno = lineno
                 self.handlers[cmd].parse(cmdArgs)
+
+###
+### DATA
+###
+class BaseData:
+    """The base class for all data objects.  This is an abstract class."""
+    def __init__(self):
+        """Create a new BaseData instance.  There are no attributes."""
+
+        # We don't want people using this class by itself.
+        if self.__class__ is BaseData:
+            raise TypeError, "BaseData is an abstract class."
+
+    def __str__(self):
+        """Return a string formatted for output to a kickstart file."""
+        return ""
+
+    def __call__(self, *args, **kwargs):
+        """Set multiple attributes on a subclass of BaseData at once via
+           keyword arguments.  Valid attributes are anything specified in a
+           subclass, but unknown attributes will be ignored.
+        """
+        for (key, val) in kwargs.items():
+            if hasattr(self, key):
+                setattr(self, key, val)

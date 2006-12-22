@@ -47,8 +47,9 @@ class FC6Handler(FC5Handler):
 ### DATA CLASSES
 ###
 
-class KickstartDmRaidData:
+class KickstartDmRaidData(BaseData):
     def __init__(self, name="", devices=[], dmset=None):
+        BaseData.__init__(self)
         self.name = name
         self.devices = devices
         self.dmset = dmset
@@ -61,8 +62,9 @@ class KickstartDmRaidData:
 
         return retval + "\n"
 
-class KickstartIscsiData:
+class KickstartIscsiData(BaseData):
     def __init__(self, ipaddr="", port="", target="", user=None, password=None):
+        BaseData.__init__(self)
         self.ipaddr = ipaddr
         self.port = port
         self.target = target
@@ -85,8 +87,9 @@ class KickstartIscsiData:
 
         return retval + "\n"
 
-class KickstartMpPathData:
+class KickstartMpPathData(BaseData):
     def __init__(self, mpdev="", device="", rule=""):
+        BaseData.__init__(self)
         self.mpdev = mpdev
         self.device = device
         self.rule = rule
@@ -94,8 +97,9 @@ class KickstartMpPathData:
     def __str__(self):
         return " --device=%s --rule=\"%s\"" % (self.device, self.rule)
 
-class KickstartMultiPathData:
+class KickstartMultiPathData(BaseData):
     def __init__(self, name="", paths=[]):
+        BaseData.__init__(self)
         self.name = name
         self.paths = paths
 
@@ -107,8 +111,9 @@ class KickstartMultiPathData:
 
         return retval
 
-class KickstartRepoData:
+class KickstartRepoData(BaseData):
     def __init__(self, baseurl="", mirrorlist="", name=""):
+        BaseData.__init__(self)
         self.baseurl = baseurl
         self.mirrorlist = mirrorlist
         self.name = name
@@ -121,9 +126,10 @@ class KickstartRepoData:
 
         return "repo --name=%s %s\n" % (self.name, urlopt)
 
-class KickstartUserData:
+class KickstartUserData(BaseData):
     def __init__(self, groups=[], homedir="", isCrypted=False, name="",
                  password="", shell="", uid=None):
+        BaseData.__init__(self)
         self.groups = groups
         self.homedir = homedir
         self.isCrypted = isCrypted

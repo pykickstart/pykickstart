@@ -2,6 +2,11 @@
 
 	* pykickstart/commands/fc6.py:  Added multipath support back in.
 
+	* pykickstart/commands/base.py (BaseData):  Added a superclass for all
+	those Kickstart*Data objects.
+	* pykickstart/commands/fc4.py:  Use BaseData.
+	* pykickstart/commands/fc6.py:  Likewise.
+
 2006-12-20  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py (CommandReboot.__str__):  Fix output

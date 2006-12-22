@@ -73,11 +73,12 @@ class FC4Handler(BaseHandler):
 ###
 ### DATA CLASSES
 ###
-class KickstartLogVolData:
+class KickstartLogVolData(BaseData):
     def __init__(self, bytesPerInode=4096, fsopts="", fstype="", grow=False,
                  maxSizeMB=0, name="", format=True, percent=0,
                  recommended=False, size=None, preexist=False, vgname="",
                  mountpoint=""):
+        BaseData.__init__(self)
         self.bytesPerInode = bytesPerInode
         self.fsopts = fsopts
         self.fstype = fstype
@@ -118,11 +119,12 @@ class KickstartLogVolData:
 
         return retval + " --name=%s --vgname=%s\n" % (self.name, self.vgname)
 
-class KickstartNetworkData:
+class KickstartNetworkData(BaseData):
     def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
                  ethtool="", gateway="", hostname="", ip="", ipv4=True,
                  ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
                  notksdevice=False, onboot=True, wepkey=""):
+        BaseData.__init__(self)
         self.bootProto = bootProto
         self.dhcpclass = dhcpclass
         self.device = device
@@ -181,11 +183,12 @@ class KickstartNetworkData:
 
         return retval + "\n"
 
-class KickstartPartData:
+class KickstartPartData(BaseData):
     def __init__(self, active=False, primOnly=False, bytesPerInode=4096, end=0,
                  fsopts="", fstype="", grow=False, label="", maxSizeMB=0,
                  format=True, onbiosdisk="", disk="", onPart="",
                  recommended=False, size=None, start=0, mountpoint=""):
+        BaseData.__init__(self)
         self.active = active
         self.primOnly = primOnly
         self.bytesPerInode = bytesPerInode
@@ -242,10 +245,11 @@ class KickstartPartData:
 
         return retval + "\n"
 
-class KickstartRaidData:
+class KickstartRaidData(BaseData):
     def __init__(self, device=None, fsopts="", fstype="", level="", format=True,
                  spares=0, preexist=False, mountpoint="", members=[],
                  bytesPerInode=4096):
+        BaseData.__init__(self)
         self.device = device
         self.fsopts = fsopts
         self.fstype = fstype
@@ -279,9 +283,10 @@ class KickstartRaidData:
 
         return retval + " %s\n" % string.join(self.members)
 
-class KickstartVolGroupData:
+class KickstartVolGroupData(BaseData):
     def __init__(self, format=True, pesize=32768, preexist=False, vgname="",
                  physvols=[]):
+        BaseData.__init__(self)
         self.format = format
         self.pesize = pesize
         self.preexist = preexist
@@ -300,8 +305,9 @@ class KickstartVolGroupData:
 
         return retval + " " + string.join(self.physvols, ",") + "\n"
 
-class KickstartZFCPData:
+class KickstartZFCPData(BaseData):
     def __init__(self, devnum="", wwpn="", fcplun="", scsiid="", scsilun=""):
+        BaseData.__init__(self)
         self.devnum = devnum
         self.wwpn = wwpn
         self.fcplun = fcplun
