@@ -85,6 +85,28 @@ class KickstartIscsiData:
 
         return retval + "\n"
 
+class KickstartMpPathData:
+    def __init__(self, mpdev="", device="", rule=""):
+        self.mpdev = mpdev
+        self.device = device
+        self.rule = rule
+
+    def __str__(self):
+        return " --device=%s --rule=\"%s\"" % (self.device, self.rule)
+
+class KickstartMultiPathData:
+    def __init__(self, name="", paths=[]):
+        self.name = name
+        self.paths = paths
+
+    def __str__(self):
+        retval = ""
+
+        for path in self.paths:
+            retval += "multipath --mpdev=%s %s\n" % (self.name, path.__str__())
+
+        return retval
+
 class KickstartRepoData:
     def __init__(self, baseurl="", mirrorlist="", name=""):
         self.baseurl = baseurl
@@ -265,14 +287,16 @@ class CommandLogging(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMultiPath(KickstartCommand):
-    def __init__(self, mpdev="", device="", rule=""):
+    def __init__(self, mpaths=[]):
         KickstartCommand.__init__(self)
-        self.mpdev = mpdev
-        self.device = device
-        self.rule = rule
+        self.mpaths = mpaths
 
     def __str__(self):
-        return ""
+        retval = ""
+        for mpath in self.mpaths:
+            retval += mpath.__str__()
+
+        return retval
 
     def parse(self, args):
         op = KSOptionParser(self.lineno)
@@ -284,27 +308,30 @@ class CommandMultiPath(KickstartCommand):
                       required=1)
 
         (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
-        self.mpdev = self.mpdev.split('/')[-1]
+        dd = KickstartMpPathData()
+        self._setToObj(op, opts, dd)
+        dd.mpdev = dd.mpdev.split('/')[-1]
 
-#        ### XXX FIX ALL THIS
-#        parent = None
-#        for x in range(0, len(self.ksdata.mpaths)):
-#            mpath = self.ksdata.mpaths[x]
-#            for path in mpath.paths:
-#                if path.device == dd.device:
-#                    mapping = {"device": path.device, "multipathdev": path.mpdev}
-#                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping)
-#            if mpath.name == dd.mpdev:
-#                parent = x
-#
-#        if parent is None:
-#            mpath = KickstartMultiPathData()
-#            self.ksdata.mpaths.append(mpath)
-#        else:
-#            mpath = self.ksdata.mpaths[x]
-#
-#        mpath.paths.append(dd)
+        parent = None
+        for x in range(0, len(self.mpaths)):
+            mpath = self.mpaths[x]
+            for path in mpath.paths:
+                if path.device == dd.device:
+                    mapping = {"device": path.device, "multipathdev": path.mpdev}
+                    raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping)
+            if mpath.name == dd.mpdev:
+                parent = x
+
+        if parent is None:
+            mpath = KickstartMultiPathData()
+            self.add(mpath)
+        else:
+            mpath = self.mpaths[x]
+
+        mpath.paths.append(dd)
+
+    def add(self, newObj):
+        self.mpaths.append(newObj)
 
 class CommandRepo(KickstartCommand):
     def __init__(self, repoList=[]):
