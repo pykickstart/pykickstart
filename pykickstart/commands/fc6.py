@@ -32,12 +32,12 @@ class FC6Handler(FC5Handler):
     def __init__(self):
         FC5Handler.__init__(self)
 
-        self.registerHandler(CommandDmRaid(), ["dmraid"])
-        self.registerHandler(CommandIscsi(), ["iscsi"])
-        self.registerHandler(CommandIscsiName(), ["iscsiname"])
+        self.registerHandler(CommandDmRaid(writePriority=60), ["dmraid"])
+        self.registerHandler(CommandIscsi(writePriority=70), ["iscsi"])
+        self.registerHandler(CommandIscsiName(writePriority=71), ["iscsiname"])
         self.registerHandler(CommandKey(), ["key"])
         self.registerHandler(CommandLogging(), ["logging"])
-        self.registerHandler(CommandMultiPath(), ["multipath"])
+        self.registerHandler(CommandMultiPath(writePriority=50), ["multipath"])
         self.registerHandler(CommandRepo(), ["repo"])
         self.registerHandler(CommandServices(), ["services"])
         self.registerHandler(CommandUser(), ["user"])
@@ -164,8 +164,8 @@ class KickstartUserData(BaseData):
 ###
 
 class CommandDmRaid(KickstartCommand):
-    def __init__(self, dmraids=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, dmraids=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.dmraids = dmraids
 
     def __str__(self):
@@ -192,8 +192,8 @@ class CommandDmRaid(KickstartCommand):
         self.dmraids.append(newObj)
 
 class CommandIscsi(KickstartCommand):
-    def __init__(self, iscsi=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, iscsi=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.iscsi = iscsi
 
     def __str__(self):
@@ -227,8 +227,8 @@ class CommandIscsi(KickstartCommand):
         self.iscsi.append(newObj)
 
 class CommandIscsiName(KickstartCommand):
-    def __init__(self, iscsiname=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, iscsiname=""):
+        KickstartCommand.__init__(self, writePriority)
         self.iscsiname = iscsiname
 
     def __str__(self):
@@ -243,8 +243,8 @@ class CommandIscsiName(KickstartCommand):
         self.iscsiname = args[0]
 
 class CommandKey(KickstartCommand):
-    def __init__(self, key=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, key=""):
+        KickstartCommand.__init__(self, writePriority)
         self.key = key
 
     def __str__(self):
@@ -265,8 +265,8 @@ class CommandKey(KickstartCommand):
             self.key = args[0]
 
 class CommandLogging(KickstartCommand):
-    def __init__(self, host="", level="info", port=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, host="", level="info", port=""):
+        KickstartCommand.__init__(self, writePriority)
         self.host = host
         self.level = level
         self.port = port
@@ -293,8 +293,8 @@ class CommandLogging(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMultiPath(KickstartCommand):
-    def __init__(self, mpaths=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, mpaths=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.mpaths = mpaths
 
     def __str__(self):
@@ -340,8 +340,8 @@ class CommandMultiPath(KickstartCommand):
         self.mpaths.append(newObj)
 
 class CommandRepo(KickstartCommand):
-    def __init__(self, repoList=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, repoList=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.repoList = repoList
 
     def __str__(self):
@@ -375,8 +375,8 @@ class CommandRepo(KickstartCommand):
         self.repoList.append(newObj)
 
 class CommandServices(KickstartCommand):
-    def __init__(self, disabled=[], enabled=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, disabled=[], enabled=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.disabled = disabled
         self.enabled = enabled
 
@@ -408,8 +408,8 @@ class CommandServices(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandUser(KickstartCommand):
-    def __init__(self, userList=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, userList=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.userList = userList
 
     def __str__(self):

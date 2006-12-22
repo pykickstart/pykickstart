@@ -41,19 +41,26 @@ from pykickstart.parser import Packages
 ###
 class KickstartCommand:
     """The base class for all kickstart commands.  This is an abstract class."""
-    def __init__(self):
+    def __init__(self, writePriority=0):
         """Create a new KickstartCommand instance.  This method must be
            provided by all subclasses, but subclasses must call
            KickstartCommand.__init__ first.  Instance attributes:
 
-           currentCmd -- The name of the command in the input file that caused
-                         this handler to be run.
-           lineno     -- The current line number in the input file.
+           currentCmd    -- The name of the command in the input file that
+                            caused this handler to be run.
+           lineno        -- The current line number in the input file.
+           writePriority -- An integer specifying when this command should be
+                            printed when iterating over all commands' __str__
+                            methods.  The higher the number, the later this
+                            command will be written.  All commands with the
+                            same priority will be written alphabetically.
         """
 
         # We don't want people using this class by itself.
         if self.__class__ is KickstartCommand:
             raise TypeError, "KickstartCommand is an abstract class."
+
+        self.writePriority = writePriority
 
         # These will be set by the dispatcher.
         self.currentCmd = ""
@@ -102,9 +109,9 @@ class DeprecatedCommand(KickstartCommand):
        Any command that is deprecated should be subclassed from this class,
        only specifying an __init__ method that calls the superclass's __init__.
     """
-    def __init__(self):
+    def __init__(self, writePriority=None):
         """Create a new DeprecatedCommand instance."""
-        KickstartCommand.__init__(self)
+        KickstartCommand.__init__(self, writePriority)
 
     def __str__(self):
         """Placeholder since DeprecatedCommands don't work anymore."""
@@ -135,13 +142,13 @@ class BaseHandler:
                        handler object should ever exist.  Most users should
                        never have to deal with this directly, as it is
                        manipulated through registerHandler and dispatcher.
-           scripts --  A list of pykickstart.parser.Script instances, which is
-                       populated by KickstartParser.addScript and describes the
-                       %pre/%post/%traceback script section of the input file.
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
                        needed only by system-config-kickstart.
+           scripts --  A list of pykickstart.parser.Script instances, which is
+                       populated by KickstartParser.addScript and describes the
+                       %pre/%post/%traceback script section of the input file.
         """
 
         # We don't want people using this class by itself.
@@ -156,6 +163,12 @@ class BaseHandler:
         self.packages = Packages()
         self.platform = ""
 
+        # A dict keyed by an integer priority number, with each value being a
+        # list of KickstartCommand subclasses.  This dict is maintained by
+        # registerHandler and used in __str__.  No one else should be touching
+        # it.
+        self._writeOrder = {}
+
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         retval = ""
@@ -163,11 +176,11 @@ class BaseHandler:
         if self.platform != "":
             retval += "#platform=%s" % self.platform
 
-        # Have to use this slightly roundabout method because we can't iterate
-        # over the handler keys.  That's because multiple handler keys can map
-        # to the same command object due to aliased commands.
-        for (name, obj) in self.__dict__.items():
-            if name.startswith("Command"):
+        lst = self._writeOrder.keys()
+        lst.sort()
+
+        for prio in lst:
+            for obj in self._writeOrder[prio]:
                 retval += obj.__str__()
 
         for script in self.scripts:
@@ -186,6 +199,8 @@ class BaseHandler:
            cmdObj.__class__.__name__ must begin with "Command".
         """
 
+        # First just add the new command handler object to the handler dict
+        # for all given command strings.
         for str in cmdList:
             self.handlers[str] = cmdObj
 
@@ -194,6 +209,25 @@ class BaseHandler:
         # for subclasses to set values on command handlers via their __call__
         # methods.
         setattr(self, cmdObj.__class__.__name__, cmdObj)
+
+        # Also, add the object into the _writeOrder dict in the right place.
+        if cmdObj.writePriority is not None:
+            if self._writeOrder.has_key(cmdObj.writePriority):
+                self._insertSorted(self._writeOrder[cmdObj.writePriority], cmdObj)
+            else:
+                self._writeOrder[cmdObj.writePriority] = [cmdObj]
+
+    def _insertSorted(self, list, obj):
+        max = len(list)
+        i = 0
+
+        while i < max and obj.__class__.__name__ > list[i].__class__.__name__:
+            i += 1
+
+        if i >= max:
+            list.append(obj)
+        else:
+            list.insert(i, obj)
 
     def dispatcher(self, cmd, cmdArgs, lineno):
         """Given the command string cmd and the list of arguments cmdArgs, call

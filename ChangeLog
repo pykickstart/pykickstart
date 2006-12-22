@@ -1,5 +1,18 @@
 2006-12-22  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/base.py (KickstartCommand.__init__):  Add a
+	writePriority parameter to control the order commands get written out
+	when __str__ methods are called.
+	(BaseHandler.__str__):  Take writePriorities into account.
+	(BaseHandler.registerHandler):  Insert command handlers into the
+	_writePriority dict in the correct order - first by priority, then
+	alphabetically within that priority.
+
+	* pykickstart/commands/fc4.py:  Add new writePriority parameter.
+	* pykickstart/commands/fc6.py:  Likewise.
+
+2006-12-22  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/commands/fc6.py:  Added multipath support back in.
 
 	* pykickstart/commands/base.py (BaseData):  Added a superclass for all

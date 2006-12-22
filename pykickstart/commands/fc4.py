@@ -34,11 +34,11 @@ class FC4Handler(BaseHandler):
         BaseHandler.__init__(self)
 
         self.registerHandler(CommandAuthconfig(), ["auth", "authconfig"])
-        self.registerHandler(CommandAutoPart(), ["autopart"])
+        self.registerHandler(CommandAutoPart(writePriority=100), ["autopart"])
         self.registerHandler(CommandAutoStep(), ["autostep"])
         self.registerHandler(CommandBootloader(), ["bootloader"])
         self.registerHandler(CommandMethod(), ["cdrom", "harddrive", "nfs", "url"])
-        self.registerHandler(CommandClearPart(), ["clearpart"])
+        self.registerHandler(CommandClearPart(writePriority=120), ["clearpart"])
         self.registerHandler(CommandDisplayMode(), ["cmdline", "graphical", "text"])
         self.registerHandler(CommandDevice(), ["device"])
         self.registerHandler(CommandDeviceProbe(), ["deviceprobe"])
@@ -51,22 +51,22 @@ class FC4Handler(BaseHandler):
         self.registerHandler(CommandKeyboard(), ["keyboard"])
         self.registerHandler(CommandLang(), ["lang"])
         self.registerHandler(CommandLangSupport(), ["langsupport"])
-        self.registerHandler(CommandLogVol(), ["logvol"])
+        self.registerHandler(CommandLogVol(writePriority=132), ["logvol"])
         self.registerHandler(CommandMediaCheck(), ["mediacheck"])
         self.registerHandler(CommandMonitor(), ["monitor"])
         self.registerHandler(CommandMouse(), ["mouse"])
         self.registerHandler(CommandNetwork(), ["network"])
-        self.registerHandler(CommandPartition(), ["part", "partition"])
-        self.registerHandler(CommandRaid(), ["raid"])
+        self.registerHandler(CommandPartition(writePriority=130), ["part", "partition"])
+        self.registerHandler(CommandRaid(writePriority=140), ["raid"])
         self.registerHandler(CommandRootPw(), ["rootpw"])
         self.registerHandler(CommandSELinux(), ["selinux"])
         self.registerHandler(CommandSkipX(), ["skipx"])
         self.registerHandler(CommandTimezone(), ["timezone"])
         self.registerHandler(CommandUpgrade(), ["upgrade", "install"])
         self.registerHandler(CommandVnc(), ["vnc"])
-        self.registerHandler(CommandVolGroup(), ["volgroup"])
+        self.registerHandler(CommandVolGroup(writePriority=131), ["volgroup"])
         self.registerHandler(CommandXConfig(), ["xconfig"])
-        self.registerHandler(CommandZeroMbr(), ["zerombr"])
+        self.registerHandler(CommandZeroMbr(writePriority=110), ["zerombr"])
         self.registerHandler(CommandZFCP(), ["zfcp"])
 
 
@@ -336,8 +336,8 @@ class KickstartZFCPData(BaseData):
 ###
 
 class CommandAuthconfig(KickstartCommand):
-    def __init__(self, authconfig=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, authconfig=""):
+        KickstartCommand.__init__(self, writePriority)
         self.authconfig = authconfig
 
     def __str__(self):
@@ -350,8 +350,8 @@ class CommandAuthconfig(KickstartCommand):
         self.authconfig = string.join(args)
 
 class CommandAutoPart(KickstartCommand):
-    def __init__(self, autopart=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, autopart=False):
+        KickstartCommand.__init__(self, writePriority)
         self.autopart = autopart
 
     def __str__(self):
@@ -367,8 +367,8 @@ class CommandAutoPart(KickstartCommand):
         self.autopart = True
 
 class CommandAutoStep(KickstartCommand):
-    def __init__(self, autoscreenshot=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, autoscreenshot=False):
+        KickstartCommand.__init__(self, writePriority)
         self.autoscreenshot = False
 
     def __str__(self):
@@ -386,9 +386,10 @@ class CommandAutoStep(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandBootloader(KickstartCommand):
-    def __init__(self, appendLine="", driveorder=[], forceLBA=False,
-                 location="mbr", md5pass="", password="", upgrade=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, appendLine="", driveorder=[],
+                 forceLBA=False, location="mbr", md5pass="", password="",
+                 upgrade=""):
+        KickstartCommand.__init__(self, writePriority)
         self.appendLine = appendLine
         self.driveorder = driveorder
         self.forceLBA = forceLBA
@@ -440,8 +441,9 @@ class CommandBootloader(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandClearPart(KickstartCommand):
-    def __init__(self, drives=[], initAll=False, type=CLEARPART_TYPE_NONE):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, drives=[], initAll=False,
+                 type=CLEARPART_TYPE_NONE):
+        KickstartCommand.__init__(self, writePriority)
         self.drives = drives
         self.initAll = initAll
         self.type = type
@@ -489,8 +491,8 @@ class CommandClearPart(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandDevice(KickstartCommand):
-    def __init__(self, device=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, device=""):
+        KickstartCommand.__init__(self, writePriority)
         self.device = device
 
     def __str__(self):
@@ -503,8 +505,8 @@ class CommandDevice(KickstartCommand):
         self.device = string.join(args)
 
 class CommandDeviceProbe(KickstartCommand):
-    def __init__(self, deviceprobe=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, deviceprobe=""):
+        KickstartCommand.__init__(self, writePriority)
         self.deviceprobe = deviceprobe
 
     def __str__(self):
@@ -517,8 +519,8 @@ class CommandDeviceProbe(KickstartCommand):
         self.deviceprove = string.join(args)
 
 class CommandDisplayMode(KickstartCommand):
-    def __init__(self, displayMode=DISPLAY_MODE_GRAPHICAL):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, displayMode=DISPLAY_MODE_GRAPHICAL):
+        KickstartCommand.__init__(self, writePriority)
         self.displayMode = displayMode
 
     def __str__(self):
@@ -538,8 +540,8 @@ class CommandDisplayMode(KickstartCommand):
             self.displayMode = DISPLAY_MODE_TEXT
 
 class CommandDriverDisk(KickstartCommand):
-    def __init__(self, driverdisk=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, driverdisk=""):
+        KickstartCommand.__init__(self, writePriority)
         self.driverdisk = driverdisk
 
     def __str__(self):
@@ -552,8 +554,8 @@ class CommandDriverDisk(KickstartCommand):
         self.driverdisk = string.join(args)
 
 class CommandFirewall(KickstartCommand):
-    def __init__(self, enabled=True, ports=[], trusts=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, enabled=True, ports=[], trusts=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled
         self.ports = ports
         self.trusts = trusts
@@ -626,8 +628,8 @@ class CommandFirewall(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandFirstboot(KickstartCommand):
-    def __init__(self, firstboot=FIRSTBOOT_SKIP):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, firstboot=FIRSTBOOT_SKIP):
+        KickstartCommand.__init__(self, writePriority)
         self.firstboot = firstboot
 
     def __str__(self):
@@ -651,8 +653,8 @@ class CommandFirstboot(KickstartCommand):
         self.firstboot = opts.firstboot
 
 class CommandIgnoreDisk(KickstartCommand):
-    def __init__(self, ignoredisk=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, ignoredisk=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.ignoredisk = ignoredisk
 
     def __str__(self):
@@ -674,8 +676,8 @@ class CommandIgnoreDisk(KickstartCommand):
         self.ignoredisk = opts.drives
 
 class CommandInteractive(KickstartCommand):
-    def __init__(self, interactive=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, interactive=False):
+        KickstartCommand.__init__(self, writePriority)
         self.interactive = interactive
 
     def __str__(self):
@@ -691,8 +693,8 @@ class CommandInteractive(KickstartCommand):
         self.interactive = True
 
 class CommandKeyboard(KickstartCommand):
-    def __init__(self, keyboard=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, keyboard=""):
+        KickstartCommand.__init__(self, writePriority)
         self.keyboard = keyboard
 
     def __str__(self):
@@ -708,8 +710,8 @@ class CommandKeyboard(KickstartCommand):
         self.keyboard = args[0]
 
 class CommandLang(KickstartCommand):
-    def __init__(self, lang=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, lang=""):
+        KickstartCommand.__init__(self, writePriority)
         self.lang = lang
 
     def __str__(self):
@@ -729,8 +731,8 @@ class CommandLangSupport(DeprecatedCommand):
         DeprecatedCommand.__init__(self)
 
 class CommandLogVol(KickstartCommand):
-    def __init__(self, lvList=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, lvList=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.lvList = lvList
 
     def __str__(self):
@@ -782,8 +784,8 @@ class CommandLogVol(KickstartCommand):
         self.lvList.append(newObj)
 
 class CommandMediaCheck(KickstartCommand):
-    def __init__(self, mediacheck=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, mediacheck=False):
+        KickstartCommand.__init__(self, writePriority)
         self.mediacheck = mediacheck
 
     def __str__(self):
@@ -799,8 +801,8 @@ class CommandMediaCheck(KickstartCommand):
         self.mediacheck = True
 
 class CommandMethod(KickstartCommand):
-    def __init__(self, method=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, method=""):
+        KickstartCommand.__init__(self, writePriority)
         self.method = method
 
     def __str__(self):
@@ -849,8 +851,9 @@ class CommandMethod(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMonitor(KickstartCommand):
-    def __init__(self, hsync="", monitor="", probe=True, vsync=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
+                 vsync=""):
+        KickstartCommand.__init__(self, writePriority)
         self.hsync = hsync
         self.monitor = monitor
         self.probe = probe
@@ -894,8 +897,8 @@ class CommandMouse(DeprecatedCommand):
         DeprecatedCommand.__init__(self)
 
 class CommandNetwork(KickstartCommand):
-    def __init__(self, network=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, network=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.network = network
 
     def __str__(self):
@@ -944,8 +947,8 @@ class CommandNetwork(KickstartCommand):
         self.network.append(newObj)
 
 class CommandPartition(KickstartCommand):
-    def __init__(self, partitions=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, partitions=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.partitions = partitions
 
     def __str__(self):
@@ -1008,8 +1011,8 @@ class CommandPartition(KickstartCommand):
         self.partitions.append(newObj)
 
 class CommandRaid(KickstartCommand):
-    def __init__(self, raidList=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, raidList=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.raidList = raidList
 
     def __str__(self):
@@ -1077,8 +1080,8 @@ class CommandRaid(KickstartCommand):
         self.raidList.append(newObj)
 
 class CommandReboot(KickstartCommand):
-    def __init__(self, action=KS_WAIT, eject=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
+        KickstartCommand.__init__(self, writePriority)
         self.action = action
         self.eject = eject
 
@@ -1109,8 +1112,8 @@ class CommandReboot(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandRootPw(KickstartCommand):
-    def __init__(self, isCrypted=False, password=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, isCrypted=False, password=""):
+        KickstartCommand.__init__(self, writePriority)
         self.isCrypted = isCrypted
         self.password = password
 
@@ -1139,8 +1142,8 @@ class CommandRootPw(KickstartCommand):
         self.rootpw = extra[0]
 
 class CommandSELinux(KickstartCommand):
-    def __init__(self, selinux=SELINUX_ENFORCING):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, selinux=SELINUX_ENFORCING):
+        KickstartCommand.__init__(self, writePriority)
         self.selinux = selinux
 
     def __str__(self):
@@ -1166,8 +1169,8 @@ class CommandSELinux(KickstartCommand):
         self.selinux = opts.sel
 
 class CommandSkipX(KickstartCommand):
-    def __init__(self, skipx=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, skipx=False):
+        KickstartCommand.__init__(self, writePriority)
         self.skipx = skipx
 
     def __str__(self):
@@ -1183,8 +1186,8 @@ class CommandSkipX(KickstartCommand):
         self.skipx = True
 
 class CommandTimezone(KickstartCommand):
-    def __init__(self, isUtc=False, timezone=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, isUtc=False, timezone=""):
+        KickstartCommand.__init__(self, writePriority)
         self.isUtc = isUtc
         self.timezone = timezone
 
@@ -1212,8 +1215,8 @@ class CommandTimezone(KickstartCommand):
         self.timezone = extra[0]
 
 class CommandUpgrade(KickstartCommand):
-    def __init__(self, upgrade=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, upgrade=False):
+        KickstartCommand.__init__(self, writePriority)
         self.upgrade = upgrade
 
     def __str__(self):
@@ -1229,8 +1232,9 @@ class CommandUpgrade(KickstartCommand):
         self.upgrade = True
 
 class CommandVnc(KickstartCommand):
-    def __init__(self, enabled=False, password="", host="", port=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, enabled=False, password="", host="",
+                 port=""):
+        KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled
         self.password = password
         self.host = host
@@ -1270,8 +1274,8 @@ class CommandVnc(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandVolGroup(KickstartCommand):
-    def __init__(self, vgList=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, vgList=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.vgList = vgList
 
     def __str__(self):
@@ -1306,9 +1310,9 @@ class CommandVolGroup(KickstartCommand):
         self.vgList.append(newObj)
 
 class CommandXConfig(KickstartCommand):
-    def __init__(self, driver="", defaultdesktop="", depth=0, resolution="",
-                 startX=False, videoRam=""):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
+                 resolution="", startX=False, videoRam=""):
+        KickstartCommand.__init__(self, writePriority)
         self.driver = driver
         self.defaultdesktop = defaultdesktop
         self.depth = depth
@@ -1361,8 +1365,8 @@ class CommandXConfig(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandZeroMbr(KickstartCommand):
-    def __init__(self, zerombr=False):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, zerombr=False):
+        KickstartCommand.__init__(self, writePriority)
         self.zerombr = zerombr
 
     def __str__(self):
@@ -1378,8 +1382,8 @@ class CommandZeroMbr(KickstartCommand):
         self.zerombr = True
 
 class CommandZFCP(KickstartCommand):
-    def __init__(self, zfcp=[]):
-        KickstartCommand.__init__(self)
+    def __init__(self, writePriority=0, zfcp=[]):
+        KickstartCommand.__init__(self, writePriority)
         self.zfcp = zfcp
 
     def __str__(self):
