@@ -1,3 +1,8 @@
+2007-01-03  Chris Lumens  <clumens@redhat.com>
+
+	* commands/base.py (BaseHandler.hasHandler):  Add a convenience method
+	to see if there's a handler for a given command.
+
 2006-12-22  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (KickstartCommand.__init__):  Add a

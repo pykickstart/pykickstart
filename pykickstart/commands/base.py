@@ -217,6 +217,10 @@ class BaseHandler:
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
+    def hasHandler(self, cmd):
+        """Return true if there is a handler for the string cmd."""
+        return hasattr(self, cmd)
+
     def _insertSorted(self, list, obj):
         max = len(list)
         i = 0
