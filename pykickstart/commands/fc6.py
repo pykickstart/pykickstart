@@ -37,6 +37,7 @@ class FC6Handler(FC5Handler):
         self.registerHandler(CommandIscsiName(writePriority=71), ["iscsiname"])
         self.registerHandler(CommandKey(), ["key"])
         self.registerHandler(CommandLogging(), ["logging"])
+        self.registerHandler(CommandMethod(), ["cdrom", "harddrive", "nfs", "url"])
         self.registerHandler(CommandMonitor(), ["monitor"])
         self.registerHandler(CommandMultiPath(writePriority=50), ["multipath"])
         self.registerHandler(CommandNetwork(), ["network"])
@@ -359,6 +360,60 @@ class CommandLogging(KickstartCommand):
         op.add_option("--port")
 
         (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
+
+class CommandMethod(KickstartCommand):
+    def __init__(self, writePriority=0, method=""):
+        KickstartCommand.__init__(self, writePriority)
+        self.method = method
+
+    def __str__(self):
+        if self.method == "cdrom":
+            return "# Use CDROM installation media\ncdrom\n"
+        elif self.method == "harddrive":
+            msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.dir
+
+            if hasattr(self, "biospart"):
+                return msg + " --biospart=%s\n" % getattr(self, "biospart")
+            else:
+                return msg + " --partition=%s\n" % getattr(self, "partition")
+        elif self.method == "nfs":
+            retval = "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
+            if self.otps:
+                retval += " --opts=\"%s\"" % self.opts
+
+            return retval + "\n"
+        elif self.method == "url":
+            return "# Use network installation\nurl --url=%s\n" % self.url
+        else:
+            return ""
+
+    def parse(self, args):
+        op = KSOptionParser(self.lineno)
+
+        self.method = self.currentCmd
+
+        if self.currentCmd == "cdrom":
+            return
+        elif self.currentCmd == "harddrive":
+            op.add_option("--biospart", dest="biospart")
+            op.add_option("--partition", dest="partition")
+            op.add_option("--dir", dest="dir", required=1)
+        elif self.currentCmd == "nfs":
+            op.add_option("--server", dest="server", required=1)
+            op.add_option("--dir", dest="dir", required=1)
+            op.add_option("--opts", dest="opts")
+        elif self.currentCmd == "url":
+            op.add_option("--url", dest="url", required=1)
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if self.currentCmd == "harddrive":
+            if (getattr(opts, "biospart") == None and getattr(opts, "partition") == None) or \
+               (getattr(opts, "biospart") != None and getattr(opts, "partition") != None):
+
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
+
         self._setToSelf(op, opts)
 
 class CommandMonitor(KickstartCommand):
