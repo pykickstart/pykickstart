@@ -121,9 +121,9 @@ class KickstartLogVolData(BaseData):
 
 class KickstartNetworkData(BaseData):
     def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
-                 ethtool="", gateway="", hostname="", ip="", ipv4=True,
-                 ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
-                 notksdevice=False, onboot=True, wepkey=""):
+                 ethtool="", gateway="", hostname="", ip="", mtu="",
+                 nameserver="", netmask="", nodns=False, notksdevice=False,
+                 onboot=True, wepkey=""):
         BaseData.__init__(self)
         self.bootProto = bootProto
         self.dhcpclass = dhcpclass
@@ -133,8 +133,6 @@ class KickstartNetworkData(BaseData):
         self.gateway = gateway
         self.hostname = hostname
         self.ip = ip
-        self.ipv4 = ipv4
-        self.ipv6 = ipv6
         self.mtu = mtu
         self.nameserver = nameserver
         self.netmask = netmask
@@ -162,10 +160,6 @@ class KickstartNetworkData(BaseData):
             retval += " --hostname=%s" % self.hostname
         if self.ip != "":
             retval += " --ip=%s" % self.ip
-        if not self.ipv4:
-            retval += " --noipv4"
-        if not self.ipv6:
-            retval += " --noipv6"
         if self.mtu != "":
             retval += " --mtu=%s" % self.mtu
         if self.nameserver != "":
@@ -247,8 +241,7 @@ class KickstartPartData(BaseData):
 
 class KickstartRaidData(BaseData):
     def __init__(self, device=None, fsopts="", fstype="", level="", format=True,
-                 spares=0, preexist=False, mountpoint="", members=[],
-                 bytesPerInode=4096):
+                 spares=0, preexist=False, mountpoint="", members=[]):
         BaseData.__init__(self)
         self.device = device
         self.fsopts = fsopts
@@ -259,13 +252,10 @@ class KickstartRaidData(BaseData):
         self.preexist = preexist
         self.mountpoint = mountpoint
         self.members = members
-        self.bytesPerInode = bytesPerInode
 
     def __str__(self):
         retval = "raid %s" % self.mountpoint
 
-        if self.bytesPerInode != 0:
-            retval += " --bytes-per-inode=%d" % self.bytesPerInode
         if self.device != "":
             retval += " --device=%s" % self.device
         if self.fsopts != "":
@@ -369,7 +359,7 @@ class CommandAutoPart(KickstartCommand):
 class CommandAutoStep(KickstartCommand):
     def __init__(self, writePriority=0, autoscreenshot=False):
         KickstartCommand.__init__(self, writePriority)
-        self.autoscreenshot = False
+        self.autoscreenshot = autoscreenshot
 
     def __str__(self):
         if self.autoscreenshot:
@@ -620,6 +610,8 @@ class CommandFirewall(KickstartCommand):
                       action="store_true", default=True)
         op.add_option("--ftp", "--http", "--smtp", "--ssh", "--telnet",
                       dest="ports", action="map_extend")
+        op.add_option("--high", deprecated=1)
+        op.add_option("--medium", deprecated=1)
         op.add_option("--port", dest="ports", action="callback",
                       callback=firewall_port_cb, nargs=1, type="string")
         op.add_option("--trust", dest="trusts", action="append")
@@ -726,9 +718,27 @@ class CommandLang(KickstartCommand):
 
         self.lang = args[0]
 
-class CommandLangSupport(DeprecatedCommand):
-    def __init__(self):
-        DeprecatedCommand.__init__(self)
+class CommandLangSupport(KickstartCommand):
+    def __init__(self, writePriority=0, deflang="en_US.UTF-8", supported=[]):
+        KickstartCommand.__init__(self, writePriority)
+        self.deflang = deflang
+        self.supported = supported
+
+    def __str__(self):
+        retval = "langsupport --default=%s" % self.deflang
+
+        if self.supported:
+            retval += " %s" % " ".join(self.supported)
+
+        return retval
+
+    def parse(self, args):
+        op = KSOptionParser(self.lineno)
+        op.add_option("--default", dest="deflang", default="en_US.UTF-8")
+
+        (opts, extra) = op.parse_args(args=args)
+        self.deflang = opts.deflang
+        self.supported = extra
 
 class CommandLogVol(KickstartCommand):
     def __init__(self, writePriority=0, lvList=[]):
@@ -851,12 +861,10 @@ class CommandMethod(KickstartCommand):
         self._setToSelf(op, opts)
 
 class CommandMonitor(KickstartCommand):
-    def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
-                 vsync=""):
+    def __init__(self, writePriority=0, hsync="", monitor="", vsync=""):
         KickstartCommand.__init__(self, writePriority)
         self.hsync = hsync
         self.monitor = monitor
-        self.probe = probe
         self.vsync = vsync
 
     def __str__(self):
@@ -866,8 +874,6 @@ class CommandMonitor(KickstartCommand):
             retval += " --hsync=%s" % self.hsync
         if self.monitor != "":
             retval += " --monitor=\"%s\"" % self.monitor
-        if not self.probe:
-            retval += " --noprobe"
         if self.vsync != "":
             retval += " --vsync=%s" % self.vsync
 
@@ -878,11 +884,9 @@ class CommandMonitor(KickstartCommand):
 
     def parse(self, args):
         op = KSOptionParser(self.lineno)
-        op.add_option("--hsync", dest="hsync")
-        op.add_option("--monitor", dest="monitor")
-        op.add_option("--noprobe", dest="probe", action="store_false",
-                      default=True)
-        op.add_option("--vsync", dest="vsync")
+        op.add_option("--hsync")
+        op.add_option("--monitor")
+        op.add_option("--vsync")
 
         (opts, extra) = op.parse_args(args=args)
 
@@ -928,10 +932,6 @@ class CommandNetwork(KickstartCommand):
         op.add_option("--netmask", dest="netmask")
         op.add_option("--nodns", dest="nodns", action="store_true",
                       default=False)
-        op.add_option("--noipv4", dest="ipv4", action="store_false",
-                      default=True)
-        op.add_option("--noipv6", dest="ipv6", action="store_false",
-                      default=True)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
         op.add_option("--onboot", dest="onboot", action="store",
@@ -1045,8 +1045,6 @@ class CommandRaid(KickstartCommand):
                 parser.values.ensure_value(option.dest, "RAID6")
 
         op = KSOptionParser(self.lineno)
-        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
-                      type="int", nargs=1)
         op.add_option("--device", action="callback", callback=device_cb,
                       dest="device", type="string", nargs=1, required=1)
         op.add_option("--fsoptions", dest="fsopts")
@@ -1080,36 +1078,21 @@ class CommandRaid(KickstartCommand):
         self.raidList.append(newObj)
 
 class CommandReboot(KickstartCommand):
-    def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
+    def __init__(self, writePriority=0, action=KS_WAIT):
         KickstartCommand.__init__(self, writePriority)
         self.action = action
-        self.eject = eject
 
     def __str__(self):
-        retval = ""
-
         if self.action == KS_REBOOT:
-            retval = "# Reboot after installation\nreboot\n"
+            return "# Reboot after installation\nreboot\n"
         elif self.action == KS_SHUTDOWN:
-            retval = "# Shutdown after installation\nshutdown\n"
-
-        if self.eject:
-            retval += " --eject"
-
-        return retval
+            return "# Shutdown after installation\nshutdown\n"
 
     def parse(self, args):
         if self.currentCmd == "reboot":
             self.action = KS_REBOOT
         else:
             self.action = KS_SHUTDOWN
-
-        op = KSOptionParser(self.lineno)
-        op.add_option("--eject", dest="eject", action="store_true",
-                      default=False)
-
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
 
 class CommandRootPw(KickstartCommand):
     def __init__(self, writePriority=0, isCrypted=False, password=""):
@@ -1232,41 +1215,29 @@ class CommandUpgrade(KickstartCommand):
         self.upgrade = True
 
 class CommandVnc(KickstartCommand):
-    def __init__(self, writePriority=0, enabled=False, password="", host="",
-                 port=""):
+    def __init__(self, writePriority=0, enabled=False, password="", connect=""):
         KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled
         self.password = password
-        self.host = host
-        self.port = port
+        self.connect = connect
 
     def __str__(self):
         if not self.enabled:
             return ""
 
-        retval = "vnc --enabled %s" % self.host
+        retval = "vnc --enabled"
 
-        if self.port != "":
-            retval += " --port=%s" % self.port
+        if self.connect != "":
+            retval += " --connect=%s" % self.connect
         if self.password != "":
             retval += " --password=%s" % self.password
 
         return retval + "\n"
 
     def parse(self, args):
-        def connect_cb (option, opt_str, value, parser):
-            cargs = value.split(":")
-            parser.values.ensure_value("host", cargs[0])
-
-            if len(cargs) > 1:
-                parser.values.ensure_value("port", cargs[1])
-
         op = KSOptionParser(self.lineno)
-        op.add_option("--connect", action="callback", callback=connect_cb,
-                      nargs=1, type="string", deprecated=1)
+        op.add_option("--connect")
         op.add_option("--password", dest="password")
-        op.add_option("--host", dest="host")
-        op.add_option("--port", dest="port")
 
         self.enabled = True
 
@@ -1310,31 +1281,47 @@ class CommandVolGroup(KickstartCommand):
         self.vgList.append(newObj)
 
 class CommandXConfig(KickstartCommand):
-    def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
-                 resolution="", startX=False, videoRam=""):
+    def __init__(self, writePriority=0, card="", defaultdesktop="", depth=0,
+                 hsync="", monitor="", noProbe=False, resolution="", server="",
+                 startX=False, videoRam="", vsync=""):
         KickstartCommand.__init__(self, writePriority)
-        self.driver = driver
+        self.card = card
         self.defaultdesktop = defaultdesktop
         self.depth = depth
+        self.hsync = hsync
+        self.monitor = monitor
+        self.noProbe = noProbe
         self.resolution = resolution
+        self.server = server
         self.startX = startX
         self.videoRam = videoRam
+        self.vsync = vsync
 
     def __str__(self):
         retval = ""
 
-        if self.driver != "":
-            retval += " --driver=%s" % self.driver
+        if self.card != "":
+            retval += " --card=%s" % self.card
         if self.defaultdesktop != "":
             retval += " --defaultdesktop=%s" % self.defaultdesktop
         if self.depth != 0:
             retval += " --depth=%d" % self.depth
+        if self.hsync != "":
+            retval += " --hsync=%s" % self.hsync
+        if self.monitor != "":
+            retval += " --monitor=%s" % self.monitor
+        if self.noProbe:
+            retval += " --noprobe"
         if self.resolution != "":
             retval += " --resolution=%s" % self.resolution
+        if self.server != "":
+            retval += " --server=%s" % self.server
         if self.startX:
             retval += " --startxonboot"
         if self.videoRam != "":
             retval += " --videoram=%s" % self.videoRam
+        if self.vsync != "":
+            retval += " --vsync=%s" % self.vsync
 
         if retval != "":
             retval = "# X Window System configuration information\nxconfig %s\n" % retval
@@ -1343,19 +1330,19 @@ class CommandXConfig(KickstartCommand):
 
     def parse(self, args):
         op = KSOptionParser(self.lineno)
-        op.add_option("--card", deprecated=1)
-        op.add_option("--driver", dest="driver")
-        op.add_option("--defaultdesktop", dest="defaultdesktop")
-        op.add_option("--depth", dest="depth", action="store", type="int",
-                      nargs=1)
-        op.add_option("--hsync", deprecated=1)
-        op.add_option("--monitor", deprecated=1)
-        op.add_option("--noprobe", deprecated=1)
-        op.add_option("--resolution", dest="resolution")
+        op.add_option("--card")
+        op.add_option("--defaultdesktop")
+        op.add_option("--depth", action="store", type="int", nargs=1)
+        op.add_option("--hsync")
+        op.add_option("--monitor")
+        op.add_option("--noprobe", dest="noProbe", action="store_true",
+                      default=False)
+        op.add_option("--resolution")
+        op.add_option("--server")
         op.add_option("--startxonboot", dest="startX", action="store_true",
                       default=False)
         op.add_option("--videoram", dest="videoRam")
-        op.add_option("--vsync", deprecated=1)
+        op.add_option("--vsync")
 
         (opts, extra) = op.parse_args(args=args)
         if extra:
@@ -1397,8 +1384,8 @@ class CommandZFCP(KickstartCommand):
         op = KSOptionParser(self.lineno)
         op.add_option("--devnum", dest="devnum", required=1)
         op.add_option("--fcplun", dest="fcplun", required=1)
-        op.add_option("--scsiid", dest="scsiid")
-        op.add_option("--scsilun", dest="scsilun")
+        op.add_option("--scsiid", dest="scsiid", required=1)
+        op.add_option("--scsilun", dest="scsilun", required=1)
         op.add_option("--wwpn", dest="wwpn", required=1)
 
         zd = KickstartZFCPData()
