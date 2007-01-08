@@ -1,3 +1,7 @@
+2007-01-08  Chris Lumens  <clumens@redhat.com>
+
+	* Merge from HEAD:  Updated translations.
+
 2007-01-03  Chris Lumens  <clumens@redhat.com>
 
 	* commands/base.py (BaseHandler.hasHandler):  Add a convenience method
