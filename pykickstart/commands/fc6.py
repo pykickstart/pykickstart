@@ -37,10 +37,15 @@ class FC6Handler(FC5Handler):
         self.registerHandler(CommandIscsiName(writePriority=71), ["iscsiname"])
         self.registerHandler(CommandKey(), ["key"])
         self.registerHandler(CommandLogging(), ["logging"])
+        self.registerHandler(CommandMonitor(), ["monitor"])
         self.registerHandler(CommandMultiPath(writePriority=50), ["multipath"])
+        self.registerHandler(CommandNetwork(), ["network"])
+        self.registerHandler(CommandReboot(), ["halt", "poweroff", "reboot", "shutdown"])
         self.registerHandler(CommandRepo(), ["repo"])
         self.registerHandler(CommandServices(), ["services"])
         self.registerHandler(CommandUser(), ["user"])
+        self.registerHandler(CommandVnc(), ["vnc"])
+        self.registerHandler(CommandXConfig(), ["xconfig"])
 
 
 ###
@@ -110,6 +115,70 @@ class KickstartMultiPathData(BaseData):
             retval += "multipath --mpdev=%s %s\n" % (self.name, path.__str__())
 
         return retval
+
+class KickstartNetworkData(BaseData):
+    def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
+                 ethtool="", gateway="", hostname="", ip="", ipv4=True,
+                 ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
+                 notksdevice=False, onboot=True, wepkey=""):
+        BaseData.__init__(self)
+        self.bootProto = bootProto
+        self.dhcpclass = dhcpclass
+        self.device = device
+        self.essid = essid
+        self.ethtool = ethtool
+        self.gateway = gateway
+        self.hostname = hostname
+        self.ip = ip
+        self.ipv4 = ipv4
+        self.ipv6 = ipv6
+        self.mtu = mtu
+        self.nameserver = nameserver
+        self.netmask = netmask
+        self.nodns = nodns
+        self.notksdevice = notksdevice
+        self.onboot = onboot
+        self.wepkey = wepkey
+
+    def __str__(self):
+        retval = "network"
+
+        if self.bootProto != "":
+            retval += " --bootproto=%s" % self.bootProto
+        if self.dhcpclass != "":
+            retval += " --dhcpclass=%s" % self.dhcpclass
+        if self.device != "":
+            retval += " --device=%s" % self.device
+        if self.essid != "":
+            retval += " --essid=\"%s\"" % self.essid
+        if self.ethtool != "":
+            retval += " --ethtool=\"%s\"" % self.ethtool
+        if self.gateway != "":
+            retval += " --gateway=%s" % self.gateway
+        if self.hostname != "":
+            retval += " --hostname=%s" % self.hostname
+        if self.ip != "":
+            retval += " --ip=%s" % self.ip
+        if not self.ipv4:
+            retval += " --noipv4"
+        if not self.ipv6:
+            retval += " --noipv6"
+        if self.mtu != "":
+            retval += " --mtu=%s" % self.mtu
+        if self.nameserver != "":
+            retval += " --nameserver=%s" % self.nameserver
+        if self.netmask != "":
+            retval += " --netmask=%s" % self.netmask
+        if self.nodns:
+            retval += " --nodns"
+        if self.notksdevice:
+            retval += " --notksdevice"
+        if self.onboot:
+            retval += " --onboot=on"
+        if self.wepkey != "":
+            retval += " --wepkey=%s" % self.wepkey
+
+        return retval + "\n"
 
 class KickstartRepoData(BaseData):
     def __init__(self, baseurl="", mirrorlist="", name=""):
@@ -292,6 +361,48 @@ class CommandLogging(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
+class CommandMonitor(KickstartCommand):
+    def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
+                 vsync=""):
+        KickstartCommand.__init__(self, writePriority)
+        self.hsync = hsync
+        self.monitor = monitor
+        self.probe = probe
+        self.vsync = vsync
+
+    def __str__(self):
+        retval = "monitor"
+
+        if self.hsync != "":
+            retval += " --hsync=%s" % self.hsync
+        if self.monitor != "":
+            retval += " --monitor=\"%s\"" % self.monitor
+        if not self.probe:
+            retval += " --noprobe"
+        if self.vsync != "":
+            retval += " --vsync=%s" % self.vsync
+
+        if retval != "monitor":
+            return retval + "\n"
+        else:
+            return ""
+
+    def parse(self, args):
+        op = KSOptionParser(self.lineno)
+        op.add_option("--hsync", dest="hsync")
+        op.add_option("--monitor", dest="monitor")
+        op.add_option("--noprobe", dest="probe", action="store_false",
+                      default=True)
+        op.add_option("--vsync", dest="vsync")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if extra:
+            mapping = {"cmd": "monitor", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
+
+        self._setToSelf(op, opts)
+
 class CommandMultiPath(KickstartCommand):
     def __init__(self, writePriority=0, mpaths=[]):
         KickstartCommand.__init__(self, writePriority)
@@ -338,6 +449,88 @@ class CommandMultiPath(KickstartCommand):
 
     def add(self, newObj):
         self.mpaths.append(newObj)
+
+class CommandNetwork(KickstartCommand):
+    def __init__(self, writePriority=0, network=[]):
+        KickstartCommand.__init__(self, writePriority)
+        self.network = network
+
+    def __str__(self):
+        retval = ""
+
+        for nic in self.network:
+            retval += nic.__str__()
+
+        if retval != "":
+            return "# Network information\n" + retval
+        else:
+            return ""
+
+    def parse(self, args):
+        op = KSOptionParser(self.lineno)
+        op.add_option("--bootproto", dest="bootProto", default="dhcp",
+                      choices=["dhcp", "bootp", "static"])
+        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--device", dest="device")
+        op.add_option("--essid", dest="essid")
+        op.add_option("--ethtool", dest="ethtool")
+        op.add_option("--gateway", dest="gateway")
+        op.add_option("--hostname", dest="hostname")
+        op.add_option("--ip", dest="ip")
+        op.add_option("--noipv4", dest="ipv4", action="store_false",
+                      default=True)
+        op.add_option("--noipv6", dest="ipv6", action="store_false",
+                      default=True)
+        op.add_option("--mtu", dest="mtu")
+        op.add_option("--nameserver", dest="nameserver")
+        op.add_option("--netmask", dest="netmask")
+        op.add_option("--nodns", dest="nodns", action="store_true",
+                      default=False)
+        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
+                      default=False)
+        op.add_option("--onboot", dest="onboot", action="store",
+                      type="ksboolean")
+        op.add_option("--wepkey", dest="wepkey")
+
+        (opts, extra) = op.parse_args(args=args)
+        nd = KickstartNetworkData()
+        self._setToObj(op, opts, nd)
+        self.add(nd)
+
+    def add(self, newObj):
+        self.network.append(newObj)
+
+class CommandReboot(KickstartCommand):
+    def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
+        KickstartCommand.__init__(self, writePriority)
+        self.action = action
+        self.eject = eject
+
+    def __str__(self):
+        retval = ""
+
+        if self.action == KS_REBOOT:
+            retval = "# Reboot after installation\nreboot\n"
+        elif self.action == KS_SHUTDOWN:
+            retval = "# Shutdown after installation\nshutdown\n"
+
+        if self.eject:
+            retval += " --eject"
+
+        return retval
+
+    def parse(self, args):
+        if self.currentCmd == "reboot":
+            self.action = KS_REBOOT
+        else:
+            self.action = KS_SHUTDOWN
+
+        op = KSOptionParser(self.lineno)
+        op.add_option("--eject", dest="eject", action="store_true",
+                      default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
 
 class CommandRepo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=[]):
@@ -442,3 +635,100 @@ class CommandUser(KickstartCommand):
 
     def add(self, newObj):
         self.userList.append(newObj)
+
+class CommandVnc(KickstartCommand):
+    def __init__(self, writePriority=0, enabled=False, password="", host="",
+                 port=""):
+        KickstartCommand.__init__(self, writePriority)
+        self.enabled = enabled
+        self.password = password
+        self.host = host
+        self.port = port
+
+    def __str__(self):
+        if not self.enabled:
+            return ""
+
+        retval = "vnc --enabled %s" % self.host
+
+        if self.port != "":
+            retval += " --port=%s" % self.port
+        if self.password != "":
+            retval += " --password=%s" % self.password
+
+        return retval + "\n"
+
+    def parse(self, args):
+        def connect_cb (option, opt_str, value, parser):
+            cargs = value.split(":")
+            parser.values.ensure_value("host", cargs[0])
+
+            if len(cargs) > 1:
+                parser.values.ensure_value("port", cargs[1])
+
+        op = KSOptionParser(self.lineno)
+        op.add_option("--connect", action="callback", callback=connect_cb,
+                      nargs=1, type="string", deprecated=1)
+        op.add_option("--password", dest="password")
+        op.add_option("--host", dest="host")
+        op.add_option("--port", dest="port")
+
+        self.enabled = True
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
+
+class CommandXConfig(KickstartCommand):
+    def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
+                 resolution="", startX=False, videoRam=""):
+        KickstartCommand.__init__(self, writePriority)
+        self.driver = driver
+        self.defaultdesktop = defaultdesktop
+        self.depth = depth
+        self.resolution = resolution
+        self.startX = startX
+        self.videoRam = videoRam
+
+    def __str__(self):
+        retval = ""
+
+        if self.driver != "":
+            retval += " --driver=%s" % self.driver
+        if self.defaultdesktop != "":
+            retval += " --defaultdesktop=%s" % self.defaultdesktop
+        if self.depth != 0:
+            retval += " --depth=%d" % self.depth
+        if self.resolution != "":
+            retval += " --resolution=%s" % self.resolution
+        if self.startX:
+            retval += " --startxonboot"
+        if self.videoRam != "":
+            retval += " --videoram=%s" % self.videoRam
+
+        if retval != "":
+            retval = "# X Window System configuration information\nxconfig %s\n" % retval
+
+        return retval
+
+    def parse(self, args):
+        op = KSOptionParser(self.lineno)
+        op.add_option("--card", deprecated=1)
+        op.add_option("--driver", dest="driver")
+        op.add_option("--defaultdesktop", dest="defaultdesktop")
+        op.add_option("--depth", dest="depth", action="store", type="int",
+                      nargs=1)
+        op.add_option("--hsync", deprecated=1)
+        op.add_option("--monitor", deprecated=1)
+        op.add_option("--noprobe", deprecated=1)
+        op.add_option("--resolution", dest="resolution")
+        op.add_option("--startxonboot", dest="startX", action="store_true",
+                      default=False)
+        op.add_option("--videoram", dest="videoRam")
+        op.add_option("--vsync", deprecated=1)
+
+        (opts, extra) = op.parse_args(args=args)
+        if extra:
+            mapping = {"command": "xconfig", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s" % mapping))
+
+        self._setToSelf(op, opts)
