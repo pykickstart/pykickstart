@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"POT-Creation-Date: 2007-01-09 15:53-0500\n"
 "PO-Revision-Date: 2006-11-22 08:41+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../pykickstart/parser.py:46
+#: ../pykickstart/errors.py:43
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -33,17 +33,28 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/parser.py:48
+#: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Es gab ein Problem beim Lesen von Zeile %s der Kickstart-Datei"
 
-#: ../pykickstart/parser.py:105
+#: ../pykickstart/errors.py:97
+msgid "Unsupported version specified."
+msgstr ""
+
+#: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
 msgstr "Option %s ist erforderlich"
 
-#: ../pykickstart/parser.py:109
+#: ../pykickstart/options.py:80
+#, python-format
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:83
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -57,115 +68,43 @@ msgstr ""
 "Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um "
 "diese Option zu entfernen."
 
-#: ../pykickstart/parser.py:141
+#: ../pykickstart/options.py:86
+#, python-format
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 "Vorgeschriebene Bitschalter-Einstellung für die Option , die keinen Wert "
 "annimmt"
 
-#: ../pykickstart/parser.py:150
+#: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 
-#: ../pykickstart/parser.py:298
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Veralteter Befehl in Zeile %(lineno)s nicht beachten:  Der %(cmd)s Befehl "
-"wurde abgelehnt und hat keine Wirkung mehr.  Er wird vielleicht von "
-"zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren "
-"Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um "
-"diesen Befehl zu entfernen."
-
-#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
-#: ../pykickstart/parser.py:850
-#, python-format
-msgid "Command %s does not take any arguments"
-msgstr "Befehl %s nimmt keine Argumente an"
-
-#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Unerwartete Argumente für den %(command)s Befehl: %(options)s"
-
-#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
-#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
-#, python-format
-msgid "Command %s only takes one argument"
-msgstr "Befehl %s nimmt nur ein Argument an"
-
-#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
-#: ../pykickstart/parser.py:778
-#, python-format
-msgid "Mount point required for %s"
-msgstr "Einhängepunkt vorgeschrieben für %s"
-
-#: ../pykickstart/parser.py:558
-msgid "One of biospart or partition options must be specified."
-msgstr "Eine der Optionen Biospart oder Partition muss angegeben werden."
-
-#: ../pykickstart/parser.py:574
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Unerwartete Argumente für den %(cmd)s Befehl: %(options)s"
-
-#: ../pykickstart/parser.py:634
-#, python-format
-msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr ""
-"Laufwerk '%(device)s' wird bereits in multipath '%(multipathdev)s' verwendet"
-
-#: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"Nur entweder --baseurl oder --mirrorlist kann für den repo-Befehl ausgewählt "
-"werden."
-
-#: ../pykickstart/parser.py:732
-msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"Entweder --baseurl oder --mirrorlist muss für den repo-Befehl ausgewählt "
-"werden."
-
-#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr "Ein einzelnes Argument wird für den %s Befehl erwartet"
-
-#: ../pykickstart/parser.py:943
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-"Abgelehnte Option in Zeile %s nicht beachten:  Der zerombr-Befehl nimmt "
-"keine Optionen mehr an.  In zukünftigen Versionen wird das dann zu einem "
-"nicht behebbaren Fehler vom Kickstart führen. Bitte ändern Sie Ihre "
-"Kickstart-Datei, um jegliche Optionen zu entfernen."
-
-#: ../pykickstart/parser.py:1015
-#, python-format
-msgid "Unknown command: %s"
-msgstr "Unbekannter Befehl: %s"
-
-#: ../validator/ksvalidator:36
+#: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "nach erstem Fehler oder erster Warnung stoppen"
 
-#: ../validator/ksvalidator:39
+#: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "include-Dateien parsen wenn %include erscheint"
 
-#: ../validator/ksvalidator:62
+#: ../validator/ksvalidator:42
+msgid "version of kickstart syntax to validate against"
+msgstr ""
+
+#: ../validator/ksvalidator:56
+#, python-format
+msgid "The version %s is not supported by pykickstart"
+msgstr ""
+
+#: ../validator/ksvalidator:68
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -174,11 +113,73 @@ msgstr ""
 "Datei benutzt eine veraltete Option oder Befehl.\n"
 "%s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
 msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 
-#: ../validator/ksvalidator:71
+#: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
+#~ msgid ""
+#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+#~ "been deprecated and no longer has any effect.  It may be removed from "
+#~ "future releases, which will result in a fatal error from kickstart.  "
+#~ "Please modify your kickstart file to remove this command."
+#~ msgstr ""
+#~ "Veralteter Befehl in Zeile %(lineno)s nicht beachten:  Der %(cmd)s Befehl "
+#~ "wurde abgelehnt und hat keine Wirkung mehr.  Er wird vielleicht von "
+#~ "zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren "
+#~ "Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, "
+#~ "um diesen Befehl zu entfernen."
+
+#~ msgid "Command %s does not take any arguments"
+#~ msgstr "Befehl %s nimmt keine Argumente an"
+
+#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
+#~ msgstr "Unerwartete Argumente für den %(command)s Befehl: %(options)s"
+
+#~ msgid "Command %s only takes one argument"
+#~ msgstr "Befehl %s nimmt nur ein Argument an"
+
+#~ msgid "Mount point required for %s"
+#~ msgstr "Einhängepunkt vorgeschrieben für %s"
+
+#~ msgid "One of biospart or partition options must be specified."
+#~ msgstr "Eine der Optionen Biospart oder Partition muss angegeben werden."
+
+#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+#~ msgstr "Unerwartete Argumente für den %(cmd)s Befehl: %(options)s"
+
+#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+#~ msgstr ""
+#~ "Laufwerk '%(device)s' wird bereits in multipath '%(multipathdev)s' "
+#~ "verwendet"
+
+#~ msgid ""
+#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#~ msgstr ""
+#~ "Nur entweder --baseurl oder --mirrorlist kann für den repo-Befehl "
+#~ "ausgewählt werden."
+
+#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+#~ msgstr ""
+#~ "Entweder --baseurl oder --mirrorlist muss für den repo-Befehl ausgewählt "
+#~ "werden."
+
+#~ msgid "A single argument is expected for the %s command"
+#~ msgstr "Ein einzelnes Argument wird für den %s Befehl erwartet"
+
+#~ msgid ""
+#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
+#~ "takes any options.  In future releases, this will result in a fatal error "
+#~ "from kickstart.  Please modify your kickstart file to remove any options."
+#~ msgstr ""
+#~ "Abgelehnte Option in Zeile %s nicht beachten:  Der zerombr-Befehl nimmt "
+#~ "keine Optionen mehr an.  In zukünftigen Versionen wird das dann zu einem "
+#~ "nicht behebbaren Fehler vom Kickstart führen. Bitte ändern Sie Ihre "
+#~ "Kickstart-Datei, um jegliche Optionen zu entfernen."
+
+#~ msgid "Unknown command: %s"
+#~ msgstr "Unbekannter Befehl: %s"

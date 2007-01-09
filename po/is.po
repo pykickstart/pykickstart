@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
-"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
-"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-01-09 15:53-0500\n"
 "PO-Revision-Date: 2006-12-08 01:22+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/parser.py:46
+#: ../pykickstart/errors.py:43
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -26,17 +26,28 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/parser.py:48
+#: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Það kom upp villa við að lesa úr línu %s í hraðuppsetningarskránni"
 
-#: ../pykickstart/parser.py:105
+#: ../pykickstart/errors.py:97
+msgid "Unsupported version specified."
+msgstr ""
+
+#: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
 msgstr "Rofann %s vantar"
 
-#: ../pykickstart/parser.py:109
+#: ../pykickstart/options.py:80
+#, python-format
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:83
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -44,108 +55,46 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Hunsa úreltann rofa á línu %(lineno)s:  Rofinn %(option)s er nú úreltur "
-"og hefur ekki lengur nein áhrif.  Hann verður líkast til fjarlægður í "
-"næstu útgáfum sem verður til þess að villa kemur upp í hraðuppsetningum."
-"Vinsamlega breyttu hraðuppsetningaskránum þínum og fjarlægðu þennan rofa."
+"Hunsa úreltann rofa á línu %(lineno)s:  Rofinn %(option)s er nú úreltur og "
+"hefur ekki lengur nein áhrif.  Hann verður líkast til fjarlægður í næstu "
+"útgáfum sem verður til þess að villa kemur upp í hraðuppsetningum.Vinsamlega "
+"breyttu hraðuppsetningaskránum þínum og fjarlægðu þennan rofa."
 
-#: ../pykickstart/parser.py:141
+#: ../pykickstart/options.py:86
+#, python-format
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/parser.py:150
+#: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/parser.py:298
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-
-#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
-#: ../pykickstart/parser.py:850
-#, python-format
-msgid "Command %s does not take any arguments"
-msgstr "Skipunin %s tekur engin viðföng"
-
-#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "Viðföngum ofaukið við skipunina %(command)s: %(options)s"
-
-#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
-#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
-#, python-format
-msgid "Command %s only takes one argument"
-msgstr "Skipunin %s tekur einungis eitt viðfang"
-
-#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
-#: ../pykickstart/parser.py:778
-#, python-format
-msgid "Mount point required for %s"
-msgstr "Tengipunkt vantar fyrir %s"
-
-#: ../pykickstart/parser.py:558
-msgid "One of biospart or partition options must be specified."
-msgstr "Annað hvort biospart eða partition rofinn verður að vera til staðar."
-
-#: ../pykickstart/parser.py:574
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "Viðföngum ofaukið við skipunina %(cmd)s: %(options)s"
-
-#: ../pykickstart/parser.py:634
-#, python-format
-msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "Tækið '%(device)' er þegar í notkun í fjölslóðatækinu '%(multipathdev)s'"
-
-#: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"Ekki má gefa upp bæði --baseurl og --mirrorlist skipanirnar."
-
-#: ../pykickstart/parser.py:732
-msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "Annað hvort --baseurl eða --mirrorlist verður að vera til staðar"
-
-#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr "Eitt viðfang á að vera til staðar fyrir %s skipunina"
-
-#: ../pykickstart/parser.py:943
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-"Hunsa úreltann rofa á línu %s:  zerombr skipunin tekur ekki lengur nein "
-"viðföng.  Í framtíðinni verður þetta að banvænni villu í hraðuppsetningum."
-"Vinsamlega breyttu hraðuppsetningaskrám þínum og fjarlægðu alla rofa."
-
-#: ../pykickstart/parser.py:1015
-#, python-format
-msgid "Unknown command: %s"
-msgstr "Óþekkt skipun: %s"
-
-#: ../validator/ksvalidator:36
+#: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "stöðva eftir fyrstu villu eða viðvörun"
 
-#: ../validator/ksvalidator:39
+#: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "þáttun innifelur skrár meðan %include er til staðar"
 
-#: ../validator/ksvalidator:62
+#: ../validator/ksvalidator:42
+msgid "version of kickstart syntax to validate against"
+msgstr ""
+
+#: ../validator/ksvalidator:56
+#, python-format
+msgid "The version %s is not supported by pykickstart"
+msgstr ""
+
+#: ../validator/ksvalidator:68
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -154,11 +103,56 @@ msgstr ""
 "Skráin inniheldur úreltann rofa eða skipun.\n"
 "%s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
 msgstr "Almenn hraðuppsetningarvilla í ílagsskrá"
 
-#: ../validator/ksvalidator:71
+#: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Almenn villa í ílagsskrá:  %s"
+
+#~ msgid "Command %s does not take any arguments"
+#~ msgstr "Skipunin %s tekur engin viðföng"
+
+#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
+#~ msgstr "Viðföngum ofaukið við skipunina %(command)s: %(options)s"
+
+#~ msgid "Command %s only takes one argument"
+#~ msgstr "Skipunin %s tekur einungis eitt viðfang"
+
+#~ msgid "Mount point required for %s"
+#~ msgstr "Tengipunkt vantar fyrir %s"
+
+#~ msgid "One of biospart or partition options must be specified."
+#~ msgstr ""
+#~ "Annað hvort biospart eða partition rofinn verður að vera til staðar."
+
+#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+#~ msgstr "Viðföngum ofaukið við skipunina %(cmd)s: %(options)s"
+
+#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+#~ msgstr ""
+#~ "Tækið '%(device)' er þegar í notkun í fjölslóðatækinu '%(multipathdev)s'"
+
+#~ msgid ""
+#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#~ msgstr "Ekki má gefa upp bæði --baseurl og --mirrorlist skipanirnar."
+
+#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+#~ msgstr "Annað hvort --baseurl eða --mirrorlist verður að vera til staðar"
+
+#~ msgid "A single argument is expected for the %s command"
+#~ msgstr "Eitt viðfang á að vera til staðar fyrir %s skipunina"
+
+#~ msgid ""
+#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
+#~ "takes any options.  In future releases, this will result in a fatal error "
+#~ "from kickstart.  Please modify your kickstart file to remove any options."
+#~ msgstr ""
+#~ "Hunsa úreltann rofa á línu %s:  zerombr skipunin tekur ekki lengur nein "
+#~ "viðföng.  Í framtíðinni verður þetta að banvænni villu í hraðuppsetningum."
+#~ "Vinsamlega breyttu hraðuppsetningaskrám þínum og fjarlægðu alla rofa."
+
+#~ msgid "Unknown command: %s"
+#~ msgstr "Óþekkt skipun: %s"

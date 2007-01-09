@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"POT-Creation-Date: 2007-01-09 15:53-0500\n"
 "PO-Revision-Date: 2006-11-22 14:12+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/parser.py:46
+#: ../pykickstart/errors.py:43
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -33,17 +33,28 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/parser.py:48
+#: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "କିକଷ୍ଟାର୍ଟ ଫାଇଲ ର %s ଲାଇନ ରେ ପଢିବା ସମୟ ରେ ତୃଟି"
 
-#: ../pykickstart/parser.py:105
+#: ../pykickstart/errors.py:97
+msgid "Unsupported version specified."
+msgstr ""
+
+#: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
 msgstr "%s ପସନ୍ଦ ଟି ଆବଶ୍ଯକ"
 
-#: ../pykickstart/parser.py:109
+#: ../pykickstart/options.py:80
+#, python-format
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:83
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -56,109 +67,41 @@ msgstr ""
 "କିକଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେଏହି ପସନ୍ଦକୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ "
 "ଫାଇଲକୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
 
-#: ../pykickstart/parser.py:141
+#: ../pykickstart/options.py:86
+#, python-format
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ୍ଯ ଗ୍ରହଣ କରନ୍ତି ନାହିଁ ତାଙ୍କ ପାଇଁ ବିଶେଷ ସୂଚକ ସେଟ କରିବା ଆବଶ୍ଯକ"
 
-#: ../pykickstart/parser.py:150
+#: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ପସନ୍ଦ %(opt)s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %(value)r"
 
-#: ../pykickstart/parser.py:298
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"%(lineno)s ଲାଇନରେ ଥିବା ଅଦରକାରି ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %(cmd)s ନିର୍ଦ୍ଦେଶଟି ଅଦରକାରି ହୋଇ "
-"ଆସୁଅଛିଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ "
-"ତୃଟି ସୃଷ୍ଟି କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
-
-#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
-#: ../pykickstart/parser.py:850
-#, python-format
-msgid "Command %s does not take any arguments"
-msgstr "%s ନିର୍ଦ୍ଦେଶ ଟି କୌଣସି ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁନାହିଁ"
-
-#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "%(command)s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %(options)s"
-
-#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
-#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
-#, python-format
-msgid "Command %s only takes one argument"
-msgstr "କେବଳ %s ନିର୍ଦ୍ଦେଶ ଟି ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁଅଛି"
-
-#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
-#: ../pykickstart/parser.py:778
-#, python-format
-msgid "Mount point required for %s"
-msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚକ ଆବଶ୍ଯକ"
-
-#: ../pykickstart/parser.py:558
-msgid "One of biospart or partition options must be specified."
-msgstr "ଗୋଟିଏ bios ଅଂଶ କିମ୍ବା ବିଭାଜନ ବିକଳ୍ପ ଉଲ୍ଲେଖ କରାଯିବା ଉଚିତ।"
-
-#: ../pykickstart/parser.py:574
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "%(cmd)s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %(options)s"
-
-#: ../pykickstart/parser.py:634
-#, python-format
-msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "'%(device)s' ଯନ୍ତ୍ରଟି ପୂର୍ବରୁ '%(multipathdev)s' ବହୁପଥ ଦ୍ବାରା ବ୍ଯବହୃତ ହେଉଛି"
-
-#: ../pykickstart/parser.py:729
-msgid ""
-"Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr ""
-"--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେଖିତ "
-"କରାଯିବା ଉଚିତ।"
-
-#: ../pykickstart/parser.py:732
-msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr ""
-"--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ "
-"କରାଯିବା ଉଚିତ।"
-
-#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର ଆଶା କରାଯାଉ ଥିଲା"
-
-#: ../pykickstart/parser.py:943
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-"%s ଲାଇନ ରେ ଥିବା ଅଦରକାରି ପସନ୍ଦ କୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: zerombr ନିର୍ଦ୍ଦେଶ ଟି ଏବେ କୌଣସି ପସନ୍ଦ କୁ "
-"ଗ୍ରହଣ କରୁନାହିଁ। ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ, ଏହା କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି "
-"କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
-
-#: ../pykickstart/parser.py:1015
-#, python-format
-msgid "Unknown command: %s"
-msgstr "ଅଜଣା ନିର୍ଦ୍ଦେଶ: %s"
-
-#: ../validator/ksvalidator:36
+#: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "ସର୍ବପ୍ରଥମ ତୃଟି କିମ୍ବା ଚେତାବନୀ ପରେ କିଛି କ୍ଷଣ ବିରାମ ଦିଅ"
 
-#: ../validator/ksvalidator:39
+#: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include ଦେଖାଗଲା ବେଳେ ଅନ୍ତର୍ବେଶିତ ଫାଇଲ ମାନଙ୍କ ବିଶ୍ଳେଷଣ କର"
 
-#: ../validator/ksvalidator:62
+#: ../validator/ksvalidator:42
+msgid "version of kickstart syntax to validate against"
+msgstr ""
+
+#: ../validator/ksvalidator:56
+#, python-format
+msgid "The version %s is not supported by pykickstart"
+msgstr ""
+
+#: ../validator/ksvalidator:68
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -167,11 +110,69 @@ msgstr ""
 "ଫାଇଲ ଟି ଗୋଟିଏ ଅଦରକାରି ପସନ୍ଦ କିମ୍ବା ନିର୍ଦ୍ଦେଶ କୁ ବ୍ଯବହାର କରୁଅଛି। \n"
 "%s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍ଟାର୍ଟ ତୃଟି"
 
-#: ../validator/ksvalidator:71
+#: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତୃଟି:  %s"
+
+#~ msgid ""
+#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+#~ "been deprecated and no longer has any effect.  It may be removed from "
+#~ "future releases, which will result in a fatal error from kickstart.  "
+#~ "Please modify your kickstart file to remove this command."
+#~ msgstr ""
+#~ "%(lineno)s ଲାଇନରେ ଥିବା ଅଦରକାରି ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %(cmd)s ନିର୍ଦ୍ଦେଶଟି ଅଦରକାରି ହୋଇ "
+#~ "ଆସୁଅଛିଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ "
+#~ "ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ "
+#~ "ରୂପାନ୍ତର କରନ୍ତୁ।"
+
+#~ msgid "Command %s does not take any arguments"
+#~ msgstr "%s ନିର୍ଦ୍ଦେଶ ଟି କୌଣସି ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁନାହିଁ"
+
+#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
+#~ msgstr "%(command)s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %(options)s"
+
+#~ msgid "Command %s only takes one argument"
+#~ msgstr "କେବଳ %s ନିର୍ଦ୍ଦେଶ ଟି ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର କୁ ଗ୍ରହଣ କରୁଅଛି"
+
+#~ msgid "Mount point required for %s"
+#~ msgstr "%s ପାଇଁ ସ୍ଥାପନ ସୂଚକ ଆବଶ୍ଯକ"
+
+#~ msgid "One of biospart or partition options must be specified."
+#~ msgstr "ଗୋଟିଏ bios ଅଂଶ କିମ୍ବା ବିଭାଜନ ବିକଳ୍ପ ଉଲ୍ଲେଖ କରାଯିବା ଉଚିତ।"
+
+#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+#~ msgstr "%(cmd)s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଅପ୍ରତ୍ଯାଶିତ ସ୍ବତନ୍ତ୍ରଚର: %(options)s"
+
+#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+#~ msgstr "'%(device)s' ଯନ୍ତ୍ରଟି ପୂର୍ବରୁ '%(multipathdev)s' ବହୁପଥ ଦ୍ବାରା ବ୍ଯବହୃତ ହେଉଛି"
+
+#~ msgid ""
+#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#~ msgstr ""
+#~ "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ କେବଳ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ "
+#~ "ଉଲ୍ଲେଖିତ କରାଯିବା ଉଚିତ।"
+
+#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+#~ msgstr ""
+#~ "--baseurl ଏବଂ --mirrorlist ମାନଙ୍କ ମଦ୍ଧ୍ଯରୁ ଗୋଟିଏ ପସନ୍ଦ କୁ ରିପୋ ସନ୍ଦେଶ ପାଇଁ ଉଲ୍ଲେକ୍ଷିତ "
+#~ "କରାଯିବା ଉଚିତ।"
+
+#~ msgid "A single argument is expected for the %s command"
+#~ msgstr "%s ନିର୍ଦ୍ଦେଶ ପାଇଁ ଗୋଟିଏ ସ୍ବତନ୍ତ୍ରଚର ଆଶା କରାଯାଉ ଥିଲା"
+
+#~ msgid ""
+#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
+#~ "takes any options.  In future releases, this will result in a fatal error "
+#~ "from kickstart.  Please modify your kickstart file to remove any options."
+#~ msgstr ""
+#~ "%s ଲାଇନ ରେ ଥିବା ଅଦରକାରି ପସନ୍ଦ କୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: zerombr ନିର୍ଦ୍ଦେଶ ଟି ଏବେ କୌଣସି ପସନ୍ଦ କୁ "
+#~ "ଗ୍ରହଣ କରୁନାହିଁ। ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କ ରେ, ଏହା କିକଷ୍ଟାର୍ଟ ରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି "
+#~ "କରିପାରେଏହି ପସନ୍ଦ ଟି କୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ ଫାଇଲ କୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
+
+#~ msgid "Unknown command: %s"
+#~ msgstr "ଅଜଣା ନିର୍ଦ୍ଦେଶ: %s"

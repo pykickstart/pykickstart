@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"POT-Creation-Date: 2007-01-09 15:53-0500\n"
 "PO-Revision-Date: 2006-11-30 11:32+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
@@ -15,12 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
 
-#: ../pykickstart/parser.py:46
+#: ../pykickstart/errors.py:43
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -31,17 +32,28 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/parser.py:48
+#: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "கிக்ஸ்டார்ட் கோப்பின் வரி %sல் வாசிக்கும் போது சிக்கல் உள்ளது"
 
-#: ../pykickstart/parser.py:105
+#: ../pykickstart/errors.py:97
+msgid "Unsupported version specified."
+msgstr ""
+
+#: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
 msgstr "விருப்பம் %s தேவைப்படுகிறது"
 
-#: ../pykickstart/parser.py:109
+#: ../pykickstart/options.py:80
+#, python-format
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:83
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -54,105 +66,41 @@ msgstr ""
 "நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் "
 "கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
-#: ../pykickstart/parser.py:141
+#: ../pykickstart/options.py:86
+#, python-format
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+
+#: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr "ஒரு மதிப்பினை ஏற்காத விருப்பத்திற்கு கொடி அமைவு தேவைப்படுகிறது"
 
-#: ../pykickstart/parser.py:150
+#: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "விருப்பம் %(opt)s: தவறான பூலியன் மதிப்பு: %(value)r"
 
-#: ../pykickstart/parser.py:298
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"%(lineno)s: வரியில் எதிரிடையான கட்டளையை நிராகரிக்கிறது: %(cmd)s கட்டளை "
-"எதிரிடையாகவும் ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
-"நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் "
-"கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
-
-#: ../pykickstart/parser.py:305 ../pykickstart/parser.py:428
-#: ../pykickstart/parser.py:530 ../pykickstart/parser.py:832
-#: ../pykickstart/parser.py:850
-#, python-format
-msgid "Command %s does not take any arguments"
-msgstr "கட்டளை %s எந்த மதிப்புகளையும் எடுத்துக்கொள்ளாது"
-
-#: ../pykickstart/parser.py:446 ../pykickstart/parser.py:937
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr "%(command)s கட்டளைக்கு எதிர்பாராத மதிப்புரு: %(options)s"
-
-#: ../pykickstart/parser.py:454 ../pykickstart/parser.py:459
-#: ../pykickstart/parser.py:468 ../pykickstart/parser.py:474
-#, python-format
-msgid "Command %s only takes one argument"
-msgstr "கட்டளை %s ஒரு மதிப்பினை மட்டுமே எடுத்துக்கொள்ளும்"
-
-#: ../pykickstart/parser.py:511 ../pykickstart/parser.py:698
-#: ../pykickstart/parser.py:778
-#, python-format
-msgid "Mount point required for %s"
-msgstr "ஏற்றப்புள்ளி %sக்கு தேவைப்படுகிறது"
-
-#: ../pykickstart/parser.py:558
-msgid "One of biospart or partition options must be specified."
-msgstr "biospart அல்லது பகிர்வு விருப்பங்கள் குறிப்பிடப்பட வேண்டும்."
-
-#: ../pykickstart/parser.py:574
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr "%(cmd)s கட்டளைக்கு எதிர்பாராத மதிப்பு: %(options)s"
-
-#: ../pykickstart/parser.py:634
-#, python-format
-msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-msgstr "சாதனம் '%(device)s' ஏற்கனவே பல பாதை '%(multipathdev)s' இல் பயன்படுத்தப்படுகிறது"
-
-#: ../pykickstart/parser.py:729
-msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
-msgstr "--baseurl மற்றும் --mirrorlistஇல் ஒன்று மட்டும் repo கட்டளைக்கு குறிப்பிடப்படலாம்."
-
-#: ../pykickstart/parser.py:732
-msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-msgstr "--baseurl மற்றும் --mirrorlist இல் ஒன்று repo கட்டளைக்கு குறிப்பிடப்பட வேண்டும்."
-
-#: ../pykickstart/parser.py:800 ../pykickstart/parser.py:844
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr "ஒரு ஒற்றை மதிப்பு %s கட்டளைக்கு தேவைப்படுகிறது."
-
-#: ../pykickstart/parser.py:943
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-"%s வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: zerombr கட்டளை ஒருபோதும் எந்த "
-"விருப்பத்தையும் ஏற்காது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் "
-"முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
-
-#: ../pykickstart/parser.py:1015
-#, python-format
-msgid "Unknown command: %s"
-msgstr "தெரியாத கட்டளை: %s"
-
-#: ../validator/ksvalidator:36
+#: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "முதல் பிழை அல்லது எச்சரிக்கைக்கு பின் நிறுத்தவும்"
 
-#: ../validator/ksvalidator:39
+#: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include தெரிந்தால் பகுத்தல் கோப்புகளை சேர்க்கிறது"
 
-#: ../validator/ksvalidator:62
+#: ../validator/ksvalidator:42
+msgid "version of kickstart syntax to validate against"
+msgstr ""
+
+#: ../validator/ksvalidator:56
+#, python-format
+msgid "The version %s is not supported by pykickstart"
+msgstr ""
+
+#: ../validator/ksvalidator:68
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -161,12 +109,69 @@ msgstr ""
 "கோப்பு எதிரிடையான விருப்பம் அல்லது கட்டளை பயன்படுத்துகிறது.\n"
 "%s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
 msgstr "உள்ளீடு கோப்பில் பொதுவான கிக்ஸ்டார்ட் பிழை"
 
-#: ../validator/ksvalidator:71
+#: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
 
+#~ msgid ""
+#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+#~ "been deprecated and no longer has any effect.  It may be removed from "
+#~ "future releases, which will result in a fatal error from kickstart.  "
+#~ "Please modify your kickstart file to remove this command."
+#~ msgstr ""
+#~ "%(lineno)s: வரியில் எதிரிடையான கட்டளையை நிராகரிக்கிறது: %(cmd)s கட்டளை "
+#~ "எதிரிடையாகவும் ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
+#~ "நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க "
+#~ "உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
+
+#~ msgid "Command %s does not take any arguments"
+#~ msgstr "கட்டளை %s எந்த மதிப்புகளையும் எடுத்துக்கொள்ளாது"
+
+#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
+#~ msgstr "%(command)s கட்டளைக்கு எதிர்பாராத மதிப்புரு: %(options)s"
+
+#~ msgid "Command %s only takes one argument"
+#~ msgstr "கட்டளை %s ஒரு மதிப்பினை மட்டுமே எடுத்துக்கொள்ளும்"
+
+#~ msgid "Mount point required for %s"
+#~ msgstr "ஏற்றப்புள்ளி %sக்கு தேவைப்படுகிறது"
+
+#~ msgid "One of biospart or partition options must be specified."
+#~ msgstr "biospart அல்லது பகிர்வு விருப்பங்கள் குறிப்பிடப்பட வேண்டும்."
+
+#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+#~ msgstr "%(cmd)s கட்டளைக்கு எதிர்பாராத மதிப்பு: %(options)s"
+
+#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+#~ msgstr ""
+#~ "சாதனம் '%(device)s' ஏற்கனவே பல பாதை '%(multipathdev)s' இல் பயன்படுத்தப்படுகிறது"
+
+#~ msgid ""
+#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
+#~ msgstr ""
+#~ "--baseurl மற்றும் --mirrorlistஇல் ஒன்று மட்டும் repo கட்டளைக்கு குறிப்பிடப்படலாம்."
+
+#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+#~ msgstr ""
+#~ "--baseurl மற்றும் --mirrorlist இல் ஒன்று repo கட்டளைக்கு குறிப்பிடப்பட வேண்டும்."
+
+#~ msgid "A single argument is expected for the %s command"
+#~ msgstr "ஒரு ஒற்றை மதிப்பு %s கட்டளைக்கு தேவைப்படுகிறது."
+
+#~ msgid ""
+#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
+#~ "takes any options.  In future releases, this will result in a fatal error "
+#~ "from kickstart.  Please modify your kickstart file to remove any options."
+#~ msgstr ""
+#~ "%s வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: zerombr கட்டளை ஒருபோதும் எந்த "
+#~ "விருப்பத்தையும் ஏற்காது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், இது "
+#~ "கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் கிக்ஸ்டார்ட் "
+#~ "கோப்பினை மாற்றவும்."
+
+#~ msgid "Unknown command: %s"
+#~ msgstr "தெரியாத கட்டளை: %s"
