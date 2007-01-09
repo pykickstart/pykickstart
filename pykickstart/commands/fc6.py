@@ -28,9 +28,9 @@ from fc5 import *
 ###
 ### DISPATCHER
 ###
-class FC6Handler(FC5Handler):
+class FC6Version(FC5Version):
     def __init__(self):
-        FC5Handler.__init__(self)
+        FC5Version.__init__(self)
 
         self.registerHandler(CommandDmRaid(writePriority=60), ["dmraid"])
         self.registerHandler(CommandIscsi(writePriority=70), ["iscsi"])

@@ -27,7 +27,7 @@ This module also exports several functions:
                             handler class.  This does not return an
                             instance of that class, however.
 
-    makeHandler - Given a version number, return an instance of the
+    makeVersion - Given a version number, return an instance of the
                   matching handler class.
 """
 from pykickstart.errors import KickstartVersionError
@@ -66,20 +66,20 @@ def returnClassForVersion(version):
         version = stringToVersion(version)
 
     if version == FC4:
-        from pykickstart.commands.fc4 import FC4Handler
-        return FC4Handler
+        from pykickstart.commands.fc4 import FC4Version
+        return FC4Version
     elif version == FC5:
-        from pykickstart.commands.fc5 import FC5Handler
-        return FC5Handler
+        from pykickstart.commands.fc5 import FC5Version
+        return FC5Version
     elif version == FC6:
-        from pykickstart.commands.fc6 import FC6Handler
-        return FC6Handler
+        from pykickstart.commands.fc6 import FC6Version
+        return FC6Version
     else:
         raise KickstartVersionError(version)
 
 # Given a version of the kickstart syntax, this function imports the correct
 # handler for that version and returns an instance of it.
-def makeHandler(version):
+def makeVersion(version):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of

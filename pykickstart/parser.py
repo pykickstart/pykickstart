@@ -55,7 +55,7 @@ class Script:
        just a data representation is needed (for example, a run method in
        anaconda), Script may be subclassed.  Although a run method is not
        provided, most of the attributes of Script have to do with running the
-       script.  Instances of Script are held in a list by the Handler object.
+       script.  Instances of Script are held in a list by the Version object.
     """
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
                  logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
@@ -186,7 +186,7 @@ class KickstartParser:
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
-           kshandlers            -- An instance of a BaseHandler subclass.  If
+           kshandlers            -- An instance of a BaseVersion subclass.  If
                                     None, the input file will still be parsed
                                     but no data will be saved and no command
                                     handlers will be executed.
@@ -209,7 +209,7 @@ class KickstartParser:
         self._includeDepth = 0
 
     def addScript (self):
-        """Create a new Script instance and add it to the Handler object.  This
+        """Create a new Script instance and add it to the Version object.  This
            is called when the end of a script section is seen and may be
            overridden in a subclass if necessary.
         """
@@ -224,7 +224,7 @@ class KickstartParser:
             self.kshandlers.scripts.append(s)
 
     def addPackages (self, line):
-        """Add the single package, exclude, or group into the Handler's
+        """Add the single package, exclude, or group into the Version's
            Packages instance.  This method may be overridden in a subclass
            if necessary.
         """
@@ -232,7 +232,7 @@ class KickstartParser:
             self.kshandlers.packages.add([line])
 
     def handleCommand (self, lineno, args):
-        """Given the list of command and arguments, call the Handler's
+        """Given the list of command and arguments, call the Version's
            dispatcher method to handle the command.  This method may be
            overridden in a subclass if necessary.
         """
@@ -241,7 +241,7 @@ class KickstartParser:
 
     def handlePackageHdr (self, lineno, args):
         """Process the arguments to the %packages header and set attributes
-           on the Handler's Packages instance appropriate.  This method may be
+           on the Version's Packages instance appropriate.  This method may be
            overridden in a subclass if necessary.
         """
         op = KSOptionParser(lineno=lineno)

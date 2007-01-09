@@ -17,7 +17,7 @@ This module exports several important base classes:
 
     BaseData - The base abstract class for all data objects.
 
-    BaseHandler - The base abstract class from which versioned kickstart
+    BaseVersion - The base abstract class from which versioned kickstart
                   syntax handlers are derived.
 
     DeprecatedCommand - A concrete subclass of KickstartCommand that should
@@ -125,15 +125,15 @@ class DeprecatedCommand(KickstartCommand):
 ###
 ### HANDLERS
 ###
-class BaseHandler:
+class BaseVersion:
     """Each version of kickstart syntax is provided by a subclass of this
        class.  These subclasses are what users will interact with for parsing,
        extracting data, and writing out kickstart files.  This is an abstract
        class.
     """
     def __init__(self):
-        """Create a new BaseHandler instance.  This method must be provided by
-           all subclasses, but subclasses must call BaseHandler.__init__ first.
+        """Create a new BaseVersion instance.  This method must be provided by
+           all subclasses, but subclasses must call BaseVersion.__init__ first.
            Instance attributes:
 
            handlers -- A mapping from a string command to a KickstartCommand
@@ -152,8 +152,8 @@ class BaseHandler:
         """
 
         # We don't want people using this class by itself.
-        if self.__class__ is BaseHandler:
-            raise TypeError, "BaseHandler is an abstract class."
+        if self.__class__ is BaseVersion:
+            raise TypeError, "BaseVersion is an abstract class."
 
         self.handlers = {}
 
@@ -194,7 +194,7 @@ class BaseHandler:
         """Set up a mapping from each string command in cmdList to the instance
            of the KickstartCommand subclass object cmdObj.  Using a list of
            commands allows for aliasing commands to each other.  Also create a
-           new attribute on this BaseHandler subclass named
+           new attribute on this BaseVersion subclass named
            cmdObj.__class__.__name__ with a value of cmdObj.
            cmdObj.__class__.__name__ must begin with "Command".
         """

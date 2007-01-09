@@ -29,9 +29,9 @@ from base import *
 ###
 ### HANDLER/DISPATCHER
 ###
-class FC4Handler(BaseHandler):
+class FC4Version(BaseVersion):
     def __init__(self):
-        BaseHandler.__init__(self)
+        BaseVersion.__init__(self)
 
         self.registerHandler(CommandAuthconfig(), ["auth", "authconfig"])
         self.registerHandler(CommandAutoPart(writePriority=100), ["autopart"])

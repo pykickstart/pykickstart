@@ -29,9 +29,9 @@ from fc4 import *
 ###
 ### HANDLER/DISPATCHER
 ###
-class FC5Handler(FC4Handler):
+class FC5Version(FC4Version):
     def __init__(self):
-        FC4Handler.__init__(self)
+        FC4Version.__init__(self)
         self.registerHandler(CommandLangSupport(), ["langsupport"])
         self.registerHandler(CommandRaid(), ["raid"])
 

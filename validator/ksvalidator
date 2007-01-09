@@ -51,7 +51,7 @@ else:
     f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
 
 try:
-    handler = makeHandler(opts.version)
+    handler = makeVersion(opts.version)
 except KickstartVersionError:
     print _("The version %s is not supported by pykickstart" % opts.version)
     cleanup(destdir)

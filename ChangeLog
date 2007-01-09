@@ -1,5 +1,14 @@
 2007-01-09  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/*.py:  Rename everything from Handler to
+	Version, as that seems to make more sense.
+	* pykickstart/options.py:  Likewise.
+	* pykickstart/parser.py:  Likewise.
+	* pykickstart/version.py:  Likewise.
+	* ksvalidator/validator:  Likewise.
+
+2007-01-09  Chris Lumens  <clumens@redhat.com>
+
 	* Merge in multiversion-branch (#189348).
 
 2007-01-08  Chris Lumens  <clumens@redhat.com>
@@ -12,8 +21,8 @@
 
 	multiversion-branch:
 
-	* commands/base.py (BaseHandler.hasHandler):  Add a convenience method
-	to see if there's a handler for a given command.
+	* pykickstart/commands/base.py (BaseHandler.hasHandler):  Add a
+	convenience method to see if there's a handler for a given command.
 
 2006-12-22  Chris Lumens  <clumens@redhat.com>
 
