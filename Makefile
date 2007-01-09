@@ -12,7 +12,7 @@ all:
 	$(MAKE) -C po
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
