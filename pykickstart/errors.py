@@ -94,7 +94,7 @@ class KickstartVersionError(KickstartError):
            descriptive message val.  val should be the return value of
            formatErrorMsg.
         """
-        KickstartError.__init__(self, "Unsupported version specified; see version.py for now.")
+        KickstartError.__init__(self, _("Unsupported version specified."))
 
     def __str__ (self):
         return self.value

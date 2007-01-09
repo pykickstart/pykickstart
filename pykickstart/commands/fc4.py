@@ -1346,7 +1346,7 @@ class CommandXConfig(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         if extra:
             mapping = {"command": "xconfig", "options": extra}
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s" % mapping))
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         self._setToSelf(op, opts)
 
