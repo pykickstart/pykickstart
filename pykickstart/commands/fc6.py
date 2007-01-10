@@ -32,21 +32,21 @@ class FC6Version(FC5Version):
     def __init__(self):
         FC5Version.__init__(self)
 
-        self.registerHandler(CommandDmRaid(writePriority=60), ["dmraid"])
-        self.registerHandler(CommandIscsi(writePriority=70), ["iscsi"])
-        self.registerHandler(CommandIscsiName(writePriority=71), ["iscsiname"])
-        self.registerHandler(CommandKey(), ["key"])
-        self.registerHandler(CommandLogging(), ["logging"])
-        self.registerHandler(CommandMethod(), ["cdrom", "harddrive", "nfs", "url"])
-        self.registerHandler(CommandMonitor(), ["monitor"])
-        self.registerHandler(CommandMultiPath(writePriority=50), ["multipath"])
-        self.registerHandler(CommandNetwork(), ["network"])
-        self.registerHandler(CommandReboot(), ["halt", "poweroff", "reboot", "shutdown"])
-        self.registerHandler(CommandRepo(), ["repo"])
-        self.registerHandler(CommandServices(), ["services"])
-        self.registerHandler(CommandUser(), ["user"])
-        self.registerHandler(CommandVnc(), ["vnc"])
-        self.registerHandler(CommandXConfig(), ["xconfig"])
+        self.registerHandler(KSDmRaid(writePriority=60), ["dmraid"])
+        self.registerHandler(KSIscsi(writePriority=70), ["iscsi"])
+        self.registerHandler(KSIscsiName(writePriority=71), ["iscsiname"])
+        self.registerHandler(KSKey(), ["key"])
+        self.registerHandler(KSLogging(), ["logging"])
+        self.registerHandler(KSMethod(), ["cdrom", "harddrive", "nfs", "url"])
+        self.registerHandler(KSMonitor(), ["monitor"])
+        self.registerHandler(KSMultiPath(writePriority=50), ["multipath"])
+        self.registerHandler(KSNetwork(), ["network"])
+        self.registerHandler(KSReboot(), ["halt", "poweroff", "reboot", "shutdown"])
+        self.registerHandler(KSRepo(), ["repo"])
+        self.registerHandler(KSServices(), ["services"])
+        self.registerHandler(KSUser(), ["user"])
+        self.registerHandler(KSVnc(), ["vnc"])
+        self.registerHandler(KSXConfig(), ["xconfig"])
 
 
 ###
@@ -233,7 +233,7 @@ class KickstartUserData(BaseData):
 ### COMMAND CLASSES
 ###
 
-class CommandDmRaid(KickstartCommand):
+class KSDmRaid(KickstartCommand):
     def __init__(self, writePriority=0, dmraids=[]):
         KickstartCommand.__init__(self, writePriority)
         self.dmraids = dmraids
@@ -261,7 +261,7 @@ class CommandDmRaid(KickstartCommand):
     def add(self, newObj):
         self.dmraids.append(newObj)
 
-class CommandIscsi(KickstartCommand):
+class KSIscsi(KickstartCommand):
     def __init__(self, writePriority=0, iscsi=[]):
         KickstartCommand.__init__(self, writePriority)
         self.iscsi = iscsi
@@ -296,7 +296,7 @@ class CommandIscsi(KickstartCommand):
     def add(self, newObj):
         self.iscsi.append(newObj)
 
-class CommandIscsiName(KickstartCommand):
+class KSIscsiName(KickstartCommand):
     def __init__(self, writePriority=0, iscsiname=""):
         KickstartCommand.__init__(self, writePriority)
         self.iscsiname = iscsiname
@@ -312,7 +312,7 @@ class CommandIscsiName(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
         self.iscsiname = args[0]
 
-class CommandKey(KickstartCommand):
+class KSKey(KickstartCommand):
     def __init__(self, writePriority=0, key=""):
         KickstartCommand.__init__(self, writePriority)
         self.key = key
@@ -334,7 +334,7 @@ class CommandKey(KickstartCommand):
         else:
             self.key = args[0]
 
-class CommandLogging(KickstartCommand):
+class KSLogging(KickstartCommand):
     def __init__(self, writePriority=0, host="", level="info", port=""):
         KickstartCommand.__init__(self, writePriority)
         self.host = host
@@ -362,7 +362,7 @@ class CommandLogging(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
-class CommandMethod(KickstartCommand):
+class KSMethod(KickstartCommand):
     def __init__(self, writePriority=0, method=""):
         KickstartCommand.__init__(self, writePriority)
         self.method = method
@@ -416,7 +416,7 @@ class CommandMethod(KickstartCommand):
 
         self._setToSelf(op, opts)
 
-class CommandMonitor(KickstartCommand):
+class KSMonitor(KickstartCommand):
     def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
                  vsync=""):
         KickstartCommand.__init__(self, writePriority)
@@ -458,7 +458,7 @@ class CommandMonitor(KickstartCommand):
 
         self._setToSelf(op, opts)
 
-class CommandMultiPath(KickstartCommand):
+class KSMultiPath(KickstartCommand):
     def __init__(self, writePriority=0, mpaths=[]):
         KickstartCommand.__init__(self, writePriority)
         self.mpaths = mpaths
@@ -505,7 +505,7 @@ class CommandMultiPath(KickstartCommand):
     def add(self, newObj):
         self.mpaths.append(newObj)
 
-class CommandNetwork(KickstartCommand):
+class KSNetwork(KickstartCommand):
     def __init__(self, writePriority=0, network=[]):
         KickstartCommand.__init__(self, writePriority)
         self.network = network
@@ -555,7 +555,7 @@ class CommandNetwork(KickstartCommand):
     def add(self, newObj):
         self.network.append(newObj)
 
-class CommandReboot(KickstartCommand):
+class KSReboot(KickstartCommand):
     def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
         KickstartCommand.__init__(self, writePriority)
         self.action = action
@@ -587,7 +587,7 @@ class CommandReboot(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
-class CommandRepo(KickstartCommand):
+class KSRepo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=[]):
         KickstartCommand.__init__(self, writePriority)
         self.repoList = repoList
@@ -622,7 +622,7 @@ class CommandRepo(KickstartCommand):
     def add(self, newObj):
         self.repoList.append(newObj)
 
-class CommandServices(KickstartCommand):
+class KSServices(KickstartCommand):
     def __init__(self, writePriority=0, disabled=[], enabled=[]):
         KickstartCommand.__init__(self, writePriority)
         self.disabled = disabled
@@ -655,7 +655,7 @@ class CommandServices(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
-class CommandUser(KickstartCommand):
+class KSUser(KickstartCommand):
     def __init__(self, writePriority=0, userList=[]):
         KickstartCommand.__init__(self, writePriority)
         self.userList = userList
@@ -691,7 +691,7 @@ class CommandUser(KickstartCommand):
     def add(self, newObj):
         self.userList.append(newObj)
 
-class CommandVnc(KickstartCommand):
+class KSVnc(KickstartCommand):
     def __init__(self, writePriority=0, enabled=False, password="", host="",
                  port=""):
         KickstartCommand.__init__(self, writePriority)
@@ -733,7 +733,7 @@ class CommandVnc(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
-class CommandXConfig(KickstartCommand):
+class KSXConfig(KickstartCommand):
     def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
                  resolution="", startX=False, videoRam=""):
         KickstartCommand.__init__(self, writePriority)

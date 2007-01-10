@@ -2,6 +2,10 @@
 
 	* pykickstart/version.py (makeVersion):  Default to DEVEL.
 
+	* pykickstart/commands/fc4.py:  Command -> KS for brevity.
+	* pykickstart/commands/fc5.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+
 2007-01-09  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/po/*:  Updated translations.

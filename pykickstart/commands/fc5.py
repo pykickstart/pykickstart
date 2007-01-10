@@ -32,8 +32,8 @@ from fc4 import *
 class FC5Version(FC4Version):
     def __init__(self):
         FC4Version.__init__(self)
-        self.registerHandler(CommandLangSupport(), ["langsupport"])
-        self.registerHandler(CommandRaid(), ["raid"])
+        self.registerHandler(KSLangSupport(), ["langsupport"])
+        self.registerHandler(KSRaid(), ["raid"])
 
 
 ###
@@ -82,11 +82,11 @@ class KickstartRaidData(BaseData):
 ### COMMAND CLASSES
 ###
 
-class CommandLangSupport(DeprecatedCommand):
+class KSLangSupport(DeprecatedCommand):
     def __init__(self):
         DeprecatedCommand.__init__(self)
 
-class CommandRaid(KickstartCommand):
+class KSRaid(KickstartCommand):
     def __init__(self, writePriority=0, raidList=[]):
         KickstartCommand.__init__(self, writePriority)
         self.raidList = raidList
