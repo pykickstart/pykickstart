@@ -79,7 +79,7 @@ def returnClassForVersion(version):
 
 # Given a version of the kickstart syntax, this function imports the correct
 # handler for that version and returns an instance of it.
-def makeVersion(version):
+def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of
