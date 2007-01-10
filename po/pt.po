@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-22 10:20+0000\n"
+"PO-Revision-Date: 2007-01-10 15:37+0000\n"
 "Last-Translator: Jos Nuno Coelho Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -11,7 +11,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-POFile-SpellExtra: zerombr include kickstart mirrorlist baseurl opt\n"
 "X-POFile-SpellExtra: partition option cmd value device multipathdev\n"
-"X-POFile-SpellExtra: command lineno msg line options biospart\n"
+"X-POFile-SpellExtra: command lineno msg line options biospart pykickstart\n"
+"X-POFile-SpellExtra: removed intro version\n"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -31,7 +32,7 @@ msgstr "Ocorreu um problema ao ler da linha %s do ficheiro de 'kickstart'"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Foi indicada uma versão não suportada."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -43,7 +44,7 @@ msgstr "A opção %s é obrigatória"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "A opção %(option)s foi introduzida na versão %(intro)s, mas você está a usar a versão %(version)s da sintaxe"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -63,7 +64,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "A opção %(option)s foi removida na versão %(removed)s, mas você está a usar a versão %(version)s da sintaxe"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -85,12 +86,12 @@ msgstr "processar os ficheiros de inclusão quando aparecer o %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "a versão da sintaxe do 'kickstart' usada na validação"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "A versão %s não é suportada pelo 'pykickstart'"
 
 #: ../validator/ksvalidator:68
 #, python-format
