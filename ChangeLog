@@ -1,5 +1,17 @@
 2007-01-10  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/base.py (KickstartCommand.__init__):  Add a
+	dispatcher setting so command classes can still access data classes.
+	(BaseVersion.registerHandler):  Don't overwrite command classes with
+	an instance in the version object.
+
+	* pykickstart/commands/fc4.py:  Data and command classes are now
+	nested inside the version class.
+	* pykickstart/commands/fc5.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+
+2007-01-10  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/version.py (makeVersion):  Default to DEVEL.
 
 	* pykickstart/commands/fc4.py:  Command -> KS for brevity.

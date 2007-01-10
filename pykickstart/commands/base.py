@@ -64,6 +64,7 @@ class KickstartCommand:
 
         # These will be set by the dispatcher.
         self.currentCmd = ""
+        self.dispatcher = None
         self.lineno = 0
 
     def __call__(self, *args, **kwargs):
@@ -196,7 +197,6 @@ class BaseVersion:
            commands allows for aliasing commands to each other.  Also create a
            new attribute on this BaseVersion subclass named
            cmdObj.__class__.__name__ with a value of cmdObj.
-           cmdObj.__class__.__name__ must begin with "Command".
         """
 
         # First just add the new command handler object to the handler dict
@@ -204,11 +204,9 @@ class BaseVersion:
         for str in cmdList:
             self.handlers[str] = cmdObj
 
-        # Add an attribute on this command object as well.  We need this for
-        # the __str__ method to work correctly, as well as to provide a way
-        # for subclasses to set values on command handlers via their __call__
-        # methods.
-        setattr(self, cmdObj.__class__.__name__, cmdObj)
+        # Add an attribute on this version object as well.  We need this to
+        # provide a way for clients to access the command handlers.
+        setattr(self, cmdObj.__class__.__name__.lower(), cmdObj)
 
         # Also, add the object into the _writeOrder dict in the right place.
         if cmdObj.writePriority is not None:
@@ -245,6 +243,7 @@ class BaseVersion:
         else:
             if self.handlers[cmd] != None:
                 self.handlers[cmd].currentCmd = cmd
+                self.handlers[cmd].dispatcher = self
                 self.handlers[cmd].lineno = lineno
                 self.handlers[cmd].parse(cmdArgs)
 
