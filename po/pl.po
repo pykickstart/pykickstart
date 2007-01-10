@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-21 20:41+0200\n"
+"PO-Revision-Date: 2007-01-10 20:24+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr "Wystąpił problem podczas odczytywania z wiersza %s pliku kickstart"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Określono nieobsługiwaną wersję."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -44,6 +44,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Opcja %(option)s została wprowadzona w wersji %(intro)s, ale używasz wersji "
+"składni kickstart %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -64,6 +66,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Opcja %(option)s została usunięta w wersji %(removed)s, ale używasz wersji "
+"składni kickstart %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -85,12 +89,12 @@ msgstr "przeanalizuj pliki nagłówków, gdy zobaczysz %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "wersja składni kickstart, jaką sprawdzać"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Wersja %s nie jest obsługiwana przez pykickstart"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -109,64 +113,3 @@ msgstr "Ogólny błąd kickstart w pliku wejściowym"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Ogólny błąd kickstart w pliku wejściowym: %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Ignorowanie przestarzałego polecenia w wierszu %(lineno)s: polecenie %"
-#~ "(cmd)s jest przestarzałe i jego użycie nie powoduje żadnych zmian. Może "
-#~ "zostać usunięte z przyszłych wydań, co spowoduje krytyczny błąd "
-#~ "kickstartu. Zmodyfikuj swój plik kickstart, aby usunąć te polecenie."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Polecenie %s nie przyjmuje żadnych argumentów"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Nieoczekiwane argumenty dla polecenia %(command)s: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Polecenie %s przyjmuje tylko jeden argument"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Wymagany jest punk montowania dla %s"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "tylko  jedno z biospart lub opcji partycji musi być określone."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Nieoczekiwane argumenty dla polecenia %(cmd)s: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "Urządzenie \"%(device)s\" zostało już użyte w wielościeżce \"%"
-#~ "(multipathdev)s\""
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Tylko jedno z --baseurl i --mirrorlist może być określone dla polecenia "
-#~ "repozytorium."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Tylko jedno z --baseurl i --mirrorlist musi być określone dla polecenia "
-#~ "repozytorium."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Pojedynczy argument jest oczekiwany dla polecenia %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Ignorowanie przestarzałej opcji w wierszu %s: polecenie zerombr nie "
-#~ "przyjmuje już żadnych opcji. W przyszłych wydaniach spowoduje to "
-#~ "krytyczny błąd kickstartu. Zmodyfikuj swój plik kickstart, aby usunąć "
-#~ "wszystkie opcje."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Nieznane polecenie: %s"
