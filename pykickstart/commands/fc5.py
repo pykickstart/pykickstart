@@ -29,20 +29,15 @@ class FC5Version(FC4Version):
     ###
     ### DATA CLASSES
     ###
-    class RaidData(BaseData):
-        def __init__(self, device=None, fsopts="", fstype="", level="", format=True,
-                     spares=0, preexist=False, mountpoint="", members=[],
-                     bytesPerInode=4096):
-            BaseData.__init__(self)
-            self.device = device
-            self.fsopts = fsopts
-            self.fstype = fstype
-            self.level = level
-            self.format = format
-            self.spares = spares
-            self.preexist = preexist
-            self.mountpoint = mountpoint
-            self.members = members
+    class RaidData(FC4Version.RaidData):
+        def __init__(self, device=None, fsopts="", fstype="", level="",
+                     format=True, spares=0, preexist=False, mountpoint="",
+                     members=[], bytesPerInode=4096):
+            FC4Version.RaidData.__init__(self, device=device, fsopts=fsopts,
+                                         fstype=fstype, level=level,
+                                         format=format, spares=spares,
+                                         preexist=preexist,
+                                         mountpoint=mountpoint, members=members)
             self.bytesPerInode = bytesPerInode
 
         def __str__(self):
@@ -75,18 +70,12 @@ class FC5Version(FC4Version):
         def __init__(self):
             DeprecatedCommand.__init__(self)
 
-    class Raid(KickstartCommand):
+    class Raid(FC4Version.Raid):
         def __init__(self, writePriority=0, raidList=[]):
-            KickstartCommand.__init__(self, writePriority)
-            self.raidList = raidList
+            FC4Version.Raid.__init__(self, writePriority, raidList)
 
-        def __str__(self):
-            retval = ""
-
-            for raid in self.raidList:
-                retval += raid.__str__()
-
-            return retval
+        def reset(self):
+            self.raidList = []
 
         def parse(self, args):
             def raid_cb (option, opt_str, value, parser):
@@ -140,9 +129,6 @@ class FC5Version(FC4Version):
             rd.mountpoint = extra[0]
             rd.members = extra[1:]
             self.add(rd)
-
-        def add(self, newObj):
-            self.raidList.append(newObj)
 
     ##
     ## MAIN

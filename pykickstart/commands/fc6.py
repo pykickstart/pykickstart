@@ -92,29 +92,21 @@ class FC6Version(FC5Version):
 
             return retval
 
-    class NetworkData(BaseData):
+    class NetworkData(FC5Version.NetworkData):
         def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
                      ethtool="", gateway="", hostname="", ip="", ipv4=True,
                      ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
                      notksdevice=False, onboot=True, wepkey=""):
-            BaseData.__init__(self)
-            self.bootProto = bootProto
-            self.dhcpclass = dhcpclass
-            self.device = device
-            self.essid = essid
-            self.ethtool = ethtool
-            self.gateway = gateway
-            self.hostname = hostname
-            self.ip = ip
+            FC5Version.NetworkData.__init__(self, bootProto=bootProto,
+                                            dhcpclass=dhcpclass, device=device,
+                                            essid=essid, ethtool=ethtool,
+                                            gateway=gateway, hostname=hostname,
+                                            ip=ip, mtu=mtu, netmask=netmask,
+                                            nameserver=nameserver, nodns=nodns,
+                                            notksdevice=notksdevice,
+                                            onboot=onboot, wepkey=wepkey)
             self.ipv4 = ipv4
             self.ipv6 = ipv6
-            self.mtu = mtu
-            self.nameserver = nameserver
-            self.netmask = netmask
-            self.nodns = nodns
-            self.notksdevice = notksdevice
-            self.onboot = onboot
-            self.wepkey = wepkey
 
         def __str__(self):
             retval = "network"
@@ -336,10 +328,9 @@ class FC6Version(FC5Version):
             (opts, extra) = op.parse_args(args=args)
             self._setToSelf(op, opts)
 
-    class Method(KickstartCommand):
+    class Method(FC5Version.Method):
         def __init__(self, writePriority=0, method=""):
-            KickstartCommand.__init__(self, writePriority)
-            self.method = method
+            FC5Version.Method.__init__(self, writePriority, method)
 
         def __str__(self):
             if self.method == "cdrom":
@@ -390,14 +381,12 @@ class FC6Version(FC5Version):
 
             self._setToSelf(op, opts)
 
-    class Monitor(KickstartCommand):
+    class Monitor(FC5Version.Monitor):
         def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
                      vsync=""):
-            KickstartCommand.__init__(self, writePriority)
-            self.hsync = hsync
-            self.monitor = monitor
+            FC5Version.Monitor.__init__(self, writePriority, hsync=hsync,
+                                        monitor=monitor, vsync=vsync)
             self.probe = probe
-            self.vsync = vsync
 
         def __str__(self):
             retval = "monitor"
@@ -479,21 +468,9 @@ class FC6Version(FC5Version):
         def add(self, newObj):
             self.mpaths.append(newObj)
 
-    class Network(KickstartCommand):
+    class Network(FC5Version.Network):
         def __init__(self, writePriority=0, network=[]):
-            KickstartCommand.__init__(self, writePriority)
-            self.network = network
-
-        def __str__(self):
-            retval = ""
-
-            for nic in self.network:
-                retval += nic.__str__()
-
-            if retval != "":
-                return "# Network information\n" + retval
-            else:
-                return ""
+            FC5Version.Network.__init__(self, writePriority, network)
 
         def parse(self, args):
             op = KSOptionParser(self.lineno)
@@ -526,13 +503,9 @@ class FC6Version(FC5Version):
             self._setToObj(op, opts, nd)
             self.add(nd)
 
-        def add(self, newObj):
-            self.network.append(newObj)
-
-    class Reboot(KickstartCommand):
+    class Reboot(FC5Version.Reboot):
         def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
-            KickstartCommand.__init__(self, writePriority)
-            self.action = action
+            FC5Version.Reboot.__init__(self, writePriority, action=action)
             self.eject = eject
 
         def __str__(self):

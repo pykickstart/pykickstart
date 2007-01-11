@@ -1,5 +1,10 @@
 2006-01-11  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/fc5.py (RaidData, Raid):  Make these classes
+	subclass the ones in FC4Version, to the extent that can be done.
+	* pykickstart/commands/fc6.py (NetworkData, Method, Monitor, Reboot):
+	Likewise.
+
 	* pykickstart/parser.py (Script.__str__):  Fix Script printing.
 
 	* pykickstart/commands/fc6.py (FC6Version.Method):  Fix test for opts
