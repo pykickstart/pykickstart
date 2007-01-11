@@ -353,7 +353,7 @@ class FC6Version(FC5Version):
                     return msg + " --partition=%s\n" % getattr(self, "partition")
             elif self.method == "nfs":
                 retval = "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
-                if self.otps:
+                if hasattr(self, "opts"):
                     retval += " --opts=\"%s\"" % self.opts
 
                 return retval + "\n"
