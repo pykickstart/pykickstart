@@ -1,21 +1,21 @@
 # translation of ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Felix <ifelix@redhat.com>, 2006.
+# Felix <ifelix@redhat.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-30 11:32+0530\n"
+"PO-Revision-Date: 2007-01-11 12:32+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -39,7 +39,7 @@ msgstr "கிக்ஸ்டார்ட் கோப்பின் வரி 
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "துணைபுரியாத பதிப்பு குறிப்பிடப்பட்டுள்ளது"
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -51,7 +51,7 @@ msgstr "விருப்பம் %s தேவைப்படுகிறத�
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "விருப்பம் %(option)s பதிப்பு %(intro)sஇல் அறிமுகப்பட்டுள்ளது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -71,7 +71,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "விருப்பம் %(option)s பதிப்பு %(removed)sஇல் நீக்கப்பட்டது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -93,12 +93,12 @@ msgstr "%include தெரிந்தால் பகுத்தல் கோ�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "கிக்ஸ்டார்ட் இலக்கணத்தின் பதிப்பு மதிப்பிடுகிறது"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "பதிப்பு %s pykickstartஆல் துணைபுரியாதது"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -118,60 +118,3 @@ msgstr "உள்ளீடு கோப்பில் பொதுவான க
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s: வரியில் எதிரிடையான கட்டளையை நிராகரிக்கிறது: %(cmd)s கட்டளை "
-#~ "எதிரிடையாகவும் ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
-#~ "நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க "
-#~ "உங்கள் கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "கட்டளை %s எந்த மதிப்புகளையும் எடுத்துக்கொள்ளாது"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s கட்டளைக்கு எதிர்பாராத மதிப்புரு: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "கட்டளை %s ஒரு மதிப்பினை மட்டுமே எடுத்துக்கொள்ளும்"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "ஏற்றப்புள்ளி %sக்கு தேவைப்படுகிறது"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart அல்லது பகிர்வு விருப்பங்கள் குறிப்பிடப்பட வேண்டும்."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s கட்டளைக்கு எதிர்பாராத மதிப்பு: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "சாதனம் '%(device)s' ஏற்கனவே பல பாதை '%(multipathdev)s' இல் பயன்படுத்தப்படுகிறது"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl மற்றும் --mirrorlistஇல் ஒன்று மட்டும் repo கட்டளைக்கு குறிப்பிடப்படலாம்."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl மற்றும் --mirrorlist இல் ஒன்று repo கட்டளைக்கு குறிப்பிடப்பட வேண்டும்."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "ஒரு ஒற்றை மதிப்பு %s கட்டளைக்கு தேவைப்படுகிறது."
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: zerombr கட்டளை ஒருபோதும் எந்த "
-#~ "விருப்பத்தையும் ஏற்காது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், இது "
-#~ "கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் கிக்ஸ்டார்ட் "
-#~ "கோப்பினை மாற்றவும்."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "தெரியாத கட்டளை: %s"
