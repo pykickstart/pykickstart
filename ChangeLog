@@ -1,5 +1,7 @@
 2006-01-11  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py (Script.__str__):  Fix Script printing.
+
 	* pykickstart/commands/fc6.py (FC6Version.Method):  Fix test for opts
 	attribute.
 

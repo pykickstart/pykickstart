@@ -83,11 +83,11 @@ class Script:
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         if self.type == KS_SCRIPT_PRE:
-            retval = "%%pre"
+            retval = '\n%pre'
         elif self.type == KS_SCRIPT_POST:
-            retval = "%%post"
+            retval = '\n%post'
         elif self.type == KS_SCRIPT_TRACEBACK:
-            retval = "%%traceback"
+            retval = '\n%traceback'
 
         if self.interp != "/bin/sh" and self.interp != "":
             retval += " --interp %s" % self.interp
