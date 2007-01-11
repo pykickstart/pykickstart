@@ -1,20 +1,20 @@
 # translation of ml.po to Malayalam
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ani Peter <apeter@redhat.com>, 2006.
 #
+# Ani Peter <apeter@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-28 18:05+0530\n"
+"PO-Revision-Date: 2007-01-11 09:07+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
-"Language-Team: Malayalam\n"
+"Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -38,7 +38,7 @@ msgstr "കിക്ക്സ്റ്റാറ്‍ട്ട് ഫൈലി�
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "പിന്തുണ ലഭ്യമല്ലാത്ത വേറ്‍ഷന്‍"
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -51,6 +51,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"%(option)s എന്ന ഉപാധി %(intro)s വേറ്‍ഷനില്‍ ലഭ്യമാണ്, പക്ഷേ നിങ്ങള്‍ ഉപയോഗിക്കുന്നത് "
+"kickstart സിന്‍റാക്സ് വേറ്‍ഷന്‍ %(version)s ആണ്."
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -70,6 +72,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"%(option)s എന്ന ഉപാധി %(removed)s വേറ്‍ഷനില്‍ നിന്നും നീക്കിയിരിക്കുന്നു, പക്ഷേ "
+"നിങ്ങള്‍ ഉപയോഗിക്കുന്നത് kickstart സിന്‍റാക്സ് വേറ്‍ഷന്‍ %(version)s ആണ്."
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -96,7 +100,7 @@ msgstr ""
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "%s എന്ന വേറ്‍ഷന് pykickstart പിന്തുണ നല്‍കുന്നില്ല"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -116,58 +120,3 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s വരിയിലുളള തെറ്റായ കമാന്‍ഡ് ഉപേക്ഷിക്കുന്നു:  %(cmd)s കമാന്‍ഡ് ഇനി "
-#~ "സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുക, kickstart-ന്‍റെ ഒരു പിഴവായി ഇത് "
-#~ "കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "%s എന്ന കമാന്‍ഡ് ആറ്‍ഗ്യുമെന്‍റുകള്‍ ഒന്നും എടുക്കുന്നതല്ല "
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s എന്ന കമാന്‍ഡിന് അപ്രതീക്ഷമായ ആറ്‍ഗ്യുമെന്‍റുകള്‍: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "%s എന്ന കമാന്‍ഡ് ഒരു ആറ്‍ഗ്യുമെന്‍റ് എടുക്കുന്നതാണ്"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%sന് മൌണ്ട് പോയിന്‍റ് ആവശ്യമുണ്ട്"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "ഒരു biospart അല്ലെങ്കില്‍ ഒരു പാര്‍ട്ടീഷന്‍ ഉപാധികള്‍ നല്‍കേണ്ടതാണ്."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s എന്ന കമാന്‍ഡിന് അപ്രതീക്ഷമായ ആറ്‍ഗ്യുമെന്‍റുകള്‍: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "ഡിവൈസ് '%(device)s' നിലവില്‍ '%(multipathdev)s' എന്ന മള്‍ട്ടിപാഥില്‍\n"
-#~ "ഉപയോഗിച്ചിരിക്കുന്നു"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "repo കമാന്‍ഡിന് --baseurl അല്ലെങ്കില്‍ --mirrorlist നല്‍കേണ്ടതുണ്ട്."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s കമാന്‍ഡിന് ഒരു ആര്‍ഗ്യുമെന്‍റ് ആവശ്യമുളളൂ"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  zerombr കമാന്‍ഡ് ഉപാധികള്‍ "
-#~ "സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് kickstart-ന്‍റെ ഒരു പിഴവായി കാണപ്പെടുന്നതാണ്.  "
-#~ "ഏതെങ്കിലും ഉപാധികള്‍ നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "അപരിചിതമായ കമാന്‍ഡ്: %s"
