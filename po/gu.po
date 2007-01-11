@@ -1,21 +1,21 @@
 # translation of gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ankit Patel <ankit@redhat.com>, 2006.
+# Ankit Patel <ankit@redhat.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-22 10:50+0530\n"
+"PO-Revision-Date: 2007-01-11 11:14+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -39,7 +39,7 @@ msgstr "કિકસ્ટાર્ટ ફાઈલની લીટી %s મા
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "બિનઆધારભૂત આવૃત્તિ સ્પષ્ટ થયેલ છે."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -51,7 +51,7 @@ msgstr "વિકલ્પ %s જરૂરી છે"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "વિકલ્પ %(option)s એ આવૃત્તિ %(intro)s માં પરિચયમાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -71,7 +71,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "વિકલ્પ %(option)s એ આવૃત્તિ %(removed)s માં દૂર કરવામાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -93,12 +93,12 @@ msgstr "જ્યારે %include એ દેખાય ત્યારે સ�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "ના વિરુદ્ધ માન્ય કરવાની કિકસ્ટાર્ટ વાક્યરચનાની આવૃત્તિ"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "આવૃત્તિ %s એ pykickstart દ્વારા આધારભૂત નથી"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -118,58 +118,3 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "લીટી %(lineno)s પર કાઢી નાંખવામાં આવેલ આદેશ અવગણી રહ્યા છીએ:  %(cmd)s આદેશ કાઢી "
-#~ "નાંખવામાં આવેલ છે અને લાંબા સમય સુધી અસર આપશે નહિં.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર "
-#~ "કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ આદેશને તમારી "
-#~ "કિકસ્ટાર્ટમાંથી દૂર કરીને તેને સુધારો."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "આદેશ %s કોઈપણ દલીલો લેતો નથી"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "આદેશ %(command)s ને અનિચ્છનીય દલીલો: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "આદેશ %s માત્ર એક દલીલ જ લે છે"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s માટે માઉન્ટ પોઈન્ટ જરૂરી છે"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart અથવા પાર્ટીશન વિકલ્પોમાંના એક સ્પષ્ટ થયેલ હોવા જ જોઈએ."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "આદેશ %(cmd)s ને અનિચ્છનીય દલીલો: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "ઉપકરણ '%(device)s' એ પહેલાથી જ મલ્ટીપાથ '%(multipathdev)s' માં વપરાયેલ છે"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr "repo આદેશ માટે માત્ર --baseurl અને --mirrorlist માંના સ્પષ્ટ થયેલ હોઈ શકે."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "repo આદેશ માટે --baseurl અથવા --mirrorlist માંનુ માત્ર એક સ્પષ્ટ થયેલ હોવું જ જોઈએ."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s આદેશ માટે એક દલીલ ઈચ્છિત છે"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "લીટી %s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  zerombr આદેશ લાંબા સમય સુધી કોઈ "
-#~ "વિકલ્પો લેતો નથી.  ભવષ્યના પ્રકાસનોમાં, આ કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  "
-#~ "કોઈપણ વિકલ્પો દૂર કરવા માટે મહેરબાની કરીને તમારી કિકસ્ટાર્ટ ફાઈલ સુધારો."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "અજ્ઞાત આદેશ: %s"
