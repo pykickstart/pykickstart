@@ -5,6 +5,9 @@
 	allows a shortcut for wiping out all the attributes on an instance.
 	(BaseVersion.__str__):  Newline after the platform is written.
 
+	* pykickstart/commands/base.py (KickstartCommand.__init__):  Add the
+	dispatcher setting back in.
+
 2007-01-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (BaseVersion._insertSorted):  When a

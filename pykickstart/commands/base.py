@@ -64,6 +64,7 @@ class KickstartCommand:
 
         # These will be set by the dispatcher.
         self.currentCmd = ""
+        self.dispatcher = None
         self.lineno = 0
 
     def __call__(self, *args, **kwargs):
@@ -272,6 +273,7 @@ class BaseVersion:
         else:
             if self.handlers[cmd] != None:
                 self.handlers[cmd].currentCmd = cmd
+                self.handlers[cmd].dispatcher = self
                 self.handlers[cmd].lineno = lineno
                 self.handlers[cmd].parse(cmdArgs)
 
