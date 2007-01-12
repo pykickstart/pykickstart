@@ -174,7 +174,7 @@ class BaseVersion:
         retval = ""
 
         if self.platform != "":
-            retval += "#platform=%s" % self.platform
+            retval += "#platform=%s\n" % self.platform
 
         lst = self._writeOrder.keys()
         lst.sort()

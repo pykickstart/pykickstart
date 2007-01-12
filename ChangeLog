@@ -3,6 +3,7 @@
 	* pykickstart/commands/base.py (BaseVersion.overrideHandler):  Provide
 	a way to create a new instance of the handler and have it used.  This
 	allows a shortcut for wiping out all the attributes on an instance.
+	(BaseVersion.__str__):  Newline after the platform is written.
 
 2007-01-12  Chris Lumens  <clumens@redhat.com>
 
