@@ -197,7 +197,7 @@ class FC4Version(BaseVersion):
 
     class RaidData(BaseData):
         def __init__(self, device=None, fsopts="", fstype="", level="", format=True,
-                     spares=0, preexist=False, mountpoint="", members=[]):
+                     spares=0, preexist=False, mountpoint="", members=None):
             BaseData.__init__(self)
             self.device = device
             self.fsopts = fsopts
@@ -207,6 +207,10 @@ class FC4Version(BaseVersion):
             self.spares = spares
             self.preexist = preexist
             self.mountpoint = mountpoint
+
+            if members == None:
+                members = []
+
             self.members = members
 
         def __str__(self):
@@ -231,12 +235,16 @@ class FC4Version(BaseVersion):
 
     class VolGroupData(BaseData):
         def __init__(self, format=True, pesize=32768, preexist=False, vgname="",
-                     physvols=[]):
+                     physvols=None):
             BaseData.__init__(self)
             self.format = format
             self.pesize = pesize
             self.preexist = preexist
             self.vgname = vgname
+
+            if physvols == None:
+                physvols = []
+
             self.physvols = physvols
 
         def __str__(self):
@@ -295,7 +303,7 @@ class FC4Version(BaseVersion):
             self.authconfig = string.join(args)
 
     class AutoPart(KickstartCommand):
-        def __init__(self, writePriority=0, autopart=False):
+        def __init__(self, writePriority=100, autopart=False):
             KickstartCommand.__init__(self, writePriority)
             self.autopart = autopart
 
@@ -331,12 +339,17 @@ class FC4Version(BaseVersion):
             self._setToSelf(op, opts)
 
     class Bootloader(KickstartCommand):
-        def __init__(self, writePriority=0, appendLine="", driveorder=[],
+        def __init__(self, writePriority=0, appendLine="", driveorder=None,
                      forceLBA=False, location="mbr", md5pass="", password="",
                      upgrade=False):
             KickstartCommand.__init__(self, writePriority)
             self.appendLine = appendLine
+
+            if driveorder == None:
+                driveorder = []
+
             self.driveorder = driveorder
+
             self.forceLBA = forceLBA
             self.location = location
             self.md5pass = md5pass
@@ -386,9 +399,13 @@ class FC4Version(BaseVersion):
             self._setToSelf(op, opts)
 
     class ClearPart(KickstartCommand):
-        def __init__(self, writePriority=0, drives=[], initAll=False,
+        def __init__(self, writePriority=120, drives=None, initAll=False,
                      type=CLEARPART_TYPE_NONE):
             KickstartCommand.__init__(self, writePriority)
+
+            if drives == None:
+                drives = []
+
             self.drives = drives
             self.initAll = initAll
             self.type = type
@@ -499,10 +516,18 @@ class FC4Version(BaseVersion):
             self.driverdisk = string.join(args)
 
     class Firewall(KickstartCommand):
-        def __init__(self, writePriority=0, enabled=True, ports=[], trusts=[]):
+        def __init__(self, writePriority=0, enabled=True, ports=None, trusts=None):
             KickstartCommand.__init__(self, writePriority)
             self.enabled = enabled
+
+            if ports == None:
+                ports = []
+
             self.ports = ports
+
+            if trusts == None:
+                trusts = []
+
             self.trusts = trusts
 
         def __str__(self):
@@ -600,8 +625,12 @@ class FC4Version(BaseVersion):
             self.firstboot = opts.firstboot
 
     class IgnoreDisk(KickstartCommand):
-        def __init__(self, writePriority=0, ignoredisk=[]):
+        def __init__(self, writePriority=0, ignoredisk=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if ignoredisk == None:
+                ignoredisk = []
+
             self.ignoredisk = ignoredisk
 
         def __str__(self):
@@ -674,9 +703,13 @@ class FC4Version(BaseVersion):
             self.lang = args[0]
 
     class LangSupport(KickstartCommand):
-        def __init__(self, writePriority=0, deflang="en_US.UTF-8", supported=[]):
+        def __init__(self, writePriority=0, deflang="en_US.UTF-8", supported=None):
             KickstartCommand.__init__(self, writePriority)
             self.deflang = deflang
+
+            if supported == None:
+                supported = []
+
             self.supported = supported
 
         def __str__(self):
@@ -696,8 +729,12 @@ class FC4Version(BaseVersion):
             self.supported = extra
 
     class LogVol(KickstartCommand):
-        def __init__(self, writePriority=0, lvList=[]):
+        def __init__(self, writePriority=132, lvList=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if lvList == None:
+                lvList = []
+
             self.lvList = lvList
 
         def __str__(self):
@@ -855,8 +892,12 @@ class FC4Version(BaseVersion):
             DeprecatedCommand.__init__(self)
 
     class Network(KickstartCommand):
-        def __init__(self, writePriority=0, network=[]):
+        def __init__(self, writePriority=0, network=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if network == None:
+                network = []
+
             self.network = network
 
         def __str__(self):
@@ -901,8 +942,12 @@ class FC4Version(BaseVersion):
             self.network.append(newObj)
 
     class Partition(KickstartCommand):
-        def __init__(self, writePriority=0, partitions=[]):
+        def __init__(self, writePriority=130, partitions=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if partitions == None:
+                partitions = []
+
             self.partitions = partitions
 
         def __str__(self):
@@ -965,8 +1010,12 @@ class FC4Version(BaseVersion):
             self.partitions.append(newObj)
 
     class Raid(KickstartCommand):
-        def __init__(self, writePriority=0, raidList=[]):
+        def __init__(self, writePriority=140, raidList=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if raidList == None:
+                raidList = []
+
             self.raidList = raidList
 
         def __str__(self):
@@ -1199,8 +1248,12 @@ class FC4Version(BaseVersion):
             self._setToSelf(op, opts)
 
     class VolGroup(KickstartCommand):
-        def __init__(self, writePriority=0, vgList=[]):
+        def __init__(self, writePriority=131, vgList=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if vgList == None:
+                vgList = []
+
             self.vgList = vgList
 
         def __str__(self):
@@ -1306,7 +1359,7 @@ class FC4Version(BaseVersion):
             self._setToSelf(op, opts)
 
     class ZeroMbr(KickstartCommand):
-        def __init__(self, writePriority=0, zerombr=False):
+        def __init__(self, writePriority=110, zerombr=False):
             KickstartCommand.__init__(self, writePriority)
             self.zerombr = zerombr
 
@@ -1323,8 +1376,12 @@ class FC4Version(BaseVersion):
             self.zerombr = True
 
     class ZFCP(KickstartCommand):
-        def __init__(self, writePriority=0, zfcp=[]):
+        def __init__(self, writePriority=0, zfcp=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if zfcp == None:
+                zfcp = []
+
             self.zfcp = zfcp
 
         def __str__(self):
@@ -1358,11 +1415,11 @@ class FC4Version(BaseVersion):
         BaseVersion.__init__(self)
 
         self.registerHandler(self.Authconfig(), ["auth", "authconfig"])
-        self.registerHandler(self.AutoPart(writePriority=100), ["autopart"])
+        self.registerHandler(self.AutoPart(), ["autopart"])
         self.registerHandler(self.AutoStep(), ["autostep"])
         self.registerHandler(self.Bootloader(), ["bootloader"])
         self.registerHandler(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
-        self.registerHandler(self.ClearPart(writePriority=120), ["clearpart"])
+        self.registerHandler(self.ClearPart(), ["clearpart"])
         self.registerHandler(self.DisplayMode(), ["cmdline", "graphical", "text"])
         self.registerHandler(self.Device(), ["device"])
         self.registerHandler(self.DeviceProbe(), ["deviceprobe"])
@@ -1375,20 +1432,20 @@ class FC4Version(BaseVersion):
         self.registerHandler(self.Keyboard(), ["keyboard"])
         self.registerHandler(self.Lang(), ["lang"])
         self.registerHandler(self.LangSupport(), ["langsupport"])
-        self.registerHandler(self.LogVol(writePriority=132), ["logvol"])
+        self.registerHandler(self.LogVol(), ["logvol"])
         self.registerHandler(self.MediaCheck(), ["mediacheck"])
         self.registerHandler(self.Monitor(), ["monitor"])
         self.registerHandler(self.Mouse(), ["mouse"])
         self.registerHandler(self.Network(), ["network"])
-        self.registerHandler(self.Partition(writePriority=130), ["part", "partition"])
-        self.registerHandler(self.Raid(writePriority=140), ["raid"])
+        self.registerHandler(self.Partition(), ["part", "partition"])
+        self.registerHandler(self.Raid(), ["raid"])
         self.registerHandler(self.RootPw(), ["rootpw"])
         self.registerHandler(self.SELinux(), ["selinux"])
         self.registerHandler(self.SkipX(), ["skipx"])
         self.registerHandler(self.Timezone(), ["timezone"])
         self.registerHandler(self.Upgrade(), ["upgrade", "install"])
         self.registerHandler(self.Vnc(), ["vnc"])
-        self.registerHandler(self.VolGroup(writePriority=131), ["volgroup"])
+        self.registerHandler(self.VolGroup(), ["volgroup"])
         self.registerHandler(self.XConfig(), ["xconfig"])
-        self.registerHandler(self.ZeroMbr(writePriority=110), ["zerombr"])
+        self.registerHandler(self.ZeroMbr(), ["zerombr"])
         self.registerHandler(self.ZFCP(), ["zfcp"])

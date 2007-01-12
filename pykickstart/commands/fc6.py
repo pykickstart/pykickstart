@@ -29,9 +29,13 @@ class FC6Version(FC5Version):
     ### DATA CLASSES
     ###
     class DmRaidData(BaseData):
-        def __init__(self, name="", devices=[], dmset=None):
+        def __init__(self, name="", devices=None, dmset=None):
             BaseData.__init__(self)
             self.name = name
+
+            if devices == None:
+                devices = []
+
             self.devices = devices
             self.dmset = dmset
 
@@ -79,9 +83,13 @@ class FC6Version(FC5Version):
             return " --device=%s --rule=\"%s\"" % (self.device, self.rule)
 
     class MultiPathData(BaseData):
-        def __init__(self, name="", paths=[]):
+        def __init__(self, name="", paths=None):
             BaseData.__init__(self)
             self.name = name
+
+            if paths == None:
+                paths = []
+
             self.paths = paths
 
         def __str__(self):
@@ -164,9 +172,13 @@ class FC6Version(FC5Version):
             return "repo --name=%s %s\n" % (self.name, urlopt)
 
     class UserData(BaseData):
-        def __init__(self, groups=[], homedir="", isCrypted=False, name="",
+        def __init__(self, groups=None, homedir="", isCrypted=False, name="",
                      password="", shell="", uid=None):
             BaseData.__init__(self)
+
+            if groups == None:
+                groups = []
+
             self.groups = groups
             self.homedir = homedir
             self.isCrypted = isCrypted
@@ -200,8 +212,12 @@ class FC6Version(FC5Version):
     ### COMMAND CLASSES
     ###
     class DmRaid(KickstartCommand):
-        def __init__(self, writePriority=0, dmraids=[]):
+        def __init__(self, writePriority=60, dmraids=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if dmraids == None:
+                dmraids = []
+
             self.dmraids = dmraids
 
         def __str__(self):
@@ -228,8 +244,12 @@ class FC6Version(FC5Version):
             self.dmraids.append(newObj)
 
     class Iscsi(KickstartCommand):
-        def __init__(self, writePriority=0, iscsi=[]):
+        def __init__(self, writePriority=70, iscsi=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if iscsi == None:
+                iscsi = []
+
             self.iscsi = iscsi
 
         def __str__(self):
@@ -263,7 +283,7 @@ class FC6Version(FC5Version):
             self.iscsi.append(newObj)
 
     class IscsiName(KickstartCommand):
-        def __init__(self, writePriority=0, iscsiname=""):
+        def __init__(self, writePriority=71, iscsiname=""):
             KickstartCommand.__init__(self, writePriority)
             self.iscsiname = iscsiname
 
@@ -422,8 +442,12 @@ class FC6Version(FC5Version):
             self._setToSelf(op, opts)
 
     class MultiPath(KickstartCommand):
-        def __init__(self, writePriority=0, mpaths=[]):
+        def __init__(self, writePriority=50, mpaths=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if mpaths == None:
+                mpaths = []
+
             self.mpaths = mpaths
 
         def __str__(self):
@@ -469,7 +493,7 @@ class FC6Version(FC5Version):
             self.mpaths.append(newObj)
 
     class Network(FC5Version.Network):
-        def __init__(self, writePriority=0, network=[]):
+        def __init__(self, writePriority=0, network=None):
             FC5Version.Network.__init__(self, writePriority, network)
 
         def parse(self, args):
@@ -535,8 +559,12 @@ class FC6Version(FC5Version):
             self._setToSelf(op, opts)
 
     class Repo(KickstartCommand):
-        def __init__(self, writePriority=0, repoList=[]):
+        def __init__(self, writePriority=0, repoList=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if repoList == None:
+                repoList = []
+
             self.repoList = repoList
 
         def __str__(self):
@@ -570,9 +598,17 @@ class FC6Version(FC5Version):
             self.repoList.append(newObj)
 
     class Services(KickstartCommand):
-        def __init__(self, writePriority=0, disabled=[], enabled=[]):
+        def __init__(self, writePriority=0, disabled=None, enabled=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if disabled == None:
+                disabled = []
+
             self.disabled = disabled
+
+            if enabled == None:
+                enabled = []
+
             self.enabled = enabled
 
         def __str__(self):
@@ -603,8 +639,12 @@ class FC6Version(FC5Version):
             self._setToSelf(op, opts)
 
     class User(KickstartCommand):
-        def __init__(self, writePriority=0, userList=[]):
+        def __init__(self, writePriority=0, userList=None):
             KickstartCommand.__init__(self, writePriority)
+
+            if userList == None:
+                userList = []
+
             self.userList = userList
 
         def __str__(self):
@@ -738,14 +778,14 @@ class FC6Version(FC5Version):
     def __init__(self):
         FC5Version.__init__(self)
 
-        self.registerHandler(self.DmRaid(writePriority=60), ["dmraid"])
-        self.registerHandler(self.Iscsi(writePriority=70), ["iscsi"])
-        self.registerHandler(self.IscsiName(writePriority=71), ["iscsiname"])
+        self.registerHandler(self.DmRaid(), ["dmraid"])
+        self.registerHandler(self.Iscsi(), ["iscsi"])
+        self.registerHandler(self.IscsiName(), ["iscsiname"])
         self.registerHandler(self.Key(), ["key"])
         self.registerHandler(self.Logging(), ["logging"])
         self.registerHandler(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
         self.registerHandler(self.Monitor(), ["monitor"])
-        self.registerHandler(self.MultiPath(writePriority=50), ["multipath"])
+        self.registerHandler(self.MultiPath(), ["multipath"])
         self.registerHandler(self.Network(), ["network"])
         self.registerHandler(self.Reboot(), ["halt", "poweroff", "reboot", "shutdown"])
         self.registerHandler(self.Repo(), ["repo"])

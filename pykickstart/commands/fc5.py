@@ -32,7 +32,7 @@ class FC5Version(FC4Version):
     class RaidData(FC4Version.RaidData):
         def __init__(self, device=None, fsopts="", fstype="", level="",
                      format=True, spares=0, preexist=False, mountpoint="",
-                     members=[], bytesPerInode=4096):
+                     members=None, bytesPerInode=4096):
             FC4Version.RaidData.__init__(self, device=device, fsopts=fsopts,
                                          fstype=fstype, level=level,
                                          format=format, spares=spares,
@@ -71,7 +71,7 @@ class FC5Version(FC4Version):
             DeprecatedCommand.__init__(self)
 
     class Raid(FC4Version.Raid):
-        def __init__(self, writePriority=0, raidList=[]):
+        def __init__(self, writePriority=140, raidList=None):
             FC4Version.Raid.__init__(self, writePriority, raidList)
 
         def reset(self):
