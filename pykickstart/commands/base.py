@@ -222,8 +222,17 @@ class BaseVersion:
         max = len(list)
         i = 0
 
-        while i < max and obj.__class__.__name__ > list[i].__class__.__name__:
-            i += 1
+        while i < max:
+            # If the two classes have the same name, it's because we are
+            # overriding an existing class with one from a later kickstart
+            # version, so remove the old one in favor of the new one.
+            if obj.__class__.__name__ > list[i].__class__.__name__:
+                i += 1
+            elif obj.__class__.__name__ == list[i].__class__.__name__:
+                list[i] = obj
+                return
+            elif obj.__class__.__name__ < list[i].__class__.__name__:
+                break
 
         if i >= max:
             list.append(obj)
