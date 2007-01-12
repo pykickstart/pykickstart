@@ -1,3 +1,10 @@
+2006-01-12  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/base.py (BaseVersion._insertSorted):  When a
+	subclass of BaseVersion registers a handler that already exists from a
+	class higher up the chain, remove the existing handler in favor of the
+	new one.
+
 2006-01-11  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc5.py (RaidData, Raid):  Make these classes
