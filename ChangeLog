@@ -1,11 +1,24 @@
-2006-01-12  Chris Lumens  <clumens@redhat.com>
+2007-01-12  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/base.py (BaseVersion.overrideHandler):  Provide
+	a way to create a new instance of the handler and have it used.  This
+	allows a shortcut for wiping out all the attributes on an instance.
+
+2007-01-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (BaseVersion._insertSorted):  When a
 	subclass of BaseVersion registers a handler that already exists from a
 	class higher up the chain, remove the existing handler in favor of the
 	new one.
 
-2006-01-11  Chris Lumens  <clumens@redhat.com>
+	* pykickstart/commands/fc4.py:  Put writePriority defaults in the
+	default arguments to command objects instead of in the calls to
+	creating them, as that didn't work for subclasses.  Also change how
+	we handle default arguments that are lists.
+	* pykickstart/commands/fc5.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+
+2007-01-11  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc5.py (RaidData, Raid):  Make these classes
 	subclass the ones in FC4Version, to the extent that can be done.

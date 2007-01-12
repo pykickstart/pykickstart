@@ -190,34 +190,6 @@ class BaseVersion:
 
         return retval
 
-    def registerHandler(self, cmdObj, cmdList):
-        """Set up a mapping from each string command in cmdList to the instance
-           of the KickstartCommand subclass object cmdObj.  Using a list of
-           commands allows for aliasing commands to each other.  Also create a
-           new attribute on this BaseVersion subclass named
-           cmdObj.__class__.__name__ with a value of cmdObj.
-        """
-
-        # First just add the new command handler object to the handler dict
-        # for all given command strings.
-        for str in cmdList:
-            self.handlers[str] = cmdObj
-
-        # Add an attribute on this version object as well.  We need this to
-        # provide a way for clients to access the command handlers.
-        setattr(self, cmdObj.__class__.__name__.lower(), cmdObj)
-
-        # Also, add the object into the _writeOrder dict in the right place.
-        if cmdObj.writePriority is not None:
-            if self._writeOrder.has_key(cmdObj.writePriority):
-                self._insertSorted(self._writeOrder[cmdObj.writePriority], cmdObj)
-            else:
-                self._writeOrder[cmdObj.writePriority] = [cmdObj]
-
-    def hasHandler(self, cmd):
-        """Return true if there is a handler for the string cmd."""
-        return hasattr(self, cmd)
-
     def _insertSorted(self, list, obj):
         max = len(list)
         i = 0
@@ -238,6 +210,55 @@ class BaseVersion:
             list.append(obj)
         else:
             list.insert(i, obj)
+
+    def _setHandler(self, cmdObj):
+        # Add an attribute on this version object as well.  We need this to
+        # provide a way for clients to access the command handlers.
+        setattr(self, cmdObj.__class__.__name__.lower(), cmdObj)
+
+        # Also, add the object into the _writeOrder dict in the right place.
+        if cmdObj.writePriority is not None:
+            if self._writeOrder.has_key(cmdObj.writePriority):
+                self._insertSorted(self._writeOrder[cmdObj.writePriority], cmdObj)
+            else:
+                self._writeOrder[cmdObj.writePriority] = [cmdObj]
+
+    def registerHandler(self, cmdObj, cmdList):
+        """Set up a mapping from each string command in cmdList to the instance
+           of the KickstartCommand subclass object cmdObj.  Using a list of
+           commands allows for aliasing commands to each other.  Also create a
+           new attribute on this BaseVersion subclass named
+           cmdObj.__class__.__name__ with a value of cmdObj.
+        """
+        # Add the new command handler object to the handler dict for all given
+        # command strings.
+        for str in cmdList:
+            self.handlers[str] = cmdObj
+
+        self._setHandler(cmdObj)
+
+    def overrideHandler(self, cmdObj):
+        """Override an existing mapping with a new instance of a command
+           handler class.  There must already be a mapping from at least one
+           string command to a command object as set up by registerHandler,
+           as this method looks for instances with the same class name as
+           cmdObj to replace.
+        """
+        found = False
+
+        # We have to update all the entries in the handlers dict with a
+        # reference to the new handler.
+        for (key, val) in self.handlers.iteritems():
+            if val.__class__.__name__ == cmdObj.__class__.__name__:
+                found = True
+                self.handlers[key] = cmdObj
+
+        if found:
+            self._setHandler(cmdObj)
+
+    def hasHandler(self, cmd):
+        """Return true if there is a handler for the string cmd."""
+        return hasattr(self, cmd)
 
     def dispatcher(self, cmd, cmdArgs, lineno):
         """Given the command string cmd and the list of arguments cmdArgs, call
