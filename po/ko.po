@@ -3,14 +3,14 @@
 # translation of ko.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Eunju Kim <eukim@redhat.com>, 2006.
+# Eunju Kim <eukim@redhat.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-09 15:53-0500\n"
-"PO-Revision-Date: 2006-11-29 13:39+1000\n"
+"PO-Revision-Date: 2007-01-12 12:59+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "킥스타트파일의 %s번째 줄을 읽는데 문제 발생"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "지원되지 않는 버전 지정."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -49,6 +49,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"옵션 %(option)s은 버전 %(intro)s에 소개되었으나, 킥스타트 구문 버전 %(version)s을 사용하시고 "
+"있습니다"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -68,7 +70,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "옵션 %(option)s은 버전 %(removed)s에서 삭제되었으나, 킥스타트 구문 버전 %(version)s을 사용하시고 있습니다"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -90,12 +92,12 @@ msgstr "%include 가 보여질때 include 파일을 구문 분석함"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "확인을 위한 킥스타트 구문의 버전"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "버전 %s은 pykickstart에 의해 지원되지 않습니다"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -115,60 +117,3 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %(cmd)s 명령은 삭"
-#~ "제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적"
-#~ "인 오류를 가져오는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명"
-#~ "령을 제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "명령 %s는 어떤 인자(argument)도 갖지 않음"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s 명령에 대한 예상치 않은 인자(argument): %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "명령 %s는 오직 하나의 인자(argument)만을 갖음"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s을 위한 마운트 지점 필요"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "BIOS 부분 또는 파티션 옵션 중 하나를 반드시 지정해야 함"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s 명령에 대한 예상치 않은 인자(argument): %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "'%(device)s'장치는 멀티패스 '%(multipathdev)s'(으)로 이미 사용되고 있음"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl 과 --mirrorlist 에서 하나만이 repo 명령을 위해 지정될 것임."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl 과 --mirrorlist 중 하나가 repo 명령을 위해 지정되어져야 함."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s 명령에 대해 하나의 인자(argument)가 필요"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  zerombr 명령은 더이상 아"
-#~ "무런 효과를 가지고 있지 않습니다.  다음의 배포판에서, 이것은 킥스타트에서 "
-#~ "치명적인 오류를 가져올 것입니다. 옵션을 제거하기 위해 킥스타트 파일을 수정"
-#~ "해 주시기 바랍니다."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "알려지지 않은 명령: %s"
