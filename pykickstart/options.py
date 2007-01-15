@@ -16,7 +16,7 @@ Specialized option handling.
 This module exports two classes:
 
     KSOptionParser - A specialized subclass of OptionParser to be used
-                     in BaseVersion subclasses.
+                     in BaseHandler subclasses.
 
     KSOption - A specialized subclass of Option.
 """
