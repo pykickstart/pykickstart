@@ -3,6 +3,9 @@
 	* pykickstart/commands/base.py (BaseHandler.empty):  Add a method to
 	empty out the contents of the commands dict.
 
+	* pykickstart/commands/fc4.py (BaseHandler.Upgrade):  Only set upgrade
+	if that's what the current command is.
+
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/version.py (returnClassForVersion):  Take a default

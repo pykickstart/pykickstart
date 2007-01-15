@@ -1215,7 +1215,10 @@ class FC4Handler(BaseHandler):
             if len(args) > 0:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "upgrade")
 
-            self.upgrade = True
+            if self.currentCmd == "upgrade":
+               self.upgrade = True
+            else:
+               self.upgrade = False
 
     class Vnc(KickstartCommand):
         def __init__(self, writePriority=0, enabled=False, password="", connect=""):
