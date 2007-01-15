@@ -1,3 +1,17 @@
+2007-01-15  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/version.py (returnClassForVersion):  Take a default
+	version argument.
+
+	* pykickstart/parser.py:  Rename kshandlers to handler.
+
+	* pykickstart/commands/base.py:  Rename BaseVersion to BaseHandler,
+	registerHandler to registerCommand, and self.dispatcher to
+	self.handler.
+	* pykickstart/commands/fc4.py:  Likewise.
+	* pykickstart/commands/fc5.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+
 2007-01-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (BaseVersion.overrideHandler):  Provide
