@@ -20,15 +20,15 @@ changes take place.
 
 This module also exports several functions:
 
-    stringToVersion - Convert a string representation of a version number
-                      into the symbolic constant.
+    makeVersion - Given a version number, return an instance of the
+                  matching handler class.
 
     returnClassForVersion - Given a version number, return the matching
                             handler class.  This does not return an
                             instance of that class, however.
 
-    makeVersion - Given a version number, return an instance of the
-                  matching handler class.
+    stringToVersion - Convert a string representation of a version number
+                      into the symbolic constant.
 """
 from pykickstart.errors import KickstartVersionError
 
@@ -55,7 +55,7 @@ def stringToVersion(string):
     else:
         raise KickstartVersionError(string)
 
-def returnClassForVersion(version):
+def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be
        either a string or the matching constant.  Raises KickstartValueError
        if version does not match anything.
