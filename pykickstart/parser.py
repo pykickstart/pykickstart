@@ -182,14 +182,14 @@ class KickstartParser:
        anything may just pass.  However, readKickstart should never be
        overridden.
     """
-    def __init__ (self, kshandlers, followIncludes=True,
+    def __init__ (self, handler, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
-           kshandlers            -- An instance of a BaseVersion subclass.  If
+           handler               -- An instance of a BaseHandler subclass.  If
                                     None, the input file will still be parsed
-                                    but no data will be saved and no command
-                                    handlers will be executed.
+                                    but no data will be saved and no commands
+                                    will be executed.
            followIncludes        -- If %include is seen, should the included
                                     file be checked as well or skipped?
            errorsAreFatal        -- Should errors cause processing to halt, or
@@ -200,7 +200,7 @@ class KickstartParser:
            missingIncludeIsFatal -- Should missing include files be fatal, even
                                     if errorsAreFatal is False?
         """
-        self.kshandlers = kshandlers
+        self.handler = handler
         self.followIncludes = followIncludes
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self.errorsAreFatal = errorsAreFatal
@@ -220,24 +220,24 @@ class KickstartParser:
                     self._script["chroot"], self._script["log"],
                     self._script["errorOnFail"], self._script["type"])
 
-        if self.kshandlers:
-            self.kshandlers.scripts.append(s)
+        if self.handler:
+            self.handler.scripts.append(s)
 
     def addPackages (self, line):
         """Add the single package, exclude, or group into the Version's
            Packages instance.  This method may be overridden in a subclass
            if necessary.
         """
-        if self.kshandlers:
-            self.kshandlers.packages.add([line])
+        if self.handler:
+            self.handler.packages.add([line])
 
     def handleCommand (self, lineno, args):
         """Given the list of command and arguments, call the Version's
            dispatcher method to handle the command.  This method may be
            overridden in a subclass if necessary.
         """
-        if self.kshandlers:
-            self.kshandlers.dispatcher(args[0], args[1:], lineno)
+        if self.handler:
+            self.handler.dispatcher(args[0], args[1:], lineno)
 
     def handlePackageHdr (self, lineno, args):
         """Process the arguments to the %packages header and set attributes
@@ -258,12 +258,12 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:])
 
-        self.kshandlers.packages.excludeDocs = opts.excludedocs
-        self.kshandlers.packages.addBase = not opts.nobase
+        self.handler.packages.excludeDocs = opts.excludedocs
+        self.handler.packages.addBase = not opts.nobase
         if opts.ignoremissing:
-            self.kshandlers.packages.handleMissing = KS_MISSING_IGNORE
+            self.handler.packages.handleMissing = KS_MISSING_IGNORE
         else:
-            self.kshandlers.packages.handleMissing = KS_MISSING_PROMPT
+            self.handler.packages.handleMissing = KS_MISSING_PROMPT
 
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
@@ -317,7 +317,7 @@ class KickstartParser:
             if line.isspace() or (line != "" and line.lstrip()[0] == '#'):
                 # Save the platform for s-c-kickstart, though.
                 if line[:10] == "#platform=" and self._state == STATE_COMMANDS:
-                    self.kshandlers.platform = line[11:]
+                    self.handler.platform = line[11:]
 
                 if self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
                     self._script["body"].append(line)
