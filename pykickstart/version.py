@@ -66,19 +66,17 @@ def returnClassForVersion(version=DEVEL):
         version = stringToVersion(version)
 
     if version == FC4:
-        from pykickstart.commands.fc4 import FC4Version
-        return FC4Version
+        from pykickstart.commands.fc4 import FC4Handler
+        return FC4Handler
     elif version == FC5:
-        from pykickstart.commands.fc5 import FC5Version
-        return FC5Version
+        from pykickstart.commands.fc5 import FC5Handler
+        return FC5Handler
     elif version == FC6:
-        from pykickstart.commands.fc6 import FC6Version
-        return FC6Version
+        from pykickstart.commands.fc6 import FC6Handler
+        return FC6Handler
     else:
         raise KickstartVersionError(version)
 
-# Given a version of the kickstart syntax, this function imports the correct
-# handler for that version and returns an instance of it.
 def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for

@@ -2,6 +2,7 @@
 
 	* pykickstart/version.py (returnClassForVersion):  Take a default
 	version argument.
+	(returnClassForVersion):  Rename Version to Base.
 
 	* pykickstart/parser.py:  Rename kshandlers to handler.
 
