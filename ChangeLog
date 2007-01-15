@@ -1,8 +1,13 @@
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/base.py (BaseHandler.empty):  Add a method to
+	empty out the contents of the commands dict.
+
+2007-01-15  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/version.py (returnClassForVersion):  Take a default
 	version argument.
-	(returnClassForVersion):  Rename Version to Base.
+	(returnClassForVersion):  Rename Version to Handler.
 
 	* pykickstart/parser.py:  Rename kshandlers to handler.
 

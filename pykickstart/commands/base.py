@@ -267,6 +267,15 @@ class BaseHandler:
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
 
+    def empty(self):
+        """Set all entries in the commands dict to None so no commands
+           will be processed.
+        """
+        self._writeOrder = {}
+
+        for (key, val) in self.commands.iteritems():
+            self.commands[key] = None
+
     def dispatcher(self, cmd, cmdArgs, lineno):
         """Given the command string cmd and the list of arguments cmdArgs, call
            the appropriate KickstartCommand handler that has been previously
