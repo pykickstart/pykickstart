@@ -1125,7 +1125,7 @@ class FC4Handler(BaseHandler):
             if len(extra) != 1:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
 
-            self.rootpw = extra[0]
+            self.password = extra[0]
 
     class SELinux(KickstartCommand):
         def __init__(self, writePriority=0, selinux=SELINUX_ENFORCING):

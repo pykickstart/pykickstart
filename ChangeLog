@@ -5,6 +5,7 @@
 
 	* pykickstart/commands/fc4.py (BaseHandler.Upgrade):  Only set upgrade
 	if that's what the current command is.
+	(BaseHandler.RootPw):  rootpw -> password
 
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
