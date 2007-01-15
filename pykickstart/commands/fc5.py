@@ -25,15 +25,15 @@ translate.textdomain("pykickstart")
 ### INHERIT FROM A PREVIOUS RELEASE
 from fc4 import *
 
-class FC5Version(FC4Version):
+class FC5Handler(FC4Handler):
     ###
     ### DATA CLASSES
     ###
-    class RaidData(FC4Version.RaidData):
+    class RaidData(FC4Handler.RaidData):
         def __init__(self, device=None, fsopts="", fstype="", level="",
                      format=True, spares=0, preexist=False, mountpoint="",
                      members=None, bytesPerInode=4096):
-            FC4Version.RaidData.__init__(self, device=device, fsopts=fsopts,
+            FC4Handler.RaidData.__init__(self, device=device, fsopts=fsopts,
                                          fstype=fstype, level=level,
                                          format=format, spares=spares,
                                          preexist=preexist,
@@ -70,9 +70,9 @@ class FC5Version(FC4Version):
         def __init__(self):
             DeprecatedCommand.__init__(self)
 
-    class Raid(FC4Version.Raid):
+    class Raid(FC4Handler.Raid):
         def __init__(self, writePriority=140, raidList=None):
-            FC4Version.Raid.__init__(self, writePriority, raidList)
+            FC4Handler.Raid.__init__(self, writePriority, raidList)
 
         def reset(self):
             self.raidList = []
@@ -119,7 +119,7 @@ class FC5Version(FC4Version):
             if len(extra) == 0:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-            rd = self.dispatcher.RaidData()
+            rd = self.handler.RaidData()
             self._setToObj(op, opts, rd)
 
             # --device can't just take an int in the callback above, because it
@@ -134,6 +134,6 @@ class FC5Version(FC4Version):
     ## MAIN
     ##
     def __init__(self):
-        FC4Version.__init__(self)
-        self.registerHandler(self.LangSupport(), ["langsupport"])
-        self.registerHandler(self.Raid(), ["raid"])
+        FC4Handler.__init__(self)
+        self.registerCommand(self.LangSupport(), ["langsupport"])
+        self.registerCommand(self.Raid(), ["raid"])

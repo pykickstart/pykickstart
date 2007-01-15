@@ -11,14 +11,16 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 """
-Base classes for creating commands and handlers.
+Base classes for creating commands and syntax version object.
 
 This module exports several important base classes:
 
-    BaseData - The base abstract class for all data objects.
+    BaseData - The base abstract class for all data objects.  Data objects
+               are contained within a BaseHandler object.
 
-    BaseVersion - The base abstract class from which versioned kickstart
-                  syntax handlers are derived.
+    BaseHandler - The base abstract class from which versioned kickstart
+                  handler are derived.  Subclasses of BaseHandler hold
+                  BaseData and KickstartCommand objects.
 
     DeprecatedCommand - A concrete subclass of KickstartCommand that should
                         be further subclassed by users of this module.  When
@@ -26,6 +28,8 @@ This module exports several important base classes:
                         printed.
 
     KickstartCommand - The base abstract class for all kickstart commands.
+                       Command objects are contained within a BaseHandler
+                       object.
 """
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -48,6 +52,9 @@ class KickstartCommand:
 
            currentCmd    -- The name of the command in the input file that
                             caused this handler to be run.
+           handler       -- A reference to the BaseHandler subclass this
+                            command is contained withing.  This is needed to
+                            allow referencing of Data objects.
            lineno        -- The current line number in the input file.
            writePriority -- An integer specifying when this command should be
                             printed when iterating over all commands' __str__
@@ -64,7 +71,7 @@ class KickstartCommand:
 
         # These will be set by the dispatcher.
         self.currentCmd = ""
-        self.dispatcher = None
+        self.handler = None
         self.lineno = 0
 
     def __call__(self, *args, **kwargs):
@@ -126,23 +133,23 @@ class DeprecatedCommand(KickstartCommand):
 ###
 ### HANDLERS
 ###
-class BaseVersion:
+class BaseHandler:
     """Each version of kickstart syntax is provided by a subclass of this
        class.  These subclasses are what users will interact with for parsing,
        extracting data, and writing out kickstart files.  This is an abstract
        class.
     """
     def __init__(self):
-        """Create a new BaseVersion instance.  This method must be provided by
-           all subclasses, but subclasses must call BaseVersion.__init__ first.
+        """Create a new BaseHandler instance.  This method must be provided by
+           all subclasses, but subclasses must call BaseHandler.__init__ first.
            Instance attributes:
 
-           handlers -- A mapping from a string command to a KickstartCommand
+           commands -- A mapping from a string command to a KickstartCommand
                        subclass object that handles it.  Multiple strings can
                        map to the same object, but only one instance of the
                        handler object should ever exist.  Most users should
                        never have to deal with this directly, as it is
-                       manipulated through registerHandler and dispatcher.
+                       manipulated through registerCommand and dispatcher.
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
@@ -153,10 +160,10 @@ class BaseVersion:
         """
 
         # We don't want people using this class by itself.
-        if self.__class__ is BaseVersion:
-            raise TypeError, "BaseVersion is an abstract class."
+        if self.__class__ is BaseHandler:
+            raise TypeError, "BaseHandler is an abstract class."
 
-        self.handlers = {}
+        self.commands = {}
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
@@ -166,7 +173,7 @@ class BaseVersion:
 
         # A dict keyed by an integer priority number, with each value being a
         # list of KickstartCommand subclasses.  This dict is maintained by
-        # registerHandler and used in __str__.  No one else should be touching
+        # registerCommand and used in __str__.  No one else should be touching
         # it.
         self._writeOrder = {}
 
@@ -212,9 +219,9 @@ class BaseVersion:
         else:
             list.insert(i, obj)
 
-    def _setHandler(self, cmdObj):
-        # Add an attribute on this version object as well.  We need this to
-        # provide a way for clients to access the command handlers.
+    def _setCommand(self, cmdObj):
+        # Add an attribute on this version object.  We need this to provide a
+        # way for clients to access the command objects.
         setattr(self, cmdObj.__class__.__name__.lower(), cmdObj)
 
         # Also, add the object into the _writeOrder dict in the right place.
@@ -224,40 +231,39 @@ class BaseVersion:
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def registerHandler(self, cmdObj, cmdList):
+    def registerCommand(self, cmdObj, cmdList):
         """Set up a mapping from each string command in cmdList to the instance
            of the KickstartCommand subclass object cmdObj.  Using a list of
            commands allows for aliasing commands to each other.  Also create a
-           new attribute on this BaseVersion subclass named
+           new attribute on this BaseHandler subclass named
            cmdObj.__class__.__name__ with a value of cmdObj.
         """
-        # Add the new command handler object to the handler dict for all given
-        # command strings.
+        # Add the new command object to the dict for all given command strings.
         for str in cmdList:
-            self.handlers[str] = cmdObj
+            self.commands[str] = cmdObj
 
-        self._setHandler(cmdObj)
+        self._setCommand(cmdObj)
 
-    def overrideHandler(self, cmdObj):
+    def overrideCommand(self, cmdObj):
         """Override an existing mapping with a new instance of a command
            handler class.  There must already be a mapping from at least one
-           string command to a command object as set up by registerHandler,
+           string command to a command object as set up by registerCommand,
            as this method looks for instances with the same class name as
            cmdObj to replace.
         """
         found = False
 
-        # We have to update all the entries in the handlers dict with a
+        # We have to update all the entries in the commands dict with a
         # reference to the new handler.
-        for (key, val) in self.handlers.iteritems():
+        for (key, val) in self.commands.iteritems():
             if val.__class__.__name__ == cmdObj.__class__.__name__:
                 found = True
-                self.handlers[key] = cmdObj
+                self.commands[key] = cmdObj
 
         if found:
-            self._setHandler(cmdObj)
+            self._setCommand(cmdObj)
 
-    def hasHandler(self, cmd):
+    def hasCommand(self, cmd):
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
 
@@ -265,17 +271,17 @@ class BaseVersion:
         """Given the command string cmd and the list of arguments cmdArgs, call
            the appropriate KickstartCommand handler that has been previously
            registered.  lineno is needed for error reporting.  If cmd does not
-           exist in the handlers dict, KickstartParseError will be raised.  A
+           exist in the commands dict, KickstartParseError will be raised.  A
            handler of None for the given command is not an error.
         """
-        if not self.handlers.has_key(cmd):
+        if not self.commands.has_key(cmd):
             raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
         else:
-            if self.handlers[cmd] != None:
-                self.handlers[cmd].currentCmd = cmd
-                self.handlers[cmd].dispatcher = self
-                self.handlers[cmd].lineno = lineno
-                self.handlers[cmd].parse(cmdArgs)
+            if self.commands[cmd] != None:
+                self.commands[cmd].currentCmd = cmd
+                self.commands[cmd].handler = self
+                self.commands[cmd].lineno = lineno
+                self.commands[cmd].parse(cmdArgs)
 
 ###
 ### DATA

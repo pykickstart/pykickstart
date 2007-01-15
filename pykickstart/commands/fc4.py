@@ -25,7 +25,7 @@ translate.textdomain("pykickstart")
 ### INHERIT FROM A PREVIOUS RELEASE
 from base import *
 
-class FC4Version(BaseVersion):
+class FC4Handler(BaseHandler):
     ##
     ## DATA CLASSES
     ##
@@ -777,7 +777,7 @@ class FC4Version(BaseVersion):
             if len(extra) == 0:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
-            lvd = self.dispatcher.LogVolData()
+            lvd = self.handler.LogVolData()
             self._setToObj(op, opts, lvd)
             lvd.mountpoint=extra[0]
             self.add(lvd)
@@ -934,7 +934,7 @@ class FC4Version(BaseVersion):
             op.add_option("--wepkey", dest="wepkey")
 
             (opts, extra) = op.parse_args(args=args)
-            nd = self.dispatcher.NetworkData()
+            nd = self.handler.NetworkData()
             self._setToObj(op, opts, nd)
             self.add(nd)
 
@@ -1001,7 +1001,7 @@ class FC4Version(BaseVersion):
             if len(extra) != 1:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
-            pd = self.dispatcher.PartData()
+            pd = self.handler.PartData()
             self._setToObj(op, opts, pd)
             pd.mountpoint=extra[0]
             self.add(pd)
@@ -1066,7 +1066,7 @@ class FC4Version(BaseVersion):
             if len(extra) == 0:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-            rd = self.dispatcher.RaidData()
+            rd = self.handler.RaidData()
             self._setToObj(op, opts, rd)
 
             # --device can't just take an int in the callback above, because it
@@ -1278,7 +1278,7 @@ class FC4Version(BaseVersion):
                           default=False)
 
             (opts, extra) = op.parse_args(args=args)
-            vg = self.dispatcher.VolGroupData()
+            vg = self.handler.VolGroupData()
             self._setToObj(op, opts, vg)
             vg.vgname = extra[0]
             vg.physvols = extra[1:]
@@ -1399,7 +1399,7 @@ class FC4Version(BaseVersion):
             op.add_option("--scsilun", dest="scsilun", required=1)
             op.add_option("--wwpn", dest="wwpn", required=1)
 
-            zd = self.dispatcher.ZFCPData()
+            zd = self.handler.ZFCPData()
             (opts, extra) = op.parse_args(args)
             self._setToObj(op, opts, zd)
             self.add(zd)
@@ -1412,40 +1412,40 @@ class FC4Version(BaseVersion):
     ## MAIN
     ##
     def __init__(self):
-        BaseVersion.__init__(self)
+        BaseHandler.__init__(self)
 
-        self.registerHandler(self.Authconfig(), ["auth", "authconfig"])
-        self.registerHandler(self.AutoPart(), ["autopart"])
-        self.registerHandler(self.AutoStep(), ["autostep"])
-        self.registerHandler(self.Bootloader(), ["bootloader"])
-        self.registerHandler(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
-        self.registerHandler(self.ClearPart(), ["clearpart"])
-        self.registerHandler(self.DisplayMode(), ["cmdline", "graphical", "text"])
-        self.registerHandler(self.Device(), ["device"])
-        self.registerHandler(self.DeviceProbe(), ["deviceprobe"])
-        self.registerHandler(self.DriverDisk(), ["driverdisk"])
-        self.registerHandler(self.Firewall(), ["firewall"])
-        self.registerHandler(self.Firstboot(), ["firstboot"])
-        self.registerHandler(self.Reboot(), ["halt", "poweroff", "reboot", "shutdown"])
-        self.registerHandler(self.IgnoreDisk(), ["ignoredisk"])
-        self.registerHandler(self.Interactive(), ["interactive"])
-        self.registerHandler(self.Keyboard(), ["keyboard"])
-        self.registerHandler(self.Lang(), ["lang"])
-        self.registerHandler(self.LangSupport(), ["langsupport"])
-        self.registerHandler(self.LogVol(), ["logvol"])
-        self.registerHandler(self.MediaCheck(), ["mediacheck"])
-        self.registerHandler(self.Monitor(), ["monitor"])
-        self.registerHandler(self.Mouse(), ["mouse"])
-        self.registerHandler(self.Network(), ["network"])
-        self.registerHandler(self.Partition(), ["part", "partition"])
-        self.registerHandler(self.Raid(), ["raid"])
-        self.registerHandler(self.RootPw(), ["rootpw"])
-        self.registerHandler(self.SELinux(), ["selinux"])
-        self.registerHandler(self.SkipX(), ["skipx"])
-        self.registerHandler(self.Timezone(), ["timezone"])
-        self.registerHandler(self.Upgrade(), ["upgrade", "install"])
-        self.registerHandler(self.Vnc(), ["vnc"])
-        self.registerHandler(self.VolGroup(), ["volgroup"])
-        self.registerHandler(self.XConfig(), ["xconfig"])
-        self.registerHandler(self.ZeroMbr(), ["zerombr"])
-        self.registerHandler(self.ZFCP(), ["zfcp"])
+        self.registerCommand(self.Authconfig(), ["auth", "authconfig"])
+        self.registerCommand(self.AutoPart(), ["autopart"])
+        self.registerCommand(self.AutoStep(), ["autostep"])
+        self.registerCommand(self.Bootloader(), ["bootloader"])
+        self.registerCommand(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
+        self.registerCommand(self.ClearPart(), ["clearpart"])
+        self.registerCommand(self.DisplayMode(), ["cmdline", "graphical", "text"])
+        self.registerCommand(self.Device(), ["device"])
+        self.registerCommand(self.DeviceProbe(), ["deviceprobe"])
+        self.registerCommand(self.DriverDisk(), ["driverdisk"])
+        self.registerCommand(self.Firewall(), ["firewall"])
+        self.registerCommand(self.Firstboot(), ["firstboot"])
+        self.registerCommand(self.Reboot(), ["halt", "poweroff", "reboot", "shutdown"])
+        self.registerCommand(self.IgnoreDisk(), ["ignoredisk"])
+        self.registerCommand(self.Interactive(), ["interactive"])
+        self.registerCommand(self.Keyboard(), ["keyboard"])
+        self.registerCommand(self.Lang(), ["lang"])
+        self.registerCommand(self.LangSupport(), ["langsupport"])
+        self.registerCommand(self.LogVol(), ["logvol"])
+        self.registerCommand(self.MediaCheck(), ["mediacheck"])
+        self.registerCommand(self.Monitor(), ["monitor"])
+        self.registerCommand(self.Mouse(), ["mouse"])
+        self.registerCommand(self.Network(), ["network"])
+        self.registerCommand(self.Partition(), ["part", "partition"])
+        self.registerCommand(self.Raid(), ["raid"])
+        self.registerCommand(self.RootPw(), ["rootpw"])
+        self.registerCommand(self.SELinux(), ["selinux"])
+        self.registerCommand(self.SkipX(), ["skipx"])
+        self.registerCommand(self.Timezone(), ["timezone"])
+        self.registerCommand(self.Upgrade(), ["upgrade", "install"])
+        self.registerCommand(self.Vnc(), ["vnc"])
+        self.registerCommand(self.VolGroup(), ["volgroup"])
+        self.registerCommand(self.XConfig(), ["xconfig"])
+        self.registerCommand(self.ZeroMbr(), ["zerombr"])
+        self.registerCommand(self.ZFCP(), ["zfcp"])

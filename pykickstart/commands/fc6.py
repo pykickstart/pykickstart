@@ -24,7 +24,7 @@ translate.textdomain("pykickstart")
 ### INHERIT FROM A PREVIOUS RELEASE
 from fc5 import *
 
-class FC6Version(FC5Version):
+class FC6Handler(FC5Handler):
     ###
     ### DATA CLASSES
     ###
@@ -100,12 +100,12 @@ class FC6Version(FC5Version):
 
             return retval
 
-    class NetworkData(FC5Version.NetworkData):
+    class NetworkData(FC5Handler.NetworkData):
         def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
                      ethtool="", gateway="", hostname="", ip="", ipv4=True,
                      ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
                      notksdevice=False, onboot=True, wepkey=""):
-            FC5Version.NetworkData.__init__(self, bootProto=bootProto,
+            FC5Handler.NetworkData.__init__(self, bootProto=bootProto,
                                             dhcpclass=dhcpclass, device=device,
                                             essid=essid, ethtool=ethtool,
                                             gateway=gateway, hostname=hostname,
@@ -234,7 +234,7 @@ class FC6Version(FC5Version):
             op.add_option("--dev", dest="devices", action="append", type="string",
                           required=1)
 
-            dm = self.dispatcher.DmRaidData()
+            dm = self.handler.DmRaidData()
             (opts, extra) = op.parse_args(args=args)
             dm.name = dm.name.split('/')[-1]
             self._setToObj(op, opts, dm)
@@ -275,7 +275,7 @@ class FC6Version(FC5Version):
                 mapping = {"command": "scsi", "options": extra}
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
-            dd = self.dispatcher.IscsiData()
+            dd = self.handler.IscsiData()
             self._setToObj(op, opts, dd)
             self.add(dd)
 
@@ -348,9 +348,9 @@ class FC6Version(FC5Version):
             (opts, extra) = op.parse_args(args=args)
             self._setToSelf(op, opts)
 
-    class Method(FC5Version.Method):
+    class Method(FC5Handler.Method):
         def __init__(self, writePriority=0, method=""):
-            FC5Version.Method.__init__(self, writePriority, method)
+            FC5Handler.Method.__init__(self, writePriority, method)
 
         def __str__(self):
             if self.method == "cdrom":
@@ -401,10 +401,10 @@ class FC6Version(FC5Version):
 
             self._setToSelf(op, opts)
 
-    class Monitor(FC5Version.Monitor):
+    class Monitor(FC5Handler.Monitor):
         def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
                      vsync=""):
-            FC5Version.Monitor.__init__(self, writePriority, hsync=hsync,
+            FC5Handler.Monitor.__init__(self, writePriority, hsync=hsync,
                                         monitor=monitor, vsync=vsync)
             self.probe = probe
 
@@ -467,7 +467,7 @@ class FC6Version(FC5Version):
                           required=1)
 
             (opts, extra) = op.parse_args(args=args)
-            dd = self.dispatcher.MpPathData()
+            dd = self.handler.MpPathData()
             self._setToObj(op, opts, dd)
             dd.mpdev = dd.mpdev.split('/')[-1]
 
@@ -482,7 +482,7 @@ class FC6Version(FC5Version):
                     parent = x
 
             if parent is None:
-                mpath = self.dispatcher.MultiPathData()
+                mpath = self.handler.MultiPathData()
                 self.add(mpath)
             else:
                 mpath = self.mpaths[x]
@@ -492,9 +492,9 @@ class FC6Version(FC5Version):
         def add(self, newObj):
             self.mpaths.append(newObj)
 
-    class Network(FC5Version.Network):
+    class Network(FC5Handler.Network):
         def __init__(self, writePriority=0, network=None):
-            FC5Version.Network.__init__(self, writePriority, network)
+            FC5Handler.Network.__init__(self, writePriority, network)
 
         def parse(self, args):
             op = KSOptionParser(self.lineno)
@@ -523,13 +523,13 @@ class FC6Version(FC5Version):
             op.add_option("--wepkey", dest="wepkey")
 
             (opts, extra) = op.parse_args(args=args)
-            nd = self.dispatcher.NetworkData()
+            nd = self.handler.NetworkData()
             self._setToObj(op, opts, nd)
             self.add(nd)
 
-    class Reboot(FC5Version.Reboot):
+    class Reboot(FC5Handler.Reboot):
         def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
-            FC5Version.Reboot.__init__(self, writePriority, action=action)
+            FC5Handler.Reboot.__init__(self, writePriority, action=action)
             self.eject = eject
 
         def __str__(self):
@@ -590,7 +590,7 @@ class FC6Version(FC5Version):
             if not opts.baseurl and not opts.mirrorlist:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
-            rd = self.dispatcher.RepoData()
+            rd = self.handler.RepoData()
             self._setToObj(op, opts, rd)
             self.add(rd)
 
@@ -670,7 +670,7 @@ class FC6Version(FC5Version):
             op.add_option("--shell")
             op.add_option("--uid", type="int")
 
-            ud = self.dispatcher.UserData()
+            ud = self.handler.UserData()
             (opts, extra) = op.parse_args(args=args)
             self._setToObj(op, opts, ud)
             self.add(ud)
@@ -776,20 +776,20 @@ class FC6Version(FC5Version):
             self._setToSelf(op, opts)
 
     def __init__(self):
-        FC5Version.__init__(self)
+        FC5Handler.__init__(self)
 
-        self.registerHandler(self.DmRaid(), ["dmraid"])
-        self.registerHandler(self.Iscsi(), ["iscsi"])
-        self.registerHandler(self.IscsiName(), ["iscsiname"])
-        self.registerHandler(self.Key(), ["key"])
-        self.registerHandler(self.Logging(), ["logging"])
-        self.registerHandler(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
-        self.registerHandler(self.Monitor(), ["monitor"])
-        self.registerHandler(self.MultiPath(), ["multipath"])
-        self.registerHandler(self.Network(), ["network"])
-        self.registerHandler(self.Reboot(), ["halt", "poweroff", "reboot", "shutdown"])
-        self.registerHandler(self.Repo(), ["repo"])
-        self.registerHandler(self.Services(), ["services"])
-        self.registerHandler(self.User(), ["user"])
-        self.registerHandler(self.Vnc(), ["vnc"])
-        self.registerHandler(self.XConfig(), ["xconfig"])
+        self.registerCommand(self.DmRaid(), ["dmraid"])
+        self.registerCommand(self.Iscsi(), ["iscsi"])
+        self.registerCommand(self.IscsiName(), ["iscsiname"])
+        self.registerCommand(self.Key(), ["key"])
+        self.registerCommand(self.Logging(), ["logging"])
+        self.registerCommand(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
+        self.registerCommand(self.Monitor(), ["monitor"])
+        self.registerCommand(self.MultiPath(), ["multipath"])
+        self.registerCommand(self.Network(), ["network"])
+        self.registerCommand(self.Reboot(), ["halt", "poweroff", "reboot", "shutdown"])
+        self.registerCommand(self.Repo(), ["repo"])
+        self.registerCommand(self.Services(), ["services"])
+        self.registerCommand(self.User(), ["user"])
+        self.registerCommand(self.Vnc(), ["vnc"])
+        self.registerCommand(self.XConfig(), ["xconfig"])
