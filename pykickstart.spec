@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43
+Version: 0.90
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Jan 16 2007 Chris Lumens <clumens@redhat.com> - 0.90-1
+- Support multiple versions of kickstart syntax from one code base
+  (#189348).
+- Fix inconsistency between Script parser and writer (#222877).
+
 * Fri Dec 15 2006 Chris Lumens <clumens@redhat.com> - 0.43-1
 - Pull in new translations (#216620).
 
