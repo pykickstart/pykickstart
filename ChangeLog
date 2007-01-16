@@ -3,6 +3,8 @@
 	* pykickstart/parser.py (Script.__str__):  Write out --interpreter
 	since that's what the parser expects (#222877).
 
+	* pykickstart/commands/fc4.py:  Fix exception error messages.
+
 2007-01-15  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/base.py (BaseHandler.empty):  Add a method to

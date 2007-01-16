@@ -315,7 +315,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "autopart")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart")
 
             self.autopart = True
 
@@ -664,7 +664,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "interactive")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "interactive")
 
             self.interactive = True
 
@@ -681,7 +681,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 1:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s only takes one argument") % "keyboard")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "keyboard")
 
             self.keyboard = args[0]
 
@@ -698,7 +698,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 1:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s only takes one argument") % "lang")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "lang")
 
             self.lang = args[0]
 
@@ -798,7 +798,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "mediacheck")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "mediacheck")
 
             self.mediacheck = True
 
@@ -1167,7 +1167,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "skipx")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx")
 
             self.skipx = True
 
@@ -1213,7 +1213,7 @@ class FC4Handler(BaseHandler):
 
         def parse(self, args):
             if len(args) > 0:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("KS %s does not take any arguments") % "upgrade")
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade")
 
             if self.currentCmd == "upgrade":
                self.upgrade = True
