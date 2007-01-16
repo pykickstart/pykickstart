@@ -90,7 +90,7 @@ class Script:
             retval = '\n%traceback'
 
         if self.interp != "/bin/sh" and self.interp != "":
-            retval += " --interp %s" % self.interp
+            retval += " --interpreter=%s" % self.interp
         if self.type == KS_SCRIPT_POST and not self.inChroot:
             retval += " --nochroot"
         if self.logfile != None:
