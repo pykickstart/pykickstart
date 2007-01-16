@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-09 15:53-0500\n"
+"POT-Creation-Date: 2007-01-16 14:27-0500\n"
 "PO-Revision-Date: 2007-01-10 10:45+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
@@ -54,8 +54,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Die Option %(option)s wurde in Version %(intro)s eingeführt, Sie benutzen jedoch "
-"Kickstart-Syntax-Versionen %(version)s"
+"Die Option %(option)s wurde in Version %(intro)s eingeführt, Sie benutzen "
+"jedoch Kickstart-Syntax-Versionen %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -77,8 +77,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Die Option %(option)s wurde in Version %(intro)s entfernt, Sie benutzen jedoch "
-"Kickstart-Syntax-Versionen %(version)s"
+"Die Option %(option)s wurde in Version %(intro)s entfernt, Sie benutzen "
+"jedoch Kickstart-Syntax-Versionen %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -126,4 +126,3 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
-

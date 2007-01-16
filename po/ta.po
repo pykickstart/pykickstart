@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-09 15:53-0500\n"
+"POT-Creation-Date: 2007-01-16 14:27-0500\n"
 "PO-Revision-Date: 2007-01-11 12:32+0530\n"
 "Last-Translator: Felix <ifelix@redhat.com>\n"
 "Language-Team: Tamil <ta@li.org>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -51,7 +52,9 @@ msgstr "விருப்பம் %s தேவைப்படுகிறத�
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "விருப்பம் %(option)s பதிப்பு %(intro)sஇல் அறிமுகப்பட்டுள்ளது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
+msgstr ""
+"விருப்பம் %(option)s பதிப்பு %(intro)sஇல் அறிமுகப்பட்டுள்ளது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் "
+"இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -71,7 +74,9 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "விருப்பம் %(option)s பதிப்பு %(removed)sஇல் நீக்கப்பட்டது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
+msgstr ""
+"விருப்பம் %(option)s பதிப்பு %(removed)sஇல் நீக்கப்பட்டது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண "
+"பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -117,4 +122,3 @@ msgstr "உள்ளீடு கோப்பில் பொதுவான க
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
-

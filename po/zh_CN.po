@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-09 15:53-0500\n"
+"POT-Creation-Date: 2007-01-16 14:27-0500\n"
 "PO-Revision-Date: 2007-01-16 13:28+0800\n"
 "Last-Translator: Liu Tao <liutao_free@sohu.com>\n"
 "Language-Team:  <zh@li.org>\n"
@@ -14,6 +14,13 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/errors.py:43
+#, fuzzy, python-format
+msgid ""
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
+"\n"
+"%(msg)s\n"
+msgstr "读取 kickstart 文件的第 %s 行时发生问题"
+
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
@@ -30,18 +37,33 @@ msgstr "选项 %s 是必需的"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的kickstart语法"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的"
+"kickstart语法"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "忽略第 %s 行中的过时选项：%s 选项已经过时，不再起任何作用。这个选项可能会在未来的版本中被删除，这会导致 kickstart 运行时产生严重错误。请修改您的 kickstart 文件，删除该选项。"
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"忽略第 %s 行中的过时选项：%s 选项已经过时，不再起任何作用。这个选项可能会在未"
+"来的版本中被删除，这会导致 kickstart 运行时产生严重错误。请修改您的 "
+"kickstart 文件，删除该选项。"
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本kickstart的语法"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本"
+"kickstart的语法"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -97,27 +119,38 @@ msgstr "输入文件有错误： %s"
 #~ "忽略第 %s 行的过时命令： %s 已经过时，不再起任何作用。这个指令可能会在未来"
 #~ "的版本中删除，这会导致 kickstart 执行时发生严重的错误。请您修改 kickstart "
 #~ "文件，删除该命令。"
+
 #~ msgid "Command %s does not take any arguments"
 #~ msgstr "%s 命令不带有任何参数"
+
 #~ msgid "Unexpected arguments to %(command)s command: %(options)s"
 #~ msgstr "意外的 %(command)s 命令的参数: %(options)s"
+
 #~ msgid "Command %s only takes one argument"
 #~ msgstr "%s 命令只带有一个参数"
+
 #~ msgid "Mount point required for %s"
 #~ msgstr "%s 需要挂载点"
+
 #~ msgid "One of biospart or partition options must be specified."
 #~ msgstr "必须指定 biospart 或 partition 选项中的一个。"
+
 #~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 #~ msgstr "意外的 %(cmd)s 命令的参数：%(options)s"
+
 #~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 #~ msgstr "设备 '%s' 已经在多路径 '%s' 中被使用"
+
 #~ msgid ""
 #~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
 #~ msgstr "repo 命令只能选择 --baseurl 与 --mirrorlist 其中之一。"
+
 #~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 #~ msgstr "repo 命令必须选择 --baseurl 与 --mirrorlist 其中之一"
+
 #~ msgid "A single argument is expected for the %s command"
 #~ msgstr "%s 命令需要一个单独的参数"
+
 #~ msgid ""
 #~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
 #~ "takes any options.  In future releases, this will result in a fatal error "
@@ -125,6 +158,6 @@ msgstr "输入文件有错误： %s"
 #~ msgstr ""
 #~ "忽略第 %s 行的过时选项： zerombr 命令不再需要任何选项。在未来的版本里这将"
 #~ "导致 kickstart 产生严重错误。请修改您的 kickstart 文件，删除相关选项。"
+
 #~ msgid "Unknown command: %s"
 #~ msgstr "未知命令：%s"
-

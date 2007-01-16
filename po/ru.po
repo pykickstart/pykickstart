@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-09 15:53-0500\n"
+"POT-Creation-Date: 2007-01-16 14:27-0500\n"
 "PO-Revision-Date: 2007-01-10 20:29+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -45,22 +45,39 @@ msgstr "Параметр %s является обязательным"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Параметр %(option)s добавлена в версии %(intro)s, а вы используете синтаксис кикстарта версии %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Параметр %(option)s добавлена в версии %(intro)s, а вы используете синтаксис "
+"кикстарта версии %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s был объявлен устаревающим и более не оказывает влияния.  Он может быть удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. Измените ваш файл кикстарта и удалите этот параметр."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s "
+"был объявлен устаревающим и более не оказывает влияния.  Он может быть "
+"удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
+"Измените ваш файл кикстарта и удалите этот параметр."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Параметр %(option)s удален в версии %(removed)s, вы используете синтаксис кикстарта версии %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Параметр %(option)s удален в версии %(removed)s, вы используете синтаксис "
+"кикстарта версии %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Для параметра, который не принимает значения, установлен флаг обязательности"
+msgstr ""
+"Для параметра, который не принимает значения, установлен флаг обязательности"
 
 #: ../pykickstart/options.py:148
 #, python-format
@@ -113,33 +130,44 @@ msgstr "Общая ошибка во входном файле:  %s"
 #~ "была объявлена устаревающей и более не оказывает влияния.  Она может быть "
 #~ "удалена в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
 #~ "Измените ваш файл кикстарта и удалите эту команду."
+
 #~ msgid "Command %s does not take any arguments"
 #~ msgstr "Команда %s не принимает аргументов"
+
 #~ msgid "Unexpected arguments to %(command)s command: %(options)s"
 #~ msgstr "Неожиданные аргументы команды %(command)s: %(options)s"
+
 #~ msgid "Command %s only takes one argument"
 #~ msgstr "Команда %s принимает только один аргумент"
+
 #~ msgid "Mount point required for %s"
 #~ msgstr "Для %s требуется точка монтирования"
+
 #~ msgid "One of biospart or partition options must be specified."
 #~ msgstr "Должен быть указан один из параметров biospart или partition."
+
 #~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 #~ msgstr "Неожиданные аргументы команды %(cmd)s: %(options)s"
+
 #~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 #~ msgstr ""
 #~ "Устройство '%(device)s' уже задействовано в конструкции multipath '%"
 #~ "(multipathdev)s'"
+
 #~ msgid ""
 #~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
 #~ msgstr ""
 #~ "Только один параметр --baseurl и --mirrorlist может быть передан команде "
 #~ "repo."
+
 #~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 #~ msgstr ""
 #~ "Один из параметров --baseurl или --mirrorlist должен быть передан команде "
 #~ "repo."
+
 #~ msgid "A single argument is expected for the %s command"
 #~ msgstr "Для команды %s ожидается один аргумент"
+
 #~ msgid ""
 #~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
 #~ "takes any options.  In future releases, this will result in a fatal error "
@@ -149,6 +177,6 @@ msgstr "Общая ошибка во входном файле:  %s"
 #~ "принимает параметров.  В будущих выпусках это приведет к фатальным "
 #~ "ошибкам в кикстарта. Измените ваш файл кикстарта и удалите любые "
 #~ "параметры."
+
 #~ msgid "Unknown command: %s"
 #~ msgstr "Неизвестная команда: %s"
-
