@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                              December 20, 2006
+                              January 17, 2007
 
 
 Introduction
@@ -33,6 +33,15 @@ priority was to formalize the currently recognized grammar in an easily
 understood parser so that files that used to work would continue to.  I
 believe these goals have been met.
 
+pykickstart also understands all the various versions of the kickstart syntax
+that have been around.  Various releases of Red Hat Linux, Red Hat Enterprise
+Linux, and Fedora Core have had slightly different versions.  For the most
+part, the basic syntax has stayed the same.  However, different commands have
+come and gone and different options have been supported on those commands.
+pykickstart allows specifying which version of kickstart syntax you want
+to support for reading and writing, allowing you to use one code base to
+deal with the full range of kickstart files.
+
 This document will cover how to use pykickstart in your programs and how to
 extend the basic parser to get customized behavior.  It includes a
 description of the important classes and several working examples.
@@ -46,39 +55,53 @@ is a code snippet that imports the required classes, parses a kickstart
 file, and leaves the results in the common data format.
 
         #!/usr/bin/python
-        from pykickstart.data import *
         from pykickstart.parser import *
+        from pykickstart.version import makeHandler
 
-        ksdata = KickstartData()
-        kshandlers = KickstartHandlers(ksdata)
-        ksparser = KickstartParser(ksdata, kshandlers)
+        kshandlers = makeHandler()
+        ksparser = KickstartParser(hsandlers)
         ksparser.readKickstart("ks.cfg")
 
-The call to readKickstart() reads in the kickstart file and sets values in
-ksdata.  After this call, you don't need kshandlers or ksparser anymore
-but you will want to hold on to ksdata if you are interested in the
-contents of the file.  If you want to do some manipulations and then write
-out the results to a new file, that's as simple as:
+The call to makeHandler() creates a new kickstart handler object for the
+specified version.  By default, it creates one for the latest supported
+syntax version.  The call to KickstartParser() creates a new parser using
+the handler object for dealing with individual commands.  The call to
+readKickstart() then reads in the kickstart file and sets values in the
+handler.
 
-        from pykickstart.writer import KickstartWriter
-        kswriter = KickstartWriter(ksdata)
+After this call, you don't need ksparser anymore but you will want to hold
+on to kshandlers if you are interested in the contents of the file.  If
+you want to do some manipulations and then write out the results to a new
+file, that's as simple as:
+
         outfile = open("out.cfg", 'w")
-        outfile.write(kswriter.write())
+        outfile.write(kshandlers.__str__())
         outfile.close()
 
 
 Classes
 =======
 The important classes that make up pykickstart are spread across a handful
-of files.
+of files.  This section includes a brief outline of the contents of those
+classes.  For more thorough documentation, refer to the python doc strings
+throughout pykickstart.  In python, you can view these docs strings like
+so:
+
+        >>> from pykickstart import parser
+        >>> help(parser)
+        >>> help(parser.KickstartParser)
 
 constants.py
 ------------
 This file includes no classes, though it does include several important
-constants representing various things in the KickstartData.  You should
-import its contents like so:
+constants representing various things in a kickstart handler class.  You
+should import its contents like so:
 
         from pykickstart.constants import *
+
+
+*** EVERYTHING UNDER HERE IS CURRENTLY OUT OF DATE AND SLOWLY BEING
+*** REWRITTEN.
 
 data.py
 -------
