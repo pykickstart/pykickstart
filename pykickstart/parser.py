@@ -291,26 +291,23 @@ class KickstartParser:
         if hasattr(opts, "nochroot"):
             self._script["chroot"] = not opts.nochroot
 
-    def readKickstart (self, file):
-        """The kickstart file state machine.  file is the filename to work on.
-           This method should not be overridden as doing so will break the
-           basic kickstart file syntax.
-        """
+    def _stateMachine (self, provideLineFn):
         # For error reporting.
         lineno = 0
-
-        fh = open(file)
         needLine = True
 
         while True:
             if needLine:
-                line = fh.readline()
+                try:
+                    line = provideLineFn()
+                except StopIteration:
+                    break
+
                 lineno += 1
                 needLine = False
 
             # At the end of an included file
             if line == "" and self._includeDepth > 0:
-                fh.close()
                 break
 
             # Don't eliminate whitespace or comments from scripts.
@@ -457,3 +454,14 @@ class KickstartParser:
 
             elif self._state == STATE_END:
                 break
+
+    def readKickstartFromString (self, str):
+        """Process a kickstart file, provided as the string str."""
+        i = iter(str.splitlines(True))
+        self._stateMachine (lambda: i.next())
+
+    def readKickstart (self, file):
+        """Process a kickstart file, given by the filename file."""
+        fh = open(file)
+        self._stateMachine (lambda: fh.readline())
+        fh.close()

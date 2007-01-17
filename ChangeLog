@@ -1,5 +1,11 @@
 2007-01-16  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py (KickstartParser.readKickstartFromString):
+	Add a method to read a kickstart file from a string, in addition to
+	the one that's already there for reading from a file.
+
+2007-01-16  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart.spec, setup.py:  New version, finally.
 
 2007-01-16  Chris Lumens  <clumens@redhat.com>
