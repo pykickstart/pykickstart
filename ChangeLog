@@ -9,6 +9,8 @@
 
 	* pykickstart/options.py (KSOptionParser.__init__):  Move call to
 	superclass __init__ to where it belongs.
+	(KSOptionParser.check_values):  Deprecated should be a flag, not a
+	version number.
 
 	* pykickstart/parser.py (Packages):  Accept a --default argument to
 	specify that the default package set should be installed (#221305).

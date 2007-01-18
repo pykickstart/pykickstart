@@ -67,7 +67,7 @@ class KSOptionParser(OptionParser):
             return option.introduced and option.introduced > self.version
 
         def usedDeprecated(self, option):
-            return option.deprecated and option.deprecated <= self.version
+            return option.deprecated
 
         def usedRemoved(self, option):
             return option.removed and option.removed <= self.version
