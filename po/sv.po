@@ -1,7 +1,6 @@
 # Swedish messages for pykickstart.
-# Copyright (C) 2006 Christian Rose.
-# Christian Rose <menthos@menthos.com>, 2006.
-#
+# Copyright (C) Christian Rose <menthos@menthos.com>, 2006.
+# Copyright (C) Magnus Larsson <fedoratrans@gmail.com>, 2007.
 # $Id$
 #
 msgid ""
@@ -9,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-07-21 00:26+0200\n"
+"PO-Revision-Date: 2007-01-18 16:10-0500\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Följande fel inträffade på rad %s i kickstart-filen:\n"
+"Följande fel inträffade på rad %(lineno)s i kickstart-filen:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -34,7 +33,7 @@ msgstr "Det uppstod ett problem vid inläsning från rad %s av kickstart-filen"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Version som inte stöds angiven."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -47,19 +46,21 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Flaggan %(option)s introducerades i version %(intro)s, men du använder "
+"version %(version)s av kickstart-syntaxen"
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Ignorerar föråldrad flagga på rad %s: %s-flaggan är föråldrad och har inte "
-"längre någon effekt. Den kan komma att tas bort från framtida utgåvor, "
-"vilket kommer att resultera i ett ödesdigert fel från kickstart. Ändra din "
-"kickstart-fil och ta bort denna flagga."
+"Ignorerar föråldrad flagga på rad %(lineno)s: %(option)s-flaggan är "
+"föråldrad och har inte längre någon effekt. Den kan komma att tas bort från "
+"framtida utgåvor, vilket kommer att resultera i ett ödesdigert fel från "
+"kickstart. Ändra din kickstart-fil och ta bort denna flagga."
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -67,6 +68,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Flaggan %(option)s togs bort i version %(removed)s, men du använder version %"
+"(version)s av kickstart-syntax"
 
 # Här blir det konstigt...
 #: ../pykickstart/options.py:139
@@ -74,9 +77,9 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "Nödvändig flagga satt för flagga som inte tar ett värde"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Flagga %s: ogiltigt booleskt värde: %r"
+msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -89,12 +92,12 @@ msgstr "tolka inkluderingsfiler då %include hittas"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "version av kickstart-syntax att validera mot"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Versionen %s stöds inte av pykickstart"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -131,7 +134,7 @@ msgstr "Allmänt fel i indatafil: %s"
 
 #, fuzzy
 #~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Oväntade argument till %s-kommandot: %s"
+#~ msgstr "Oväntade argument till %(command)s-kommandot: %(options)s"
 
 #~ msgid "Command %s only takes one argument"
 #~ msgstr "Kommandot %s tar endast ett argument"
