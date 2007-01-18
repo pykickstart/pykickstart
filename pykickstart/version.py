@@ -36,9 +36,10 @@ from pykickstart.errors import KickstartVersionError
 FC4 = 100
 FC5 = 150
 FC6 = 200
+F7  = 250
 
 # This always points at the latest version and is the default.
-DEVEL = FC6
+DEVEL = F7
 
 def stringToVersion(string):
     """Convert string into one of the provided version constants.  Raises
@@ -50,6 +51,8 @@ def stringToVersion(string):
         return FC5
     elif string == "FC6":
         return FC6
+    elif string == "F7":
+        return F7
     elif string == "DEVEL":
         return DEVEL
     else:
@@ -74,6 +77,9 @@ def returnClassForVersion(version=DEVEL):
     elif version == FC6:
         from pykickstart.commands.fc6 import FC6Handler
         return FC6Handler
+    elif version == F7:
+        from pykickstart.commands.f7 import F7Handler
+        return F7Handler
     else:
         raise KickstartVersionError(version)
 

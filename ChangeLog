@@ -3,6 +3,7 @@
 	* pykickstart/commands/base.py (BaseHandler.unregisterCommand):  Add a
 	method to remove support for a command from a Handler instance.
 
+	* pykickstart/version.py:  Add support for the F7 version.
 	* pykickstart/commands/f7.py:  Add a devel version that removes the
 	deprecated langsupport and mouse commands.
 
