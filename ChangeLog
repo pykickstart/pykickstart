@@ -7,6 +7,17 @@
 	* pykickstart/commands/f7.py:  Add a devel version that removes the
 	deprecated langsupport and mouse commands.
 
+	* pykickstart/options.py (KSOptionParser.__init__):  Move call to
+	superclass __init__ to where it belongs.
+
+	* pykickstart/parser.py (Packages):  Accept a --default argument to
+	specify that the default package set should be installed (#221305).
+	(KickstartParser.handlePackageHdr):  Likewise.
+	(KickstartParser.__init__):  KickstartParser needs to accept a version
+	argument as well.
+
+	* validator/ksvalidator:  Pass the version to KickstartParser.
+
 2007-01-17  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

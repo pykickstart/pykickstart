@@ -33,6 +33,7 @@ from optparse import *
 from constants import *
 from errors import *
 from options import *
+from version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -61,15 +62,15 @@ class Script:
                  logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
         """Create a new Script instance.  Instance attributes:
 
-           script      -- A string containing all the lines of the script.
-           interp      -- The program that should be used to interpret this
-                          script.
-           inChroot    -- Does the script execute in anaconda's chroot
-                          environment or not?
-           logfile     -- Where all messages from the script should be logged.
            errorOnFail -- If execution of the script fails, should anaconda
                           stop, display an error, and then reboot without
                           running any other scripts?
+           inChroot    -- Does the script execute in anaconda's chroot
+                          environment or not?
+           interp      -- The program that should be used to interpret this
+                          script.
+           logfile     -- Where all messages from the script should be logged.
+           script      -- A string containing all the lines of the script.
            type        -- The type of the script, which can be KS_SCRIPT_* from
                           pykickstart.constants.
         """
@@ -109,45 +110,50 @@ class Packages:
     def __init__(self):
         """Create a new Packages instance.  Instance attributes:
 
-           groupList     -- A list of all the groups specified in the %packages
-                            section, without the leading @ symbol.
-           packageList   -- A list of all the packages specified in the
-                            %packages section.
+           addBase       -- Should the Base group be installed even if it is
+                            not specified?
+           default       -- Should the default package set be selected?
            excludedList  -- A list of all the packages marked for exclusion in
                             the %packages section, without the leading minus
                             symbol.
            excludeDocs   -- Should documentation in each package be excluded?
-           addBase       -- Should the Base group be installed even if it is
-                            not specified?
+           groupList     -- A list of all the groups specified in the %packages
+                            section, without the leading @ symbol.
            handleMissing -- If unknown packages are specified in the %packages
                             section, should it be ignored or not?  Values can
                             be KS_MISSING_* from pykickstart.constants.
+           packageList   -- A list of all the packages specified in the
+                            %packages section.
         """
-        self.groupList = []
-        self.packageList = []
+        self.addBase = True
+        self.default = False
         self.excludedList = []
         self.excludeDocs = False
-        self.addBase = True
+        self.groupList = []
         self.handleMissing = KS_MISSING_PROMPT
+        self.packageList = []
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         pkgs = ""
 
-        for grp in self.groupList:
-            pkgs += "@%s\n" % grp
+        if not self.default:
+            for grp in self.groupList:
+                pkgs += "@%s\n" % grp
 
-        for pkg in self.packageList:
-            pkgs += "%s\n" % pkg
+            for pkg in self.packageList:
+                pkgs += "%s\n" % pkg
 
-        for pkg in self.excludedList:
-            pkgs += "-%s\n" % pkg
+            for pkg in self.excludedList:
+                pkgs += "-%s\n" % pkg
 
-        if pkgs == "":
-            return ""
+            if pkgs == "":
+                return ""
 
         retval = "\n%packages"
 
+        if self.default:
+            retval += " --default"
         if self.excludeDocs:
             retval += " --excludedocs"
         if not self.addBase:
@@ -182,31 +188,42 @@ class KickstartParser:
        anything may just pass.  However, readKickstart should never be
        overridden.
     """
-    def __init__ (self, handler, followIncludes=True,
+    def __init__ (self, handler, version=DEVEL, followIncludes=True,
                   errorsAreFatal=True, missingIncludeIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
-           handler               -- An instance of a BaseHandler subclass.  If
-                                    None, the input file will still be parsed
-                                    but no data will be saved and no commands
-                                    will be executed.
-           followIncludes        -- If %include is seen, should the included
-                                    file be checked as well or skipped?
            errorsAreFatal        -- Should errors cause processing to halt, or
                                     just print a message to the screen?  This
                                     is most useful for writing syntax checkers
                                     that may want to continue after an error is
                                     encountered.
+           followIncludes        -- If %include is seen, should the included
+                                    file be checked as well or skipped?
+           handler               -- An instance of a BaseHandler subclass.  If
+                                    None, the input file will still be parsed
+                                    but no data will be saved and no commands
+                                    will be executed.
            missingIncludeIsFatal -- Should missing include files be fatal, even
                                     if errorsAreFatal is False?
+           version               -- The version of kickstart syntax to process,
+                                    defaulting to DEVEL.  This must match the
+                                    version of the handler.
         """
-        self.handler = handler
-        self.followIncludes = followIncludes
-        self.missingIncludeIsFatal = missingIncludeIsFatal
         self.errorsAreFatal = errorsAreFatal
+        self.followIncludes = followIncludes
+        self.handler = handler
+        self.missingIncludeIsFatal = missingIncludeIsFatal
         self._state = STATE_COMMANDS
         self._script = None
         self._includeDepth = 0
+
+        try:
+            self.version = int(version)
+        except ValueError:
+            self.version = stringToVersion(version)
+
+        if handler.__class__.__name__ != returnClassForVersion(version).__name__:
+            raise KickstartVersionError, "Version passed to KickstartParser does not match version of handler"
 
     def addScript (self):
         """Create a new Script instance and add it to the Version object.  This
@@ -244,17 +261,19 @@ class KickstartParser:
            on the Version's Packages instance appropriate.  This method may be
            overridden in a subclass if necessary.
         """
-        op = KSOptionParser(lineno=lineno)
+        op = KSOptionParser(lineno=lineno, version=self.version)
         op.add_option("--excludedocs", dest="excludedocs", action="store_true",
-                      default=False)
+                      default=False, deprecated=FC6)
         op.add_option("--ignoremissing", dest="ignoremissing",
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
                       default=False)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
-                      deprecated=1)
+                      deprecated=FC4)
         op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
-                      deprecated=1)
+                      deprecated=FC4)
+        op.add_option("--default", dest="defaultPackages", action="store_true",
+                      default=False, introduced=F7)
 
         (opts, extra) = op.parse_args(args=args[1:])
 
@@ -265,12 +284,15 @@ class KickstartParser:
         else:
             self.handler.packages.handleMissing = KS_MISSING_PROMPT
 
+        if opts.defaultPackages:
+            self.handler.packages.default = True
+
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
            setting on a Script instance once the end of the script is found.
            This method may be overridden in a subclass if necessary.
         """
-        op = KSOptionParser(lineno=lineno)
+        op = KSOptionParser(lineno=lineno, version=self.version)
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
         op.add_option("--interpreter", dest="interpreter", default="/bin/sh")

@@ -56,7 +56,8 @@ except KickstartVersionError:
     print _("The version %s is not supported by pykickstart" % opts.version)
     cleanup(destdir)
 
-ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
+ksparser = KickstartParser(handler, version=opts.version,
+                           followIncludes=opts.followincludes,
                            errorsAreFatal=opts.firsterror)
 
 # turn DeprecationWarnings into errors
