@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ms\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-12-22 21:17+0800\n"
+"PO-Revision-Date: 2007-01-18 23:14+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +17,15 @@ msgstr ""
 "X-Generator: KBabel 1.10.2\n"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Masalah berikut berlaku pada baris %s untuk fail kickstart:\n"
+"Masalah berikut berlaku pada baris %(lineno)s untuk fail kickstart:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -43,29 +43,17 @@ msgstr "Pilihan %s diperlukan"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
 msgstr ""
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Mengabaikan pilihan tidak disokong pada baris %s: Pilihan %s telah tidak "
-"disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran masa "
-"hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila ubahsuai "
-"fail kickstart anda untuk membuang pilihan ini."
+#, python-format
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Mengabaikan pilihan tidak disokong pada baris %(lineno)s: Pilihan %(option)s telah tidak disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda untuk membuang pilihan ini."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
 msgstr ""
 
 #: ../pykickstart/options.py:139
@@ -73,9 +61,9 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "Memerlukan penanda ditetapkan untuk pilihan yang tidak menerima nilai"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Pilihan %s: nilai boolean tidak sah: %r"
+msgstr "Pilihan %(opt)s: nilai boolean tidak sah: %(value)r"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -113,64 +101,3 @@ msgstr "Ralat umum kickstart dalam fail masukan"
 msgid "General error in input file:  %s"
 msgstr "Ralat umum dalam fail masukan: %s"
 
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Mengabaikan arahan tidak disokong pada baris %s: Arahan %s telah tidak "
-#~ "disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran "
-#~ "masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila "
-#~ "ubahsuai fail kickstart anda untuk membuang arahan ini."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Arahan %s tidak mengambil apa-apa hujah"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Hujah tidak dijangka pada arahan %s: %s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Arahan %s hanya mengambil satu hujah"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Titik lekapan diperlukan untuk %s"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "Satu daripada biospart atau pilihan partisyen mesti dinyatakan."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Hujah tidak dijangka pada arahan %(cmd)s: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "Peranti '%(device)s' telah digunakan dalam multipath '%(multipathdev)s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Salah satu dari --baseurl dan --mirrorlist boleh dinyatakan untuk arahan "
-#~ "repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Satu daripada --baseurl atau --mirrorlist mesti dinyatakan untuk arahan "
-#~ "repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Hujah tunggal dijangka untuk arahan %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Mengabaikan pilihan tidak diguna pada baris %s:  Arahan zerombr tidak "
-#~ "lagi menerima sebarang pilihan. Pada keluaran akan datang, ini akan "
-#~ "menyebabkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda "
-#~ "untuk membuang sebarang pilihan."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Arahan tidak diketahui: %s"
