@@ -1,3 +1,12 @@
+2007-01-18  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/base.py (BaseHandler.unregisterCommand):  Add a
+	method to remove support for a command from a Handler instance.
+
+2007-01-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
 2007-01-16  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (KickstartParser.readKickstartFromString):

@@ -231,18 +231,34 @@ class BaseHandler:
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def registerCommand(self, cmdObj, cmdList):
-        """Set up a mapping from each string command in cmdList to the instance
-           of the KickstartCommand subclass object cmdObj.  Using a list of
-           commands allows for aliasing commands to each other.  Also create a
-           new attribute on this BaseHandler subclass named
-           cmdObj.__class__.__name__ with a value of cmdObj.
+    def dispatcher(self, cmd, cmdArgs, lineno):
+        """Given the command string cmd and the list of arguments cmdArgs, call
+           the appropriate KickstartCommand handler that has been previously
+           registered.  lineno is needed for error reporting.  If cmd does not
+           exist in the commands dict, KickstartParseError will be raised.  A
+           handler of None for the given command is not an error.
         """
-        # Add the new command object to the dict for all given command strings.
-        for str in cmdList:
-            self.commands[str] = cmdObj
+        if not self.commands.has_key(cmd):
+            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
+        else:
+            if self.commands[cmd] != None:
+                self.commands[cmd].currentCmd = cmd
+                self.commands[cmd].handler = self
+                self.commands[cmd].lineno = lineno
+                self.commands[cmd].parse(cmdArgs)
 
-        self._setCommand(cmdObj)
+    def empty(self):
+        """Set all entries in the commands dict to None so no commands
+           will be processed.
+        """
+        self._writeOrder = {}
+
+        for (key, val) in self.commands.iteritems():
+            self.commands[key] = None
+
+    def hasCommand(self, cmd):
+        """Return true if there is a handler for the string cmd."""
+        return hasattr(self, cmd)
 
     def overrideCommand(self, cmdObj):
         """Override an existing mapping with a new instance of a command
@@ -263,34 +279,48 @@ class BaseHandler:
         if found:
             self._setCommand(cmdObj)
 
-    def hasCommand(self, cmd):
-        """Return true if there is a handler for the string cmd."""
-        return hasattr(self, cmd)
-
-    def empty(self):
-        """Set all entries in the commands dict to None so no commands
-           will be processed.
+    def registerCommand(self, cmdObj, cmdList):
+        """Set up a mapping from each string command in cmdList to the instance
+           of the KickstartCommand subclass object cmdObj.  Using a list of
+           commands allows for aliasing commands to each other.  Also create a
+           new attribute on this BaseHandler subclass named
+           cmdObj.__class__.__name__ with a value of cmdObj.
         """
-        self._writeOrder = {}
+        # Add the new command object to the dict for all given command strings.
+        for str in cmdList:
+            self.commands[str] = cmdObj
 
-        for (key, val) in self.commands.iteritems():
-            self.commands[key] = None
+        self._setCommand(cmdObj)
 
-    def dispatcher(self, cmd, cmdArgs, lineno):
-        """Given the command string cmd and the list of arguments cmdArgs, call
-           the appropriate KickstartCommand handler that has been previously
-           registered.  lineno is needed for error reporting.  If cmd does not
-           exist in the commands dict, KickstartParseError will be raised.  A
-           handler of None for the given command is not an error.
+    def unregisterCommand(self, cmdObj):
+        """Remove support for a command from this handler instance.  The
+           parameter cmdObj is a command handler class (not an instance) that
+           should be removed.  This removes support for all string commands
+           that map to cmdObj, as well as support for writing it and calling
+           it on the handler.  The most common use for this method is to
+           remove commands that were deprecated in a previous version.
         """
-        if not self.commands.has_key(cmd):
-            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
-        else:
-            if self.commands[cmd] != None:
-                self.commands[cmd].currentCmd = cmd
-                self.commands[cmd].handler = self
-                self.commands[cmd].lineno = lineno
-                self.commands[cmd].parse(cmdArgs)
+        # First remove any keys in the commands dict that map to an instance
+        # of the given command object.
+        for (key, val) in self.commands.items():
+            if val.__class__.__name__ == cmdObj.__name__:
+                self.commands.pop(key)
+
+        # Then remove any keys in the _writeOrder dict that do the same.  To
+        # do this we have to search each list in _writeOrder and remove any
+        # with a matching name.  Then if that was the only command in that
+        # list, we should remove the key entirely.
+        for (key, val) in self._writeOrder.items():
+            for ele in val:
+                if ele.__class__.__name__ == cmdObj.__name__:
+                    val.remove(ele)
+                    break
+
+            if len(val) == 0:
+                del(self._writeOrder[key])
+
+        # Finally, remove the attribute on the handler object itself.
+        delattr(self, cmdObj.__name__.lower())
 
 ###
 ### DATA
