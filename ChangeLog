@@ -1,5 +1,12 @@
 2007-01-18  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/fc4.py:  KSOptionParser's lineno argument needs
+	a name.
+	* pykickstart/commands/fc5.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+
+2007-01-18  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/commands/base.py (BaseHandler.unregisterCommand):  Add a
 	method to remove support for a command from a Handler instance.
 

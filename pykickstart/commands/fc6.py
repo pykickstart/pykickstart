@@ -228,7 +228,7 @@ class FC6Handler(FC5Handler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--name", dest="name", action="store", type="string",
                           required=1)
             op.add_option("--dev", dest="devices", action="append", type="string",
@@ -260,7 +260,7 @@ class FC6Handler(FC5Handler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--target", dest="ipaddr", action="store", type="string")
             op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
                           required=1)
@@ -339,7 +339,7 @@ class FC6Handler(FC5Handler):
             return retval + "\n"
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--host")
             op.add_option("--level", type="choice",
                           choices=["debug", "info", "warning", "error", "critical"])
@@ -374,7 +374,7 @@ class FC6Handler(FC5Handler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
 
             self.method = self.currentCmd
 
@@ -426,7 +426,7 @@ class FC6Handler(FC5Handler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--hsync", dest="hsync")
             op.add_option("--monitor", dest="monitor")
             op.add_option("--noprobe", dest="probe", action="store_false",
@@ -458,7 +458,7 @@ class FC6Handler(FC5Handler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--name", dest="name", action="store", type="string",
                           required=1)
             op.add_option("--device", dest="device", action="store", type="string",
@@ -497,7 +497,7 @@ class FC6Handler(FC5Handler):
             FC5Handler.Network.__init__(self, writePriority, network)
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--bootproto", dest="bootProto", default="dhcp",
                           choices=["dhcp", "bootp", "static"])
             op.add_option("--class", dest="dhcpclass")
@@ -551,7 +551,7 @@ class FC6Handler(FC5Handler):
             else:
                 self.action = KS_SHUTDOWN
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--eject", dest="eject", action="store_true",
                           default=False)
 
@@ -575,7 +575,7 @@ class FC6Handler(FC5Handler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--name", dest="name", required=1)
             op.add_option("--baseurl")
             op.add_option("--mirrorlist")
@@ -629,7 +629,7 @@ class FC6Handler(FC5Handler):
                 for d in value.split(','):
                     parser.values.ensure_value(option.dest, []).append(d)
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--disabled", dest="disabled", action="callback",
                           callback=services_cb, nargs=1, type="string")
             op.add_option("--enabled", dest="enabled", action="callback",
@@ -659,7 +659,7 @@ class FC6Handler(FC5Handler):
                 for d in value.split(','):
                     parser.values.ensure_value(option.dest, []).append(d)
                 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--groups", dest="groups", action="callback",
                           callback=groups_cb, nargs=1, type="string")
             op.add_option("--homedir")
@@ -708,7 +708,7 @@ class FC6Handler(FC5Handler):
                 if len(cargs) > 1:
                     parser.values.ensure_value("port", cargs[1])
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--connect", action="callback", callback=connect_cb,
                           nargs=1, type="string", deprecated=1)
             op.add_option("--password", dest="password")
@@ -753,7 +753,7 @@ class FC6Handler(FC5Handler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--card", deprecated=1)
             op.add_option("--driver", dest="driver")
             op.add_option("--defaultdesktop", dest="defaultdesktop")

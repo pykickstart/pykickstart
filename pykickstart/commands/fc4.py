@@ -331,7 +331,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--autoscreenshot", dest="autoscreenshot",
                           action="store_true", default=False)
 
@@ -381,7 +381,7 @@ class FC4Handler(BaseHandler):
                 for d in value.split(','):
                     parser.values.ensure_value(option.dest, []).append(d)
                 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--append", dest="appendLine")
             op.add_option("--location", dest="location", type="choice",
                           default="mbr",
@@ -437,7 +437,7 @@ class FC4Handler(BaseHandler):
                 for d in value.split(','):
                     parser.values.ensure_value(option.dest, []).append(d)
                 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--all", dest="type", action="store_const",
                           const=CLEARPART_TYPE_ALL)
             op.add_option("--drives", dest="drives", action="callback",
@@ -613,7 +613,7 @@ class FC4Handler(BaseHandler):
                 return "# Run the Setup Agent on first boot\nfirstboot --reconfig\n"
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--disable", "--disabled", dest="firstboot",
                           action="store_const", const=FIRSTBOOT_SKIP)
             op.add_option("--enable", "--enabled", dest="firstboot",
@@ -644,7 +644,7 @@ class FC4Handler(BaseHandler):
                 for d in value.split(','):
                     parser.values.ensure_value(option.dest, []).append(d)
                 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--drives", dest="drives", action="callback",
                           callback=drive_cb, nargs=1, type="string")
 
@@ -721,7 +721,7 @@ class FC4Handler(BaseHandler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--default", dest="deflang", default="en_US.UTF-8")
 
             (opts, extra) = op.parse_args(args=args)
@@ -750,7 +750,7 @@ class FC4Handler(BaseHandler):
                 parser.values.format = False
                 parser.values.preexist = True
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                           type="int", nargs=1)
             op.add_option("--fsoptions", dest="fsopts")
@@ -825,7 +825,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
 
             self.method = self.currentCmd
 
@@ -874,7 +874,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--hsync")
             op.add_option("--monitor")
             op.add_option("--vsync")
@@ -912,7 +912,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--bootproto", dest="bootProto", default="dhcp",
                           choices=["dhcp", "bootp", "static"])
             op.add_option("--class", dest="dhcpclass")
@@ -968,7 +968,7 @@ class FC4Handler(BaseHandler):
                 else:
                     parser.values.ensure_value(option.dest, value)
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--active", dest="active", action="store_true",
                           default=False)
             op.add_option("--asprimary", dest="primOnly", action="store_true",
@@ -1047,7 +1047,7 @@ class FC4Handler(BaseHandler):
                 elif value == "RAID6" or value == "6":
                     parser.values.ensure_value(option.dest, "RAID6")
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--device", action="callback", callback=device_cb,
                           dest="device", type="string", nargs=1, required=1)
             op.add_option("--fsoptions", dest="fsopts")
@@ -1115,7 +1115,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--iscrypted", dest="isCrypted", action="store_true",
                           default=False)
 
@@ -1143,7 +1143,7 @@ class FC4Handler(BaseHandler):
                 return retval + "selinux --permissive\n"
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--disabled", dest="sel", action="store_const",
                           const=SELINUX_DISABLED)
             op.add_option("--enforcing", dest="sel", action="store_const",
@@ -1189,7 +1189,7 @@ class FC4Handler(BaseHandler):
                 return ""
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
 
             (opts, extra) = op.parse_args(args=args)
@@ -1241,7 +1241,7 @@ class FC4Handler(BaseHandler):
             return retval + "\n"
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--connect")
             op.add_option("--password", dest="password")
 
@@ -1272,7 +1272,7 @@ class FC4Handler(BaseHandler):
                 parser.values.format = False
                 parser.values.preexist = True
 
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--noformat", action="callback", callback=vg_cb,
                           dest="format", default=True, nargs=0)
             op.add_option("--pesize", dest="pesize", type="int", nargs=1,
@@ -1339,7 +1339,7 @@ class FC4Handler(BaseHandler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--card")
             op.add_option("--defaultdesktop")
             op.add_option("--depth", action="store", type="int", nargs=1)
@@ -1395,7 +1395,7 @@ class FC4Handler(BaseHandler):
             return retval
 
         def parse(self, args):
-            op = KSOptionParser(self.lineno)
+            op = KSOptionParser(lineno=self.lineno)
             op.add_option("--devnum", dest="devnum", required=1)
             op.add_option("--fcplun", dest="fcplun", required=1)
             op.add_option("--scsiid", dest="scsiid", required=1)
