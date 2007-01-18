@@ -99,11 +99,11 @@ class KSOptionParser(OptionParser):
            version -- The version of the kickstart syntax we are checking
                       against.
         """
+        OptionParser.__init__(self, option_class=KSOption,
+                              add_help_option=False)
         self.map = map
         self.lineno = lineno
         self.version = version
-        OptionParser.__init__(self, option_class=KSOption,
-                              add_help_option=False)
 
 # Creates a new Option class that supports several new attributes:
 # - required:  any option with this attribute must be supplied or an exception
