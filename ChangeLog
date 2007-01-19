@@ -1,3 +1,9 @@
+2007-01-19  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/errors.py (KickstartVersionError):  This should just
+	take a message like all the other exception classes.
+	* pykickstart/version.py:  Pass a message to KickstartVersionError.
+
 2007-01-18  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py:  KSOptionParser's lineno argument needs

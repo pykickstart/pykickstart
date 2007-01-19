@@ -56,7 +56,7 @@ def stringToVersion(string):
     elif string == "DEVEL":
         return DEVEL
     else:
-        raise KickstartVersionError(string)
+        raise KickstartVersionError(_("Unsupported version specified: %s") % string)
 
 def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be
@@ -81,7 +81,7 @@ def returnClassForVersion(version=DEVEL):
         from pykickstart.commands.f7 import F7Handler
         return F7Handler
     else:
-        raise KickstartVersionError(version)
+        raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
 def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be
