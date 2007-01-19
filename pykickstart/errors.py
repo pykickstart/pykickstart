@@ -89,12 +89,12 @@ class KickstartVersionError(KickstartError):
     """An exception class for errors related to using an incorrect version of
        kickstart syntax.
     """
-    def __init__(self, version):
+    def __init__(self, msg):
         """Create a new KickstartVersionError exception instance with the
            descriptive message val.  val should be the return value of
            formatErrorMsg.
         """
-        KickstartError.__init__(self, _("Unsupported version specified."))
+        KickstartError.__init__(self, msg)
 
     def __str__ (self):
         return self.value
