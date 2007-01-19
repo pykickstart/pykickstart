@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.91
+Version: 0.92
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,13 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Fri Jan 19 2007 Chris Lumens <clumens@redhat.com> - 0.92-1
+- Fix KickstartVersionError reporting.
+- Add a version attribute to handler objects.
+- Fix line number reporting on lots of commands.
+- Add initial support for Fedora 7 and remove deprecated commands.
+- Accept a --default argument to the %packages header (#221305).
+
 * Wed Jan 17 2007 Chris Lumens <clumens@redhat.com> - 0.91-1
 - Add a method to read kickstart files from strings.
 
