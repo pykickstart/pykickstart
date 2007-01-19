@@ -15,6 +15,7 @@ import string
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
+from pykickstart.version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -777,6 +778,7 @@ class FC6Handler(FC5Handler):
 
     def __init__(self):
         FC5Handler.__init__(self)
+        self.version = FC6
 
         self.registerCommand(self.DmRaid(), ["dmraid"])
         self.registerCommand(self.Iscsi(), ["iscsi"])

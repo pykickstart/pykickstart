@@ -16,6 +16,7 @@ import warnings
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
+from pykickstart.version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -135,5 +136,6 @@ class FC5Handler(FC4Handler):
     ##
     def __init__(self):
         FC4Handler.__init__(self)
+        self.version = FC5
         self.registerCommand(self.LangSupport(), ["langsupport"])
         self.registerCommand(self.Raid(), ["raid"])

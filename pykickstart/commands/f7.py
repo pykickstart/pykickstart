@@ -16,6 +16,7 @@ import warnings
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
+from pykickstart.version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -31,5 +32,6 @@ class F7Handler(FC6Handler):
     ##
     def __init__(self):
         FC6Handler.__init__(self)
+        self.version = F7
         self.unregisterCommand(self.LangSupport)
         self.unregisterCommand(self.Mouse)

@@ -154,9 +154,13 @@ class BaseHandler:
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
                        needed only by system-config-kickstart.
-           scripts --  A list of pykickstart.parser.Script instances, which is
+           scripts  -- A list of pykickstart.parser.Script instances, which is
                        populated by KickstartParser.addScript and describes the
                        %pre/%post/%traceback script section of the input file.
+           version  -- The version this syntax handler supports, which saves
+                       having to compare things like class names.  This is
+                       one of the constants from version.py and is for
+                       read-only use.
         """
 
         # We don't want people using this class by itself.
@@ -164,6 +168,7 @@ class BaseHandler:
             raise TypeError, "BaseHandler is an abstract class."
 
         self.commands = {}
+        self.version = None
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.

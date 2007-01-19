@@ -16,6 +16,7 @@ import warnings
 from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
+from pykickstart.version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -1416,6 +1417,7 @@ class FC4Handler(BaseHandler):
     ##
     def __init__(self):
         BaseHandler.__init__(self)
+        self.version = FC4
 
         self.registerCommand(self.Authconfig(), ["auth", "authconfig"])
         self.registerCommand(self.AutoPart(), ["autopart"])
