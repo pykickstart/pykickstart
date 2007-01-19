@@ -4,6 +4,16 @@
 	take a message like all the other exception classes.
 	* pykickstart/version.py:  Pass a message to KickstartVersionError.
 
+	* pykickstart/commands/base.py (BaseHandler.__init__):  Add a version
+	attribute so we no longer have to compare class names.
+	* pykickstart/commands/f7.py (F7Handler.__init__):  Likewise.
+	* pykickstart/commands/fc4.py (FC4Handler.__init__):  Likewise.
+	* pykickstart/commands/fc5.py (FC5Handler.__init__):  Likewise.
+	* pykickstart/commands/fc6.py (FC6Handler.__init__):  Likewise.
+
+	* pykickstart/parser.py (KickstartParser.__init__):  Fix test for
+	matching version numbers now that handlers know what version they are.
+
 2007-01-18  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py:  KSOptionParser's lineno argument needs

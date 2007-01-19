@@ -222,7 +222,7 @@ class KickstartParser:
         except ValueError:
             self.version = stringToVersion(version)
 
-        if handler.__class__.__name__ != returnClassForVersion(version).__name__:
+        if handler.version != version:
             raise KickstartVersionError, "Version passed to KickstartParser does not match version of handler"
 
     def addScript (self):
