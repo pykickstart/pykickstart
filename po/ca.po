@@ -1,7 +1,7 @@
 # translation of pykickstart.po to catalan
 # Catalan translations for pykickstart package
 # Traduccions al català del paquet «pykickstart».
-# Copyright © 2006 The Free Software Foundation, Inc.
+# Copyright © 2006, 2007 The Free Software Foundation, Inc.
 # This file is distributed under the same license as the pykickstart package.
 #
 #
@@ -17,7 +17,7 @@
 #   http://www.softcatala.org/projectes/fedora/
 #   i contacteu l'anterior traductor/a.
 #
-# Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006.
+# Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006, 2007.
 # Cristina Gil Rodríguez <crisgil79@hotmail.com>, 2006.
 # Xavier Conde Rueda <xavi.conde@gmail.com>, 2006
 #
@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-08-28 16:32+0200\n"
+"PO-Revision-Date: 2007-01-22 21:48+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -34,15 +34,16 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"S'ha produït el següent problema a la línia %s del fitxer del kickstart:\n"
+"S'ha produït el següent problema a la línia %(lineno)s del fitxer del "
+"kickstart:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -52,7 +53,7 @@ msgstr ""
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "S'ha especificat una versió incompatible."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -65,19 +66,21 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"L'opció %(option)s s'introduí en la versió %(intro)s, però esteu fent servir "
+"la versió %(version)s de la sintaxi del kickstart"
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"S'ha ignorat una opció obsoleta a la línia %s:  L'opció %s és obsoleta i no "
-"tindrà cap efecte. S'eliminarà de futures versions, i provocarà un error "
-"fatal del kickstart. Modifiqueu el vostre fitxer kickstart per eliminar "
-"aquesta opció."
+"S'ha ignorat una opció obsoleta a la línia %(lineno)s:  L'opció %(option)s "
+"és obsoleta i no tindrà cap efecte. S'eliminarà de futures versions, i "
+"provocarà un error fatal del kickstart. Modifiqueu el vostre fitxer "
+"kickstart per eliminar aquesta opció."
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -85,6 +88,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"L'opció %(option)s s'eliminà en la versió %(removed)s, però esteu fent "
+"servir la versió %(version)s de la sintaxi del kickstart"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -93,9 +98,9 @@ msgstr ""
 "valor"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Opció %s: el valor booleà no és vàlid: %r"
+msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -108,12 +113,12 @@ msgstr "analitza fitxers d'inclusió quan es trobi %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "la versió de la sintaxi del kickstart amb la qual validar"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "El pykickstart no és compatible amb la versió %s"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -133,44 +138,14 @@ msgstr "S'ha produït un error general del kickstart en el fitxer d'entrada"
 msgid "General error in input file:  %s"
 msgstr "Hi ha un error general al fitxer d'entrada: %s"
 
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "S'ha ignorat una ordre obsoleta a la línia %s:  L'ordre %s és obsoleta i "
-#~ "no tindrà cap efecte. Potser s'eliminarà de futures versions, i això "
-#~ "resultarà en un error fatal del kickstart. Modifiqueu el vostre fitxer "
-#~ "kickstart per eliminar aquesta ordre."
-
 #~ msgid "Command %s does not take any arguments"
 #~ msgstr "L'ordre %s no pren cap argument"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Hi ha arguments inesperats a l'ordre %s: %s"
 
 #~ msgid "Command %s only takes one argument"
 #~ msgstr "L'ordre %s només pren un argument"
 
 #~ msgid "Mount point required for %s"
 #~ msgstr "Es requereix un punt de muntatge per a %s"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Només s'ha d'especificar o bé --baseurl o bé --mirrorlist per a l'ordre "
-#~ "repo."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Hi ha arguments inesperats a l'ordre %s: %s"
-
-#, fuzzy
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "El dispositiu '%s' s'està usant en el multipath '%s'"
 
 #~ msgid ""
 #~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
