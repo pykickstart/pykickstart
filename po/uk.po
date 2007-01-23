@@ -1,13 +1,13 @@
 # Ukrainian translation to system-config-securitylevel.
 # Copyright (C) Free Software Foundation.
-# Maxim Dzіumanenko <dziumanenko@gmail.com>, 2006
+# Maxim Dzіumanenko <dziumanenko@gmail.com>, 2006-2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-04-05 10:40+0300\n"
+"PO-Revision-Date: 2007-01-23 10:40+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,15 +15,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"У рядку %s файлу kickstart виявлено наступну проблему:\n"
+"У рядку %(lineno)s файлу kickstart виявлено наступну проблему:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -32,12 +32,12 @@ msgstr "Проблема при читанні з рядка файлу %s"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Вказано непідтримувану версію."
 
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
-msgstr "Параметр %s обов'язковий"
+msgstr "Параметр %s є обов'язковим"
 
 #: ../pykickstart/options.py:80
 #, python-format
@@ -45,16 +45,18 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Параметр %(option)s введений у версії %(intro)s, але ви використовуєте синтаксис "
+"kickstart версії %(version)s"
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Застарілий параметр проігноровано у рядку %s:  Параметр %s застарів та "
+"Застарілий параметр проігноровано у рядку %(lineno)s:  Параметр %(option)s застарів та "
 "більше не призводить до будь-яких дій.  У майбутніх випусках він може бути "
 "видалений, що буде призводити до фатальної помилки kickstart.  Видаліть цей "
 "параметр з вашого файлу kickstart."
@@ -65,15 +67,17 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Параметр %(option)s було видалено у версії %(removed)s, але ви використовуєте синтаксис "
+"kickstart версії %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Встановлено обов'язковий ключ для параметра, який не приймає значення"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Параметр %s:неправильне логічне значення: %r"
+msgstr "Параметр %(opt)s: неправильне логічне значення: %(value)r"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -86,12 +90,12 @@ msgstr "аналізувати включені файли, коли зустр�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "версія синтаксису kickstart для перевірки відповідності"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Версія %s не підтримується програмою pykickstart"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -111,67 +115,3 @@ msgstr "Загальна помилка kickstart у вхідному файлі
 msgid "General error in input file:  %s"
 msgstr "Загальна помилка у вхідному файлі:  %s"
 
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Застаріла команда у рядку %s проігнорована:  Команда %s застаріла та "
-#~ "більше не має дії. У майбутніх випусках вона може бути видалена, що буде "
-#~ "призводити до фатальної помилки kickstart.  Видаліть цю команду з вашого "
-#~ "файлу kickstart."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Команда %s не приймає аргументи"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Невідомі аргументи для команди %s: %s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Команда %s приймає лише один аргумент"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Треба вказати точку монтування для %s"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Один з параметрів --baseurl чи --mirrorlist може бути переданий команді "
-#~ "repo."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Невідомі аргументи для команди %s: %s"
-
-#, fuzzy
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "Пристрій '%s' вже задіяно в конструкції multipath для '%s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Лише один параметр --baseurl чи --mirrorlist може бути переданий команді "
-#~ "repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Один з параметрів --baseurl чи --mirrorlist може бути переданий команді "
-#~ "repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Команда %s має лише один аргумент"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Застарілий параметр %s проігноровано: Команда zerombr більше не сприймає "
-#~ "аргументи. У майбутніх випусках, це буде призводити до фатальної помилки "
-#~ "kickstart.  Видаліть цей параметр з вашого файлу kickstart."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Невідома команда: %s"
