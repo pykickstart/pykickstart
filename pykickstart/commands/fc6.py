@@ -299,28 +299,6 @@ class FC6Handler(FC5Handler):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
             self.iscsiname = args[0]
 
-    class Key(KickstartCommand):
-        def __init__(self, writePriority=0, key=""):
-            KickstartCommand.__init__(self, writePriority)
-            self.key = key
-
-        def __str__(self):
-            if self.key == KS_INSTKEY_SKIP:
-                return "key --skip"
-            elif self.key != "":
-                return "key %s" % self.key
-            else:
-                return ""
-
-        def parse(self, args):
-            if len(args) > 1:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "key")
-
-            if args[0] == "--skip":
-                self.key = KS_INSTKEY_SKIP
-            else:
-                self.key = args[0]
-
     class Logging(KickstartCommand):
         def __init__(self, writePriority=0, host="", level="info", port=""):
             KickstartCommand.__init__(self, writePriority)
@@ -783,7 +761,6 @@ class FC6Handler(FC5Handler):
         self.registerCommand(self.DmRaid(), ["dmraid"])
         self.registerCommand(self.Iscsi(), ["iscsi"])
         self.registerCommand(self.IscsiName(), ["iscsiname"])
-        self.registerCommand(self.Key(), ["key"])
         self.registerCommand(self.Logging(), ["logging"])
         self.registerCommand(self.Method(), ["cdrom", "harddrive", "nfs", "url"])
         self.registerCommand(self.Monitor(), ["monitor"])
