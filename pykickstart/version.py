@@ -35,6 +35,7 @@ from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.
 FC3 = 1000
+RHEL4 = 1100
 FC4 = 2000
 FC5 = 3000
 FC6 = 4000
@@ -58,6 +59,8 @@ def stringToVersion(string):
         return FC6
     elif string.lower() in ["f7", "fedora 7"]:
         return F7
+    elif string.lower() in ["rhel4", "red hat enterprise linux 4"]:
+        return RHEL4
     elif string.lower() in ["rhel5", "red hat enterprise linux 5"]:
         return RHEL5
     elif string.lower() == "devel":
@@ -90,6 +93,9 @@ def returnClassForVersion(version=DEVEL):
     elif version == F7:
         from pykickstart.commands.f7 import F7Handler
         return F7Handler
+    elif version == RHEL4:
+        from pykickstart.commands.rhel4 import RHEL4Handler
+        return RHEL4Handler
     elif version == RHEL5:
         from pykickstart.commands.rhel5 import RHEL5Handler
         return RHEL5Handler

@@ -4,7 +4,14 @@
 	* pykickstart/commands/fc4.py:  Move basic commands and data back to
 	FC3.
 
-	* pykickstart/version.py:  Add support for FC3.
+	* pykickstart/commands/rhel4.py:  Added.
+
+	* pykickstart/version.py:  Add support for FC3 and RHEL4.
+
+	* pykickstart/commands/fc4.py (FC4Handler.__init__):  Use
+	overrideCommand instead of registerCommand.
+	* pykickstart/commands/fc5.py (FC5Handler.__init__):  Likewise.
+	* pykickstart/commands/fc6.py (FC6Handler.__init__):  Likewise.
 
 2007-01-24  Chris Lumens  <clumens@redhat.com>
 
