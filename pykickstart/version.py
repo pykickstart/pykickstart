@@ -34,11 +34,12 @@ from rhpl.translate import _
 from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.
-FC4 = 1000
-FC5 = 2000
-FC6 = 3000
-RHEL5 = 3100
-F7  = 4000
+FC3 = 1000
+FC4 = 2000
+FC5 = 3000
+FC6 = 4000
+RHEL5 = 4100
+F7  = 5000
 
 # This always points at the latest version and is the default.
 DEVEL = F7
@@ -47,7 +48,9 @@ def stringToVersion(string):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
-    if string.lower() in ["fc4", "fedora core 4"]:
+    if string.lower() in ["fc3", "fedora core 3"]:
+        return FC3
+    elif string.lower() in ["fc4", "fedora core 4"]:
         return FC4
     elif string.lower() in ["fc5", "fedora core 5"]:
         return FC5
@@ -72,7 +75,10 @@ def returnClassForVersion(version=DEVEL):
     except ValueError:
         version = stringToVersion(version)
 
-    if version == FC4:
+    if version == FC3:
+        from pykickstart.commands.fc3 import FC3Handler
+        return FC3Handler
+    elif version == FC4:
         from pykickstart.commands.fc4 import FC4Handler
         return FC4Handler
     elif version == FC5:

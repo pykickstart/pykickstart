@@ -1,5 +1,13 @@
 2007-01-24  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/fc3.py:  Added.
+	* pykickstart/commands/fc4.py:  Move basic commands and data back to
+	FC3.
+
+	* pykickstart/version.py:  Add support for FC3.
+
+2007-01-24  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/commands/fc6.py (FC6Handler.Key):  FC6 didn't support
 	the key command.
 	* pykickstart/commands/f7.py (F7Handler.Key):  The key command was
