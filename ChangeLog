@@ -1,3 +1,16 @@
+2007-01-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/fc6.py (FC6Handler.Key):  FC6 didn't support
+	the key command.
+	* pykickstart/commands/f7.py (F7Handler.Key):  The key command was
+	added just after FC6 came out.
+
+	* pykickstart/commands/rhel5.py:  Added.
+
+	* pykickstart/version.py:  Add support for RHEL5.  Be more permissive
+	in what sorts of strings we map to version numbers.  Fix pychecker
+	warnings.
+
 2007-01-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

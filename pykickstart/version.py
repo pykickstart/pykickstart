@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006 Red Hat, Inc.
+# Copyright 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -30,13 +30,15 @@ This module also exports several functions:
     stringToVersion - Convert a string representation of a version number
                       into the symbolic constant.
 """
+from rhpl.translate import _
 from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.
-FC4 = 100
-FC5 = 150
-FC6 = 200
-F7  = 250
+FC4 = 1000
+FC5 = 2000
+FC6 = 3000
+RHEL5 = 3100
+F7  = 4000
 
 # This always points at the latest version and is the default.
 DEVEL = F7
@@ -45,15 +47,17 @@ def stringToVersion(string):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
-    if string == "FC4":
+    if string.lower() in ["fc4", "fedora core 4"]:
         return FC4
-    elif string == "FC5":
+    elif string.lower() in ["fc5", "fedora core 5"]:
         return FC5
-    elif string == "FC6":
+    elif string.lower() in ["fc6", "fedora core 6"]:
         return FC6
-    elif string == "F7":
+    elif string.lower() in ["f7", "fedora 7"]:
         return F7
-    elif string == "DEVEL":
+    elif string.lower() in ["rhel5", "red hat enterprise linux 5"]:
+        return RHEL5
+    elif string.lower() == "devel":
         return DEVEL
     else:
         raise KickstartVersionError(_("Unsupported version specified: %s") % string)
@@ -80,6 +84,9 @@ def returnClassForVersion(version=DEVEL):
     elif version == F7:
         from pykickstart.commands.f7 import F7Handler
         return F7Handler
+    elif version == RHEL5:
+        from pykickstart.commands.rhel5 import RHEL5Handler
+        return RHEL5Handler
     else:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
@@ -90,5 +97,5 @@ def makeVersion(version=DEVEL):
        kickstart syntax (as provided by a command line argument, for example)
        and need to instantiate the correct object.
     """
-    super = returnClassForVersion(version)
-    return super()
+    cl = returnClassForVersion(version)
+    return cl()
