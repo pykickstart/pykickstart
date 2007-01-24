@@ -392,8 +392,8 @@ class FC4Handler(FC3Handler):
         self.unregisterCommand(self.LiloCheck)
 
         self.registerCommand(self.Bootloader(), ["bootloader"])
-        self.registerCommand(self.LogVol(), ["logvol"])
-        self.registerCommand(self.MediaCheck(), ["mediacheck"])
-        self.registerCommand(self.Network(), ["network"])
-        self.registerCommand(self.Partition(), ["part", "partition"])
-        self.registerCommand(self.Raid(), ["raid"])
+        self.overrideCommand(self.LogVol())
+        self.overrideCommand(self.MediaCheck())
+        self.overrideCommand(self.Network())
+        self.overrideCommand(self.Partition())
+        self.overrideCommand(self.Raid())
