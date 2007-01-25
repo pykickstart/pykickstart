@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.92
+Version: 0.93
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Thu Jan 25 2007 Chris Lumens <clumens@redhat.com> - 0.93-1
+- Add support for FC3, RHEL4, and RHEL5.
+- The key command was not supported until after FC6.
+- Accept more strings in stringToVersion.
+
 * Fri Jan 19 2007 Chris Lumens <clumens@redhat.com> - 0.92-1
 - Fix KickstartVersionError reporting.
 - Add a version attribute to handler objects.
