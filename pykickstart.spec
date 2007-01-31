@@ -2,15 +2,15 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
+Url: http://fedoraproject.org/wiki/pykickstart
 Version: 0.93
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
 BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-root
-BuildRequires: python-devel
-BuildRequires: gettext
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: python-devel, gettext
 Requires: python, python-urlgrabber
 
 %description
@@ -24,20 +24,23 @@ make
 %build
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make DESTDIR=${RPM_BUILD_ROOT} install
+rm -rf %{buildroot}
+make DESTDIR=%{buildroot} install
+%find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-%files
-%defattr(-,root,root)
+%files -f %{name}.lang
+%defattr(-,root,root,-)
 %doc README ChangeLog COPYING docs/programmers-guide
 %{python_sitelib}/pykickstart
-/usr/bin/ksvalidator
-/usr/share/locale/*/*/*
+%{_bindir}/ksvalidator
 
 %changelog
+* Wed Jan 31 2007 Chris Lumens <clumens@redhat.com> - 0.93-2
+- Make some minor spec file changes to get closer to the extras guidelines.
+
 * Thu Jan 25 2007 Chris Lumens <clumens@redhat.com> - 0.93-1
 - Add support for FC3, RHEL4, and RHEL5.
 - The key command was not supported until after FC6.
@@ -48,7 +51,7 @@ rm -rf $RPM_BUILD_ROOT
 - Add a version attribute to handler objects.
 - Fix line number reporting on lots of commands.
 - Add initial support for Fedora 7 and remove deprecated commands.
-- Accept a --default argument to the %packages header (#221305).
+- Accept a --default argument to the %%packages header (#221305).
 
 * Wed Jan 17 2007 Chris Lumens <clumens@redhat.com> - 0.91-1
 - Add a method to read kickstart files from strings.
@@ -137,8 +140,8 @@ rm -rf $RPM_BUILD_ROOT
 - Ignore spaces before group names (#188095).
 - Added some translations.
 - Add options for repo command.
-- Reorder %packages section output.
-- Output %packages header options.
+- Reorder %%packages section output.
+- Output %%packages header options.
 - Initialize RAID and volume group members to empty lists.
 
 * Mon Mar 27 2006 Chris Lumens <clumens@redhat.com> 0.25-1
