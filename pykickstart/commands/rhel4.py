@@ -45,7 +45,7 @@ class RHEL4Handler(FC3Handler):
             self.notksdevice = notksdevice
 
         def __str__(self):
-            retval = FC3Handler.NetworkData.__str__().strip()
+            retval = FC3Handler.NetworkData.__str__(self).strip()
 
             if self.notksdevice:
                 retval += " --notksdevice"

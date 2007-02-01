@@ -45,7 +45,7 @@ class FC4Handler(FC3Handler):
             self.fsopts = fsopts
 
         def __str__(self):
-            retval = FC3Handler.LogVolData.__str__().strip()
+            retval = FC3Handler.LogVolData.__str__(self).strip()
 
             if self.bytesPerInode > 0:
                 retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -69,7 +69,7 @@ class FC4Handler(FC3Handler):
             self.notksdevice = notksdevice
 
         def __str__(self):
-            retval = FC3Handler.NetworkData.__str__().strip()
+            retval = FC3Handler.NetworkData.__str__(self).strip()
 
             if self.notksdevice:
                 retval += " --notksdevice"
@@ -94,7 +94,7 @@ class FC4Handler(FC3Handler):
             self.label = label
 
         def __str__(self):
-            retval = FC3Handler.PartData.__str__().strip()
+            retval = FC3Handler.PartData.__str__(self).strip()
 
             if self.bytesPerInode != 0:
                 retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -117,7 +117,7 @@ class FC4Handler(FC3Handler):
             self.fsopts = fsopts
 
         def __str__(self):
-            retval = FC3Handler.RaidData.__str__().strip()
+            retval = FC3Handler.RaidData.__str__(self).strip()
 
             if self.fsopts != "":
                 retval += " --fsoptions=\"%s\"" % self.fsopts
