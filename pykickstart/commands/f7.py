@@ -37,9 +37,9 @@ class F7Handler(FC6Handler):
 
         def __str__(self):
             if self.key == KS_INSTKEY_SKIP:
-                return "key --skip"
+                return "key --skip\n"
             elif self.key != "":
-                return "key %s" % self.key
+                return "key %s\n" % self.key
             else:
                 return ""
 
