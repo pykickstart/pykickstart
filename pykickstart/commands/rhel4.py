@@ -31,10 +31,10 @@ class RHEL4Handler(FC3Handler):
     ## DATA CLASSES
     ##
     class NetworkData(FC3Handler.NetworkData):
-        def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
-                     ethtool="", gateway="", hostname="", ip="", mtu="",
-                     nameserver="", netmask="", nodns=False, notksdevice=False,
-                     onboot=True, wepkey=""):
+        def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
+                     essid="", ethtool="", gateway="", hostname="", ip="",
+                     mtu="", nameserver="", netmask="", nodns=False,
+                     notksdevice=False, onboot=True, wepkey=""):
             FC3Handler.NetworkData.__init__(self, bootProto=bootProto,
                                             dhcpclass=dhcpclass, device=device,
                                             essid=essid, ethtool=ethtool,
@@ -61,8 +61,10 @@ class RHEL4Handler(FC3Handler):
 
         def parse(self, args):
             op = KSOptionParser(lineno=self.lineno)
-            op.add_option("--bootproto", dest="bootProto", default="dhcp",
-                          choices=["dhcp", "bootp", "static"])
+            op.add_option("--bootproto", dest="bootProto",
+                          default=BOOTPROTO_DHCP,
+                          choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
+                                   BOOTPROTO_STATIC])
             op.add_option("--class", dest="dhcpclass")
             op.add_option("--device", dest="device")
             op.add_option("--essid", dest="essid")

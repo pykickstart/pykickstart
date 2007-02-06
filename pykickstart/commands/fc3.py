@@ -70,10 +70,10 @@ class FC3Handler(BaseHandler):
             return retval + " --name=%s --vgname=%s\n" % (self.name, self.vgname)
 
     class NetworkData(BaseData):
-        def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
-                     ethtool="", gateway="", hostname="", ip="", mtu="",
-                     nameserver="", netmask="", nodns=False, onboot=True,
-                     wepkey=""):
+        def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
+                     essid="", ethtool="", gateway="", hostname="", ip="",
+                     mtu="", nameserver="", netmask="", nodns=False,
+                     onboot=True, wepkey=""):
             BaseData.__init__(self)
             self.bootProto = bootProto
             self.dhcpclass = dhcpclass
@@ -903,8 +903,10 @@ class FC3Handler(BaseHandler):
 
         def parse(self, args):
             op = KSOptionParser(lineno=self.lineno)
-            op.add_option("--bootproto", dest="bootProto", default="dhcp",
-                          choices=["dhcp", "bootp", "static"])
+            op.add_option("--bootproto", dest="bootProto",
+                          default=BOOTPROTO_DHCP,
+                          choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
+                                   BOOTPROTO_STATIC])
             op.add_option("--class", dest="dhcpclass")
             op.add_option("--device", dest="device")
             op.add_option("--essid", dest="essid")

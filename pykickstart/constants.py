@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005 Red Hat, Inc.
+# Copyright 2005-2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -38,3 +38,7 @@ KS_REBOOT = 1
 KS_SHUTDOWN = 2
 
 KS_INSTKEY_SKIP = -99
+
+BOOTPROTO_DHCP = "dhcp"
+BOOTPROTO_BOOTP = "bootp"
+BOOTPROTO_STATIC = "static"

@@ -3,6 +3,12 @@
 	* pykickstart/commands/f7.py (F7Handler.Key.__str__):  Add a newline.
 	* pykickstart/commands/rhel5.py (RHEL5Handler.Key.__str__):  Likewise.
 
+	* pykickstart/constants.py:  Add network bootproto constants.
+	* pykickstart/commands/fc3.py:  Use new network constants.
+	* pykickstart/commands/fc4.py:  Likewise.
+	* pykickstart/commands/fc6.py:  Likewise.
+	* pykickstart/commands/rhel4.py:  Likewise.
+
 2007-02-01  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/fc4.py:  Fix tracebacks in subclass __str__

@@ -102,10 +102,10 @@ class FC6Handler(FC5Handler):
             return retval
 
     class NetworkData(FC5Handler.NetworkData):
-        def __init__(self, bootProto="dhcp", dhcpclass="", device="", essid="",
-                     ethtool="", gateway="", hostname="", ip="", ipv4=True,
-                     ipv6=True, mtu="", nameserver="", netmask="", nodns=False,
-                     notksdevice=False, onboot=True, wepkey=""):
+        def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
+                     essid="", ethtool="", gateway="", hostname="", ip="",
+                     ipv4=True, ipv6=True, mtu="", nameserver="", netmask="",
+                     nodns=False, notksdevice=False, onboot=True, wepkey=""):
             FC5Handler.NetworkData.__init__(self, bootProto=bootProto,
                                             dhcpclass=dhcpclass, device=device,
                                             essid=essid, ethtool=ethtool,
@@ -477,8 +477,10 @@ class FC6Handler(FC5Handler):
 
         def parse(self, args):
             op = KSOptionParser(lineno=self.lineno)
-            op.add_option("--bootproto", dest="bootProto", default="dhcp",
-                          choices=["dhcp", "bootp", "static"])
+            op.add_option("--bootproto", dest="bootProto",
+                          default=BOOTPROTO_DHCP,
+                          choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
+                                   BOOTPROTO_STATIC])
             op.add_option("--class", dest="dhcpclass")
             op.add_option("--device", dest="device")
             op.add_option("--essid", dest="essid")
