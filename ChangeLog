@@ -3,7 +3,7 @@
 	* pykickstart/commands/f7.py (F7Handler.Key.__str__):  Add a newline.
 	* pykickstart/commands/rhel5.py (RHEL5Handler.Key.__str__):  Likewise.
 
-	* pykickstart/constants.py:  Add network bootproto constants.
+	* pykickstart/constants.py:  Add network bootproto constants (#197694).
 	* pykickstart/commands/fc3.py:  Use new network constants.
 	* pykickstart/commands/fc4.py:  Likewise.
 	* pykickstart/commands/fc6.py:  Likewise.
