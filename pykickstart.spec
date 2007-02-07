@@ -3,8 +3,8 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.93
-Release: 2%{?dist}
+Version: 0.94
+Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
 Group: System Environment/Libraries
@@ -38,6 +38,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Wed Feb 07 2007 Chris Lumens <clumens@redhat.com> - 0.94-1
+- Add a newline to the end of the key command output.
+- Use network bootproto constants (#197694).
+- Fix tracebacks in subclass __str__ methods (#226734).
+
 * Wed Jan 31 2007 Chris Lumens <clumens@redhat.com> - 0.93-2
 - Make some minor spec file changes to get closer to the extras guidelines.
 
