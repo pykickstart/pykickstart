@@ -213,9 +213,7 @@ class KickstartParser:
         self.followIncludes = followIncludes
         self.handler = handler
         self.missingIncludeIsFatal = missingIncludeIsFatal
-        self._state = STATE_COMMANDS
-        self._script = None
-        self._includeDepth = 0
+        self._reset()
 
         try:
             self.version = int(version)
@@ -224,6 +222,12 @@ class KickstartParser:
 
         if handler.version != version:
             raise KickstartVersionError, "Version passed to KickstartParser does not match version of handler"
+
+    def _reset(self):
+        """Reset the internal variables of the state machine for a new kickstart file."""
+        self._state = STATE_COMMANDS
+        self._script = None
+        self._includeDepth = 0
 
     def addScript (self):
         """Create a new Script instance and add it to the Version object.  This
@@ -371,7 +375,7 @@ class KickstartParser:
                     self._includeDepth += 1
 
                     try:
-                        self.readKickstart (args[1])
+                        self.readKickstart (args[1], reset=False)
                     except IOError:
                         # Handle the include file being provided over the
                         # network in a %pre script.  This case comes up in the
@@ -477,13 +481,19 @@ class KickstartParser:
             elif self._state == STATE_END:
                 break
 
-    def readKickstartFromString (self, str):
+    def readKickstartFromString (self, str, reset=True):
         """Process a kickstart file, provided as the string str."""
+        if reset:
+            self._reset()
+
         i = iter(str.splitlines(True))
         self._stateMachine (lambda: i.next())
 
-    def readKickstart (self, file):
+    def readKickstart (self, file, reset=True):
         """Process a kickstart file, given by the filename file."""
+        if reset:
+            self._reset()
+
         fh = open(file)
         self._stateMachine (lambda: fh.readline())
         fh.close()

@@ -1,3 +1,11 @@
+2007-02-08  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (KickstartParser._reset):  Add a method to
+	reset the state machine state and call it from __init__.  Also call it
+	from readKickstart and readKickstartFromString except in the special
+	case of included files.  This allows calling the parser multiple times
+	with the same data objects for file inheritance/overriding.
+
 2007-02-07  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
