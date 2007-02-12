@@ -1,20 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
+# Translation of pykickstart to Finnish.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This file is distributed under the same license as the pykickstart package.
 #
-#, fuzzy
+# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2007-02-12 17:13+0200\n"
+"Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
+"Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Finnish\n"
+"X-Poedit-Country: Finland\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -23,70 +26,65 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
+"Seuraava ongelma tapahtui kickstart-tiedoston rivillä %(lineno)s:\n"
+"\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Kickstart-tiedoston rivin %s lukemisessa oli ongelma"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Tukematon versio."
 
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Valitsin %s vaaditaan"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "Valitsin %(option)s esiteltiin versiossa %(intro)s, mutta käytössä on kicstart-syntaksin versio %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Jätetään huomiotta vanhentunut valitsin rivillä %(lineno)s:  Valitsin %(option)s on vanhentunut eikä sillä ole enää vaikutusta. Se voidaan poistaa tulevista versioista, josta seuraa vakava kickstart-virhe.  Poista tämä valitsin kickstart-tiedostosta."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "Valitsin %(option)s poistettiin versiossa %(removed)s, mutta käytät kickstart-syntaksin versiota %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Vaadittu lippu asetettu valitsimelle, joka ei ota arvoa"
 
 #: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr ""
+msgstr "Valitsin %(opt)s: epäkelpo totuusarvo: %(value)r"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "lopeta ensimmäisen virheen tai varoituksen jälkeen"
 
 #: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "jäsennä include-tiedostot kun %include huomataan"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "versio kickstart-syntaksista, jota vasten validoidaan"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Pykickstart ei tue versiota %s"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -94,12 +92,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Tiedosto käyttää käytöstä poistunutta valitsinta tai komentoa.\n"
+"%s"
 
 #: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Yleinen kickstart-virhe syötetiedostossa"
 
 #: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Yleinen virhe syötetiedostossa: %s"
+
