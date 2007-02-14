@@ -1,3 +1,8 @@
+2007-02-14  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/version.py (stringToVersion):  Be more lenient in what
+	strings we accept to take into account RHEL variants.
+
 2007-02-08  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py (KickstartParser._reset):  Add a method to

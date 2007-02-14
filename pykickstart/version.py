@@ -30,6 +30,8 @@ This module also exports several functions:
     stringToVersion - Convert a string representation of a version number
                       into the symbolic constant.
 """
+import re
+
 from rhpl.translate import _
 from pykickstart.errors import KickstartVersionError
 
@@ -49,24 +51,33 @@ def stringToVersion(string):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
-    if string.lower() in ["fc3", "fedora core 3"]:
-        return FC3
-    elif string.lower() in ["fc4", "fedora core 4"]:
-        return FC4
-    elif string.lower() in ["fc5", "fedora core 5"]:
-        return FC5
-    elif string.lower() in ["fc6", "fedora core 6"]:
-        return FC6
-    elif string.lower() in ["f7", "fedora 7"]:
-        return F7
-    elif string.lower() in ["rhel4", "red hat enterprise linux 4"]:
-        return RHEL4
-    elif string.lower() in ["rhel5", "red hat enterprise linux 5"]:
-        return RHEL5
-    elif string.lower() == "devel":
+
+    # First try devel since that should be most common.
+    if string.lower() == "devel":
         return DEVEL
-    else:
-        raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+
+    # Now try the Fedora versions.
+    m = re.match("^fedora.*(\d)+$", string, re.I)
+
+    if m and m.group(1):
+        map = {"3": FC3, "4": FC4, "5": FC5, "6": FC6, "7": F7}
+        try:
+            return map[m.group(1)]
+        except KeyError:
+            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+
+    # Now try the RHEL versions.
+    m = re.match("^red hat enterprise linux.*(\d)+$", string, re.I)
+
+    if m and m.group(1):
+        map = {"4": RHEL4, "5": RHEL5}
+        try:
+            return map[m.group(1)]
+        except KeyError:
+            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+
+    # If nothing else worked, we're out of options.
+    raise KickstartVersionError(_("Unsupported version specified: %s") % string)
 
 def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be
