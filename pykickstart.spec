@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.94
+Version: 0.95
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Wed Feb 14 2007 Chris Lumens <clumens@redhat.com> - 0.95-1
+- KickstartParser no longer takes a version argument.
+- Be more lenient in what strings stringToVersion accepts.
+- Allow setting state on one data object from multiple files.
+
 * Wed Feb 07 2007 Chris Lumens <clumens@redhat.com> - 0.94-1
 - Add a newline to the end of the key command output.
 - Use network bootproto constants (#197694).
