@@ -188,8 +188,8 @@ class KickstartParser:
        anything may just pass.  However, readKickstart should never be
        overridden.
     """
-    def __init__ (self, handler, version=DEVEL, followIncludes=True,
-                  errorsAreFatal=True, missingIncludeIsFatal=True):
+    def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
+                  missingIncludeIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
            errorsAreFatal        -- Should errors cause processing to halt, or
@@ -205,9 +205,6 @@ class KickstartParser:
                                     will be executed.
            missingIncludeIsFatal -- Should missing include files be fatal, even
                                     if errorsAreFatal is False?
-           version               -- The version of kickstart syntax to process,
-                                    defaulting to DEVEL.  This must match the
-                                    version of the handler.
         """
         self.errorsAreFatal = errorsAreFatal
         self.followIncludes = followIncludes
@@ -215,13 +212,7 @@ class KickstartParser:
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self._reset()
 
-        try:
-            self.version = int(version)
-        except ValueError:
-            self.version = stringToVersion(version)
-
-        if handler.version != version:
-            raise KickstartVersionError, "Version passed to KickstartParser does not match version of handler"
+        self.version = self.handler.version
 
     def _reset(self):
         """Reset the internal variables of the state machine for a new kickstart file."""

@@ -1,5 +1,9 @@
 2007-02-14  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py (KickstartParser.__init__):  Don't need to
+	take a version argument since the Parser can get that from the
+	Handler.
+
 	* pykickstart/version.py (stringToVersion):  Be more lenient in what
 	strings we accept to take into account RHEL variants.
 
