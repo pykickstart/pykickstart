@@ -14,7 +14,7 @@ from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.options import *
 
-class FC3DisplayMode(KickstartCommand):
+class FC3_DisplayMode(KickstartCommand):
     def __init__(self, writePriority=0, displayMode=DISPLAY_MODE_GRAPHICAL):
         KickstartCommand.__init__(self, writePriority)
         self.displayMode = displayMode

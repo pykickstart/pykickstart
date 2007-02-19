@@ -21,7 +21,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6DmRaidData(BaseData):
+class FC6_DmRaidData(BaseData):
     def __init__(self, name="", devices=None, dmset=None):
         BaseData.__init__(self)
         self.name = name
@@ -40,7 +40,7 @@ class FC6DmRaidData(BaseData):
 
         return retval + "\n"
 
-class FC6DmRaid(KickstartCommand):
+class FC6_DmRaid(KickstartCommand):
     def __init__(self, writePriority=60, dmraids=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -63,7 +63,7 @@ class FC6DmRaid(KickstartCommand):
         op.add_option("--dev", dest="devices", action="append", type="string",
                       required=1)
 
-        dm = FC6DmRaidData()
+        dm = FC6_DmRaidData()
         (opts, extra) = op.parse_args(args=args)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(op, opts, dm)

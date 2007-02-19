@@ -14,7 +14,7 @@ from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.options import *
 
-class FC3SELinux(KickstartCommand):
+class FC3_SELinux(KickstartCommand):
     def __init__(self, writePriority=0, selinux=SELINUX_ENFORCING):
         KickstartCommand.__init__(self, writePriority)
         self.selinux = selinux

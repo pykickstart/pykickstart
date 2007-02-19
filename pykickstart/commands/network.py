@@ -20,7 +20,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3NetworkData(BaseData):
+class FC3_NetworkData(BaseData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
                  mtu="", nameserver="", netmask="", nodns=False,
@@ -75,12 +75,12 @@ class FC3NetworkData(BaseData):
 
         return retval + "\n"
 
-class FC4NetworkData(FC3NetworkData):
+class FC4_NetworkData(FC3_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
                  mtu="", nameserver="", netmask="", nodns=False,
                  notksdevice=False, onboot=True, wepkey=""):
-        FC3NetworkData.__init__(self, bootProto=bootProto,
+        FC3_NetworkData.__init__(self, bootProto=bootProto,
                                 dhcpclass=dhcpclass, device=device,
                                 essid=essid, ethtool=ethtool,
                                 gateway=gateway, hostname=hostname,
@@ -90,19 +90,19 @@ class FC4NetworkData(FC3NetworkData):
         self.notksdevice = notksdevice
 
     def __str__(self):
-        retval = FC3NetworkData.__str__(self).strip()
+        retval = FC3_NetworkData.__str__(self).strip()
 
         if self.notksdevice:
             retval += " --notksdevice"
 
         return retval + "\n"
 
-class FC6NetworkData(FC4NetworkData):
+class FC6_NetworkData(FC4_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
                  ipv4=True, ipv6=True, mtu="", nameserver="", netmask="",
                  nodns=False, notksdevice=False, onboot=True, wepkey=""):
-        FC4NetworkData.__init__(self, bootProto=bootProto,
+        FC4_NetworkData.__init__(self, bootProto=bootProto,
                                 dhcpclass=dhcpclass, device=device,
                                 essid=essid, ethtool=ethtool,
                                 gateway=gateway, hostname=hostname,
@@ -153,12 +153,12 @@ class FC6NetworkData(FC4NetworkData):
 
         return retval + "\n"
 
-class RHEL4NetworkData(FC3NetworkData):
+class RHEL4_NetworkData(FC3_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
                  mtu="", nameserver="", netmask="", nodns=False,
                  notksdevice=False, onboot=True, wepkey=""):
-        FC3NetworkData.__init__(self, bootProto=bootProto,
+        FC3_NetworkData.__init__(self, bootProto=bootProto,
                                 dhcpclass=dhcpclass, device=device,
                                 essid=essid, ethtool=ethtool,
                                 gateway=gateway, hostname=hostname,
@@ -168,14 +168,14 @@ class RHEL4NetworkData(FC3NetworkData):
         self.notksdevice = notksdevice
 
     def __str__(self):
-        retval = FC3NetworkData.__str__(self).strip()
+        retval = FC3_NetworkData.__str__(self).strip()
 
         if self.notksdevice:
             retval += " --notksdevice"
 
         return retval + "\n"
 
-class FC3Network(KickstartCommand):
+class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -218,16 +218,16 @@ class FC3Network(KickstartCommand):
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
-        nd = FC3NetworkData()
+        nd = FC3_NetworkData()
         self._setToObj(op, opts, nd)
         self.add(nd)
 
     def add(self, newObj):
         self.network.append(newObj)
 
-class FC4Network(FC3Network):
+class FC4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
-        FC3Network.__init__(self, writePriority, network)
+        FC3_Network.__init__(self, writePriority, network)
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -254,13 +254,13 @@ class FC4Network(FC3Network):
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
-        nd = FC4NetworkData()
+        nd = FC4_NetworkData()
         self._setToObj(op, opts, nd)
         self.add(nd)
 
-class FC6Network(FC4Network):
+class FC6_Network(FC4_Network):
     def __init__(self, writePriority=0, network=None):
-        FC4Network.__init__(self, writePriority, network)
+        FC4_Network.__init__(self, writePriority, network)
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -291,13 +291,13 @@ class FC6Network(FC4Network):
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
-        nd = FC6NetworkData()
+        nd = FC6_NetworkData()
         self._setToObj(op, opts, nd)
         self.add(nd)
 
-class RHEL4Network(FC3Network):
+class RHEL4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
-        FC3Network.__init__(self, writePriority, network)
+        FC3_Network.__init__(self, writePriority, network)
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -324,6 +324,6 @@ class RHEL4Network(FC3Network):
         op.add_option("--wepkey", dest="wepkey")
 
         (opts, extra) = op.parse_args(args=args)
-        nd = RHEL4NetworkData()
+        nd = RHEL4_NetworkData()
         self._setToObj(op, opts, nd)
         self.add(nd)

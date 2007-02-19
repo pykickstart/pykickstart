@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3LogVolData(BaseData):
+class FC3_LogVolData(BaseData):
     def __init__(self, fstype="", grow=False, maxSizeMB=0, name="",
                  format=True, percent=0, recommended=False, size=None,
                  preexist=False, vgname="", mountpoint=""):
@@ -58,12 +58,12 @@ class FC3LogVolData(BaseData):
 
         return retval + " --name=%s --vgname=%s\n" % (self.name, self.vgname)
 
-class FC4LogVolData(FC3LogVolData):
+class FC4_LogVolData(FC3_LogVolData):
     def __init__(self, bytesPerInode=4096, fsopts="", fstype="", grow=False,
                  maxSizeMB=0, name="", format=True, percent=0,
                  recommended=False, size=None, preexist=False, vgname="",
                  mountpoint=""):
-        FC3LogVolData.__init__(self, fstype=fstype, grow=grow,
+        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
                                maxSizeMB=maxSizeMB, name=name,
                                format=format, percent=percent,
                                recommended=recommended, size=size,
@@ -73,7 +73,7 @@ class FC4LogVolData(FC3LogVolData):
         self.fsopts = fsopts
 
     def __str__(self):
-        retval = FC3LogVolData.__str__(self).strip()
+        retval = FC3_LogVolData.__str__(self).strip()
 
         if self.bytesPerInode > 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -82,7 +82,7 @@ class FC4LogVolData(FC3LogVolData):
 
         return retval + "\n"
 
-class FC3LogVol(KickstartCommand):
+class FC3_LogVol(KickstartCommand):
     def __init__(self, writePriority=132, lvList=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -128,7 +128,7 @@ class FC3LogVol(KickstartCommand):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
-        lvd = FC3LogVolData()
+        lvd = FC3_LogVolData()
         self._setToObj(op, opts, lvd)
         lvd.mountpoint=extra[0]
         self.add(lvd)
@@ -136,9 +136,9 @@ class FC3LogVol(KickstartCommand):
     def add(self, newObj):
         self.lvList.append(newObj)
 
-class FC4LogVol(FC3LogVol):
+class FC4_LogVol(FC3_LogVol):
     def __init__(self, writePriority=132, lvList=None):
-        FC3LogVol.__init__(self, writePriority, lvList)
+        FC3_LogVol.__init__(self, writePriority, lvList)
 
     def parse(self, args):
         def lv_cb (option, opt_str, value, parser):
@@ -172,7 +172,7 @@ class FC4LogVol(FC3LogVol):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
-        lvd = FC4LogVolData()
+        lvd = FC4_LogVolData()
         self._setToObj(op, opts, lvd)
         lvd.mountpoint=extra[0]
         self.add(lvd)

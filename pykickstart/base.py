@@ -232,8 +232,14 @@ class BaseHandler:
 
     def _setCommand(self, cmdObj):
         # Add an attribute on this version object.  We need this to provide a
-        # way for clients to access the command objects.
-        setattr(self, cmdObj.__class__.__name__.lower(), cmdObj)
+        # way for clients to access the command objects.  We also need to strip
+        # off the version part from the front of the name.
+        if cmdObj.__class__.__name__.find("_") != -1:
+            name = cmdObj.__class__.__name__.split("_", 1)[1]
+        else:
+            name = cmdObj.__class__.__name__.lower()
+                
+        setattr(self, name.lower(), cmdObj)
 
         # Also, add the object into the _writeOrder dict in the right place.
         if cmdObj.writePriority is not None:

@@ -13,7 +13,7 @@
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3ZFCPData(BaseData):
+class FC3_ZFCPData(BaseData):
     def __init__(self, devnum="", wwpn="", fcplun="", scsiid="", scsilun=""):
         BaseData.__init__(self)
         self.devnum = devnum
@@ -38,7 +38,7 @@ class FC3ZFCPData(BaseData):
 
         return retval + "\n"
 
-class FC3ZFCP(KickstartCommand):
+class FC3_ZFCP(KickstartCommand):
     def __init__(self, writePriority=0, zfcp=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -62,7 +62,7 @@ class FC3ZFCP(KickstartCommand):
         op.add_option("--scsilun", dest="scsilun", required=1)
         op.add_option("--wwpn", dest="wwpn", required=1)
 
-        zd = FC3ZFCPData()
+        zd = FC3_ZFCPData()
         (opts, extra) = op.parse_args(args)
         self._setToObj(op, opts, zd)
         self.add(zd)

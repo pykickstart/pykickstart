@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC4MediaCheck(KickstartCommand):
+class FC4_MediaCheck(KickstartCommand):
     def __init__(self, writePriority=0, mediacheck=False):
         KickstartCommand.__init__(self, writePriority)
         self.mediacheck = mediacheck

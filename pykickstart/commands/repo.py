@@ -20,7 +20,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6RepoData(BaseData):
+class FC6_RepoData(BaseData):
     def __init__(self, baseurl="", mirrorlist="", name=""):
         BaseData.__init__(self)
         self.baseurl = baseurl
@@ -35,7 +35,7 @@ class FC6RepoData(BaseData):
 
         return "repo --name=%s %s\n" % (self.name, urlopt)
 
-class FC6Repo(KickstartCommand):
+class FC6_Repo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -67,7 +67,7 @@ class FC6Repo(KickstartCommand):
         if not opts.baseurl and not opts.mirrorlist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
-        rd = FC6RepoData()
+        rd = FC6_RepoData()
         self._setToObj(op, opts, rd)
         self.add(rd)
 

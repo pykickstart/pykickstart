@@ -14,7 +14,7 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-class FC3PartData(BaseData):
+class FC3_PartData(BaseData):
     def __init__(self, active=False, primOnly=False, end=0, fstype="",
                  grow=False, maxSizeMB=0, format=True, onbiosdisk="",
                  disk="", onPart="", recommended=False, size=None,
@@ -67,13 +67,13 @@ class FC3PartData(BaseData):
 
         return retval + "\n"
 
-class FC4PartData(FC3PartData):
+class FC4_PartData(FC3_PartData):
     def __init__(self, active=False, primOnly=False, bytesPerInode=4096,
                  end=0, fsopts="", fstype="", grow=False, label="",
                  maxSizeMB=0, format=True, onbiosdisk="", disk="",
                  onPart="", recommended=False, size=None, start=0,
                  mountpoint=""):
-        FC3PartData.__init__(self, active=active, primOnly=primOnly,
+        FC3_PartData.__init__(self, active=active, primOnly=primOnly,
                              end=end, fstype=fstype, grow=grow,
                              maxSizeMB=maxSizeMB, format=format,
                              onbiosdisk=onbiosdisk, disk=disk,
@@ -85,7 +85,7 @@ class FC4PartData(FC3PartData):
         self.label = label
 
     def __str__(self):
-        retval = FC3PartData.__str__(self).strip()
+        retval = FC3_PartData.__str__(self).strip()
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -96,7 +96,7 @@ class FC4PartData(FC3PartData):
 
         return retval + "\n"
 
-class FC3Partition(KickstartCommand):
+class FC3_Partition(KickstartCommand):
     def __init__(self, writePriority=130, partitions=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -152,7 +152,7 @@ class FC3Partition(KickstartCommand):
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
-        pd = FC3PartData()
+        pd = FC3_PartData()
         self._setToObj(op, opts, pd)
         pd.mountpoint=extra[0]
         self.add(pd)
@@ -160,9 +160,9 @@ class FC3Partition(KickstartCommand):
     def add(self, newObj):
         self.partitions.append(newObj)
 
-class FC4Partition(FC3Partition):
+class FC4_Partition(FC3_Partition):
     def __init__(self, writePriority=130, partitions=None):
-        FC3Partition.__init__(self, writePriority, partitions)
+        FC3_Partition.__init__(self, writePriority, partitions)
 
     def parse(self, args):
         def part_cb (option, opt_str, value, parser):
@@ -204,7 +204,7 @@ class FC4Partition(FC3Partition):
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
-        pd = FC4PartData()
+        pd = FC4_PartData()
         self._setToObj(op, opts, pd)
         pd.mountpoint=extra[0]
         self.add(pd)

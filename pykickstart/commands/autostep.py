@@ -13,7 +13,7 @@
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3AutoStep(KickstartCommand):
+class FC3_AutoStep(KickstartCommand):
     def __init__(self, writePriority=0, autoscreenshot=False):
         KickstartCommand.__init__(self, writePriority)
         self.autoscreenshot = autoscreenshot

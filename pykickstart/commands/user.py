@@ -22,7 +22,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6UserData(BaseData):
+class FC6_UserData(BaseData):
     def __init__(self, groups=None, homedir="", isCrypted=False, name="",
                  password="", shell="", uid=None):
         BaseData.__init__(self)
@@ -58,7 +58,7 @@ class FC6UserData(BaseData):
 
         return retval + "\n"
 
-class FC6User(KickstartCommand):
+class FC6_User(KickstartCommand):
     def __init__(self, writePriority=0, userList=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -90,7 +90,7 @@ class FC6User(KickstartCommand):
         op.add_option("--shell")
         op.add_option("--uid", type="int")
 
-        ud = FC6UserData()
+        ud = FC6_UserData()
         (opts, extra) = op.parse_args(args=args)
         self._setToObj(op, opts, ud)
         self.add(ud)

@@ -18,7 +18,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Lang(KickstartCommand):
+class FC3_Lang(KickstartCommand):
     def __init__(self, writePriority=0, lang=""):
         KickstartCommand.__init__(self, writePriority)
         self.lang = lang

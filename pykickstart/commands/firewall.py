@@ -15,7 +15,7 @@ import string
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3Firewall(KickstartCommand):
+class FC3_Firewall(KickstartCommand):
     def __init__(self, writePriority=0, enabled=True, ports=None, trusts=None):
         KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled

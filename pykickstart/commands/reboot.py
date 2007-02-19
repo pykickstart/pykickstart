@@ -20,7 +20,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Reboot(KickstartCommand):
+class FC3_Reboot(KickstartCommand):
     def __init__(self, writePriority=0, action=KS_WAIT):
         KickstartCommand.__init__(self, writePriority)
         self.action = action
@@ -37,9 +37,9 @@ class FC3Reboot(KickstartCommand):
         else:
             self.action = KS_SHUTDOWN
 
-class FC6Reboot(FC3Reboot):
+class FC6_Reboot(FC3_Reboot):
     def __init__(self, writePriority=0, action=KS_WAIT, eject=False):
-        FC3Reboot.__init__(self, writePriority, action=action)
+        FC3_Reboot.__init__(self, writePriority, action=action)
         self.eject = eject
 
     def __str__(self):

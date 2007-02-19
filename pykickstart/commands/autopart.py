@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3AutoPart(KickstartCommand):
+class FC3_AutoPart(KickstartCommand):
     def __init__(self, writePriority=100, autopart=False):
         KickstartCommand.__init__(self, writePriority)
         self.autopart = autopart

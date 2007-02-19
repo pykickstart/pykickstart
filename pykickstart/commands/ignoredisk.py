@@ -15,7 +15,7 @@ import string
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3IgnoreDisk(KickstartCommand):
+class FC3_IgnoreDisk(KickstartCommand):
     def __init__(self, writePriority=0, ignoredisk=None):
         KickstartCommand.__init__(self, writePriority)
 

@@ -20,7 +20,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class F7Key(KickstartCommand):
+class F7_Key(KickstartCommand):
     def __init__(self, writePriority=0, key=""):
         KickstartCommand.__init__(self, writePriority)
         self.key = key
@@ -42,4 +42,4 @@ class F7Key(KickstartCommand):
         else:
             self.key = args[0]
 
-RHEL5Key = F7Key
+RHEL5_Key = F7_Key

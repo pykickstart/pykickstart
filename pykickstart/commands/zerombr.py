@@ -20,7 +20,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3ZeroMbr(KickstartCommand):
+class FC3_ZeroMbr(KickstartCommand):
     def __init__(self, writePriority=110, zerombr=False):
         KickstartCommand.__init__(self, writePriority)
         self.zerombr = zerombr

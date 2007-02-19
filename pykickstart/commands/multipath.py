@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6MpPathData(BaseData):
+class FC6_MpPathData(BaseData):
     def __init__(self, mpdev="", device="", rule=""):
         BaseData.__init__(self)
         self.mpdev = mpdev
@@ -29,7 +29,7 @@ class FC6MpPathData(BaseData):
     def __str__(self):
         return " --device=%s --rule=\"%s\"" % (self.device, self.rule)
 
-class FC6MultiPathData(BaseData):
+class FC6_MultiPathData(BaseData):
     def __init__(self, name="", paths=None):
         BaseData.__init__(self)
         self.name = name
@@ -47,7 +47,7 @@ class FC6MultiPathData(BaseData):
 
         return retval
 
-class FC6MultiPath(KickstartCommand):
+class FC6_MultiPath(KickstartCommand):
     def __init__(self, writePriority=50, mpaths=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -73,7 +73,7 @@ class FC6MultiPath(KickstartCommand):
                       required=1)
 
         (opts, extra) = op.parse_args(args=args)
-        dd = FC6MpPathData()
+        dd = FC6_MpPathData()
         self._setToObj(op, opts, dd)
         dd.mpdev = dd.mpdev.split('/')[-1]
 
@@ -88,7 +88,7 @@ class FC6MultiPath(KickstartCommand):
                 parent = x
 
         if parent is None:
-            mpath = FC6MultiPathData()
+            mpath = FC6_MultiPathData()
             self.add(mpath)
         else:
             mpath = self.mpaths[x]

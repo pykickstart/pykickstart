@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6IscsiData(BaseData):
+class FC6_IscsiData(BaseData):
     def __init__(self, ipaddr="", port="", target="", user=None, password=None):
         BaseData.__init__(self)
         self.ipaddr = ipaddr
@@ -44,7 +44,7 @@ class FC6IscsiData(BaseData):
 
         return retval + "\n"
 
-class FC6Iscsi(KickstartCommand):
+class FC6_Iscsi(KickstartCommand):
     def __init__(self, writePriority=70, iscsi=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -76,7 +76,7 @@ class FC6Iscsi(KickstartCommand):
             mapping = {"command": "scsi", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
-        dd = FC6IscsiData()
+        dd = FC6_IscsiData()
         self._setToObj(op, opts, dd)
         self.add(dd)
 

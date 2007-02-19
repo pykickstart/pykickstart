@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Upgrade(KickstartCommand):
+class FC3_Upgrade(KickstartCommand):
     def __init__(self, writePriority=0, upgrade=False):
         KickstartCommand.__init__(self, writePriority)
         self.upgrade = upgrade

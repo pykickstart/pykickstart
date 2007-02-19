@@ -21,7 +21,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6Services(KickstartCommand):
+class FC6_Services(KickstartCommand):
     def __init__(self, writePriority=0, disabled=None, enabled=None):
         KickstartCommand.__init__(self, writePriority)
 

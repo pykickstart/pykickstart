@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Monitor(KickstartCommand):
+class FC3_Monitor(KickstartCommand):
     def __init__(self, writePriority=0, hsync="", monitor="", vsync=""):
         KickstartCommand.__init__(self, writePriority)
         self.hsync = hsync
@@ -55,10 +55,10 @@ class FC3Monitor(KickstartCommand):
 
         self._setToSelf(op, opts)
 
-class FC6Monitor(FC3Monitor):
+class FC6_Monitor(FC3_Monitor):
     def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
                  vsync=""):
-        FC3Monitor.__init__(self, writePriority, hsync=hsync,
+        FC3_Monitor.__init__(self, writePriority, hsync=hsync,
                             monitor=monitor, vsync=vsync)
         self.probe = probe
 

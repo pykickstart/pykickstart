@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6Logging(KickstartCommand):
+class FC6_Logging(KickstartCommand):
     def __init__(self, writePriority=0, host="", level="info", port=""):
         KickstartCommand.__init__(self, writePriority)
         self.host = host

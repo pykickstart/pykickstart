@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Method(KickstartCommand):
+class FC3_Method(KickstartCommand):
     def __init__(self, writePriority=0, method=""):
         KickstartCommand.__init__(self, writePriority)
         self.method = method
@@ -68,9 +68,9 @@ class FC3Method(KickstartCommand):
 
         self._setToSelf(op, opts)
 
-class FC6Method(FC3Method):
+class FC6_Method(FC3_Method):
     def __init__(self, writePriority=0, method=""):
-        FC3Method.__init__(self, writePriority, method)
+        FC3_Method.__init__(self, writePriority, method)
 
     def __str__(self):
         if self.method == "cdrom":

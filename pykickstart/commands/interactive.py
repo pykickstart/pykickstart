@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Interactive(KickstartCommand):
+class FC3_Interactive(KickstartCommand):
     def __init__(self, writePriority=0, interactive=False):
         KickstartCommand.__init__(self, writePriority)
         self.interactive = interactive

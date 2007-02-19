@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3LiloCheck(KickstartCommand):
+class FC3_LiloCheck(KickstartCommand):
     def __init__(self, writePriority=0, check=False):
         KickstartCommand.__init__(self, writePriority)
         self.check = check

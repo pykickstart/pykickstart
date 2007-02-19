@@ -16,7 +16,7 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-class FC3RaidData(BaseData):
+class FC3_RaidData(BaseData):
     def __init__(self, device=None, fstype="", level="", format=True,
                  spares=0, preexist=False, mountpoint="", members=None):
         BaseData.__init__(self)
@@ -51,11 +51,11 @@ class FC3RaidData(BaseData):
 
         return retval + " %s\n" % string.join(self.members)
 
-class FC4RaidData(FC3RaidData):
+class FC4_RaidData(FC3_RaidData):
     def __init__(self, device=None, fsopts="", fstype="", level="",
                  format=True, spares=0, preexist=False, mountpoint="",
                  members=None):
-        FC3RaidData.__init__(self, device=device, fstype=fstype,
+        FC3_RaidData.__init__(self, device=device, fstype=fstype,
                              level=level, format=format,
                              spares=spares, preexist=preexist,
                              mountpoint=mountpoint,
@@ -63,18 +63,18 @@ class FC4RaidData(FC3RaidData):
         self.fsopts = fsopts
 
     def __str__(self):
-        retval = FC4RaidData.__str__(self).strip()
+        retval = FC4_RaidData.__str__(self).strip()
 
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
 
         return retval
 
-class FC5RaidData(FC4RaidData):
+class FC5_RaidData(FC4_RaidData):
     def __init__(self, device=None, fsopts="", fstype="", level="",
                  format=True, spares=0, preexist=False, mountpoint="",
                  members=None, bytesPerInode=4096):
-        FC4RaidData.__init__(self, device=device, fsopts=fsopts,
+        FC4_RaidData.__init__(self, device=device, fsopts=fsopts,
                              fstype=fstype, level=level,
                              format=format, spares=spares,
                              preexist=preexist,
@@ -103,7 +103,7 @@ class FC5RaidData(FC4RaidData):
 
         return retval + " %s\n" % string.join(self.members)
 
-class FC3Raid(KickstartCommand):
+class FC3_Raid(KickstartCommand):
     def __init__(self, writePriority=140, raidList=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -159,7 +159,7 @@ class FC3Raid(KickstartCommand):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-        rd = FC3RaidData()
+        rd = FC3_RaidData()
         self._setToObj(op, opts, rd)
 
         # --device can't just take an int in the callback above, because it
@@ -173,9 +173,9 @@ class FC3Raid(KickstartCommand):
     def add(self, newObj):
         self.raidList.append(newObj)
 
-class FC4Raid(FC3Raid):
+class FC4_Raid(FC3_Raid):
     def __init__(self, writePriority=140, raidList=None):
-        FC3Raid.__init__(self, writePriority, raidList)
+        FC3_Raid.__init__(self, writePriority, raidList)
 
     def parse(self, args):
         def raid_cb (option, opt_str, value, parser):
@@ -217,7 +217,7 @@ class FC4Raid(FC3Raid):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-        rd = FC4RaidData()
+        rd = FC4_RaidData()
         self._setToObj(op, opts, rd)
 
         # --device can't just take an int in the callback above, because it
@@ -228,9 +228,9 @@ class FC4Raid(FC3Raid):
         rd.members = extra[1:]
         self.add(rd)
 
-class FC5Raid(FC4Raid):
+class FC5_Raid(FC4_Raid):
     def __init__(self, writePriority=140, raidList=None):
-        FC4Raid.__init__(self, writePriority, raidList)
+        FC4_Raid.__init__(self, writePriority, raidList)
 
     def reset(self):
         self.raidList = []
@@ -277,7 +277,7 @@ class FC5Raid(FC4Raid):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-        rd = FC5RaidData()
+        rd = FC5_RaidData()
         self._setToObj(op, opts, rd)
 
         # --device can't just take an int in the callback above, because it

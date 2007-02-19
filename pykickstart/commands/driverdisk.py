@@ -14,7 +14,7 @@ import string
 
 from pykickstart.base import *
 
-class FC3DriverDisk(KickstartCommand):
+class FC3_DriverDisk(KickstartCommand):
     def __init__(self, writePriority=0, driverdisk=""):
         KickstartCommand.__init__(self, writePriority)
         self.driverdisk = driverdisk

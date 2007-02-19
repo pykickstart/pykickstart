@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Timezone(KickstartCommand):
+class FC3_Timezone(KickstartCommand):
     def __init__(self, writePriority=0, isUtc=False, timezone=""):
         KickstartCommand.__init__(self, writePriority)
         self.isUtc = isUtc

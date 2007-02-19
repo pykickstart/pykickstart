@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3RootPw(KickstartCommand):
+class FC3_RootPw(KickstartCommand):
     def __init__(self, writePriority=0, isCrypted=False, password=""):
         KickstartCommand.__init__(self, writePriority)
         self.isCrypted = isCrypted

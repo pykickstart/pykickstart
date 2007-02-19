@@ -12,6 +12,6 @@
 #
 from pykickstart.base import *
 
-class FC3Mouse(DeprecatedCommand):
+class FC3_Mouse(DeprecatedCommand):
     def __init__(self):
         DeprecatedCommand.__init__(self)

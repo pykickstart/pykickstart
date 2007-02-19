@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Vnc(KickstartCommand):
+class FC3_Vnc(KickstartCommand):
     def __init__(self, writePriority=0, enabled=False, password="", connect=""):
         KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled
@@ -49,10 +49,10 @@ class FC3Vnc(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
-class FC6Vnc(FC3Vnc):
+class FC6_Vnc(FC3_Vnc):
     def __init__(self, writePriority=0, enabled=False, password="", host="",
                  port=""):
-        FC3Vnc.__init__(self, writePriority)
+        FC3_Vnc.__init__(self, writePriority)
         self.enabled = enabled
         self.password = password
         self.host = host

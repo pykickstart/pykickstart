@@ -13,7 +13,7 @@
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3LangSupport(KickstartCommand):
+class FC3_LangSupport(KickstartCommand):
     def __init__(self, writePriority=0, deflang="en_US.UTF-8", supported=None):
         KickstartCommand.__init__(self, writePriority)
         self.deflang = deflang
@@ -39,6 +39,6 @@ class FC3LangSupport(KickstartCommand):
         self.deflang = opts.deflang
         self.supported = extra
 
-class FC5LangSupport(DeprecatedCommand):
+class FC5_LangSupport(DeprecatedCommand):
     def __init__(self):
         DeprecatedCommand.__init__(self)

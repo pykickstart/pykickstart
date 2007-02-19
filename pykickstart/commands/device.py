@@ -14,7 +14,7 @@ import string
 
 from pykickstart.base import *
 
-class FC3Device(KickstartCommand):
+class FC3_Device(KickstartCommand):
     def __init__(self, writePriority=0, device=""):
         KickstartCommand.__init__(self, writePriority)
         self.device = device

@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC6IscsiName(KickstartCommand):
+class FC6_IscsiName(KickstartCommand):
     def __init__(self, writePriority=71, iscsiname=""):
         KickstartCommand.__init__(self, writePriority)
         self.iscsiname = iscsiname

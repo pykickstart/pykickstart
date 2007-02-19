@@ -18,7 +18,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3Keyboard(KickstartCommand):
+class FC3_Keyboard(KickstartCommand):
     def __init__(self, writePriority=0, keyboard=""):
         KickstartCommand.__init__(self, writePriority)
         self.keyboard = keyboard

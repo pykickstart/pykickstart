@@ -14,7 +14,7 @@ import string
 
 from pykickstart.base import *
 
-class FC3Authconfig(KickstartCommand):
+class FC3_Authconfig(KickstartCommand):
     def __init__(self, writePriority=0, authconfig=""):
         KickstartCommand.__init__(self, writePriority)
         self.authconfig = authconfig

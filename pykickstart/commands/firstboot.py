@@ -14,7 +14,7 @@ from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.options import *
 
-class FC3Firstboot(KickstartCommand):
+class FC3_Firstboot(KickstartCommand):
     def __init__(self, writePriority=0, firstboot=FIRSTBOOT_SKIP):
         KickstartCommand.__init__(self, writePriority)
         self.firstboot = firstboot

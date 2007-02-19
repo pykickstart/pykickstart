@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3XConfig(KickstartCommand):
+class FC3_XConfig(KickstartCommand):
     def __init__(self, writePriority=0, card="", defaultdesktop="", depth=0,
                  hsync="", monitor="", noProbe=False, resolution="", server="",
                  startX=False, videoRam="", vsync=""):
@@ -90,10 +90,10 @@ class FC3XConfig(KickstartCommand):
 
         self._setToSelf(op, opts)
 
-class FC6XConfig(FC3XConfig):
+class FC6_XConfig(FC3_XConfig):
     def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
                  resolution="", startX=False, videoRam=""):
-        FC3XConfig.__init__(self, writePriority)
+        FC3_XConfig.__init__(self, writePriority)
         self.driver = driver
         self.defaultdesktop = defaultdesktop
         self.depth = depth

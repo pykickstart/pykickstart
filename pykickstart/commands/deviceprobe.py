@@ -14,7 +14,7 @@ import string
 
 from pykickstart.base import *
 
-class FC3DeviceProbe(KickstartCommand):
+class FC3_DeviceProbe(KickstartCommand):
     def __init__(self, writePriority=0, deviceprobe=""):
         KickstartCommand.__init__(self, writePriority)
         self.deviceprobe = deviceprobe

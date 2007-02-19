@@ -17,7 +17,7 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-class FC3ClearPart(KickstartCommand):
+class FC3_ClearPart(KickstartCommand):
     def __init__(self, writePriority=120, drives=None, initAll=False,
                  type=CLEARPART_TYPE_NONE):
         KickstartCommand.__init__(self, writePriority)

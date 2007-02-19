@@ -15,7 +15,7 @@ import string
 from pykickstart.base import *
 from pykickstart.options import *
 
-class FC3VolGroupData(BaseData):
+class FC3_VolGroupData(BaseData):
     def __init__(self, format=True, pesize=32768, preexist=False, vgname="",
                  physvols=None):
         BaseData.__init__(self)
@@ -41,7 +41,7 @@ class FC3VolGroupData(BaseData):
 
         return retval + " " + string.join(self.physvols, ",") + "\n"
 
-class FC3VolGroup(KickstartCommand):
+class FC3_VolGroup(KickstartCommand):
     def __init__(self, writePriority=131, vgList=None):
         KickstartCommand.__init__(self, writePriority)
 
@@ -72,7 +72,7 @@ class FC3VolGroup(KickstartCommand):
                       default=False)
 
         (opts, extra) = op.parse_args(args=args)
-        vg = FC3VolGroupData()
+        vg = FC3_VolGroupData()
         self._setToObj(op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]

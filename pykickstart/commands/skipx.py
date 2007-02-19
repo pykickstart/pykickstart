@@ -19,7 +19,7 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-class FC3SkipX(KickstartCommand):
+class FC3_SkipX(KickstartCommand):
     def __init__(self, writePriority=0, skipx=False):
         KickstartCommand.__init__(self, writePriority)
         self.skipx = skipx
