@@ -52,9 +52,14 @@ def stringToVersion(string):
        KickstartVersionError if string does not match anything.
     """
 
-    # First try devel since that should be most common.
-    if string.lower() == "devel":
-        return DEVEL
+    # First try these short forms.
+    map = {"DEVEL": DEVEL, "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6,
+           "F7": F7, "RHEL4": RHEL4, "RHEL5": RHEL5}
+
+    try:
+        return map[string.upper()]
+    except KeyError:
+        pass
 
     # Now try the Fedora versions.
     m = re.match("^fedora.*(\d)+$", string, re.I)
@@ -90,25 +95,25 @@ def returnClassForVersion(version=DEVEL):
         version = stringToVersion(version)
 
     if version == FC3:
-        from pykickstart.commands.fc3 import FC3Handler
+        from pykickstart.handlers.fc3 import FC3Handler
         return FC3Handler
     elif version == FC4:
-        from pykickstart.commands.fc4 import FC4Handler
+        from pykickstart.handlers.fc4 import FC4Handler
         return FC4Handler
     elif version == FC5:
-        from pykickstart.commands.fc5 import FC5Handler
+        from pykickstart.handlers.fc5 import FC5Handler
         return FC5Handler
     elif version == FC6:
-        from pykickstart.commands.fc6 import FC6Handler
+        from pykickstart.handlers.fc6 import FC6Handler
         return FC6Handler
     elif version == F7:
-        from pykickstart.commands.f7 import F7Handler
+        from pykickstart.handlers.f7 import F7Handler
         return F7Handler
     elif version == RHEL4:
-        from pykickstart.commands.rhel4 import RHEL4Handler
+        from pykickstart.handlers.rhel4 import RHEL4Handler
         return RHEL4Handler
     elif version == RHEL5:
-        from pykickstart.commands.rhel5 import RHEL5Handler
+        from pykickstart.handlers.rhel5 import RHEL5Handler
         return RHEL5Handler
     else:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)

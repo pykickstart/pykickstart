@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006 Red Hat, Inc.
+# Copyright 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -139,6 +139,15 @@ class BaseHandler:
        extracting data, and writing out kickstart files.  This is an abstract
        class.
     """
+
+    """Class attributes:
+
+       version -- The version this syntax handler supports.  This is set by
+                  a class attribute of a BaseHandler subclass and is used to
+                  set up the command dict.  It is for read-only use.
+    """
+    version = None
+
     def __init__(self):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
@@ -147,9 +156,9 @@ class BaseHandler:
            commands -- A mapping from a string command to a KickstartCommand
                        subclass object that handles it.  Multiple strings can
                        map to the same object, but only one instance of the
-                       handler object should ever exist.  Most users should
+                       command object should ever exist.  Most users should
                        never have to deal with this directly, as it is
-                       manipulated through registerCommand and dispatcher.
+                       manipulated internally and called through dispatcher.
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
@@ -157,18 +166,11 @@ class BaseHandler:
            scripts  -- A list of pykickstart.parser.Script instances, which is
                        populated by KickstartParser.addScript and describes the
                        %pre/%post/%traceback script section of the input file.
-           version  -- The version this syntax handler supports, which saves
-                       having to compare things like class names.  This is
-                       one of the constants from version.py and is for
-                       read-only use.
         """
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseHandler:
             raise TypeError, "BaseHandler is an abstract class."
-
-        self.commands = {}
-        self.version = None
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
@@ -176,11 +178,15 @@ class BaseHandler:
         self.packages = Packages()
         self.platform = ""
 
+        self.commands = {}
+
         # A dict keyed by an integer priority number, with each value being a
         # list of KickstartCommand subclasses.  This dict is maintained by
         # registerCommand and used in __str__.  No one else should be touching
         # it.
         self._writeOrder = {}
+
+        self._registerCommands()
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -236,6 +242,29 @@ class BaseHandler:
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
+    def _registerCommands(self):
+        from pykickstart.handlers.control import commandMap
+
+        mapping = commandMap[self.version]
+        for (cmdName, cmdClass) in mapping.iteritems():
+            # First make sure we haven't instantiated this command handler
+            # already.  If we have, we just need to make another mapping to
+            # it in self.commands.
+            cmdObj = None
+
+            for (key, val) in self.commands.iteritems():
+                if val.__class__.__name__ == cmdClass.__name__:
+                    cmdObj = val
+                    break
+
+            # If we didn't find an instance in self.commands, create one now.
+            if cmdObj == None:
+                cmdObj = cmdClass()
+                self._setCommand(cmdObj)
+
+            # Finally, add the mapping to the commands dict.
+            self.commands[cmdName] = cmdObj
+
     def dispatcher(self, cmd, cmdArgs, lineno):
         """Given the command string cmd and the list of arguments cmdArgs, call
            the appropriate KickstartCommand handler that has been previously
@@ -264,68 +293,6 @@ class BaseHandler:
     def hasCommand(self, cmd):
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
-
-    def overrideCommand(self, cmdObj):
-        """Override an existing mapping with a new instance of a command
-           handler class.  There must already be a mapping from at least one
-           string command to a command object as set up by registerCommand,
-           as this method looks for instances with the same class name as
-           cmdObj to replace.
-        """
-        found = False
-
-        # We have to update all the entries in the commands dict with a
-        # reference to the new handler.
-        for (key, val) in self.commands.iteritems():
-            if val.__class__.__name__ == cmdObj.__class__.__name__:
-                found = True
-                self.commands[key] = cmdObj
-
-        if found:
-            self._setCommand(cmdObj)
-
-    def registerCommand(self, cmdObj, cmdList):
-        """Set up a mapping from each string command in cmdList to the instance
-           of the KickstartCommand subclass object cmdObj.  Using a list of
-           commands allows for aliasing commands to each other.  Also create a
-           new attribute on this BaseHandler subclass named
-           cmdObj.__class__.__name__ with a value of cmdObj.
-        """
-        # Add the new command object to the dict for all given command strings.
-        for str in cmdList:
-            self.commands[str] = cmdObj
-
-        self._setCommand(cmdObj)
-
-    def unregisterCommand(self, cmdObj):
-        """Remove support for a command from this handler instance.  The
-           parameter cmdObj is a command handler class (not an instance) that
-           should be removed.  This removes support for all string commands
-           that map to cmdObj, as well as support for writing it and calling
-           it on the handler.  The most common use for this method is to
-           remove commands that were deprecated in a previous version.
-        """
-        # First remove any keys in the commands dict that map to an instance
-        # of the given command object.
-        for (key, val) in self.commands.items():
-            if val.__class__.__name__ == cmdObj.__name__:
-                self.commands.pop(key)
-
-        # Then remove any keys in the _writeOrder dict that do the same.  To
-        # do this we have to search each list in _writeOrder and remove any
-        # with a matching name.  Then if that was the only command in that
-        # list, we should remove the key entirely.
-        for (key, val) in self._writeOrder.items():
-            for ele in val:
-                if ele.__class__.__name__ == cmdObj.__name__:
-                    val.remove(ele)
-                    break
-
-            if len(val) == 0:
-                del(self._writeOrder[key])
-
-        # Finally, remove the attribute on the handler object itself.
-        delattr(self, cmdObj.__name__.lower())
 
 ###
 ### DATA
