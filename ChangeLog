@@ -1,3 +1,21 @@
+2007-02-19  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/base.py:  Moved here from pykickstart/commands and adapt
+	to new layout.
+
+	* pykickstart/version.py:  Accept short forms of version strings again
+	and adapt to new layout.
+
+	* pykickstart/commands/*.py:  Broke each command out into its own file
+	and put all the versions of that command handler together.  Idea and
+	mock up from Peter Jones (<pjones AT redhat.com>).
+
+	* pykickstart/handlers/*.py:  Moved handlers into their own directory.
+
+	* pykickstart/handlers/control.py:  Add a file laying out which
+	commands are supported by each version and exactly where they can be
+	found.  This should help readability of the code quite a bit.
+
 2007-02-14  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
