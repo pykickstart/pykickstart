@@ -1,5 +1,11 @@
 2007-02-19  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/base.py (BaseHandler.maskAllExcept):  Renamed from
+	empty.
+	(BaseHandler.__init__):  Accept a mapping argument in the format of
+	what's in pykickstart.handlers.control, for when you're overriding all
+	the handlers with your own versions.
+
 	* pykickstart/commands/langsupport.py (FC3_LangSupport.__str__):  Add
 	a newline.
 

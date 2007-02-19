@@ -140,17 +140,19 @@ class BaseHandler:
        class.
     """
 
-    """Class attributes:
-
-       version -- The version this syntax handler supports.  This is set by
+    """version -- The version this syntax handler supports.  This is set by
                   a class attribute of a BaseHandler subclass and is used to
                   set up the command dict.  It is for read-only use.
     """
     version = None
 
-    def __init__(self):
+    def __init__(self, mapping={}):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
+           mapping is a custom map from command strings to classes, useful when
+           creating your own handler with special command objects.  It is
+           otherwise unused and rarely needed.
+
            Instance attributes:
 
            commands -- A mapping from a string command to a KickstartCommand
@@ -186,7 +188,7 @@ class BaseHandler:
         # it.
         self._writeOrder = {}
 
-        self._registerCommands()
+        self._registerCommands(mapping=mapping)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -248,10 +250,11 @@ class BaseHandler:
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def _registerCommands(self):
-        from pykickstart.handlers.control import commandMap
+    def _registerCommands(self, mapping={}):
+        if mapping == {}:
+            from pykickstart.handlers.control import commandMap
+            mapping = commandMap[self.version]
 
-        mapping = commandMap[self.version]
         for (cmdName, cmdClass) in mapping.iteritems():
             # First make sure we haven't instantiated this command handler
             # already.  If we have, we just need to make another mapping to
@@ -287,14 +290,15 @@ class BaseHandler:
                 self.commands[cmd].lineno = lineno
                 self.commands[cmd].parse(cmdArgs)
 
-    def empty(self):
-        """Set all entries in the commands dict to None so no commands
-           will be processed.
+    def maskAllExcept(self, lst):
+        """Set all entries in the commands dict to None, except the ones in
+           the lst.  All other commands will not be processed.
         """
         self._writeOrder = {}
 
         for (key, val) in self.commands.iteritems():
-            self.commands[key] = None
+            if not key in lst:
+                self.commands[key] = None
 
     def hasCommand(self, cmd):
         """Return true if there is a handler for the string cmd."""
