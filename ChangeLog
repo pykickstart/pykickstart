@@ -1,5 +1,11 @@
 2007-02-19  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/version.py (versionToString):  Added a method to convert
+	version numbers back into strings, which is needed for the above
+	change.
+
+2007-02-19  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/base.py:  Moved here from pykickstart/commands and adapt
 	to new layout.
 

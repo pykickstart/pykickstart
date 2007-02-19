@@ -29,6 +29,8 @@ This module also exports several functions:
 
     stringToVersion - Convert a string representation of a version number
                       into the symbolic constant.
+
+    versionToString - Perform the reverse mapping.
 """
 import re
 
@@ -47,17 +49,20 @@ F7  = 5000
 # This always points at the latest version and is the default.
 DEVEL = F7
 
+"""A one-to-one mapping from string representations to version numbers."""
+versionMap = {
+        "DEVEL": DEVEL,
+        "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7,
+        "RHEL4": RHEL4, "RHEL5": RHEL5
+}
+
 def stringToVersion(string):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
-
     # First try these short forms.
-    map = {"DEVEL": DEVEL, "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6,
-           "F7": F7, "RHEL4": RHEL4, "RHEL5": RHEL5}
-
     try:
-        return map[string.upper()]
+        return versionMap[string.upper()]
     except KeyError:
         pass
 
@@ -65,24 +70,35 @@ def stringToVersion(string):
     m = re.match("^fedora.*(\d)+$", string, re.I)
 
     if m and m.group(1):
-        map = {"3": FC3, "4": FC4, "5": FC5, "6": FC6, "7": F7}
-        try:
-            return map[m.group(1)]
-        except KeyError:
+        if versionMap.has_key("FC" + m.group(1)):
+            return versionMap["FC" + m.group(1)]
+        elif versionMap.has_key("F" + m.group(1)):
+            return versionMap["F" + m.group(1)]
+        else:
             raise KickstartVersionError(_("Unsupported version specified: %s") % string)
 
     # Now try the RHEL versions.
     m = re.match("^red hat enterprise linux.*(\d)+$", string, re.I)
 
     if m and m.group(1):
-        map = {"4": RHEL4, "5": RHEL5}
-        try:
-            return map[m.group(1)]
-        except KeyError:
+        if versionMap.has_key("RHEL" + m.group(1)):
+            return versionMap["RHEL" + m.group(1)]
+        else:
             raise KickstartVersionError(_("Unsupported version specified: %s") % string)
 
     # If nothing else worked, we're out of options.
     raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+
+def versionToString(version):
+    """Convert version into a string representation of the version number.
+       This is the reverse operation of stringToVersion.  Raises
+       KickstartVersionError if version does not match anything.
+    """
+    for (key, val) in versionMap.iteritems():
+        if val == version:
+            return key
+
+    raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
 def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be
