@@ -29,7 +29,7 @@ class FC3_LangSupport(KickstartCommand):
         if self.supported:
             retval += " %s" % " ".join(self.supported)
 
-        return retval
+        return retval + "\n"
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
