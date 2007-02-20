@@ -105,6 +105,27 @@ class Script:
 ##
 ## PACKAGE HANDLING
 ##
+class Group:
+    """A class representing a single group in the %packages section."""
+    def __init__(self, name="", include=GROUP_DEFAULT):
+        """Create a new Group instance.  Instance attributes:
+
+           name    -- The group's identifier
+           include -- The level of how much of the group should be included.
+                      Values can be GROUP_* from pykickstart.constants.
+        """
+        self.name = name
+        self.include = include
+
+    def __str__(self):
+        """Return a string formatted for output to a kickstart file."""
+        if self.include == GROUP_REQUIRED:
+            return "@%s --nodefaults" % self.name
+        elif self.include == GROUP_ALL:
+            return "@%s --optional" % self.name
+        else:
+            return "@%s" % self.name
+
 class Packages:
     """A class representing the %packages section of the kickstart file."""
     def __init__(self):
@@ -117,8 +138,11 @@ class Packages:
                             the %packages section, without the leading minus
                             symbol.
            excludeDocs   -- Should documentation in each package be excluded?
-           groupList     -- A list of all the groups specified in the %packages
-                            section, without the leading @ symbol.
+           groupList     -- A list of tuples of all the groups specified in
+                            the %pacakges sectionm without the leading @ symbol.
+                            The first value in the tuple is one of the GROUP_*
+                            constants from pykickstart.constants.  The second
+                            value is the name of the group.
            handleMissing -- If unknown packages are specified in the %packages
                             section, should it be ignored or not?  Values can
                             be KS_MISSING_* from pykickstart.constants.
@@ -139,7 +163,7 @@ class Packages:
 
         if not self.default:
             for grp in self.groupList:
-                pkgs += "@%s\n" % grp
+                pkgs += "%s\n" % grp.__str__()
 
             for pkg in self.packageList:
                 pkgs += "%s\n" % pkg
@@ -163,6 +187,27 @@ class Packages:
 
         return retval + "\n" + pkgs
 
+    def _processGroup (self, line):
+        op = OptionParser()
+        op.add_option("--nodefaults", action="store_true", default=False)
+        op.add_option("--optional", action="store_true", default=False)
+
+        (opts, extra) = op.parse_args(args=line.split())
+
+        if opts.nodefaults and opts.optional:
+            raise KickstartValueError, _("Group cannot specify both --nodefaults and --optional")
+
+        # If the group name has spaces in it, we have to put it back together
+        # now.
+        grp = " ".join(extra)
+
+        if opts.nodefaults:
+            self.groupList.append(Group(name=grp, include=GROUP_REQUIRED))
+        elif opts.optional:
+            self.groupList.append(Group(name=grp, include=GROUP_ALL))
+        else:
+            self.groupList.append(Group(name=grp, include=GROUP_DEFAULT))
+
     def add (self, pkgList):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
@@ -171,7 +216,7 @@ class Packages:
             stripped = pkg.strip()
 
             if stripped[0] == "@":
-                self.groupList.append(stripped[1:])
+                self._processGroup(stripped[1:])
             elif stripped[0] == "-":
                 self.excludedList.append(stripped[1:])
             else:
