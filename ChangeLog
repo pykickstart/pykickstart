@@ -1,5 +1,9 @@
 2007-02-20  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
+2007-02-20  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/parser.py (Group):  Added an object for dealing with
 	extended group syntax.
 	(Packages._processGroup):  Add a new function to handle the extended

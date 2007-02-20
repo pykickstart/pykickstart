@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.95
+Version: 0.96
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Tue Feb 20 2007 Chris Lumens <clumens@redhat.com> - 0.96-1
+- Fix __str__ methods for langsupport and reboot commands.
+- Renamed BaseHandler.empty to BaseHandler.maskAllExcept.
+- Split command objects out into their own files in commands/.
+- Rename command objects to start with Version_.
+- Support extended group selection syntax.
+
 * Wed Feb 14 2007 Chris Lumens <clumens@redhat.com> - 0.95-1
 - KickstartParser no longer takes a version argument.
 - Be more lenient in what strings stringToVersion accepts.

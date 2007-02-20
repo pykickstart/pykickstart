@@ -138,11 +138,9 @@ class Packages:
                             the %packages section, without the leading minus
                             symbol.
            excludeDocs   -- Should documentation in each package be excluded?
-           groupList     -- A list of tuples of all the groups specified in
-                            the %pacakges sectionm without the leading @ symbol.
-                            The first value in the tuple is one of the GROUP_*
-                            constants from pykickstart.constants.  The second
-                            value is the name of the group.
+           groupList     -- A list of Group objects representing all the groups
+                            specified in the %packages section.  Names will be
+                            stripped of the leading @ symbol.
            handleMissing -- If unknown packages are specified in the %packages
                             section, should it be ignored or not?  Values can
                             be KS_MISSING_* from pykickstart.constants.
