@@ -40,6 +40,7 @@ import warnings
 from pykickstart.errors import *
 from pykickstart.parser import Packages
 
+
 ###
 ### COMMANDS
 ###
@@ -129,6 +130,7 @@ class DeprecatedCommand(KickstartCommand):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
+
 
 ###
 ### HANDLERS
@@ -252,10 +254,11 @@ class BaseHandler:
 
     def _registerCommands(self, mapping={}):
         if mapping == {}:
-            from pykickstart.handlers.control import commandMap
-            mapping = commandMap[self.version]
+            from pykickstart.handlers.control import commandMap, dataMap
+            cMap = commandMap[self.version]
+            dMap = dataMap[self.version]
 
-        for (cmdName, cmdClass) in mapping.iteritems():
+        for (cmdName, cmdClass) in cMap.iteritems():
             # First make sure we haven't instantiated this command handler
             # already.  If we have, we just need to make another mapping to
             # it in self.commands.
@@ -273,6 +276,12 @@ class BaseHandler:
 
             # Finally, add the mapping to the commands dict.
             self.commands[cmdName] = cmdObj
+
+        # We also need to create attributes for the various data objects.
+        # No checks here because dMap is a bijection.  At least, that's what
+        # the comment says.  Hope no one screws that up.
+        for (dataName, dataClass) in dMap.iteritems():
+            setattr(self, dataName, dataClass)
 
     def dispatcher(self, cmd, cmdArgs, lineno):
         """Given the command string cmd and the list of arguments cmdArgs, call
@@ -303,6 +312,7 @@ class BaseHandler:
     def hasCommand(self, cmd):
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
+
 
 ###
 ### DATA

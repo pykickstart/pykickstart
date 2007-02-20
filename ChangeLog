@@ -1,3 +1,11 @@
+2007-02-20  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/handlers/control.py (dataMap):  Add a mapping for data
+	objects as well.
+
+	* pykickstart/base.py (BaseHandler._registerCommands):  Add attributes
+	on the handler for the data objects.
+
 2007-02-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/base.py (BaseHandler.maskAllExcept):  Renamed from

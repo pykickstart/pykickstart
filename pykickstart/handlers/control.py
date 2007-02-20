@@ -13,6 +13,12 @@
 from pykickstart.version import *
 from pykickstart.commands import *
 
+"""This map is keyed on kickstart syntax version as provided by
+   pykickstart.version.  Within each sub-dict is a mapping from command name
+   to the class that handles it.  This is an onto mapping - that is, multiple
+   command names can map to the same class.  However, the Handler will ensure
+   that only one instance of each class ever exists.
+"""
 commandMap = {
     FC3: {
         "auth": authconfig.FC3_Authconfig,
@@ -387,5 +393,85 @@ commandMap = {
         "xconfig": xconfig.FC6_XConfig,
         "zerombr": zerombr.FC3_ZeroMbr,
         "zfcp": zfcp.FC3_ZFCP,
+    }
+}
+
+"""This map is keyed on kickstart syntax version as provided by
+   pykickstart.version.  Within each sub-dict is a mapping from a data object
+   name to the class that provides it.  This is a bijective mapping - that is,
+   each name maps to exactly one data class and all data classes have a name.
+   More than one instance of each class is allowed to exist, however.
+"""
+dataMap = {
+    FC3: {
+        "LogVolData": logvol.FC3_LogVolData,
+        "NetworkData": network.FC3_NetworkData,
+        "PartData": partition.FC3_PartData,
+        "RaidData": raid.FC3_RaidData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    FC4: {
+        "LogVolData": logvol.FC4_LogVolData,
+        "NetworkData": network.FC4_NetworkData,
+        "PartData": partition.FC4_PartData,
+        "RaidData": raid.FC4_RaidData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    FC5: {
+        "LogVolData": logvol.FC4_LogVolData,
+        "NetworkData": network.FC4_NetworkData,
+        "PartData": partition.FC4_PartData,
+        "RaidData": raid.FC5_RaidData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    FC6: {
+        "DmRaidData": dmraid.FC6_DmRaidData,
+        "IscsiData": iscsi.FC6_IscsiData,
+        "LogVolData": logvol.FC4_LogVolData,
+        "MultiPathData": multipath.FC6_MultiPathData,
+        "NetworkData": network.FC6_NetworkData,
+        "PartData": partition.FC4_PartData,
+        "RaidData": raid.FC5_RaidData,
+        "RepoData": repo.FC6_RepoData,
+        "UserData": user.FC6_UserData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    F7: {
+        "DmRaidData": dmraid.FC6_DmRaidData,
+        "IscsiData": iscsi.FC6_IscsiData,
+        "LogVolData": logvol.FC4_LogVolData,
+        "MultiPathData": multipath.FC6_MultiPathData,
+        "NetworkData": network.FC6_NetworkData,
+        "PartData": partition.FC4_PartData,
+        "RaidData": raid.FC5_RaidData,
+        "RepoData": repo.FC6_RepoData,
+        "UserData": user.FC6_UserData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    RHEL4: {
+        "LogVolData": logvol.FC4_LogVolData,
+        "NetworkData": network.RHEL4_NetworkData,
+        "PartData": partition.FC3_PartData,
+        "RaidData": raid.FC3_RaidData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
+    },
+    RHEL5: {
+        "DmRaidData": dmraid.FC6_DmRaidData,
+        "IscsiData": iscsi.FC6_IscsiData,
+        "LogVolData": logvol.FC4_LogVolData,
+        "MultiPathData": multipath.FC6_MultiPathData,
+        "NetworkData": network.FC6_NetworkData,
+        "PartData": partition.FC4_PartData,
+        "RaidData": raid.FC5_RaidData,
+        "RepoData": repo.FC6_RepoData,
+        "UserData": user.FC6_UserData,
+        "VolGroupData": volgroup.FC3_VolGroupData,
+        "ZFCPData": zfcp.FC3_ZFCPData,
     }
 }
