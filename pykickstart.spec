@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.96
+Version: 0.97
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Wed Feb 21 2007 Chris Lumens <clumens@redhat.com> - 0.97-1
+- Fix traceback when not overriding default mappings (#229505).
+
 * Tue Feb 20 2007 Chris Lumens <clumens@redhat.com> - 0.96-1
 - Fix __str__ methods for langsupport and reboot commands.
 - Renamed BaseHandler.empty to BaseHandler.maskAllExcept.
