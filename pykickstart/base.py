@@ -257,6 +257,10 @@ class BaseHandler:
             from pykickstart.handlers.control import commandMap, dataMap
             cMap = commandMap[self.version]
             dMap = dataMap[self.version]
+        else:
+            from pykickstart.handlers.control import dataMap
+            cMap = mapping
+            dMap = dataMap[self.version]
 
         for (cmdName, cmdClass) in cMap.iteritems():
             # First make sure we haven't instantiated this command handler
