@@ -1,14 +1,14 @@
 # pykickstart Bahasa Indonesia (Id).
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pykickstart package.
-# Teguh DC <dheche@bradjamoesti.or.id>, 2006.
+# Teguh DC <dheche@bradjamoesti.or.id>, 2006-2007.
 # $Id$
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-05-10 00:53+7\n"
+"PO-Revision-Date: 2007-02-23 02:16+7\n"
 "Last-Translator: Teguh DC <dheche@brawijaya.ac.id>\n"
 "Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -16,15 +16,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Masalah berikut ini terdapat pada baris %s dalam berkas kickstart:\n"
+"Masalah berikut ini terdapat pada baris %(lineno) dalam berkas kickstart:\n"
 "\n"
-"%s\n"
+"%(msg)\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -33,7 +33,7 @@ msgstr "Ada masalah pada saat membaca dari baris %s dalam berkas kickstart"
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "Versi yang ditentukan tidak didukung."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -46,17 +46,19 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Opsi %(option) diperkenalkan pada versi %(intro), tapi anda mempergunakan "
+"sintak kickstart versi %(version)"
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Mengabaikan opsi usang pada baris %s: Opsi %s telah usang dan tidak lagi "
-"memiliki efek apa pun. Opsi ini akan dihilangkan pada rilis selanjutnya, "
+"Mengabaikan opsi usang pada baris %(lineno): Opsi %(option) telah usang dan tidak lagi "
+"memiliki efek apa pun. Opsi ini kemungkinan akan dihilangkan pada rilis selanjutnya, "
 "dimana akan menghasilkan kesalahan fatal dari kickstart. Silakan modifikasi "
 "berkas kickstart anda untuk menghapus opsi ini."
 
@@ -66,15 +68,17 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Opsi %(option) telah dihilangkan di versi %(removed), tapi anda memakai "
+"sintak kickstart versi %(version)"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Flag yang dibutuhkan untuk opsi tidak memiliki nilai"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Opsi %s: nilai boolean tidak valid: %r"
+msgstr "Opsi %(ipt): nilai boolean tidak valid: %(value)"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -87,12 +91,12 @@ msgstr "parse berkas include ketika terlihat %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "versi dari sintak kickstart yang akan divalidasi"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Versi %s tidak didukung oleh pykickstart"
 
 #: ../validator/ksvalidator:68
 #, python-format
