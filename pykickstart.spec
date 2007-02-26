@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.97
+Version: 0.98
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Mon Feb 26 2007 Chris Lumens <clumens@redhat.com> - 0.98-1
+- Fix device command syntax to match anaconda.
+- Fix __call__ on method command.
+
 * Wed Feb 21 2007 Chris Lumens <clumens@redhat.com> - 0.97-1
 - Fix traceback when not overriding default mappings (#229505).
 
