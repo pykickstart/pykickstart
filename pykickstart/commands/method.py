@@ -24,16 +24,25 @@ class FC3_Method(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.method = method
 
+        # Set all these attributes so calls to this command's __call__
+        # method can set them.  However we don't want to provide them as
+        # arguments to __init__ because method is special.
+        self.biospart = None
+        self.partition = None
+        self.server = None
+        self.dir = None
+        self.url = None
+
     def __str__(self):
         if self.method == "cdrom":
             return "# Use CDROM installation media\ncdrom\n"
         elif self.method == "harddrive":
             msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.dir
 
-            if hasattr(self, "biospart"):
-                return msg + " --biospart=%s\n" % getattr(self, "biospart")
+            if self.biospart is not None:
+                return msg + " --biospart=%s\n" % self.biospart
             else:
-                return msg + " --partition=%s\n" % getattr(self, "partition")
+                return msg + " --partition=%s\n" % self.partition
         elif self.method == "nfs":
             return "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
         elif self.method == "url":
@@ -61,9 +70,8 @@ class FC3_Method(KickstartCommand):
         (opts, extra) = op.parse_args(args=args)
 
         if self.currentCmd == "harddrive":
-            if (getattr(opts, "biospart") == None and getattr(opts, "partition") == None) or \
-               (getattr(opts, "biospart") != None and getattr(opts, "partition") != None):
-
+            if self.biospart is None and self.partition is None or \
+               self.biospart is not None and self.partition is not None:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
 
         self._setToSelf(op, opts)
@@ -72,19 +80,22 @@ class FC6_Method(FC3_Method):
     def __init__(self, writePriority=0, method=""):
         FC3_Method.__init__(self, writePriority, method)
 
+        # Same reason for this attribute as the comment in FC3_Method.
+        self.opts = None
+
     def __str__(self):
         if self.method == "cdrom":
             return "# Use CDROM installation media\ncdrom\n"
         elif self.method == "harddrive":
             msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.dir
 
-            if hasattr(self, "biospart"):
-                return msg + " --biospart=%s\n" % getattr(self, "biospart")
+            if self.biospart is not None:
+                return msg + " --biospart=%s\n" % self.biospart
             else:
-                return msg + " --partition=%s\n" % getattr(self, "partition")
+                return msg + " --partition=%s\n" % self.partition
         elif self.method == "nfs":
             retval = "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
-            if hasattr(self, "opts"):
+            if self.opts is not None:
                 retval += " --opts=\"%s\"" % self.opts
 
             return retval + "\n"
@@ -114,9 +125,8 @@ class FC6_Method(FC3_Method):
         (opts, extra) = op.parse_args(args=args)
 
         if self.currentCmd == "harddrive":
-            if (getattr(opts, "biospart") == None and getattr(opts, "partition") == None) or \
-               (getattr(opts, "biospart") != None and getattr(opts, "partition") != None):
-
+            if self.biospart is None and self.partition is None or \
+               self.biospart is not None and self.partition is not None:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
 
         self._setToSelf(op, opts)

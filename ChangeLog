@@ -3,6 +3,9 @@
 	* pykickstart/commands/device.py (FC3_Device):  Fix device command
 	syntax to match anaconda's documentation.
 
+	* pykickstart/commands/method.py:  Add all the attributes that the
+	Method commands can set so __call__ works.
+
 2007-02-21  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
