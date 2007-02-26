@@ -10,20 +10,41 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
-import string
-
 from pykickstart.base import *
+from pykickstart.options import *
+
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
 
 class FC3_Device(KickstartCommand):
-    def __init__(self, writePriority=0, device=""):
+    def __init__(self, writePriority=0, type="", moduleName="", moduleOpts=""):
         KickstartCommand.__init__(self, writePriority)
-        self.device = device
+        self.type = type
+        self.moduleName = moduleName
+        self.deviceOpts = moduleOpts
 
     def __str__(self):
-        if self.device != "":
-            return "device %s\n" % self.device
+        if self.moduleName != "":
+            if self.moduleOpts != "":
+                retval = "--opts=%s" % self.moduleOpts
+            else:
+                retval = ""
+
+            return "device %s %s %s\n" % (self.type, self.moduleName, retval)
         else:
             return ""
 
     def parse(self, args):
-        self.device = string.join(args)
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--opts", dest="moduleOpts", default="")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if len(extra) != 2:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name"))
+
+        self.opts = opts.moduleOpts
+        self.type = extra[0]
+        self.moduleName = extra[1]
