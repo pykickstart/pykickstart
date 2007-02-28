@@ -85,7 +85,7 @@ class FC5_RaidData(FC4_RaidData):
                              mountpoint=mountpoint, members=members)
         self.bytesPerInode = bytesPerInode
 
-    def _argsToStr(self)
+    def _argsToStr(self):
         retval = FC4_RaidData._argsToStr()
 
         if self.bytesPerInode != 0:
