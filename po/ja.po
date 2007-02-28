@@ -2,7 +2,7 @@
 # translation of ja.po to Japanese
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Kiyoto James Hashida <khashida@redhat.com>, 2006.
+# Kiyoto James Hashida <khashida@redhat.com>, 2006, 2007.
 # kiyoto james hashida <khashida@brisbane.redhat.com>, 2006.
 # Noriko Mizumoto <noriko@redhat.com>, 2006.
 #
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-12-15 09:37\n"
+"PO-Revision-Date: 2007-02-28 11:24\n"
 "Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "キックスタートファイルの %s の行の読み込みに問題�
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "サポートのないバージョンが指定されています。"
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -50,6 +50,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"オプション %(option)s はバージョン %(intro)s 内で紹介されていますが、ユーザーは"
+"キックスタート構文のバージョン %(version)s を使用しています。"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -70,6 +72,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"オプション %(option)s はバージョン %(removed)s の中で削除されていますが、ユーザーは"
+"キックスタート構文バージョン %(version)s を使用しています"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -91,12 +95,12 @@ msgstr "%include が表示された時に include ファイルを構文解析す
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "確証対象のキックスタート構文のバージョン"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "バージョン %s はキックスタートでサポートされていません"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -116,64 +120,3 @@ msgstr "入力ファイル内の一般的なキックスタートエラー"
 msgid "General error in input file:  %s"
 msgstr "入力ファイル内の一般的なエラー:  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s 行の無用なコマンドを無視します: %(cmd)s コマンドは無用となって"
-#~ "おり、どんな効果も持ちません。キックスタートの致命的なエラーとなるため、将"
-#~ "来のリリースでは削除される可能性があります。使用中のキックスタートファイル"
-#~ "を修正して、このオプションを取り除いてください。"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "コマンド %s は引数を取りません"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s コマンドへの想定外の引数: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "コマンド %s は引数を 1 つしか取りません"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s に必要なマウントポイント"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "BIOS 部分かパーティションのオプションのうちの 1 つを指定する必要がありま"
-#~ "す。"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s コマンドへの想定外の引数: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "デバイス '%(device)s' は既にマルチパス '%(multipathdev)s' で使用中です"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl  と --mirrorlist のどちらか１つが repo コマンド用に指定できま"
-#~ "す。"
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "--baseurl か --mirrorlist のどちらか１つを repo コマンド用に指定する必要が"
-#~ "あります。"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s コマンドに使用する引数は 1 つです"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s 行の無用のオプションを無視します: zerombr コマンドはいずれのオプション"
-#~ "も取らなくなりました。将来のリリースでは、これがキックスタートの致命的エ"
-#~ "ラーとなります。使用中のキックスタートを修正して、すべてのオプションを取り"
-#~ "除いてください。"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "未知のコマンド: %s"
