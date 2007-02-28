@@ -15,5 +15,5 @@ import deviceprobe, displaymode, dmraid, driverdisk, firewall, firstboot
 import ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
 import langsupport, lilocheck, logging, logvol, mediacheck, method, monitor
 import mouse, multipath, network, partition, raid, reboot, repo, rootpw
-import selinux, services, skipx, timezone, upgrade, user, vnc, volgroup
-import xconfig, zerombr, zfcp
+import selinux, services, skipx, timezone, updates, upgrade, user, vnc
+import volgroup, xconfig, zerombr, zfcp

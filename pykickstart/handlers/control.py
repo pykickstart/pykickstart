@@ -275,6 +275,7 @@ commandMap = {
         "skipx": skipx.FC3_SkipX,
         "text": displaymode.FC3_DisplayMode,
         "timezone": timezone.FC3_Timezone,
+        "updates": updates.F7_Updates,
         "upgrade": upgrade.FC3_Upgrade,
         "url": method.FC6_Method,
         "user": user.FC6_User,
