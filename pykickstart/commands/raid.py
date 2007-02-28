@@ -33,8 +33,8 @@ class FC3_RaidData(BaseData):
 
         self.members = members
 
-    def __str__(self):
-        retval = "raid %s" % self.mountpoint
+    def _argsToStr(self):
+        retval = ""
 
         if self.device != "":
             retval += " --device=%s" % self.device
@@ -49,7 +49,11 @@ class FC3_RaidData(BaseData):
         if self.preexist:
             retval += " --useexisting"
 
-        return retval + " %s\n" % string.join(self.members)
+        return retval
+
+    def __str__(self):
+        return "raid %s %s %s\n" % (self.mountpoint, self._argsToStr(),
+                                    string.join(self.members))
 
 class FC4_RaidData(FC3_RaidData):
     def __init__(self, device=None, fsopts="", fstype="", level="",
@@ -62,8 +66,8 @@ class FC4_RaidData(FC3_RaidData):
                              members=members)
         self.fsopts = fsopts
 
-    def __str__(self):
-        retval = FC4_RaidData.__str__(self).strip()
+    def _argsToStr(self):
+        retval = FC3_RaidData._argsToStr()
 
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -81,27 +85,15 @@ class FC5_RaidData(FC4_RaidData):
                              mountpoint=mountpoint, members=members)
         self.bytesPerInode = bytesPerInode
 
-    def __str__(self):
-        retval = "raid %s" % self.mountpoint
+    def _argsToStr(self)
+        retval = FC4_RaidData._argsToStr()
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
-        if self.device != "":
-            retval += " --device=%s" % self.device
-        if self.fsopts != "":
-            retval += " --fsoptions=\"%s\"" % self.fsopts
-        if self.fstype != "":
-            retval += " --fstype=\"%s\"" % self.fstype
-        if self.level != "":
-            retval += " --level=%s" % self.level
-        if not self.format:
-            retval += " --noformat"
-        if self.spares != 0:
-            retval += " --spares=%d" % self.spares
-        if self.preexist:
-            retval += " --useexisting"
 
-        return retval + " %s\n" % string.join(self.members)
+        return retval
+
+F7_RaidData = FC5_RaidData
 
 class FC3_Raid(KickstartCommand):
     def __init__(self, writePriority=140, raidList=None):
@@ -177,6 +169,14 @@ class FC4_Raid(FC3_Raid):
     def __init__(self, writePriority=140, raidList=None):
         FC3_Raid.__init__(self, writePriority, raidList)
 
+        # A dict of all the RAID levels we support.  This means that if we
+        # support more levels in the future, subclasses don't have to
+        # duplicate too much.
+        self.levelMap = { "RAID0": "RAID0", "0": "RAID0",
+                          "RAID1": "RAID1", "1": "RAID1",
+                          "RAID5": "RAID5", "5": "RAID5",
+                          "RAID6": "RAID6", "6": "RAID6" }
+
     def parse(self, args):
         def raid_cb (option, opt_str, value, parser):
             parser.values.format = False
@@ -189,14 +189,8 @@ class FC4_Raid(FC3_Raid):
                 parser.values.ensure_value(option.dest, value)
 
         def level_cb (option, opt_str, value, parser):
-            if value == "RAID0" or value == "0":
-                parser.values.ensure_value(option.dest, "RAID0")
-            elif value == "RAID1" or value == "1":
-                parser.values.ensure_value(option.dest, "RAID1")
-            elif value == "RAID5" or value == "5":
-                parser.values.ensure_value(option.dest, "RAID5")
-            elif value == "RAID6" or value == "6":
-                parser.values.ensure_value(option.dest, "RAID6")
+            if self.levelMap.has_key(value):
+                parser.values.ensure_value(option.dest, self.levelMap[value])
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--device", action="callback", callback=device_cb,
@@ -247,14 +241,8 @@ class FC5_Raid(FC4_Raid):
                 parser.values.ensure_value(option.dest, value)
 
         def level_cb (option, opt_str, value, parser):
-            if value == "RAID0" or value == "0":
-                parser.values.ensure_value(option.dest, "RAID0")
-            elif value == "RAID1" or value == "1":
-                parser.values.ensure_value(option.dest, "RAID1")
-            elif value == "RAID5" or value == "5":
-                parser.values.ensure_value(option.dest, "RAID5")
-            elif value == "RAID6" or value == "6":
-                parser.values.ensure_value(option.dest, "RAID6")
+            if self.levelMap.has_key(value):
+                parser.values.ensure_value(option.dest, self.levelMap[value])
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
@@ -287,3 +275,9 @@ class FC5_Raid(FC4_Raid):
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
         self.add(rd)
+
+class F7_Raid(FC5_Raid):
+    def __init__(self, writePriority=140, raidList=None):
+        FC4_Raid.__init__(self, writePriority, raidList)
+
+        self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})

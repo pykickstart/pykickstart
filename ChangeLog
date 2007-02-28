@@ -5,6 +5,8 @@
 	* pykickstart/commands/__init__.py:  Pull in new command object.
 	* pykickstart/handlers/control.py:  Add new command to F7 map.
 
+	* pykickstart/commands/raid.py (F7_Raid):  Add support for RAID10.
+
 2007-02-26  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
