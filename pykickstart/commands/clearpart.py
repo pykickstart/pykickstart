@@ -19,7 +19,7 @@ from pykickstart.options import *
 
 class FC3_ClearPart(KickstartCommand):
     def __init__(self, writePriority=120, drives=None, initAll=False,
-                 type=CLEARPART_TYPE_NONE):
+                 type=None):
         KickstartCommand.__init__(self, writePriority)
 
         if drives == None:
@@ -30,6 +30,9 @@ class FC3_ClearPart(KickstartCommand):
         self.type = type
 
     def __str__(self):
+        if self.type is None:
+            return ""
+
         if self.type == CLEARPART_TYPE_NONE:
             clearstr = "--none"
         elif self.type == CLEARPART_TYPE_LINUX:

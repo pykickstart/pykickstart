@@ -16,7 +16,7 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_Firewall(KickstartCommand):
-    def __init__(self, writePriority=0, enabled=True, ports=None, trusts=None):
+    def __init__(self, writePriority=0, enabled=None, ports=None, trusts=None):
         KickstartCommand.__init__(self, writePriority)
         self.enabled = enabled
 
@@ -33,6 +33,9 @@ class FC3_Firewall(KickstartCommand):
     def __str__(self):
         extra = []
         filteredPorts = []
+
+        if self.enabled is None:
+            return ""
 
         if self.enabled:
             # It's possible we have words in the ports list instead of

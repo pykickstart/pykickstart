@@ -20,22 +20,25 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 class FC6_Logging(KickstartCommand):
-    def __init__(self, writePriority=0, host="", level="info", port=""):
+    def __init__(self, writePriority=0, host="", level="", port=""):
         KickstartCommand.__init__(self, writePriority)
         self.host = host
         self.level = level
         self.port = port
 
     def __str__(self):
-        retval = "# Installation logging level\nlogging --level=%s" % self.level
+        if self.level != "":
+            retval = "# Installation logging level\nlogging --level=%s" % self.level
 
-        if self.host != "":
-            retval += " --host=%s" % self.host
+            if self.host != "":
+                retval += " --host=%s" % self.host
 
-            if self.port != "":
-                retval += " --port=%s" % self.port
+                if self.port != "":
+                    retval += " --port=%s" % self.port
 
-        return retval + "\n"
+            return retval + "\n"
+        else:
+            return ""
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)

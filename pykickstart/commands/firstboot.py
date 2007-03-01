@@ -15,11 +15,14 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_Firstboot(KickstartCommand):
-    def __init__(self, writePriority=0, firstboot=FIRSTBOOT_SKIP):
+    def __init__(self, writePriority=0, firstboot=None):
         KickstartCommand.__init__(self, writePriority)
         self.firstboot = firstboot
 
     def __str__(self):
+        if self.firstboot is None:
+            return ""
+
         if self.firstboot == FIRSTBOOT_SKIP:
             return "firstboot --disable\n"
         elif self.firstboot == FIRSTBOOT_DEFAULT:

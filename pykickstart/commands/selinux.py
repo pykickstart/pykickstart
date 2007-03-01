@@ -15,7 +15,7 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_SELinux(KickstartCommand):
-    def __init__(self, writePriority=0, selinux=SELINUX_ENFORCING):
+    def __init__(self, writePriority=0, selinux=None):
         KickstartCommand.__init__(self, writePriority)
         self.selinux = selinux
 
@@ -28,6 +28,8 @@ class FC3_SELinux(KickstartCommand):
             return retval + "selinux --enforcing\n"
         elif self.selinux == SELINUX_PERMISSIVE:
             return retval + "selinux --permissive\n"
+        else:
+            return ""
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)

@@ -1,3 +1,13 @@
+2007-03-01  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/bootloader.py, pykickstart/commands/clearpart.py,
+	pykickstart/commands/displaymode.py, pykickstart/commands/firewall.py,
+	pykickstart/commands/firstboot.py, pykickstart/commands/langsupport.py,
+	pykickstart/commands/logging.py, pykickstart/commands/reboot.py,
+	pykickstart/commands/selinux.py, pykickstart/commands/upgrade.py:
+	Don't set default values so a newly created kickstart handler object
+	will only have the values set by a caller.
+
 2007-02-28  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/updates.py:  Added a new updates command for

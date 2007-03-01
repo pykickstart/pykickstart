@@ -17,7 +17,7 @@ from pykickstart.options import *
 
 class FC3_Bootloader(KickstartCommand):
     def __init__(self, writePriority=0, appendLine="", driveorder=None,
-                 forceLBA=False, linear=True, location="mbr", md5pass="",
+                 forceLBA=False, linear=True, location="", md5pass="",
                  password="", upgrade=False, useLilo=False):
         KickstartCommand.__init__(self, writePriority)
         self.appendLine = appendLine
@@ -36,28 +36,31 @@ class FC3_Bootloader(KickstartCommand):
         self.useLilo = useLilo
 
     def __str__(self):
-        retval = "# System bootloader configuration\nbootloader"
+        if self.location != "":
+            retval = "# System bootloader configuration\nbootloader"
 
-        if self.appendLine != "":
-            retval += " --append=\"%s\"" % self.appendLine
-        if self.linear:
-            retval += " --linear"
-        if self.location:
-            retval += " --location=%s" % self.location
-        if self.forceLBA:
-            retval += " --lba32"
-        if self.password != "":
-            retval += " --password=%s" % self.password
-        if self.md5pass != "":
-            retval += " --md5pass=%s" % self.md5pass
-        if self.upgrade:
-            retval += " --upgrade"
-        if self.useLilo:
-            retval += " --useLilo"
-        if len(self.driveorder) > 0:
-            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+            if self.appendLine != "":
+                retval += " --append=\"%s\"" % self.appendLine
+            if self.linear:
+                retval += " --linear"
+            if self.location:
+                retval += " --location=%s" % self.location
+            if self.forceLBA:
+                retval += " --lba32"
+            if self.password != "":
+                retval += " --password=%s" % self.password
+            if self.md5pass != "":
+                retval += " --md5pass=%s" % self.md5pass
+            if self.upgrade:
+                retval += " --upgrade"
+            if self.useLilo:
+                retval += " --useLilo"
+            if len(self.driveorder) > 0:
+                retval += " --driveorder=%s" % string.join(self.driveorder, ",")
 
-        return retval + "\n"
+            return retval + "\n"
+        else:
+            return ""
 
     def parse(self, args):
         def driveorder_cb (option, opt_str, value, parser):
@@ -91,7 +94,7 @@ class FC3_Bootloader(KickstartCommand):
 
 class FC4_Bootloader(FC3_Bootloader):
     def __init__(self, writePriority=0, appendLine="", driveorder=None,
-                 forceLBA=False, location="mbr", md5pass="", password="",
+                 forceLBA=False, location="", md5pass="", password="",
                  upgrade=False):
         KickstartCommand.__init__(self, writePriority)
         self.appendLine = appendLine
@@ -108,24 +111,27 @@ class FC4_Bootloader(FC3_Bootloader):
         self.upgrade = upgrade
 
     def __str__(self):
-        retval = "# System bootloader configuration\nbootloader"
+        if self.location != "":
+            retval = "# System bootloader configuration\nbootloader"
 
-        if self.appendLine != "":
-            retval += " --append=\"%s\"" % self.appendLine
-        if self.location:
-            retval += " --location=%s" % self.location
-        if self.forceLBA:
-            retval += " --lba32"
-        if self.password != "":
-            retval += " --password=%s" % self.password
-        if self.md5pass != "":
-            retval += " --md5pass=%s" % self.md5pass
-        if self.upgrade:
-            retval += " --upgrade"
-        if len(self.driveorder) > 0:
-            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+            if self.appendLine != "":
+                retval += " --append=\"%s\"" % self.appendLine
+            if self.location:
+                retval += " --location=%s" % self.location
+            if self.forceLBA:
+                retval += " --lba32"
+            if self.password != "":
+                retval += " --password=%s" % self.password
+            if self.md5pass != "":
+                retval += " --md5pass=%s" % self.md5pass
+            if self.upgrade:
+                retval += " --upgrade"
+            if len(self.driveorder) > 0:
+                retval += " --driveorder=%s" % string.join(self.driveorder, ",")
 
-        return retval + "\n"
+            return retval + "\n"
+        else:
+            return ""
 
     def parse(self, args):
         def driveorder_cb (option, opt_str, value, parser):

@@ -20,11 +20,14 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 class FC3_Upgrade(KickstartCommand):
-    def __init__(self, writePriority=0, upgrade=False):
+    def __init__(self, writePriority=0, upgrade=None):
         KickstartCommand.__init__(self, writePriority)
         self.upgrade = upgrade
 
     def __str__(self):
+        if self.upgrade is None:
+            return ""
+
         if self.upgrade:
             return "# Upgrade existing installation\nupgrade\n"
         else:

@@ -15,11 +15,14 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_DisplayMode(KickstartCommand):
-    def __init__(self, writePriority=0, displayMode=DISPLAY_MODE_GRAPHICAL):
+    def __init__(self, writePriority=0, displayMode=None):
         KickstartCommand.__init__(self, writePriority)
         self.displayMode = displayMode
 
     def __str__(self):
+        if self.displayMode is None:
+            return ""
+
         if self.displayMode == DISPLAY_MODE_CMDLINE:
             return "cmdline\n"
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
