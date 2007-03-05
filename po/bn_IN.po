@@ -9,21 +9,21 @@
 # translation of bn_IN.po to Bangla (INDIA)
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Runa Bhattacharjee <runab@redhat.com>, 2006.
+# Runa Bhattacharjee <runab@redhat.com>, 2006, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-01-16 14:27-0500\n"
-"PO-Revision-Date: 2006-11-22 10:47+0530\n"
+"PO-Revision-Date: 2007-03-05 12:10+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: Bengali India\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
 "\n"
 
@@ -45,7 +45,7 @@ msgstr "Kickstart ফাইলের %s পংক্তি থেকে পড়�
 
 #: ../pykickstart/errors.py:97
 msgid "Unsupported version specified."
-msgstr ""
+msgstr "অসমর্থিত সংস্করণ উল্লিখিত হয়েছে।"
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -57,7 +57,7 @@ msgstr "%s বিকল্প উল্লেখ করা আবশ্যক"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "%(option)s বিকল্পটি %(intro)s সংস্করণে প্রস্তুত করা হয়েছে। আপনি বর্তমানে kickstart সিন্টেক্স সংস্করণ %(version)s ব্যবহার করছেন।"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -77,12 +77,11 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "%(option)s বিকল্পটি %(removed)s সংস্করণে অপসারণ করা হয়েছে। আপনি বর্তমানে kickstart সিন্টেক্স সংস্করণ %(version)s ব্যবহার করছেন।"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
-"কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
+msgstr "কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
 
 #: ../pykickstart/options.py:148
 #, python-format
@@ -100,12 +99,12 @@ msgstr "%include প্রদর্শিত হলে include ফাইল প�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "যে kickstart সিন্টেক্স সংস্করণের সাথে যাচাই করা হবে"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "%s সংস্করণটি pykickstart দ্বারা সমর্থিত নয়"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -125,62 +124,3 @@ msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক�
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
 
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s পংক্তির মধ্যে উল্লিখিত অবচিত কমান্ড অগ্রাহ্য করা হচ্ছে:  %(cmd)s "
-#~ "কমান্ডটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো "
-#~ "রিলিজে এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত "
-#~ "দেওয়া হবে। অনুগ্রহ করে kickstart ফাইল থেকে এই কমান্ডটি মুছে ফেলুন।"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "%s কমান্ডের দ্বারা কোনো আর্গুমেন্ট গ্রহণ করা হয় না"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "%s কমান্ডের দ্বারা শুধুমাত্র একটি আর্গুমেন্ট গ্রহণ করা হয়"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s'র জন্য মাউন্ট-পয়েন্ট আবশ্যক"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart ও partition বিকল্পের মধ্যে অন্তত একটি উল্লেখ করা আবশ্যক।"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s কমান্ডের জন্য অপ্রত্যাশিত আর্গুমেন্ট উল্লিখিত: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "'%(device)s' নামক ডিভাইস বর্তমানে মাল্টিপাথ '%(multipathdev)s'-এ ব্যবহৃত হচ্ছে"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "repo কমান্ডের ক্ষেত্রে --baseurl ও --mirrorlist'র মধ্যে শুধুমাত্র একটি উল্লেখ করা "
-#~ "যাবে।"
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "repo কমান্ডের সাথে --baseurl ও --mirrorlist'র মধ্যে অন্তত একটি উল্লেখ করা "
-#~ "আবশ্যক।"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s কমান্ডের জন্য শুধুমাত্র একটি আর্গুমেন্ট আবশ্যক"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s পংক্তির মধ্যে উল্লিখিত অবচিত বিকল্প অগ্রাহ্য করা হচ্ছে:  zerombr কমান্ডের "
-#~ "দ্বারা বর্তমানে কোনো বিকল্প গ্রহণ করা হয় না। ভবিষ্যতের কোনো রিলিজে এই সমস্যার "
-#~ "ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ করে kickstart "
-#~ "ফাইলের মধ্যে এই কমান্ডের জন্য উল্লিখিত কোনো ধরনের অপশন মুছে ফেলুন।"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "অজানা কমান্ড: %s"
