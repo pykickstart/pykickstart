@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-12-15 19:26+0530\n"
 "Last-Translator: Sree Ganesh <sthottem@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "తెలియని ఆదేశం: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -32,10 +50,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "కిక్ స్టార్టు ఫైలు %s లైను నుండీ చదవటంలో సమస్య ఉంది"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -77,6 +91,18 @@ msgstr "ఐచ్ఛికం కోసం ఏ విలువనీ తీస�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ఐచ్ఛికం %(opt)s: చెల్లని boolean విలువ: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "మొదటి దోషం లేదా హెచ్చరిక తరువాత ఆగు"
@@ -112,57 +138,3 @@ msgstr "input ఫైలులో సాధారణ kickstart దోషం"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr " input ఫైలులో సాధరణ దోషం:  %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "%s ఆదేశం ఎటువంటి తర్కాన్నీ తీసుకోవటంలేదు"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s command: %(options)s కి ఊహించని వాద"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "%s ఆదేశం కేవలం ఒక వాదాన్ని మాత్రమే తీసుకుంటుంది"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s కోసం మరల్పు కేంద్రం అవసరం"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart లేదా విభజన యొక్క ఒక ఐచ్ఛికాన్ని తప్పక తెలపా."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s command: %(options)s కి ఊహించని వాదన"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "సాధనం '%(device)s' ఇప్పటికే బహుళ మార్గాలలో '%(multipathdev)s' ఉపయోగించబడిం"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr "ఒక  --baseurl మరియూ --mirrorlist తప్పక repo ఆదేశం కోసం తెలియచేయబడాలి."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "ఒక  --baseurl మరియూ --mirrorlist తప్పక repo ఆదేశం కోసం తెలియచేయబడాలి."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s ఆదేశం కోసం ఒక ఏకైక వాదన ఊహించబడింది"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s లైనులోని తక్కువ చేయబడ్డ ఐచ్ఛికాన్ని గుర్తించకు:  ఈ సూన్య mbr ఎటువంటి ఐచ్ఛికాన్నీ తీసుకోదు.  "
-#~ "ముందలి విడుదలలో ఇది kickstart నుందీ పెద్ద దోషం కావచ్చు.  ఎటువంటి ఐచ్ఛికాన్నయినా తొలగించటానికి "
-#~ "దయచేసి మీ kickstart ఫైలుని సరిచేయండి."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "తెలియని ఆదేశం: %s"

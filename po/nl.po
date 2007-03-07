@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-10 23:38+0100\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@gmail.com>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Verouderd commando op regel %(lineno)s wordt genegeerd:  Het %(cmd)s "
+"commando is verouderd en heeft geen effect meer. Het kan worden verwijderd "
+"in toekomstige versies, wat zal resulteren in een fatale fout van kickstart. "
+"Pas uw kickstart-bestand aan om dit commando te verwijderen."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Onbekend commando: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -34,10 +52,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 "Er was een probleem met het lezen van regel %s van het kickstart-bestand"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Niet-ondersteunde versie opgegeven."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -84,6 +98,18 @@ msgstr "Vereiste vlag gezet voor optie die geen waarde neemt"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Optie %(opt)s: ongeldige booleaanse waarde: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Niet-ondersteunde versie opgegeven."
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "na de eerste fout of waarschuwing stoppen"
@@ -119,64 +145,3 @@ msgstr "Algemene kickstart-fout in invoerbestand"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Algemene fout in invoerbestand:  %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Verouderd commando op regel %(lineno)s wordt genegeerd:  Het %(cmd)s "
-#~ "commando is verouderd en heeft geen effect meer. Het kan worden "
-#~ "verwijderd in toekomstige versies, wat zal resulteren in een fatale fout "
-#~ "van kickstart. Pas uw kickstart-bestand aan om dit commando te "
-#~ "verwijderen."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Commando %s neemt geen enkel argument"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Onverwachte argumenten voor %(command)s commando: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Commando %s neemt slechts een enkel argument"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Koppelpunt vereist voor %s"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "Een van de biospart of partitie opties moet worden opgegeven."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Onverwachte argumenten voor %(cmd)s commando: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "Apparaat '%(device)s' is al gebruikt in multipath '%(multipathdev)s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Slechts een van de --baseurl en --mirrorlist opties mag worden opgegeven "
-#~ "voor het repo commando."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Een van de --baseurl of --mirrorlist opties moet worden opgegeven voor "
-#~ "het repo commando."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Een enkel argument wordt verwacht voor het %s commando"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Verouderde optie op regel %s wordt genegeerd:  Het zerombr commando neemt "
-#~ "niet langer een optie.  In toekomstige versies zal dit resulteren in een "
-#~ "fatale fout van kickstart.  Pas uw kickstart-bestand aan om de opties te "
-#~ "verwijderen."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Onbekend commando: %s"

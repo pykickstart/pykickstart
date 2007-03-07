@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-11 11:14+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -21,6 +21,24 @@ msgstr ""
 "\n"
 "\n"
 "\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"લીટી %(lineno)s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %(option)s વિકલ્પ કાઢી "
+"નાંખવામાં આવેલ છે અને તેની લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં "
+"આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે "
+"તમારી કિકસ્ટાર્ટ સુધારો."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -37,10 +55,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "કિકસ્ટાર્ટ ફાઈલની લીટી %s માંથી વાંચવામાં સમસ્યા ઉદ્દભવી હતી"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "બિનઆધારભૂત આવૃત્તિ સ્પષ્ટ થયેલ છે."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -86,6 +100,18 @@ msgstr "વિકલ્પ માટે સુયોજિત જરૂરી �
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "વિકલ્પ %(opt)s: અયોગ્ય બુલિયન કિંમત: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "બિનઆધારભૂત આવૃત્તિ સ્પષ્ટ થયેલ છે."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"

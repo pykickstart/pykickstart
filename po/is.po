@@ -7,13 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-12-08 01:22+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Hunsa úreltann rofa á línu %(lineno)s:  Rofinn %(option)s er nú úreltur og "
+"hefur ekki lengur nein áhrif.  Hann verður líkast til fjarlægður í næstu "
+"útgáfum sem verður til þess að villa kemur upp í hraðuppsetningum.Vinsamlega "
+"breyttu hraðuppsetningaskránum þínum og fjarlægðu þennan rofa."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Óþekkt skipun: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -30,10 +48,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Það kom upp villa við að lesa úr línu %s í hraðuppsetningarskránni"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -76,6 +90,18 @@ msgstr ""
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr ""
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "stöðva eftir fyrstu villu eða viðvörun"
@@ -111,48 +137,3 @@ msgstr "Almenn hraðuppsetningarvilla í ílagsskrá"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Almenn villa í ílagsskrá:  %s"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Skipunin %s tekur engin viðföng"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Viðföngum ofaukið við skipunina %(command)s: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Skipunin %s tekur einungis eitt viðfang"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Tengipunkt vantar fyrir %s"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Annað hvort biospart eða partition rofinn verður að vera til staðar."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Viðföngum ofaukið við skipunina %(cmd)s: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "Tækið '%(device)' er þegar í notkun í fjölslóðatækinu '%(multipathdev)s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr "Ekki má gefa upp bæði --baseurl og --mirrorlist skipanirnar."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "Annað hvort --baseurl eða --mirrorlist verður að vera til staðar"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Eitt viðfang á að vera til staðar fyrir %s skipunina"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Hunsa úreltann rofa á línu %s:  zerombr skipunin tekur ekki lengur nein "
-#~ "viðföng.  Í framtíðinni verður þetta að banvænni villu í hraðuppsetningum."
-#~ "Vinsamlega breyttu hraðuppsetningaskrám þínum og fjarlægðu alla rofa."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Óþekkt skipun: %s"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-02-12 17:13+0200\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
@@ -18,6 +18,24 @@ msgstr ""
 "X-Poedit-Country: Finland\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Jätetään huomiotta vanhentunut valitsin rivillä %(lineno)s:  Valitsin %"
+"(option)s on vanhentunut eikä sillä ole enää vaikutusta. Se voidaan poistaa "
+"tulevista versioista, josta seuraa vakava kickstart-virhe.  Poista tämä "
+"valitsin kickstart-tiedostosta."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -35,10 +53,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Kickstart-tiedoston rivin %s lukemisessa oli ongelma"
 
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Tukematon versio."
-
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
@@ -46,18 +60,34 @@ msgstr "Valitsin %s vaaditaan"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Valitsin %(option)s esiteltiin versiossa %(intro)s, mutta käytössä on kicstart-syntaksin versio %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Valitsin %(option)s esiteltiin versiossa %(intro)s, mutta käytössä on "
+"kicstart-syntaksin versio %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Jätetään huomiotta vanhentunut valitsin rivillä %(lineno)s:  Valitsin %(option)s on vanhentunut eikä sillä ole enää vaikutusta. Se voidaan poistaa tulevista versioista, josta seuraa vakava kickstart-virhe.  Poista tämä valitsin kickstart-tiedostosta."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Jätetään huomiotta vanhentunut valitsin rivillä %(lineno)s:  Valitsin %"
+"(option)s on vanhentunut eikä sillä ole enää vaikutusta. Se voidaan poistaa "
+"tulevista versioista, josta seuraa vakava kickstart-virhe.  Poista tämä "
+"valitsin kickstart-tiedostosta."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Valitsin %(option)s poistettiin versiossa %(removed)s, mutta käytät kickstart-syntaksin versiota %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Valitsin %(option)s poistettiin versiossa %(removed)s, mutta käytät "
+"kickstart-syntaksin versiota %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -67,6 +97,18 @@ msgstr "Vaadittu lippu asetettu valitsimelle, joka ei ota arvoa"
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Valitsin %(opt)s: epäkelpo totuusarvo: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Tukematon versio."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -103,4 +145,3 @@ msgstr "Yleinen kickstart-virhe syötetiedostossa"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Yleinen virhe syötetiedostossa: %s"
-

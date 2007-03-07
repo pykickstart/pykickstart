@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-11-24 11:58+0530\n"
 "Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
 "Language-Team: Assamese <assam@mm.assam-glug.org>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s শাৰীত অবচিত আদেশ আওকাণ কৰা হৈছে:  %(cmd)s আদেশৰ অবচয় হৈছে আৰু কোনো "
+"প্ৰভাব নোহোৱা হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ "
+"পৰিণাম হ'ব kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি "
+"আপোনাৰ kickstart নথি-পত্ৰ সলনি কৰক ।"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "অজ্ঞাত আদেশ: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -32,10 +50,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "kickstart নথি-পত্ৰৰ %s শাৰীৰ পৰা পঢ়োঁতে এটা সমস্যা হ'ল"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -78,6 +92,18 @@ msgstr "মান গ্ৰহণ নকৰা বিকল্পৰ বাব�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "বিকল্প %(opt)s: অবৈধ বুলিয়েন্ মান: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "প্ৰথম ভুল বা সকীয়নিৰ পিছত ৰখি যাব"
@@ -113,62 +139,3 @@ msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ kickstart �
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ ভুল:  %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s শাৰীত অবচিত আদেশ আওকাণ কৰা হৈছে:  %(cmd)s আদেশৰ অবচয় হৈছে আৰু "
-#~ "কোনো প্ৰভাব নোহোৱা হ'ল । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, "
-#~ "যাৰ পৰিণাম হ'ব kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । এই বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ "
-#~ "কৰি আপোনাৰ kickstart নথি-পত্ৰ সলনি কৰক ।"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "%s আদেশে কোনো তৰ্ক গ্ৰহণ নকৰে"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "%s আদেশে অকল এটা তৰ্ক গ্ৰহণ কৰে"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s-ৰ বাবে অভ্যুত্থানৰ স্থান প্ৰয়োজনীয়"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart বা বিভাজন বিকল্পসমূহৰ যিকোনো এটা নিৰ্দ্দিষ্ট কৰিব লাগে ।"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s আদেশলৈ অপ্ৰত্যাশিত তৰ্ক: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "'%(device)s' যন্ত্ৰ ইতিমধ্যে '%(multipathdev)s' একাধিক পথত ব্যৱহৃত হৈছে"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "repo আদেশৰ বাবে যিকোনো এটা --baseurl আৰু --mirrorlist নিৰ্ধাৰিত কৰা যাব "
-#~ "পাৰে ।"
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "repo আদেশৰ বাবে যিকোনো এটা --baseurl বা --mirrorlist নিৰ্ধাৰিত কৰা যাব "
-#~ "পাৰে ।"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s আদেশৰ বাবে এটা তৰ্ক আশা কৰা হয়"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s শাৰীত অবচিত বিকল্প আওকাণ কৰা হৈছে:  zerombr আদেশে এতিয়া আৰু কোনো বিকল্প "
-#~ "নলই । ভৱিষ্যতে মুক্তি পাব লগা সংস্কৰণৰ পৰা আঁতৰুৱা হ'ব পাৰে, যাৰ পৰিণাম হ'ব "
-#~ "kickstartৰ পৰা এটা ধ্বংসকাৰী ভুল । সকলো বিকল্প আঁতৰাব'লৈ অনুগ্ৰহ কৰি আপোনাৰ "
-#~ "kickstart নথি-পত্ৰ সলনি কৰক ।"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "অজ্ঞাত আদেশ: %s"

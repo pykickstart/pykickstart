@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-11-25 01:35+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -16,6 +16,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可能"
+"會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 "
+"kickstart 檔案，移除這選項。"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "未知的指令：%s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -32,10 +49,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "讀取 kickstart 檔案時，在第 %s 行發生問題"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -77,6 +90,18 @@ msgstr "不需要數值的選項所必須設定的旗標"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "選項 %(opt)s：不合規定的布林值：%(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "在第一次錯誤或警告時中止執行"
@@ -112,56 +137,3 @@ msgstr "在輸入檔中發生一般 kickstart 錯誤"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可"
-#~ "能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 "
-#~ "kickstart 檔案，移除這選項。"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "%s 指令並不帶有任何參數"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s 指令所無預期的參數：%(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "%s 指令只能帶一個指令"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s 需要掛載點"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "必須擇一指定 biospart 或 partition。"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s 指令所無預期的參數：%(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "裝置「%(device)s」已經在多路徑「%(multipathdev)s」中使用"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr "repo 指令只能擇一指定 --baseurl 與 --mirrorlist。"
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "repo 指令必須擇一指定 --baseurl 與 --mirrorlist。"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s 指令應該要有一個參數"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "忽略第 %s 行的過時指令：zerombe 指令不再起任何作用。這指令可能會自未來的版"
-#~ "本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔"
-#~ "案，移除這選項。"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "未知的指令：%s"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-12-11 14:05+0530\n"
 "Last-Translator: shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: Plural-Forms: nplural=2;plural=(n !=1);\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(cmd)s ಯು "
+"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
+"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
+"ದಯವಿಟ್ಟು ಈ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "ಗೊತ್ತಿರದ ಆಜ್ಞೆ: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -32,10 +50,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "ಕಿಕ್ ಸ್ಟಾರ್ಟಿನ ಕಡತದ್ %s ಸಾಲಿನಿಂದ ಓದುವಲ್ಲಿ ತೊಂದರೆ ಉಂಟಾಗಿದೆ"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -78,6 +92,18 @@ msgstr "ಮೌಲ್ಯವನ್ನು ಹೊಂದದ ಆಯ್ಕೆಗಳಿ�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌಲ್ಯ: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "ಪ್ರಥಮ ದೋಷ ಅಥವ ಎಚ್ಚರಿಕೆಯ ನಂತರ ನಿಲ್ಲು"
@@ -113,61 +139,3 @@ msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(cmd)s ಯು "
-#~ "ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
-#~ "ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
-#~ "ದಯವಿಟ್ಟು ಈ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "ಆಜ್ಞೆ %s ಯಾವುದೆ ಆರ್ಗ್ಯುಮೆಂಟುಗಳನ್ನು ತೆಗೆದುಕೊಳ್ಳುವುದಿಲ್ಲ"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s ಆಜ್ಞೆಗೆ ಅನಿರೀಕ್ಷಿತ ಆರ್ಗ್ಯುಮೆಂಟುಗಳು: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "ಆಜ್ಞೆ %s ಕೇವಲ ಒಂದು ಆರ್ಗ್ಯುಮೆಂಟನ್ನು ಮಾತ್ರ ತೆಗೆದು ಕೊಳ್ಳತ್ತದೆ"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s ಗೆ ಆರೋಹಣ ತಾಣದ ಅಗತ್ಯವಿದೆ"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "ಒಂದು ಬಯೋಸ್ಪಾರ್ಟ್ ಅಥವ ವಿಭಜನೆಗಳನ್ನುನಿಗದಿಪಡಿಸ ಬೇಕು."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s ನ ಆಜ್ಞೆಗೆ ಅನಿರೀಕ್ಷಿತ ಆರ್ಗುಮೆಂಟು: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "ಸಾಧನ '%(device)s' ವು ಈಗಾಗಲೆ ಬಹುಪಥ '%(multipathdev)s'ದಲ್ಲಿ ಉಪಯೋಗಿಸಲ್ಪಟ್ಟಿದೆ"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "ರೆಪೋ ಆಜ್ಞೆಗೆ --baseurl ಮತ್ತು --mirrorlist ಗಳಲ್ಲಿ ಒಂದನ್ನು ಮಾತ್ರ ನಿಗದಿಪಡಿಸಬಹುದು."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "ರೆಪೋ ಆಜ್ಞೆಗೆ --baseurl ಮತ್ತು --mirrorlist ಗಳಲ್ಲಿ ಒಂದನ್ನು ನಿಗದಿಪಡಿಸಬಹುದು."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s ಆಜ್ಞೆಗೆ ಒಂದು ಆರ್ಗ್ಯುಮೆಂಟನ್ನುನಿರೀಕ್ಷಿಸಲಾಗಿದೆ"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  zerombr ಆಜ್ಞೆ ಯಾವುದೇ "
-#~ "ಆಯ್ಕೆಯನ್ನು ತೆಗೆದು ಕೊಳ್ಳುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ "
-#~ "ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  ದಯವಿಟ್ಟು ಯಾವುದೇ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು "
-#~ "ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "ಗೊತ್ತಿರದ ಆಜ್ಞೆ: %s"

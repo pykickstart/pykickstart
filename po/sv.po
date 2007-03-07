@@ -7,13 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-18 16:10-0500\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Ignorerar föråldrat kommando på rad %s: %s-kommandot är föråldrat och har "
+"inte längre någon effekt. Det kan komma att tas bort från framtida utgåvor, "
+"vilket kommer att resultera i ett ödesdigert fel från kickstart. Ändra din "
+"kickstart-fil och ta bort detta kommando."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Okänt kommando: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -30,10 +48,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Det uppstod ett problem vid inläsning från rad %s av kickstart-filen"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Version som inte stöds angiven."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -81,6 +95,18 @@ msgstr "Nödvändig flagga satt för flagga som inte tar ett värde"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Version som inte stöds angiven."
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "stanna efter det första felet eller den första varningen"
@@ -116,73 +142,3 @@ msgstr "Allmänt kickstart-fel i indatafil"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allmänt fel i indatafil: %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Ignorerar föråldrat kommando på rad %s: %s-kommandot är föråldrat och har "
-#~ "inte längre någon effekt. Det kan komma att tas bort från framtida "
-#~ "utgåvor, vilket kommer att resultera i ett ödesdigert fel från kickstart. "
-#~ "Ändra din kickstart-fil och ta bort detta kommando."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Kommandot %s tar inga argument"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Oväntade argument till %(command)s-kommandot: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Kommandot %s tar endast ett argument"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Monteringspunkt krävs för %s"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "En av --baseurl eller --mirrorlist måste anges för repo-kommandot."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Oväntade argument till %s-kommandot: %s"
-
-#, fuzzy
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "Enheten \"%s\" används redan i multisökvägen \"%s\""
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Endast en av --baseurl och --mirrorlist kan anges för repo-kommandot."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "En av --baseurl eller --mirrorlist måste anges för repo-kommandot."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Ett ensamt argument förväntas för %s-kommandot"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Ignorerar föråldrad flagga på rad %s: zerombr-kommandot tar inte längre "
-#~ "några flaggor. I framtida utgåvor kommer detta att resultera i ett "
-#~ "ödesdigert fel från kickstart. Ändra din kickstart-fil och ta bort alla "
-#~ "flaggor."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Okänt kommando: %s"
-
-#~ msgid ""
-#~ "The following problem occurred on line %s of the kickstart file:\n"
-#~ "\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Följande fel inträffade på rad %s i kickstart-filen:\n"
-#~ "\n"
-#~ "%s"

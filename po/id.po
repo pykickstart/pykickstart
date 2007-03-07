@@ -7,13 +7,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-02-23 02:16+7\n"
 "Last-Translator: Teguh DC <dheche@brawijaya.ac.id>\n"
 "Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Mengabaikan perintah usang pada baris %s: Perintah %s telah usang dan tidak "
+"memiliki efek apapun. Perintah ini mungkin akan dihilangkan dari rilis "
+"selanjutnya, yang akan mengakibatkan kesalahan fatal dari kickstart. Silakan "
+"modifikasi berkas kickstart untuk menghapus perintah ini."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -30,10 +48,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Ada masalah pada saat membaca dari baris %s dalam berkas kickstart"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Versi yang ditentukan tidak didukung."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -57,10 +71,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Mengabaikan opsi usang pada baris %(lineno): Opsi %(option) telah usang dan tidak lagi "
-"memiliki efek apa pun. Opsi ini kemungkinan akan dihilangkan pada rilis selanjutnya, "
-"dimana akan menghasilkan kesalahan fatal dari kickstart. Silakan modifikasi "
-"berkas kickstart anda untuk menghapus opsi ini."
+"Mengabaikan opsi usang pada baris %(lineno): Opsi %(option) telah usang dan "
+"tidak lagi memiliki efek apa pun. Opsi ini kemungkinan akan dihilangkan pada "
+"rilis selanjutnya, dimana akan menghasilkan kesalahan fatal dari kickstart. "
+"Silakan modifikasi berkas kickstart anda untuk menghapus opsi ini."
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -79,6 +93,18 @@ msgstr "Flag yang dibutuhkan untuk opsi tidak memiliki nilai"
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opsi %(ipt): nilai boolean tidak valid: %(value)"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Versi yang ditentukan tidak didukung."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -115,63 +141,3 @@ msgstr "Kesalahan kickstart yang umum pada berkas masukan"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Kesalahan umum pada berkas masukan: %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Mengabaikan perintah usang pada baris %s: Perintah %s telah usang dan "
-#~ "tidak memiliki efek apapun. Perintah ini mungkin akan dihilangkan dari "
-#~ "rilis selanjutnya, yang akan mengakibatkan kesalahan fatal dari "
-#~ "kickstart. Silakan modifikasi berkas kickstart untuk menghapus perintah "
-#~ "ini."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Perintah %s tidak menerima argumen apapun"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Argumen yang tidak dibutuhkan untuk perintah %s: %s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Perintah %s hanya menerima satu argumen"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Mount poin dibutuhkan untuk %s"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Salah satu dari --baseurl atau --mirrorlist harus ditentukan untuk "
-#~ "perintah repo."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Argumen yang tidak dibutuhkan untuk perintah %s: %s"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Hanya salah satu dari --baseurl dan --mirrorlist yang dapat dipakai untuk "
-#~ "perintah repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Salah satu dari --baseurl atau --mirrorlist harus ditentukan untuk "
-#~ "perintah repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Argumen tunggal dibutuhkan untuk perintah %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Mengabaikan opsi usang pada baris %s: perintah zerombr tidak lagi "
-#~ "menerima opsi apa pun. Pada rilis selanjutnya, ini kemungkinan akan "
-#~ "menyebabkan kesalahan fatal dari kickstart. Silakan modifikasi berkas "
-#~ "kickstart anda untuk menghilangkan opsi ini."

@@ -6,6 +6,8 @@
 	* pykickstart/parser.py (KickstartParser._stateMachine):  Recognize
 	%ksappend so ksvalidator works.
 
+	* po/:  Update translation files.
+
 2007-03-01  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/bootloader.py, pykickstart/commands/clearpart.py,

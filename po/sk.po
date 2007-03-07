@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-25 02:44+0100\n"
 "Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -16,6 +16,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Poedit-Language: Slovak\n"
 "X-Poedit-Country: SLOVAKIA\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Zastaraný príkaz na riadku %s bude ignorovaný: Príkaz %s bol zavrhnutý a "
+"viac už nemá žiaden význam. Z novších vydaní môže byť odstránený, čo spôsobí "
+"úplné zlyhanie kickstart-u. Prosím opravte Váš kickstart súbor odstranením "
+"tohoto príkazu."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Neznámy príkaz: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -33,10 +51,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Nastal problém pri čítaní riadku %s z kickstart súboru"
 
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Špecifikovaná nepodporovaná verzia."
-
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
@@ -44,18 +58,34 @@ msgstr "Voľba %s je vyžadovaná"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Voľba %(option)s bola zavedená vo verzií %(intro)s, ale vy používate kickstart syntax verzie %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Voľba %(option)s bola zavedená vo verzií %(intro)s, ale vy používate "
+"kickstart syntax verzie %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Zastaraná voľba na riadku %(lineno)s bude ignorovaná: Voľba %(option)s bola zavrhnutá a viac už nemá žiaden význam. Z novších vydaní môže byť odstránená, čo spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš kickstart súbor odstranením tejto voľby."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Zastaraná voľba na riadku %(lineno)s bude ignorovaná: Voľba %(option)s bola "
+"zavrhnutá a viac už nemá žiaden význam. Z novších vydaní môže byť "
+"odstránená, čo spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš "
+"kickstart súbor odstranením tejto voľby."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Voľba %(option)s bola odstránená vo verzií %(removed)s, ale vy používate kickstart syntax verzie %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Voľba %(option)s bola odstránená vo verzií %(removed)s, ale vy používate "
+"kickstart syntax verzie %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -65,6 +95,18 @@ msgstr "Príznak \"Požadované\" nastavený pre voľbu, ktorá nemá žiadnú h
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Voľba %(opt)s: nesprávna logická hodnota: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Špecifikovaná nepodporovaná verzia."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -101,61 +143,3 @@ msgstr "Všeobecná chyba kickstart-u vo vstupnom súbore"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Všeobecná chyba vo vstupnom súbore: %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Zastaraný príkaz na riadku %s bude ignorovaný: Príkaz %s bol zavrhnutý a "
-#~ "viac už nemá žiaden význam. Z novších vydaní môže byť odstránený, čo "
-#~ "spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš kickstart súbor "
-#~ "odstranením tohoto príkazu."
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Príkaz %s nemá žiadné parametre"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Neočakávané parametre pre príkaz %s: %s"
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Príkaz %s má iba jeden parameter"
-#~ msgid "Mount point required for %s"
-#~ msgstr "Pre %s je požadovaný bod pripojenia"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Jedno z parametrov --baseurl alebo --mirrorlist musí byť uvedený pre "
-#~ "príkaz repo."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Neočakávané parametre pre príkaz %s: %s"
-
-#, fuzzy
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "Zariadenie '%s' je už v multipath '%s' použité"
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Iba jeden z parametrov --baseurl a --mirrorlist môže byť uvedený pre "
-#~ "príkaz repo."
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Jedno z parametrov --baseurl alebo --mirrorlist musí byť uvedený pre "
-#~ "príkaz repo."
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Jeden jediný parameter je očakávaný pre príkaz %s"
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Zastaraná voľba na riadku %s bude ignorovaná: Príkaz zerombr nemá viac "
-#~ "žiadné voľby. V budúcich vydaniach toto spôsobí úplné zlyhanie kickstart-"
-#~ "u. Prosím opravte Váš kickstart súbor odstránením týchto volieb."
-#~ msgid "Unknown command: %s"
-#~ msgstr "Neznámy príkaz: %s"
-

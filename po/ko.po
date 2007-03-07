@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-12 12:59+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
@@ -17,6 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %(option)s 옵션은 삭"
+"제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 "
+"오류를 가져오는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 "
+"제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -33,10 +51,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "킥스타트파일의 %s번째 줄을 읽는데 문제 발생"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "지원되지 않는 버전 지정."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -82,6 +96,18 @@ msgstr "값을 가지지 않는 옵션을 위해 사용되는 플래그 모음�
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "옵션 %(opt)s: 유효하지 않은 부울(boolean) 값: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "지원되지 않는 버전 지정."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"

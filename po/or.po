@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-03-06 14:31+0530\n"
 "Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -16,13 +16,32 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
 "\n"
 "\n"
 "\n"
 "\n"
+"\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s ଲାଇନରେ ଥିବା ଅଦରକାରି ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %(option)s ପସନ୍ଦଟି ଅଦରକାରି ଅଟେ "
+"ଏବଂ ଏବେ ଏହାର କୌଣସି ପ୍ରଭାବନାହିଁ। ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି "
+"କିକଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେଏହି ପସନ୍ଦକୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ "
+"ଫାଇଲକୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -40,10 +59,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "କିକଷ୍ଟାର୍ଟ ଫାଇଲ ର %s ଲାଇନ ରେ ପଢିବା ସମୟ ରେ ତୃଟି"
 
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "ଅସମର୍ଥିତ ସଂସ୍କରଣ ଉଲ୍ଲେଖ କରାଯାଇଛି।"
-
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
@@ -55,8 +70,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"%(option)s ବିକଳ୍ପକୁ %(intro)s ସଂସ୍କରଣରେ ପ୍ରାରମ୍ଭ କରାଯାଇଥିଲା, କିନ୍ତୁ ଆପଣ କିକ-ଷ୍ଟାର୍ଟ ବାକ୍ଯବିନ୍ଯାସ "
-"%(version)s ବ୍ଯବହାର କରୁଛନ୍ତି"
+"%(option)s ବିକଳ୍ପକୁ %(intro)s ସଂସ୍କରଣରେ ପ୍ରାରମ୍ଭ କରାଯାଇଥିଲା, କିନ୍ତୁ ଆପଣ କିକ-ଷ୍ଟାର୍ଟ "
+"ବାକ୍ଯବିନ୍ଯାସ %(version)s ବ୍ଯବହାର କରୁଛନ୍ତି"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -77,8 +92,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"%(option)s ବିକଳ୍ପକୁ %(removed)s ସଂସ୍କରଣରେ ଅପସାରଣ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ କିକ-ଷ୍ଟାର୍ଟ ବାକ୍ଯବିନ୍ଯାସର "
-"%(version)s ସଂସ୍କରଣକୁ ବ୍ଯବହାର କରୁଛନ୍ତି"
+"%(option)s ବିକଳ୍ପକୁ %(removed)s ସଂସ୍କରଣରେ ଅପସାରଣ କରାଯାଇଛି, କିନ୍ତୁ ଆପଣ କିକ-ଷ୍ଟାର୍ଟ "
+"ବାକ୍ଯବିନ୍ଯାସର %(version)s ସଂସ୍କରଣକୁ ବ୍ଯବହାର କରୁଛନ୍ତି"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -88,6 +103,18 @@ msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ�
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ପସନ୍ଦ %(opt)s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "ଅସମର୍ଥିତ ସଂସ୍କରଣ ଉଲ୍ଲେଖ କରାଯାଇଛି।"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -124,4 +151,3 @@ msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତୃଟି:  %s"
-

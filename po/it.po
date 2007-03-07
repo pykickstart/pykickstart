@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-13 18:34+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
 "Language-Team:  <fedora-trans-it@redhat.com>\n"
@@ -16,6 +16,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"L'opzione deprecata sulla riga %(lineno)s sarà ignorata:  L'opzione %(option)"
+"s è stata deprecata e non possiede alcun effetto.  Tale opzione potrà essere "
+"rimossa dalle versioni future, che risulterà in un errore fatale di "
+"kickstart.  Si prega di modificare il vostro file kickstart in modo da "
+"rimuovere questa opzione."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -35,10 +54,6 @@ msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 "Si è verificato un problema durante la lettura dalla riga %s del file di "
 "kickstart"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Specificata versione non supportata."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -85,6 +100,18 @@ msgstr "Insieme di flag necessarie per l'opzione che non accetta alcun valore"
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opzione %(opt)s: valore booleano non valido: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Specificata versione non supportata."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"

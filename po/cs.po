@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-26 15:50+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
@@ -19,7 +19,26 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není "
+"používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by "
+"mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
+"soubor tak, aby tuto volbu neobsahoval."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
 #: ../pykickstart/errors.py:43
+#, fuzzy, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
@@ -34,10 +53,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Došlo k problému při čtení řádku %s kickstart souboru."
 
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Použita nepodporovaná verze."
-
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
@@ -49,19 +64,21 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Volba %(option)s byla přidána ve verzi %(intro)s, avšak vy používáte "
-"syntaxi kickstartu verze %(version)s."
+"Volba %(option)s byla přidána ve verzi %(intro)s, avšak vy používáte syntaxi "
+"kickstartu verze %(version)s."
 
 #: ../pykickstart/options.py:83
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není používána a "
-"nemá již žádný efekt. V budoucnosti může být odstraněna, což by mohlo způsobit závažnou "
-"chybu kickstartu. Upravte prosím Váš kickstart soubor tak, aby tuto volbu neobsahoval."
+"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není "
+"používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by "
+"mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
+"soubor tak, aby tuto volbu neobsahoval."
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -77,8 +94,21 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "Povinný přepínač pro volbu nemá žádnou hodnotu "
 
 #: ../pykickstart/options.py:148
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Volba %(opt)s: neplatná boolean hodnota: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Použita nepodporovaná verze."
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"

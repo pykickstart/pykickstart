@@ -25,13 +25,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-22 21:48+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"S'ha ignorat una opció obsoleta a la línia %(lineno)s:  L'opció %(option)s "
+"és obsoleta i no tindrà cap efecte. S'eliminarà de futures versions, i "
+"provocarà un error fatal del kickstart. Modifiqueu el vostre fitxer "
+"kickstart per eliminar aquesta opció."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "No es coneix l'ordre: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -50,10 +68,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 "Hi ha hagut un problema en llegir el fitxer del kickstart a la línia %s"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "S'ha especificat una versió incompatible."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -102,6 +116,18 @@ msgstr ""
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "S'ha especificat una versió incompatible."
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "atura't al primer error o avís"
@@ -137,39 +163,3 @@ msgstr "S'ha produït un error general del kickstart en el fitxer d'entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Hi ha un error general al fitxer d'entrada: %s"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "L'ordre %s no pren cap argument"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "L'ordre %s només pren un argument"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Es requereix un punt de muntatge per a %s"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Només s'ha d'especificar o bé --baseurl o bé --mirrorlist per a l'ordre "
-#~ "repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Només s'ha d'especificar o bé --baseurl o bé --mirrorlist per a l'ordre "
-#~ "repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "S'espera un únic argument per a l'ordre %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "S'ha ignorat una opció obsoleta a la línia %s:  L'ordre zerombr ja no "
-#~ "pren cap opció. En futurs llançaments, això provocarà un error fatal del "
-#~ "kickstart. Modifiqueu el vostre fitxer kickstart per eliminar totes les "
-#~ "opcions."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "No es coneix l'ordre: %s"

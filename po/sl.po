@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-10-09 21:47+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -15,6 +15,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Zastarele nastavitve v vrstici %s so zanemarjene. Nastavitev %s je zastarela "
+"in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila "
+"napako. Odstranite jo iz datoteke kickstart."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Neznani ukaz: %s"
 
 #: ../pykickstart/errors.py:43
 #, fuzzy, python-format
@@ -31,10 +48,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Napaka pri branju vrstice %s iz datoteke kickstart"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -76,6 +89,18 @@ msgstr "Nastavitev, ki ne sprejema dodatnih vrednosti je označena kot obvezna"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Nastavitev %s: neveljavna vrednost boolean: %r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "ustavi ob prvi napaki ali opozorilu"
@@ -111,66 +136,3 @@ msgstr "Splošna napaka kickstart v vhodni datoteki"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Splošna napaka v vhodni datoteki:  %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Zastarele nastavitve v vrstici %s so zanemarjene. Nastavitev %s je "
-#~ "zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in "
-#~ "bo povzročila napako. Odstranite jo iz datoteke kickstart."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Ukaz %s ne sprejema parametrov"
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Nepričakovani parametri %s ukazu: %s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "Ukaz %s sprejme le en parameter"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Za %s se zahteva točko priklopa"
-
-#, fuzzy
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr ""
-#~ "Natanko eden izmed --baseurl in --mirrorlist se mora uporabiti v ukazu "
-#~ "repo."
-
-#, fuzzy
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Nepričakovani parametri %s ukazu: %s"
-
-#, fuzzy
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "Naprava '%s' je že uporabljena v napravi multipath'%s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Samo eden izmed --baseurl in --mirrorlist se sme uporabiti v ukazu repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Natanko eden izmed --baseurl in --mirrorlist se mora uporabiti v ukazu "
-#~ "repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Ukaz %s potrebuje natanko en parameter"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Zastareli parametri v vrstici %s so zanemarjeni. Nastavitev 'zerombr' po "
-#~ "novem ne sprejema parametrov. Popravite datoteko kickstart, sicer lahko v "
-#~ "novejših izdajah pride do napake."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Neznani ukaz: %s"

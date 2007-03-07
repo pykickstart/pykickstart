@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2006-11-24 09:18+0530\n"
 "Last-Translator: A S Alam <apbrar@gmail.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -19,6 +19,24 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %(cmd)s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ "
+"ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ।  ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ "
+"ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ "
+"ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "ਅਣਜਾਣ ਕਮਾਂਡ: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -35,10 +53,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਦੀ %s ਸਤਰ ਨੂੰ ਪੜਨ ਵਿੱਚ ਸਮੱਸਿਆ ਹੈ"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr ""
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -81,6 +95,18 @@ msgstr "ਲੋੜੀਂਦੇ ਚਿੰਨ ਦੀ ਚੋਣ ਦਰਸਾਈ ਹ�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "ਪਹਿਲੀ ਗਲਤੀ ਜਾਂ ਚੇਤਾਵਨੀ ਤੋਂ ਬਾਅਦ ਬੰਦ ਕਰੋ"
@@ -116,57 +142,3 @@ msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸ�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "%(lineno)s ਸਤਰ ਵਿੱਚ ਗਲਤ ਕਮਾਂਡ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %(cmd)s ਕਮਾਂਡ ਬਰਤਰਫ਼ "
-#~ "ਕੀਤੀ ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ।  ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ "
-#~ "ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ "
-#~ "ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "ਕਮਾਂਡ %s ਕੋਈ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਲੈਂਦੀ ਹੈ"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "%(command)s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "ਕਮਾਂਡ %s ਸਿਰਫ ਇੱਕ ਆਰਗੂਮੈਂਟ ਲੈਂਦੀ ਹੈ"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "%s ਲਈ ਮਾਊਂਟ ਸਥਿਤੀ ਦੀ ਲੋੜ ਹੈ"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "biospart ਜਾਂ ਭਾਗ ਵਿੱਚ ਇੱਕ ਲਈ ਚੋਣ ਦੇਣੀ ਲਾਜ਼ਮੀ ਹੈ।"
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "%(cmd)s ਕਮਾਂਡ ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr "ਜੰਤਰ '%(device)s' ਪਹਿਲਾਂ ਹੀ ਬਹੁ-ਮਾਰਗ'%(multipathdev)s' ਵਿੱਚ ਵਰਤਿਆ ਗਿਆ ਹੈ"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr "repo ਕਮਾਂਡ ਲਈ --baseurl ਅਤੇ--mirrorlist ਵਿੱਚੋਂ ਸਿਰਫ਼ ਇੱਕ ਹੀ ਦੇਣਾ ਚਾਹੀਦਾ ਹੈ।"
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr "repo ਕਮਾਂਡ ਲਈ --baseurl ਅਤੇ--mirrorlist ਵਿੱਚੋਂ ਇੱਕ ਦੇਣਾ ਲਾਜ਼ਮੀ ਹੈ।"
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "%s ਕਮਾਂਡ ਲਈ ਇੱਕ ਇਕੱਲੇ ਆਰਗੂਮੈਂਟ ਦੀ ਲੋੜ ਹੈ"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "%s ਸਤਰ ਵਿੱਚ ਬਰਤਰਫ਼ ਚੋਣ ਨੂੰ ਅਣਡਿੱਠਾ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: zerombr ਕਮਾਂਡ ਕੋਈ ਚੋਣ ਨਹੀਂ ਲਵੇਗੀ। "
-#~ "ਆਉਣ ਵਾਲੇ ਵਰਜਨਾਂ ਵਿੱਚ, ਇਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਵਿੱਚ ਘਾਤਕ ਗਲਤੀ ਹੋਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਕੋਈ "
-#~ "ਚੋਣ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਫਾਇਲ ਵਿੱਚ ਸੋਧ ਕਰੋ।"
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "ਅਣਜਾਣ ਕਮਾਂਡ: %s"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-02-28 11:24\n"
 "Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -18,6 +18,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
+
+#: ../pykickstart/base.py:132
+#, fuzzy, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s 行の無用なオプションを無視します: %(option)s オプションは無用と"
+"なっており、どんな効果も持ちません。キックスタートの致命的なエラーとなるた"
+"め、将来のリリースでは削除される可能性があります。使用中のキックスタートファ"
+"イルを修正して、このオプションを取り除いてください。"
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -35,10 +53,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "キックスタートファイルの %s の行の読み込みに問題がありました"
 
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "サポートのないバージョンが指定されています。"
-
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
@@ -50,8 +64,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"オプション %(option)s はバージョン %(intro)s 内で紹介されていますが、ユーザーは"
-"キックスタート構文のバージョン %(version)s を使用しています。"
+"オプション %(option)s はバージョン %(intro)s 内で紹介されていますが、ユーザー"
+"はキックスタート構文のバージョン %(version)s を使用しています。"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -72,8 +86,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"オプション %(option)s はバージョン %(removed)s の中で削除されていますが、ユーザーは"
-"キックスタート構文バージョン %(version)s を使用しています"
+"オプション %(option)s はバージョン %(removed)s の中で削除されていますが、ユー"
+"ザーはキックスタート構文バージョン %(version)s を使用しています"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -83,6 +97,18 @@ msgstr "値を取らないオプションに必要なフラグが設定されて
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "オプション %(opt)s: 無効なブーリアン値: %(value)r"
+
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "サポートのないバージョンが指定されています。"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -119,4 +145,3 @@ msgstr "入力ファイル内の一般的なキックスタートエラー"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "入力ファイル内の一般的なエラー:  %s"
-

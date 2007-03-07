@@ -12,13 +12,31 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-16 14:27-0500\n"
+"POT-Creation-Date: 2007-03-07 15:05-0500\n"
 "PO-Revision-Date: 2007-01-09 23:29-0200\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/base.py:132
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Ignorando comando obsoleto na linha %(lineno)s:  O comando %(cmd)s está "
+"obsoleto e não tem mais efeito.  Ele pode ser removido das futuras versões, "
+"o que resultará em um erro fatal do kickstart.  Por favor modifique o seu "
+"arquivo kickstart para remover esse comando."
+
+#: ../pykickstart/base.py:298
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Comando desconhecido: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -35,10 +53,6 @@ msgstr ""
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Houve um problema ao ler a linha %s do arquivo kickstart"
-
-#: ../pykickstart/errors.py:97
-msgid "Unsupported version specified."
-msgstr "Versão especificada não suportada."
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -85,6 +99,18 @@ msgstr "Sinalização requerida definida para opção que não aceita um valor"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opção %(opt)s: valor Booleano inválido: %(value)r"
 
+#: ../pykickstart/parser.py:196
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:135
+#, fuzzy, python-format
+msgid "Unsupported version specified: %s"
+msgstr "Versão especificada não suportada."
+
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
 msgstr "parar após o primeiro erro ou aviso"
@@ -120,62 +146,3 @@ msgstr "Erro geral do kickstart no arquivo de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erro geral no arquivo de entrada:  %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-#~ "been deprecated and no longer has any effect.  It may be removed from "
-#~ "future releases, which will result in a fatal error from kickstart.  "
-#~ "Please modify your kickstart file to remove this command."
-#~ msgstr ""
-#~ "Ignorando comando obsoleto na linha %(lineno)s:  O comando %(cmd)s está "
-#~ "obsoleto e não tem mais efeito.  Ele pode ser removido das futuras "
-#~ "versões, o que resultará em um erro fatal do kickstart.  Por favor "
-#~ "modifique o seu arquivo kickstart para remover esse comando."
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "O comando %s não aceita nenhum argumento"
-
-#~ msgid "Unexpected arguments to %(command)s command: %(options)s"
-#~ msgstr "Argumentos inesperados para o comando %(command)s: %(options)s"
-
-#~ msgid "Command %s only takes one argument"
-#~ msgstr "O comando %s aceita somente um argumento"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Ponto de montagem requerido para %s"
-
-#~ msgid "One of biospart or partition options must be specified."
-#~ msgstr "Opções de biospart ou de partição devem ser especificadas."
-
-#~ msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-#~ msgstr "Argumentos inesperados para o comando %(cmd)s: %(options)s"
-
-#~ msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
-#~ msgstr ""
-#~ "O dispositivo'%(device)s' já está em uso no multipath '%(multipathdev)s'"
-
-#~ msgid ""
-#~ "Only one of --baseurl and --mirrorlist may be specified for repo command."
-#~ msgstr ""
-#~ "Somente um --baseurl e --mirrorlist podem ser especificados para o "
-#~ "comando repo."
-
-#~ msgid "One of --baseurl or --mirrorlist must be specified for repo command."
-#~ msgstr ""
-#~ "Um --baseurl ou --mirrorlist precisa ser especificado para o comando repo."
-
-#~ msgid "A single argument is expected for the %s command"
-#~ msgstr "Um único argumento é esperado para o comando %s"
-
-#~ msgid ""
-#~ "Ignoring deprecated option on line %s:  The zerombr command no longer "
-#~ "takes any options.  In future releases, this will result in a fatal error "
-#~ "from kickstart.  Please modify your kickstart file to remove any options."
-#~ msgstr ""
-#~ "Ignorando opção obsoleta na linha %s:  O comando zerombr não aceita mais "
-#~ "opções.  Em versões futuras isso resultará em um erro fatal no "
-#~ "kickstart.  Por favor modifique o seu arquivo kickstart para remover "
-#~ "quaisquer opções."
-
-#~ msgid "Unknown command: %s"
-#~ msgstr "Comando desconhecido: %s"
