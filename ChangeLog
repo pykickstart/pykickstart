@@ -1,3 +1,8 @@
+2007-03-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/timezone.py:  The timezone command didn't
+	understand --isUtc before FC6 (#231189).
+
 2007-03-01  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/bootloader.py, pykickstart/commands/clearpart.py,

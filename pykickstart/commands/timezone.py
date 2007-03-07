@@ -28,6 +28,33 @@ class FC3_Timezone(KickstartCommand):
     def __str__(self):
         if self.timezone != "":
             if self.isUtc:
+                utc = "--utc"
+            else:
+                utc = ""
+
+            return "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
+        else:
+            return ""
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--utc", dest="isUtc", action="store_true", default=False)
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
+
+        if len(extra) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
+
+        self.timezone = extra[0]
+
+class FC6_Timezone(FC3_Timezone):
+    def __init__(self, writePriority=0, isUtc=False, timezone=""):
+        FC3_Timezone.__init__(self, writePriority, isUtc, timezone)
+
+    def __str__(self):
+        if self.timezone != "":
+            if self.isUtc:
                 utc = "--isUtc"
             else:
                 utc = ""
