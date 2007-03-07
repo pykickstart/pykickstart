@@ -390,7 +390,7 @@ class KickstartParser:
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
                 if line != "" and string.split(line.lstrip())[0] in \
-                   ["%post", "%pre", "%traceback", "%include", "%packages"]:
+                   ["%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
                     args = shlex.split(line)
                 else:
                     args = None
@@ -424,6 +424,9 @@ class KickstartParser:
             if self._state == STATE_COMMANDS:
                 if not args and self._includeDepth == 0:
                     self._state = STATE_END
+                elif args[0] == "%ksappend":
+                    needLine = True
+                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -446,6 +449,9 @@ class KickstartParser:
             elif self._state == STATE_PACKAGES:
                 if not args and self._includeDepth == 0:
                     self._state = STATE_END
+                elif args[0] == "%ksappend":
+                    needLine = True
+                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -500,7 +506,7 @@ class KickstartParser:
                     # If we're at the end of the kickstart file, add the script.
                     self.addScript()
                     self._state = STATE_END
-                elif args and args[0] in ["%pre", "%post", "%traceback", "%packages"]:
+                elif args and args[0] in ["%pre", "%post", "%traceback", "%packages", "%ksappend"]:
                     # Otherwise we're now at the start of the next section.
                     # Figure out what kind of a script we just finished
                     # reading, add it to the list, and switch to the initial
