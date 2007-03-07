@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.98
+Version: 0.99
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Wed Mar 07 2007 Chris Lumens <clumens@redhat.com> - 0.99-1
+- The timezone command didn't recognize --isUtc before FC6 (#231189).
+- Recognize %ksappend lines in ksvalidator.
+- Don't set default values in some command __init__ methods.
+- Added an updates command.
+- Add support for RAID10.
+
 * Mon Feb 26 2007 Chris Lumens <clumens@redhat.com> - 0.98-1
 - Fix device command syntax to match anaconda.
 - Fix __call__ on method command.

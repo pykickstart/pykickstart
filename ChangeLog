@@ -1,5 +1,9 @@
 2007-03-07  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
+2007-03-07  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/commands/timezone.py:  The timezone command didn't
 	understand --isUtc before FC6 (#231189).
 
