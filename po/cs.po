@@ -51,7 +51,7 @@ msgstr ""
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Došlo k problému při čtení řádku %s kickstart souboru."
+msgstr "Došlo k problému při čtení řádku %s v kickstart souboru."
 
 #: ../pykickstart/options.py:77
 #, python-format
