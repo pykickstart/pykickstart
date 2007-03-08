@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-09 19:35-0300\n"
+"PO-Revision-Date: 2007-03-08 10:06-0300\n"
 "Last-Translator: Domingo Becker <beckerde@hotmail.com>\n"
 "Language-Team: Spanish <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,17 +18,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:132
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Se ignora comando descartado en línea %(lineno)s: El comando %(cmd)s fue "
-"descartado y ya no produce efecto. Puede ser eliminado de versiones futuras, "
-"lo que resultará en un error fatal desde el archivo de respuestas "
-"(kickstart). Por favor, modifique su archivo de respuestas (kickstart) y "
-"elimine este comando."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Se ignora comando descartado en línea %(lineno)s: El comando %(cmd)s fue descartado y ya no produce efecto. Puede ser eliminado de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine este comando."
 
 #: ../pykickstart/base.py:298
 #, python-format
@@ -42,16 +33,14 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"El siguiente problema ocurrió en la línea %(lineno)s del archivo de "
-"respuestas (kickstart):\n"
+"El siguiente problema ocurrió en la línea %(lineno)s del archivo de respuestas (kickstart):\n"
 "\n"
 "%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
-"Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
+msgstr "Hubo un problema al leer la línea %s del archivo de respuestas (kickstart)"
 
 #: ../pykickstart/options.py:77
 #, python-format
@@ -60,35 +49,18 @@ msgstr "Se requiere la opción %s"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"La opción %(option)s fue introducida en la versión %(intro)s, y usted está "
-"usando la sintaxis del kickstart versión %(version)s"
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "La opción %(option)s fue introducida en la versión %(intro)s, y usted está usando la sintaxis del kickstart versión %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Se ignora opción obsoleta en línea %(lineno)s: la opción %(option)s ha sido "
-"descartada y ya no tiene efecto. Puede ser borrada de versiones futuras, lo "
-"que resultará en un error fatal desde el archivo de respuestas (kickstart). "
-"Por favor, modifique su archivo de respuestas (kickstart) y elimine esta "
-"opción."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Se ignora opción obsoleta en línea %(lineno)s: la opción %(option)s ha sido descartada y ya no tiene efecto. Puede ser borrada de versiones futuras, lo que resultará en un error fatal desde el archivo de respuestas (kickstart). Por favor, modifique su archivo de respuestas (kickstart) y elimine esta opción."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"La opción %(option)s fue eliminada en la versión %(removed)s, y usted está "
-"usando la sintaxis del kickstart versión %(version)s"
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "La opción %(option)s fue eliminada en la versión %(removed)s, y usted está usando la sintaxis del kickstart versión %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -101,15 +73,17 @@ msgstr "Opción %(opt)s: valor booleano inválido: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "El grupo no puede especificar --nodefaults y --optional a la vez."
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
+#: ../pykickstart/version.py:78
+#: ../pykickstart/version.py:87
+#: ../pykickstart/version.py:90
+#: ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Se especificó una versión no soportada."
+msgstr "Se especificó una versión no soportada: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -146,3 +120,4 @@ msgstr "Error general en el archivo de respuestas (kickstart) de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Error general en el archivo de entrada: %s"
+
