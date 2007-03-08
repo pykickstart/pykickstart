@@ -1,6 +1,7 @@
 # translation of de.po to 
 # translation of de.po to
 # translation of de.po to
+# translation of de.po to
 # translation of de.po to German
 # This file is distributed under the same license as the de package.
 # Copyright (C) 2006 THE de'S COPYRIGHT HOLDER.
@@ -15,7 +16,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-10 10:45+1000\n"
+"PO-Revision-Date: 2007-03-08 14:32+1000\n"
 "Last-Translator: Timo Trinks <ttrinks@redhat.com>\n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,23 +25,23 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Veraltete Option in Zeile %(lineno)s nicht beachten:  Die %(option)s Option "
-"ist veraltet und hat keine Wirkung mehr.  Sie wird vielleicht von "
-"zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren "
+"Veraltete Option in Zeile %(lineno)s nicht beachten:  Der Befehl %(cmd)s ist "
+"veraltet und hat keine Wirkung mehr.  Er wird vielleicht von zukünftigen "
+"Versionen entfernt werden, was dann zu einem nicht behebbaren "
 "Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um "
-"diese Option zu entfernen."
+"diesen Befehl zu entfernen."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Unbekannter Befehl: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -92,13 +93,13 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Die Option %(option)s wurde in Version %(intro)s entfernt, Sie benutzen "
+"Die Option %(option)s wurde in Version %(removed)s entfernt, Sie benutzen "
 "jedoch Kickstart-Syntax-Versionen %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
-"Vorgeschriebene Bitschalter-Einstellung für die Option , die keinen Wert "
+"Vorgeschriebene Bitschalter-Einstellung für die Option, die keinen Wert "
 "annimmt"
 
 #: ../pykickstart/options.py:148
@@ -108,15 +109,15 @@ msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Die Gruppe kann nicht gleichzeitig --nodefaults und --optional angeben"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Es wurde eine nicht-unterstützte Version angegeben."
+msgstr "Es wurde eine nicht-unterstützte Version angegeben: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -125,7 +126,7 @@ msgstr "nach erstem Fehler oder erster Warnung stoppen"
 #: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "include-Dateien parsen wenn %include erscheint"
+msgstr "include-Dateien analysieren wenn %include erscheint"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
@@ -153,3 +154,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
