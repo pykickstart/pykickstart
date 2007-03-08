@@ -1,6 +1,6 @@
-# translation of cs.po to Czech
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Translation of pykickstart to Czech
+# This file is distributed under the same license as the pykickstart package.
+# Copyright (C) 2006 FSF
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
 # Milan Kerslager <kerslage@linux.cz>, 2007.
 #
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-26 15:50+0100\n"
+"PO-Revision-Date: 2007-03-08 13:34+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
 "MIME-Version: 1.0\n"
@@ -20,31 +20,31 @@ msgstr ""
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není "
-"používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by "
+"Ignoruji zastaralý příkaz na řádku %(lineno)s: Příkaz %(cmd)s již není "
+"používán a nemá již žádný efekt. V budoucnosti může být odstraněn, což by "
 "mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
-"soubor tak, aby tuto volbu neobsahoval."
+"soubor tak, aby zastaralý příkaz neobsahoval."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Neznámý příkaz: %s"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Na řádku %s kickstart souboru nastala následující chyba:\n"
+"Na řádku %(lineno)s kickstart souboru došlo k problému:\n"
 "\n"
 "%(msg)s\n"
 
@@ -100,15 +100,15 @@ msgstr "Volba %(opt)s: neplatná boolean hodnota: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Skupina nemůže mít zároveň --nodefaults a --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Použita nepodporovaná verze."
+msgstr "Použita nepodporovaná verze: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
