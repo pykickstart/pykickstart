@@ -4,21 +4,22 @@
 # Rodrigo Padula de Oliveira <rodrigopadula@projetofedora.org>, 2006.
 # Igor Pires Soares <igor@projetofedora.org>, 2006.
 # Diego Búrigo Zacarão <diegobz@gmail.com>, 2006.
-# Valnir Ferreira Jr. <vferreir@redhat.com>, 2006.
+# Valnir Ferreira Jr. <vferreir@redhat.com>, 2006, 2007.
 # Igor Pires Soares <igor@projetofedora.org>, 2007.
-# 
-# 
+#
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-09 23:29-0200\n"
-"Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
-"Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
+"PO-Revision-Date: 2007-03-08 09:18+1000\n"
+"Last-Translator: Valnir Ferreira Jr.\n"
+"Language-Team: Brazilian Portuguese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/base.py:132
 #, python-format
@@ -101,15 +102,15 @@ msgstr "Opção %(opt)s: valor Booleano inválido: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Grupo não pode especificar tanto o --nodefaults como o --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Versão especificada não suportada."
+msgstr "Versão especificada não suportada: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -146,3 +147,4 @@ msgstr "Erro geral do kickstart no arquivo de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erro geral no arquivo de entrada:  %s"
+
