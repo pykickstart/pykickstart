@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-10 15:37+0000\n"
+"PO-Revision-Date: 2007-03-08 15:22+0000\n"
 "Last-Translator: Jos Nuno Coelho Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -12,7 +12,7 @@ msgstr ""
 "X-POFile-SpellExtra: zerombr include kickstart mirrorlist baseurl opt\n"
 "X-POFile-SpellExtra: partition option cmd value device multipathdev\n"
 "X-POFile-SpellExtra: command lineno msg line options biospart pykickstart\n"
-"X-POFile-SpellExtra: removed intro version\n"
+"X-POFile-SpellExtra: removed intro version nodefaults optional\n"
 
 #: ../pykickstart/base.py:132
 #, python-format
@@ -95,15 +95,15 @@ msgstr "Opção %(opt)s: o valor booleano é inválido: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "O grupo não poderá definir o --nodefaults e o --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Foi indicada uma versão não suportada."
+msgstr "Foi indicada a versão não suportada: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
