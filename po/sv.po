@@ -2,13 +2,14 @@
 # Copyright (C) Christian Rose <menthos@menthos.com>, 2006.
 # Copyright (C) Magnus Larsson <fedoratrans@gmail.com>, 2007.
 # $Id$
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-18 16:10-0500\n"
+"PO-Revision-Date: 2007-03-09 19:40-0500\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -16,17 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Ignorerar föråldrat kommando på rad %s: %s-kommandot är föråldrat och har "
-"inte längre någon effekt. Det kan komma att tas bort från framtida utgåvor, "
-"vilket kommer att resultera i ett ödesdigert fel från kickstart. Ändra din "
-"kickstart-fil och ta bort detta kommando."
+"Ignorerar föråldrat kommando på rad %(lineno)s: %(cmd)s-kommandot är "
+"föråldrat och har inte längre någon effekt. Det kan komma att tas bort från "
+"framtida utgåvor, vilket kommer att resultera i ett ödesdigert fel från "
+"kickstart. Ändra din kickstart-fil och ta bort detta kommando."
 
 #: ../pykickstart/base.py:298
 #, python-format
@@ -97,15 +98,15 @@ msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Grupp kan inte ange både --nodefaults och --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Version som inte stöds angiven."
+msgstr "Version som inte stöds angiven: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
