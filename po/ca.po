@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-22 21:48+0100\n"
+"PO-Revision-Date: 2007-03-11 04:18+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -34,15 +34,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"S'ha ignorat una opció obsoleta a la línia %(lineno)s:  L'opció %(option)s "
-"és obsoleta i no tindrà cap efecte. S'eliminarà de futures versions, i "
+"S'ha ignorat una ordre obsoleta a la línia %(lineno)s:  L'ordre %(cmd)s és "
+"obsoleta i no tindrà cap efecte. S'eliminarà de futures versions, i "
 "provocarà un error fatal del kickstart. Modifiqueu el vostre fitxer "
 "kickstart per eliminar aquesta opció."
 
@@ -116,17 +116,18 @@ msgstr ""
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
 
+# FIXME: Quin grup??? (josep)
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "El grup no pot especificar --nodefaults i --optional alhora"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "S'ha especificat una versió incompatible."
+msgstr "No s'és compatible amb la versió especificada: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
