@@ -239,9 +239,9 @@ class BaseHandler:
         # way for clients to access the command objects.  We also need to strip
         # off the version part from the front of the name.
         if cmdObj.__class__.__name__.find("_") != -1:
-            name = cmdObj.__class__.__name__.split("_", 1)[1]
+            name = unicode(cmdObj.__class__.__name__.split("_", 1)[1])
         else:
-            name = cmdObj.__class__.__name__.lower()
+            name = unicode(cmdObj.__class__.__name__).lower()
                 
         setattr(self, name.lower(), cmdObj)
 
