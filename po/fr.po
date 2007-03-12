@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-03-07 09:22+0100\n"
+"PO-Revision-Date: 2007-03-12 12:45+0100\n"
 "Last-Translator: Thomas Canniot <thomas.canniot@laposte.net>\n"
 "Language-Team: Francais <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,22 +23,22 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Ignorer l'option dépréciée sur la ligne %(lineno)s : L'option %(option)s a "
+"Ignorer la commande dépréciée sur la ligne %(lineno)s : La commande %(cmd)s a "
 "été dépréciée et n'a plus d'effet. Elle pourra être supprimée lors de "
 "futures versions, ce qui provoquera une erreur fatale de kickstart.  Merci "
-"de modifier votre fichier kickstart et de retirer cette option."
+"de modifier votre fichier kickstart et de retirer cette commande."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Commande inconnue : %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -106,15 +106,15 @@ msgstr "Option %(opt)s : valeur booléenne invalide : %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Le groupe ne peut pas à la fois spécifier --nodefaults et --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Version spécifiée non supportée."
+msgstr "Version spécifiée non supportée : %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -151,3 +151,4 @@ msgstr "Erreur générale de kickstart due au fichier source"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erreur générale dans le fichier source : %s"
+
