@@ -1,3 +1,8 @@
+2007-03-16  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/bootloader.py:  Increase writePriority number
+	so this comes after upgrade/install.
+
 2007-03-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/base.py (BaseHandler._setCommand):  Treat class names as

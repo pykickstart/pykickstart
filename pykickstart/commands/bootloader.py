@@ -16,7 +16,7 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_Bootloader(KickstartCommand):
-    def __init__(self, writePriority=0, appendLine="", driveorder=None,
+    def __init__(self, writePriority=10, appendLine="", driveorder=None,
                  forceLBA=False, linear=True, location="", md5pass="",
                  password="", upgrade=False, useLilo=False):
         KickstartCommand.__init__(self, writePriority)
@@ -93,7 +93,7 @@ class FC3_Bootloader(KickstartCommand):
             self.useLilo = True
 
 class FC4_Bootloader(FC3_Bootloader):
-    def __init__(self, writePriority=0, appendLine="", driveorder=None,
+    def __init__(self, writePriority=10, appendLine="", driveorder=None,
                  forceLBA=False, location="", md5pass="", password="",
                  upgrade=False):
         KickstartCommand.__init__(self, writePriority)
