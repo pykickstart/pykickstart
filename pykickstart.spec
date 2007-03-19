@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 0.99
+Version: 0.100
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Mon Mar 19 2007 Chris Lumens <clumens@redhat.com> - 0.100-1
+- bootloader should be written out after upgrade/install.
+- Treat class names as unicode strings (#231053).
+
 * Wed Mar 07 2007 Chris Lumens <clumens@redhat.com> - 0.99-1
 - The timezone command didn't recognize --isUtc before FC6 (#231189).
 - Recognize %ksappend lines in ksvalidator.
