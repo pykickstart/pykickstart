@@ -1,30 +1,30 @@
-# This file is distributed under the same license as the PACKAGE package.
 # Tamas Szanto <tszanto@interware.hu>, 2006.
-#
+# Arpad Biro <biro_arpad@yahoo.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: PyKickStart\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2006-09-11 11:11+0100\n"
-"Last-Translator: Tamas Szanto <tszanto@interware.hu>\n"
-"Language-Team: Hungarian\n"
+"PO-Revision-Date: 2007-03-27 00:55+0200\n"
+"Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Figyelmen kívül lesz hagyva egy elavult parancs a(z) %s. sorban: a(z) %s "
+"Figyelmen kívül lesz hagyva egy elavult parancs a(z) %(lineno)s. sorban: a(z) %(cmd)s "
 "parancs elavult, már nincs hatása. A későbbi kiadások esetleg már nem fogják "
 "elfogadni, és a Kickstart végzetes hibát jelezhet. Célszerű ezért "
-"eltávolítani ezt a beállítást a Kickstart-fájlból."
+"eltávolítani ezt a parancsot a Kickstart-fájlból."
 
 #: ../pykickstart/base.py:298
 #, python-format
@@ -32,15 +32,15 @@ msgid "Unknown command: %s"
 msgstr "Ismeretlen parancs: %s"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Az alábbi hiba történt a Kickstart-fájl %s. sorában:\n"
+"Az alábbi hiba történt a Kickstart-fájl %(lineno)s. sorában:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -60,15 +60,15 @@ msgid ""
 msgstr ""
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Elavult beállítás szerepel a(z) %s. sorban, figyelmen kívül lesz hagyva: a"
-"(z) %s beállítás már elavult, nincs hatása. A későbbi kiadások esetleg már "
+"Elavult beállítás szerepel a(z) %(lineno)s. sorban, figyelmen kívül lesz hagyva: "
+"a(z) %(option)s beállítás már elavult, nincs hatása. A későbbi kiadások esetleg már "
 "nem fogják elfogadni, és a Kickstart végzetes hibát jelezhet. Célszerű ezért "
 "eltávolítani ezt a beállítást a Kickstart-fájlból."
 
@@ -84,9 +84,9 @@ msgid "Required flag set for option that doesn't take a value"
 msgstr "Kötelező attribútumú egy olyan beállítás, melynek nincs értéke"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "%s beállítás: érvénytelen logikai érték: %r"
+msgstr "%(opt)s beállítás: érvénytelen logikai érték: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -135,3 +135,4 @@ msgstr "Általános Kickstart-hiba történt egy bemeneti fájlban"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Általános hiba történt egy bemeneti fájlban: %s"
+
