@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-03-27 00:55+0200\n"
+"PO-Revision-Date: 2007-03-27 19:39+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,6 +58,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"A(z) \"%(option)s\" opció a(z) \"%(intro)s\" verzióban lett bevezetve, de Ön "
+"\"%(version)s\" verziójú Kickstart-szintaxist használ."
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -78,6 +80,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"A(z) \"%(option)s\" opció meg lett szüntetve a(z) \"%(removed)s\" verzióban, de Ön "
+"\"%(version)s\" verziójú Kickstart-szintaxist használ."
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -90,7 +94,7 @@ msgstr "%(opt)s beállítás: érvénytelen logikai érték: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "A csoport nem adhat meg --nodefaults és --optional opciót egyszerre"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -98,7 +102,7 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "Nem támogatott verzió van megadva: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -111,12 +115,12 @@ msgstr "az include fájlok feldolgozása %include argumentum előfordulásakor"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "melyik Kickstart-szintaxisverziónak megfelelően kell végezni az ellenőrzést"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "A(z) \"%s\" verziót a Pykickstart nem támogatja"
 
 #: ../validator/ksvalidator:68
 #, python-format
