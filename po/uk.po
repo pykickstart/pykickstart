@@ -15,22 +15,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Застарілий параметр проігноровано у рядку %(lineno)s:  Параметр %(option)s "
-"застарів та більше не призводить до будь-яких дій.  У майбутніх випусках він "
-"може бути видалений, що буде призводити до фатальної помилки kickstart.  "
+"Застарілий параметр проігноровано у рядку %(lineno)s:  Команда %(cmd)s "
+"застаріла та більше не призводить до будь-яких дій.  У майбутніх випусках вона "
+"може бути видалена, що буде призводити до фатальної помилки kickstart.  "
 "Видаліть цей параметр з вашого файлу kickstart."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Невідома команда: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -95,15 +95,15 @@ msgstr "Параметр %(opt)s: неправильне логічне знач
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Група не може одночасно включати --nodefaults та --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Вказано непідтримувану версію."
+msgstr "Вказано непідтримувану версію: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
