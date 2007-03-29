@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-03-28 18:18+0300\n"
+"PO-Revision-Date: 2007-03-29 09:30+0300\n"
 "Last-Translator: Miroslav Ivanov <satyr@globalnet.bg>\n"
 "Language-Team: Bulgarian <bg@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
+"Премахване на старите отхвърлени команди на ред %(lineno)s:  Командата "
+"%(cmd)s е била  отхвърлена и вече няма ефект.  Може би ще бъде "
+"премахната от бъдещи версии, което ще предизвика фатални грешки kickstart.  "
+"Моля променете вашия kickstart файл, премахвайки тази команда."
 
 #: ../pykickstart/base.py:298
 #, python-format
@@ -68,6 +72,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
+"Премахване на старите отхвърлени опции на ред %(lineno)s:  Опцията "
+"%(option)s е била  отхвърлена и вече няма ефект.  Може би ще бъде "
+"премахната от бъдещи версии, което ще предизвика фатални грешки kickstart.  "
+"Моля променете вашия kickstart файл, премахвайки тази опция."
 
 #: ../pykickstart/options.py:86
 #, python-format
