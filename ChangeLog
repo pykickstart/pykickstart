@@ -1,3 +1,8 @@
+2007-03-30  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (KickstartParser.readKickstart):  Use
+	urlgrabber so %include files can be URLs (#234351).
+
 2007-03-19  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006 Red Hat, Inc.
+# Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -29,6 +29,7 @@ import sys
 import string
 from copy import copy
 from optparse import *
+from urlgrabber import urlopen
 
 from constants import *
 from errors import *
@@ -534,6 +535,6 @@ class KickstartParser:
         if reset:
             self._reset()
 
-        fh = open(file)
+        fh = urlopen(file)
         self._stateMachine (lambda: fh.readline())
         fh.close()
