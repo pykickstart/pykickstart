@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Rok Papez <rok.papez@lugos.si>, 2006.
+# Rok Papez <rok.papez@lugos.si>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2006-10-09 21:47+0200\n"
+"PO-Revision-Date: 2007-04-11 22:16+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,16 +17,13 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
-msgstr ""
-"Zastarele nastavitve v vrstici %s so zanemarjene. Nastavitev %s je zastarela "
-"in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila "
-"napako. Odstranite jo iz datoteke kickstart."
+msgstr "Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %(cmd)s je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
 #: ../pykickstart/base.py:298
 #, python-format
@@ -34,15 +31,15 @@ msgid "Unknown command: %s"
 msgstr "Neznani ukaz: %s"
 
 #: ../pykickstart/errors.py:43
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
 "\n"
 "%(msg)s\n"
 msgstr ""
-"V vrstici %s datoteke kickstart je prišlo do naslednje napake:\n"
+"V vrstici %(lineno)s datoteke kickstart je prišlo do naslednje težave:\n"
 "\n"
-"%s\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
@@ -59,39 +56,36 @@ msgstr "Potrebna je nastavitev %s"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "Nastavitev %(option)s je bila dodana v različici %(intro)s, toda uporabljate kickstart sintakso iz različice %(version)s"
 
 #: ../pykickstart/options.py:83
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
-msgstr ""
-"Zastarele nastavitve v vrstici %s so zanemarjene. Nastavitev %s je zastarela "
-"in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila "
-"napako. Odstranite jo iz datoteke kickstart."
+msgstr "Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %(option)s je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
 #: ../pykickstart/options.py:86
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "Nastavitev %(option)s je bila odstranjena v različici %(removed)s, toda uporabljate kickstart sintakso različice %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Nastavitev, ki ne sprejema dodatnih vrednosti je označena kot obvezna"
 
 #: ../pykickstart/options.py:148
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Nastavitev %s: neveljavna vrednost boolean: %r"
+msgstr "Nastavitev %(opt)s: neveljavna vrednost boolean: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Skupina ne more hkrati določati in --nodefaults in --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -99,7 +93,7 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "Navedena je nepodprta različica: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -112,12 +106,12 @@ msgstr "obdelaj vključne datoteke kjer naletiš na %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "ugotavljanje pravilnosti glede na različica sintakse kickstart"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "pykickstart ne podpira različice %s"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -136,3 +130,4 @@ msgstr "Splošna napaka kickstart v vhodni datoteki"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Splošna napaka v vhodni datoteki:  %s"
+
