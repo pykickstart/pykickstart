@@ -1,20 +1,21 @@
 # translation of ta.po to Tamil
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Felix <ifelix@redhat.com>, 2006, 2007.
 #
+# Felix <ifelix@redhat.com>, 2006, 2007.
+# I felix <ifelix@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-11 12:32+0530\n"
-"Last-Translator: Felix <ifelix@redhat.com>\n"
-"Language-Team: Tamil <ta@li.org>\n"
+"PO-Revision-Date: 2007-04-12 17:46+0530\n"
+"Last-Translator: I felix <ifelix@redhat.com>\n"
+"Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -23,22 +24,22 @@ msgstr ""
 "\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s: வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: %(option)s விருப்பம் "
-"எதிரிடையாகவும் ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
-"நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் "
+"%(lineno)s: வரியில் நீக்கப்பட்ட விருப்பத்தை நிராகரிக்கிறது: %(cmd)s கட்டளை "
+"நீக்கப்பட்டது இது ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
+"நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும். இந்தக் கட்டளையை நீக்க உங்கள் "
 "கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "தெரியாத கட்டளை: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -103,15 +104,15 @@ msgstr "விருப்பம் %(opt)s: தவறான பூலியன�
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "குழு --nodefaults மற்றும் --optional இரண்டையும் குறிப்பிடாது"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "துணைபுரியாத பதிப்பு குறிப்பிடப்பட்டுள்ளது"
+msgstr "துணைபுரியாத பதிப்பு குறிப்பிடப்பட்டுள்ளது: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -148,3 +149,4 @@ msgstr "உள்ளீடு கோப்பில் பொதுவான க
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
+
