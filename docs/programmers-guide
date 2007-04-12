@@ -223,79 +223,74 @@ Most people will not need this capability, as what they are really after
 is an instance of that class.  makeVersion returns that instance.
 
 
+Handler Classes
+===============
+Kickstart syntax versions are each represented by a file in the handlers/
+subdirectory.  For the most part, these are extremely simple files that
+define a subclass of the BaseHandler class mentioned above.  The names of
+the handler files are important, but this only matters when adding support
+for new syntax version.  This will be discussed in a later section.
+
+The control.py file is a little more complicated, however.
+
+control.py
+----------
+This file contains two dictionaries.  The commandMap defines a mapping
+from a syntax version number (as returned by version.stringToVersion) to
+another dictionary.  This dictionary defines a mapping from a command
+string to an object that processes that command.  Multiple strings may map
+to the same object, since some kickstart commands have multiple names
+("part" and "partition", for instance).
+
+The dataMap is set up similarly.  It maps syntax version numbers to
+further dictionaries.  These dictionaries map data object names to the
+objects themselves.  Unlike the commandMap, each name may only map to a
+single object.  However, multiple instances of each object can exist at
+once as these instances are stored in lists.  This entire setup is
+required to handle the data for commands such as "network" and "logvol",
+which can be specified several times in one kickstart file.
+
+The structures in control.py look to be much more verbose than required.
+Since much data is duplicated among all the various substructures, it
+seems like this is a perfect place for better object oriented design.
+However, the duplication is considered a benefit in this one case.  It can
+be difficult to tell which commands are supported by each syntax version,
+and what object handles those commands.  The verbosity in this file makes
+it very clear exactly which objects will be used by each version of
+kickstart.
+
+
+Command Classes
+===============
+In the commands/ subdirectory you will see many files.  Each file
+corresponds to a single kickstart command.  At a minimum, one file will
+contain a single class that implements the parser, writer, and data store
+for that command.  This command is then entered into the appropriate place
+in the commandDict from control.py, and then called in the right places by
+the parser.
+
+These files may be slightly more complicated, however.  Some files contain
+several classes that all do the same thing.  This is because there have
+been multiple versions of the syntax for that command, and there is one
+class per version.  They are all grouped in the same file for ease of
+readability, and later versions are allowed to inherit from earlier
+versions by means of subclassing.
+
+Each file may also contain one or more data objects.  These data objects
+are the same as the contents of the dataDict from control.py.  There may
+also be several versions of each data object.
+
+At a minimum, the command classes and data classes must implement the
+methods from KickstartCommand and BaseData.  In particular, __init__,
+__str__, and parse will be called by the KickstartParser.  An exception
+will be raised if one is not defined and the abstract class's method is
+called instead.
+
+
+
+
 *** EVERYTHING UNDER HERE IS CURRENTLY OUT OF DATE AND SLOWLY BEING
 *** REWRITTEN.
-
-data.py
--------
-This file contains the classes that make up the common data
-representation.  The center of the data format is the KickstartData class,
-which contains many attributes representing the values from the input
-file.  When a new KickstartData is instantiated, these attributes are set
-to appropriate default values.  Some attributes are a simple string or
-boolean, while some are a list of other classes or dictionaries.  For the
-most part, each lines up with a single kickstart command.
-
-The KickstartLogVolData, KickstartNetworkData, KickstartPartData,
-KickstartRaidData, and KickstartVolGroupData classes are contained as list
-elements in KickstartData.  Each corresponds to a command that may appear
-multiple times.  They exist as separate classes so that attributes are
-guaranteed to exist.
-
-See the class reference at the end of this documentation for a brief
-explanation of useful functions in each class.
-
-parser.py
----------
-The other major class within parser.py is KickstartHeaders.  This makes up
-the largest amount of the code and also does the most work as it deals
-with processing all the options on all the kickstart commands.
-KickstartHandlers.handlers is a dictionary mapping command names to
-handling methods.  KickstartParser takes the current command and
-dispatches the correct method based on this mapping.  If the command name
-maps to None, no method is called and no error is issued, a handy feature
-which will be discussed later in this documentation.
-
-Each of the handlers makes use of Python's OptionParser module to parse
-command arguments and set values in the KickstartData object.  For this
-reason, any subclass of KickstartHandlers must call the superclass's
-handler to ensure that the KickstartData is correct.  Our option parsing
-code allows commands to be marked as deprecated, which causes a message to
-be generated and logged by anaconda.  It also allows marking options as
-deprecated or required.
-
-There are a few other minor points to note about KickstartParser and
-KickstartHandlers.  When creating a KickstartParser object, you can set
-the followIncludes attribute to False if you do not wish for include files
-to be looked up and parsed as well.  There are several instances when this
-is handy.  The order of instantiation for these objects is fixed, as each
-object requires certain ones created before it.  KickstartData must be
-first, as KickstartHandlers and KickstartParser require it.
-KickstartHandlers must come second, and then finally KickstartParser.
-Note that you can pass None in for kshandlers in the special case if you
-do not care about handling any commands at all.  As we will see in the
-next section, this is useful in one special case.
-
-writer.py
----------
-This file contains the class that makes up the Kickstart writer.  The job
-of this class is to take a KickstartData object and convert it into a
-string.  This string should be a valid kickstart file that can then be
-used in any program.  Ideally, it should be the same as the input file
-though the order of options may have been shifted, as well as other
-cosmetic differences.
-
-It is important to note that KickstartWriter.write returns a string, but
-does no file output.  KickstartWriter is laid out similarly to
-KickstartParser.  It consists of one handler per command plus special ones
-for scripts and packages, plus a list specifying the order these handlers
-should be called in.  It is possible to add your own handlers to
-KickstartWriter if you are extending kickstart with special commands, as
-will be discussed in the next section.
-
-See the class reference at the end of this documentation for a brief
-explanation of useful functions in each class.
-
 
 Extending pykickstart
 =====================
