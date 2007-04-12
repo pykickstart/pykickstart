@@ -91,6 +91,29 @@ so:
         >>> help(parser)
         >>> help(parser.KickstartParser)
 
+base.py
+-------
+This file contains several basic classes that are used throughout the rest
+of the library.  For the most part, these are abstract classes that are
+not important to most users of pykickstart.  You will really only need to
+deal with these classes if you are extending kickstart syntax.  Other
+users will mainly only want to look at these classes to see what methods
+and attributes are provided.  This information is also available from the
+docs strings.
+
+BaseData, BaseHandler, and KickstartCommand are abstract classes that
+define common methods and attributes.  These classes may not be used
+directly - they can only be used if subclassed.  The BaseData and
+KickstartCommand classes are subclassed to create data objects and command
+processing objects.  BaseHandler is subclassed to create version handlers
+that drive the processing of commands and the setting of data.
+
+DeprecatedCommand is a subclass of KickstartCommand that may be further
+used as a subclass for command handler objects.  When one of these
+subclasses is used, a warning message is printed.  Commands that are
+deprecated are recognized by the parser, but any options given will not be
+processed and their use causes a warning message to be printed.
+
 constants.py
 ------------
 This file includes no classes, though it does include several important
@@ -98,6 +121,106 @@ constants representing various things in a kickstart handler class.  You
 should import its contents like so:
 
         from pykickstart.constants import *
+
+error.py
+--------
+This file contains several useful exceptions and methods.  There are four
+basic exceptions in pykickstart:  KickstartError, KickstartParseError,
+KickstartValueError, and KickstartVersionError.
+
+KickstartError is a generic exception, raised on conditions that are not
+appropriate for any of the other more specific exceptions.
+
+If the parser encounters an error while reading your input file, it will
+raise a KickstartParseError with the line in question.  Examples of errors
+include bad options given to section headers, include files not existing,
+or headers given for sections that are not recognized (for instance,
+typos).  If the parser encounters an error while processing the arguments
+to a command, it will raise a KickstartValueError.  Examples of these
+sorts of errors include too many or too few arguments, or missing required
+arguments.
+
+KickstartVersionError is only raised by the methods in pykickstart.version
+if an invalid version is provided by the user.
+
+Error messages should call the formatErrorMsg function to be properly
+formatted before being sent into an exception.  A properly formatted error
+message includes the line number in the kickstart file where the problem
+occurred and optionally, a more descriptive message.
+
+option.py
+---------
+This file contains the KSOptionParser and KSOption classes, which are
+specialized subclasses of OptionParser and Option from python's optparse
+module.  These classes are used extensively throughout the parser and
+command handlers.  Specialized subclasses are needed to support required,
+deprecated, and versioned options; handle specialized error reporting; and
+support additional option types.
+
+parser.py
+---------
+This file represents the bulk of pykickstart code.  At its core is the
+KickstartParser class, which is essentially a state machine.  There is one
+state for each of the sections in a kickstart file, plus some specialized
+ones to make the parser work.  The readKickstart method is the entry point
+into this class and is designed to be as generic as possible.  It reads
+from the given filename.  It is also possible that you may want to read
+from an existing string, so readKickstartFromString is also provided.
+
+With the exception of _stateMachine, all the methods in KickstartParser
+may be overridded in a subclass.  _stateMachine should never be
+overridden, however, as it provides the core logic for processing
+kickstart files.
+
+There are a few other minor points to note about KickstartParser.  When
+creating a KickstartParser object, you can set the followIncludes
+attribute to False if you do not wish for include files to be looked up
+and parsed as well.  There are several instances when this is handy.  You
+can also set the missingIncludesIsFatal attribute to False if you want to
+ignore missing include files.  This is most useful when you only care
+about the main kickstart file (like in ksvalidator, for instance).  Note
+that you can pass None in for kshandlers in the special case if you do not
+care about handling any commands at all.  As we will see later, this is
+useful in one special case.
+
+The Script class represents a single script found in the kickstart file.
+Since there can be several scripts in a single file, all the instances of
+Script are stored in a single list.  Somewhat confusingly, this list is
+stored in the handler object provided to KickstartParser when it is
+instantiated.  The script list is not stored in the parser itself.  There
+are three different types of scripts - pre, post, and traceback.  The
+script class contains an attribute that may be used to discriminate among
+types.
+
+Finally, the parser.py file contains a Packages class for representing the
+%packages section of the kickstart file.  It includes three separate lists
+- a list of packages to install, a list of packages to exclude, and a list
+of groups to install.  It does not contain anything to handle the header
+of the %packages section, as this is done by the parser.  The Packages
+instance is held in the same place as the script list.
+
+version.py
+----------
+pykickstart supports processing multiple versions of the kickstart syntax
+from the same code base.  In order to make use of this functionality,
+users must request objects by version number.  This file provides the
+methods and attributes to make this easy.  Versions are specified by
+symbolic names that match up with the names of Fedora or Red Hat
+Enterprise Linux releases.
+
+There is also a special DEVEL version that maps to the latest supported
+syntax version.  All methods in version.py take DEVEL as the implied
+version, so most people should never even need to deal with specifying
+their own version.
+
+stringToVersion and versionToString map between strings and these symbolic
+names.  These are provided to make using pykickstart a little easier.
+stringToVersion allows you to take the contents of /etc/redhat-release and
+get a pykickstart version right from that.
+
+returnClassForVersion returns the class that matches a specific version.
+Most people will not need this capability, as what they are really after
+is an instance of that class.  makeVersion returns that instance.
 
 
 *** EVERYTHING UNDER HERE IS CURRENTLY OUT OF DATE AND SLOWLY BEING
@@ -119,40 +242,11 @@ elements in KickstartData.  Each corresponds to a command that may appear
 multiple times.  They exist as separate classes so that attributes are
 guaranteed to exist.
 
-There are three different types of scripts - pre, post, and traceback -
-but all are represented in the kickstart data by a single list.  The
-Script class is contained in parser.py and contains an attribute that may
-be used to discriminate between classes.
-
-The install package list, excluded package list, and install groups list
-are kept as separate.  Excluded packages have the leading "-" stripped
-off, and groups have the leading "@" stripped.
-
 See the class reference at the end of this documentation for a brief
 explanation of useful functions in each class.
 
 parser.py
 ---------
-This file represents the bulk of pykickstart code.  At its core is the
-KickstartParser class, which is essentially a state machine.  There is one
-state for each of the sections in a kickstart file, plus some specialized
-ones to make the parser work.  The readKickstart method is the entry point
-into this class and is designed to be as generic as possible.  You should
-never have to override this method in a subclass.  All the other methods
-handle a change into a specific state and may be overridden in a
-superclass.
-
-If the KickstartParser encounters an error while reading your input file,
-it will raise a KickstartParseError with the line in question.  Examples
-of errors include bad options given to section headers, include files not
-existing, or headers given for sections that are not recognized (for
-instance, typos).
-
-Error messages should call the formatErrorMsg function to be properly
-formatted before being sent into an exception.  A properly formatted error
-message includes the line number in the kickstart file where the problem
-occurred and optionally, a more descriptive message.
-
 The other major class within parser.py is KickstartHeaders.  This makes up
 the largest amount of the code and also does the most work as it deals
 with processing all the options on all the kickstart commands.
