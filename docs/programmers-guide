@@ -56,13 +56,13 @@ file, and leaves the results in the common data format.
 
         #!/usr/bin/python
         from pykickstart.parser import *
-        from pykickstart.version import makeHandler
+        from pykickstart.version import makeVersion
 
-        kshandlers = makeHandler()
-        ksparser = KickstartParser(hsandlers)
+        kshandlers = makeVersion()
+        ksparser = KickstartParser(ksandlers)
         ksparser.readKickstart("ks.cfg")
 
-The call to makeHandler() creates a new kickstart handler object for the
+The call to makeVersion() creates a new kickstart handler object for the
 specified version.  By default, it creates one for the latest supported
 syntax version.  The call to KickstartParser() creates a new parser using
 the handler object for dealing with individual commands.  The call to
