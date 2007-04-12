@@ -22,7 +22,7 @@ This module exports several important base classes:
                   handler are derived.  Subclasses of BaseHandler hold
                   BaseData and KickstartCommand objects.
 
-    DeprecatedCommand - A concrete subclass of KickstartCommand that should
+    DeprecatedCommand - An abstract subclass of KickstartCommand that should
                         be further subclassed by users of this module.  When
                         a subclass is used, a warning message will be
                         printed.
@@ -117,8 +117,13 @@ class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.
        Any command that is deprecated should be subclassed from this class,
        only specifying an __init__ method that calls the superclass's __init__.
+       This is an abstract class.
     """
     def __init__(self, writePriority=None):
+        # We don't want people using this class by itself.
+        if self.__class__ is KickstartCommand:
+            raise TypeError, "DeprecatedCommand is an abstract class."
+
         """Create a new DeprecatedCommand instance."""
         KickstartCommand.__init__(self, writePriority)
 
