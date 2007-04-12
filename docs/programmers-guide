@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                              January 17, 2007
+                                April 12, 2007
 
 
 Introduction
@@ -58,8 +58,7 @@ file, and leaves the results in the common data format.
         from pykickstart.parser import *
         from pykickstart.version import makeVersion
 
-        kshandlers = makeVersion()
-        ksparser = KickstartParser(ksandlers)
+        ksparser = KickstartParser(makeVersion())
         ksparser.readKickstart("ks.cfg")
 
 The call to makeVersion() creates a new kickstart handler object for the
@@ -69,10 +68,13 @@ the handler object for dealing with individual commands.  The call to
 readKickstart() then reads in the kickstart file and sets values in the
 handler.
 
-After this call, you don't need ksparser anymore but you will want to hold
-on to kshandlers if you are interested in the contents of the file.  If
-you want to do some manipulations and then write out the results to a new
-file, that's as simple as:
+After this call, all the data from the input kickstart file has been set
+on the objects that handle the commands.  You can see which objects are
+available by running dir(ksparser.handler), and then inspect various data
+settings by examining the contents of each of those objects.
+
+The data can be modified if you want.  You can then write out the contents
+to a new file by simply calling:
 
         outfile = open("out.cfg", 'w")
         outfile.write(kshandlers.__str__())
@@ -286,55 +288,109 @@ __str__, and parse will be called by the KickstartParser.  An exception
 will be raised if one is not defined and the abstract class's method is
 called instead.
 
+There are a couple important things to know about command classes.  The
+more complex commands have a lot of data attributes.  In writing code to
+deal with these commands, it can be very tedious to write things like:
 
+   ksparser.handler.bootloader.forceLBA = True
+   ksparser.handler.bootloader.linear = False
+   ksparser.handler.bootloader.password = "blah"
 
+As a shortcut, command classes provide a __call__ method that allows a
+much more concise and natural way to set a lot of attributes.  Any keyword
+arguments to a command's __init__ method may be passed like this:
 
-*** EVERYTHING UNDER HERE IS CURRENTLY OUT OF DATE AND SLOWLY BEING
-*** REWRITTEN.
+   ksparser.handler.bootloader(forceLBA=True, linear=False, password="blah")
+
+Also, all command classes have a writePriority attribute.  This controls
+the order in which commands will be written out when
+KickstartParser.__str__ is called.  This is needed because the order of
+certain commands matters to anaconda.  Lower numbered commands will be
+written out before higher numbered ones.  If several classes have the same
+priority, they are written in alphabetical order.
+
 
 Extending pykickstart
 =====================
-By default, pykickstart reads in a kickstart file and sets values in a
-KickstartData object.  This is useful for some applications, but not all.
-anaconda in particular has some odd requirements for kickstart so it will
-be our basis for examples on extending pykickstart.
+By default, pykickstart reads in a kickstart file and sets values in the
+command handler objects.  This is useful for some applications, but not
+all.  anaconda in particular has some odd requirements so it will be our
+basis for examples on extending pykickstart.
 
 Only paying attention to one command
 ------------------------------------
 Sometimes, you only want to take action on a single kickstart command and
 don't care about any of the others.  anaconda, for instance, supports a
 vnc command that needs to be processed well before any of the other
-commands.  Remember from earlier that any command mapping to None in the
-handlers is skipped.  That makes this fairly easy, then.  All we need to
-do is make a specialized KickstartHandlers subclass and hook this into a
-regular parser:
+commands.  pykickstart has some functionality to handle this.  Version
+handlers maintain an internal dictionary mapping commands to objects.  By
+setting objects in this dictionary to None, pykickstart knows to ignore
+them.
 
-	from pykickstart.data import *
-	from pykickstart.parser import *
+Luckily, you don't have to deal with these internal data structures
+yourself.  All that is required is to create a special BaseHandler
+subclass and mask out all commands except the ones you are interested in:
 
-	class VNCHandlers(KickstartHandlers):
-		def __init__ (self, ksdata):
-			KickstartHandlers.__init__(self, ksdata)
-			self.resetHandlers()
-			self.handlers["vnc"] = self.doVnc
+   from pykickstart.parser import KickstartParser
+   from pykickstart.version import *
 
-	ksdata = KickstartData()
-	kshandlers = VNCHandlers(ksdata)
-	ksparser = KickstartParser(ksdata, kshandlers)
-	ksparser.readKickstart("ks.cfg")
+   superclass = returnClassForVersion()
 
-Here, we make use of the KickstartHandlers.resetHandlers method.  This
-method blanks out every entry in the handlers dictionary.  We then set the
-vnc command handler to the default value, which you can easily get from
-checking out the pykickstart source.  Then, make an instance of our new
-class and pass this to KickstartParser().  When readKickstart is called,
-the file will be parsed as usual but only the vnc command will ever be
-handled.
+   class VNCHandlers(superclass):
+      def __init__(self, mapping={}):
+         superclass.__init__(self, mapping=mapping)
+         self.maskAllExcept(["vnc"])
 
-You can then check the results by examining ksdata.vnc.
+   ksparser = KickstartParser(VNCHandlers())
+   ksparser.readKickstart("ks.cfg")
+
+Here, we make use of the BaseHandler.maskAllExcept method.  This method
+blanks out the handler for every command except the ones given in the
+list.  Note that the commands are specified by their string
+representation, not by object reference.  We must also be careful when
+creating the VNCHandler class to make sure it is a subclass.  Here, we use
+the default DEVEL syntax version handler as the superclass.
+
+You can then check the results by examining the attributes of
+ksparser.handler.vnc.
 
 Customized handlers
 -------------------
+In other cases, you may want to include some customized behavior in your
+kickstart handlers.  Due to the use of the commandMap in version.py, this
+is not as straightforward as it should be.  Including specialized behavior
+for a single handler involves a fairly large amount of code, but
+specializing the behavior for all handlers does not require much more
+overhead.
+
+   import pykickstart.commands as commands
+   from pykickstart.version import *
+
+   class Bootloader(commands.bootloader.FC4_Bootloader):
+      def parse(self, args):
+         commands.bootloader.FC4_Bootloader.parse(self, args)
+         print "bootloader location = %s" % self.location
+
+   newCommandMap = { "auth": ... ,
+                     ... ,
+                     "bootloader": Bootloader,
+                     ... ,
+                   }
+
+   superclass = returnClassForVersion()
+
+   class KSHandlers(superclass):
+      def __init__(self, mapping=newCommandMap):
+          superclass.__init__(self, mapping=mapping)
+
+   ksparser = KickstartParser(KSHandlers())
+   ksparser.readKickstart("ks.cfg")
+
+
+
+
+
+
 In other cases, you may want to include some customized behavior in your
 kickstart handlers.  In this case, you'll still want to create a subclass
 of KickstartHandlers, though you will need to make sure your handler calls
@@ -468,6 +524,7 @@ appropriate string otherwise.
 
 Adding a new section
 --------------------
-Currently, there is no simple way to add a new section.  This requires
-adding more code to readKickstart as well as additional states.
-readKickstart is not set up to do this sort of thing easily.
+Currently, there is no simple way to add a new section to the kickstart
+file.  This requires adding more code to _stateMachine as well as
+additional states.  _stateMachine is not set up to do this sort of thing
+easily.
