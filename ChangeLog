@@ -1,3 +1,9 @@
+2007-04-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  This is pykickstart version 1.0.
+
+	* docs/programmers-guide:  Update documentation.
+
 2007-04-12  Chris Lumens  <clumens@redhat.com>
 
 	* docs/programmers-guide:  Update documentation.

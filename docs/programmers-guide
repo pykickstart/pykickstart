@@ -4,7 +4,7 @@
 
                                by Chris Lumens
 
-                                April 12, 2007
+                                April 13, 2007
 
 
 Introduction
@@ -28,7 +28,7 @@ doesn't understand so that the input and output files do not match.
 
 pykickstart is an effort to correct this.  It was originally designed to
 be a common code base for anaconda and system-config-kickstart, so making
-the code generic and easily extendable were top priorities.  Another
+the code generic and easily extensible were top priorities.  Another
 priority was to formalize the currently recognized grammar in an easily
 understood parser so that files that used to work would continue to.  I
 believe these goals have been met.
@@ -52,7 +52,7 @@ Getting Started
 Before diving into the full documentation, it is useful to see an example
 of how simple it is to use the default pykickstart in your programs.  Here
 is a code snippet that imports the required classes, parses a kickstart
-file, and leaves the results in the common data format.
+file, and leaves the results in the common data format:
 
         #!/usr/bin/python
         from pykickstart.parser import *
@@ -69,9 +69,9 @@ readKickstart() then reads in the kickstart file and sets values in the
 handler.
 
 After this call, all the data from the input kickstart file has been set
-on the objects that handle the commands.  You can see which objects are
-available by running dir(ksparser.handler), and then inspect various data
-settings by examining the contents of each of those objects.
+on the command objects.  You can see which objects are available by
+running dir(ksparser.handler), and then inspect various data settings by
+examining the contents of each of those objects.
 
 The data can be modified if you want.  You can then write out the contents
 to a new file by simply calling:
@@ -81,8 +81,8 @@ to a new file by simply calling:
         outfile.close()
 
 
-Classes
-=======
+Files
+=====
 The important classes that make up pykickstart are spread across a handful
 of files.  This section includes a brief outline of the contents of those
 classes.  For more thorough documentation, refer to the python doc strings
@@ -107,14 +107,14 @@ BaseData, BaseHandler, and KickstartCommand are abstract classes that
 define common methods and attributes.  These classes may not be used
 directly - they can only be used if subclassed.  The BaseData and
 KickstartCommand classes are subclassed to create data objects and command
-processing objects.  BaseHandler is subclassed to create version handlers
-that drive the processing of commands and the setting of data.
+objects.  BaseHandler is subclassed to create version handlers that drive
+the processing of commands and the setting of data.
 
 DeprecatedCommand is a subclass of KickstartCommand that may be further
-used as a subclass for command handler objects.  When one of these
-subclasses is used, a warning message is printed.  Commands that are
-deprecated are recognized by the parser, but any options given will not be
-processed and their use causes a warning message to be printed.
+used as a subclass for command objects.  When one of these subclasses is
+used, a warning message is printed.  Commands that are deprecated are
+recognized by the parser, but any options given will not be processed and
+their use causes a warning message to be printed.
 
 constants.py
 ------------
@@ -145,17 +145,17 @@ arguments.
 KickstartVersionError is only raised by the methods in pykickstart.version
 if an invalid version is provided by the user.
 
-Error messages should call the formatErrorMsg function to be properly
-formatted before being sent into an exception.  A properly formatted error
-message includes the line number in the kickstart file where the problem
-occurred and optionally, a more descriptive message.
+Error messages should call formatErrorMsg() to be properly formatted
+before being sent into an exception.  A properly formatted error message
+includes the line number in the kickstart file where the problem occurred
+and optionally, a more descriptive message.
 
 option.py
 ---------
 This file contains the KSOptionParser and KSOption classes, which are
 specialized subclasses of OptionParser and Option from python's optparse
 module.  These classes are used extensively throughout the parser and
-command handlers.  Specialized subclasses are needed to support required,
+command objects.  Specialized subclasses are needed to support required,
 deprecated, and versioned options; handle specialized error reporting; and
 support additional option types.
 
@@ -164,13 +164,13 @@ parser.py
 This file represents the bulk of pykickstart code.  At its core is the
 KickstartParser class, which is essentially a state machine.  There is one
 state for each of the sections in a kickstart file, plus some specialized
-ones to make the parser work.  The readKickstart method is the entry point
+ones to make the parser work.  The readKickstart() method is the entry point
 into this class and is designed to be as generic as possible.  It reads
-from the given filename.  It is also possible that you may want to read
-from an existing string, so readKickstartFromString is also provided.
+from the given file name.  It is also possible that you may want to read
+from an existing string, so readKickstartFromString() is also provided.
 
-With the exception of _stateMachine, all the methods in KickstartParser
-may be overridded in a subclass.  _stateMachine should never be
+With the exception of _stateMachine(), all the methods in KickstartParser
+may be overridden in a subclass.  _stateMachine() should never be
 overridden, however, as it provides the core logic for processing
 kickstart files.
 
@@ -215,14 +215,14 @@ syntax version.  All methods in version.py take DEVEL as the implied
 version, so most people should never even need to deal with specifying
 their own version.
 
-stringToVersion and versionToString map between strings and these symbolic
-names.  These are provided to make using pykickstart a little easier.
-stringToVersion allows you to take the contents of /etc/redhat-release and
-get a pykickstart version right from that.
+stringToVersion() and versionToString() map between strings and these
+symbolic names.  These are provided to make using pykickstart a little
+easier.  stringToVersion() allows you to take the contents of
+/etc/redhat-release and get a pykickstart version right from that.
 
-returnClassForVersion returns the class that matches a specific version.
+returnClassForVersion() returns the class that matches a specific version.
 Most people will not need this capability, as what they are really after
-is an instance of that class.  makeVersion returns that instance.
+is an instance of that class.  makeVersion() returns that instance.
 
 
 Handler Classes
@@ -238,7 +238,7 @@ The control.py file is a little more complicated, however.
 control.py
 ----------
 This file contains two dictionaries.  The commandMap defines a mapping
-from a syntax version number (as returned by version.stringToVersion) to
+from a syntax version number (as returned by version.stringToVersion()) to
 another dictionary.  This dictionary defines a mapping from a command
 string to an object that processes that command.  Multiple strings may map
 to the same object, since some kickstart commands have multiple names
@@ -268,7 +268,7 @@ In the commands/ subdirectory you will see many files.  Each file
 corresponds to a single kickstart command.  At a minimum, one file will
 contain a single class that implements the parser, writer, and data store
 for that command.  This command is then entered into the appropriate place
-in the commandDict from control.py, and then called in the right places by
+in the commandMap from control.py, and then called in the right places by
 the parser.
 
 These files may be slightly more complicated, however.  Some files contain
@@ -279,7 +279,7 @@ readability, and later versions are allowed to inherit from earlier
 versions by means of subclassing.
 
 Each file may also contain one or more data objects.  These data objects
-are the same as the contents of the dataDict from control.py.  There may
+are the same as the contents of the dataMap from control.py.  There may
 also be several versions of each data object.
 
 At a minimum, the command classes and data classes must implement the
@@ -313,9 +313,9 @@ priority, they are written in alphabetical order.
 Extending pykickstart
 =====================
 By default, pykickstart reads in a kickstart file and sets values in the
-command handler objects.  This is useful for some applications, but not
-all.  anaconda in particular has some odd requirements so it will be our
-basis for examples on extending pykickstart.
+command objects.  This is useful for some applications, but not all.
+anaconda in particular has some odd requirements so it will be our basis
+for examples on extending pykickstart.
 
 Only paying attention to one command
 ------------------------------------
@@ -364,6 +364,7 @@ specializing the behavior for all handlers does not require much more
 overhead.
 
    import pykickstart.commands as commands
+   from pykickstart.handlers.control import commandMap
    from pykickstart.version import *
 
    class Bootloader(commands.bootloader.FC4_Bootloader):
@@ -371,156 +372,104 @@ overhead.
          commands.bootloader.FC4_Bootloader.parse(self, args)
          print "bootloader location = %s" % self.location
 
-   newCommandMap = { "auth": ... ,
-                     ... ,
-                     "bootloader": Bootloader,
-                     ... ,
-                   }
+   commandMap[DEVEL]["bootloader"] = Bootloader
 
    superclass = returnClassForVersion()
 
    class KSHandlers(superclass):
-      def __init__(self, mapping=newCommandMap):
-          superclass.__init__(self, mapping=mapping)
+      def __init__(self, mapping={}):
+          superclass.__init__(self, mapping=commandMap[DEVEL])
 
    ksparser = KickstartParser(KSHandlers())
    ksparser.readKickstart("ks.cfg")
 
+First, we must create a new class for the specialized command object.
+This class does not have to be a subclass of an already existing handler,
+but that would require fully writing the parse, __str__, and __init__
+methods.  Instead of doing that, we just subclass it from the latest
+version of Bootloader.
 
+We then import the existing commandMap, overriding the entry for the
+"bootloader" command with our own new class.  We also have to create a
+special BaseHandler subclass, though here it doesn't do very much.  Its
+only purpose is to deal with our new commandMap.  By default, the
+pykickstart internals will use the commandMap in
+pykickstart.handlers.control.  Since we've modified the mapping, we need
+to tell pykickstart to use it.
 
+It used to be possible to force the handlers, but now it makes more sense
+to just create a BaseHandler subclass and stick any attributes you need
+access to into that object.  They can then be accessed via the
+self.handler attribute in any command object.  For instance, a handler
+could be created like so:
 
+   class SpecialHandler(superclass):
+      def __init__(self, mapping={}):
+         superclass.__init__(self, mapping=mapping)
 
-
-In other cases, you may want to include some customized behavior in your
-kickstart handlers.  In this case, you'll still want to create a subclass
-of KickstartHandlers, though you will need to make sure your handler calls
-the superclass still.
-
-	from pykickstart.data import *
-	from pykickstart.parser import *
-
-	class KSHandlers(KickstartHandlers):
-		def doBootloader (self, args):
-			KickstartHandlers.doBootloader(self, args)
-			print "bootloader location = %s" % self.ksdata.bootloader["location"]
-
-	ksdata = KickstartData()
-	kshandlers = VNCHandlers(ksdata)
-	ksparser = KickstartParser(ksdata, kshandlers)
-	ksparser.readKickstart("ks.cfg")
-
-This example is very simple, but you can still see what would be required
-for complex cases.  Your handler needs to accept an args argument, which
-is a list of arguments provided to the command.  Then, make sure to call
-the superclass's method of the same name to set the KickstartData.
-Finally, do your specialized behavior.
-
-It is even possible to force your handlers to accept more arguments,
-though it is slightly more complicated.  This requires making a subclass
-of KickstartParser in addition to KickstartHandlers.
-
-	from pykickstart.data import *
-	from pykickstart.parser import *
-
-	class KSHandlers(KickstartHandlers):
-		def doBootloader (self, userarg, args):
-			KickstartHandlers.doBootloader(self, args)
-			print "%s bootloader location = %s" % (userarg, self.ksdata.bootloader["location"])
-
-		...
-
-	class KSParser(KickstartParser):
-		def __init__ (self, ksdata, kshandlers, userarg):
-			self.userarg = userarg
-			KickstartParser.__init__(self, ksdata, kshandlers)
-
-		def handleCommand (self, cmd, args):
-			if not self.handler:
-				return
-
-			if not self.handler.handlers.has_key(cmd):
-				raise KickstartParseError, (cmd + " " + string.join(args))
-			else:
-				if self.handler.handlers[cmd] != None:
-					self.handler.currentCmd = cmd
-					self.handler.handlers[cmd](self.userarg,
-args)
-
-	ksdata = KickstartData()
-	kshandlers = VNCHandlers(ksdata)
-	ksparser = KSParser(ksdata, kshandlers, "note: ")
-	ksparser.readKickstart("ks.cfg")
-
-Let's examine this example a little more closely.  First, you need to
-create a subclass of KickstartParser whose __init__ method stores your
-argument.  Then you also need to override handleCommand.  In the
-overridden method, the only difference is that on the last line you'll
-need to pass your argument.
-
-In your subclassed KickstartHandlers, you will need to make sure every
-handler accepts your new argument.  You could possibly get around this
-requirement by further modifying handleCommand to strip off your argument
-for commands that do not accept it.  However, I'm not demonstrating that
-here.  Then, make sure to call the superclass's handler method without any
-additional arguments.
+         # special data we want to access in command objects
+         self.skipSteps = []
+         self.showSteps = []
+         self.ksID = 10000
 
 Adding a new command
 --------------------
-Adding support for a new command is fairly straightforward.  You'll need
-to create a KickstartHandlers and KickstartWriter subclass and add your
-methods to the handler lists.
+Adding a new command to pykickstart is only slightly more complicated than
+customizing a handler.  Here, we create a new hypothetical "confirm"
+command.  If we were to add this into anaconda as well, it might do
+something such as tell the installer to stop at the confirmation screen
+and wait for input.
 
-	from pykickstart.data import *
-	from pykickstart.parser import *
-	from pykickstart.writer import *
+   from pykickstart.base import *
+   from pykickstart.handlers.control import commandMap
+   from pykickstart.errors import *
+   from pykickstart.parser import KickstartParser
+   from pykickstart.version import *
 
-	class SpecialHandlers(KickstartHandlers):
-		def __init__ (self, ksdata):
-			KickstartHandlers.__init__(self, ksdata)
-			self.handlers["log"] = self.doLog
+   class F7_Confirm(KickstartCommand):
+       def __init__(self, writePriority=0, confirm=False):
+           KickstartCommand.__init__(self, writePriority)
+           self.confirm = confirm
 
-		def doLog (self, args):
-			op = KSOptionParser()
-			op.add_option("--level", dest="level")
-			op.add_option("--host", dest="host")
+       def __str__(self):
+           if self.confirm:
+               return "confirm\n"
+           else:
+               return ""
 
-			(opts, extra) = op.parse_args(args=args)
+       def parse(self, args):
+           if len(args) > 0:
+               raise KickstartValueError, formatErrorMsg(self.lineno, msg=("Kickstart command %s does not take any arguments") % "confirm")
 
-			self.ksdata.log["level"] = getattr(opts, "level")
-			self.ksdata.log["host"] = getattr(opts, "host")
+           self.confirm = True
 
-	class SpecialWriter(KickstartWriter):
-		def __init__ (self, ksdata):
-			KickstartWriter.__init__(self, ksdata)
-			self.handlers.insert(1, self.doLog)
+   commandMap[DEVEL]["confirm"] = F7_Confirm
+   superclass = returnClassForVersion()
 
-		def doLog(self):
-			argstr = ""
+   class KSHandlers(superclass):
+       def __init__(self, mapping={}):
+           superclass.__init__(self, mapping=commandMap[DEVEL])
 
-			if self.ksdata.log["level"]:
-				argstr = "--level=%s" % self.ksdata.log["level"]
-			if self.ksdata.log["host"]:
-				argstr = argstr + "--host=%s" % self.ksdata.log["host"]
+   ksparser = KickstartParser(KSHandlers())
+   ksparser.readKickstart("ks.cfg")
+   print ksparser.handler.confirm.confim
 
-			if argstr != "":
-				return "log %s" % argstr
-			else
-				return
+Notice how the command object is subclassed from the base object,
+KickstartCommand.  Its name also has a version number at the beginning.
+While all command object names in pykickstart take the form
+Version_CommandName, this is not strictly necessary.  Also note how
+F7_Confirm.__init__ takes a "confirm" keyword argument.  All publicly
+available attributes should be accepted like this for convenience.
 
-	ksdata = KickstartData()
-	kshandlers = SpecialHandlers(ksdata)
-	ksparser = KickstartParser(ksdata, kshandlers)
-	ksparser.readKickstart("ks.cfg")
-
-This is all fairly straightforward, with the possible exception of the
-OptionParser stuff.  Without getting into it too much, you'll need to
-create a new instance of KSOptionParser, and then use the Python
-documentation on how to use it.  It's a very complex, powerful class.
-Make sure to set the KickstartData afterwards.
-
-The KickstartWriter object is also pretty simple.  Make sure your method
-returns an empty string if there's nothing set on this option, and the
-appropriate string otherwise.
+Adding a new version
+--------------------
+While multiple version support is one of the major features of
+pykickstart, adding a new version is more complicated than can be shown in
+a simple example.  The basic requirements would involve first creating a
+new handler along the lines of those in handlers/*.py, adding new entries
+to the commandMap and dataMap structures laying out exactly which commands
+are supported, and then duplicating most of the code in version.py to add
+the new version number and proper imports.
 
 Adding a new section
 --------------------

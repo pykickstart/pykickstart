@@ -1,6 +1,3 @@
 - audit options for what's new/deprecated/removed from FC5->FC6
-- redo documentation:
-   - describe how to subclass the important things
-   - update programmers-guide
 - subclassing command handlers and data objects to make minor changes is a
   pain
