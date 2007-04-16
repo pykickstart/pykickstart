@@ -1,20 +1,21 @@
 # translation of hi.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Rajesh Ranjan <rranjan@redhat.com>, 2006.
 #
+# Rajesh Ranjan <rranjan@redhat.com>, 2006.
+# hi <rranjan@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2006-11-23 13:33+0530\n"
-"Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
+"PO-Revision-Date: 2007-04-16 12:52+0530\n"
+"Last-Translator: hi <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
@@ -65,7 +66,7 @@ msgstr "%s विकल्प जरूरी है"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "%(option)s विकल्प %(intro)s संस्करण में लाया गया था, लेकिन आप किकस्टार्ट वाक्यरचना संस्करण %(version)s का प्रयोग कर रहे हैं"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -84,7 +85,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "%(option)s विकल्प %(removed)s संस्करण में हटाया गया था, लेकिन आप किकस्टार्ट वाक्यरचना संस्करण %(version)s का प्रयोग कर रहे हैं"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -97,7 +98,7 @@ msgstr "विकल्प %(opt)s: अवैध बुलियन मान: %
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "समूह --nodefaults और --optional दोनों को निर्दिष्ट नहीं कर सकता है"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -105,7 +106,7 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "असमर्थित संस्करण निर्दिष्ट: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -118,12 +119,12 @@ msgstr "जब %include देखा जाता है विश्लेष�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "किकस्टार्ट वाक्य रचना का संस्करण जिसके वरक्स सत्यापित करना है"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "संस्करण %s pykickstart के द्वारा समर्थित नहीं है"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -142,3 +143,4 @@ msgstr "इनपुट फाइल में सामान्य किक�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल में सामान्य त्रुटि:  %s"
+
