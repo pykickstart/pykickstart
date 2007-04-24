@@ -38,6 +38,7 @@ from rhpl.translate import _
 from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.
+RHEL3 = 900
 FC3 = 1000
 RHEL4 = 1100
 FC4 = 2000
@@ -53,7 +54,7 @@ DEVEL = F7
 versionMap = {
         "DEVEL": DEVEL,
         "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7,
-        "RHEL4": RHEL4, "RHEL5": RHEL5
+        "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
 def stringToVersion(string):
@@ -125,6 +126,9 @@ def returnClassForVersion(version=DEVEL):
     elif version == F7:
         from pykickstart.handlers.f7 import F7Handler
         return F7Handler
+    elif version == RHEL3:
+        from pykickstart.handlers.rhel3 import RHEL3Handler
+        return RHEL3Handler
     elif version == RHEL4:
         from pykickstart.handlers.rhel4 import RHEL4Handler
         return RHEL4Handler

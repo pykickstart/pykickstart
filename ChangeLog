@@ -3,6 +3,14 @@
 	* pykickstart/version.py (stringToVersion):  Better regexes for
 	splitting strings into family and version.
 
+	* pykickstart/version.py:  Add support for RHEL3 (jlaska AT
+	redhat.com).
+	* pykickstart/handlers/control.py:  Likewise.
+	* pykickstart/handlers/rhel3.py:  Likewise.
+
+	* pykickstart/commands/mouse.py:  Initial support for RHEL3 commands
+	(jlaska AT redhat.com).
+
 2007-04-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  This is pykickstart version 1.0.
