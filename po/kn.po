@@ -3,19 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # shankar Prasad <svenkate@redhat.com>, 2006.
+# Shankar Prasad <svenkate@redhat.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2006-12-11 14:05+0530\n"
-"Last-Translator: shankar Prasad <svenkate@redhat.com>\n"
+"PO-Revision-Date: 2007-05-02 10:44+0530\n"
+"Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplural=2;plural=(n !=1);\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: ../pykickstart/base.py:132
 #, python-format
@@ -62,6 +63,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(intro)s ಯಲ್ಲ್ಲಿ ಪರಿಚಯಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು "
+"ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -82,6 +85,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(removed)s ನಲ್ಲ್ಲಿ ವಜಾಗೊಳಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು "
+"ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -94,7 +99,7 @@ msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌ
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "ಸಮೂಹಕ್ಕೆ --nodefaults ಹಾಗೂ --optional ಗಳೆರೆಡನ್ನೂ ನಿಗದಿಸಲು ಸಾಧ್ಯವಿರುವುದಿಲ್ಲ"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -102,7 +107,7 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "ಬೆಂಬಲಿತವಾಗದ ಆವೃತ್ತಿಯನ್ನು ಸೂಚಿಸಲಾಗಿದೆ: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -115,12 +120,12 @@ msgstr "%include ಕಂಡಾಗ ವಿಶ್ಲೇಷಣೆಯು ಕಡತಗ�
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "ಇದರ ವಿರುದ್ಧ ಮಾನ್ಯಮಾಡಬೇಕಾದ ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸಿನ ಆವೃತ್ತಿ"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "pykickstart ನಿಂದ ಬೆಂಬಲಿತವಾಗದೇ ಇರುವ %s ಆವೃತ್ತಿ"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -139,3 +144,4 @@ msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
+
