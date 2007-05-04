@@ -5,14 +5,15 @@
 # Kiyoto James Hashida <khashida@redhat.com>, 2006, 2007.
 # kiyoto james hashida <khashida@brisbane.redhat.com>, 2006.
 # Noriko Mizumoto <noriko@redhat.com>, 2006.
+# Hyu_gabaru Ryu_ich <hyu_gabaru@yahoo.co.jp>, 2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-02-28 11:24\n"
-"Last-Translator: Kiyoto James Hashida <khashida@redhat.com>\n"
+"PO-Revision-Date: 2007-05-04 17:26+0900\n"
+"Last-Translator: Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,22 +21,21 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s 行の無用なオプションを無視します: %(option)s オプションは無用と"
-"なっており、どんな効果も持ちません。キックスタートの致命的なエラーとなるた"
-"め、将来のリリースでは削除される可能性があります。使用中のキックスタートファ"
-"イルを修正して、このオプションを取り除いてください。"
+"%(lineno) 行の廃止されたコマンドを無視します: %(cmd) コマンドは廃止"
+"されており、どんな効果も持ちません。将来のリリースでは削除される可能性があり"
+"、キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを"
+"修正して、このコマンドを取り除いてください。"
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "不明なコマンド: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -75,10 +75,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"%(lineno)s 行の無用なオプションを無視します: %(option)s オプションは無用と"
-"なっており、どんな効果も持ちません。キックスタートの致命的なエラーとなるた"
-"め、将来のリリースでは削除される可能性があります。使用中のキックスタートファ"
-"イルを修正して、このオプションを取り除いてください。"
+"%(lineno) 行の廃止されたオプションを無視します: %(option) オプションは廃止さ"
+"れており、どんな効果も持ちません。将来のリリースでは削除される可能性があり、"
+"キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを"
+"修正して、このオプションを取り除いてください。"
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -96,19 +96,18 @@ msgstr "値を取らないオプションに必要なフラグが設定されて
 #: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "オプション %(opt)s: 無効なブーリアン値: %(value)r"
+msgstr "オプション %(opt)s: 無効なブール値: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "--nodefaults と --optional の両方のグループは指定できません"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
 msgid "Unsupported version specified: %s"
-msgstr "サポートのないバージョンが指定されています。"
+msgstr "サポートされていないバージョンが指定されています: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
