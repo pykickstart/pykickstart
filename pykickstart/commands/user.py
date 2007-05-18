@@ -50,7 +50,7 @@ class FC6_UserData(BaseData):
         if self.password:
             retval += " --password=%s" % self.password
         if self.isCrypted:
-            retval += " --isCrypted"
+            retval += " --iscrypted"
         if self.shell:
             retval += " --shell=%s" % self.shell
         if self.uid:
@@ -78,7 +78,7 @@ class FC6_User(KickstartCommand):
         def groups_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
-            
+
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--groups", dest="groups", action="callback",
                       callback=groups_cb, nargs=1, type="string")
