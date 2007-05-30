@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-01-11 10:23+0530\n"
+"PO-Revision-Date: 2007-05-28 18:02+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,21 +21,22 @@ msgstr ""
 "\n"
 
 #: ../pykickstart/base.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  %(option)s കമാന്‍ഡ് ഇനി "
-"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുക, kickstart-ന്‍റെ ഒരു പിഴവായി ഇത് "
-"കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക"
+"%(lineno)s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  %(cmd)s കമാന്‍ഡ് ഇനി "
+"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുന്നതാണ്, kickstart-ന്‍റെ ഒരു "
+"പിഴവായി ഇത് കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart "
+"ഫയലില്‍ മാറ്റം വരുത്തുക."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "തെറ്റായ കമാന്‍ഡ്: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -99,15 +100,15 @@ msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്�
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "ഗ്റൂപ്പിന് --nodefaults-ഉം --optional-ഉം നല്‍കുവാന്‍ സാധ്യമല്ല"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
 #: ../pykickstart/version.py:90 ../pykickstart/version.py:101
 #: ../pykickstart/version.py:135
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "പിന്തുണ ലഭ്യമല്ലാത്ത വേറ്‍ഷന്‍"
+msgstr "പിന്തുണ ലഭ്യമല്ലാത്ത വേറ്‍ഷന്‍: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -144,3 +145,4 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
+
