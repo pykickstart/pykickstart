@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.1
+Version: 1.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Mon Jun 04 2007 Chris Lumens <clumens@redhat.com> - 1.2-1
+- Fix harddrive install method error checking (#232492).
+- Set authentication information from the input line to preserve quoting
+  (#241657).
+- Allow included files to be given by URL.
+- Fix typo in user --iscrypted option.
+
 * Mon May 14 2007 Chris Lumens <clumens@redhat.com> - 1.1-1
 - Better regexes for splitting version strings into family and version.
 - Add basic support for RHEL3.
