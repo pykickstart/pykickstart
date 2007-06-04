@@ -68,13 +68,12 @@ class FC3_Method(KickstartCommand):
             op.add_option("--url", dest="url", required=1)
 
         (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
 
         if self.currentCmd == "harddrive":
             if self.biospart is None and self.partition is None or \
                self.biospart is not None and self.partition is not None:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
-
-        self._setToSelf(op, opts)
 
 class FC6_Method(FC3_Method):
     def __init__(self, writePriority=0, method=""):
@@ -123,10 +122,9 @@ class FC6_Method(FC3_Method):
             op.add_option("--url", dest="url", required=1)
 
         (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
 
         if self.currentCmd == "harddrive":
             if self.biospart is None and self.partition is None or \
                self.biospart is not None and self.partition is not None:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
-
-        self._setToSelf(op, opts)

@@ -256,6 +256,8 @@ class KickstartParser:
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self._reset()
 
+        self._line = ""
+
         self.version = self.handler.version
 
     def _reset(self):
@@ -293,7 +295,8 @@ class KickstartParser:
            overridden in a subclass if necessary.
         """
         if self.handler:
-            self.handler.dispatcher(args[0], args[1:], lineno)
+            self.handler.currentLine = self._line
+            self.handler.dispatcher(args, lineno)
 
     def handlePackageHdr (self, lineno, args):
         """Process the arguments to the %packages header and set attributes
@@ -360,7 +363,7 @@ class KickstartParser:
         while True:
             if needLine:
                 try:
-                    line = provideLineFn()
+                    self._line = provideLineFn()
                 except StopIteration:
                     break
 
@@ -368,17 +371,17 @@ class KickstartParser:
                 needLine = False
 
             # At the end of an included file
-            if line == "" and self._includeDepth > 0:
+            if self._line == "" and self._includeDepth > 0:
                 break
 
             # Don't eliminate whitespace or comments from scripts.
-            if line.isspace() or (line != "" and line.lstrip()[0] == '#'):
+            if self._line.isspace() or (self._line != "" and self._line.lstrip()[0] == '#'):
                 # Save the platform for s-c-kickstart, though.
-                if line[:10] == "#platform=" and self._state == STATE_COMMANDS:
-                    self.handler.platform = line[11:]
+                if self._line[:10] == "#platform=" and self._state == STATE_COMMANDS:
+                    self.handler.platform = self._line[11:]
 
                 if self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                    self._script["body"].append(line)
+                    self._script["body"].append(self._line)
 
                 needLine = True
                 continue
@@ -390,13 +393,13 @@ class KickstartParser:
                 # Have we found a state transition?  If so, we still want
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
-                if line != "" and string.split(line.lstrip())[0] in \
+                if self._line != "" and string.split(self._line.lstrip())[0] in \
                    ["%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
-                    args = shlex.split(line)
+                    args = shlex.split(self._line)
                 else:
                     args = None
             else:
-                args = shlex.split(line)
+                args = shlex.split(self._line)
 
             if args and args[0] == "%include":
                 # This case comes up primarily in ksvalidator.
@@ -471,7 +474,7 @@ class KickstartParser:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
-                    self.addPackages (string.rstrip(line))
+                    self.addPackages (string.rstrip(self._self._line))
 
             elif self._state == STATE_SCRIPT_HDR:
                 needLine = True
@@ -503,7 +506,7 @@ class KickstartParser:
                         print msg
 
             elif self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                if line == "" and self._includeDepth == 0:
+                if self._line == "" and self._includeDepth == 0:
                     # If we're at the end of the kickstart file, add the script.
                     self.addScript()
                     self._state = STATE_END
@@ -516,7 +519,7 @@ class KickstartParser:
                     self._state = STATE_COMMANDS
                 else:
                     # Otherwise just add to the current script body.
-                    self._script["body"].append(line)
+                    self._script["body"].append(self._line)
                     needLine = True
 
             elif self._state == STATE_END:

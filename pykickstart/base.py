@@ -51,8 +51,8 @@ class KickstartCommand:
            provided by all subclasses, but subclasses must call
            KickstartCommand.__init__ first.  Instance attributes:
 
-           currentCmd    -- The name of the command in the input file that
-                            caused this handler to be run.
+           currentLine   -- The current unprocessed line from the input file
+                            that caused this handler to be run.
            handler       -- A reference to the BaseHandler subclass this
                             command is contained withing.  This is needed to
                             allow referencing of Data objects.
@@ -71,7 +71,7 @@ class KickstartCommand:
         self.writePriority = writePriority
 
         # These will be set by the dispatcher.
-        self.currentCmd = ""
+        self.currentLine = ""
         self.handler = None
         self.lineno = 0
 
@@ -133,7 +133,12 @@ class DeprecatedCommand(KickstartCommand):
 
     def parse(self, args):
         """Print a warning message if the command is seen in the input file."""
-        mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
+        if self.currentLine.strip() != "":
+            cmd = self.currentLine.split()[0]
+        else:
+            cmd = ""
+
+        mapping = {"lineno": self.lineno, "cmd": cmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
 
@@ -247,7 +252,7 @@ class BaseHandler:
             name = unicode(cmdObj.__class__.__name__.split("_", 1)[1])
         else:
             name = unicode(cmdObj.__class__.__name__).lower()
-                
+
         setattr(self, name.lower(), cmdObj)
 
         # Also, add the object into the _writeOrder dict in the right place.
@@ -292,21 +297,21 @@ class BaseHandler:
         for (dataName, dataClass) in dMap.iteritems():
             setattr(self, dataName, dataClass)
 
-    def dispatcher(self, cmd, cmdArgs, lineno):
-        """Given the command string cmd and the list of arguments cmdArgs, call
-           the appropriate KickstartCommand handler that has been previously
-           registered.  lineno is needed for error reporting.  If cmd does not
-           exist in the commands dict, KickstartParseError will be raised.  A
-           handler of None for the given command is not an error.
+    def dispatcher(self, args, lineno):
+        """Given a split up line of the input file and the current line number,
+           call the appropriate KickstartCommand handler that has been
+           previously registered.  lineno is needed for error reporting.  If
+           cmd does not exist in the commands dict, KickstartParseError will be
+           raised.  A handler of None for the given command is not an error.
         """
+        cmd = args[0]
+
         if not self.commands.has_key(cmd):
             raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
-        else:
-            if self.commands[cmd] != None:
-                self.commands[cmd].currentCmd = cmd
-                self.commands[cmd].handler = self
-                self.commands[cmd].lineno = lineno
-                self.commands[cmd].parse(cmdArgs)
+        elif self.commands[cmd] != None:
+            self.commands[cmd].handler = self
+            self.commands[cmd].lineno = lineno
+            self.commands[cmd].parse(args[1:])
 
     def maskAllExcept(self, lst):
         """Set all entries in the commands dict to None, except the ones in
