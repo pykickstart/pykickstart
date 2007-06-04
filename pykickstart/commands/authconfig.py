@@ -26,4 +26,4 @@ class FC3_Authconfig(KickstartCommand):
             return ""
 
     def parse(self, args):
-        self.authconfig = string.join(args)
+        self.authconfig = self.currentLine[len(self.currentCmd):].strip()

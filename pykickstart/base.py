@@ -51,6 +51,8 @@ class KickstartCommand:
            provided by all subclasses, but subclasses must call
            KickstartCommand.__init__ first.  Instance attributes:
 
+           currentCmd    -- The name of the command in the input file that
+                            caused this handler to be run.
            currentLine   -- The current unprocessed line from the input file
                             that caused this handler to be run.
            handler       -- A reference to the BaseHandler subclass this
@@ -71,6 +73,7 @@ class KickstartCommand:
         self.writePriority = writePriority
 
         # These will be set by the dispatcher.
+        self.currentCmd = ""
         self.currentLine = ""
         self.handler = None
         self.lineno = 0
@@ -133,12 +136,7 @@ class DeprecatedCommand(KickstartCommand):
 
     def parse(self, args):
         """Print a warning message if the command is seen in the input file."""
-        if self.currentLine.strip() != "":
-            cmd = self.currentLine.split()[0]
-        else:
-            cmd = ""
-
-        mapping = {"lineno": self.lineno, "cmd": cmd}
+        mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
 
@@ -309,6 +307,8 @@ class BaseHandler:
         if not self.commands.has_key(cmd):
             raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
         elif self.commands[cmd] != None:
+            self.commands[cmd].currentCmd = cmd
+            self.commands[cmd].currentLine = self.currentLine
             self.commands[cmd].handler = self
             self.commands[cmd].lineno = lineno
             self.commands[cmd].parse(args[1:])

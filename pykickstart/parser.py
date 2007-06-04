@@ -295,6 +295,7 @@ class KickstartParser:
            overridden in a subclass if necessary.
         """
         if self.handler:
+            self.handler.currentCmd = args[0]
             self.handler.currentLine = self._line
             self.handler.dispatcher(args, lineno)
 
@@ -474,7 +475,7 @@ class KickstartParser:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
-                    self.addPackages (string.rstrip(self._self._line))
+                    self.addPackages (string.rstrip(self._line))
 
             elif self._state == STATE_SCRIPT_HDR:
                 needLine = True
