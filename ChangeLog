@@ -1,3 +1,9 @@
+2007-06-05  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/version.py:  Add support for F8.
+	* pykickstart/handlers/control.py:  Likewise.
+	* pykickstart/handlers/f8.py:  Likewise.
+
 2007-06-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

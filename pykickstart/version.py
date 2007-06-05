@@ -46,14 +46,15 @@ FC5 = 3000
 FC6 = 4000
 RHEL5 = 4100
 F7  = 5000
+F8 = 6000
 
 # This always points at the latest version and is the default.
-DEVEL = F7
+DEVEL = F8
 
 """A one-to-one mapping from string representations to version numbers."""
 versionMap = {
         "DEVEL": DEVEL,
-        "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7,
+        "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
         "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
@@ -126,6 +127,9 @@ def returnClassForVersion(version=DEVEL):
     elif version == F7:
         from pykickstart.handlers.f7 import F7Handler
         return F7Handler
+    elif version == F8:
+        from pykickstart.handlers.f8 import F8Handler
+        return F8Handler
     elif version == RHEL3:
         from pykickstart.handlers.rhel3 import RHEL3Handler
         return RHEL3Handler
