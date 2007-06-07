@@ -48,3 +48,32 @@ class FC3_RootPw(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
 
         self.password = extra[0]
+
+class F8_RootPw(FC3_RootPw):
+    def __init__(self, writePriority=0, isCrypted=False, password="",
+                 lock=False):
+        FC3_RootPw.__init__(self, writePriority, isCrypted, password)
+        self.lock = lock
+
+    def __str__(self):
+        retval = FC3_RootPw.__str__(self)
+
+        if retval != "" and self.lock:
+            return retval.strip() + " --lock\n"
+        else:
+            return retval
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
+                      default=False)
+        op.add_option("--lock", dest="lock", action="store_true", default=False)
+        op.add_option("--plaintext", dest="isCrypted", action="store_false")
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
+
+        if len(extra) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
+
+        self.password = extra[0]

@@ -1,3 +1,12 @@
+2007-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/rootpw.py (F8_RootPw):  Add support for the
+	--lock and --plaintext options for rootpw (#240059).
+	* pykickstart/commands/user.py (F8_UserData, F8_User):  Likewise for
+	the user command.
+	* pykickstart/handlers/control.py:  F8 uses the new rootpw and user
+	commands.
+
 2007-06-05  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/version.py:  Add support for F8.
