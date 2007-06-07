@@ -1,43 +1,8 @@
 2007-06-07  Chris Lumens  <clumens@redhat.com>
 
-	* pykickstart/commands/rootpw.py (F8_RootPw):  Add support for the
-	--lock and --plaintext options for rootpw (#240059).
-	* pykickstart/commands/user.py (F8_UserData, F8_User):  Likewise for
-	the user command.
-	* pykickstart/handlers/control.py:  F8 uses the new rootpw and user
-	commands.
-
-2007-06-05  Chris Lumens  <clumens@redhat.com>
-
-	* pykickstart/version.py:  Add support for F8.
-	* pykickstart/handlers/control.py:  Likewise.
-	* pykickstart/handlers/f8.py:  Likewise.
-
-2007-06-04  Chris Lumens  <clumens@redhat.com>
-
-	* pykickstart.spec, setup.py:  New version.
-
-2007-06-04  Chris Lumens  <clumens@redhat.com>
-
 	* pykickstart/commands/method.py:  Fix harddrive install method error
 	checking (#242492, patch from Andrew Edmunds
 	<andrew DOT edmunds AT yahoo.com.au>).
-
-	* pykickstart/base.py (KickstartCommand.__init__):  Add currentLine
-	attribute.
-	(BaseHandler.dispatcher):  Set currentLine attribute on the command
-	handler.
-	* pykickstart/parser.py (KickstartParser.handleCommand):  Set
-	currentLine attribute on the handler.
-	* pykickstart/commands/auth.py (FC3_Authconfig.parse):  Use
-	currentLine instead of reassembling the list of arguments, since
-	otherwise we might miss quoting (#241657).
-
-	* pykickstart/parser.py (KickstartParser.readKickstart):  Use urlopen
-	to open a kickstart file so includes can be given by a URL in addition
-	to a local file.
-
-2007-05-18  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/user.py (FC6_UserData.__str__):  Fix typo in
 	outputting --iscrypted option.
