@@ -1,5 +1,19 @@
 2007-06-07  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
+2007-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/base.py (KickstartCommand.__init__):  Add currentLine
+	attribute.
+	(BaseHandler.dispatcher):  Set currentLine attribute on the command
+	handler.
+	* pykickstart/parser.py (KickstartParser.handleCommand):  Set
+	currentLine attribute on the handler.
+	* pykickstart/commands/auth.py (FC3_Authconfig.parse):  Use
+	currentLine instead of reassembling the list of arguments, since
+	otherwise we might miss quoting (#241657).
+
 	* pykickstart/commands/method.py:  Fix harddrive install method error
 	checking (#242492, patch from Andrew Edmunds
 	<andrew DOT edmunds AT yahoo.com.au>).
