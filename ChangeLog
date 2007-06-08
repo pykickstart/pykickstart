@@ -1,3 +1,8 @@
+2007-06-08  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Fix package review problems (#226334).  Bump
+	release.
+
 2007-06-07  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/rootpw.py (F8_RootPw):  Add support for the

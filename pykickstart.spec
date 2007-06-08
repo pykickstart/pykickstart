@@ -1,11 +1,15 @@
-%{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
 Version: 1.2
-Release: 1%{?dist}
+Release: 2%{?dist}
+# This is a Red Hat maintained package which is specific to
+# our distribution.  Thus the source is only available from
+# within this srpm.
 Source0: %{name}-%{version}.tar.gz
+
 License: GPL
 Group: System Environment/Libraries
 BuildArch: noarch
@@ -38,6 +42,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Fri Jun 08 2007 Chris Lumens <clumens@redhat.com> - 1.2-2
+- Fix package review problems (#226334).
+
 * Mon Jun 04 2007 Chris Lumens <clumens@redhat.com> - 1.2-1
 - Fix harddrive install method error checking (#232492).
 - Set authentication information from the input line to preserve quoting
