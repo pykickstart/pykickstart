@@ -67,7 +67,7 @@ class FC4_RaidData(FC3_RaidData):
         self.fsopts = fsopts
 
     def _argsToStr(self):
-        retval = FC3_RaidData._argsToStr()
+        retval = FC3_RaidData._argsToStr(self)
 
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -86,7 +86,7 @@ class FC5_RaidData(FC4_RaidData):
         self.bytesPerInode = bytesPerInode
 
     def _argsToStr(self):
-        retval = FC4_RaidData._argsToStr()
+        retval = FC4_RaidData._argsToStr(self)
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
