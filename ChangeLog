@@ -1,3 +1,9 @@
+2007-07-11  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/ignoredisk.py (F8_IgnoreDisk):  Add support
+	for the --only-use argument.
+	* pykickstart/handlers/control.py:  Use F8_IgnoreDisk for F8.
+
 2007-07-10  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/raid.py:  Need to pass "self" as the first

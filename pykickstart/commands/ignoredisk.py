@@ -34,10 +34,41 @@ class FC3_IgnoreDisk(KickstartCommand):
         def drive_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
-            
+
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--drives", dest="drives", action="callback",
                       callback=drive_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
-        self.ignoredisk = opts.drives
+        self._setToSelf(op, opts)
+
+class F8_IgnoreDisk(FC3_IgnoreDisk):
+    def __init__(self, writePriority=0, ignoredisk=None, onlyuse=None):
+        FC3_IgnoreDisk.__init__(self, writePriority, ignoredisk)
+
+        if onlyuse == None:
+            onlyuse = []
+
+        self.onlyuse = onlyuse
+
+    def __str__(self):
+        if len(self.ignoredisk) > 0:
+            return "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
+        elif len(self.onlyuse) > 0:
+            return "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
+        else:
+            return ""
+
+    def parse(self, args):
+        def drive_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--drives", dest="drives", action="callback",
+                      callback=drive_cb, nargs=1, type="string")
+        op.add_option("--only-use", dest="onlyuse", action="callback",
+                      callback=drive_cb, nargs=1, type="string")
+
+        (opts, extra) = op.parse_args(args=args)
+        self._setToSelf(op, opts)
