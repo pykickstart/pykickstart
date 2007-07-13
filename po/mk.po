@@ -1,20 +1,20 @@
-# SOME DESCRIPTIVE TITLE.
+# translation of pykickstart.mk.po to Macedonian
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
+# Arangel Angov <arangel@linux.net.mk>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: pykickstart.mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2007-07-12 22:55+0200\n"
+"Last-Translator: Arangel Angov <arangel@linux.net.mk>\n"
+"Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:132
 #, python-format
@@ -24,11 +24,15 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
+"Игнорирам заостаната команда на линија %(lineno)s:  Командата %(cmd)s е "
+"заостаната и повеќе не функционира.  Може да биде отстранета од идните"
+"изданија а тоа може да резултира со фатална грешка од kickstart.  Ве молам "
+"сменете ја Вашата датотека за kickstart и отстранете ја оваа опција."
 
 #: ../pykickstart/base.py:298
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "Непозната команда: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -37,16 +41,19 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
+"Следниов проблем се случи на линија %(lineno)s од датотеката за kickstart:\n"
+"\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
+msgstr "Постои проблем со читањето од линија %s од датотеката за kickstart"
 
 #: ../pykickstart/options.py:77
 #, python-format
 msgid "Option %s is required"
-msgstr ""
+msgstr "Опцијата %s е достапна"
 
 #: ../pykickstart/options.py:80
 #, python-format
@@ -54,6 +61,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Опцијата %(option)s беше претставена во верзијата  %(intro)s, но Вие "
+"користите синтакса за kickstart од верзијата %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -63,6 +72,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
+"Игнорирам заостаната опција на линија %(lineno)s.  Опцијата %(option)s е "
+"заостаната и повеќе не функционира.  Може да биде отстранета од идните"
+"изданија а тоа може да резултира со фатална грешка од kickstart.  Ве молам "
+"сменете ја Вашата датотека за kickstart и отстранете ја оваа опција."
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -70,19 +83,21 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"Опцијата %(option)s беше отстранета во верзијата %(removed)s, а вие користите "
+"синтакса за kickstart од верзијата %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
+msgstr "Потребниот сет на знаменца за опција која што не прима вредности"
 
 #: ../pykickstart/options.py:148
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr ""
+msgstr "Опцијата %(opt)s: невалидна boolean вредност: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "Групата не може да ги одреди двете --nodefaults и --optional"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -90,25 +105,25 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "Одредена е неподдржана верзија: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
-msgstr ""
+msgstr "исклучи после првата грешка или предупредување"
 
 #: ../validator/ksvalidator:40
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr ""
+msgstr "парсирај include датотеки кога забележиш %include"
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "верзијата на синтакстата за kickstart за валидација"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "Верзијата %s не е поддржана од страна на pykickstart"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -116,12 +131,15 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
+"Датотеката користи заостаната опција или команда.\n"
+"%s"
 
 #: ../validator/ksvalidator:74
 msgid "General kickstart error in input file"
-msgstr ""
+msgstr "Општа kickstart грешка во датотеката за запишување"
 
 #: ../validator/ksvalidator:77
 #, python-format
 msgid "General error in input file:  %s"
-msgstr ""
+msgstr "Општа грешка во датотеката за запишување:  %s"
+
