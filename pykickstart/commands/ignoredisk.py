@@ -72,3 +72,5 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
 
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
+
+RHEL4_IgnoreDisk = F8_IgnoreDisk
