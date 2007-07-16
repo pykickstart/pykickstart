@@ -36,7 +36,7 @@ class FC3_IgnoreDisk(KickstartCommand):
                 parser.values.ensure_value(option.dest, []).append(d)
 
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--drives", dest="drives", action="callback",
+        op.add_option("--drives", dest="ignoredisk", action="callback",
                       callback=drive_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
@@ -65,7 +65,7 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
                 parser.values.ensure_value(option.dest, []).append(d)
 
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--drives", dest="drives", action="callback",
+        op.add_option("--drives", dest="ignoredisk", action="callback",
                       callback=drive_cb, nargs=1, type="string")
         op.add_option("--only-use", dest="onlyuse", action="callback",
                       callback=drive_cb, nargs=1, type="string")
