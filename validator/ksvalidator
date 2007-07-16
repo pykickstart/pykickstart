@@ -2,7 +2,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006 Red Hat, Inc.
+# Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -28,8 +28,15 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-def cleanup(destdir, exitval=1):
+def cleanup(destdir, file, exitval=1):
     shutil.rmtree(destdir)
+
+    # Don't care if this file doesn't exist.
+    try:
+        os.remove(file)
+    except:
+        pass
+
     os._exit(exitval)
 
 op = OptionParser(usage="usage: %prog [options] ksfile|url")
@@ -63,18 +70,19 @@ ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
 warnings.filterwarnings("error")
 
 try:
-    ksparser.readKickstart(f)
+    processedFile = ksparser.preprocessKickstart(f)
+    ksparser.readKickstart(processedFile)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
-    cleanup(destdir)
+    cleanup(destdir, processedFile)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
-    cleanup(destdir)
+    cleanup(destdir, processedFile)
 except KickstartError:
     print _("General kickstart error in input file")
-    cleanup(destdir)
+    cleanup(destdir, processedFile)
 except Exception, e:
     print _("General error in input file:  %s") % e
-    cleanup(destdir)
+    cleanup(destdir, processedFile)
 
-cleanup(destdir, exitval=0)
+cleanup(destdir, processedFile, exitval=0)

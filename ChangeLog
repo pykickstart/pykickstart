@@ -1,5 +1,11 @@
 2007-07-16  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/parser.py (_preprocessStateMachine, preprocessFromString,
+	preprocessKickstart):  Add methods that handle the %ksappend
+	directive.  This is taken from anaconda.
+	* validator/ksvalidator:  Run the kickstart file through
+	preprocessKickstart before parsing for real.
+
 	* pykickstart/commands/ignoredisk.py:  Change destination of --disks
 	parameter to match what is expected.
 
