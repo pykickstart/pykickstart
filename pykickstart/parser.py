@@ -52,7 +52,7 @@ STATE_PRE = 4
 STATE_POST = 5
 STATE_TRACEBACK = 6
 
-def _preprocessStateMachine (self, provideLineFn):
+def _preprocessStateMachine (provideLineFn):
     l = None
     lineno = 0
 
@@ -109,24 +109,24 @@ def _preprocessStateMachine (self, provideLineFn):
     os.close(outF)
     return outName
 
-def preprocessFromString (self, str):
+def preprocessFromString (str):
     """Preprocess the kickstart file, provided as the string str.  This
         method is currently only useful for handling %ksappend lines,
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(str.splitlines(True))
-    rc = self._preprocessStateMachine (lambda: i.next())
+    rc = _preprocessStateMachine (lambda: i.next())
     return rc
 
-def preprocessKickstart (self, file):
+def preprocessKickstart (file):
     """Preprocess the kickstart file, given by the filename file.  This
         method is currently only useful for handling %ksappend lines,
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
     fh = urlopen(file)
-    rc = self._preprocessStateMachine (lambda: fh.readline())
+    rc = _preprocessStateMachine (lambda: fh.readline())
     fh.close()
     return rc
 
