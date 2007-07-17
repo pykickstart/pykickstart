@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.4
+Version: 1.5
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.5-1
+- Fix traceback when calling preprocessKickstart.
+
 * Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.4-1
 - Add methods to handle the %ksappend directive.
 - Fix ignoredisk --disks.

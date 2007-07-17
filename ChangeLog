@@ -1,5 +1,9 @@
 2007-07-17  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
+2007-07-17  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart/parser.py (_preprocessStateMachine, preprocessFromString,
 	preprocessKickstart):  Don't take a "self" parameter since these
 	methods don't live in a class anymore.
