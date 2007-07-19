@@ -4,7 +4,7 @@ Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
 Version: 1.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
 # within this srpm.
@@ -15,7 +15,7 @@ Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext
-Requires: python, python-urlgrabber
+Requires: python, python-urlgrabber, rhpl
 
 %description
 The pykickstart package is a python library for manipulating kickstart
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Thu Jul 19 2007 Chris Lumens <clumens@redhat.com> 1.5-2
+- Require rhpl (#248953).
+
 * Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.5-1
 - Fix traceback when calling preprocessKickstart.
 
