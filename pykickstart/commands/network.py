@@ -201,7 +201,7 @@ class FC3_Network(KickstartCommand):
                       default=BOOTPROTO_DHCP,
                       choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                                BOOTPROTO_STATIC])
-        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--dhcpclass", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
         op.add_option("--ethtool", dest="ethtool")
@@ -235,7 +235,7 @@ class FC4_Network(FC3_Network):
                       default=BOOTPROTO_DHCP,
                       choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                                BOOTPROTO_STATIC])
-        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--dhcpclass", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
         op.add_option("--ethtool", dest="ethtool")
@@ -268,7 +268,7 @@ class FC6_Network(FC4_Network):
                       default=BOOTPROTO_DHCP,
                       choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                                BOOTPROTO_STATIC])
-        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--dhcpclass", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
         op.add_option("--ethtool", dest="ethtool")
@@ -305,7 +305,7 @@ class RHEL4_Network(FC3_Network):
                       default=BOOTPROTO_DHCP,
                       choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                                BOOTPROTO_STATIC])
-        op.add_option("--class", dest="dhcpclass")
+        op.add_option("--dhcpclass", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
         op.add_option("--ethtool", dest="ethtool")
