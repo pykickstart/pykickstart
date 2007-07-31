@@ -28,14 +28,15 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-def cleanup(destdir, file, exitval=1):
+def cleanup(destdir, file=None, exitval=1):
     shutil.rmtree(destdir)
 
     # Don't care if this file doesn't exist.
-    try:
-        os.remove(file)
-    except:
-        pass
+    if file is not None:
+       try:
+           os.remove(file)
+       except:
+           pass
 
     os._exit(exitval)
 
@@ -70,7 +71,7 @@ ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
 warnings.filterwarnings("error")
 
 try:
-    processedFile = ksparser.preprocessKickstart(f)
+    processedFile = preprocessKickstart(f)
     ksparser.readKickstart(processedFile)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
@@ -83,6 +84,6 @@ except KickstartError:
     cleanup(destdir, processedFile)
 except Exception, e:
     print _("General error in input file:  %s") % e
-    cleanup(destdir, processedFile)
+    cleanup(destdir)
 
 cleanup(destdir, processedFile, exitval=0)

@@ -1,3 +1,8 @@
+2007-07-31  Chris Lumens  <clumens@redhat.com>
+
+	* validator/ksvalidator:  Don't traceback if there's not yet a
+	processedFile.  preprocessKickstart is no longer in any class.
+
 2007-07-20  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/network.py:  Change --class to --dhcpclass in
