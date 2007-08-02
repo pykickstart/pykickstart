@@ -3,15 +3,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Amanpreet Singh Alam <aalam@redhat.com>, 2006.
-# Jaswinder Singh Phulewala <jsingh@redhat.com>, 2006.
+# Jaswinder Singh Phulewala <jsingh@redhat.com>, 2006, 2007.
 # A S Alam <apbrar@gmail.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2006-11-24 09:18+0530\n"
-"Last-Translator: A S Alam <apbrar@gmail.com>\n"
+"PO-Revision-Date: 2007-08-02 14:37+0530\n"
+"Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -64,7 +64,7 @@ msgstr "ਚੋਣ %s ਦੀ ਲੋੜ ਹੈ"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(intro)s ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %(version)s ਵਰਤ ਰਹੇ ਹੋ"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -84,7 +84,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(removed)s ਵਿੱਚ ਹਟਾਇਆ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %(version)s ਵਰਤ ਰਹੇ ਹੋ"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -97,7 +97,7 @@ msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 
 #: ../pykickstart/parser.py:196
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "ਗਰੁੱਪ --nodefaults ਅਤੇ --optional ਦੋਨਾਂ ਨੂੰ ਦਰਸਾ ਨਹੀਂ ਸਕਦਾ"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:78 ../pykickstart/version.py:87
@@ -105,7 +105,7 @@ msgstr ""
 #: ../pykickstart/version.py:135
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਵਰਜਨ ਨਿਰਧਾਰਤ ਕੀਤਾ ਗਿਆ ਹੈ: %s"
 
 #: ../validator/ksvalidator:37
 msgid "halt after the first error or warning"
@@ -118,12 +118,12 @@ msgstr "parse ਵਿੱਚ ਫਾਇਲਾਂ ਸ਼ਾਮਲ ਹਨ ਜਦੋਂ %
 
 #: ../validator/ksvalidator:42
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "ਕਿੱਕਸਟਾਰਟ ਖਾਕੇ ਦਾ ਵਰਜਨ ਜਿਸ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰਨਾ ਹੈ"
 
 #: ../validator/ksvalidator:56
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "ਵਰਜਨ %s ਨੂੰ pykickstart ਦੁਆਰਾ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ"
 
 #: ../validator/ksvalidator:68
 #, python-format
@@ -142,3 +142,4 @@ msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸ�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
+
