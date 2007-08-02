@@ -2,23 +2,21 @@
 # Copyright (C) 2005 Red Hat, Inc.
 # This file is distributed under the same license as the pykickstart package.
 # Igor Miletic <grejigl-gnomeprevod@yahoo.ca>, 2007.
+# Miloš Komarčević <kmilos@gmail.com>, 2007.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-11 20:10-0000\n"
+"PO-Revision-Date: 2007-08-02 21:29-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
-"Language-Team: Serbian (sr) <fedora@prevod.org>\n"
+"Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
-"n%100>=20) ? 1 : 2)\n"
-"X-Poedit-Language: Serbian\n"
-"X-Poedit-Country: Serbia\n"
-"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=3; (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../pykickstart/base.py:140
 #, python-format
@@ -31,7 +29,7 @@ msgstr ""
 "Занемаривање застареле наредбе на линији %(lineno)s:  Наредба %(cmd)s је "
 "застарела и више нема никакво дејство.  Може бити избачена у следећим "
 "издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
-"kickstart датотеку тако што ћете избацити ову опцију."
+"kickstart датотеку тако што ћете избацити ову наредбу."
 
 #: ../pykickstart/base.py:308
 #, python-format
@@ -102,17 +100,17 @@ msgstr "Опција %(opt)s: неважећа булова вредност: %(
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Неважећи урл за %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Не могу да отворим %%ksappend датотеку: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Не могу да отворим %%ksappend датотеку"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
