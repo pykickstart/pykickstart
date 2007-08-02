@@ -1,28 +1,23 @@
-# translation of de.po to 
 # translation of de.po to
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to German
 # This file is distributed under the same license as the de package.
 # Copyright (C) 2006 THE de'S COPYRIGHT HOLDER.
+#
+#
 # Nadine Reissle <nreissle@redhat.com>, 2006.
 # Marcus Gloeckner <mgloeckner@gmail.com>, 2006.
-# Nadine Reissle <nreissle@redhat.com>, 2006.
 # PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>, 2006, 2007.
-#
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-08 14:32+1000\n"
+"PO-Revision-Date: 2007-08-03 09:46+1000\n"
 "Last-Translator: PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>\n"
-"Language-Team:  <en@li.org>\n"
+"Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:140
 #, python-format
@@ -110,17 +105,17 @@ msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Illegale URL für %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Die Datei %%ksappend kann nicht geöffnet werden: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Die Datei %%ksappend kann nicht geöffnet werden"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -169,3 +164,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
