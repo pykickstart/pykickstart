@@ -1,3 +1,9 @@
+2007-08-02  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* po/*:  Update translation files.
+
 2007-07-31  Chris Lumens  <clumens@redhat.com>
 
 	* validator/ksvalidator:  Don't traceback if there's not yet a
