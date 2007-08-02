@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-03-12 12:45+0100\n"
 "Last-Translator: Thomas Canniot <thomas.canniot@laposte.net>\n"
 "Language-Team: Francais <fedora-trans-fr@redhat.com>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -30,12 +30,12 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Ignorer la commande dépréciée sur la ligne %(lineno)s : La commande %(cmd)s a "
-"été dépréciée et n'a plus d'effet. Elle pourra être supprimée lors de "
+"Ignorer la commande dépréciée sur la ligne %(lineno)s : La commande %(cmd)s "
+"a été dépréciée et n'a plus d'effet. Elle pourra être supprimée lors de "
 "futures versions, ce qui provoquera une erreur fatale de kickstart.  Merci "
 "de modifier votre fichier kickstart et de retirer cette commande."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Commande inconnue : %s"
@@ -104,37 +104,52 @@ msgstr "L'ensemble des paramètres pour cette option ne prend aucune valeur"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Option %(opt)s : valeur booléenne invalide : %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Le groupe ne peut pas à la fois spécifier --nodefaults et --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Version spécifiée non supportée : %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "arrêt après le premier message d'avertissement ou d'erreur"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "analyse les fichiers inclus quand %include est observé"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "Version de la syntaxe de kickstart à valider"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "La version %s n'est pas supportée par pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -143,12 +158,11 @@ msgstr ""
 "Le fichier utilise une option ou une commande dépréciée.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Erreur générale de kickstart due au fichier source"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erreur générale dans le fichier source : %s"
-

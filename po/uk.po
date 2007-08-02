@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-01-23 10:40+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -23,11 +23,11 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 "Застарілий параметр проігноровано у рядку %(lineno)s:  Команда %(cmd)s "
-"застаріла та більше не призводить до будь-яких дій.  У майбутніх випусках вона "
-"може бути видалена, що буде призводити до фатальної помилки kickstart.  "
+"застаріла та більше не призводить до будь-яких дій.  У майбутніх випусках "
+"вона може бути видалена, що буде призводити до фатальної помилки kickstart.  "
 "Видаліть цей параметр з вашого файлу kickstart."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Невідома команда: %s"
@@ -93,37 +93,52 @@ msgstr "Встановлено обов'язковий ключ для пара�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Параметр %(opt)s: неправильне логічне значення: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Група не може одночасно включати --nodefaults та --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Вказано непідтримувану версію: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "зупинка після першої помилки чи попередження"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "аналізувати включені файли, коли зустрічається %include"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "версія синтаксису kickstart для перевірки відповідності"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Версія %s не підтримується програмою pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -132,11 +147,11 @@ msgstr ""
 "У файлі використовується застарілий параметр чи команда.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Загальна помилка kickstart у вхідному файлі"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Загальна помилка у вхідному файлі:  %s"

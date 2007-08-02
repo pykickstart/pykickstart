@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-04-11 22:16+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,16 +16,19 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
-msgstr "Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %(cmd)s je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
+msgstr ""
+"Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %(cmd)s "
+"je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in "
+"bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Neznani ukaz: %s"
@@ -56,7 +59,9 @@ msgstr "Potrebna je nastavitev %s"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "Nastavitev %(option)s je bila dodana v različici %(intro)s, toda uporabljate kickstart sintakso iz različice %(version)s"
+msgstr ""
+"Nastavitev %(option)s je bila dodana v različici %(intro)s, toda uporabljate "
+"kickstart sintakso iz različice %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -65,14 +70,19 @@ msgid ""
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
-msgstr "Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %(option)s je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
+msgstr ""
+"Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %"
+"(option)s je zastarela in ne deluje več. V naslednjih izdajah bo morda "
+"odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
 #: ../pykickstart/options.py:86
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "Nastavitev %(option)s je bila odstranjena v različici %(removed)s, toda uporabljate kickstart sintakso različice %(version)s"
+msgstr ""
+"Nastavitev %(option)s je bila odstranjena v različici %(removed)s, toda "
+"uporabljate kickstart sintakso različice %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -83,37 +93,52 @@ msgstr "Nastavitev, ki ne sprejema dodatnih vrednosti je označena kot obvezna"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Nastavitev %(opt)s: neveljavna vrednost boolean: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina ne more hkrati določati in --nodefaults in --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Navedena je nepodprta različica: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "ustavi ob prvi napaki ali opozorilu"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "obdelaj vključne datoteke kjer naletiš na %include"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "ugotavljanje pravilnosti glede na različica sintakse kickstart"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "pykickstart ne podpira različice %s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -122,12 +147,11 @@ msgstr ""
 "V datoteki je zastareli parameter ali ukaz.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Splošna napaka kickstart v vhodni datoteki"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Splošna napaka v vhodni datoteki:  %s"
-

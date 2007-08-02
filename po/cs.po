@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-03-08 13:34+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -32,7 +32,7 @@ msgstr ""
 "mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
 "soubor tak, aby zastaralý příkaz neobsahoval."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Neznámý příkaz: %s"
@@ -98,37 +98,52 @@ msgstr "Povinný přepínač pro volbu nemá žádnou hodnotu "
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Volba %(opt)s: neplatná boolean hodnota: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina nemůže mít zároveň --nodefaults a --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Použita nepodporovaná verze: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "skončit po první chybě nebo varování"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "zpracovat vložené (include) soubory, je-li zaznamenáno %include"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "zkontrolovat syntaxi proti verzi kickstartu"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Verze %s není programem pykickstart podporována"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -137,11 +152,11 @@ msgstr ""
 "Soubor obsahuje zastaralý příkaz nebo volbu.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Kickstart chyba ve vstupním souboru"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Chyba ve vstupním souboru: %s"

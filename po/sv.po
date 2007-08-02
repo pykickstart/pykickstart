@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-03-09 19:40-0500\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -29,7 +29,7 @@ msgstr ""
 "framtida utgåvor, vilket kommer att resultera i ett ödesdigert fel från "
 "kickstart. Ändra din kickstart-fil och ta bort detta kommando."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Okänt kommando: %s"
@@ -96,37 +96,52 @@ msgstr "Nödvändig flagga satt för flagga som inte tar ett värde"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Grupp kan inte ange både --nodefaults och --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Version som inte stöds angiven: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "stanna efter det första felet eller den första varningen"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "tolka inkluderingsfiler då %include hittas"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "version av kickstart-syntax att validera mot"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Versionen %s stöds inte av pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -135,11 +150,11 @@ msgstr ""
 "Filen använder en föråldrad flagga eller ett föråldrat kommando.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Allmänt kickstart-fel i indatafil"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allmänt fel i indatafil: %s"

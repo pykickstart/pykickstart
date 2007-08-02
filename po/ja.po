@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-05-04 17:26+0900\n"
 "Last-Translator: Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
@@ -20,19 +20,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
+#, fuzzy, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno) 行の廃止されたコマンドを無視します: %(cmd) コマンドは廃止"
-"されており、どんな効果も持ちません。将来のリリースでは削除される可能性があり"
-"、キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを"
-"修正して、このコマンドを取り除いてください。"
+"%(lineno) 行の廃止されたコマンドを無視します: %(cmd) コマンドは廃止されてお"
+"り、どんな効果も持ちません。将来のリリースでは削除される可能性があり、キック"
+"スタートの致命的なエラーとなります。使用中のキックスタートファイルを修正し"
+"て、このコマンドを取り除いてください。"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "不明なコマンド: %s"
@@ -77,8 +78,8 @@ msgid ""
 msgstr ""
 "%(lineno) 行の廃止されたオプションを無視します: %(option) オプションは廃止さ"
 "れており、どんな効果も持ちません。将来のリリースでは削除される可能性があり、"
-"キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを"
-"修正して、このオプションを取り除いてください。"
+"キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを修"
+"正して、このオプションを取り除いてください。"
 
 #: ../pykickstart/options.py:86
 #, python-format
@@ -98,36 +99,52 @@ msgstr "値を取らないオプションに必要なフラグが設定されて
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "オプション %(opt)s: 無効なブール値: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "--nodefaults と --optional の両方のグループは指定できません"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
+#, python-format
 msgid "Unsupported version specified: %s"
 msgstr "サポートされていないバージョンが指定されています: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "最初のエラーまたは警告で停止する"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include が表示された時に include ファイルを構文解析する"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "確証対象のキックスタート構文のバージョン"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "バージョン %s はキックスタートでサポートされていません"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -136,11 +153,11 @@ msgstr ""
 "ファイルは無用になったオプションかコマンドを使用しています。\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "入力ファイル内の一般的なキックスタートエラー"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "入力ファイル内の一般的なエラー:  %s"

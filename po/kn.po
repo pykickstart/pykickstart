@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-05-02 10:44+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -31,7 +31,7 @@ msgstr ""
 "ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
 "ದಯವಿಟ್ಟು ಈ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "ಗೊತ್ತಿರದ ಆಜ್ಞೆ: %s"
@@ -63,8 +63,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(intro)s ಯಲ್ಲ್ಲಿ ಪರಿಚಯಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು "
-"ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
+"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(intro)s ಯಲ್ಲ್ಲಿ ಪರಿಚಯಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು ಕಿಕ್-ಸ್ಟಾರ್ಟ್ "
+"ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -85,8 +85,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(removed)s ನಲ್ಲ್ಲಿ ವಜಾಗೊಳಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು "
-"ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
+"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(removed)s ನಲ್ಲ್ಲಿ ವಜಾಗೊಳಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು ಕಿಕ್-"
+"ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -97,37 +97,52 @@ msgstr "ಮೌಲ್ಯವನ್ನು ಹೊಂದದ ಆಯ್ಕೆಗಳಿ�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌಲ್ಯ: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ಸಮೂಹಕ್ಕೆ --nodefaults ಹಾಗೂ --optional ಗಳೆರೆಡನ್ನೂ ನಿಗದಿಸಲು ಸಾಧ್ಯವಿರುವುದಿಲ್ಲ"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "ಬೆಂಬಲಿತವಾಗದ ಆವೃತ್ತಿಯನ್ನು ಸೂಚಿಸಲಾಗಿದೆ: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "ಪ್ರಥಮ ದೋಷ ಅಥವ ಎಚ್ಚರಿಕೆಯ ನಂತರ ನಿಲ್ಲು"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include ಕಂಡಾಗ ವಿಶ್ಲೇಷಣೆಯು ಕಡತಗಳನ್ನು ಸೇರಿಸುತ್ತದೆ"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "ಇದರ ವಿರುದ್ಧ ಮಾನ್ಯಮಾಡಬೇಕಾದ ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸಿನ ಆವೃತ್ತಿ"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "pykickstart ನಿಂದ ಬೆಂಬಲಿತವಾಗದೇ ಇರುವ %s ಆವೃತ್ತಿ"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -136,12 +151,11 @@ msgstr ""
 "ಕಡತವು ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆ ಅಥವ ಆಜ್ಞೆಯನ್ನು ಉಪಯೋಗಿಸುತ್ತದೆ.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ದೋಷ"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
-

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
-"Report-Msgid-Bugs-To: Richard Allen <ra@ra.is>\n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-04-24 01:22+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@molar.is>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -28,7 +28,7 @@ msgstr ""
 "útgáfum sem verður til þess að villa kemur upp í hraðuppsetningum.Vinsamlega "
 "breyttu hraðuppsetningaskránum þínum og fjarlægðu þennan rofa."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Óþekkt skipun: %s"
@@ -94,37 +94,52 @@ msgstr "Viðfang til staðar við rofa sem ekki tekur gildi"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Rofinn %(opt)s: ógilt gildi: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Hópur má ekki vera bæði --nodefaults og --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Ógild útgáfa gefin upp: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "stöðva eftir fyrstu villu eða viðvörun"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "þáttun innifelur skrár meðan %include er til staðar"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "útgáfa hraðuppsetningar til að yfirfara eftir"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Útgáfan %s er ekki studd af pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -133,11 +148,11 @@ msgstr ""
 "Skráin inniheldur úreltann rofa eða skipun.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Almenn hraðuppsetningarvilla í ílagsskrá"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Almenn villa í ílagsskrá:  %s"

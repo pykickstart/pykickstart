@@ -7,24 +7,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-03-11 20:10-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: (n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || "
+"n%100>=20) ? 1 : 2)\n"
 "X-Poedit-Language: Serbian\n"
 "X-Poedit-Country: Serbia\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
-msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Занемаривање застареле наредбе на линији %(lineno)s:  Наредба %(cmd)s је застарела и више нема никакво дејство.  Може бити избачена у следећим издањима што ће довести до кобне грешке у kickstart-у.  Молим измените kickstart датотеку тако што ћете избацити ову опцију."
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Занемаривање застареле наредбе на линији %(lineno)s:  Наредба %(cmd)s је "
+"застарела и више нема никакво дејство.  Може бити избачена у следећим "
+"издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
+"kickstart датотеку тако што ћете избацити ову опцију."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Непозната наредба: %s"
@@ -52,18 +61,34 @@ msgstr "Опција %s је обавезна"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Опција %(option)s је уведена у верзији %(intro)s, а користите kickstart синтаксу верзије %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Опција %(option)s је уведена у верзији %(intro)s, а користите kickstart "
+"синтаксу верзије %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Занемаривање застареле опције на линији %(lineno)s:  Опција %(option)s је застарела и више нема никакво дејство.  Може бити избачена у следећим издањима што ће довести до кобне грешке у kickstart-у.  Молим измените kickstart датотеку тако што ћете избацити ову опцију."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Занемаривање застареле опције на линији %(lineno)s:  Опција %(option)s је "
+"застарела и више нема никакво дејство.  Може бити избачена у следећим "
+"издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
+"kickstart датотеку тако што ћете избацити ову опцију."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Опција %(option)s је избачена у верзији %(removed)s, а користите kickstart синтаксу верзије %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Опција %(option)s је избачена у верзији %(removed)s, а користите kickstart "
+"синтаксу верзије %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -74,39 +99,52 @@ msgstr "Захтевана ознака подешена за опцију ко�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Опција %(opt)s: неважећа булова вредност: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Група не може назначити и --nodefaults и --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78
-#: ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90
-#: ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Назначена је неподржана верзија: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "заустави после прве грешке или упозорења"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "рашчлани „include“ датотеке када је %include опажен"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "верзија kickstart синтаксе којом се оверава"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "pykickstart не подржава верзију %s "
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -115,12 +153,11 @@ msgstr ""
 "Датотека користи застарелу опцију или наредбу.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Општа kickstart грешка у улазној датотеци"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Општа грешка у улазној датотеци:  %s"
-

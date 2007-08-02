@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: hr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-01-23 16:52+0100\n"
 "Last-Translator: Adnan Hodzic <AbsintheSyringe@gmail.com>\n"
 "Language-Team: Bosnian <lokal@linux.org.ba>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-SourceCharset: utf-8\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, fuzzy, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -29,7 +29,7 @@ msgstr ""
 "verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta.  "
 "Uredite vašu kickstart datoteku radi uklanjanja ove opcije."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -95,37 +95,52 @@ msgstr "Zahtijevani komplet zastavica za opciju koja ne prihvaća vrijednosti"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opcija %(opt)s: nepravilna Booleova vrijednost: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, fuzzy, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Određena je nepodržana verzija"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "zaustavi pri prvoj pogrešci ili upozorenju"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "raščlani datoteke 'include' dok je vidljiv %include"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "Verzija kickstart sintakse za uspoređivanje valjanosti"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Pykickstart ne podržavu verziju %s"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -134,11 +149,11 @@ msgstr ""
 "Datoteka upotrebljava zanemarenu opciju ili naredbu.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Opća kickstart pogreška unutar ulazne datoteke"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Opća pogreška unutar ulazne datoteke:  %s"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: or\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-03-15 14:44+0530\n"
 "Last-Translator: Subhransu Behera <sbehera@redhat.com>\n"
 "Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -25,7 +26,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -33,12 +34,12 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s ଲାଇନରେ ଥିବା ଅନାବଶ୍ଯକ ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି:  %(cmd)s ନିର୍ଦ୍ଦେଶକୁ ନାପସନ୍ଦ କରାଯାଇଛି "
-"ଏବଂ ଏବେ ଏହାର କୌଣସି ପ୍ରଭାବନାହିଁ।  ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କରେ କାଢି ଦିଆଯାଇ ପାରେ, ଯାହାକି "
-"କିକ-ଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେ।  ଏହି ପସନ୍ଦକୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକ-ଷ୍ଟାର୍ଟ "
-"ଫାଇଲକୁ ବଦଳାନ୍ତୁ।"
+"%(lineno)s ଲାଇନରେ ଥିବା ଅନାବଶ୍ଯକ ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି:  %(cmd)s ନିର୍ଦ୍ଦେଶକୁ ନାପସନ୍ଦ "
+"କରାଯାଇଛି ଏବଂ ଏବେ ଏହାର କୌଣସି ପ୍ରଭାବନାହିଁ।  ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କରେ କାଢି ଦିଆଯାଇ "
+"ପାରେ, ଯାହାକି କିକ-ଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେ।  ଏହି ପସନ୍ଦକୁ କାଢିବା ପାଇଁ ଦୟାକରି "
+"ଆପଣଙ୍କ କିକ-ଷ୍ଟାର୍ଟ ଫାଇଲକୁ ବଦଳାନ୍ତୁ।"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "ଅଜ୍ଞାତ ନିର୍ଦ୍ଦେଶ: %s"
@@ -104,37 +105,52 @@ msgstr "ଯେଉଁ ପସନ୍ଦ ଗୁଡିକ କୌଣସି ମୂଲ�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ପସନ୍ଦ %(opt)s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ସମୂହ ଉଭୟ --nodefaults ଏବଂ --optional କୁ ଉଲ୍ଲେଖ କରିପାରିବ ନାହିଁ"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "ଅସମର୍ଥିତ ସଂସ୍କରଣ ଉଲ୍ଲେଖ କରାଯାଇଛି: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "ସର୍ବପ୍ରଥମ ତୃଟି କିମ୍ବା ଚେତାବନୀ ପରେ କିଛି କ୍ଷଣ ବିରାମ ଦିଅ"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include ଦେଖାଗଲା ବେଳେ ଅନ୍ତର୍ବେଶିତ ଫାଇଲ ମାନଙ୍କ ବିଶ୍ଳେଷଣ କର"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "ଏହା ବିରୋଧରେ ବୈଧିକୃତ କରାଯିବା କିକ-ଷ୍ଟାର୍ଟର ସଂସ୍କରଣ"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "%s ସଂସ୍କରଣ pykickstart ଦ୍ବାରା ସମର୍ଥିତ ନୁହେଁ"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -143,12 +159,11 @@ msgstr ""
 "ଫାଇଲ ଟି ଗୋଟିଏ ଅଦରକାରି ପସନ୍ଦ କିମ୍ବା ନିର୍ଦ୍ଦେଶ କୁ ବ୍ଯବହାର କରୁଅଛି। \n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍ଟାର୍ଟ ତୃଟି"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତୃଟି:  %s"
-

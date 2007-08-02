@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-04-08 19:15+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
@@ -16,12 +16,20 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.10.2\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
-msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Mengabaikan arahan tidak disokong pada baris %(lineno)s:  Arahan %(cmd) telah tidak disokong dan tidak lagi mempunyai kesan.  Ia mungkin dibuang dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart.  Sila ubahsuai fail kickstart anda untuk membuang arahan ini."
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Mengabaikan arahan tidak disokong pada baris %(lineno)s:  Arahan %(cmd) "
+"telah tidak disokong dan tidak lagi mempunyai kesan.  Ia mungkin dibuang "
+"dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari "
+"kickstart.  Sila ubahsuai fail kickstart anda untuk membuang arahan ini."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Arahan tidak diketahui: %s"
@@ -49,18 +57,34 @@ msgstr "Pilihan %s diperlukan"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Pilihan %(option)s telah diperkenalkan dalam versi %(intro)s, tetapi anda menggunakan sintaks kickstart versi %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Pilihan %(option)s telah diperkenalkan dalam versi %(intro)s, tetapi anda "
+"menggunakan sintaks kickstart versi %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Mengabaikan pilihan tidak disokong pada baris %(lineno)s: Pilihan %(option)s telah tidak disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. Sila ubahsuai fail kickstart anda untuk membuang pilihan ini."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Mengabaikan pilihan tidak disokong pada baris %(lineno)s: Pilihan %(option)s "
+"telah tidak disokong dan tidak lagi mempunyai kesan. Ia mungkin dibuang dari "
+"edaran masa hadapan, dimana akan mengakibatkan ralat maut dari kickstart. "
+"Sila ubahsuai fail kickstart anda untuk membuang pilihan ini."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Pilihan %(option)s telah dibuang dalam versi %(removed)s, tetapi anda menggunakan sintaks kickstart versi %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Pilihan %(option)s telah dibuang dalam versi %(removed)s, tetapi anda "
+"menggunakan sintaks kickstart versi %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -71,39 +95,52 @@ msgstr "Memerlukan penanda ditetapkan untuk pilihan yang tidak menerima nilai"
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Pilihan %(opt)s: nilai boolean tidak sah: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Kumpulan tidak boleh menyatakan kedua-dua --nodefaults dan --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78
-#: ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90
-#: ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Versi tidak disokong dinyatakan: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "henti selepas ralat atau amaran pertama"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "huraian menyertakan fail apabila %include kelihatan"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "versi sintaks kickstart untuk disahkan"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Versi %s tidak disokong oleh pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -112,12 +149,11 @@ msgstr ""
 "Fail menggunakan pilihan atau arahan tidak diguna.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "Ralat umum kickstart dalam fail masukan"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Ralat umum dalam fail masukan: %s"
-

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-08-02 16:08-0400\n"
 "PO-Revision-Date: 2007-08-02 14:37+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:140
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -33,7 +33,7 @@ msgstr ""
 "ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਹੋ ਸਕਦੀ ਹੈ।  ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਕਮਾਂਡ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ "
 "ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
 msgstr "ਅਣਜਾਣ ਕਮਾਂਡ: %s"
@@ -64,7 +64,9 @@ msgstr "ਚੋਣ %s ਦੀ ਲੋੜ ਹੈ"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(intro)s ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %(version)s ਵਰਤ ਰਹੇ ਹੋ"
+msgstr ""
+"ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(intro)s ਵਿੱਚ ਦਿੱਤਾ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %"
+"(version)s ਵਰਤ ਰਹੇ ਹੋ"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -84,7 +86,9 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr "ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(removed)s ਵਿੱਚ ਹਟਾਇਆ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %(version)s ਵਰਤ ਰਹੇ ਹੋ"
+msgstr ""
+"ਚੋਣ %(option)s ਨੂੰ ਵਰਜਨ %(removed)s ਵਿੱਚ ਹਟਾਇਆ ਗਿਆ ਹੈ, ਪਰ ਤੁਸੀਂ ਕਿੱਕਸਟਾਰਟ ਖਾਕਾ ਵਰਜਨ %"
+"(version)s ਵਰਤ ਰਹੇ ਹੋ"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -95,37 +99,52 @@ msgstr "ਲੋੜੀਂਦੇ ਚਿੰਨ ਦੀ ਚੋਣ ਦਰਸਾਈ ਹ�
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/parser.py:85
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ਗਰੁੱਪ --nodefaults ਅਤੇ --optional ਦੋਨਾਂ ਨੂੰ ਦਰਸਾ ਨਹੀਂ ਸਕਦਾ"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "ਨਾ-ਸਹਿਯੋਗੀ ਵਰਜਨ ਨਿਰਧਾਰਤ ਕੀਤਾ ਗਿਆ ਹੈ: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
 msgstr "ਪਹਿਲੀ ਗਲਤੀ ਜਾਂ ਚੇਤਾਵਨੀ ਤੋਂ ਬਾਅਦ ਬੰਦ ਕਰੋ"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:48
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "parse ਵਿੱਚ ਫਾਇਲਾਂ ਸ਼ਾਮਲ ਹਨ ਜਦੋਂ %include ਵੇਖਿਆ"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
 msgstr "ਕਿੱਕਸਟਾਰਟ ਖਾਕੇ ਦਾ ਵਰਜਨ ਜਿਸ ਨੂੰ ਪ੍ਰਮਾਣਿਤ ਕਰਨਾ ਹੈ"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "ਵਰਜਨ %s ਨੂੰ pykickstart ਦੁਆਰਾ ਸਹਿਯੋਗ ਨਹੀਂ ਹੈ"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:77
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -134,12 +153,11 @@ msgstr ""
 "ਫਾਇਲ ਵਲੋਂ ਗਲਤ ਚੋਣ ਜਾਂ ਕਮਾਂਡ ਵਰਤੀ ਗਈ ਹੈ।\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:83
 msgid "General kickstart error in input file"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸਟਾਰਟ ਗਲਤੀ ਹੈ"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:86
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
-
