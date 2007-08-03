@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-08 00:39+0200\n"
+"PO-Revision-Date: 2007-08-03 15:00+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -95,17 +95,17 @@ msgstr "Opcja %(opt)s: nieprawidłowa wartość zmiennej logicznej: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Niedozwolony URL dla %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Nie można otworzyć pliku %%ksappend: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Nie można otworzyć pliku %%ksappend"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
