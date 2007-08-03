@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-07-13 09:34+0800\n"
+"PO-Revision-Date: 2007-08-03 10:00+0800\n"
 "Last-Translator: zhangnan <znflint@126.com>\n"
 "Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,15 +15,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:140
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"忽略第%(lineno)s: 行的过时命令 %(cmd)s 已经过时,不再起作用.这个会导致 "
-"kickstart 执行时发生严重的指令可能会在未来的发行版本中删除.请您修改您的"
-"kickstart 文件,删除该命令."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "忽略第%(lineno)s: 行的过时命令 %(cmd)s 已经过时,不再起作用.这个会导致 kickstart 执行时发生严重的指令可能会在未来的发行版本中删除.请您修改您的kickstart 文件,删除该命令."
 
 #: ../pykickstart/base.py:308
 #, python-format
@@ -53,33 +46,18 @@ msgstr "选项 %s 是必需的"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的"
-"kickstart语法"
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的kickstart语法"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"忽略第 %(lineno)s: 行中的过时选项:%(option)s  选项已经过时，不再起任何作用。"
-"这个选项可能会在未来的版本中被删除，这会导致 kickstart 运行时产生严重错误。请"
-"修改您的 kickstart 文件，删除该选项。"
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "忽略第 %(lineno)s: 行中的过时选项:%(option)s  选项已经过时，不再起任何作用。这个选项可能会在未来的版本中被删除，这会导致 kickstart 运行时产生严重错误。请修改您的 kickstart 文件，删除该选项。"
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本"
-"kickstart的语法"
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本kickstart的语法"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -93,25 +71,28 @@ msgstr "选项%(opt)s: 无效的布尔值:%(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "非法url  %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "无法打开 %%ksappend file: "
 
-#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#: ../pykickstart/parser.py:96
+#: ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "无法打开 %%ksappend file"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "组都不能注明--nodefaults 和--optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
-#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:80
+#: ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92
+#: ../pykickstart/version.py:103
 #: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -152,3 +133,4 @@ msgstr "输入文件中的 kickstart 错误"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "输入文件有错误： %s"
+
