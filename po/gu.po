@@ -1,21 +1,21 @@
 # translation of gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ankit Patel <ankit@redhat.com>, 2006, 2007.
 #
+# Ankit Patel <ankit@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-08 12:31+0530\n"
+"PO-Revision-Date: 2007-08-06 15:00+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -105,17 +105,17 @@ msgstr "વિકલ્પ %(opt)s: અયોગ્ય બુલિયન કિ
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend માટે અયોગ્ય url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -164,3 +164,4 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
+
