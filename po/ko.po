@@ -3,38 +3,38 @@
 # translation of ko.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-# Eunju Kim <eukim@redhat.com>, 2006, 2007.
 #
+# Eunju Kim <eukim@redhat.com>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-01-12 12:59+1000\n"
+"PO-Revision-Date: 2007-08-06 12:17+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:140
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %(option)s 옵션은 삭"
+"%(lineno)s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %(cmd)s 명령은 삭"
 "제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 "
-"오류를 가져오는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 "
+"오류를 가져오는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 "
 "제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
 
 #: ../pykickstart/base.py:308
 #, python-format
 msgid "Unknown command: %s"
-msgstr ""
+msgstr "알 수 없는 명령: %s"
 
 #: ../pykickstart/errors.py:43
 #, python-format
@@ -100,29 +100,29 @@ msgstr "옵션 %(opt)s: 유효하지 않은 부울(boolean) 값: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend의 잘못된 URL: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend 파일을 열 수 없음: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend 파일을 열 수 없음"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "그룹은 --nodefaults 및 --optional을 지정할 수 없음"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:80 ../pykickstart/version.py:89
 #: ../pykickstart/version.py:92 ../pykickstart/version.py:103
 #: ../pykickstart/version.py:143
-#, fuzzy, python-format
+#, python-format
 msgid "Unsupported version specified: %s"
-msgstr "지원되지 않는 버전 지정."
+msgstr "지원되지 않는 버전 지정: %s"
 
 #: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
@@ -159,3 +159,4 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
+
