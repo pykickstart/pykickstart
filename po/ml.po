@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-05-28 18:02+0530\n"
+"PO-Revision-Date: 2007-08-06 10:49+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,17 +100,17 @@ msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്�
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend-നുളള url തെറ്റാണ്: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend ഫയല്‍ തുറക്കുവാന്‍ സാധ്യമാകുന്നില്ല: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend ഫയല്‍ തുറക്കുവാന്‍ സാധ്യമാകുന്നില്ല"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -159,3 +159,4 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
+
