@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-08-02 14:37+0530\n"
+"PO-Revision-Date: 2007-08-03 14:17+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -102,17 +102,17 @@ msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend ਲਈ ਗਲਤ url : %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend ਫਾਇਲ ਨੂੰ ਖੋਲਣ ਵਿੱਚ ਅਸਮਰਥ: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend ਫਾਇਲ ਨੂੰ ਖੋਲਣ ਵਿੱਚ ਅਸਮਰਥ"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -161,3 +161,4 @@ msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸ�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
+
