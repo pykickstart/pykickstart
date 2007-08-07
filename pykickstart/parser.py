@@ -310,7 +310,7 @@ class KickstartParser:
     """The kickstart file parser class as represented by a basic state
        machine.  To create a specialized parser, make a subclass and override
        any of the methods you care about.  Methods that don't need to do
-       anything may just pass.  However, readKickstart should never be
+       anything may just pass.  However, _stateMachine should never be
        overridden.
     """
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
