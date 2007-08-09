@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006 Red Hat, Inc.
+# Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # general public license.
@@ -130,7 +130,7 @@ class KSOption (Option):
     ATTRS = Option.ATTRS + ['introduced', 'deprecated', 'removed', 'required']
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
-    
+
     TYPES = Option.TYPES + ("ksboolean",)
     TYPE_CHECKER = copy(Option.TYPE_CHECKER)
 
@@ -147,9 +147,14 @@ class KSOption (Option):
             mapping = {"opt": opt, "value": value}
             raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
 
+    def _check_string(option, opt, value):
+        if len(value) > 2 and value.startswith("--"):
+            mapping = {"opt": opt, "value": value}
+            raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
+
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
-    TYPE_CHECKER["ksboolean"] = _check_ksboolean
+    TYPE_CHECKER.update({"ksboolean": _check_ksboolean, "string": _check_string})
 
     def process (self, opt, value, values, parser):
         Option.process(self, opt, value, values, parser)
