@@ -3,14 +3,14 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.6
+Version: 1.7
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
 # within this srpm.
 Source0: %{name}-%{version}.tar.gz
 
-License: GPL
+License: GPLv2
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -42,6 +42,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Thu Aug 09 2007 Chris Lumens <clumens@redhat.com> 1.7-1
+- Clarify license in spec file and all source files.
+- Check string values to options to make sure they're not other options
+  (#251318).
+
 * Thu Aug 02 2007 Chris Lumens <clumens@redhat.com> 1.6-1
 - Fix a couple tracebacks in ksvalidator.
 - Change --class to --dhcpclass (#248912).

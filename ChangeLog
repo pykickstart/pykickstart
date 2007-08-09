@@ -1,8 +1,13 @@
 2007-08-09  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
 	* pykickstart/options.py (KSOption._check_string):  Add a method to
 	check string values, since optparse will consume the next argument if
 	an argument that requires a value does not specify one (#251318).
+
+	* pykickstart/*, validator/ksvalidator, pykickstart.spec:  Add license
+	boilerplate, clarify as GPLv2.
 
 2007-08-02  Chris Lumens  <clumens@redhat.com>
 
