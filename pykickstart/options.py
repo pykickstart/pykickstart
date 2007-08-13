@@ -158,6 +158,8 @@ class KSOption (Option):
         if len(value) > 2 and value.startswith("--"):
             mapping = {"opt": opt, "value": value}
             raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
+        else:
+            return value
 
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]

@@ -1,3 +1,10 @@
+2007-08-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* pykickstart/options.py (KSOption._check_string):  Fix type checking
+	of string types.
+
 2007-08-09  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
