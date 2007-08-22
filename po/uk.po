@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-01-23 10:40+0300\n"
+"PO-Revision-Date: 2007-08-22 10:40+0300\n"
 "Last-Translator: Maxim V. Dziumanenko <dziumanenko@gmail.com>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Застарілий параметр проігноровано у рядку %(lineno)s:  Команда %(cmd)s "
 "застаріла та більше не призводить до будь-яких дій.  У майбутніх випусках "
-"вона може бути видалена, що буде призводити до фатальної помилки kickstart.  "
+"її буде видалено, що буде призводити до фатальної помилки kickstart.  "
 "Видаліть цей параметр з вашого файлу kickstart."
 
 #: ../pykickstart/base.py:308
@@ -96,17 +96,17 @@ msgstr "Параметр %(opt)s: неправильне логічне знач
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Некоректний url для %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Не вдається відкрити файл %%ksappend: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Не вдається відкрити файл %%ksappend"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
