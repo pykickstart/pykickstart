@@ -1,3 +1,8 @@
+2007-08-22  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/reboot.py (FC6_Reboot.__str__):  Fix newline at
+	end of output (#253562).
+
 2007-08-13  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

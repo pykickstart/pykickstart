@@ -55,16 +55,16 @@ class FC6_Reboot(FC3_Reboot):
         retval = ""
 
         if self.action == KS_REBOOT:
-            retval = "# Reboot after installation\nreboot\n"
+            retval = "# Reboot after installation\nreboot"
         elif self.action == KS_SHUTDOWN:
-            retval = "# Shutdown after installation\nshutdown\n"
+            retval = "# Shutdown after installation\nshutdown"
         else:
             return ""
 
         if self.eject:
             retval += " --eject"
 
-        return retval
+        return retval + "\n"
 
     def parse(self, args):
         if self.currentCmd == "reboot":
