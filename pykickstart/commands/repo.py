@@ -22,6 +22,7 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+import string
 from rhpl.translate import _
 import rhpl.translate as translate
 
@@ -41,6 +42,27 @@ class FC6_RepoData(BaseData):
             urlopt = "--mirrorlist=%s" % self.mirrorlist
 
         return "repo --name=%s %s\n" % (self.name, urlopt)
+
+class F8_RepoData(FC6_RepoData):
+    def __init__(self, baseurl="", mirrorlist="", name="", priority=None,
+                 includepkgs=[], excludepkgs=[]):
+        FC6_RepoData.__init__(self, baseurl=baseurl, mirrorlist=mirrorlist,
+                              name=name)
+        self.priority = priority
+        self.includepkgs = includepkgs
+        self.excludepkgs = excludepkgs
+
+    def __str__(self):
+        str = FC6_RepoData.__str__(self).rstrip()
+
+        if self.priority:
+            str += " --priority=%s" % self.priority
+        if self.includepkgs:
+            str += " --includepkgs=\"%s\"" % string.join(self.includepkgs, ",")
+        if self.excludepkgs:
+            str += " --excludepkgs=\"%s\"" % string.join(self.excludepkgs, ",")
+
+        return str + "\n"
 
 class FC6_Repo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=None):
@@ -80,3 +102,43 @@ class FC6_Repo(KickstartCommand):
 
     def add(self, newObj):
         self.repoList.append(newObj)
+
+class F8_Repo(FC6_Repo):
+    def __init__(self, writePriority=0, repoList=None):
+        FC6_Repo.__init__(self, writePriority, repoList)
+
+    def __str__(self):
+        retval = ""
+        for repo in self.repoList:
+            retval += repo.__str__()
+
+        return retval
+
+    def parse(self, args):
+        def list_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--name", dest="name", required=1)
+        op.add_option("--baseurl")
+        op.add_option("--mirrorlist")
+        op.add_option("--priority", action="store", type="int")
+        op.add_option("--excludepkgs", action="callback", callback=list_cb,
+                      nargs=1, type="string")
+        op.add_option("--includepkgs", action="callback", callback=list_cb,
+                      nargs=1, type="string")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        # This is lame, but I can't think of a better way to make sure only
+        # one of these two is specified.
+        if opts.baseurl and opts.mirrorlist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command."))
+
+        if not opts.baseurl and not opts.mirrorlist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
+
+        rd = F8_RepoData()
+        self._setToObj(op, opts, rd)
+        self.add(rd)

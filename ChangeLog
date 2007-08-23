@@ -1,3 +1,10 @@
+2007-08-23  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/repo.py (F8_RepoData, F8_Repo):  Add support
+	for the --priority, --includepkgs, and --excludepkgs options.
+	* pykickstart/handlers/control.py:  Use F8_RepoData and F8_Repo for
+	Fedora 8.
+
 2007-08-22  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/reboot.py (FC6_Reboot.__str__):  Fix newline at
