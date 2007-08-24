@@ -55,9 +55,7 @@ STATE_END = 0
 STATE_COMMANDS = 1
 STATE_PACKAGES = 2
 STATE_SCRIPT_HDR = 3
-STATE_PRE = 4
-STATE_POST = 5
-STATE_TRACEBACK = 6
+STATE_SCRIPT = 4
 
 def _preprocessStateMachine (provideLineFn):
     l = None
@@ -469,7 +467,7 @@ class KickstartParser:
                 if self._line[:10] == "#platform=" and self._state == STATE_COMMANDS:
                     self.handler.platform = self._line[11:]
 
-                if self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+                if self._state == STATE_SCRIPT:
                     self._script["body"].append(self._line)
 
                 needLine = True
@@ -478,7 +476,7 @@ class KickstartParser:
             # We only want to split the line if we're outside of a script,
             # as inside the script might involve some pretty weird quoting
             # that shlex doesn't understand.
-            if self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+            if self._state == STATE_SCRIPT:
                 # Have we found a state transition?  If so, we still want
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
@@ -575,13 +573,13 @@ class KickstartParser:
                 if not args and self._includeDepth == 0:
                     self._state = STATE_END
                 elif args[0] == "%pre":
-                    self._state = STATE_PRE
+                    self._state = STATE_SCRIPT
                     self._script["type"] = KS_SCRIPT_PRE
                 elif args[0] == "%post":
-                    self._state = STATE_POST
+                    self._state = STATE_SCRIPT
                     self._script["type"] = KS_SCRIPT_POST
                 elif args[0] == "%traceback":
-                    self._state = STATE_TRACEBACK
+                    self._state = STATE_SCRIPT
                     self._script["type"] = KS_SCRIPT_TRACEBACK
                 elif args[0][0] == '%':
                     # This error is too difficult to continue from, without
@@ -596,7 +594,7 @@ class KickstartParser:
                     except Exception, msg:
                         print msg
 
-            elif self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
+            elif self._state == STATE_SCRIPT:
                 if self._line in ["%end", ""] and self._includeDepth == 0:
                     if self._line == "":
                         warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % _("Script"), DeprecationWarning)
