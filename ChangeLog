@@ -1,3 +1,8 @@
+2007-08-24  Chris Lumens  <clumens@redhat.com>
+
+	* ksvalidator/validator:  Don't leave downloaded ks files on the
+	system if pykickstart hits a traceback.
+
 2007-08-23  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/repo.py (F8_RepoData, F8_Repo):  Add support

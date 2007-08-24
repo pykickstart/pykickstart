@@ -77,20 +77,21 @@ ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
 # turn DeprecationWarnings into errors
 warnings.filterwarnings("error")
 
+processedFile = None
+
 try:
     processedFile = preprocessKickstart(f)
     ksparser.readKickstart(processedFile)
+    cleanup(destdir, processedFile, exitval=0)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
-    cleanup(destdir, processedFile)
+    cleanup(destdir, processedFile, exitval=0)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
-    cleanup(destdir, processedFile)
+    cleanup(destdir, processedFile, exitval=0)
 except KickstartError:
     print _("General kickstart error in input file")
-    cleanup(destdir, processedFile)
+    cleanup(destdir, processedFile, exitval=0)
 except Exception, e:
     print _("General error in input file:  %s") % e
-    cleanup(destdir)
-
-cleanup(destdir, processedFile, exitval=0)
+    cleanup(destdir, processedFile)
