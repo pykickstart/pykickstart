@@ -483,7 +483,7 @@ class KickstartParser:
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
                 if self._line != "" and string.split(self._line.lstrip())[0] in \
-                   ["%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
+                   ["%end", "%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
                     args = shlex.split(self._line)
                 else:
                     args = None
@@ -519,7 +519,6 @@ class KickstartParser:
                     self._state = STATE_END
                 elif args[0] == "%ksappend":
                     needLine = True
-                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -541,10 +540,13 @@ class KickstartParser:
 
             elif self._state == STATE_PACKAGES:
                 if not args and self._includeDepth == 0:
+                    warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % "%packages", DeprecationWarning)
                     self._state = STATE_END
+                elif args[0] == "%end":
+                    self._state = STATE_COMMANDS
+                    needLine = True
                 elif args[0] == "%ksappend":
                     needLine = True
-                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -595,17 +597,23 @@ class KickstartParser:
                         print msg
 
             elif self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                if self._line == "" and self._includeDepth == 0:
+                if self._line in ["%end", ""] and self._includeDepth == 0:
+                    if self._line == "":
+                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % _("Script"), DeprecationWarning)
+
                     # If we're at the end of the kickstart file, add the script.
                     self.addScript()
                     self._state = STATE_END
-                elif args and args[0] in ["%pre", "%post", "%traceback", "%packages", "%ksappend"]:
+                elif args and args[0] in ["%end", "%pre", "%post", "%traceback", "%packages", "%ksappend"]:
                     # Otherwise we're now at the start of the next section.
                     # Figure out what kind of a script we just finished
                     # reading, add it to the list, and switch to the initial
                     # state.
                     self.addScript()
                     self._state = STATE_COMMANDS
+
+                    if args[0] == "%end":
+                        needLine = True
                 else:
                     # Otherwise just add to the current script body.
                     self._script["body"].append(self._line)

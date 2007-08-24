@@ -1,6 +1,10 @@
 2007-08-24  Chris Lumens  <clumens@redhat.com>
 
-	* ksvalidator/validator:  Don't leave downloaded ks files on the
+	* pykickstart/parser.py (KickstartParser._stateMachine):  Add support
+	for the %end directive, and issue DeprecationWarnings if it's not
+	used.  It will be a long time before the old syntax goes away, though.
+
+	* validator/ksvalidator:  Don't leave downloaded ks files on the
 	system if pykickstart hits a traceback.
 
 2007-08-23  Chris Lumens  <clumens@redhat.com>
