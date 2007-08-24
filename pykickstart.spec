@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.8
+Version: 1.9
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -42,6 +42,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Fri Aug 24 2007 Chris Lumens <clumens@redhat.com> 1.9-1
+- Add support for the %end directive to be placed at the end of scripts
+  and packages sections.  Deprecate old syntax.
+- Clean up after ksvalidator if pykickstart issues a traceback.
+- Add support for repo --priority --includepkgs --excludepkgs.
+- Fix newline at end of reboot --eject output (#253562).
+
 * Mon Aug 13 2007 Chris Lumens <clumens@redhat.com> 1.8-1
 - Fix type checking of string values.
 

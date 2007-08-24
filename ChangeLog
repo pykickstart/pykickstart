@@ -1,5 +1,7 @@
 2007-08-24  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
 	* pykickstart/parser.py (KickstartParser._stateMachine):  Add support
 	for the %end directive, and issue DeprecationWarnings if it's not
 	used.  It will be a long time before the old syntax goes away, though.
