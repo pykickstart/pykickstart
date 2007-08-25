@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-05-04 17:26+0900\n"
+"PO-Revision-Date: 2007-08-25 22:36+0900\n"
 "Last-Translator: Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,14 +21,14 @@ msgstr ""
 "X-Generator: KBabel 1.9.1\n"
 
 #: ../pykickstart/base.py:140
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
 "been deprecated and no longer has any effect.  It may be removed from future "
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno) 行の廃止されたコマンドを無視します: %(cmd) コマンドは廃止されてお"
+"%(lineno)s 行の廃止されたコマンドを無視します: %(cmd)s コマンドは廃止されてお"
 "り、どんな効果も持ちません。将来のリリースでは削除される可能性があり、キック"
 "スタートの致命的なエラーとなります。使用中のキックスタートファイルを修正し"
 "て、このコマンドを取り除いてください。"
@@ -76,7 +76,7 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"%(lineno) 行の廃止されたオプションを無視します: %(option) オプションは廃止さ"
+"%(lineno)s 行の廃止されたオプションを無視します: %(option)s オプションは廃止さ"
 "れており、どんな効果も持ちません。将来のリリースでは削除される可能性があり、"
 "キックスタートの致命的なエラーとなります。使用中のキックスタートファイルを修"
 "正して、このオプションを取り除いてください。"
@@ -102,17 +102,17 @@ msgstr "オプション %(opt)s: 無効なブール値: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend としては不正な url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend ファイルを開けません: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend ファイルを開けません"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
