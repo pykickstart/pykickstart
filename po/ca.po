@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-11 04:18+0100\n"
+"PO-Revision-Date: 2007-08-26 04:18+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -119,17 +119,17 @@ msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "La url per a %%ksappend no és vàlida: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "No es pot obrir el fitxer %%ksappend: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "No es pot obrir el fitxer %%ksappend"
 
 # FIXME: Quin grup??? (josep)
 #: ../pykickstart/parser.py:278
@@ -142,7 +142,7 @@ msgstr "El grup no pot especificar --nodefaults i --optional alhora"
 #: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr "No s'és compatible amb la versió especificada: %s"
+msgstr "La versió especificada no és compatible: %s"
 
 #: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
@@ -155,7 +155,7 @@ msgstr "analitza fitxers d'inclusió quan es trobi %include"
 
 #: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
-msgstr "la versió de la sintaxi del kickstart amb la qual validar"
+msgstr "la versió de la sintaxi del kickstart a validar"
 
 #: ../validator/ksvalidator:64
 #, python-format
