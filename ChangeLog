@@ -8,6 +8,9 @@
 	* pykickstart/handlers/control.py:  Use F8_NetworkData and F8_Network
 	for Fedora 8.
 
+	* pykickstart/commands/network.py:  Reorganize how the parser's
+	options are set up so there's much less duplication.
+
 2007-08-24  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

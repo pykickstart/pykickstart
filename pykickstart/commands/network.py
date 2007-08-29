@@ -225,8 +225,7 @@ class FC3_Network(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
+    def _populateParser(self, op):
         op.add_option("--bootproto", dest="bootProto",
                       default=BOOTPROTO_DHCP,
                       choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
@@ -246,6 +245,10 @@ class FC3_Network(KickstartCommand):
         op.add_option("--onboot", dest="onboot", action="store",
                       type="ksboolean")
         op.add_option("--wepkey", dest="wepkey")
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        self._populateParser(self, op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC3_NetworkData()
@@ -259,29 +262,14 @@ class FC4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
         FC3_Network.__init__(self, writePriority, network)
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                               BOOTPROTO_STATIC])
-        op.add_option("--dhcpclass", dest="dhcpclass")
-        op.add_option("--device", dest="device")
-        op.add_option("--essid", dest="essid")
-        op.add_option("--ethtool", dest="ethtool")
-        op.add_option("--gateway", dest="gateway")
-        op.add_option("--hostname", dest="hostname")
-        op.add_option("--ip", dest="ip")
-        op.add_option("--mtu", dest="mtu")
-        op.add_option("--nameserver", dest="nameserver")
-        op.add_option("--netmask", dest="netmask")
-        op.add_option("--nodns", dest="nodns", action="store_true",
-                      default=False)
+    def _populateParser(self, op):
+        FC3_Network._populateParser(self, op)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="store",
-                      type="ksboolean")
-        op.add_option("--wepkey", dest="wepkey")
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        self._populateParser(self, op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC4_NetworkData()
@@ -292,33 +280,16 @@ class FC6_Network(FC4_Network):
     def __init__(self, writePriority=0, network=None):
         FC4_Network.__init__(self, writePriority, network)
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                               BOOTPROTO_STATIC])
-        op.add_option("--dhcpclass", dest="dhcpclass")
-        op.add_option("--device", dest="device")
-        op.add_option("--essid", dest="essid")
-        op.add_option("--ethtool", dest="ethtool")
-        op.add_option("--gateway", dest="gateway")
-        op.add_option("--hostname", dest="hostname")
-        op.add_option("--ip", dest="ip")
+    def _populateParser(self, op):
+        FC4_Network._populateParser(self, op)
         op.add_option("--noipv4", dest="noipv4", action="store_true",
                       default=False)
         op.add_option("--noipv6", dest="noipv6", action="store_true",
                       default=False)
-        op.add_option("--mtu", dest="mtu")
-        op.add_option("--nameserver", dest="nameserver")
-        op.add_option("--netmask", dest="netmask")
-        op.add_option("--nodns", dest="nodns", action="store_true",
-                      default=False)
-        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
-                      default=False)
-        op.add_option("--onboot", dest="onboot", action="store",
-                      type="ksboolean")
-        op.add_option("--wepkey", dest="wepkey")
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        self._populateParser(self, op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC6_NetworkData()
@@ -329,34 +300,13 @@ class F8_Network(FC6_Network):
     def __init__(self, writePriority=0, network=None):
         FC6_Network.__init__(self, writePriority, network)
 
+    def _populateParser(self, op):
+        FC6_Network._populateParser(self, op):
+        op.add_option("--ipv6", dest="ipv6")
+
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                               BOOTPROTO_STATIC])
-        op.add_option("--dhcpclass", dest="dhcpclass")
-        op.add_option("--device", dest="device")
-        op.add_option("--essid", dest="essid")
-        op.add_option("--ethtool", dest="ethtool")
-        op.add_option("--gateway", dest="gateway")
-        op.add_option("--hostname", dest="hostname")
-        op.add_option("--ip", dest="ip")
-        op.add_option("--ipv6", dest="ipv6")
-        op.add_option("--noipv4", dest="noipv4", action="store_true",
-                      default=False)
-        op.add_option("--noipv6", dest="noipv6", action="store_true",
-                      default=False)
-        op.add_option("--mtu", dest="mtu")
-        op.add_option("--nameserver", dest="nameserver")
-        op.add_option("--netmask", dest="netmask")
-        op.add_option("--nodns", dest="nodns", action="store_true",
-                      default=False)
-        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
-                      default=False)
-        op.add_option("--onboot", dest="onboot", action="store",
-                      type="ksboolean")
-        op.add_option("--wepkey", dest="wepkey")
+        self._populateParser(self, op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = F8_NetworkData()
@@ -367,29 +317,14 @@ class RHEL4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
         FC3_Network.__init__(self, writePriority, network)
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                               BOOTPROTO_STATIC])
-        op.add_option("--dhcpclass", dest="dhcpclass")
-        op.add_option("--device", dest="device")
-        op.add_option("--essid", dest="essid")
-        op.add_option("--ethtool", dest="ethtool")
-        op.add_option("--gateway", dest="gateway")
-        op.add_option("--hostname", dest="hostname")
-        op.add_option("--ip", dest="ip")
-        op.add_option("--mtu", dest="mtu")
-        op.add_option("--nameserver", dest="nameserver")
-        op.add_option("--netmask", dest="netmask")
-        op.add_option("--nodns", dest="nodns", action="store_true",
-                      default=False)
+    def _populateParser(self, op):
+        FC3_Network._populateParser(self, op)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
-        op.add_option("--onboot", dest="onboot", action="store",
-                      type="ksboolean")
-        op.add_option("--wepkey", dest="wepkey")
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        self._populateParser(self, op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = RHEL4_NetworkData()
