@@ -3,6 +3,11 @@
 	* pykickstart/commands/network.py:  ipv4= -> noipv4=, ipv6= -> noipv6=
 	on NetworkData objects.
 
+	* pykickstart/commands/network.py (F8_NetworkData, F8_Network):  Add
+	the --ipv6= option to the network command.
+	* pykickstart/handlers/control.py:  Use F8_NetworkData and F8_Network
+	for Fedora 8.
+
 2007-08-24  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

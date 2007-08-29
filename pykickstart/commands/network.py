@@ -160,6 +160,29 @@ class FC6_NetworkData(FC4_NetworkData):
 
         return retval + "\n"
 
+class F8_NetworkData(FC6_NetworkData):
+    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
+                 essid="", ethtool="", gateway="", hostname="", ip="", ipv6="",
+                 noipv4=False, noipv6=False, mtu="", nameserver="", netmask="",
+                 nodns=False, notksdevice=False, onboot=True, wepkey=""):
+        FC6_NetworkData.__init__(self, bootProto=bootProto,
+                                dhcpclass=dhcpclass, device=device,
+                                essid=essid, ethtool=ethtool,
+                                gateway=gateway, hostname=hostname,
+                                ip=ip, mtu=mtu, netmask=netmask,
+                                nameserver=nameserver, nodns=nodns,
+                                notksdevice=notksdevice,
+                                onboot=onboot, wepkey=wepkey)
+        self.ipv6 = ipv6
+
+    def __str__(self):
+        retval = FC6_NetworkData.__str__(self).strip()
+
+        if self.ipv6 != "":
+            retval += " --ipv6" % self.ipv6
+
+        return retval + "\n"
+
 class RHEL4_NetworkData(FC3_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
@@ -299,6 +322,44 @@ class FC6_Network(FC4_Network):
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC6_NetworkData()
+        self._setToObj(op, opts, nd)
+        self.add(nd)
+
+class F8_Network(FC6_Network):
+    def __init__(self, writePriority=0, network=None):
+        FC6_Network.__init__(self, writePriority, network)
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--bootproto", dest="bootProto",
+                      default=BOOTPROTO_DHCP,
+                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
+                               BOOTPROTO_STATIC])
+        op.add_option("--dhcpclass", dest="dhcpclass")
+        op.add_option("--device", dest="device")
+        op.add_option("--essid", dest="essid")
+        op.add_option("--ethtool", dest="ethtool")
+        op.add_option("--gateway", dest="gateway")
+        op.add_option("--hostname", dest="hostname")
+        op.add_option("--ip", dest="ip")
+        op.add_option("--ipv6", dest="ipv6")
+        op.add_option("--noipv4", dest="noipv4", action="store_true",
+                      default=False)
+        op.add_option("--noipv6", dest="noipv6", action="store_true",
+                      default=False)
+        op.add_option("--mtu", dest="mtu")
+        op.add_option("--nameserver", dest="nameserver")
+        op.add_option("--netmask", dest="netmask")
+        op.add_option("--nodns", dest="nodns", action="store_true",
+                      default=False)
+        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
+                      default=False)
+        op.add_option("--onboot", dest="onboot", action="store",
+                      type="ksboolean")
+        op.add_option("--wepkey", dest="wepkey")
+
+        (opts, extra) = op.parse_args(args=args)
+        nd = F8_NetworkData()
         self._setToObj(op, opts, nd)
         self.add(nd)
 
