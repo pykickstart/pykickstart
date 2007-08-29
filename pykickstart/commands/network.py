@@ -107,7 +107,7 @@ class FC4_NetworkData(FC3_NetworkData):
 class FC6_NetworkData(FC4_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
                  essid="", ethtool="", gateway="", hostname="", ip="",
-                 ipv4=True, ipv6=True, mtu="", nameserver="", netmask="",
+                 noipv4=False, noipv6=False, mtu="", nameserver="", netmask="",
                  nodns=False, notksdevice=False, onboot=True, wepkey=""):
         FC4_NetworkData.__init__(self, bootProto=bootProto,
                                 dhcpclass=dhcpclass, device=device,
@@ -117,8 +117,8 @@ class FC6_NetworkData(FC4_NetworkData):
                                 nameserver=nameserver, nodns=nodns,
                                 notksdevice=notksdevice,
                                 onboot=onboot, wepkey=wepkey)
-        self.ipv4 = ipv4
-        self.ipv6 = ipv6
+        self.noipv4 = noipv4
+        self.noipv6 = noipv6
 
     def __str__(self):
         retval = "network"
@@ -139,9 +139,9 @@ class FC6_NetworkData(FC4_NetworkData):
             retval += " --hostname=%s" % self.hostname
         if self.ip != "":
             retval += " --ip=%s" % self.ip
-        if not self.ipv4:
+        if self.noipv4:
             retval += " --noipv4"
-        if not self.ipv6:
+        if self.noipv6:
             retval += " --noipv6"
         if self.mtu != "":
             retval += " --mtu=%s" % self.mtu
@@ -282,10 +282,10 @@ class FC6_Network(FC4_Network):
         op.add_option("--gateway", dest="gateway")
         op.add_option("--hostname", dest="hostname")
         op.add_option("--ip", dest="ip")
-        op.add_option("--noipv4", dest="ipv4", action="store_false",
-                      default=True)
-        op.add_option("--noipv6", dest="ipv6", action="store_false",
-                      default=True)
+        op.add_option("--noipv4", dest="noipv4", action="store_true",
+                      default=False)
+        op.add_option("--noipv6", dest="noipv6", action="store_true",
+                      default=False)
         op.add_option("--mtu", dest="mtu")
         op.add_option("--nameserver", dest="nameserver")
         op.add_option("--netmask", dest="netmask")
