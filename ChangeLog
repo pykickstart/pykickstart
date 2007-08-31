@@ -1,3 +1,7 @@
+2007-08-31  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
 2007-08-29  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/network.py:  ipv4= -> noipv4=, ipv6= -> noipv6=
