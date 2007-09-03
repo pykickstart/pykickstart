@@ -1,4 +1,4 @@
-# translation of ta.po to Tamil
+# translation of ta.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-04-12 17:46+0530\n"
-"Last-Translator: I felix <ifelix@redhat.com>\n"
-"Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
+"PO-Revision-Date: 2007-09-03 13:36+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -105,17 +105,17 @@ msgstr "விருப்பம் %(opt)s: தவறான பூலியன�
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappendக்கு தவறான url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend கோப்பினை திறக்க முடியவில்லை: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend கோப்பினை திறக்க முடியவில்லை"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -164,3 +164,4 @@ msgstr "உள்ளீடு கோப்பில் பொதுவான க
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
+
