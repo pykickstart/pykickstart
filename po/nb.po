@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pykickstart 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-16 15:02+0100\n"
+"PO-Revision-Date: 2007-09-03 10:35+0200\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -97,17 +97,17 @@ msgstr "Flagget %(opt)s: ugyldig booleansk verdi: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Ugyldig URL for %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Kan ikke åpne %%ksappend-fil: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Kan ikke åpne %%ksappend-fil"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -156,9 +156,3 @@ msgstr "Allmenn kickstart-feil i inndatafil"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allmenn feil i inndatafil: %s"
-
-#~ msgid "Command %s does not take any arguments"
-#~ msgstr "Kommando %s tar ingen argumenter"
-
-#~ msgid "Mount point required for %s"
-#~ msgstr "Monteringspunkt kreves for %s"
