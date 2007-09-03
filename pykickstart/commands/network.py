@@ -301,7 +301,7 @@ class F8_Network(FC6_Network):
         FC6_Network.__init__(self, writePriority, network)
 
     def _populateParser(self, op):
-        FC6_Network._populateParser(self, op):
+        FC6_Network._populateParser(self, op)
         op.add_option("--ipv6", dest="ipv6")
 
     def parse(self, args):

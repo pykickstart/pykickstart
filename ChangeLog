@@ -1,3 +1,12 @@
+2007-09-03  Jeremy Katz  <katzj@redhat.com>
+
+	* pykickstart.spec, setup.py: New version.
+
+	* pykickstart/parser.py (KickstartParser.__init__): Define currentdir
+
+	* pykickstart/commands/network.py (F8_Network._populateParser):
+	Fix syntax error
+
 2007-08-31  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
