@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 
 class FC3_Authconfig(KickstartCommand):

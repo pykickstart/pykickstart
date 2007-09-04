@@ -18,6 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import *
+from pykickstart.options import *
 
 class RHEL3_Mouse(KickstartCommand):
     def __init__(self, writePriority=0, device="", emulthree=False, mouse=""):

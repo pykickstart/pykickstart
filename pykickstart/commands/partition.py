@@ -21,6 +21,11 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
+
 class FC3_PartData(BaseData):
     def __init__(self, active=False, primOnly=False, end=0, fstype="",
                  grow=False, maxSizeMB=0, format=True, onbiosdisk="",
