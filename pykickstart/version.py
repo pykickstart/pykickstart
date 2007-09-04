@@ -65,18 +65,18 @@ versionMap = {
         "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
-def stringToVersion(string):
+def stringToVersion(s):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
     # First try these short forms.
     try:
-        return versionMap[string.upper()]
+        return versionMap[s.upper()]
     except KeyError:
         pass
 
     # Now try the Fedora versions.
-    m = re.match("^fedora.* (\d)+$", string, re.I)
+    m = re.match("^fedora.* (\d)+$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("FC" + m.group(1)):
@@ -84,19 +84,19 @@ def stringToVersion(string):
         elif versionMap.has_key("F" + m.group(1)):
             return versionMap["F" + m.group(1)]
         else:
-            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+            raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
     # Now try the RHEL versions.
-    m = re.match("^red hat enterprise linux.* (\d)+$", string, re.I)
+    m = re.match("^red hat enterprise linux.* (\d)+$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("RHEL" + m.group(1)):
             return versionMap["RHEL" + m.group(1)]
         else:
-            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+            raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
     # If nothing else worked, we're out of options.
-    raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+    raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
 def versionToString(version):
     """Convert version into a string representation of the version number.

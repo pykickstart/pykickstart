@@ -3,6 +3,8 @@
 	* pykickstart/parser.py (Script.__str__, Packages.__str__):  Add %end
 	token to the end of these sections.
 
+	* pykickstart/version.py (stringToVersion):  string -> s.
+
 	* pykickstart/commands/bootloader.py (FC4_Bootloader):  Call
 	superclass's __init__ method.
 
