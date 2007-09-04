@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.11
+Version: 1.12
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -42,6 +42,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 1.12-1
+- Fix lots of problems in processing the bootloader, device, network, and
+  raid commands.
+- Add %end when writing out scripts and packages.
+- Add a makefile target to run pychecker to cut down on errors in
+  releases.
+
 * Mon Sep  3 2007 Jeremy Katz <katzj@redhat.com> - 1.11-1
 - fix a few tracebacks
 

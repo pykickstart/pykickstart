@@ -1,5 +1,7 @@
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py: New version.
+
 	* Makefile:  Add a target to run pychecker so I can attempt to cut
 	down on all the stupid errors that I just fixed up.
 
