@@ -103,7 +103,7 @@ class FC4_Bootloader(FC3_Bootloader):
     def __init__(self, writePriority=10, appendLine="", driveorder=None,
                  forceLBA=False, location="", md5pass="", password="",
                  upgrade=False):
-        KickstartCommand.__init__(self, writePriority)
+        FC3_Bootloader.__init__(self, writePriority)
         self.appendLine = appendLine
 
         if driveorder == None:

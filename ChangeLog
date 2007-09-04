@@ -3,6 +3,9 @@
 	* pykickstart/parser.py (Script.__str__, Packages.__str__):  Add %end
 	token to the end of these sections.
 
+	* pykicsktart/commands/bootloader.py (FC4_Bootloader):  Call
+	superclass's __init__ method.
+
 	* pykickstart/commands/network.py:  Don't pass self when calling
 	_populateParser outside of the overridden method.
 	(F8_NetworkData.__init__):  Pass noipv4 and noipv6 to superclass.
