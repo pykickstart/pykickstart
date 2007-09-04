@@ -30,7 +30,7 @@ class FC3_Device(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.type = type
         self.moduleName = moduleName
-        self.deviceOpts = moduleOpts
+        self.moduleOpts = moduleOpts
 
     def __str__(self):
         if self.moduleName != "":
