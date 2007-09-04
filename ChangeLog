@@ -1,5 +1,8 @@
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
+	* Makefile:  Add a target to run pychecker so I can attempt to cut
+	down on all the stupid errors that I just fixed up.
+
 	* pykickstart/parser.py (Script.__str__, Packages.__str__):  Add %end
 	token to the end of these sections.
 

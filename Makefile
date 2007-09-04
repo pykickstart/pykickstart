@@ -6,10 +6,15 @@ CVSTAG=r$(subst .,_,$(VERSION)-$(RELEASE))
 MANDIR=/usr/share/man
 PREFIX=/usr
 
+PYCHECKEROPTS=--no-shadowbuiltin --no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only
+
 default: all
 
 all:
 	$(MAKE) -C po
+
+check:
+	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc
