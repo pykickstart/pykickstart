@@ -186,7 +186,7 @@ class Script:
         if self.errorOnFail:
             retval += " --erroronfail"
 
-        return retval + "\n%s" % self.script
+        return retval + "\n%s\n%end\n" % self.script
 
 
 ##
@@ -270,7 +270,7 @@ class Packages:
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
 
-        return retval + "\n" + pkgs
+        return retval + "\n%end\n" + pkgs
 
     def _processGroup (self, line):
         op = OptionParser()
