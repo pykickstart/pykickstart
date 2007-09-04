@@ -23,6 +23,11 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
+
 class FC3_RaidData(BaseData):
     def __init__(self, device=None, fstype="", level="", format=True,
                  spares=0, preexist=False, mountpoint="", members=None):
@@ -285,6 +290,6 @@ class FC5_Raid(FC4_Raid):
 
 class F7_Raid(FC5_Raid):
     def __init__(self, writePriority=140, raidList=None):
-        FC4_Raid.__init__(self, writePriority, raidList)
+        FC5_Raid.__init__(self, writePriority, raidList)
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
