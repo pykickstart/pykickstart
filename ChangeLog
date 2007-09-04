@@ -3,6 +3,10 @@
 	* pykickstart/parser.py (Script.__str__, Packages.__str__):  Add %end
 	token to the end of these sections.
 
+	* pykickstart/commands/network.py:  Don't pass self when calling
+	_populateParser outside of the overridden method.
+	(F8_NetworkData.__init__):  Pass noipv4 and noipv6 to superclass.
+
 2007-09-03  Jeremy Katz  <katzj@redhat.com>
 
 	* pykickstart.spec, setup.py: New version.

@@ -171,8 +171,8 @@ class F8_NetworkData(FC6_NetworkData):
                                 gateway=gateway, hostname=hostname,
                                 ip=ip, mtu=mtu, netmask=netmask,
                                 nameserver=nameserver, nodns=nodns,
-                                notksdevice=notksdevice,
-                                onboot=onboot, wepkey=wepkey)
+                                notksdevice=notksdevice, noipv4=noipv4,
+                                noipv6=noipv6, onboot=onboot, wepkey=wepkey)
         self.ipv6 = ipv6
 
     def __str__(self):
@@ -248,7 +248,7 @@ class FC3_Network(KickstartCommand):
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        self._populateParser(self, op)
+        self._populateParser(op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC3_NetworkData()
@@ -269,7 +269,7 @@ class FC4_Network(FC3_Network):
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        self._populateParser(self, op)
+        self._populateParser(op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC4_NetworkData()
@@ -289,7 +289,7 @@ class FC6_Network(FC4_Network):
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        self._populateParser(self, op)
+        self._populateParser(op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = FC6_NetworkData()
@@ -306,7 +306,7 @@ class F8_Network(FC6_Network):
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        self._populateParser(self, op)
+        self._populateParser(op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = F8_NetworkData()
@@ -324,7 +324,7 @@ class RHEL4_Network(FC3_Network):
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
-        self._populateParser(self, op)
+        self._populateParser(op)
 
         (opts, extra) = op.parse_args(args=args)
         nd = RHEL4_NetworkData()
