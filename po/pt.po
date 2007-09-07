@@ -12,7 +12,7 @@ msgstr ""
 "X-POFile-SpellExtra: zerombr include kickstart mirrorlist baseurl opt\n"
 "X-POFile-SpellExtra: partition option cmd value device multipathdev\n"
 "X-POFile-SpellExtra: command lineno msg line options biospart pykickstart\n"
-"X-POFile-SpellExtra: removed intro version nodefaults optional\n"
+"X-POFile-SpellExtra: removed intro version nodefaults optional ksappend\n"
 
 #: ../pykickstart/base.py:140
 #, python-format
