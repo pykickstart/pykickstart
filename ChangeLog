@@ -1,3 +1,8 @@
+2007-09-10  Chris Lumens  <clumens@redhat.com>
+
+	* Makefile, MANIFEST.in, pykickstart.spec:  Add the kickstart
+	documentation from the Fedora wiki.
+
 2007-09-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py: New version.

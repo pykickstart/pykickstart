@@ -38,6 +38,7 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc README ChangeLog COPYING docs/programmers-guide
+%doc docs/kickstart-docs.txt
 %{python_sitelib}/pykickstart
 %{_bindir}/ksvalidator
 
