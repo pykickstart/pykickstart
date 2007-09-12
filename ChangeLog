@@ -1,5 +1,7 @@
 2007-09-12  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py: New version.
+
 	* pykickstart/parser.py (Script.__str__):  Fix format string for
 	output.
 	(Packages.__str__):  Output %end after all the packages.

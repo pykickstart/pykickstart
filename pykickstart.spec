@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.12
+Version: 1.13
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -43,6 +43,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 
 %changelog
+* Wed Sep 12 2007 Chris Lumens <clumens@redhat.com> 1.13-1
+- Add a function to convert URL method strings into repo objects
+  (jkeating).
+- Writer formatting fixes.
+- Add kickstart documentation from the Fedora Wiki.
+
 * Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 1.12-1
 - Fix lots of problems in processing the bootloader, device, network, and
   raid commands.
