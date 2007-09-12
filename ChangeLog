@@ -4,6 +4,10 @@
 	output.
 	(Packages.__str__):  Output %end after all the packages.
 
+	* pykickstart/commands/repo.py (F8_Repo.methodToRepo):  Add a function
+	to convert a URL method string into a repo object (jkeating AT redhat
+	DOT com).
+
 2007-09-10  Chris Lumens  <clumens@redhat.com>
 
 	* Makefile, MANIFEST.in, pykickstart.spec:  Add the kickstart

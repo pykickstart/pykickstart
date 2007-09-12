@@ -142,3 +142,12 @@ class F8_Repo(FC6_Repo):
         rd = F8_RepoData()
         self._setToObj(op, opts, rd)
         self.add(rd)
+
+    def methodToRepo(self):
+        if not self.handler.method.url:
+            raise KickstartError, formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo lsit."))
+        reponame = "ks-method-url"
+        repourl = self.handler.method.url
+        rd = F8_RepoData(name=reponame, baseurl=repourl)
+        self.add(rd)
+
