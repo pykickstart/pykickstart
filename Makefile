@@ -34,6 +34,7 @@ tag:
 archive: tag docs
 	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
 	@CVSROOT=`cat CVS/Root`; cd /tmp; cvs -d $$CVSROOT export -r$(CVSTAG) ${PKGNAME}
+	@cp docs/kickstart-docs.txt /tmp/${PKGNAME}/docs/
 	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
 	@cd /tmp/${PKGNAME}-$(VERSION) ; python setup.py -q sdist
 	@cp /tmp/${PKGNAME}-$(VERSION)/dist/${PKGNAME}-$(VERSION).tar.gz .
