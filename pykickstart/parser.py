@@ -187,7 +187,7 @@ class Script:
             retval += " --erroronfail"
 
         if self.script.endswith("\n"):
-            return retval = "\n%s%%end\n" % self.script
+            return retval + "\n%s%%end\n" % self.script
         else:
             return retval + "\n%s\n%%end\n" % self.script
 
@@ -262,7 +262,7 @@ class Packages:
             if pkgs == "":
                 return ""
 
-        retval = "\n%packages"
+        retval = "\n%packages\n"
 
         if self.default:
             retval += " --default"
