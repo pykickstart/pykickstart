@@ -24,7 +24,7 @@ clean:
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
-install: all docs
+install: all
 	python setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
