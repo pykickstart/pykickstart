@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-05-02 10:44+0530\n"
+"PO-Revision-Date: 2007-09-12 23:42+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,17 +100,17 @@ msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌ
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend ಗೆ ಅಸಮ್ಮತ url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend ಕಡತವನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend ಕಡತವನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -159,3 +159,4 @@ msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕ
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
+
