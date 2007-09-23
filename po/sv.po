@@ -1,7 +1,7 @@
 # Swedish messages for pykickstart.
-# Copyright (C) Christian Rose <menthos@menthos.com>, 2006.
-# Copyright (C) Magnus Larsson <fedoratrans@gmail.com>, 2007.
-# $Id$
+# Copyright © 2001-2007 Free Software Foundation, Inc.
+# Christian Rose <menthos@menthos.com>, 2006.
+# Magnus Larsson <fedoratrans@gmail.com>, 2007.
 # 
 # 
 msgid ""
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-09 19:40-0500\n"
+"PO-Revision-Date: 2007-09-22 23:10-0400\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -99,17 +99,17 @@ msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Ogiltig url för %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Kan inte öppna %%ksappend filen: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Kan inte öppna %%ksappend filen"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
