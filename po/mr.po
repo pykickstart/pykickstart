@@ -1,23 +1,23 @@
-# translation of mr.po to Marathi
 # translation of mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # sandeep shedmake <sandeepshedmake@yahoo.co.in>, 2006.
 # Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
-#
+# sandeep shedmake <sandeep.shedmake@gmail.com>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2006-11-29 17:00+0530\n"
-"Last-Translator: Rahul Bhalerao <b.rahul.pm@gmail.com>\n"
-"Language-Team: Marathi\n"
+"PO-Revision-Date: 2007-09-23 17:58+0530\n"
+"Last-Translator: sandeep shedmake <sandeep.shedmake@gmail.com>\n"
+"Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 
 #: ../pykickstart/base.py:140
 #, python-format
@@ -64,6 +64,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"%(option)s पर्याय %(intro)s आवृत्तीमध्ये ओळखीस आले होते, परंतु आपण"
+"%(version)s कीकस्टार्ट व्याकरण आवृत्ती वापरत आहात"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -84,6 +86,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
+"%(option)s पर्याय %(removed)s आवृत्तीमध्ये काढून टाकण्यात आले होते, परंतु आपण"
+"%(version)s कीकस्टार्ट व्याकरण आवृत्ती वापरत आहात"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -97,21 +101,21 @@ msgstr "पर्याय %(opt)s: अप्रमाणीत बुलिय�
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend करीता अवैध url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend फाइल उघडण्यास असमर्थ: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend फाइल उघडण्यास असमर्थ"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "संच --nodefaults व --optional पर्याय दर्शवू शकत नाही"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:80 ../pykickstart/version.py:89
@@ -119,7 +123,7 @@ msgstr ""
 #: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "असमर्थित आवृत्ती दर्शविल्या गेले: %s"
 
 #: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
@@ -132,12 +136,12 @@ msgstr "जेव्हा %include दिसते तेव्हा include �
 
 #: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "कीकस्टार्ट संरचना ची आवृत्ती च्या विरुद्धात तपासनी"
 
 #: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "%s आवृत्ती pykickstart द्वारे समर्थित नाही"
 
 #: ../validator/ksvalidator:77
 #, python-format
@@ -156,3 +160,4 @@ msgstr "इनपुट फाइल मध्ये सर्वसाधार
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल मध्ये सर्वसाधारण चूका:  %s"
+
