@@ -4,18 +4,20 @@
 #
 # Amitakhya Phukan <amitakhya.phukan@gmail.com>, 2006.
 # Amitakhya Phukan <aphukan@redhat.com>, 2006.
+# Amitakhya Phukan <aphukan@fedoraproject.org>, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: as\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2006-11-24 11:58+0530\n"
-"Last-Translator: Amitakhya Phukan <aphukan@redhat.com>\n"
-"Language-Team: Assamese <assam@mm.assam-glug.org>\n"
+"PO-Revision-Date: 2007-09-25 16:09+0530\n"
+"Last-Translator: Amitakhya Phukan <aphukan@fedoraproject.org>\n"
+"Language-Team: Assamese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1)\n"
 
 #: ../pykickstart/base.py:140
 #, python-format
@@ -61,7 +63,7 @@ msgstr "%s বিকল্পৰ প্ৰয়োজন"
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "বিকল্প %(option)s ক %(intro)s সংস্কৰণত উত্থাপিত কৰা হৈছিল, কিন্তু আপুনি kickstart অন্বয় সংস্কৰণ %(version)s ব্যৱহাৰ কৰিছে ।"
 
 #: ../pykickstart/options.py:83
 #, python-format
@@ -81,7 +83,7 @@ msgstr ""
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
-msgstr ""
+msgstr "বিকল্প %(option)s ক %(removed)s সংস্কৰণৰ পৰা আঁতৰুৱা হৈছিল, কিন্তু আপুনি kickstart অন্বয় সংস্কৰণ %(version)s ব্যৱহাৰ কৰিছে ।"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -95,21 +97,21 @@ msgstr "বিকল্প %(opt)s: অবৈধ বুলিয়েন্ মা
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "%%ksappend ৰ বাবে অবৈধ url: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "%%ksappend নথিপত্ৰ খুলিব নোৱাৰি: "
 
 #: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "%%ksappend নথিপত্ৰ খুলিব নোৱাৰি"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
+msgstr "সমষ্টিয়ে --nodefaults আৰু --optional দুয়োটা নিৰ্ধাৰিত কৰিব নোৱাৰে"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:80 ../pykickstart/version.py:89
@@ -117,7 +119,7 @@ msgstr ""
 #: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr ""
+msgstr "অসমৰ্থিত সংস্কৰণ নিৰ্ধাৰিত: %s"
 
 #: ../validator/ksvalidator:45
 msgid "halt after the first error or warning"
@@ -130,12 +132,12 @@ msgstr "%include দেখোঁতে অন্তৰ্ভুক্ত নথ�
 
 #: ../validator/ksvalidator:50
 msgid "version of kickstart syntax to validate against"
-msgstr ""
+msgstr "কাৰ বিপক্ষে kickstart অন্বয়ৰ সংস্কৰণৰ প্ৰমাণীকৰণ কৰিব লাগে"
 
 #: ../validator/ksvalidator:64
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr ""
+msgstr "pykickstart ৰ দ্বাৰা %s সংস্কৰণ অসমৰ্থিত"
 
 #: ../validator/ksvalidator:77
 #, python-format
@@ -154,3 +156,4 @@ msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ kickstart �
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "নিবেশ নথি-পত্ৰত সাধাৰণ ভুল:  %s"
+
