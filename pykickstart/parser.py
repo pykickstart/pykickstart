@@ -262,7 +262,7 @@ class Packages:
             if pkgs == "":
                 return ""
 
-        retval = "\n%packages\n"
+        retval = "\n%packages"
 
         if self.default:
             retval += " --default"
@@ -273,7 +273,7 @@ class Packages:
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
 
-        return retval + pkgs + "\n%end\n"
+        return retval + "\n" + pkgs + "\n%end\n"
 
     def _processGroup (self, line):
         op = OptionParser()

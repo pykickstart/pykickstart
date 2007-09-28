@@ -1,3 +1,8 @@
+2007-09-28  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (Packages.__str__):  Fix output formatting for
+	package section header (#310211).
+
 2007-09-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py: New version.
