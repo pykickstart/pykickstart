@@ -3,6 +3,10 @@
 	* pykickstart/parser.py (Packages.__str__):  Fix output formatting for
 	package section header (#310211).
 
+	* tools/ksflatten:  Add a script to flatten out a kickstart file
+	containing %includes into one kickstart file (katzj AT redhat DOT
+	com).
+
 2007-09-12  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py: New version.

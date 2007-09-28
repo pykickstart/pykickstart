@@ -1,0 +1,71 @@
+#!/usr/bin/python
+#
+# Simple script to take a kickstart config, read it in, parse any %includes,
+# etc to write out a flattened config that is stand-alone
+#
+# Copyright 2007, Red Hat, Inc.
+# Jeremy Katz <katzj@redhat.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; version 2 of the License.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Library General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+
+import os, sys
+import optparse
+import pykickstart
+import pykickstart.parser
+from pykickstart.version import *
+
+def parse_args():
+    parser = optparse.OptionParser()
+
+    parser.add_option("-c", "--config", type="string", dest="kscfg",
+                      help="Path to kickstart config file")
+    parser.add_option("-v", "--version", dest="version", default=DEVEL,
+                      help="Kickstart version to use for interpreting config")
+    parser.add_option("-o", "--output", type="string", dest="output",
+                      help="Write flattened config to OUTPUT")
+
+    (options, args) = parser.parse_args()
+    return options, args
+
+def main():
+    (opts, args) = parse_args()
+    if not opts.kscfg and len(args) >= 1:
+        opts.kscfg = args[0]
+    elif not opts.kscfg:
+        print >> sys.stderr, "Need to specify a config to flatten"
+        sys.exit(1)
+
+    ksversion = makeVersion(opts.version)
+    ksparser = pykickstart.parser.KickstartParser(ksversion)
+    try:
+        ksparser.readKickstart(opts.kscfg)
+    except IOError, (err, msg):
+        print >> sys.stderr, "Failed to read kickstart file '%s' : %s" % (opts.kscfg, msg)
+        sys.exit(1)
+    except pykickstart.errors.KickstartError, e:
+        print >> sys.stderr, "Failed to parse kickstart file '%s' : %s" % (opts.kscfg, e)
+
+    if opts.output:
+        try:
+            f = open(opts.output, 'w')
+        except IOError, (err, msg):
+            print >> sys.stderr, "Failed to open output file '%s' : %s" %(opts.output, msg)
+    else:
+        f = sys.stdout
+
+    f.write("%s" %(ksparser.handler,))
+    f.close()
+
+if __name__ == "__main__":
+    main()
