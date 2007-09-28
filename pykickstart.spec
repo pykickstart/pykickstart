@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.13
+Version: 1.14
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -41,8 +41,13 @@ rm -rf %{buildroot}
 %doc docs/kickstart-docs.txt
 %{python_sitelib}/pykickstart
 %{_bindir}/ksvalidator
+%{_bindir}/ksflatten
 
 %changelog
+* Fri Sep 28 2007 Chris Lumens <clumens@redhat.com> 1.14-1
+- Fix output formatting for packages section header (#310211).
+- Add a script to flatten kickstart files containing includes (katzj).
+
 * Wed Sep 12 2007 Chris Lumens <clumens@redhat.com> 1.13-1
 - Add a function to convert URL method strings into repo objects
   (jkeating).
