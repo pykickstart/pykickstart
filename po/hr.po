@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pykickstar\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 16:08-0400\n"
-"PO-Revision-Date: 2007-03-07 23:14+0100\n"
+"PO-Revision-Date: 2007-10-01 10:10+0100\n"
 "Last-Translator: Renato Pavicic <renato@translator-shop.org>\n"
 "Language-Team: Renato Pavicic <www.translator-shop.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,16 +15,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:140
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Ignorirat će se zastarjela opcija u %(lineno)s: Naredba %(cmd)s zanemaruje "
-"se i nema više ikakva učinka. Mogla bi se ukloniti u budućim verzijama, što "
-"bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta. Uredite vašu "
-"kickstart datoteku radi uklanjanja ove opcije."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Ignorirat će se zastarjela opcija u %(lineno)s: Naredba %(cmd)s zanemaruje se i nema više ikakva učinka. Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta. Uredite vašu kickstart datoteku radi uklanjanja ove opcije."
 
 #: ../pykickstart/base.py:308
 #, python-format
@@ -54,34 +46,18 @@ msgstr "Potrebna je opcija %s"
 
 #: ../pykickstart/options.py:80
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"Opcija %(option)s pojavila se u verziji %(intro)s, ali vi upotrebljavate "
-"kickstart sintaksu verzije %(version)s"
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "Opcija %(option)s pojavila se u verziji %(intro)s, ali vi upotrebljavate kickstart sintaksu verzije %(version)s"
 
 #: ../pykickstart/options.py:83
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Ignorirat će se zastarjela opcija u %(lineno)s: Opcija %(option)s zanemaruje "
-"se i nema više ikakva učinka. Mogla bi se ukloniti u budućim verzijama, što "
-"bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta. Uredite vašu "
-"kickstart datoteku radi uklanjanja ove opcije."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Ignorirat će se zastarjela opcija u %(lineno)s: Opcija %(option)s zanemaruje se i nema više ikakva učinka. Mogla bi se ukloniti u budućim verzijama, što bi moglo rezultirati ozbiljnim pogreškama unutar kickstarta. Uredite vašu kickstart datoteku radi uklanjanja ove opcije."
 
 #: ../pykickstart/options.py:86
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"Opcija %(option)s uklonjena je iz verzije %(removed)s, ali vi upotrebljavate "
-"kickstart sintaksu verzije %(version)s"
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "Opcija %(option)s uklonjena je iz verzije %(removed)s, ali vi upotrebljavate kickstart sintaksu verzije %(version)s"
 
 #: ../pykickstart/options.py:139
 msgid "Required flag set for option that doesn't take a value"
@@ -95,25 +71,28 @@ msgstr "Opcija %(opt)s: nepravilna Booleova vrijednost: %(value)r"
 #: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Nepravilna URL adresa za %%ksappend: %s"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Otvaranje datoteke %%ksappend nije moguće:"
 
-#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#: ../pykickstart/parser.py:96
+#: ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Otvaranje datoteke %%ksappend nije moguće"
 
 #: ../pykickstart/parser.py:278
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Grupa ne može odrediti obje opcije --nodefaults i --optional"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
-#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
+#: ../pykickstart/version.py:80
+#: ../pykickstart/version.py:89
+#: ../pykickstart/version.py:92
+#: ../pykickstart/version.py:103
 #: ../pykickstart/version.py:143
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -154,3 +133,4 @@ msgstr "Opća kickstart pogreška unutar ulazne datoteke"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Opća pogreška unutar ulazne datoteke:  %s"
+
