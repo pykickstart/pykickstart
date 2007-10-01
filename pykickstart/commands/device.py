@@ -55,3 +55,32 @@ class FC3_Device(KickstartCommand):
         self.opts = opts.moduleOpts
         self.type = extra[0]
         self.moduleName = extra[1]
+
+class F8_Device(KickstartCommand):
+    def __init__(self, writePriority=0, moduleName="", moduleOpts=""):
+        KickstartCommand.__init__(self, writePriority)
+        self.moduleName = moduleName
+        self.moduleOpts = moduleOpts
+
+    def __str__(self):
+        if self.moduleName != "":
+            if self.moduleOpts != "":
+                retval = "--opts=%s" % self.moduleOpts
+            else:
+                retval = ""
+
+            return "device %s %s\n" % (self.moduleName, retval)
+        else:
+            return ""
+
+    def parse(self, args):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--opts", dest="moduleOpts", default="")
+
+        (opts, extra) = op.parse_args(args=args)
+
+        if len(extra) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("%s command requires a single argument: %s") % ("device", "module name"))
+
+        self.opts = opts.moduleOpts
+        self.moduleName = extra[1]

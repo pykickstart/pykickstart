@@ -2,6 +2,10 @@
 
 	* po/sr@latin.po:  Renamed from sr@Latn.po (#259121).
 
+	* pykickstart/commands/device.py (F8_Device):  Add a new version of
+	the device command that does not take a type argument.
+	* pykickstart/handlers/control.py:  Use F8_Device for Fedora 8.
+
 2007-09-28  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
