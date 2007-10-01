@@ -25,6 +25,23 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
+class F8_DeviceData(BaseData):
+    def __init__(self, moduleName="", moduleOpts=""):
+        BaseData.__init__(self)
+        self.moduleName = moduleName
+        self.moduleOpts = moduleOpts
+
+    def __str__(self):
+        if self.moduleName != "":
+            if self.moduleOpts != "":
+                retval = "--opts=%s" % self.moduleOpts
+            else:
+                retval = ""
+
+            return "device %s %s\n" % (self.moduleName, retval)
+        else:
+            return ""
+
 class FC3_Device(KickstartCommand):
     def __init__(self, writePriority=0, type="", moduleName="", moduleOpts=""):
         KickstartCommand.__init__(self, writePriority)
@@ -57,21 +74,20 @@ class FC3_Device(KickstartCommand):
         self.moduleName = extra[1]
 
 class F8_Device(KickstartCommand):
-    def __init__(self, writePriority=0, moduleName="", moduleOpts=""):
+    def __init__(self, writePriority=0, deviceList=None):
         KickstartCommand.__init__(self, writePriority)
-        self.moduleName = moduleName
-        self.moduleOpts = moduleOpts
+
+        if deviceList == None:
+            deviceList = []
+
+        self.deviceList = deviceList
 
     def __str__(self):
-        if self.moduleName != "":
-            if self.moduleOpts != "":
-                retval = "--opts=%s" % self.moduleOpts
-            else:
-                retval = ""
+        retval = ""
+        for device in self.deviceList:
+            retval += device.__str__()
 
-            return "device %s %s\n" % (self.moduleName, retval)
-        else:
-            return ""
+        return retval
 
     def parse(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -82,5 +98,10 @@ class F8_Device(KickstartCommand):
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("%s command requires a single argument: %s") % ("device", "module name"))
 
-        self.opts = opts.moduleOpts
-        self.moduleName = extra[1]
+        dd = F8_DeviceData()
+        self._setToObj(op, opts, dd)
+        dd.moduleName = extra[1]
+        self.add(dd)
+
+    def add(self, newObj):
+        self.deviceList.append(newObj)

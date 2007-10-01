@@ -569,6 +569,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F8: {
+        "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
         "LogVolData": logvol.FC4_LogVolData,
