@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.14
+Version: 1.15
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Tue Oct 02 2007 Chris Lumens <clumens@redhat.com> 1.15-1
+- Update translations (#259121).
+- The device command no longer takes a type argument.
+
 * Fri Sep 28 2007 Chris Lumens <clumens@redhat.com> 1.14-1
 - Fix output formatting for packages section header (#310211).
 - Add a script to flatten kickstart files containing includes (katzj).
