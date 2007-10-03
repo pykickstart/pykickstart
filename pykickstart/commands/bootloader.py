@@ -42,34 +42,39 @@ class FC3_Bootloader(KickstartCommand):
         self.upgrade = upgrade
         self.useLilo = useLilo
 
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.appendLine != "":
+            retval += " --append=\"%s\"" % self.appendLine
+        if self.linear:
+            retval += " --linear"
+        if self.location:
+            retval += " --location=%s" % self.location
+        if self.forceLBA:
+            retval += " --lba32"
+        if self.password != "":
+            retval += " --password=%s" % self.password
+        if self.md5pass != "":
+            retval += " --md5pass=%s" % self.md5pass
+        if self.upgrade:
+            retval += " --upgrade"
+        if self.useLilo:
+            retval += " --useLilo"
+        if len(self.driveorder) > 0:
+            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+
+        return retval
+
     def __str__(self):
         if self.location != "":
             retval = "# System bootloader configuration\nbootloader"
-
-            if self.appendLine != "":
-                retval += " --append=\"%s\"" % self.appendLine
-            if self.linear:
-                retval += " --linear"
-            if self.location:
-                retval += " --location=%s" % self.location
-            if self.forceLBA:
-                retval += " --lba32"
-            if self.password != "":
-                retval += " --password=%s" % self.password
-            if self.md5pass != "":
-                retval += " --md5pass=%s" % self.md5pass
-            if self.upgrade:
-                retval += " --upgrade"
-            if self.useLilo:
-                retval += " --useLilo"
-            if len(self.driveorder) > 0:
-                retval += " --driveorder=%s" % string.join(self.driveorder, ",")
-
+            retval += self._getArgsAsStr()
             return retval + "\n"
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         def driveorder_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
@@ -92,7 +97,10 @@ class FC3_Bootloader(KickstartCommand):
                       default=False)
         op.add_option("--driveorder", dest="driveorder", action="callback",
                       callback=driveorder_cb, nargs=1, type="string")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
@@ -138,31 +146,16 @@ class FC4_Bootloader(FC3_Bootloader):
     def __str__(self):
         if self.location != "":
             retval = "# System bootloader configuration\nbootloader"
-
             retval += self._getArgsAsStr()
-
             return retval + "\n"
         else:
             return ""
 
     def _getParser(self):
-        def driveorder_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--append", dest="appendLine")
-        op.add_option("--location", dest="location", type="choice",
-                      default="mbr",
-                      choices=["mbr", "partition", "none", "boot"])
-        op.add_option("--lba32", dest="forceLBA", action="store_true",
-                      default=False)
-        op.add_option("--password", dest="password", default="")
-        op.add_option("--md5pass", dest="md5pass", default="")
-        op.add_option("--upgrade", dest="upgrade", action="store_true",
-                      default=False)
-        op.add_option("--driveorder", dest="driveorder", action="callback",
-                      callback=driveorder_cb, nargs=1, type="string")
+        op = FC3_Bootloader._getParser(self)
+        op.remove_option("--linear")
+        op.remove_option("--nolinear")
+        op.remove_option("--useLilo")
         return op
 
     def parse(self, args):
