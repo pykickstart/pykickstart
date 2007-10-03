@@ -73,7 +73,7 @@ class FC3_Bootloader(KickstartCommand):
         def driveorder_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
-            
+
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--append", dest="appendLine")
         op.add_option("--linear", dest="linear", action="store_true",
@@ -117,34 +117,39 @@ class FC4_Bootloader(FC3_Bootloader):
         self.password = password
         self.upgrade = upgrade
 
+    def _getArgsAsStr(self):
+        retval = ""
+        if self.appendLine != "":
+            retval += " --append=\"%s\"" % self.appendLine
+        if self.location:
+            retval += " --location=%s" % self.location
+        if self.forceLBA:
+            retval += " --lba32"
+        if self.password != "":
+            retval += " --password=%s" % self.password
+        if self.md5pass != "":
+            retval += " --md5pass=%s" % self.md5pass
+        if self.upgrade:
+            retval += " --upgrade"
+        if len(self.driveorder) > 0:
+            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+        return retval
+
     def __str__(self):
         if self.location != "":
             retval = "# System bootloader configuration\nbootloader"
 
-            if self.appendLine != "":
-                retval += " --append=\"%s\"" % self.appendLine
-            if self.location:
-                retval += " --location=%s" % self.location
-            if self.forceLBA:
-                retval += " --lba32"
-            if self.password != "":
-                retval += " --password=%s" % self.password
-            if self.md5pass != "":
-                retval += " --md5pass=%s" % self.md5pass
-            if self.upgrade:
-                retval += " --upgrade"
-            if len(self.driveorder) > 0:
-                retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+            retval += self._getArgsAsStr()
 
             return retval + "\n"
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         def driveorder_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
-            
+
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--append", dest="appendLine")
         op.add_option("--location", dest="location", type="choice",
@@ -158,6 +163,31 @@ class FC4_Bootloader(FC3_Bootloader):
                       default=False)
         op.add_option("--driveorder", dest="driveorder", action="callback",
                       callback=driveorder_cb, nargs=1, type="string")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
+
+class F8_Bootloader(FC4_Bootloader):
+    def __init__(self, writePriority=10, appendLine="", driveorder=None,
+                 forceLBA=False, location="", md5pass="", password="",
+                 upgrade=False):
+        FC4_Bootloader.__init__(self, writePriority, appendLine, driveorder,
+                                forceLBA, location, md5pass, password, upgrade)
+
+        self.timeout = None
+
+    def _getArgsAsStr(self):
+        ret = FC4_Bootloader._getArgsAsStr(self)
+
+        if self.timeout is not None:
+            ret += "--timeout=%d" %(self.timeout,)
+
+        return ret
+
+    def _getParser(self):
+        op = FC4_Bootloader._getParser(self)
+        op.add_option("--timeout", dest="timeout")
+        return op

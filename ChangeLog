@@ -10,6 +10,13 @@
 	* pykickstart/commands/device.py (F8_Device.parse):  Fix a traceback
 	caused by reading off the end of an array.
 
+	* pykickstart/commands/bootloader.py:  Split argument setup into more
+	methods to make overriding in subclasses easier (katzj).
+	(F8_Bootloader):  Added (katzj).
+
+	* pykickstart/handlers/control.py:  Use F8_Bootloader for Fedora 8
+	(katzj).
+
 2007-10-02  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
