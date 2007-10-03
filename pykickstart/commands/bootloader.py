@@ -171,16 +171,20 @@ class F8_Bootloader(FC4_Bootloader):
                                 forceLBA, location, md5pass, password, upgrade)
 
         self.timeout = None
+        self.default = None
 
     def _getArgsAsStr(self):
         ret = FC4_Bootloader._getArgsAsStr(self)
 
         if self.timeout is not None:
             ret += "--timeout=%d" %(self.timeout,)
+        if self.default:
+            ret += "--default=%s" %(self.default,)
 
         return ret
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
         op.add_option("--timeout", dest="timeout")
+        op.add_option("--default", dest="default")
         return op
