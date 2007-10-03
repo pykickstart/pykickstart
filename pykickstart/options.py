@@ -107,7 +107,8 @@ class KSOptionParser(OptionParser):
                       against.
         """
         OptionParser.__init__(self, option_class=KSOption,
-                              add_help_option=False)
+                              add_help_option=False,
+                              conflict_handler="resolve")
         self.map = map
         self.lineno = lineno
         self.version = version

@@ -1,3 +1,15 @@
+2007-10-03  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/options.py (KSOptionParser.__init__):  If an option
+	parser object has the same option added twice, allow the later one to
+	override the former one.
+
+	* pykickstart/parser.py (KickstartParser.handlePackageHdr):
+	Undeprecate --excludedocs.
+
+	* pykickstart/commands/device.py (F8_Device.parse):  Fix a traceback
+	caused by reading off the end of an array.
+
 2007-10-02  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
