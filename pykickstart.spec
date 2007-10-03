@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.15
+Version: 1.16
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Wed Oct 03 2007 Chris Lumens <clumens@redhat.com> 1.16-1
+- Undeprecate %packages --excludedocs.
+- Fix a traceback in the device command handling.
+- Add bootloader --timeout (katzj).
+
 * Tue Oct 02 2007 Chris Lumens <clumens@redhat.com> 1.15-1
 - Update translations (#259121).
 - The device command no longer takes a type argument.

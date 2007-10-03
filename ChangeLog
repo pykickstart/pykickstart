@@ -1,5 +1,7 @@
 2007-10-03  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
 	* pykickstart/options.py (KSOptionParser.__init__):  If an option
 	parser object has the same option added twice, allow the later one to
 	override the former one.
