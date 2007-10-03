@@ -100,7 +100,7 @@ class F8_Device(KickstartCommand):
 
         dd = F8_DeviceData()
         self._setToObj(op, opts, dd)
-        dd.moduleName = extra[1]
+        dd.moduleName = extra[0]
         self.add(dd)
 
     def add(self, newObj):

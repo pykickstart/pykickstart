@@ -396,7 +396,7 @@ class KickstartParser:
         """
         op = KSOptionParser(lineno=lineno, version=self.version)
         op.add_option("--excludedocs", dest="excludedocs", action="store_true",
-                      default=False, deprecated=FC6)
+                      default=False)
         op.add_option("--ignoremissing", dest="ignoremissing",
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
