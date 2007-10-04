@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-03 15:00+0200\n"
+"PO-Revision-Date: 2007-10-04 20:14+0200\n"
 "Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
 "Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,9 +93,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opcja %(opt)s: nieprawidłowa wartość zmiennej logicznej: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opcja %(opt)s: nieprawidłowa wartość zmiennej logicznej: %(value)r"
+msgstr "Opcja %(opt)s: nieprawidłowa wartość łańcucha tekstowego: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -117,22 +117,20 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Grupa nie może określać zarówno --nodefaults, jak i --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Ignorowanie przestarzałej opcji w wierszu %(lineno)s: opcja %(option)s jest "
-"przestarzała i jej użycie nie powoduje żadnych zmian. Może zostać usunięta z "
-"przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj plik "
-"kickstart, aby usunąć tę opcję."
+"%s nie kończy się %%end. Ta składnia jest przestarzała. Może zostać usunięta "
+"z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj plik "
+"kickstart, aby używał zaktualizowanej składni."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skrypt"
 
-#. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
 #: ../pykickstart/version.py:99 ../pykickstart/version.py:110
 #: ../pykickstart/version.py:150
