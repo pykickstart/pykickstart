@@ -57,10 +57,8 @@ class FC3_Method(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
-
-        self.method = self.currentCmd
 
         if self.currentCmd == "cdrom":
             return
@@ -74,6 +72,12 @@ class FC3_Method(KickstartCommand):
         elif self.currentCmd == "url":
             op.add_option("--url", dest="url", required=1)
 
+        return op
+
+    def parse(self, args):
+        self.method = self.currentCmd
+
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
@@ -110,28 +114,10 @@ class FC6_Method(FC3_Method):
         else:
             return ""
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
+    def _getParser(self):
+        op = FC3_Method._getParser(self)
 
-        self.method = self.currentCmd
-
-        if self.currentCmd == "cdrom":
-            return
-        elif self.currentCmd == "harddrive":
-            op.add_option("--biospart", dest="biospart")
-            op.add_option("--partition", dest="partition")
-            op.add_option("--dir", dest="dir", required=1)
-        elif self.currentCmd == "nfs":
-            op.add_option("--server", dest="server", required=1)
-            op.add_option("--dir", dest="dir", required=1)
+        if self.currentCmd == "nfs":
             op.add_option("--opts", dest="opts")
-        elif self.currentCmd == "url":
-            op.add_option("--url", dest="url", required=1)
 
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
-
-        if self.currentCmd == "harddrive":
-            if self.biospart is None and self.partition is None or \
-               self.biospart is not None and self.partition is not None:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
+        return op

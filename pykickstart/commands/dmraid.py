@@ -62,14 +62,17 @@ class FC6_DmRaid(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", action="store", type="string",
                       required=1)
         op.add_option("--dev", dest="devices", action="append", type="string",
                       required=1)
+        return op
 
+    def parse(self, args):
         dm = FC6_DmRaidData()
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(op, opts, dm)

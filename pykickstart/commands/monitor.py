@@ -48,12 +48,15 @@ class FC3_Monitor(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--hsync")
         op.add_option("--monitor")
         op.add_option("--vsync")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if extra:
@@ -86,14 +89,14 @@ class FC6_Monitor(FC3_Monitor):
         else:
             return ""
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--hsync", dest="hsync")
-        op.add_option("--monitor", dest="monitor")
+    def _getParser(self):
+        op = FC3_Monitor._getParser(self)
         op.add_option("--noprobe", dest="probe", action="store_false",
                       default=True)
-        op.add_option("--vsync", dest="vsync")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if extra:

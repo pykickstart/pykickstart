@@ -111,6 +111,14 @@ class FC3_Raid(KickstartCommand):
     def __init__(self, writePriority=140, raidList=None):
         KickstartCommand.__init__(self, writePriority)
 
+        # A dict of all the RAID levels we support.  This means that if we
+        # support more levels in the future, subclasses don't have to
+        # duplicate too much.
+        self.levelMap = { "RAID0": "RAID0", "0": "RAID0",
+                          "RAID1": "RAID1", "1": "RAID1",
+                          "RAID5": "RAID5", "5": "RAID5",
+                          "RAID6": "RAID6", "6": "RAID6" }
+
         if raidList == None:
             raidList = []
 
@@ -124,7 +132,7 @@ class FC3_Raid(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         def raid_cb (option, opt_str, value, parser):
             parser.values.format = False
             parser.values.preexist = True
@@ -136,14 +144,8 @@ class FC3_Raid(KickstartCommand):
                 parser.values.ensure_value(option.dest, value)
 
         def level_cb (option, opt_str, value, parser):
-            if value == "RAID0" or value == "0":
-                parser.values.ensure_value(option.dest, "RAID0")
-            elif value == "RAID1" or value == "1":
-                parser.values.ensure_value(option.dest, "RAID1")
-            elif value == "RAID5" or value == "5":
-                parser.values.ensure_value(option.dest, "RAID5")
-            elif value == "RAID6" or value == "6":
-                parser.values.ensure_value(option.dest, "RAID6")
+            if self.levelMap.has_key(value):
+                parser.values.ensure_value(option.dest, self.levelMap[value])
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--device", action="callback", callback=device_cb,
@@ -157,7 +159,10 @@ class FC3_Raid(KickstartCommand):
                       nargs=1, default=0)
         op.add_option("--useexisting", dest="preexist", action="store_true",
                       default=False)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
@@ -181,43 +186,13 @@ class FC4_Raid(FC3_Raid):
     def __init__(self, writePriority=140, raidList=None):
         FC3_Raid.__init__(self, writePriority, raidList)
 
-        # A dict of all the RAID levels we support.  This means that if we
-        # support more levels in the future, subclasses don't have to
-        # duplicate too much.
-        self.levelMap = { "RAID0": "RAID0", "0": "RAID0",
-                          "RAID1": "RAID1", "1": "RAID1",
-                          "RAID5": "RAID5", "5": "RAID5",
-                          "RAID6": "RAID6", "6": "RAID6" }
+    def _getParser(self):
+        op = FC3_Raid._getParser(self)
+        op.add_option("--fsoptions", dest="fsopts")
+        return op
 
     def parse(self, args):
-        def raid_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
-        def device_cb (option, opt_str, value, parser):
-            if value[0:2] == "md":
-                parser.values.ensure_value(option.dest, value[2:])
-            else:
-                parser.values.ensure_value(option.dest, value)
-
-        def level_cb (option, opt_str, value, parser):
-            if self.levelMap.has_key(value):
-                parser.values.ensure_value(option.dest, self.levelMap[value])
-
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--device", action="callback", callback=device_cb,
-                      dest="device", type="string", nargs=1, required=1)
-        op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--fstype", dest="fstype")
-        op.add_option("--level", dest="level", action="callback",
-                      callback=level_cb, type="string", nargs=1)
-        op.add_option("--noformat", action="callback", callback=raid_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--spares", dest="spares", action="store", type="int",
-                      nargs=1, default=0)
-        op.add_option("--useexisting", dest="preexist", action="store_true",
-                      default=False)
-
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
@@ -241,37 +216,14 @@ class FC5_Raid(FC4_Raid):
     def reset(self):
         self.raidList = []
 
-    def parse(self, args):
-        def raid_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
-        def device_cb (option, opt_str, value, parser):
-            if value[0:2] == "md":
-                parser.values.ensure_value(option.dest, value[2:])
-            else:
-                parser.values.ensure_value(option.dest, value)
-
-        def level_cb (option, opt_str, value, parser):
-            if self.levelMap.has_key(value):
-                parser.values.ensure_value(option.dest, self.levelMap[value])
-
-        op = KSOptionParser(lineno=self.lineno)
+    def _getParser(self):
+        op = FC4_Raid._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
-        op.add_option("--device", action="callback", callback=device_cb,
-                      dest="device", type="string", nargs=1, required=1)
-        op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--fstype", dest="fstype")
-        op.add_option("--level", dest="level", action="callback",
-                      callback=level_cb, type="string", nargs=1)
-        op.add_option("--noformat", action="callback", callback=raid_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--spares", dest="spares", action="store", type="int",
-                      nargs=1, default=0)
-        op.add_option("--useexisting", dest="preexist", action="store_true",
-                      default=False)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:

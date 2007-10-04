@@ -82,7 +82,7 @@ class FC3_Firewall(KickstartCommand):
         else:
             return "# Firewall configuration\nfirewall --disabled\n"
 
-    def parse(self, args):
+    def _getParser(self):
         def firewall_port_cb (option, opt_str, value, parser):
             for p in value.split(","):
                 p = p.strip()
@@ -105,6 +105,9 @@ class FC3_Firewall(KickstartCommand):
         op.add_option("--port", dest="ports", action="callback",
                       callback=firewall_port_cb, nargs=1, type="string")
         op.add_option("--trust", dest="trusts", action="append")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

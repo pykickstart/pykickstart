@@ -46,13 +46,15 @@ class FC3_Vnc(KickstartCommand):
 
         return retval + "\n"
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--connect")
         op.add_option("--password", dest="password")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         self.enabled = True
-
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
@@ -78,7 +80,7 @@ class FC6_Vnc(FC3_Vnc):
 
         return retval + "\n"
 
-    def parse(self, args):
+    def _getParser(self):
         def connect_cb (option, opt_str, value, parser):
             cargs = value.split(":")
             parser.values.ensure_value("host", cargs[0])
@@ -86,14 +88,15 @@ class FC6_Vnc(FC3_Vnc):
             if len(cargs) > 1:
                 parser.values.ensure_value("port", cargs[1])
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = FC3_Vnc._getParser(self)
         op.add_option("--connect", action="callback", callback=connect_cb,
                       nargs=1, type="string", deprecated=1)
-        op.add_option("--password", dest="password")
         op.add_option("--host", dest="host")
         op.add_option("--port", dest="port")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         self.enabled = True
-
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

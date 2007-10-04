@@ -96,7 +96,7 @@ class FC6_User(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         def groups_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
@@ -111,7 +111,10 @@ class FC6_User(KickstartCommand):
         op.add_option("--password")
         op.add_option("--shell")
         op.add_option("--uid", type="int")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         ud = FC6_UserData()
         (opts, extra) = op.parse_args(args=args)
         self._setToObj(op, opts, ud)
@@ -121,24 +124,14 @@ class FC6_User(KickstartCommand):
         self.userList.append(newObj)
 
 class F8_User(FC6_User):
-    def parse(self, args):
-        def groups_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--groups", dest="groups", action="callback",
-                      callback=groups_cb, nargs=1, type="string")
-        op.add_option("--homedir")
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
-                      default=False)
-        op.add_option("--plaintext", dest="isCrypted", action="store_false")
-        op.add_option("--name", required=1)
-        op.add_option("--password")
-        op.add_option("--shell")
-        op.add_option("--uid", type="int")
+    def _getParser(self):
+        op = FC6_User._getParser(self)
         op.add_option("--lock", action="store_true", default=False)
+        op.add_option("--plaintext", dest="isCrypted", action="store_false")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         ud = F8_UserData()
         (opts, extra) = op.parse_args(args=args)
         self._setToObj(op, opts, ud)

@@ -71,7 +71,7 @@ class FC6_MultiPath(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", action="store", type="string",
                       required=1)
@@ -79,7 +79,10 @@ class FC6_MultiPath(KickstartCommand):
                       required=1)
         op.add_option("--rule", dest="rule", action="store", type="string",
                       required=1)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         dd = FC6_MpPathData()
         self._setToObj(op, opts, dd)

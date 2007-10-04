@@ -60,10 +60,13 @@ class FC3_Device(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--opts", dest="moduleOpts", default="")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 2:
@@ -73,9 +76,9 @@ class FC3_Device(KickstartCommand):
         self.type = extra[0]
         self.moduleName = extra[1]
 
-class F8_Device(KickstartCommand):
+class F8_Device(FC3_Device):
     def __init__(self, writePriority=0, deviceList=None):
-        KickstartCommand.__init__(self, writePriority)
+        FC3_Device.__init__(self, writePriority)
 
         if deviceList == None:
             deviceList = []
@@ -90,9 +93,7 @@ class F8_Device(KickstartCommand):
         return retval
 
     def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--opts", dest="moduleOpts", default="")
-
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:

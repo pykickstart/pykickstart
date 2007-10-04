@@ -74,7 +74,7 @@ class FC3_XConfig(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--card")
         op.add_option("--defaultdesktop")
@@ -89,7 +89,10 @@ class FC3_XConfig(KickstartCommand):
                       default=False)
         op.add_option("--videoram", dest="videoRam")
         op.add_option("--vsync")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         if extra:
             mapping = {"command": "xconfig", "options": extra}
@@ -129,22 +132,18 @@ class FC6_XConfig(FC3_XConfig):
 
         return retval
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
+    def _getParser(self):
+        op = FC3_XConfig._getParser(self)
         op.add_option("--card", deprecated=1)
         op.add_option("--driver", dest="driver")
-        op.add_option("--defaultdesktop", dest="defaultdesktop")
-        op.add_option("--depth", dest="depth", action="store", type="int",
-                      nargs=1)
         op.add_option("--hsync", deprecated=1)
         op.add_option("--monitor", deprecated=1)
         op.add_option("--noprobe", deprecated=1)
-        op.add_option("--resolution", dest="resolution")
-        op.add_option("--startxonboot", dest="startX", action="store_true",
-                      default=False)
-        op.add_option("--videoram", dest="videoRam")
         op.add_option("--vsync", deprecated=1)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         if extra:
             mapping = {"command": "xconfig", "options": extra}

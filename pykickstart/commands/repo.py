@@ -80,12 +80,15 @@ class FC6_Repo(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", required=1)
         op.add_option("--baseurl")
         op.add_option("--mirrorlist")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         # This is lame, but I can't think of a better way to make sure only
@@ -114,21 +117,21 @@ class F8_Repo(FC6_Repo):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         def list_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
 
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--name", dest="name", required=1)
-        op.add_option("--baseurl")
-        op.add_option("--mirrorlist")
+        op = FC6_Repo._getParser(self)
         op.add_option("--priority", action="store", type="int")
         op.add_option("--excludepkgs", action="callback", callback=list_cb,
                       nargs=1, type="string")
         op.add_option("--includepkgs", action="callback", callback=list_cb,
                       nargs=1, type="string")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         # This is lame, but I can't think of a better way to make sure only

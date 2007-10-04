@@ -68,7 +68,7 @@ class FC6_Iscsi(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--target", dest="ipaddr", action="store", type="string")
         op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
@@ -77,7 +77,10 @@ class FC6_Iscsi(KickstartCommand):
         op.add_option("--user", dest="user", action="store", type="string")
         op.add_option("--password", dest="password", action="store",
                       type="string")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 0:

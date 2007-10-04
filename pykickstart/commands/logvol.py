@@ -106,7 +106,7 @@ class FC3_LogVol(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         def lv_cb (option, opt_str, value, parser):
             parser.values.format = False
             parser.values.preexist = True
@@ -130,6 +130,8 @@ class FC3_LogVol(KickstartCommand):
                       default=False)
         op.add_option("--vgname", dest="vgname", required=1)
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:
@@ -147,33 +149,15 @@ class FC4_LogVol(FC3_LogVol):
     def __init__(self, writePriority=132, lvList=None):
         FC3_LogVol.__init__(self, writePriority, lvList)
 
-    def parse(self, args):
-        def lv_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
-        op = KSOptionParser(lineno=self.lineno)
+    def _getParser(self):
+        op = FC3_LogVol._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
         op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--fstype", dest="fstype")
-        op.add_option("--grow", dest="grow", action="store_true",
-                      default=False)
-        op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
-                      nargs=1)
-        op.add_option("--name", dest="name", required=1)
-        op.add_option("--noformat", action="callback", callback=lv_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--percent", dest="percent", action="store", type="int",
-                      nargs=1)
-        op.add_option("--recommended", dest="recommended", action="store_true",
-                      default=False)
-        op.add_option("--size", dest="size", action="store", type="int",
-                      nargs=1)
-        op.add_option("--useexisting", dest="preexist", action="store_true",
-                      default=False)
-        op.add_option("--vgname", dest="vgname", required=1)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) == 0:

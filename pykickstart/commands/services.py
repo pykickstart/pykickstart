@@ -55,7 +55,8 @@ class FC6_Services(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+
+    def _getParser(self):
         def services_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
@@ -65,6 +66,9 @@ class FC6_Services(KickstartCommand):
                       callback=services_cb, nargs=1, type="string")
         op.add_option("--enabled", dest="enabled", action="callback",
                       callback=services_cb, nargs=1, type="string")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

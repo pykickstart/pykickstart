@@ -37,7 +37,7 @@ class FC3_Firstboot(KickstartCommand):
         elif self.firstboot == FIRSTBOOT_RECONFIG:
             return "# Run the Setup Agent on first boot\nfirstboot --reconfig\n"
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--disable", "--disabled", dest="firstboot",
                       action="store_const", const=FIRSTBOOT_SKIP)
@@ -45,6 +45,9 @@ class FC3_Firstboot(KickstartCommand):
                       action="store_const", const=FIRSTBOOT_DEFAULT)
         op.add_option("--reconfig", dest="firstboot", action="store_const",
                       const=FIRSTBOOT_RECONFIG)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self.firstboot = opts.firstboot

@@ -66,15 +66,18 @@ class FC6_Reboot(FC3_Reboot):
 
         return retval + "\n"
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--eject", dest="eject", action="store_true",
+                      default=False)
+        return op
+
     def parse(self, args):
         if self.currentCmd == "reboot":
             self.action = KS_REBOOT
         else:
             self.action = KS_SHUTDOWN
 
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--eject", dest="eject", action="store_true",
-                      default=False)
-
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

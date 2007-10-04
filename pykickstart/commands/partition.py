@@ -128,7 +128,7 @@ class FC3_Partition(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
@@ -158,7 +158,10 @@ class FC3_Partition(KickstartCommand):
                       nargs=1)
         op.add_option("--start", dest="start", action="store", type="int",
                       nargs=1)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:
@@ -176,41 +179,22 @@ class FC4_Partition(FC3_Partition):
     def __init__(self, writePriority=130, partitions=None):
         FC3_Partition.__init__(self, writePriority, partitions)
 
-    def parse(self, args):
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
             else:
                 parser.values.ensure_value(option.dest, value)
 
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--active", dest="active", action="store_true",
-                      default=False)
-        op.add_option("--asprimary", dest="primOnly", action="store_true",
-                      default=False)
+    def _getParser(self):
+        op = FC3_Partition._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
-        op.add_option("--end", dest="end", action="store", type="int",
-                      nargs=1)
         op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--fstype", "--type", dest="fstype")
-        op.add_option("--grow", dest="grow", action="store_true", default=False)
         op.add_option("--label", dest="label")
-        op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
-                      nargs=1)
-        op.add_option("--noformat", dest="format", action="store_false",
-                      default=True)
-        op.add_option("--onbiosdisk", dest="onbiosdisk")
-        op.add_option("--ondisk", "--ondrive", dest="disk")
-        op.add_option("--onpart", "--usepart", dest="onPart", action="callback",
-                      callback=part_cb, nargs=1, type="string")
-        op.add_option("--recommended", dest="recommended", action="store_true",
-                      default=False)
-        op.add_option("--size", dest="size", action="store", type="int",
-                      nargs=1)
-        op.add_option("--start", dest="start", action="store", type="int",
-                      nargs=1)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
 
         if len(extra) != 1:

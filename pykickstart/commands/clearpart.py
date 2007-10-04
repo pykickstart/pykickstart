@@ -61,11 +61,11 @@ class FC3_ClearPart(KickstartCommand):
 
         return "# Partition clearing information\nclearpart %s %s %s\n" % (clearstr, initstr, drivestr)
 
-    def parse(self, args):
+    def _getParser(self):
         def drive_cb (option, opt_str, value, parser):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
-            
+
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--all", dest="type", action="store_const",
                       const=CLEARPART_TYPE_ALL)
@@ -77,6 +77,9 @@ class FC3_ClearPart(KickstartCommand):
                       const=CLEARPART_TYPE_LINUX)
         op.add_option("--none", dest="type", action="store_const",
                       const=CLEARPART_TYPE_NONE)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

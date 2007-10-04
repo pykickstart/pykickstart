@@ -47,12 +47,15 @@ class FC6_Logging(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--host")
         op.add_option("--level", type="choice",
                       choices=["debug", "info", "warning", "error", "critical"])
         op.add_option("--port")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)

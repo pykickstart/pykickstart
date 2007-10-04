@@ -43,11 +43,14 @@ class FC3_RootPw(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--iscrypted", dest="isCrypted", action="store_true",
                       default=False)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 
@@ -70,13 +73,14 @@ class F8_RootPw(FC3_RootPw):
         else:
             return retval
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
-                      default=False)
+    def _getParser(self):
+        op = FC3_RootPw._getParser(self)
         op.add_option("--lock", dest="lock", action="store_true", default=False)
         op.add_option("--plaintext", dest="isCrypted", action="store_false")
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
 

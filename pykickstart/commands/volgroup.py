@@ -64,7 +64,7 @@ class FC3_VolGroup(KickstartCommand):
 
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         # Have to be a little more complicated to set two values.
         def vg_cb (option, opt_str, value, parser):
             parser.values.format = False
@@ -77,7 +77,10 @@ class FC3_VolGroup(KickstartCommand):
                       default=32768)
         op.add_option("--useexisting", dest="preexist", action="store_true",
                       default=False)
+        return op
 
+    def parse(self, args):
+        op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         vg = FC3_VolGroupData()
         self._setToObj(op, opts, vg)
