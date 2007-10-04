@@ -45,7 +45,7 @@ class FC3_RaidData(BaseData):
 
         self.members = members
 
-    def _argsToStr(self):
+    def _getArgsAsStr(self):
         retval = ""
 
         if self.device != "":
@@ -64,7 +64,7 @@ class FC3_RaidData(BaseData):
         return retval
 
     def __str__(self):
-        return "raid %s %s %s\n" % (self.mountpoint, self._argsToStr(),
+        return "raid %s %s %s\n" % (self.mountpoint, self._getArgsAsStr(),
                                     string.join(self.members))
 
 class FC4_RaidData(FC3_RaidData):
@@ -78,8 +78,8 @@ class FC4_RaidData(FC3_RaidData):
                              members=members)
         self.fsopts = fsopts
 
-    def _argsToStr(self):
-        retval = FC3_RaidData._argsToStr(self)
+    def _getArgsAsStr(self):
+        retval = FC3_RaidData._getArgsAsStr(self)
 
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -97,8 +97,8 @@ class FC5_RaidData(FC4_RaidData):
                              mountpoint=mountpoint, members=members)
         self.bytesPerInode = bytesPerInode
 
-    def _argsToStr(self):
-        retval = FC4_RaidData._argsToStr(self)
+    def _getArgsAsStr(self):
+        retval = FC4_RaidData._getArgsAsStr(self)
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode

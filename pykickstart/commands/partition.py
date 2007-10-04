@@ -47,8 +47,8 @@ class FC3_PartData(BaseData):
         self.start = start
         self.mountpoint = mountpoint
 
-    def __str__(self):
-        retval = "part %s" % self.mountpoint
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.active:
             retval += " --active"
@@ -77,7 +77,10 @@ class FC3_PartData(BaseData):
         if self.start != 0:
             retval += " --start=%d" % self.start
 
-        return retval + "\n"
+        return retval
+
+    def __str__(self):
+        return "part %s %s\n" % (self.mountpoint, self._getArgsAsStr())
 
 class FC4_PartData(FC3_PartData):
     def __init__(self, active=False, primOnly=False, bytesPerInode=4096,
@@ -96,8 +99,8 @@ class FC4_PartData(FC3_PartData):
         self.fsopts = fsopts
         self.label = label
 
-    def __str__(self):
-        retval = FC3_PartData.__str__(self).strip()
+    def _getArgsAsStr(self):
+        retval = FC3_PartData._getArgsAsStr(self)
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -106,7 +109,7 @@ class FC4_PartData(FC3_PartData):
         if self.label != "":
             retval += " --label=%s" % self.label
 
-        return retval + "\n"
+        return retval
 
 class FC3_Partition(KickstartCommand):
     def __init__(self, writePriority=130, partitions=None):

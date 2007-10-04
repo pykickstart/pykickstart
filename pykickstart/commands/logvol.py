@@ -43,8 +43,8 @@ class FC3_LogVolData(BaseData):
         self.vgname = vgname
         self.mountpoint = mountpoint
 
-    def __str__(self):
-        retval = "logvol %s" % self.mountpoint
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.fstype != "":
             retval += " --fstype=\"%s\"" % self.fstype
@@ -63,7 +63,10 @@ class FC3_LogVolData(BaseData):
         if self.preexist:
             retval += " --useexisting"
 
-        return retval + " --name=%s --vgname=%s\n" % (self.name, self.vgname)
+        return retval
+
+    def __str__(self):
+        return "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
 
 class FC4_LogVolData(FC3_LogVolData):
     def __init__(self, bytesPerInode=4096, fsopts="", fstype="", grow=False,
@@ -79,15 +82,15 @@ class FC4_LogVolData(FC3_LogVolData):
         self.bytesPerInode = bytesPerInode
         self.fsopts = fsopts
 
-    def __str__(self):
-        retval = FC3_LogVolData.__str__(self).strip()
+    def _getArgsAsStr(self):
+        retval = FC3_LogVolData._getArgsAsStr(self)
 
         if self.bytesPerInode > 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
 
-        return retval + "\n"
+        return retval
 
 class FC3_LogVol(KickstartCommand):
     def __init__(self, writePriority=132, lvList=None):
@@ -129,6 +132,7 @@ class FC3_LogVol(KickstartCommand):
         op.add_option("--useexisting", dest="preexist", action="store_true",
                       default=False)
         op.add_option("--vgname", dest="vgname", required=1)
+        return op
 
     def parse(self, args):
         op = self._getParser()

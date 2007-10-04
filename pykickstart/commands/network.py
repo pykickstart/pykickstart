@@ -48,8 +48,8 @@ class FC3_NetworkData(BaseData):
         self.onboot = onboot
         self.wepkey = wepkey
 
-    def __str__(self):
-        retval = "network"
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.bootProto != "":
             retval += " --bootproto=%s" % self.bootProto
@@ -80,7 +80,10 @@ class FC3_NetworkData(BaseData):
         if self.wepkey != "":
             retval += " --wepkey=%s" % self.wepkey
 
-        return retval + "\n"
+        return retval
+
+    def __str__(self):
+        return "network %s\n" % self._getArgsAsStr()
 
 class FC4_NetworkData(FC3_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
@@ -96,13 +99,13 @@ class FC4_NetworkData(FC3_NetworkData):
                                 onboot=onboot, wepkey=wepkey)
         self.notksdevice = notksdevice
 
-    def __str__(self):
-        retval = FC3_NetworkData.__str__(self).strip()
+    def _getArgsAsStr(self):
+        retval = FC3_NetworkData._getArgsAsStr(self)
 
         if self.notksdevice:
             retval += " --notksdevice"
 
-        return retval + "\n"
+        return retval
 
 class FC6_NetworkData(FC4_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
@@ -120,45 +123,17 @@ class FC6_NetworkData(FC4_NetworkData):
         self.noipv4 = noipv4
         self.noipv6 = noipv6
 
-    def __str__(self):
-        retval = "network"
+    def _getArgsAsStr(self):
+        retval = FC4_NetworkData._getArgsAsStr(self)
 
-        if self.bootProto != "":
-            retval += " --bootproto=%s" % self.bootProto
-        if self.dhcpclass != "":
-            retval += " --dhcpclass=%s" % self.dhcpclass
-        if self.device != "":
-            retval += " --device=%s" % self.device
-        if self.essid != "":
-            retval += " --essid=\"%s\"" % self.essid
-        if self.ethtool != "":
-            retval += " --ethtool=\"%s\"" % self.ethtool
-        if self.gateway != "":
-            retval += " --gateway=%s" % self.gateway
-        if self.hostname != "":
-            retval += " --hostname=%s" % self.hostname
-        if self.ip != "":
-            retval += " --ip=%s" % self.ip
         if self.noipv4:
             retval += " --noipv4"
         if self.noipv6:
             retval += " --noipv6"
-        if self.mtu != "":
-            retval += " --mtu=%s" % self.mtu
-        if self.nameserver != "":
-            retval += " --nameserver=%s" % self.nameserver
-        if self.netmask != "":
-            retval += " --netmask=%s" % self.netmask
-        if self.nodns:
-            retval += " --nodns"
         if self.notksdevice:
             retval += " --notksdevice"
-        if self.onboot:
-            retval += " --onboot=on"
-        if self.wepkey != "":
-            retval += " --wepkey=%s" % self.wepkey
 
-        return retval + "\n"
+        return retval
 
 class F8_NetworkData(FC6_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
@@ -175,13 +150,13 @@ class F8_NetworkData(FC6_NetworkData):
                                 noipv6=noipv6, onboot=onboot, wepkey=wepkey)
         self.ipv6 = ipv6
 
-    def __str__(self):
-        retval = FC6_NetworkData.__str__(self).strip()
+    def _getArgsAsStr(self):
+        retval = FC6_NetworkData._getArgsAsStr(self)
 
         if self.ipv6 != "":
             retval += " --ipv6" % self.ipv6
 
-        return retval + "\n"
+        return retval
 
 class RHEL4_NetworkData(FC3_NetworkData):
     def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
@@ -197,13 +172,13 @@ class RHEL4_NetworkData(FC3_NetworkData):
                                 onboot=onboot, wepkey=wepkey)
         self.notksdevice = notksdevice
 
-    def __str__(self):
-        retval = FC3_NetworkData.__str__(self).strip()
+    def _getArgsAsStr(self):
+        retval = FC3_NetworkData._getArgsAsStr(self)
 
         if self.notksdevice:
             retval += " --notksdevice"
 
-        return retval + "\n"
+        return retval
 
 class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):

@@ -1,7 +1,8 @@
 2007-10-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/:  Split argument setup into more methods to
-	make overriding in subclasses easier.
+	make overriding in subclasses easier.  Also simplify __str__ methods a
+	bit in some of the more complex commands.
 
 2007-10-03  Chris Lumens  <clumens@redhat.com>
 

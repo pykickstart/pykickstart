@@ -35,13 +35,18 @@ class FC6_RepoData(BaseData):
         self.mirrorlist = mirrorlist
         self.name = name
 
-    def __str__(self):
-        if self.baseurl:
-            urlopt = "--baseurl=%s" % self.baseurl
-        elif self.mirrorlist:
-            urlopt = "--mirrorlist=%s" % self.mirrorlist
+    def _getArgsAsStr(self):
+        retval = ""
 
-        return "repo --name=%s %s\n" % (self.name, urlopt)
+        if self.baseurl:
+            retval += "--baseurl=%s" % self.baseurl
+        elif self.mirrorlist:
+            retval += "--mirrorlist=%s" % self.mirrorlist
+
+        return retval
+
+    def __str__(self):
+        return "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
 
 class F8_RepoData(FC6_RepoData):
     def __init__(self, baseurl="", mirrorlist="", name="", priority=None,
@@ -52,17 +57,17 @@ class F8_RepoData(FC6_RepoData):
         self.includepkgs = includepkgs
         self.excludepkgs = excludepkgs
 
-    def __str__(self):
-        str = FC6_RepoData.__str__(self).rstrip()
+    def _getArgsAsStr(self):
+        retval = FC6_RepoData._getArgsAsStr(self)
 
         if self.priority:
-            str += " --priority=%s" % self.priority
+            retval += " --priority=%s" % self.priority
         if self.includepkgs:
-            str += " --includepkgs=\"%s\"" % string.join(self.includepkgs, ",")
+            retval += " --includepkgs=\"%s\"" % string.join(self.includepkgs, ",")
         if self.excludepkgs:
-            str += " --excludepkgs=\"%s\"" % string.join(self.excludepkgs, ",")
+            retval += " --excludepkgs=\"%s\"" % string.join(self.excludepkgs, ",")
 
-        return str + "\n"
+        return retval
 
 class FC6_Repo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=None):
