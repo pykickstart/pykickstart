@@ -143,14 +143,6 @@ class FC4_Bootloader(FC3_Bootloader):
             retval += " --driveorder=%s" % string.join(self.driveorder, ",")
         return retval
 
-    def __str__(self):
-        if self.location != "":
-            retval = "# System bootloader configuration\nbootloader"
-            retval += self._getArgsAsStr()
-            return retval + "\n"
-        else:
-            return ""
-
     def _getParser(self):
         op = FC3_Bootloader._getParser(self)
         op.remove_option("--linear")
