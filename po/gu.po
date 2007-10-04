@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-02 16:08-0400\n"
+"POT-Creation-Date: 2007-10-04 13:22-0400\n"
 "PO-Revision-Date: 2007-08-06 15:00+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
@@ -15,7 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -23,7 +24,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/base.py:140
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -36,12 +37,12 @@ msgstr ""
 "આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક ભૂલોમાં પરિણમશે.  મહેરબાની કરીને આ આદેદશ દૂર કરવા માટે "
 "તમારી કિકસ્ટાર્ટ સુધારો."
 
-#: ../pykickstart/base.py:308
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "અજ્ઞાત આદેશ: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -52,17 +53,17 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "કિકસ્ટાર્ટ ફાઈલની લીટી %s માંથી વાંચવામાં સમસ્યા ઉદ્દભવી હતી"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "વિકલ્પ %s જરૂરી છે"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
@@ -71,7 +72,7 @@ msgstr ""
 "વિકલ્પ %(option)s એ આવૃત્તિ %(intro)s માં પરિચયમાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ "
 "વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -84,7 +85,7 @@ msgstr ""
 "આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે "
 "તમારી કિકસ્ટાર્ટ સુધારો."
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
@@ -93,61 +94,82 @@ msgstr ""
 "વિકલ્પ %(option)s એ આવૃત્તિ %(removed)s માં દૂર કરવામાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ "
 "વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
 msgstr "વિકલ્પ માટે સુયોજિત જરૂરી નિશાની કે જે કિંમત લેતી નથી"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:156
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "વિકલ્પ %(opt)s: અયોગ્ય બુલિયન કિંમત: %(value)r"
 
-#: ../pykickstart/parser.py:85
+#: ../pykickstart/options.py:161
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "વિકલ્પ %(opt)s: અયોગ્ય બુલિયન કિંમત: %(value)r"
+
+#: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr "%%ksappend માટે અયોગ્ય url: %s"
 
-#: ../pykickstart/parser.py:90
+#: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
 msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ: "
 
-#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ"
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "જૂથ --nodefaults અને --optional બંને સ્પષ્ટ કરી શકતું નથી"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"લીટી %(lineno)s પર અવગણાયેલ વિકલ્પ અવગણી રહ્યા છીએ:  %(option)s વિકલ્પ કાઢી "
+"નાંખવામાં આવેલ છે અને તેની લાંબા સમય સુધી અસર નથી.  તે ભવિષ્યના પ્રકાશનોમાંથી દૂર કરવામાં "
+"આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક પરિણામો આપશે.  મહેરબાની કરીને આ વિકલ્પ દૂર કરવા માટે "
+"તમારી કિકસ્ટાર્ટ સુધારો."
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
-#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
-#: ../pykickstart/version.py:143
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "બિનઆધારભૂત આવૃત્તિ સ્પષ્ટ થયેલ છે: %s"
 
-#: ../validator/ksvalidator:45
+#: ../tools/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "પ્રથમ ભૂલ અથવા ચેતવણી પછી અટકાવો"
 
-#: ../validator/ksvalidator:48
+#: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "જ્યારે %include એ દેખાય ત્યારે સમાવિષ્ટ ફાઈલોનું પદચ્છેદન કરો"
 
-#: ../validator/ksvalidator:50
+#: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "ના વિરુદ્ધ માન્ય કરવાની કિકસ્ટાર્ટ વાક્યરચનાની આવૃત્તિ"
 
-#: ../validator/ksvalidator:64
+#: ../tools/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "આવૃત્તિ %s એ pykickstart દ્વારા આધારભૂત નથી"
 
-#: ../validator/ksvalidator:77
+#: ../tools/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -156,12 +178,11 @@ msgstr ""
 "ફાઈલ કાઢી નાંખવામાં આવેલ વિકલ્પ અથવા આદેશ વાપરે છે.\n"
 "%s"
 
-#: ../validator/ksvalidator:83
+#: ../tools/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય કિકસ્ટાર્ટ ભૂલ"
 
-#: ../validator/ksvalidator:86
+#: ../tools/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  %s"
-

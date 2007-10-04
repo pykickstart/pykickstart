@@ -4,6 +4,13 @@
 	make overriding in subclasses easier.  Also simplify __str__ methods a
 	bit in some of the more complex commands.
 
+	* validator/ksvalidator:  Moved to tools/, where it should have gone
+	in the first place.
+	* setup.py:  Likewise.
+	* po/Makefile:  Likewise.
+
+	* po/pykickstart.pot, po/*.po:  Updated for new source locations.
+
 2007-10-03  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.

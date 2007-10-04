@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-02 16:08-0400\n"
+"POT-Creation-Date: 2007-10-04 13:22-0400\n"
 "PO-Revision-Date: 2007-04-11 22:16+0200\n"
 "Last-Translator: Rok Papez <rok.papez@lugos.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/base.py:140
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -28,12 +28,12 @@ msgstr ""
 "je zastarela in ne deluje več. V naslednjih izdajah bo morda odstranjena in "
 "bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
-#: ../pykickstart/base.py:308
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Neznani ukaz: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -44,17 +44,17 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Napaka pri branju vrstice %s iz datoteke kickstart"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "Potrebna je nastavitev %s"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
@@ -63,7 +63,7 @@ msgstr ""
 "Nastavitev %(option)s je bila dodana v različici %(intro)s, toda uporabljate "
 "kickstart sintakso iz različice %(version)s"
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -75,7 +75,7 @@ msgstr ""
 "(option)s je zastarela in ne deluje več. V naslednjih izdajah bo morda "
 "odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
@@ -84,61 +84,81 @@ msgstr ""
 "Nastavitev %(option)s je bila odstranjena v različici %(removed)s, toda "
 "uporabljate kickstart sintakso različice %(version)s"
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Nastavitev, ki ne sprejema dodatnih vrednosti je označena kot obvezna"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:156
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Nastavitev %(opt)s: neveljavna vrednost boolean: %(value)r"
 
-#: ../pykickstart/parser.py:85
+#: ../pykickstart/options.py:161
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "Nastavitev %(opt)s: neveljavna vrednost boolean: %(value)r"
+
+#: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:90
+#: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
 msgstr ""
 
-#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr ""
 
-#: ../pykickstart/parser.py:278
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina ne more hkrati določati in --nodefaults in --optional"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"Zastarele nastavitve v vrstici %(lineno)s so zanemarjene. Nastavitev %"
+"(option)s je zastarela in ne deluje več. V naslednjih izdajah bo morda "
+"odstranjena in bo povzročila napako. Odstranite jo iz datoteke kickstart."
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:80 ../pykickstart/version.py:89
-#: ../pykickstart/version.py:92 ../pykickstart/version.py:103
-#: ../pykickstart/version.py:143
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Navedena je nepodprta različica: %s"
 
-#: ../validator/ksvalidator:45
+#: ../tools/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "ustavi ob prvi napaki ali opozorilu"
 
-#: ../validator/ksvalidator:48
+#: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "obdelaj vključne datoteke kjer naletiš na %include"
 
-#: ../validator/ksvalidator:50
+#: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "ugotavljanje pravilnosti glede na različica sintakse kickstart"
 
-#: ../validator/ksvalidator:64
+#: ../tools/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "pykickstart ne podpira različice %s"
 
-#: ../validator/ksvalidator:77
+#: ../tools/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -147,11 +167,11 @@ msgstr ""
 "V datoteki je zastareli parameter ali ukaz.\n"
 "%s"
 
-#: ../validator/ksvalidator:83
+#: ../tools/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "Splošna napaka kickstart v vhodni datoteki"
 
-#: ../validator/ksvalidator:86
+#: ../tools/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Splošna napaka v vhodni datoteki:  %s"

@@ -25,7 +25,7 @@ MSGFMT		= msgfmt --statistics --verbose
 POFILES		= $(wildcard *.po)
 MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
 PYSRC		= $(wildcard ../pykickstart/*.py)
-SRCFILES 	= $(PYSRC) ../validator/ksvalidator
+SRCFILES 	= $(PYSRC) $(wildcard ../tools/ks*)
 
 #default:: clean
 
