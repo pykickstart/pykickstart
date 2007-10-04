@@ -1,5 +1,7 @@
 2007-10-04  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
 	* pykickstart/commands/:  Split argument setup into more methods to
 	make overriding in subclasses easier.  Also simplify __str__ methods a
 	bit in some of the more complex commands.
