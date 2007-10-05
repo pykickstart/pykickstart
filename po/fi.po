@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-15 01:03+0300\n"
+"PO-Revision-Date: 2007-10-05 20:15+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
 "Language-Team: Finnish <laatu@lokalisointi.org>\n"
 "MIME-Version: 1.0\n"
@@ -96,12 +96,12 @@ msgstr "Vaadittu lippu asetettu valitsimelle, joka ei ota arvoa"
 #: ../pykickstart/options.py:156
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Valitsin %(opt)s: epäkelpo totuusarvo: %(value)r"
+msgstr "Valitsin %(opt)s: virheellinen totuusarvo: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Valitsin %(opt)s: epäkelpo totuusarvo: %(value)r"
+msgstr "Valitsin %(opt)s: virheellinen merkkijonoarvo: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -123,20 +123,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Ryhmä ei voi määrittää sekä --nodefaults että --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Jätetään huomiotta vanhentunut valitsin rivillä %(lineno)s:  Valitsin %"
-"(option)s on vanhentunut eikä sillä ole enää vaikutusta. Se voidaan poistaa "
-"tulevista versioista, josta seuraa vakava kickstart-virhe.  Poista tämä "
-"valitsin kickstart-tiedostosta."
+"%s ei pääty %%end.  Tämä syntaksi on vanhentunut.  Se voidaan poistaa "
+"tulevista versioista, josta seuraa vakava kickstart-virhe.  Muokkaa "
+"kickstart-tiedostoa käyttämään uutta syntaksia."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Komentosarja"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
