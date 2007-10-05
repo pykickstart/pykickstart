@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-03 09:46+1000\n"
+"PO-Revision-Date: 2007-10-05 13:34+1000\n"
 "Last-Translator: PGP-KeyID: 0x037FD3CF <ttrinks@redhat.com>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -103,9 +103,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
+msgstr "Option %(opt)s: ungültiger String-Wert: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -127,21 +127,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Die Gruppe kann nicht gleichzeitig --nodefaults und --optional angeben"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"Veraltete Option in Zeile %(lineno)s nicht beachten:  Die %(option)s Option "
-"ist veraltet und hat keine Wirkung mehr.  Sie wird vielleicht von "
-"zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren "
-"Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um "
-"diese Option zu entfernen."
+msgstr "%s endet nicht mit %%end. Diese Syntax ist veraltet. Sie wird vielleicht von zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese Option zu entfernen."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -186,3 +181,4 @@ msgstr "Allgemeiner Kickstart-Fehler in input-Datei"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in input-Datei:  %s"
+
