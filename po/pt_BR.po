@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-02 18:58-0300\n"
+"PO-Revision-Date: 2007-10-05 11:44-0300\n"
 "Last-Translator: Igor Pires Soares <igor@projetofedora.org>\n"
 "Language-Team: Brazilian Portuguese <Fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -22,16 +22,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:147
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Ignorando comando obsoleto na linha %(lineno)s:  O comando %(cmd)s está "
-"obsoleto e não tem mais efeito.  Ele pode ser removido das futuras versões, "
-"o que resultará em um erro fatal do kickstart.  Por favor, modifique o seu "
-"arquivo kickstart para remover esse comando."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Ignorando comando obsoleto na linha %(lineno)s:  O comando %(cmd)s está obsoleto e não tem mais efeito.  Ele pode ser removido das futuras versões, o que resultará em um erro fatal do kickstart.  Por favor, modifique o seu arquivo kickstart para remover esse comando."
 
 #: ../pykickstart/base.py:315
 #, python-format
@@ -61,34 +53,18 @@ msgstr "Opção %s é requerida"
 
 #: ../pykickstart/options.py:87
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"A opção %(option)s foi introduzida na versão %(intro)s, mas você está usando "
-"a versão %(version)s da sintaxe do kickstart"
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "A opção %(option)s foi introduzida na versão %(intro)s, mas você está usando a versão %(version)s da sintaxe do kickstart"
 
 #: ../pykickstart/options.py:90
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Ignorando opção obsoleta na linha %(lineno)s:  A opção %(option)s está "
-"obsoleta e não tem mais nenhum efeito.  Ela pode ser removida das futuras "
-"versões, o que resultará em um erro fatal no kickstart.  Por favor, "
-"modifique o seu arquivo kickstart para remover essa opção."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Ignorando opção obsoleta na linha %(lineno)s:  A opção %(option)s está obsoleta e não tem mais nenhum efeito.  Ela pode ser removida das futuras versões, o que resultará em um erro fatal no kickstart.  Por favor, modifique o seu arquivo kickstart para remover essa opção."
 
 #: ../pykickstart/options.py:93
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"A opção %(option)s foi removida na versão %(removed)s, mas você está usando "
-"a versão %(version)s da sintaxe do kickstart"
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "A opção %(option)s foi removida na versão %(removed)s, mas você está usando a versão %(version)s da sintaxe do kickstart"
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
@@ -100,9 +76,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opção %(opt)s: valor Booleano inválido: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opção %(opt)s: valor Booleano inválido: %(value)r"
+msgstr "Opção %(opt)s: valor da string inválido: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -114,7 +90,8 @@ msgstr "url inválida para %%ksappend: %s"
 msgid "Unable to open %%ksappend file: "
 msgstr "Não foi possível abrir o arquivo %%ksappend:"
 
-#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#: ../pykickstart/parser.py:101
+#: ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "Não foi possível abrir o arquivo %%ksappend"
@@ -123,25 +100,21 @@ msgstr "Não foi possível abrir o arquivo %%ksappend"
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Grupo não pode especificar tanto o --nodefaults como o --optional"
 
-#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
-msgid ""
-"%s does not end with %%end.  This syntax has been deprecated.  It may be "
-"removed from future releases, which will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"Ignorando opção obsoleta na linha %(lineno)s:  A opção %(option)s está "
-"obsoleta e não tem mais nenhum efeito.  Ela pode ser removida das futuras "
-"versões, o que resultará em um erro fatal no kickstart.  Por favor, "
-"modifique o seu arquivo kickstart para remover essa opção."
+#: ../pykickstart/parser.py:545
+#: ../pykickstart/parser.py:604
+#, python-format
+msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr "%s não termina com %%end. A sintaxe está obsoleta.  Ela pode ser removida das futuras versões, o que resultará em um erro fatal no kickstart. Por favor, modifique o seu arquivo kickstart para utilizar esta sintaxe atualizada."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:87
+#: ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99
+#: ../pykickstart/version.py:110
 #: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -182,3 +155,4 @@ msgstr "Erro geral do kickstart no arquivo de entrada"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erro geral no arquivo de entrada:  %s"
+
