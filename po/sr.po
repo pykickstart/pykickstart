@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-02 21:29-0000\n"
+"PO-Revision-Date: 2007-10-05 20:42-0000\n"
 "Last-Translator: Miloš Komarčević <kmilos@gmail.com>\n"
 "Language-Team: Serbian (sr) <fedora-trans-sr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Занемаривање застареле наредбе на линији %(lineno)s:  Наредба %(cmd)s је "
 "застарела и више нема никакво дејство.  Може бити избачена у следећим "
-"издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
-"kickstart датотеку тако што ћете избацити ову наредбу."
+"издањима што ће довести до кобне грешке у kickstart-у.  Измените kickstart "
+"датотеку тако што ћете избацити ову наредбу."
 
 #: ../pykickstart/base.py:315
 #, python-format
@@ -76,8 +76,8 @@ msgid ""
 msgstr ""
 "Занемаривање застареле опције на линији %(lineno)s:  Опција %(option)s је "
 "застарела и више нема никакво дејство.  Може бити избачена у следећим "
-"издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
-"kickstart датотеку тако што ћете избацити ову опцију."
+"издањима што ће довести до кобне грешке у kickstart-у.  Измените kickstart "
+"датотеку тако што ћете избацити ову опцију."
 
 #: ../pykickstart/options.py:93
 #, python-format
@@ -98,9 +98,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Опција %(opt)s: неважећа булова вредност: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Опција %(opt)s: неважећа булова вредност: %(value)r"
+msgstr "Опција %(opt)s: неважећа вредност ниске: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -122,20 +122,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Група не може назначити и --nodefaults и --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Занемаривање застареле опције на линији %(lineno)s:  Опција %(option)s је "
-"застарела и више нема никакво дејство.  Може бити избачена у следећим "
-"издањима што ће довести до кобне грешке у kickstart-у.  Молим измените "
-"kickstart датотеку тако што ћете избацити ову опцију."
+"%s се не завршава са %%end.  Ова синтакса је застарела.  Може бити избачена "
+"у следећим издањима што ће довести до кобне грешке у kickstart-у.  Измените "
+"kickstart датотеку употребом ове ажурне синтаксе."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Скрипта"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
