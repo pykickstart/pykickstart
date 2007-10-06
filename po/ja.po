@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-25 22:36+0900\n"
+"PO-Revision-Date: 2007-10-06 16:22+0900\n"
 "Last-Translator: Hyu_gabaru Ryu_ichi <hyu_gabaru@yahoo.co.jp>\n"
 "Language-Team: Japanese <ja@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -100,9 +100,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "オプション %(opt)s: 無効なブール値: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "オプション %(opt)s: 無効なブール値: %(value)r"
+msgstr "オプション %(opt)s: 無効な文字列値: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -124,20 +124,20 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "--nodefaults と --optional の両方のグループは指定できません"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s 行の廃止されたオプションを無視します: %(option)s オプションは廃止"
-"されており、どんな効果も持ちません。将来のリリースでは削除される可能性があ"
-"り、キックスタートの致命的なエラーとなります。使用中のキックスタートファイル"
-"を修正して、このオプションを取り除いてください。"
+"%s が %%end で終わっていません。この構文は廃止予定になっています。将来の"
+"リリースでは削除される可能性があり、キックスタートの致命的なエラーと"
+"なります。使用中のキックスタートファイルを修正し、これの更新された構文を"
+"使用するようにしてください。"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "スクリプト"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
