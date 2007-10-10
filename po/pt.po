@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-02 06:36+0100\n"
+"PO-Revision-Date: 2007-10-10 02:38+0100\n"
 "Last-Translator: Jos Nuno Coelho Pires <jncp@netcabo.pt>\n"
 "Language-Team: pt <kde-i18n-pt@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -94,9 +94,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opção %(opt)s: o valor booleano é inválido: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opção %(opt)s: o valor booleano é inválido: %(value)r"
+msgstr "Opção %(opt)s: o valor textual é inválido: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -118,20 +118,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "O grupo não poderá definir o --nodefaults e o --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"A ignorar a opção desactualizada na linha %(line)s:  A opção %(option)s foi "
-"descontinuada e não faz mais efeito. Poderá ser removida nas versões "
-"futuras, o que irá resultar num erro fatal no 'kickstart'. Por favor "
-"modifique o seu ficheiro de 'kickstart' para remover esta opção."
+msgstr "O %s não termina com %%end. Esta sintaxe foi descontinuada. Poderá ser removida nas versões futuras, o que irá resultar num erro fatal no 'kickstart'. Por favor modifique o seu ficheiro de 'kickstart' para usar esta sintaxe actualizada."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Programa"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
