@@ -1,3 +1,7 @@
+2007-10-15  Chris Lumens  <clumens@redhat.com>
+
+	* po/no.po:  Remove obsolete translation (#332221).
+
 2007-10-04  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
