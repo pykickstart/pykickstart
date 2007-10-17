@@ -57,6 +57,11 @@ STATE_PACKAGES = 2
 STATE_SCRIPT_HDR = 3
 STATE_SCRIPT = 4
 
+# FIXME:  This is a hack until I have time to think about making the parser
+# itself support multiple syntax versions.  Yes, I know this means it will
+# never be fixed.
+ver = DEVEL
+
 def _preprocessStateMachine (provideLineFn):
     l = None
     lineno = 0
@@ -187,9 +192,15 @@ class Script:
             retval += " --erroronfail"
 
         if self.script.endswith("\n"):
-            return retval + "\n%s%%end\n" % self.script
+            if ver >= F8:
+                return retval + "\n%s%%end\n" % self.script
+            else:
+                return retval + "\n%s\n" % self.script
         else:
-            return retval + "\n%s\n%%end\n" % self.script
+            if ver >= F8:
+                return retval + "\n%s\n%%end\n" % self.script
+            else:
+                return retval + "\n%s\n" % self.script
 
 
 ##
@@ -273,7 +284,10 @@ class Packages:
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
 
-        return retval + "\n" + pkgs + "\n%end\n"
+        if ver >= F8:
+            return retval + "\n" + pkgs + "\n%end\n"
+        else:
+            return retval + "\n" + pkgs + "\n"
 
     def _processGroup (self, line):
         op = OptionParser()
@@ -349,6 +363,9 @@ class KickstartParser:
         self._line = ""
 
         self.version = self.handler.version
+
+        global ver
+        ver = self.version
 
     def _reset(self):
         """Reset the internal variables of the state machine for a new kickstart file."""
@@ -542,7 +559,9 @@ class KickstartParser:
 
             elif self._state == STATE_PACKAGES:
                 if not args and self._includeDepth == 0:
-                    warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % "%packages", DeprecationWarning)
+                    if self.version >= F8 :
+                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % "%packages", DeprecationWarning)
+
                     self._state = STATE_END
                 elif args[0] == "%end":
                     self._state = STATE_COMMANDS
@@ -600,7 +619,7 @@ class KickstartParser:
 
             elif self._state == STATE_SCRIPT:
                 if self._line in ["%end", ""] and self._includeDepth == 0:
-                    if self._line == "":
+                    if self._line == "" and self.version >= F8:
                         warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % _("Script"), DeprecationWarning)
 
                     # If we're at the end of the kickstart file, add the script.

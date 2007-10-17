@@ -1,3 +1,8 @@
+2007-10-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py:  Don't write out %end to packages and scripts
+	if the syntax version is before it was introduced.
+
 2007-10-15  Chris Lumens  <clumens@redhat.com>
 
 	* po/no.po:  Remove obsolete translation (#332221).
