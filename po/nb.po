@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: pykickstart 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-03 10:35+0200\n"
+"PO-Revision-Date: 2007-10-17 08:12+0200\n"
 "Last-Translator: Espen Stefansen <espenas@gmail.com>\n"
 "Language-Team: Norwegian/Bokmaal <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -95,9 +95,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Flagget %(opt)s: ugyldig booleansk verdi: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Flagget %(opt)s: ugyldig booleansk verdi: %(value)r"
+msgstr "Flagget %(opt)s: ugyldig strengverdi: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -132,7 +132,7 @@ msgstr ""
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
