@@ -60,9 +60,8 @@ class FC3_Method(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
 
-        if self.currentCmd == "cdrom":
-            return
-        elif self.currentCmd == "harddrive":
+        # method = "cdrom" falls through to the return
+        if self.currentCmd == "harddrive":
             op.add_option("--biospart", dest="biospart")
             op.add_option("--partition", dest="partition")
             op.add_option("--dir", dest="dir", required=1)
