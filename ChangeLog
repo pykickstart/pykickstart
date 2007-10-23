@@ -1,3 +1,7 @@
+2008-10-23  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
 2007-10-22  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/method.py (FC3_Method._getParser):  Return the
