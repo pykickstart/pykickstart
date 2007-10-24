@@ -1,4 +1,10 @@
-2008-10-23  Chris Lumens  <clumens@redhat.com>
+2007-10-24  Peter Jones  <pjones@redhat.com>
+
+	* pykickstart/handlers/f9.py: new for f9!
+
+	* pykcikstart/handlers/control.py: add F9 stuff.
+
+2007-10-23  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
 
