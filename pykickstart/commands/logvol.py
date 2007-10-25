@@ -111,7 +111,7 @@ class FC3_LogVol(KickstartCommand):
         return retval
 
     def _setClassData(self):
-        self.dataType = FC3_RaidData
+        self.dataType = FC3_LogVolData
 
     def _getParser(self):
         def lv_cb (option, opt_str, value, parser):
@@ -164,5 +164,5 @@ class FC4_LogVol(FC3_LogVol):
         op.add_option("--fsoptions", dest="fsopts")
         return op
 
-    def _setClassdata(self):
-        self.dataType = FC4_RaidData
+    def _setClassData(self):
+        self.dataType = FC4_LogVolData
