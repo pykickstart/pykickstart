@@ -1,14 +1,21 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006 Red Hat, Inc.
+# Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 """
 Specialized option handling.
@@ -130,7 +137,7 @@ class KSOption (Option):
     ATTRS = Option.ATTRS + ['introduced', 'deprecated', 'removed', 'required']
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
-    
+
     TYPES = Option.TYPES + ("ksboolean",)
     TYPE_CHECKER = copy(Option.TYPE_CHECKER)
 
@@ -147,9 +154,16 @@ class KSOption (Option):
             mapping = {"opt": opt, "value": value}
             raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
 
+    def _check_string(option, opt, value):
+        if len(value) > 2 and value.startswith("--"):
+            mapping = {"opt": opt, "value": value}
+            raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
+        else:
+            return value
+
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
-    TYPE_CHECKER["ksboolean"] = _check_ksboolean
+    TYPE_CHECKER.update({"ksboolean": _check_ksboolean, "string": _check_string})
 
     def process (self, opt, value, values, parser):
         Option.process(self, opt, value, values, parser)

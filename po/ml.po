@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-05-28 18:02+0530\n"
+"POT-Creation-Date: 2007-10-25 10:35-0400\n"
+"PO-Revision-Date: 2007-08-06 10:49+0530\n"
 "Last-Translator: Ani Peter <apeter@redhat.com>\n"
 "Language-Team: Malayalam <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -29,16 +29,15 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 "%(lineno)s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  %(cmd)s കമാന്‍ഡ് ഇനി "
-"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുന്നതാണ്, kickstart-ന്‍റെ ഒരു "
-"പിഴവായി ഇത് കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart "
-"ഫയലില്‍ മാറ്റം വരുത്തുക."
+"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുന്നതാണ്, kickstart-ന്‍റെ ഒരു പിഴവായി "
+"ഇത് കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "തെറ്റായ കമാന്‍ഡ്: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -49,17 +48,17 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "കിക്ക്സ്റ്റാറ്‍ട്ട് ഫൈലില്‍   %s ാം ലൈന്‍ വായിക്കുന്നതില്‍ ഒരു പ്രശ്നം കാണപ്പെട്ടിരുന്നു"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "%s എന്ന ഉപാധി ആവശ്യമുണ്ട്"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
@@ -68,7 +67,7 @@ msgstr ""
 "%(option)s എന്ന ഉപാധി %(intro)s വേറ്‍ഷനില്‍ ലഭ്യമാണ്, പക്ഷേ നിങ്ങള്‍ ഉപയോഗിക്കുന്നത് "
 "kickstart സിന്‍റാക്സ് വേറ്‍ഷന്‍ %(version)s ആണ്."
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -80,7 +79,7 @@ msgstr ""
 "സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുക, kickstart-ന്‍റെ ഒരു പിഴവായി ഇത് "
 "കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക"
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
@@ -89,46 +88,81 @@ msgstr ""
 "%(option)s എന്ന ഉപാധി %(removed)s വേറ്‍ഷനില്‍ നിന്നും നീക്കിയിരിക്കുന്നു, പക്ഷേ നിങ്ങള്‍ "
 "ഉപയോഗിക്കുന്നത് kickstart സിന്‍റാക്സ് വേറ്‍ഷന്‍ %(version)s ആണ്."
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:146
 msgid "Required flag set for option that doesn't take a value"
 msgstr "ഒരു മൂല്യവും അടങ്ങാത്ത ഉപാധിയ്ക്ക് ആവശ്യപ്പെട്ട ഫ്ളാഗ് സെറ്റ് ചെയ്യപ്പെട്ടിരിക്കുന്നു"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:155
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/options.py:160
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %(value)r"
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr "%%ksappend-നുളള url തെറ്റാണ്: %s"
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr "%%ksappend ഫയല്‍ തുറക്കുവാന്‍ സാധ്യമാകുന്നില്ല: "
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr "%%ksappend ഫയല്‍ തുറക്കുവാന്‍ സാധ്യമാകുന്നില്ല"
+
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ഗ്റൂപ്പിന് --nodefaults-ഉം --optional-ഉം നല്‍കുവാന്‍ സാധ്യമല്ല"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"%(lineno)s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  %(option)s കമാന്‍ഡ് ഇനി "
+"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുക, kickstart-ന്‍റെ ഒരു പിഴവായി ഇത് "
+"കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക"
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "പിന്തുണ ലഭ്യമല്ലാത്ത വേറ്‍ഷന്‍: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "ആദ്യത്തെ പിഴവ് അല്ലെങ്കില്‍ മുന്നറിയിപ്പിന് ശേഷം നിര്‍ത്തുക"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include കാണുന്പോള്‍ include ഫയലുകള്‍ പാഴ്സ് ചെയ്യുക"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "kickstart സിന്‍റാക്സ് പരിശോധിക്കേണ്ടത് എങ്ങനെ"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "%s എന്ന വേറ്‍ഷന് pykickstart പിന്തുണ നല്‍കുന്നില്ല"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -137,12 +171,11 @@ msgstr ""
 "തെറ്റായ ഒരു ഉപാധി അല്ലെങ്കില്‍ കമാന്‍ഡ് ഫയല്‍ ഉപയോഗിക്കുന്നു.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ കിക്ക് സ്റ്റാര്‍ട്ട് പിഴവ്"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
-

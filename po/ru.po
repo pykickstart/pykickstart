@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-10-25 10:35-0400\n"
 "PO-Revision-Date: 2007-03-07 23:37+0300\n"
 "Last-Translator: \n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
@@ -19,17 +19,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:147
 #, python-format
-msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Устаревший параметр игнорируется в строке %(lineno)s:  Команда %(cmd)s была объявлена устаревающей и более не оказывает влияния.  Она может быть удалена в будущих выпусках, что приведет к фатальным ошибкам кикстарта. Измените ваш файл кикстарта и удалите эту команду."
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Устаревший параметр игнорируется в строке %(lineno)s:  Команда %(cmd)s была "
+"объявлена устаревающей и более не оказывает влияния.  Она может быть удалена "
+"в будущих выпусках, что приведет к фатальным ошибкам кикстарта. Измените ваш "
+"файл кикстарта и удалите эту команду."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Неизвестная команда: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -40,73 +48,124 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Ошибка при чтении строки %s файла кикстарта"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "Параметр %s является обязательным"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Параметр %(option)s добавлен в версии %(intro)s, а вы используете синтаксис кикстарта версии %(version)s"
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Параметр %(option)s добавлен в версии %(intro)s, а вы используете синтаксис "
+"кикстарта версии %(version)s"
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s был объявлен устаревающим и более не оказывает влияния.  Он может быть удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. Измените ваш файл кикстарта и удалите этот параметр."
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s "
+"был объявлен устаревающим и более не оказывает влияния.  Он может быть "
+"удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
+"Измените ваш файл кикстарта и удалите этот параметр."
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Параметр %(option)s удален в версии %(removed)s, вы используете синтаксис кикстарта версии %(version)s"
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr ""
+"Параметр %(option)s удален в версии %(removed)s, вы используете синтаксис "
+"кикстарта версии %(version)s"
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:146
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Для параметра, который не принимает значения, установлен флаг обязательности"
+msgstr ""
+"Для параметра, который не принимает значения, установлен флаг обязательности"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:155
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Параметр %(opt)s: недопустимое булево значение: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/options.py:160
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "Параметр %(opt)s: недопустимое булево значение: %(value)r"
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Группа не может ожновременно включать --nodefaults и --optional"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s "
+"был объявлен устаревающим и более не оказывает влияния.  Он может быть "
+"удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
+"Измените ваш файл кикстарта и удалите этот параметр."
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78
-#: ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90
-#: ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Указанная версия не поддерживается: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "останов после первой ошибки или предупреждения"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "обработать включаемые файлы при обнаружении %include"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "версия синтаксиса кикстарта, с которой нужно провести проверку"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Версия %s не поддерживается pykickstart"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -115,12 +174,11 @@ msgstr ""
 "В файле используется устаревший параметр или команда.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "Общая ошибка кикстарта во входном файле"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Общая ошибка во входном файле:  %s"
-

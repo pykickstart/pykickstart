@@ -3,12 +3,19 @@
 #
 # Copyright 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 from pykickstart.version import *
 from pykickstart.commands import *
@@ -305,7 +312,7 @@ commandMap = {
         "graphical": displaymode.FC3_DisplayMode,
         "halt": reboot.FC6_Reboot,
         "harddrive": method.FC6_Method,
-        "ignoredisk": ignoredisk.FC3_IgnoreDisk,
+        "ignoredisk": ignoredisk.F8_IgnoreDisk,
         "install": upgrade.FC3_Upgrade,
         "interactive": interactive.FC3_Interactive,
         "iscsi": iscsi.FC6_Iscsi,
@@ -318,14 +325,14 @@ commandMap = {
         "mediacheck": mediacheck.FC4_MediaCheck,
         "monitor": monitor.FC6_Monitor,
         "multipath": multipath.FC6_MultiPath,
-        "network": network.FC6_Network,
+        "network": network.F8_Network,
         "nfs": method.FC6_Method,
         "part": partition.FC4_Partition,
         "partition": partition.FC4_Partition,
         "poweroff": reboot.FC6_Reboot,
         "raid": raid.F7_Raid,
         "reboot": reboot.FC6_Reboot,
-        "repo": repo.FC6_Repo,
+        "repo": repo.F8_Repo,
         "rootpw": rootpw.F8_RootPw,
         "selinux": selinux.FC3_SELinux,
         "services": services.FC6_Services,
@@ -373,7 +380,7 @@ commandMap = {
         "logvol": logvol.FC3_LogVol,
         "monitor": monitor.FC3_Monitor,
         "mouse": mouse.RHEL3_Mouse,
-        "network": network.RHEL4_Network,
+        "network": network.FC3_Network,
         "nfs": method.FC3_Method,
         "part": partition.FC3_Partition,
         "partition": partition.FC3_Partition,
@@ -411,7 +418,7 @@ commandMap = {
         "graphical": displaymode.FC3_DisplayMode,
         "halt": reboot.FC3_Reboot,
         "harddrive": method.FC3_Method,
-        "ignoredisk": ignoredisk.FC3_IgnoreDisk,
+        "ignoredisk": ignoredisk.RHEL4_IgnoreDisk,
         "install": upgrade.FC3_Upgrade,
         "interactive": interactive.FC3_Interactive,
         "keyboard": keyboard.FC3_Keyboard,
@@ -566,10 +573,10 @@ dataMap = {
         "IscsiData": iscsi.FC6_IscsiData,
         "LogVolData": logvol.FC4_LogVolData,
         "MultiPathData": multipath.FC6_MultiPathData,
-        "NetworkData": network.FC6_NetworkData,
+        "NetworkData": network.F8_NetworkData,
         "PartData": partition.FC4_PartData,
         "RaidData": raid.F7_RaidData,
-        "RepoData": repo.FC6_RepoData,
+        "RepoData": repo.F8_RepoData,
         "UserData": user.F8_UserData,
         "VolGroupData": volgroup.FC3_VolGroupData,
         "ZFCPData": zfcp.FC3_ZFCPData,

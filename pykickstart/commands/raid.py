@@ -3,18 +3,30 @@
 #
 # Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 import string
 
 from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
+
+from rhpl.translate import _
+import rhpl.translate as translate
+
+translate.textdomain("pykickstart")
 
 class FC3_RaidData(BaseData):
     def __init__(self, device=None, fstype="", level="", format=True,
@@ -67,7 +79,7 @@ class FC4_RaidData(FC3_RaidData):
         self.fsopts = fsopts
 
     def _argsToStr(self):
-        retval = FC3_RaidData._argsToStr()
+        retval = FC3_RaidData._argsToStr(self)
 
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -86,7 +98,7 @@ class FC5_RaidData(FC4_RaidData):
         self.bytesPerInode = bytesPerInode
 
     def _argsToStr(self):
-        retval = FC4_RaidData._argsToStr()
+        retval = FC4_RaidData._argsToStr(self)
 
         if self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
@@ -278,6 +290,6 @@ class FC5_Raid(FC4_Raid):
 
 class F7_Raid(FC5_Raid):
     def __init__(self, writePriority=140, raidList=None):
-        FC4_Raid.__init__(self, writePriority, raidList)
+        FC5_Raid.__init__(self, writePriority, raidList)
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})

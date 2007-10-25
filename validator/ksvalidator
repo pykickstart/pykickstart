@@ -2,14 +2,21 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006 Red Hat, Inc.
+# Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 
 import optparse
@@ -28,8 +35,16 @@ import rhpl.translate as translate
 
 translate.textdomain("pykickstart")
 
-def cleanup(destdir, exitval=1):
+def cleanup(destdir, file=None, exitval=1):
     shutil.rmtree(destdir)
+
+    # Don't care if this file doesn't exist.
+    if file is not None:
+       try:
+           os.remove(file)
+       except:
+           pass
+
     os._exit(exitval)
 
 op = OptionParser(usage="usage: %prog [options] ksfile|url")
@@ -62,19 +77,21 @@ ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
 # turn DeprecationWarnings into errors
 warnings.filterwarnings("error")
 
+processedFile = None
+
 try:
-    ksparser.readKickstart(f)
+    processedFile = preprocessKickstart(f)
+    ksparser.readKickstart(processedFile)
+    cleanup(destdir, processedFile, exitval=0)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
-    cleanup(destdir)
+    cleanup(destdir, processedFile, exitval=0)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
-    cleanup(destdir)
+    cleanup(destdir, processedFile, exitval=0)
 except KickstartError:
     print _("General kickstart error in input file")
-    cleanup(destdir)
+    cleanup(destdir, processedFile, exitval=0)
 except Exception, e:
     print _("General error in input file:  %s") % e
-    cleanup(destdir)
-
-cleanup(destdir, exitval=0)
+    cleanup(destdir, processedFile)

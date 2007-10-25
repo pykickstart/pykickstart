@@ -1,8 +1,216 @@
-2007-06-07  Chris Lumens  <clumens@redhat.com>
+2007-10-25  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart.spec, setup.py:  New version.
 
+	* pykickstart/:  Update CVS to pykickstart-1.13 which has already been
+	rebuilt for F7.
+
+	* pykickstart/parser.py:  Add back in STATE_{PRE,POST,TRACEBACK} for
+	F7 anaconda (#350491).
+
+2007-09-12  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py: New version.
+
+	* pykickstart/parser.py (Script.__str__):  Fix format string for
+	output.
+	(Packages.__str__):  Output %end after all the packages.
+
+	* pykickstart/commands/repo.py (F8_Repo.methodToRepo):  Add a function
+	to convert a URL method string into a repo object (jkeating AT redhat
+	DOT com).
+
+2007-09-10  Chris Lumens  <clumens@redhat.com>
+
+	* Makefile, MANIFEST.in, pykickstart.spec:  Add the kickstart
+	documentation from the Fedora wiki.
+
+2007-09-04  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py: New version.
+
+	* Makefile:  Add a target to run pychecker so I can attempt to cut
+	down on all the stupid errors that I just fixed up.
+
+	* pykickstart/parser.py (Script.__str__, Packages.__str__):  Add %end
+	token to the end of these sections.
+
+	* pykickstart/version.py (stringToVersion):  string -> s.
+
+	* pykickstart/commands/bootloader.py (FC4_Bootloader):  Call
+	superclass's __init__ method.
+
+	* pykickstart/commands/device.py (FC3_Device):  self.deviceOpts ->
+	self.moduleOpts.
+
+	* pykickstart/commands/network.py:  Don't pass self when calling
+	_populateParser outside of the overridden method.
+	(F8_NetworkData.__init__):  Pass noipv4 and noipv6 to superclass.
+
+	* pykickstart/commands/raid.py (F7_Raid):  Call superclass's
+	__init__method.
+
+2007-09-03  Jeremy Katz  <katzj@redhat.com>
+
+	* pykickstart.spec, setup.py: New version.
+
+	* pykickstart/parser.py (KickstartParser.__init__): Define currentdir
+
+	* pykickstart/commands/network.py (F8_Network._populateParser):
+	Fix syntax error
+
+2007-08-31  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+2007-08-29  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/network.py:  ipv4= -> noipv4=, ipv6= -> noipv6=
+	on NetworkData objects.
+
+	* pykickstart/commands/network.py (F8_NetworkData, F8_Network):  Add
+	the --ipv6= option to the network command.
+	* pykickstart/handlers/control.py:  Use F8_NetworkData and F8_Network
+	for Fedora 8.
+
+	* pykickstart/commands/network.py:  Reorganize how the parser's
+	options are set up so there's much less duplication.
+
+2007-08-24  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* pykickstart/parser.py (KickstartParser._stateMachine):  Add support
+	for the %end directive, and issue DeprecationWarnings if it's not
+	used.  It will be a long time before the old syntax goes away, though.
+	(KickstartParser._stateMachine):  We only need one script state.
+
+	* validator/ksvalidator:  Don't leave downloaded ks files on the
+	system if pykickstart hits a traceback.
+
+2007-08-23  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/repo.py (F8_RepoData, F8_Repo):  Add support
+	for the --priority, --includepkgs, and --excludepkgs options.
+	* pykickstart/handlers/control.py:  Use F8_RepoData and F8_Repo for
+	Fedora 8.
+
+2007-08-22  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/reboot.py (FC6_Reboot.__str__):  Fix newline at
+	end of output (#253562).
+
+2007-08-13  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* pykickstart/options.py (KSOption._check_string):  Fix type checking
+	of string types.
+
+2007-08-09  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* pykickstart/options.py (KSOption._check_string):  Add a method to
+	check string values, since optparse will consume the next argument if
+	an argument that requires a value does not specify one (#251318).
+
+	* pykickstart/*, validator/ksvalidator, pykickstart.spec:  Add license
+	boilerplate, clarify as GPLv2.
+
+2007-08-02  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* po/*:  Update translation files.
+
+2007-07-31  Chris Lumens  <clumens@redhat.com>
+
+	* validator/ksvalidator:  Don't traceback if there's not yet a
+	processedFile.  preprocessKickstart is no longer in any class.
+
+2007-07-20  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/network.py:  Change --class to --dhcpclass in
+	all parse methods (#248912).
+
+2007-07-19  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Require rhpl (#248953).  New release.
+
+2007-07-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+2007-07-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (_preprocessStateMachine, preprocessFromString,
+	preprocessKickstart):  Don't take a "self" parameter since these
+	methods don't live in a class anymore.
+
+2007-07-17  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+2007-07-16  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/parser.py (_preprocessStateMachine, preprocessFromString,
+	preprocessKickstart):  Add methods that handle the %ksappend
+	directive.  This is taken from anaconda.
+	* validator/ksvalidator:  Run the kickstart file through
+	preprocessKickstart before parsing for real.
+
+	* pykickstart/commands/ignoredisk.py:  Change destination of --disks
+	parameter to match what is expected.
+
+2007-07-16  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+2007-07-16  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/ignoredisk.py:  RHEL4 supports --only-use too.
+
+2007-07-11  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/ignoredisk.py (F8_IgnoreDisk):  Add support
+	for the --only-use argument.
+	* pykickstart/handlers/control.py:  Use F8_IgnoreDisk for F8.
+
+2007-07-10  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/raid.py:  Need to pass "self" as the first
+	argument to superclass methods (#246709).
+
+2007-06-08  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec:  Fix package review problems (#226334).  Bump
+	release.
+
 2007-06-07  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/rootpw.py (F8_RootPw):  Add support for the
+	--lock and --plaintext options for rootpw (#240059).
+	* pykickstart/commands/user.py (F8_UserData, F8_User):  Likewise for
+	the user command.
+	* pykickstart/handlers/control.py:  F8 uses the new rootpw and user
+	commands.
+
+2007-06-05  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/version.py:  Add support for F8.
+	* pykickstart/handlers/control.py:  Likewise.
+	* pykickstart/handlers/f8.py:  Likewise.
+
+2007-06-04  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+2007-06-04  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/method.py:  Fix harddrive install method error
+	checking (#242492, patch from Andrew Edmunds
+	<andrew DOT edmunds AT yahoo.com.au>).
 
 	* pykickstart/base.py (KickstartCommand.__init__):  Add currentLine
 	attribute.
@@ -14,9 +222,11 @@
 	currentLine instead of reassembling the list of arguments, since
 	otherwise we might miss quoting (#241657).
 
-	* pykickstart/commands/method.py:  Fix harddrive install method error
-	checking (#242492, patch from Andrew Edmunds
-	<andrew DOT edmunds AT yahoo.com.au>).
+	* pykickstart/parser.py (KickstartParser.readKickstart):  Use urlopen
+	to open a kickstart file so includes can be given by a URL in addition
+	to a local file.
+
+2007-05-18  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/user.py (FC6_UserData.__str__):  Fix typo in
 	outputting --iscrypted option.

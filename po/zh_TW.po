@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zh_TW\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
+"POT-Creation-Date: 2007-10-25 10:35-0400\n"
 "PO-Revision-Date: 2006-11-25 01:35+1000\n"
 "Last-Translator: Chester Cheng <ccheng@redhat.com>\n"
 "Language-Team: Chinese, Traditional <zh_TW@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -29,12 +29,12 @@ msgstr ""
 "會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 "
 "kickstart 檔案，移除這選項。"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "未知的指令：%s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -45,24 +45,24 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "讀取 kickstart 檔案時，在第 %s 行發生問題"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "選項 %s 是必需的"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -74,53 +74,88 @@ msgstr ""
 "選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您"
 "的 kickstart 檔案，移除這選項。"
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:146
 msgid "Required flag set for option that doesn't take a value"
 msgstr "不需要數值的選項所必須設定的旗標"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:155
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "選項 %(opt)s：不合規定的布林值：%(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/options.py:160
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "選項 %(opt)s：不合規定的布林值：%(value)r"
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"忽略第 %(lineno)s 行中的過時選項：%(option)s 選項已經淘汰，不再起任何作用。這"
+"選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您"
+"的 kickstart 檔案，移除這選項。"
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr ""
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "在第一次錯誤或警告時中止執行"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "遇到 %include 時，解析引入檔（include file）"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr ""
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr ""
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -129,11 +164,11 @@ msgstr ""
 "檔案使用了一個過時的選項或指令。\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "在輸入檔中發生一般 kickstart 錯誤"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "輸入檔中發生一般錯誤：%s"

@@ -5,12 +5,19 @@
 #
 # Copyright 2005, 2006, 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 """
 Main kickstart file processing module.
@@ -24,12 +31,15 @@ This module exports several important classes:
     KickstartParser - The kickstart file parser state machine.
 """
 
+import os
 import shlex
 import sys
 import string
+import tempfile
 from copy import copy
 from optparse import *
 from urlgrabber import urlopen
+import urlgrabber.grabber as grabber
 
 from constants import *
 from errors import *
@@ -48,6 +58,89 @@ STATE_SCRIPT_HDR = 3
 STATE_PRE = 4
 STATE_POST = 5
 STATE_TRACEBACK = 6
+
+# FIXME:  This is a hack until I have time to think about making the parser
+# itself support multiple syntax versions.  Yes, I know this means it will
+# never be fixed.
+ver = DEVEL
+
+def _preprocessStateMachine (provideLineFn):
+    l = None
+    lineno = 0
+
+    # Now open an output kickstart file that we are going to write to one
+    # line at a time.
+    (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+
+    while True:
+        try:
+            l = provideLineFn()
+        except StopIteration:
+            break
+
+        # At the end of the file?
+        if l == "":
+            break
+
+        lineno += 1
+        url = None
+
+        ll = l.strip()
+        if string.find(ll, "%ksappend") == -1:
+            os.write(outF, l)
+            continue
+
+        # Try to pull down the remote file.
+        try:
+            ksurl = string.split(ll, ' ')[1]
+        except:
+            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll)
+
+        try:
+            url = grabber.urlopen(ksurl)
+        except grabber.URLGrabError, e:
+            raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: ") % e.strerror)
+        else:
+            # Sanity check result.  Sometimes FTP doesn't catch a file
+            # is missing.
+            try:
+                if url.info()["content-length"] < 1:
+                    raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
+            except:
+                raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
+
+        # If that worked, write the remote file to the output kickstart
+        # file in one burst.  Then close everything up to get ready to
+        # read ahead in the input file.  This allows multiple %ksappend
+        # lines to exist.
+        if url is not None:
+            os.write(outF, url.read())
+            url.close()
+
+    # All done - close the temp file and return its location.
+    os.close(outF)
+    return outName
+
+def preprocessFromString (str):
+    """Preprocess the kickstart file, provided as the string str.  This
+        method is currently only useful for handling %ksappend lines,
+        which need to be fetched before the real kickstart parser can be
+        run.  Returns the location of the complete kickstart file.
+    """
+    i = iter(str.splitlines(True))
+    rc = _preprocessStateMachine (lambda: i.next())
+    return rc
+
+def preprocessKickstart (file):
+    """Preprocess the kickstart file, given by the filename file.  This
+        method is currently only useful for handling %ksappend lines,
+        which need to be fetched before the real kickstart parser can be
+        run.  Returns the location of the complete kickstart file.
+    """
+    fh = urlopen(file)
+    rc = _preprocessStateMachine (lambda: fh.readline())
+    fh.close()
+    return rc
 
 ###
 ### SCRIPT HANDLING
@@ -100,7 +193,16 @@ class Script:
         if self.errorOnFail:
             retval += " --erroronfail"
 
-        return retval + "\n%s" % self.script
+        if self.script.endswith("\n"):
+            if ver >= F8:
+                return retval + "\n%s%%end\n" % self.script
+            else:
+                return retval + "\n%s\n" % self.script
+        else:
+            if ver >= F8:
+                return retval + "\n%s\n%%end\n" % self.script
+            else:
+                return retval + "\n%s\n" % self.script
 
 
 ##
@@ -184,7 +286,10 @@ class Packages:
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
 
-        return retval + "\n" + pkgs
+        if ver >= F8:
+            return retval + "\n" + pkgs + "\n%end\n"
+        else:
+            return retval + "\n" + pkgs + "\n"
 
     def _processGroup (self, line):
         op = OptionParser()
@@ -229,7 +334,7 @@ class KickstartParser:
     """The kickstart file parser class as represented by a basic state
        machine.  To create a specialized parser, make a subclass and override
        any of the methods you care about.  Methods that don't need to do
-       anything may just pass.  However, readKickstart should never be
+       anything may just pass.  However, _stateMachine should never be
        overridden.
     """
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
@@ -253,12 +358,16 @@ class KickstartParser:
         self.errorsAreFatal = errorsAreFatal
         self.followIncludes = followIncludes
         self.handler = handler
+        self.currentdir = {}
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self._reset()
 
         self._line = ""
 
         self.version = self.handler.version
+
+        global ver
+        ver = self.version
 
     def _reset(self):
         """Reset the internal variables of the state machine for a new kickstart file."""
@@ -395,7 +504,7 @@ class KickstartParser:
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
                 if self._line != "" and string.split(self._line.lstrip())[0] in \
-                   ["%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
+                   ["%end", "%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
                     args = shlex.split(self._line)
                 else:
                     args = None
@@ -431,7 +540,6 @@ class KickstartParser:
                     self._state = STATE_END
                 elif args[0] == "%ksappend":
                     needLine = True
-                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -453,10 +561,15 @@ class KickstartParser:
 
             elif self._state == STATE_PACKAGES:
                 if not args and self._includeDepth == 0:
+                    if self.version >= F8 :
+                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % "%packages", DeprecationWarning)
+
                     self._state = STATE_END
+                elif args[0] == "%end":
+                    self._state = STATE_COMMANDS
+                    needLine = True
                 elif args[0] == "%ksappend":
                     needLine = True
-                    continue
                 elif args[0] in ["%pre", "%post", "%traceback"]:
                     self._state = STATE_SCRIPT_HDR
                 elif args[0] == "%packages":
@@ -507,17 +620,23 @@ class KickstartParser:
                         print msg
 
             elif self._state in [STATE_PRE, STATE_POST, STATE_TRACEBACK]:
-                if self._line == "" and self._includeDepth == 0:
+                if self._line in ["%end", ""] and self._includeDepth == 0:
+                    if self._line == "" and self.version >= F8:
+                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % _("Script"), DeprecationWarning)
+
                     # If we're at the end of the kickstart file, add the script.
                     self.addScript()
                     self._state = STATE_END
-                elif args and args[0] in ["%pre", "%post", "%traceback", "%packages", "%ksappend"]:
+                elif args and args[0] in ["%end", "%pre", "%post", "%traceback", "%packages", "%ksappend"]:
                     # Otherwise we're now at the start of the next section.
                     # Figure out what kind of a script we just finished
                     # reading, add it to the list, and switch to the initial
                     # state.
                     self.addScript()
                     self._state = STATE_COMMANDS
+
+                    if args[0] == "%end":
+                        needLine = True
                 else:
                     # Otherwise just add to the current script body.
                     self._script["body"].append(self._line)
@@ -538,6 +657,21 @@ class KickstartParser:
         """Process a kickstart file, given by the filename file."""
         if reset:
             self._reset()
+        
+        # an %include might not specify a full path.  if we don't try to figure
+        # out what the path should have been, then we're unable to find it
+        # requiring full path specification, though, sucks.  so let's make
+        # the reading "smart" by keeping track of what the path is at each
+        # include depth.
+        if not os.path.exists(file):
+            if self.currentdir.has_key(self._includeDepth - 1):
+                if os.path.exists(os.path.join(self.currentdir[self._includeDepth - 1], file)):
+                    file = os.path.join(self.currentdir[self._includeDepth - 1], file)
+
+        cd = os.path.dirname(file)
+        if not cd.startswith("/"):
+            cd = os.path.abspath(cd)
+        self.currentdir[self._includeDepth] = cd
 
         fh = urlopen(file)
         self._stateMachine (lambda: fh.readline())

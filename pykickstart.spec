@@ -1,17 +1,21 @@
-%{!?python_sitelib: %define python_sitelib %(python -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
+%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.1.1
+Version: 1.13.1
 Release: 1%{?dist}
+# This is a Red Hat maintained package which is specific to
+# our distribution.  Thus the source is only available from
+# within this srpm.
 Source0: %{name}-%{version}.tar.gz
-License: GPL
+
+License: GPLv2
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext
-Requires: python, python-urlgrabber
+Requires: python, python-urlgrabber, rhpl
 
 %description
 The pykickstart package is a python library for manipulating kickstart
@@ -34,14 +38,79 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc README ChangeLog COPYING docs/programmers-guide
+%doc docs/kickstart-docs.txt
 %{python_sitelib}/pykickstart
 %{_bindir}/ksvalidator
 
 %changelog
-* Thu Jun 07 2007 Chris Lumens <clumens@redhat.com> - 1.1.1-1
-- Fix harddrive install method error checking (#242492).
+* Thu Oct 25 2007 Chris Lumens <clumens@redhat.com> 1.13.1-1
+- Add back in STATE_{PRE,POST,TRACEBACK} for F7 anaconda (#350491).
+- Don't write out %end to packages and scripts if the syntax version doesn't
+  support it.
+
+* Thu Sep 27 2007 Chris Lumens <clumens@redhat.com> 1.13-2
+- Rebuild pykickstart-1.13 for F7, keeping F7 as the default syntax version.
+
+* Wed Sep 12 2007 Chris Lumens <clumens@redhat.com> 1.13-1
+- Add a function to convert URL method strings into repo objects
+  (jkeating).
+- Writer formatting fixes.
+- Add kickstart documentation from the Fedora Wiki.
+
+* Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 1.12-1
+- Fix lots of problems in processing the bootloader, device, network, and
+  raid commands.
+- Add %end when writing out scripts and packages.
+- Add a makefile target to run pychecker to cut down on errors in
+  releases.
+
+* Mon Sep  3 2007 Jeremy Katz <katzj@redhat.com> - 1.11-1
+- fix a few tracebacks
+
+* Fri Aug 31 2007 Chris Lumens <clumens@redhat.com> 1.10-1
+- Add network --ipv6=.
+
+* Fri Aug 24 2007 Chris Lumens <clumens@redhat.com> 1.9-1
+- Add support for the %end directive to be placed at the end of scripts
+  and packages sections.  Deprecate old syntax.
+- Clean up after ksvalidator if pykickstart issues a traceback.
+- Add support for repo --priority --includepkgs --excludepkgs.
+- Fix newline at end of reboot --eject output (#253562).
+
+* Mon Aug 13 2007 Chris Lumens <clumens@redhat.com> 1.8-1
+- Fix type checking of string values.
+
+* Thu Aug 09 2007 Chris Lumens <clumens@redhat.com> 1.7-1
+- Clarify license in spec file and all source files.
+- Check string values to options to make sure they're not other options
+  (#251318).
+
+* Thu Aug 02 2007 Chris Lumens <clumens@redhat.com> 1.6-1
+- Fix a couple tracebacks in ksvalidator.
+- Change --class to --dhcpclass (#248912).
+
+* Thu Jul 19 2007 Chris Lumens <clumens@redhat.com> 1.5-2
+- Require rhpl (#248953).
+
+* Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.5-1
+- Fix traceback when calling preprocessKickstart.
+
+* Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.4-1
+- Add methods to handle the %ksappend directive.
+- Fix ignoredisk --disks.
+
+* Wed Jul 11 2007 Chris Lumens <clumens@redhat.com> - 1.3-1
+- Add support for ignoredisk --only-use.
+- Fix traceback in raid command printing method (#246709).
+
+* Fri Jun 08 2007 Chris Lumens <clumens@redhat.com> - 1.2-2
+- Fix package review problems (#226334).
+
+* Mon Jun 04 2007 Chris Lumens <clumens@redhat.com> - 1.2-1
+- Fix harddrive install method error checking (#232492).
 - Set authentication information from the input line to preserve quoting
   (#241657).
+- Allow included files to be given by URL.
 - Fix typo in user --iscrypted option.
 
 * Mon May 14 2007 Chris Lumens <clumens@redhat.com> - 1.1-1

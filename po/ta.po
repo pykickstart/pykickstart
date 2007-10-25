@@ -1,4 +1,4 @@
-# translation of ta.po to Tamil
+# translation of ta.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -8,10 +8,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-04-12 17:46+0530\n"
-"Last-Translator: I felix <ifelix@redhat.com>\n"
-"Language-Team: Tamil <fedora-trans-ta@redhat.com>\n"
+"POT-Creation-Date: 2007-10-25 10:35-0400\n"
+"PO-Revision-Date: 2007-09-03 13:36+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -31,17 +31,17 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s: வரியில் நீக்கப்பட்ட விருப்பத்தை நிராகரிக்கிறது: %(cmd)s கட்டளை "
-"நீக்கப்பட்டது இது ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
-"நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும். இந்தக் கட்டளையை நீக்க உங்கள் "
-"கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
+"%(lineno)s: வரியில் நீக்கப்பட்ட விருப்பத்தை நிராகரிக்கிறது: %(cmd)s கட்டளை நீக்கப்பட்டது "
+"இது ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து நீக்கப்படலாம், இது "
+"கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும். இந்தக் கட்டளையை நீக்க உங்கள் கிக்ஸ்டார்ட் கோப்பினை "
+"மாற்றவும்."
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "தெரியாத கட்டளை: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -52,17 +52,17 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "கிக்ஸ்டார்ட் கோப்பின் வரி %sல் வாசிக்கும் போது சிக்கல் உள்ளது"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "விருப்பம் %s தேவைப்படுகிறது"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
@@ -71,7 +71,7 @@ msgstr ""
 "விருப்பம் %(option)s பதிப்பு %(intro)sஇல் அறிமுகப்பட்டுள்ளது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் "
 "இலக்கண பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -84,7 +84,7 @@ msgstr ""
 "நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் "
 "கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
@@ -93,46 +93,82 @@ msgstr ""
 "விருப்பம் %(option)s பதிப்பு %(removed)sஇல் நீக்கப்பட்டது, ஆனால் நீங்கள் கிக்ஸ்டார்ட் இலக்கண "
 "பதிப்பு %(version)s ஐ பயன்படுத்துகிறீர்கள்"
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:146
 msgid "Required flag set for option that doesn't take a value"
 msgstr "ஒரு மதிப்பினை ஏற்காத விருப்பத்திற்கு கொடி அமைவு தேவைப்படுகிறது"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:155
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "விருப்பம் %(opt)s: தவறான பூலியன் மதிப்பு: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/options.py:160
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "விருப்பம் %(opt)s: தவறான பூலியன் மதிப்பு: %(value)r"
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr "%%ksappendக்கு தவறான url: %s"
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr "%%ksappend கோப்பினை திறக்க முடியவில்லை: "
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr "%%ksappend கோப்பினை திறக்க முடியவில்லை"
+
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "குழு --nodefaults மற்றும் --optional இரண்டையும் குறிப்பிடாது"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"%(lineno)s: வரியில் எதிரிடையான விருப்பத்தை நிராகரிக்கிறது: %(option)s விருப்பம் "
+"எதிரிடையாகவும் ஒரு போதும் செயல்படுத்தப்படாது. இது வரும் வெளியீடுகளிலிருந்து "
+"நீக்கப்படலாம், இது கிக்ஸ்டார்ட்டில் முக்கியமான பிழை கொடுக்கும்.  இந்த விருப்பத்தை நீக்க உங்கள் "
+"கிக்ஸ்டார்ட் கோப்பினை மாற்றவும்."
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "துணைபுரியாத பதிப்பு குறிப்பிடப்பட்டுள்ளது: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "முதல் பிழை அல்லது எச்சரிக்கைக்கு பின் நிறுத்தவும்"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include தெரிந்தால் பகுத்தல் கோப்புகளை சேர்க்கிறது"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "கிக்ஸ்டார்ட் இலக்கணத்தின் பதிப்பு மதிப்பிடுகிறது"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "பதிப்பு %s pykickstartஆல் துணைபுரியாதது"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -141,12 +177,11 @@ msgstr ""
 "கோப்பு எதிரிடையான விருப்பம் அல்லது கட்டளை பயன்படுத்துகிறது.\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "உள்ளீடு கோப்பில் பொதுவான கிக்ஸ்டார்ட் பிழை"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "உள்ளீடு கோப்பில் பொதுவான பிழை:  %s"
-

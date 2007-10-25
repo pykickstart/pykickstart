@@ -1,4 +1,4 @@
-# translation of bn_IN.po to Bengali
+# translation of bn_IN.po to Bengali INDIA
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -7,10 +7,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bn_IN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-07 15:05-0500\n"
-"PO-Revision-Date: 2007-04-04 17:40+0530\n"
+"POT-Creation-Date: 2007-10-25 10:35-0400\n"
+"PO-Revision-Date: 2007-08-08 15:44+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali <en@li.org>\n"
+"Language-Team: Bengali INDIA <fedora-trans-bn_in@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,7 +20,7 @@ msgstr ""
 "\n"
 "\n"
 
-#: ../pykickstart/base.py:132
+#: ../pykickstart/base.py:147
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -28,17 +28,17 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"%(lineno)s পংক্তির মধ্যে উল্লিখিত অবচিত বিকল্প অগ্রাহ্য করা হচ্ছে:  %(cmd)s "
-"বিকল্পটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে "
-"এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। "
-"অনুগ্রহ করে kickstart ফাইল থেকে এই বিকল্পটি মুছে ফেলুন।"
+"%(lineno)s পংক্তির মধ্যে উল্লিখিত অবচিত বিকল্প অগ্রাহ্য করা হচ্ছে:  %(cmd)s বিকল্পটি "
+"অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে এটি "
+"অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। অনুগ্রহ "
+"করে kickstart ফাইল থেকে এই বিকল্পটি মুছে ফেলুন।"
 
-#: ../pykickstart/base.py:298
+#: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
 msgstr "অজানা কমান্ড: %s"
 
-#: ../pykickstart/errors.py:43
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -49,17 +49,17 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Kickstart ফাইলের %s পংক্তি থেকে পড়তে সমস্যা"
 
-#: ../pykickstart/options.py:77
+#: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
 msgstr "%s বিকল্প উল্লেখ করা আবশ্যক"
 
-#: ../pykickstart/options.py:80
+#: ../pykickstart/options.py:87
 #, python-format
 msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
@@ -68,7 +68,7 @@ msgstr ""
 "%(option)s বিকল্পটি %(intro)s সংস্করণে প্রস্তুত করা হয়েছে। আপনি বর্তমানে kickstart "
 "সিন্টেক্স সংস্করণ %(version)s ব্যবহার করছেন।"
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:90
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -81,7 +81,7 @@ msgstr ""
 "এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। "
 "অনুগ্রহ করে kickstart ফাইল থেকে এই বিকল্পটি মুছে ফেলুন।"
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
@@ -90,46 +90,83 @@ msgstr ""
 "%(option)s বিকল্পটি %(removed)s সংস্করণে অপসারণ করা হয়েছে। আপনি বর্তমানে "
 "kickstart সিন্টেক্স সংস্করণ %(version)s ব্যবহার করছেন।"
 
-#: ../pykickstart/options.py:139
+#: ../pykickstart/options.py:146
 msgid "Required flag set for option that doesn't take a value"
-msgstr "কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
+msgstr ""
+"কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
 
-#: ../pykickstart/options.py:148
+#: ../pykickstart/options.py:155
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "%(opt)s বিকল্প: বুলিয়ান মান বৈধ নয়: %(value)r"
 
-#: ../pykickstart/parser.py:196
+#: ../pykickstart/options.py:160
+#, fuzzy, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr "%(opt)s বিকল্প: বুলিয়ান মান বৈধ নয়: %(value)r"
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr "%%ksappend-র ক্ষেত্রে অবৈধ url: %s"
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr "%%ksappend ফাইল খুলতে ব্যর্থ: "
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr "%%ksappend ফাইল খুলতে ব্যর্থ"
+
+#: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "দল দ্বারা --nodefaults ও --optional উভয় একযোগে নির্ধারণ করা যাবে না"
 
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, fuzzy, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+"%(lineno)s পংক্তির মধ্যে উল্লিখিত অবচিত বিকল্প অগ্রাহ্য করা হচ্ছে:  %(option)s "
+"বিকল্পটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে "
+"এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। "
+"অনুগ্রহ করে kickstart ফাইল থেকে এই বিকল্পটি মুছে ফেলুন।"
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr ""
+
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:78 ../pykickstart/version.py:87
-#: ../pykickstart/version.py:90 ../pykickstart/version.py:101
-#: ../pykickstart/version.py:135
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "অসমর্থিত সংস্করণ উল্লিখিত হয়েছে: %s"
 
-#: ../validator/ksvalidator:37
+#: ../validator/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr "প্রথম ত্রুটি অথবা সতর্কবার্তা উৎপন্ন হলে স্থগিত করা হবে"
 
-#: ../validator/ksvalidator:40
+#: ../validator/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%include প্রদর্শিত হলে include ফাইল পার্স করা হবে"
 
-#: ../validator/ksvalidator:42
+#: ../validator/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
 msgstr "যে kickstart সিন্টেক্স সংস্করণের সাথে যাচাই করা হবে"
 
-#: ../validator/ksvalidator:56
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "%s সংস্করণটি pykickstart দ্বারা সমর্থিত নয়"
 
-#: ../validator/ksvalidator:68
+#: ../validator/ksvalidator:87
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -138,12 +175,11 @@ msgstr ""
 "ফাইলের মধ্যে কোনো অবিচত অপশন অথবা কমান্ড প্রয়োগ করা হয়েছে।\n"
 "%s"
 
-#: ../validator/ksvalidator:74
+#: ../validator/ksvalidator:93
 msgid "General kickstart error in input file"
 msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক্রান্ত সাধারণ সমস্যা"
 
-#: ../validator/ksvalidator:77
+#: ../validator/ksvalidator:96
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
-

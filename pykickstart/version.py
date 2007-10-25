@@ -3,12 +3,19 @@
 #
 # Copyright 2006, 2007 Red Hat, Inc.
 #
-# This software may be freely redistributed under the terms of the GNU
-# general public license.
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
 #
 """
 Methods for working with kickstart versions.
@@ -45,11 +52,11 @@ FC4 = 2000
 FC5 = 3000
 FC6 = 4000
 RHEL5 = 4100
-F7  = 5000
+F7 = 5000
 F8 = 6000
 
 # This always points at the latest version and is the default.
-DEVEL = F8
+DEVEL = F7
 
 """A one-to-one mapping from string representations to version numbers."""
 versionMap = {
@@ -58,18 +65,18 @@ versionMap = {
         "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
-def stringToVersion(string):
+def stringToVersion(s):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
     # First try these short forms.
     try:
-        return versionMap[string.upper()]
+        return versionMap[s.upper()]
     except KeyError:
         pass
 
     # Now try the Fedora versions.
-    m = re.match("^fedora.* (\d)+$", string, re.I)
+    m = re.match("^fedora.* (\d)+$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("FC" + m.group(1)):
@@ -77,19 +84,19 @@ def stringToVersion(string):
         elif versionMap.has_key("F" + m.group(1)):
             return versionMap["F" + m.group(1)]
         else:
-            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+            raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
     # Now try the RHEL versions.
-    m = re.match("^red hat enterprise linux.* (\d)+$", string, re.I)
+    m = re.match("^red hat enterprise linux.* (\d)+$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("RHEL" + m.group(1)):
             return versionMap["RHEL" + m.group(1)]
         else:
-            raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+            raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
     # If nothing else worked, we're out of options.
-    raise KickstartVersionError(_("Unsupported version specified: %s") % string)
+    raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
 def versionToString(version):
     """Convert version into a string representation of the version number.
