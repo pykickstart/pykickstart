@@ -1,5 +1,9 @@
 2007-10-26  Peter Jones  <pjones@redhat.com>
 
+	* pykickstart/handlers/control.py:  Use new F9 commands.
+
+2007-10-26  Peter Jones  <pjones@redhat.com>
+
 	* pykickstart/commands/logvol.py:  Add F9 options (--fsprofile).
 
 	* pykickstart/commands/raid.py: ditto.
