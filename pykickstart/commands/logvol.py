@@ -92,6 +92,30 @@ class FC4_LogVolData(FC3_LogVolData):
 
         return retval
 
+class F9_LogVolData(FC3_LogVolData):
+    def __init__(self, fsopts="", fstype="", grow=False,
+                 maxSizeMB=0, name="", format=True, percent=0,
+                 recommended=False, size=None, preexist=False, vgname="",
+                 mountpoint="", fsprofile=""):
+        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
+                               maxSizeMB=maxSizeMB, name=name,
+                               format=format, percent=percent,
+                               recommended=recommended, size=size,
+                               preexist=preexist, vgname=vgname,
+                               mountpoint=mountpoint)
+        self.fsopts = fsopts
+        self.fsprofile = fsprofile
+
+    def _getArgsAsStr(self):
+        retval = FC3_LogVolData._getArgsAsStr(self)
+
+        if self.fsopts != "":
+            retval += " --fsoptions=\"%s\"" % self.fsopts
+        if self.fsprofile != "":
+            retval += " --fsprofile=\"%s\"" % self.fsprofile
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     def __init__(self, writePriority=132, lvList=None):
         KickstartCommand.__init__(self, writePriority)
@@ -166,3 +190,17 @@ class FC4_LogVol(FC3_LogVol):
 
     def _setClassData(self):
         self.dataType = FC4_LogVolData
+
+class F9_LogVol(FC3_LogVol):
+    def __init__(self, writePriority=132, lvList=None):
+        FC3_LogVol.__init__(self, writePriority, lvList)
+
+    def _setClassData(self):
+        self.dataType = F9_RaidData
+
+    def _getParser(self):
+        op = FC3_LogVol._getParser(self)
+        op.add_option("--fsoptions", dest="fsopts")
+        op.add_option("--fsprofile", dest="fsprofile", action="store",
+                      type="string", nargs=1)
+        return op

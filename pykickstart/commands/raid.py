@@ -107,6 +107,25 @@ class FC5_RaidData(FC4_RaidData):
 
 F7_RaidData = FC5_RaidData
 
+class F9_RaidData(FC4_RaidData):
+    def __init__(self, device=None, fsopts="", fstype="", level="",
+                 format=True, spares=0, preexist=False, mountpoint="",
+                 members=None, fsprofile=""):
+        FC4_RaidData.__init__(self, device=device, fsopts=fsopts,
+                             fstype=fstype, level=level,
+                             format=format, spares=spares,
+                             preexist=preexist,
+                             mountpoint=mountpoint, members=members)
+        self.fsprofile = fsprofile
+
+    def _getArgsAsStr(self):
+        retval = FC4_RaidData._getArgsAsStr(self)
+
+        if self.fsprofile != "":
+            retval += " --fsprofile=\"%s\"" % self.fsprofile
+
+        return retval
+
 class FC3_Raid(KickstartCommand):
     def __init__(self, writePriority=140, raidList=None):
         KickstartCommand.__init__(self, writePriority)
@@ -214,24 +233,6 @@ class FC5_Raid(FC4_Raid):
                       type="int", nargs=1)
         return op
 
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-
-        if len(extra) == 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
-
-        rd = FC5_RaidData()
-        self._setToObj(op, opts, rd)
-
-        # --device can't just take an int in the callback above, because it
-        # could be specificed as "mdX", which causes optparse to error when
-        # it runs int().
-        rd.device = int(rd.device)
-        rd.mountpoint = extra[0]
-        rd.members = extra[1:]
-        self.add(rd)
-
 class F7_Raid(FC5_Raid):
     def __init__(self, writePriority=140, raidList=None):
         FC5_Raid.__init__(self, writePriority, raidList)
@@ -240,3 +241,22 @@ class F7_Raid(FC5_Raid):
 
     def _setClassData(self):
         self.dataType = F7_RaidData
+
+class F9_Raid(FC4_Raid):
+    def __init__(self, writePriority=140, raidList=None):
+        FC4_Raid.__init__(self, writePriority, raidList)
+
+        self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
+
+    def reset(self):
+        self.raidList = []
+
+    def _setClassData(self):
+        self.dataType = F9_RaidData
+
+    def _getParser(self):
+        op = FC4_Raid._getParser(self)
+        op.add_option("--fsprofile", dest="fsprofile", action="store",
+                      type="string", nargs=1)
+        return op
+
