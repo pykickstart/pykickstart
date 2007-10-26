@@ -112,7 +112,7 @@ class FC4_PartData(FC3_PartData):
         return retval
 
 class F9_PartData(FC3_PartData):
-    def __init__(self, active=False, primOnly=False, fsprofile=""
+    def __init__(self, active=False, primOnly=False, fsprofile="",
                  end=0, fsopts="", fstype="", grow=False, label="",
                  maxSizeMB=0, format=True, onbiosdisk="", disk="",
                  onPart="", recommended=False, size=None, start=0,

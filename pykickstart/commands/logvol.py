@@ -196,7 +196,7 @@ class F9_LogVol(FC3_LogVol):
         FC3_LogVol.__init__(self, writePriority, lvList)
 
     def _setClassData(self):
-        self.dataType = F9_RaidData
+        self.dataType = F9_LogVolData
 
     def _getParser(self):
         op = FC3_LogVol._getParser(self)
