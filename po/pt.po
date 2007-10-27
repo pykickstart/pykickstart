@@ -13,6 +13,7 @@ msgstr ""
 "X-POFile-SpellExtra: partition option cmd value device multipathdev\n"
 "X-POFile-SpellExtra: command lineno msg line options biospart pykickstart\n"
 "X-POFile-SpellExtra: removed intro version nodefaults optional ksappend\n"
+"X-POFile-SpellExtra: end\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
