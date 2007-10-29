@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-03 00:12+0200\n"
+"PO-Revision-Date: 2007-10-26 21:50+0200\n"
 "Last-Translator: Thomas Canniot <mrtom@fedoraproject.org>\n"
 "Language-Team: Français <fedora-trans-fr@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -100,9 +100,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Option %(opt)s : valeur booléenne invalide : %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Option %(opt)s : valeur booléenne invalide : %(value)r"
+msgstr "Option %(opt)s : valeur de chaîne invalide : %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -124,20 +124,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Le groupe ne peut pas à la fois spécifier --nodefaults et --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Ignorer l'option dépréciée sur la ligne %(lineno)s : L'option %(option)s a "
-"été dépréciée et n'a plus d'effet. Elle pourra être supprimée lors de "
-"futures versions, ce qui provoquera une erreur fatale de kickstart.  Merci "
-"de modifier votre fichier kickstart et de retirer cette option."
+"%s ne se termine pas par %%end. Cette syntaxe a été dépréciée. Elle pourra être supprimée lors de "
+"futures versions, ce qui provoquera une erreur fatale de kickstart. Merci "
+"de modifier votre fichier kickstart et d'utiliser la nouvelle syntaxe."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -182,3 +181,4 @@ msgstr "Erreur générale de kickstart due au fichier source"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Erreur générale dans le fichier source : %s"
+
