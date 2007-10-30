@@ -33,6 +33,7 @@ from optparse import *
 
 from constants import *
 from errors import *
+from version import *
 
 from rhpl.translate import _
 import rhpl.translate as translate
@@ -83,14 +84,20 @@ class KSOptionParser(OptionParser):
             if option.required and not seen(self, option):
                 raise KickstartValueError, formatErrorMsg(self.lineno, _("Option %s is required") % option)
             elif seen(self, option) and usedTooNew(self, option):
-                mapping = {"option": option, "intro": option.introduced, "version": self.version}
-                self.error(_("The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s") % mapping)
+                mapping = {"option": option, "intro": versionToString(option.introduced),
+                           "version": versionToString(self.version)}
+                self.error(_("The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s.") % mapping)
+            elif seen(self, option) and usedRemoved(self, option):
+                mapping = {"option": option, "removed": versionToString(option.removed),
+                           "version": versionToString(self.version)}
+
+                if option.removed == self.version:
+                    self.error(_("The %(option)s option is no longer supported.") % mapping)
+                else:
+                    self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
             elif seen(self, option) and usedDeprecated(self, option):
                 mapping = {"lineno": self.lineno, "option": option}
                 warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
-            elif seen(self, option) and usedRemoved(self, option):
-                mapping = {"option": option, "removed": option.removed, "version": self.version}
-                self.error(_("The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s") % mapping)
 
         return (values, args)
 
