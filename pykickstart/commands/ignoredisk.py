@@ -25,6 +25,7 @@ from pykickstart.options import *
 class FC3_IgnoreDisk(KickstartCommand):
     def __init__(self, writePriority=0, ignoredisk=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
 
         if ignoredisk == None:
             ignoredisk = []
@@ -48,9 +49,8 @@ class FC3_IgnoreDisk(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
 class F8_IgnoreDisk(FC3_IgnoreDisk):
     def __init__(self, writePriority=0, ignoredisk=None, onlyuse=None):
@@ -80,8 +80,7 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
 RHEL4_IgnoreDisk = F8_IgnoreDisk

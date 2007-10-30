@@ -25,6 +25,8 @@ from pykickstart.options import *
 class FC3_Firewall(KickstartCommand):
     def __init__(self, writePriority=0, enabled=None, ports=None, trusts=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.enabled = enabled
 
         if ports == None:
@@ -108,9 +110,8 @@ class FC3_Firewall(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
 class F9_Firewall(FC3_Firewall):
     def _getParser(self):

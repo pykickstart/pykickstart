@@ -183,6 +183,9 @@ class RHEL4_NetworkData(FC3_NetworkData):
 class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
+        self._setClassData()
 
         if network == None:
             network = []
@@ -199,6 +202,9 @@ class FC3_Network(KickstartCommand):
             return "# Network information\n" + retval
         else:
             return ""
+
+    def _setClassData(self):
+        self.dataType = FC3_NetworkData
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -224,10 +230,9 @@ class FC3_Network(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        nd = FC3_NetworkData()
-        self._setToObj(op, opts, nd)
+        (opts, extra) = self.op.parse_args(args=args)
+        nd = self.dataType()
+        self._setToObj(self.op, opts, nd)
         self.add(nd)
 
     def add(self, newObj):
@@ -237,22 +242,21 @@ class FC4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
         FC3_Network.__init__(self, writePriority, network)
 
+    def _setClassData(self):
+        self.dataType = FC4_NetworkData
+
     def _getParser(self):
         op = FC3_Network._getParser(self)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
         return op
 
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        nd = FC4_NetworkData()
-        self._setToObj(op, opts, nd)
-        self.add(nd)
-
 class FC6_Network(FC4_Network):
     def __init__(self, writePriority=0, network=None):
         FC4_Network.__init__(self, writePriority, network)
+
+    def _setClassData(self):
+        self.dataType = FC6_NetworkData
 
     def _getParser(self):
         op = FC4_Network._getParser(self)
@@ -262,42 +266,27 @@ class FC6_Network(FC4_Network):
                       default=False)
         return op
 
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        nd = FC6_NetworkData()
-        self._setToObj(op, opts, nd)
-        self.add(nd)
-
 class F8_Network(FC6_Network):
     def __init__(self, writePriority=0, network=None):
         FC6_Network.__init__(self, writePriority, network)
+
+    def _setClassData(self):
+        self.dataType = F8_NetworkData
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
         op.add_option("--ipv6", dest="ipv6")
         return op
 
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        nd = F8_NetworkData()
-        self._setToObj(op, opts, nd)
-        self.add(nd)
-
 class RHEL4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
         FC3_Network.__init__(self, writePriority, network)
+
+    def _setClassData(self):
+        self.dataType = RHEL4_NetworkData
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        nd = RHEL4_NetworkData()
-        self._setToObj(op, opts, nd)
-        self.add(nd)

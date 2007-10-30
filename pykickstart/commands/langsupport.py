@@ -23,6 +23,8 @@ from pykickstart.options import *
 class FC3_LangSupport(KickstartCommand):
     def __init__(self, writePriority=0, deflang="", supported=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.deflang = deflang
 
         if supported == None:
@@ -41,11 +43,13 @@ class FC3_LangSupport(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--default", dest="deflang", default="en_US.UTF-8")
+        return op
 
-        (opts, extra) = op.parse_args(args=args)
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
         self.deflang = opts.deflang
         self.supported = extra
 

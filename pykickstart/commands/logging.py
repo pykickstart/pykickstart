@@ -29,6 +29,8 @@ translate.textdomain("pykickstart")
 class FC6_Logging(KickstartCommand):
     def __init__(self, writePriority=0, host="", level="", port=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.host = host
         self.level = level
         self.port = port
@@ -56,6 +58,5 @@ class FC6_Logging(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)

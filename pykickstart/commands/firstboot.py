@@ -24,6 +24,8 @@ from pykickstart.options import *
 class FC3_Firstboot(KickstartCommand):
     def __init__(self, writePriority=0, firstboot=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.firstboot = firstboot
 
     def __str__(self):
@@ -48,6 +50,5 @@ class FC3_Firstboot(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
         self.firstboot = opts.firstboot

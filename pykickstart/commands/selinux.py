@@ -24,6 +24,8 @@ from pykickstart.options import *
 class FC3_SELinux(KickstartCommand):
     def __init__(self, writePriority=0, selinux=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.selinux = selinux
 
     def __str__(self):
@@ -49,6 +51,5 @@ class FC3_SELinux(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
         self.selinux = opts.sel

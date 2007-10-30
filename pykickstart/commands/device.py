@@ -45,6 +45,8 @@ class F8_DeviceData(BaseData):
 class FC3_Device(KickstartCommand):
     def __init__(self, writePriority=0, type="", moduleName="", moduleOpts=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.type = type
         self.moduleName = moduleName
         self.moduleOpts = moduleOpts
@@ -66,8 +68,7 @@ class FC3_Device(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) != 2:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name"))
@@ -93,14 +94,13 @@ class F8_Device(FC3_Device):
         return retval
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("%s command requires a single argument: %s") % ("device", "module name"))
 
         dd = F8_DeviceData()
-        self._setToObj(op, opts, dd)
+        self._setToObj(self.op, opts, dd)
         dd.moduleName = extra[0]
         self.add(dd)
 

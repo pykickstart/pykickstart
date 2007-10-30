@@ -28,6 +28,7 @@ class FC3_ClearPart(KickstartCommand):
     def __init__(self, writePriority=120, drives=None, initAll=False,
                  type=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
 
         if drives == None:
             drives = []
@@ -80,6 +81,5 @@ class FC3_ClearPart(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self.op._setToSelf(self.op, opts)

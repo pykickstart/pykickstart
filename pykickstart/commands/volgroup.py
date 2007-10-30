@@ -51,6 +51,9 @@ class FC3_VolGroupData(BaseData):
 class FC3_VolGroup(KickstartCommand):
     def __init__(self, writePriority=131, vgList=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
+        self._setDataClass()
 
         if vgList == None:
             vgList = []
@@ -63,6 +66,9 @@ class FC3_VolGroup(KickstartCommand):
             retval += vg.__str__()
 
         return retval
+
+    def _setDataClass(self):
+        self.dataType = FC3_VolGroupData
 
     def _getParser(self):
         # Have to be a little more complicated to set two values.
@@ -80,10 +86,9 @@ class FC3_VolGroup(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        vg = FC3_VolGroupData()
-        self._setToObj(op, opts, vg)
+        (opts, extra) = self.op.parse_args(args=args)
+        vg = self.dataType()
+        self._setToObj(self.op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
         self.add(vg)

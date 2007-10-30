@@ -23,6 +23,8 @@ from pykickstart.options import *
 class RHEL3_Mouse(KickstartCommand):
     def __init__(self, writePriority=0, device="", emulthree=False, mouse=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.device = device
         self.emulthree = emulthree
         self.mouse = mouse
@@ -39,13 +41,15 @@ class RHEL3_Mouse(KickstartCommand):
             retval = "# System mouse\nmouse %s%s\n" % (opts, self.mouse)
         return retval
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--device", dest="device", default="")
         op.add_option("--emulthree", dest="emulthree", default=False, action="store_true")
+        return op
 
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
         self.mouse = extra
 
 class FC3_Mouse(DeprecatedCommand):

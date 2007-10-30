@@ -31,6 +31,8 @@ class FC3_XConfig(KickstartCommand):
                  hsync="", monitor="", noProbe=False, resolution="", server="",
                  startX=False, videoRam="", vsync=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.card = card
         self.defaultdesktop = defaultdesktop
         self.depth = depth
@@ -92,13 +94,12 @@ class FC3_XConfig(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
         if extra:
             mapping = {"command": "xconfig", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
-        self._setToSelf(op, opts)
+        self._setToSelf(self.op, opts)
 
 class FC6_XConfig(FC3_XConfig):
     def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
@@ -141,15 +142,6 @@ class FC6_XConfig(FC3_XConfig):
         op.add_option("--noprobe", deprecated=1)
         op.add_option("--vsync", deprecated=1)
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        if extra:
-            mapping = {"command": "xconfig", "options": extra}
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
-
-        self._setToSelf(op, opts)
 
 class F9_XConfig(FC6_XConfig):
     def _getParser(self):

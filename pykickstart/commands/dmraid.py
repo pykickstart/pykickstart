@@ -49,6 +49,7 @@ class FC6_DmRaidData(BaseData):
 class FC6_DmRaid(KickstartCommand):
     def __init__(self, writePriority=60, dmraids=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
 
         if dmraids == None:
             dmraids = []
@@ -72,10 +73,9 @@ class FC6_DmRaid(KickstartCommand):
 
     def parse(self, args):
         dm = FC6_DmRaidData()
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
         dm.name = dm.name.split('/')[-1]
-        self._setToObj(op, opts, dm)
+        self._setToObj(self.op, opts, dm)
         self.add(dm)
 
     def add(self, newObj):

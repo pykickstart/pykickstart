@@ -29,6 +29,8 @@ translate.textdomain("pykickstart")
 class FC3_Monitor(KickstartCommand):
     def __init__(self, writePriority=0, hsync="", monitor="", vsync=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.hsync = hsync
         self.monitor = monitor
         self.vsync = vsync
@@ -56,14 +58,13 @@ class FC3_Monitor(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if extra:
             mapping = {"cmd": "monitor", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
 
-        self._setToSelf(op, opts)
+        self._setToSelf(self.op, opts)
 
 class FC6_Monitor(FC3_Monitor):
     def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
@@ -94,13 +95,3 @@ class FC6_Monitor(FC3_Monitor):
         op.add_option("--noprobe", dest="probe", action="store_false",
                       default=True)
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-
-        if extra:
-            mapping = {"cmd": "monitor", "options": extra}
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
-
-        self._setToSelf(op, opts)

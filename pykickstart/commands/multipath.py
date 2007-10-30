@@ -58,6 +58,7 @@ class FC6_MultiPathData(BaseData):
 class FC6_MultiPath(KickstartCommand):
     def __init__(self, writePriority=50, mpaths=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
 
         if mpaths == None:
             mpaths = []
@@ -82,10 +83,9 @@ class FC6_MultiPath(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
         dd = FC6_MpPathData()
-        self._setToObj(op, opts, dd)
+        self._setToObj(self.op, opts, dd)
         dd.mpdev = dd.mpdev.split('/')[-1]
 
         parent = None

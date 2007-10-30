@@ -29,6 +29,8 @@ translate.textdomain("pykickstart")
 class FC3_RootPw(KickstartCommand):
     def __init__(self, writePriority=0, isCrypted=False, password=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.isCrypted = isCrypted
         self.password = password
 
@@ -50,9 +52,8 @@ class FC3_RootPw(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
@@ -78,13 +79,3 @@ class F8_RootPw(FC3_RootPw):
         op.add_option("--lock", dest="lock", action="store_true", default=False)
         op.add_option("--plaintext", dest="isCrypted", action="store_false")
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
-
-        if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
-
-        self.password = extra[0]

@@ -55,6 +55,7 @@ class FC6_IscsiData(BaseData):
 class FC6_Iscsi(KickstartCommand):
     def __init__(self, writePriority=70, iscsi=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
 
         if iscsi == None:
             iscsi = []
@@ -80,15 +81,14 @@ class FC6_Iscsi(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) != 0:
             mapping = {"command": "scsi", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         dd = FC6_IscsiData()
-        self._setToObj(op, opts, dd)
+        self._setToObj(self.op, opts, dd)
         self.add(dd)
 
     def add(self, newObj):

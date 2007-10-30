@@ -49,6 +49,8 @@ class FC3_Reboot(KickstartCommand):
 class FC6_Reboot(FC3_Reboot):
     def __init__(self, writePriority=0, action=None, eject=False):
         FC3_Reboot.__init__(self, writePriority, action=action)
+        self.op = self._getParser()
+
         self.eject = eject
 
     def __str__(self):
@@ -78,6 +80,5 @@ class FC6_Reboot(FC3_Reboot):
         else:
             self.action = KS_SHUTDOWN
 
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)

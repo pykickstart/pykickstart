@@ -72,6 +72,9 @@ class F8_RepoData(FC6_RepoData):
 class FC6_Repo(KickstartCommand):
     def __init__(self, writePriority=0, repoList=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
+        self._setClassData()
 
         if repoList == None:
             repoList = []
@@ -85,6 +88,9 @@ class FC6_Repo(KickstartCommand):
 
         return retval
 
+    def _setClassData(self):
+        self.dataType = FC6_RepoData
+
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--name", dest="name", required=1)
@@ -93,8 +99,7 @@ class FC6_Repo(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         # This is lame, but I can't think of a better way to make sure only
         # one of these two is specified.
@@ -104,8 +109,8 @@ class FC6_Repo(KickstartCommand):
         if not opts.baseurl and not opts.mirrorlist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
-        rd = FC6_RepoData()
-        self._setToObj(op, opts, rd)
+        rd = self.dataType()
+        self._setToObj(self.op, opts, rd)
         self.add(rd)
 
     def add(self, newObj):
@@ -122,6 +127,9 @@ class F8_Repo(FC6_Repo):
 
         return retval
 
+    def _setClassData(self):
+        self.dataType = F8_RepoData
+
     def _getParser(self):
         def list_cb (option, opt_str, value, parser):
             for d in value.split(','):
@@ -134,22 +142,6 @@ class F8_Repo(FC6_Repo):
         op.add_option("--includepkgs", action="callback", callback=list_cb,
                       nargs=1, type="string")
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-
-        # This is lame, but I can't think of a better way to make sure only
-        # one of these two is specified.
-        if opts.baseurl and opts.mirrorlist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command."))
-
-        if not opts.baseurl and not opts.mirrorlist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
-
-        rd = F8_RepoData()
-        self._setToObj(op, opts, rd)
-        self.add(rd)
 
     def methodToRepo(self):
         if not self.handler.method.url:

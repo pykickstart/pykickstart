@@ -119,6 +119,8 @@ class F9_LogVolData(FC3_LogVolData):
 class FC3_LogVol(KickstartCommand):
     def __init__(self, writePriority=132, lvList=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self._setClassData()
 
         if lvList == None:
@@ -163,14 +165,13 @@ class FC3_LogVol(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
 
         lvd = self.dataType()
-        self._setToObj(op, opts, lvd)
+        self._setToObj(self.op, opts, lvd)
         lvd.mountpoint=extra[0]
         self.add(lvd)
 

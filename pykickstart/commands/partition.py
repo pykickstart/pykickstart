@@ -144,6 +144,8 @@ class F9_PartData(FC3_PartData):
 class FC3_Partition(KickstartCommand):
     def __init__(self, writePriority=130, partitions=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self._setClassData()
 
         if partitions == None:
@@ -198,14 +200,13 @@ class FC3_Partition(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
         pd = self.dataType()
-        self._setToObj(op, opts, pd)
+        self._setToObj(self.op, opts, pd)
         pd.mountpoint=extra[0]
         self.add(pd)
 

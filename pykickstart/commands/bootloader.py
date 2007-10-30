@@ -27,6 +27,8 @@ class FC3_Bootloader(KickstartCommand):
                  forceLBA=False, linear=True, location="", md5pass="",
                  password="", upgrade=False, useLilo=False):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.appendLine = appendLine
 
         if driveorder == None:
@@ -100,9 +102,8 @@ class FC3_Bootloader(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
         if self.currentCmd == "lilo":
             self.useLilo = True
@@ -151,9 +152,8 @@ class FC4_Bootloader(FC3_Bootloader):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
 class F8_Bootloader(FC4_Bootloader):
     def __init__(self, writePriority=10, appendLine="", driveorder=None,

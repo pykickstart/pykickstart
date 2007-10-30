@@ -1,5 +1,21 @@
 2007-10-30  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/*:  Make the OptionParser instance an attribute
+	of each class so we can extract more information out of the commands
+	dict.
+
+	* pykickstart/commands/monitor.py, pykickstart/commands/network.py,
+	pykickstart/commands/rootpw.py, pykickstart/commands/timezone.py,
+	pykickstart/commands/vnc.py, pykickstart/commands/xconfig.py:
+	Remove redundant parse methods.
+
+	* pykickstart/commands/network.py, pykickstart/commands/repo.py,
+	pykickstart/commands/user.py, pykickstart/commands/volgroup.py,
+	pykickstart/commands/zfcp.py:  Use the the setClassData method in more
+	places as it simplifies the code.
+
+2007-10-30  Chris Lumens  <clumens@redhat.com>
+
 	* Makefile:  Docs have moved on the wiki.
 
 	* pykickstart/options.py (KsOptionParser.check_values):  Move the test

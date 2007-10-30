@@ -129,6 +129,8 @@ class F9_RaidData(FC4_RaidData):
 class FC3_Raid(KickstartCommand):
     def __init__(self, writePriority=140, raidList=None):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self._setClassData()
 
         # A dict of all the RAID levels we support.  This means that if we
@@ -185,14 +187,13 @@ class FC3_Raid(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args)
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
         rd = self.dataType()
-        self._setToObj(op, opts, rd)
+        self._setToObj(self.op, opts, rd)
 
         # --device can't just take an int in the callback above, because it
         # could be specificed as "mdX", which causes optparse to error when

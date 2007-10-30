@@ -29,6 +29,8 @@ translate.textdomain("pykickstart")
 class FC3_Vnc(KickstartCommand):
     def __init__(self, writePriority=0, enabled=False, password="", connect=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.enabled = enabled
         self.password = password
         self.connect = connect
@@ -53,10 +55,9 @@ class FC3_Vnc(KickstartCommand):
         return op
 
     def parse(self, args):
-        op = self._getParser()
         self.enabled = True
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
 class FC6_Vnc(FC3_Vnc):
     def __init__(self, writePriority=0, enabled=False, password="", host="",
@@ -94,12 +95,6 @@ class FC6_Vnc(FC3_Vnc):
         op.add_option("--host", dest="host")
         op.add_option("--port", dest="port")
         return op
-
-    def parse(self, args):
-        op = self._getParser()
-        self.enabled = True
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
 
 class F9_Vnc(FC6_Vnc):
     def _getParser(self):

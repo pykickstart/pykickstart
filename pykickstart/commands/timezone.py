@@ -29,6 +29,8 @@ translate.textdomain("pykickstart")
 class FC3_Timezone(KickstartCommand):
     def __init__(self, writePriority=0, isUtc=False, timezone=""):
         KickstartCommand.__init__(self, writePriority)
+        self.op = self._getParser()
+
         self.isUtc = isUtc
         self.timezone = timezone
 
@@ -43,12 +45,14 @@ class FC3_Timezone(KickstartCommand):
         else:
             return ""
 
-    def parse(self, args):
+    def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--utc", dest="isUtc", action="store_true", default=False)
+        return op
 
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
@@ -70,14 +74,7 @@ class FC6_Timezone(FC3_Timezone):
         else:
             return ""
 
-    def parse(self, args):
-        op = KSOptionParser(lineno=self.lineno)
+    def _getParser(self):
+        op = FC3_Timezone._getParser(self)
         op.add_option("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
-
-        (opts, extra) = op.parse_args(args=args)
-        self._setToSelf(op, opts)
-
-        if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
-
-        self.timezone = extra[0]
+        return op
