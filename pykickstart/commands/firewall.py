@@ -111,3 +111,10 @@ class FC3_Firewall(KickstartCommand):
         op = self._getParser()
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
+
+class F9_Firewall(FC3_Firewall):
+    def _getParser(self):
+        op = FC3_Firewall._getParser(self)
+        op.remove_option("--high")
+        op.remove_option("--medium")
+        return op

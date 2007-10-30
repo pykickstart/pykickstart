@@ -1,3 +1,23 @@
+2007-10-30  Chris Lumens  <clumens@redhat.com>
+
+	* Makefile:  Docs have moved on the wiki.
+
+	* pykickstart/options.py (KsOptionParser.check_values):  Move the test
+	for deprecated options to the end so removed options will cause an
+	error.  Also fix the error messages to make a bit more sense.
+
+	* pykickstart/parser.py (KickstartParser.handlePackageHdr):
+	--ignoredeps and --resolvedeps have now been removed.
+
+	* pykickstart/commands/firewall.py (F9_Firewall):  --high and --medium
+	have now been removed.
+
+	* pykickstart/commands/vnc.py (F9_Vnc):  --connect has now been
+	removed.
+
+	* pykickstart/commands/xconfig (F9_XConfig):  All the options that
+	were moved to the monitor command have now been removed.
+
 2007-10-26  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/logvol.py:  Fix typo in data object name.

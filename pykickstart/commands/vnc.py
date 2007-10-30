@@ -100,3 +100,9 @@ class FC6_Vnc(FC3_Vnc):
         self.enabled = True
         (opts, extra) = op.parse_args(args=args)
         self._setToSelf(op, opts)
+
+class F9_Vnc(FC6_Vnc):
+    def _getParser(self):
+        op = FC6_Vnc._getParser(self)
+        op.remove_option("--connect")
+        return op

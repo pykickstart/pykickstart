@@ -419,9 +419,9 @@ class KickstartParser:
         op.add_option("--nobase", dest="nobase", action="store_true",
                       default=False)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
-                      deprecated=FC4)
+                      deprecated=FC4, removed=F9)
         op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
-                      deprecated=FC4)
+                      deprecated=FC4, removed=F9)
         op.add_option("--default", dest="defaultPackages", action="store_true",
                       default=False, introduced=F7)
 

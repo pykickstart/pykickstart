@@ -150,3 +150,13 @@ class FC6_XConfig(FC3_XConfig):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         self._setToSelf(op, opts)
+
+class F9_XConfig(FC6_XConfig):
+    def _getParser(self):
+        op = FC6_XConfig._getParser(self)
+        op.remove_option("--card")
+        op.remove_option("--hsync")
+        op.remove_option("--monitor")
+        op.remove_option("--noprobe")
+        op.remove_option("--vsync")
+        return op
