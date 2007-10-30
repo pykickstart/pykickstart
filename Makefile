@@ -14,7 +14,7 @@ all:
 	$(MAKE) -C po
 
 docs:
-	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/AnacondaKickstart?action=raw"
+	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
 
 check:
 	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
