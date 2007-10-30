@@ -191,16 +191,16 @@ class FC4_LogVol(FC3_LogVol):
     def _setClassData(self):
         self.dataType = FC4_LogVolData
 
-class F9_LogVol(FC3_LogVol):
+class F9_LogVol(FC4_LogVol):
     def __init__(self, writePriority=132, lvList=None):
-        FC3_LogVol.__init__(self, writePriority, lvList)
+        FC4_LogVol.__init__(self, writePriority, lvList)
 
     def _setClassData(self):
         self.dataType = F9_LogVolData
 
     def _getParser(self):
-        op = FC3_LogVol._getParser(self)
-        op.add_option("--fsoptions", dest="fsopts")
+        op = FC4_LogVol._getParser(self)
+        op.add_option("--bytes-per-inode", deprecated=1)
         op.add_option("--fsprofile", dest="fsprofile", action="store",
                       type="string", nargs=1)
         return op

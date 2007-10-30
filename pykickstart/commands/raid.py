@@ -242,11 +242,9 @@ class F7_Raid(FC5_Raid):
     def _setClassData(self):
         self.dataType = F7_RaidData
 
-class F9_Raid(FC4_Raid):
+class F9_Raid(F7_Raid):
     def __init__(self, writePriority=140, raidList=None):
-        FC4_Raid.__init__(self, writePriority, raidList)
-
-        self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
+        F7_Raid.__init__(self, writePriority, raidList)
 
     def reset(self):
         self.raidList = []
@@ -255,7 +253,8 @@ class F9_Raid(FC4_Raid):
         self.dataType = F9_RaidData
 
     def _getParser(self):
-        op = FC4_Raid._getParser(self)
+        op = F7_Raid._getParser(self)
+        op.add_option("--bytes-per-inode", deprecated=1)
         op.add_option("--fsprofile", dest="fsprofile", action="store",
                       type="string", nargs=1)
         return op

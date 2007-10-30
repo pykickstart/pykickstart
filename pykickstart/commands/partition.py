@@ -233,9 +233,9 @@ class FC4_Partition(FC3_Partition):
         op.add_option("--label", dest="label")
         return op
 
-class F9_Partition(FC3_Partition):
+class F9_Partition(FC4_Partition):
     def __init__(self, writePriority=130, partitions=None):
-        FC3_Partition.__init__(self, writePriority, partitions)
+        FC4_Partition.__init__(self, writePriority, partitions)
 
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
@@ -247,12 +247,8 @@ class F9_Partition(FC3_Partition):
         self.dataType = F9_PartData
 
     def _getParser(self):
-        op = FC3_Partition._getParser(self)
+        op = FC4_Partition._getParser(self)
+        op.add_option("--bytes-per-inode", deprecated=1)
         op.add_option("--fsprofile", dest="fsprofile", action="store",
                       type="string", nargs=1)
-        op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--label", dest="label")
         return op
-
-
-

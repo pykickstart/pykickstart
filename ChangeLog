@@ -18,6 +18,12 @@
 	* pykickstart/commands/xconfig (F9_XConfig):  All the options that
 	were moved to the monitor command have now been removed.
 
+	* pykickstart/commands/logvol.py (F9_LogVol):  Mark the
+	--bytes-per-inode option as deprecated, rather than removing it
+	completely.
+	* pykickstart/commands/partition.py (F9_Partition):  Likewise.
+	* pykickstart/commands/raid.py (F9_Raid):  Likewise.
+
 2007-10-26  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/logvol.py:  Fix typo in data object name.
