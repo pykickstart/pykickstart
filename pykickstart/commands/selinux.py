@@ -42,14 +42,14 @@ class FC3_SELinux(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--disabled", dest="sel", action="store_const",
+        op.add_option("--disabled", dest="selinux", action="store_const",
                       const=SELINUX_DISABLED)
-        op.add_option("--enforcing", dest="sel", action="store_const",
+        op.add_option("--enforcing", dest="selinux", action="store_const",
                       const=SELINUX_ENFORCING)
-        op.add_option("--permissive", dest="sel", action="store_const",
+        op.add_option("--permissive", dest="selinux", action="store_const",
                       const=SELINUX_PERMISSIVE)
         return op
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
-        self.selinux = opts.sel
+        self._setToSelf(self.op, opts)

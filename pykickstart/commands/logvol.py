@@ -109,8 +109,6 @@ class F9_LogVolData(FC3_LogVolData):
     def _getArgsAsStr(self):
         retval = FC3_LogVolData._getArgsAsStr(self)
 
-        if self.fsopts != "":
-            retval += " --fsoptions=\"%s\"" % self.fsopts
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
 

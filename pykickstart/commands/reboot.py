@@ -54,14 +54,7 @@ class FC6_Reboot(FC3_Reboot):
         self.eject = eject
 
     def __str__(self):
-        retval = ""
-
-        if self.action == KS_REBOOT:
-            retval = "# Reboot after installation\nreboot"
-        elif self.action == KS_SHUTDOWN:
-            retval = "# Shutdown after installation\nshutdown"
-        else:
-            return ""
+        retval = FC3_Reboot.__str__(self).rstrip()
 
         if self.eject:
             retval += " --eject"
@@ -75,10 +68,6 @@ class FC6_Reboot(FC3_Reboot):
         return op
 
     def parse(self, args):
-        if self.currentCmd == "reboot":
-            self.action = KS_REBOOT
-        else:
-            self.action = KS_SHUTDOWN
-
+        FC3_Reboot.parse(self, args)
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)

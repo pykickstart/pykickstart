@@ -111,13 +111,13 @@ class FC4_PartData(FC3_PartData):
 
         return retval
 
-class F9_PartData(FC3_PartData):
+class F9_PartData(FC4_PartData):
     def __init__(self, active=False, primOnly=False, fsprofile="",
                  end=0, fsopts="", fstype="", grow=False, label="",
                  maxSizeMB=0, format=True, onbiosdisk="", disk="",
                  onPart="", recommended=False, size=None, start=0,
                  mountpoint=""):
-        FC3_PartData.__init__(self, active=active, primOnly=primOnly,
+        FC4_PartData.__init__(self, active=active, primOnly=primOnly,
                              end=end, fstype=fstype, grow=grow,
                              maxSizeMB=maxSizeMB, format=format,
                              onbiosdisk=onbiosdisk, disk=disk,
@@ -129,12 +129,10 @@ class F9_PartData(FC3_PartData):
         self.fsprofile = fsprofile
 
     def _getArgsAsStr(self):
-        retval = FC3_PartData._getArgsAsStr(self)
+        retval = FC4_PartData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
-        if self.fsopts != "":
-            retval += " --fsoptions=\"%s\"" % self.fsopts
         if self.label != "":
             retval += " --label=%s" % self.label
 

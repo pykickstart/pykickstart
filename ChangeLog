@@ -1,5 +1,19 @@
 2007-10-31  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/ignoredisk.py (F8_IgnoreDisk.parse):  Remove
+	redundant method.
+
+	* pykickstart/commands/langsupport.py (FC3_LangSupport.parse),
+	pykickstart/commands/selinux (FC3_SELinux.parse):  Use
+	builtin _setToSelf method.
+
+	* pykickstart/commands/logvol.py (F9_LogVolData),
+	pykickstart/commands/partition (F9_PartData):  We already get
+	fsoptions from the superclass.
+
+	* pykickstart/commands/reboot.py (FC6_Reboot):  Use methods from the
+	superclass.
+
 	* pykickstart/commands/raid.py (FC5_Raid.reset, F9_Raid.reset):
 	Remove unused methods.
 

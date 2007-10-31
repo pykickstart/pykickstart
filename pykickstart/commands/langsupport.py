@@ -50,7 +50,7 @@ class FC3_LangSupport(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
-        self.deflang = opts.deflang
+        self._setToSelf(self.op, opts)
         self.supported = extra
 
 class FC5_LangSupport(DeprecatedCommand):

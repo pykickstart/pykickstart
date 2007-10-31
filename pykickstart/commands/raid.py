@@ -107,19 +107,19 @@ class FC5_RaidData(FC4_RaidData):
 
 F7_RaidData = FC5_RaidData
 
-class F9_RaidData(FC4_RaidData):
+class F9_RaidData(FC5_RaidData):
     def __init__(self, device=None, fsopts="", fstype="", level="",
                  format=True, spares=0, preexist=False, mountpoint="",
                  members=None, fsprofile=""):
-        FC4_RaidData.__init__(self, device=device, fsopts=fsopts,
-                             fstype=fstype, level=level,
-                             format=format, spares=spares,
-                             preexist=preexist,
-                             mountpoint=mountpoint, members=members)
+        FC5_RaidData.__init__(self, device=device, fsopts=fsopts,
+                              fstype=fstype, level=level,
+                              format=format, spares=spares,
+                              preexist=preexist,
+                              mountpoint=mountpoint, members=members)
         self.fsprofile = fsprofile
 
     def _getArgsAsStr(self):
-        retval = FC4_RaidData._getArgsAsStr(self)
+        retval = FC5_RaidData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
