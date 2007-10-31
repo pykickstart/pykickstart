@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.19
+Version: 1.20
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,21 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Wed Oct 31 2007 Chris Lumens <clumens@redhat.com> 1.20-1
+- Pull wiki docs from the new location.
+- Fix error messages for options that have been removed after having been
+  previously deprecated.
+- zerombr no longer takes any arguments.
+- %packages --ignoredeps --resolvedeps have been removed.
+- firewall --high --medium have been removed.
+- vnc --connect has been removed.
+- xconfig options from monitor have now been removed.
+- --bytes-per-inode has been marked as deprecated.
+- Fix typos.
+- Add --fsprofile option to disk commands (pjones).
+- Add F9 support (pjones).
+- Lots of internal fixes (clumens, pjones).
+
 * Tue Oct 23 2007 Chris Lumens <clumens@redhat.com> 1.19-1
 - Fix a traceback on the cdrom method.
 

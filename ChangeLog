@@ -1,5 +1,7 @@
 2007-10-31  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart.spec, setup.py:  New version.
+
 	* pykickstart/commands/logvol.py, pykickstart/commands/network.py,
 	pykickstart/commands/partition.py, pykickstart/commands/raid.py,
 	pykickstart/commands/repo.py, pykickstart/commands/user.py,
