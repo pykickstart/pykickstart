@@ -1,5 +1,10 @@
 2007-10-31  Chris Lumens  <clumens@redhat.com>
 
+	* pykickstart/commands/raid.py (FC5_Raid.reset, F9_Raid.reset):
+	Remove unused methods.
+
+2007-10-31  Chris Lumens  <clumens@redhat.com>
+
 	* pykickstart.spec, setup.py:  New version.
 
 	* pykickstart/commands/logvol.py, pykickstart/commands/network.py,

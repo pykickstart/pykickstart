@@ -214,9 +214,6 @@ class FC5_Raid(FC4_Raid):
     def __init__(self, writePriority=140, raidList=None):
         FC4_Raid.__init__(self, writePriority, raidList)
 
-    def reset(self):
-        self.raidList = []
-
     def _getParser(self):
         op = FC4_Raid._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
@@ -232,9 +229,6 @@ class F7_Raid(FC5_Raid):
 class F9_Raid(F7_Raid):
     def __init__(self, writePriority=140, raidList=None):
         F7_Raid.__init__(self, writePriority, raidList)
-
-    def reset(self):
-        self.raidList = []
 
     def _getParser(self):
         op = F7_Raid._getParser(self)
