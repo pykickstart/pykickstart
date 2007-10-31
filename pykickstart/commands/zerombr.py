@@ -43,3 +43,10 @@ class FC3_ZeroMbr(KickstartCommand):
             warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, DeprecationWarning)
 
         self.zerombr = True
+
+class F9_ZeroMbr(KickstartCommand):
+    def parse(self, args):
+        if len(args) > 0:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr")
+
+        self.zerombr = True

@@ -7,6 +7,9 @@
 	rid of a special function to set the data object since we can already
 	get at that in the parser from the handler reference.
 
+	* pykickstart/commands/zerombr (F9_ZeroMbr):  zerombr no longer takes
+	any arguments.
+
 2007-10-30  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/*:  Make the OptionParser instance an attribute

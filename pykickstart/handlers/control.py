@@ -406,7 +406,7 @@ commandMap = {
         "volgroup": volgroup.FC3_VolGroup,
         "xconfig": xconfig.F9_XConfig,
         "zerombr": zerombr.FC3_ZeroMbr,
-        "zfcp": zfcp.FC3_ZFCP,
+        "zfcp": zfcp.F9_ZFCP,
     },
 
     # based on fc1
