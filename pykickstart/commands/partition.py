@@ -146,8 +146,6 @@ class FC3_Partition(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 
-        self._setClassData()
-
         if partitions == None:
             partitions = []
 
@@ -163,9 +161,6 @@ class FC3_Partition(KickstartCommand):
             return "# Disk partitioning information\n" + retval
         else:
             return ""
-
-    def _setClassData(self):
-        self.dataType = FC3_PartData
 
     def _getParser(self):
         def part_cb (option, opt_str, value, parser):
@@ -205,7 +200,7 @@ class FC3_Partition(KickstartCommand):
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
 
-        pd = self.dataType()
+        pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
         pd.mountpoint=extra[0]
         self.add(pd)
@@ -222,9 +217,6 @@ class FC4_Partition(FC3_Partition):
                 parser.values.ensure_value(option.dest, value[5:])
             else:
                 parser.values.ensure_value(option.dest, value)
-
-    def _setClassData(self):
-        self.dataType = FC4_PartData
 
     def _getParser(self):
         op = FC3_Partition._getParser(self)
@@ -243,9 +235,6 @@ class F9_Partition(FC4_Partition):
                 parser.values.ensure_value(option.dest, value[5:])
             else:
                 parser.values.ensure_value(option.dest, value)
-
-    def _setClassData(self):
-        self.dataType = F9_PartData
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)

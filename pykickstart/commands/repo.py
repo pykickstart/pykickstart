@@ -74,8 +74,6 @@ class FC6_Repo(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 
-        self._setClassData()
-
         if repoList == None:
             repoList = []
 
@@ -87,9 +85,6 @@ class FC6_Repo(KickstartCommand):
             retval += repo.__str__()
 
         return retval
-
-    def _setClassData(self):
-        self.dataType = FC6_RepoData
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -109,7 +104,7 @@ class FC6_Repo(KickstartCommand):
         if not opts.baseurl and not opts.mirrorlist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
-        rd = self.dataType()
+        rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)
         self.add(rd)
 
@@ -126,9 +121,6 @@ class F8_Repo(FC6_Repo):
             retval += repo.__str__()
 
         return retval
-
-    def _setClassData(self):
-        self.dataType = F8_RepoData
 
     def _getParser(self):
         def list_cb (option, opt_str, value, parser):
@@ -148,6 +140,6 @@ class F8_Repo(FC6_Repo):
             raise KickstartError, formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo lsit."))
         reponame = "ks-method-url"
         repourl = self.handler.method.url
-        rd = F8_RepoData(name=reponame, baseurl=repourl)
+        rd = self.handler.RepoData(name=reponame, baseurl=repourl)
         self.add(rd)
 

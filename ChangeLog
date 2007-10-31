@@ -1,3 +1,12 @@
+2007-10-31  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart/commands/logvol.py, pykickstart/commands/network.py,
+	pykickstart/commands/partition.py, pykickstart/commands/raid.py,
+	pykickstart/commands/repo.py, pykickstart/commands/user.py,
+	pykickstart/commands/volgroup.py, pykickstart/commands/zfcp.py:  Get
+	rid of a special function to set the data object since we can already
+	get at that in the parser from the handler reference.
+
 2007-10-30  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/commands/*:  Make the OptionParser instance an attribute

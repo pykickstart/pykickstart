@@ -131,8 +131,6 @@ class FC3_Raid(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 
-        self._setClassData()
-
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
@@ -145,9 +143,6 @@ class FC3_Raid(KickstartCommand):
             raidList = []
 
         self.raidList = raidList
-
-    def _setClassData(self):
-        self.dataType = FC3_RaidData
 
     def __str__(self):
         retval = ""
@@ -192,7 +187,7 @@ class FC3_Raid(KickstartCommand):
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
 
-        rd = self.dataType()
+        rd = self.handler.RaidData()
         self._setToObj(self.op, opts, rd)
 
         # --device can't just take an int in the callback above, because it
@@ -210,9 +205,6 @@ class FC4_Raid(FC3_Raid):
     def __init__(self, writePriority=140, raidList=None):
         FC3_Raid.__init__(self, writePriority, raidList)
 
-    def _setClassData(self):
-        self.dataType = FC4_RaidData
-
     def _getParser(self):
         op = FC3_Raid._getParser(self)
         op.add_option("--fsoptions", dest="fsopts")
@@ -224,9 +216,6 @@ class FC5_Raid(FC4_Raid):
 
     def reset(self):
         self.raidList = []
-
-    def _setClassData(self):
-        self.dataType = FC5_RaidData
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
@@ -240,18 +229,12 @@ class F7_Raid(FC5_Raid):
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
 
-    def _setClassData(self):
-        self.dataType = F7_RaidData
-
 class F9_Raid(F7_Raid):
     def __init__(self, writePriority=140, raidList=None):
         F7_Raid.__init__(self, writePriority, raidList)
 
     def reset(self):
         self.raidList = []
-
-    def _setClassData(self):
-        self.dataType = F9_RaidData
 
     def _getParser(self):
         op = F7_Raid._getParser(self)

@@ -85,8 +85,6 @@ class FC6_User(KickstartCommand):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 
-        self._setClassData()
-
         if userList == None:
             userList = []
 
@@ -98,9 +96,6 @@ class FC6_User(KickstartCommand):
             retval += user.__str__()
 
         return retval
-
-    def _setClassData(self):
-        self.dataType = FC6_UserData
 
     def _getParser(self):
         def groups_cb (option, opt_str, value, parser):
@@ -120,7 +115,7 @@ class FC6_User(KickstartCommand):
         return op
 
     def parse(self, args):
-        ud = self.dataType()
+        ud = self.handler.UserData()
         (opts, extra) = self.op.parse_args(args=args)
         self._setToObj(self.op, opts, ud)
         self.add(ud)
@@ -134,6 +129,3 @@ class F8_User(FC6_User):
         op.add_option("--lock", action="store_true", default=False)
         op.add_option("--plaintext", dest="isCrypted", action="store_false")
         return op
-
-    def _setClassData(self):
-        self.dataType = F8_UserData
