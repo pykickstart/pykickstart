@@ -151,7 +151,8 @@ class Script:
        script.  Instances of Script are held in a list by the Version object.
     """
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
-                 logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
+                 lineno = None, logfile = None, errorOnFail = False,
+                 type = KS_SCRIPT_PRE):
         """Create a new Script instance.  Instance attributes:
 
            errorOnFail -- If execution of the script fails, should anaconda
@@ -161,6 +162,7 @@ class Script:
                           environment or not?
            interp      -- The program that should be used to interpret this
                           script.
+           lineno      -- The line number this script starts on.
            logfile     -- Where all messages from the script should be logged.
            script      -- A string containing all the lines of the script.
            type        -- The type of the script, which can be KS_SCRIPT_* from
@@ -169,6 +171,7 @@ class Script:
         self.script = string.join(script, "")
         self.interp = interp
         self.inChroot = inChroot
+        self.lineno = lineno
         self.logfile = logfile
         self.errorOnFail = errorOnFail
         self.type = type
@@ -381,9 +384,12 @@ class KickstartParser:
         if string.join(self._script["body"]).strip() == "":
             return
 
-        s = Script (self._script["body"], self._script["interp"],
-                    self._script["chroot"], self._script["log"],
-                    self._script["errorOnFail"], self._script["type"])
+        s = Script (self._script["body"], interp=self._script["interp"],
+                    inChroot=self._script["chroot"],
+                    lineno=self._script["lineno"],
+                    logfile=self._script["log"],
+                    errorOnFail=self._script["errorOnFail"],
+                    type=self._script["type"])
 
         if self.handler:
             self.handler.scripts.append(s)
@@ -458,6 +464,7 @@ class KickstartParser:
         (opts, extra) = op.parse_args(args=args[1:])
 
         self._script["interp"] = opts.interpreter
+        self._script["lineno"] = lineno
         self._script["log"] = opts.log
         self._script["errorOnFail"] = opts.errorOnFail
         if hasattr(opts, "nochroot"):
@@ -591,7 +598,7 @@ class KickstartParser:
             elif self._state == STATE_SCRIPT_HDR:
                 needLine = True
                 self._script = {"body": [], "interp": "/bin/sh", "log": None,
-                                "errorOnFail": False}
+                                "errorOnFail": False, lineno: None}
 
                 if not args and self._includeDepth == 0:
                     self._state = STATE_END
