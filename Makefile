@@ -1,7 +1,7 @@
 PKGNAME=pykickstart
 VERSION=$(shell awk '/Version:/ { print $$2 }' ${PKGNAME}.spec)
 RELEASE=$(shell awk '/Release:/ { print $$2 }' ${PKGNAME}.spec | sed -e 's|%.*$$||g')
-CVSTAG=r$(subst .,_,$(VERSION)-$(RELEASE))
+TAG=r$(VERSION)-$(RELEASE)
 
 MANDIR=/usr/share/man
 PREFIX=/usr
@@ -29,16 +29,15 @@ install: all
 	$(MAKE) -C po install
 
 tag:
-	cvs tag -FR $(CVSTAG)
+	git tag -f $(TAG)
 
 archive: tag docs
-	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
-	@CVSROOT=`cat CVS/Root`; cd /tmp; cvs -d $$CVSROOT export -r$(CVSTAG) ${PKGNAME}
-	@cp docs/kickstart-docs.txt /tmp/${PKGNAME}/docs/
-	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
-	@cd /tmp/${PKGNAME}-$(VERSION) ; python setup.py -q sdist
-	@cp /tmp/${PKGNAME}-$(VERSION)/dist/${PKGNAME}-$(VERSION).tar.gz .
-	@rm -rf /tmp/${PKGNAME}-$(VERSION)
+	git-archive --format=tar --prefix=${PKGNAME}-$(VERSION)/ $(TAG) > ${PKGNAME}-$(VERSION).tar
+	mkdir -p ${PKGNAME}-$(VERSION)/docs/
+	cp docs/kickstart-docs.txt ${PKGNAME}-$(VERSION)/docs/
+	tar -rf ${PKGNAME}-$(VERSION).tar ${PKGNAME}-$(VERSION)
+	gzip -9 ${PKGNAME}-$(VERSION).tar
+	rm -rf ${PKGNAME}-$(VERSION)
 	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
 
 local: docs
@@ -47,7 +46,7 @@ local: docs
 	@dir=$$PWD; cp -a $$dir /tmp/${PKGNAME}-$(VERSION)
 	@cd /tmp/${PKGNAME}-$(VERSION) ; python setup.py -q sdist
 	@cp /tmp/${PKGNAME}-$(VERSION)/dist/${PKGNAME}-$(VERSION).tar.gz .
-	@rm -rf /tmp/${PKGNAME}-$(VERSION)	
+	@rm -rf /tmp/${PKGNAME}-$(VERSION)
 	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
 
 .PHONY: check clean install tag archive local docs

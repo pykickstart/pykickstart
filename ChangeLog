@@ -1,3 +1,9 @@
+2007-11-06  Chris Lumens  <clumens@redhat.com>
+
+	* pykickstart.spec, setup.py:  New version.
+
+	* Makefile:  Fix to work with git.
+
 2007-11-05  Chris Lumens  <clumens@redhat.com>
 
 	* pykickstart/parser.py:  Save the line number the script starts on
