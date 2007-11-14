@@ -82,4 +82,4 @@ class FC3_ClearPart(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
-        self.op._setToSelf(self.op, opts)
+        self._setToSelf(self.op, opts)
