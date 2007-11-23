@@ -44,7 +44,7 @@ class FC3_ZeroMbr(KickstartCommand):
 
         self.zerombr = True
 
-class F9_ZeroMbr(KickstartCommand):
+class F9_ZeroMbr(FC3_ZeroMbr):
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr")
