@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.22
+Version: 1.23
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -14,7 +14,7 @@ License: GPLv2
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: python-devel, gettext
+BuildRequires: python-devel, gettext, python-setuptools-devel
 Requires: python, python-urlgrabber, rhpl
 
 %description
@@ -39,11 +39,16 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc README ChangeLog COPYING docs/programmers-guide
 %doc docs/kickstart-docs.txt
-%{python_sitelib}/pykickstart
+%{python_sitelib}/*
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
 
 %changelog
+* Mon Dec 10 2007 Chris Lumens <clumens@redhat.com> - 1.23-1
+- Take Makefile improvements from anaconda.
+- Fix a traceback on F9 zerombr command (#395431).
+- Update to handle new Python eggs packaging.
+
 * Tue Nov 20 2007 Chris Lumens <clumens@redhat.com> 1.22-1
 - Don't process or write out vnc --enabled (jlaska AT redhat DOT com).
 - Fix a traceback in the clearpart command.
