@@ -71,7 +71,7 @@ class FC6_Iscsi(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
-        op.add_option("--target", dest="ipaddr", action="store", type="string")
+        op.add_option("--target", dest="target", action="store", type="string")
         op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
                       required=1)
         op.add_option("--port", dest="port", action="store", type="string")
