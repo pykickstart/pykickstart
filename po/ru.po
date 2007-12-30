@@ -1,5 +1,4 @@
-# translation of ru.po to
-# translation of ru.po to Russian
+# translation of ru.po to 
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -8,11 +7,11 @@
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: ru\n"
+"Project-Id-Version: pykickstart.master.ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-03-07 23:37+0300\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2007-12-31 11:22+0300\n"
+"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -91,8 +90,7 @@ msgstr ""
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
-"Для параметра, который не принимает значения, установлен флаг обязательности"
+msgstr "Для параметра, который не принимает значения, установлен флаг обязательности"
 
 #: ../pykickstart/options.py:156
 #, python-format
@@ -100,44 +98,43 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Параметр %(opt)s: недопустимое булево значение: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Параметр %(opt)s: недопустимое булево значение: %(value)r"
+msgstr "Параметр %(opt)s: недопустимое строковое значение: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "недопустимый url для %%ksappend: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Невозможно открыть файл %%ksappend: "
 
 #: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Невозможно открыть файл %%ksappend"
 
 #: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Группа не может ожновременно включать --nodefaults и --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s "
-"был объявлен устаревающим и более не оказывает влияния.  Он может быть "
-"удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
+"%s не завершается при помощи %%end.  Подобный синтаксис объявлен устаревшим."
+"  Он может быть удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
 "Измените ваш файл кикстарта и удалите этот параметр."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Сценарий"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -182,3 +179,4 @@ msgstr "Общая ошибка кикстарта во входном файл�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Общая ошибка во входном файле:  %s"
+
