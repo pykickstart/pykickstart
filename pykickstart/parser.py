@@ -250,6 +250,7 @@ class Packages:
                             be KS_MISSING_* from pykickstart.constants.
            packageList   -- A list of all the packages specified in the
                             %packages section.
+           instLangs     -- A list of languages to install.
         """
         self.addBase = True
         self.default = False
@@ -258,6 +259,7 @@ class Packages:
         self.groupList = []
         self.handleMissing = KS_MISSING_PROMPT
         self.packageList = []
+        self.instLangs = None
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -286,6 +288,8 @@ class Packages:
             retval += " --nobase"
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
+        if self.instLangs:
+            retval += " --instLangs=%s" % self.instLangs
 
         if ver >= F8:
             return retval + "\n" + pkgs + "\n%end\n"
@@ -430,6 +434,8 @@ class KickstartParser:
                       deprecated=FC4, removed=F9)
         op.add_option("--default", dest="defaultPackages", action="store_true",
                       default=False, introduced=F7)
+        op.add_option("--instLangs", dest="instLangs", type="string",
+                      default="", introduced=F9)
 
         (opts, extra) = op.parse_args(args=args[1:])
 
@@ -442,6 +448,9 @@ class KickstartParser:
 
         if opts.defaultPackages:
             self.handler.packages.default = True
+
+        if opts.instLangs:
+            self.handler.packages.instLange = opts.instLangs
 
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
