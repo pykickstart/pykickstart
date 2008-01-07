@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -38,6 +38,7 @@ import string
 import tempfile
 from copy import copy
 from optparse import *
+from sets import *
 from urlgrabber import urlopen
 import urlgrabber.grabber as grabber
 
@@ -321,15 +322,26 @@ class Packages:
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
+        existingExcludedSet = Set(self.excludedList)
+        existingPackageSet = Set(self.packageList)
+        newExcludedSet = Set()
+        newPackageSet = Set()
+
         for pkg in pkgList:
             stripped = pkg.strip()
 
             if stripped[0] == "@":
                 self._processGroup(stripped[1:])
             elif stripped[0] == "-":
-                self.excludedList.append(stripped[1:])
+                newExcludedSet.add(stripped[1:])
             else:
-                self.packageList.append(stripped)
+                newPackageSet.add(stripped)
+
+        existingPackageSet = (existingPackageSet - newExcludedSet) | newPackageSet
+        existingExcludedSet = (existingExcludedSet - existingPackageSet) | newExcludedSet
+
+        self.packageList = list(existingPackageSet)
+        self.excludedList = list(existingExcludedSet)
 
 
 ###
