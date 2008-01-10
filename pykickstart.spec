@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.23
+Version: 1.24
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Thu Jan 10 2008 Chris Lumens <clumens@redhat.com> - 1.24-1
+- Make inheritance and overriding of %packages work (#427768). (clumens)
+- Add an option for which languages should be installed. (katzj)
+- Use the right name for the iscsi --target variable (#418781). (clumens)
+
 * Mon Dec 10 2007 Chris Lumens <clumens@redhat.com> - 1.23-1
 - Take Makefile improvements from anaconda.
 - Fix a traceback on F9 zerombr command (#395431).
