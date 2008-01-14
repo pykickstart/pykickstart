@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -41,4 +41,38 @@ class FC3_AutoPart(KickstartCommand):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart")
 
+        self.autopart = True
+
+class F9_AutoPart(FC3_AutoPart):
+    def __init__(self, writePriority=100, autopart=False, encrypted=False,
+                 passphrase=""):
+        FC3_AutoPart.__init__(self, writePriority=writePriority, autopart=autopart)
+        self.op = self._getParser()
+
+        self.encrypted = encrypted
+        self.passphrase = passphrase
+
+    def __str__(self):
+        if self.autopart:
+            retval = "autopart"
+        else:
+            return ""
+
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\""% self.passphrase
+
+        return retval + "\n"
+
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
+        return op
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
+        self._setToSelf(self.op, opts)
         self.autopart = True

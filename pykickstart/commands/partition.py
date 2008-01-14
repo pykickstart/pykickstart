@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -116,7 +116,7 @@ class F9_PartData(FC4_PartData):
                  end=0, fsopts="", fstype="", grow=False, label="",
                  maxSizeMB=0, format=True, onbiosdisk="", disk="",
                  onPart="", recommended=False, size=None, start=0,
-                 mountpoint=""):
+                 mountpoint="", encrypted=False, passphrase=""):
         FC4_PartData.__init__(self, active=active, primOnly=primOnly,
                              end=end, fstype=fstype, grow=grow,
                              maxSizeMB=maxSizeMB, format=format,
@@ -127,6 +127,8 @@ class F9_PartData(FC4_PartData):
         self.fsopts = fsopts
         self.label = label
         self.fsprofile = fsprofile
+        self.encrypted = encrypted
+        self.passphrase = passphrase
 
     def _getArgsAsStr(self):
         retval = FC4_PartData._getArgsAsStr(self)
@@ -135,6 +137,11 @@ class F9_PartData(FC4_PartData):
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.label != "":
             retval += " --label=%s" % self.label
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 
@@ -237,6 +244,7 @@ class F9_Partition(FC4_Partition):
     def _getParser(self):
         op = FC4_Partition._getParser(self)
         op.add_option("--bytes-per-inode", deprecated=1)
-        op.add_option("--fsprofile", dest="fsprofile", action="store",
-                      type="string", nargs=1)
+        op.add_option("--fsprofile")
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
         return op

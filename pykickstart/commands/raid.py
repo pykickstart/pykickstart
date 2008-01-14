@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -110,19 +110,26 @@ F7_RaidData = FC5_RaidData
 class F9_RaidData(FC5_RaidData):
     def __init__(self, device=None, fsopts="", fstype="", level="",
                  format=True, spares=0, preexist=False, mountpoint="",
-                 members=None, fsprofile=""):
+                 members=None, fsprofile="", encrypted=False, passphrase=""):
         FC5_RaidData.__init__(self, device=device, fsopts=fsopts,
                               fstype=fstype, level=level,
                               format=format, spares=spares,
                               preexist=preexist,
                               mountpoint=mountpoint, members=members)
         self.fsprofile = fsprofile
+        self.encrypted = encrypted
+        self.passphrase = passphrase
 
     def _getArgsAsStr(self):
         retval = FC5_RaidData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 
@@ -233,7 +240,7 @@ class F9_Raid(F7_Raid):
     def _getParser(self):
         op = F7_Raid._getParser(self)
         op.add_option("--bytes-per-inode", deprecated=1)
-        op.add_option("--fsprofile", dest="fsprofile", action="store",
-                      type="string", nargs=1)
+        op.add_option("--fsprofile")
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
         return op
-

@@ -355,7 +355,7 @@ commandMap = {
     F9: {
         "auth": authconfig.FC3_Authconfig,
         "authconfig": authconfig.FC3_Authconfig,
-        "autopart": autopart.FC3_AutoPart,
+        "autopart": autopart.F9_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.F8_Bootloader,
         "cdrom": method.FC6_Method,
