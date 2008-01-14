@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006, 2007 Red Hat, Inc.
+# Copyright 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -38,8 +38,13 @@ This module also exports several functions:
                       into the symbolic constant.
 
     versionToString - Perform the reverse mapping.
+
+    versionFromFile - Read a kickstart file and determine the version of
+                      syntax it uses.  This requires the kickstart file to
+                      have a version= comment in it.
 """
 import re
+from urlgrabber import urlopen
 
 from rhpl.translate import _
 from pykickstart.errors import KickstartVersionError
@@ -110,6 +115,34 @@ def versionToString(version):
             return key
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
+
+def versionFromFile(f):
+    """Given a file or URL, look for a line starting with #version= and
+       return the version number.  If no version is found, return DEVEL.
+    """
+    v = DEVEL
+
+    fh = urlopen(f)
+
+    while True:
+        try:
+            l = fh.readline()
+        except StopIteration:
+            break
+
+        # At the end of the file?
+        if l == "":
+            break
+
+        if l.isspace() or l.strip() == "":
+            continue
+
+        if l[:9] == "#version=":
+            v = stringToVersion(l[9:].rstrip())
+            break
+
+    fh.close()
+    return v
 
 def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be

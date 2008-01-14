@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006, 2007 Red Hat, Inc.
+# Copyright 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -46,6 +46,7 @@ translate.textdomain("pykickstart")
 import warnings
 from pykickstart.errors import *
 from pykickstart.parser import Packages
+from pykickstart.version import versionToString
 
 
 ###
@@ -213,6 +214,8 @@ class BaseHandler:
 
         if self.platform != "":
             retval += "#platform=%s\n" % self.platform
+
+        retval += "#version=%s\n" % versionToString(self.version)
 
         lst = self._writeOrder.keys()
         lst.sort()
