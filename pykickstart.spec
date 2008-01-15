@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.24
+Version: 1.25
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Tue Jan 15 2008 Chris Lumens <clumens@redhat.com> - 1.25-1
+- Add the version to the output ks file. (clumens)
+- Add syntax for encrypted partitions and raid devices. (clumens)
+
 * Thu Jan 10 2008 Chris Lumens <clumens@redhat.com> - 1.24-1
 - Make inheritance and overriding of %packages work (#427768). (clumens)
 - Add an option for which languages should be installed. (katzj)
