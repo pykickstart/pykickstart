@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -184,6 +184,8 @@ class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
+        self.bootprotoList = [BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
+                              BOOTPROTO_STATIC, BOOTPROTO_ASK]
 
         if network == None:
             network = []
@@ -205,8 +207,7 @@ class FC3_Network(KickstartCommand):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bootproto", dest="bootProto",
                       default=BOOTPROTO_DHCP,
-                      choices=[BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                               BOOTPROTO_STATIC])
+                      choices=self.bootprotoList)
         op.add_option("--dhcpclass", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
@@ -263,6 +264,11 @@ class F8_Network(FC6_Network):
         op = FC6_Network._getParser(self)
         op.add_option("--ipv6", dest="ipv6")
         return op
+
+class F9_Network(F8_Network):
+    def __init__(self, writePriority=0, network=None):
+        F8_Network.__init__(self, writePriority, network)
+        self.bootprotoList.append(BOOTPROTO_ASK)
 
 class RHEL4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):

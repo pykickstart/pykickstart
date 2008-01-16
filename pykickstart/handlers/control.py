@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -383,7 +383,7 @@ commandMap = {
         "mediacheck": mediacheck.FC4_MediaCheck,
         "monitor": monitor.FC6_Monitor,
         "multipath": multipath.FC6_MultiPath,
-        "network": network.F8_Network,
+        "network": network.F9_Network,
         "nfs": method.FC6_Method,
         "part": partition.FC4_Partition,
         "partition": partition.F9_Partition,
