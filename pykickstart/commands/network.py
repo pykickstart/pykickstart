@@ -183,9 +183,10 @@ class RHEL4_NetworkData(FC3_NetworkData):
 class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):
         KickstartCommand.__init__(self, writePriority)
-        self.op = self._getParser()
         self.bootprotoList = [BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                               BOOTPROTO_STATIC, BOOTPROTO_ASK]
+
+        self.op = self._getParser()
 
         if network == None:
             network = []
