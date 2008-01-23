@@ -82,7 +82,7 @@ class FC3_VolGroup(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
-        vg = self.handler.VolGroup()
+        vg = self.handler.VolGroupData()
         self._setToObj(self.op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
