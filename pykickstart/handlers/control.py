@@ -543,7 +543,7 @@ commandMap = {
         "monitor": monitor.FC6_Monitor,
         "mouse": mouse.FC3_Mouse,
         "multipath": multipath.FC6_MultiPath,
-        "network": network.FC6_Network,
+        "network": network.RHEL5_Network,
         "nfs": method.FC6_Method,
         "part": partition.FC4_Partition,
         "partition": partition.FC4_Partition,
