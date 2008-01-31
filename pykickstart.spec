@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.27
+Version: 1.29
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Wed Jan 30 2008 Chris Lumens <clumens@redhat.com> - 1.29-1
+- Renamed bootproto=ask to bootproto=query, add to RHEL5 as well. (clumens)
+
+* Wed Jan 23 2008 Chris Lumens <clumens@redhat.com> - 1.28-1
+- Fix traceback on volgroup command. (clumens)
+
 * Thu Jan 17 2008 Chris Lumens <clumens@redhat.com> - 1.27-1
 - The bootprotoList needs to be defined before it's used. (clumens)
 

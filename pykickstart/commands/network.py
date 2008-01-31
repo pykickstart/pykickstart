@@ -184,7 +184,7 @@ class FC3_Network(KickstartCommand):
     def __init__(self, writePriority=0, network=None):
         KickstartCommand.__init__(self, writePriority)
         self.bootprotoList = [BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
-                              BOOTPROTO_STATIC, BOOTPROTO_ASK]
+                              BOOTPROTO_STATIC]
 
         self.op = self._getParser()
 
@@ -269,7 +269,14 @@ class F8_Network(FC6_Network):
 class F9_Network(F8_Network):
     def __init__(self, writePriority=0, network=None):
         F8_Network.__init__(self, writePriority, network)
-        self.bootprotoList.append(BOOTPROTO_ASK)
+        self.bootprotoList.append(BOOTPROTO_QUERY)
+
+    def _getParser(self):
+        op = F8_Network._getParser(self)
+        op.add_option("--bootproto", dest="bootProto",
+                      default=BOOTPROTO_DHCP,
+                      choices=self.bootprotoList)
+        return op
 
 class RHEL4_Network(FC3_Network):
     def __init__(self, writePriority=0, network=None):
@@ -279,4 +286,16 @@ class RHEL4_Network(FC3_Network):
         op = FC3_Network._getParser(self)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
                       default=False)
+        return op
+
+class RHEL5_Network(FC6_Network):
+    def __init__(self, writePriority=0, network=None):
+        FC6_Network.__init__(self, writePriority, network)
+        self.bootprotoList.append(BOOTPROTO_QUERY)
+
+    def _getParser(self):
+        op = FC6_Network._getParser(self)
+        op.add_option("--bootproto", dest="bootProto",
+                      default=BOOTPROTO_DHCP,
+                      choices=self.bootprotoList)
         return op
