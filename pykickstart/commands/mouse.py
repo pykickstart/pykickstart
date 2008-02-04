@@ -50,7 +50,7 @@ class RHEL3_Mouse(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
-        self.mouse = extra
+        self.mouse = extra[0]
 
 class FC3_Mouse(DeprecatedCommand):
     def __init__(self):
