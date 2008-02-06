@@ -63,7 +63,12 @@ if len(extra) != 1:
     os._exit(1)
 else:
     destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
-    f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
+    try:
+        f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
+    except urlgrabber.grabber.URLGrabError, e:
+        print _("Error reading %s:\n%s" % (extra[0],e))
+        cleanup(destdir)
+        
 
 try:
     handler = makeVersion(opts.version)
