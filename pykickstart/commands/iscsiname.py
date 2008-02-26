@@ -34,7 +34,7 @@ class FC6_IscsiName(KickstartCommand):
 
     def __str__(self):
         if self.iscsiname != "":
-            return "iscsiname %s" % self.iscsiname
+            return "iscsiname %s\n" % self.iscsiname
         else:
             return ""
 
