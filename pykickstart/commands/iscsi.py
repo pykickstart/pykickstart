@@ -53,7 +53,7 @@ class FC6_IscsiData(BaseData):
         return retval + "\n"
 
 class FC6_Iscsi(KickstartCommand):
-    def __init__(self, writePriority=70, iscsi=None):
+    def __init__(self, writePriority=71, iscsi=None):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 

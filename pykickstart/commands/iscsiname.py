@@ -28,13 +28,13 @@ import rhpl.translate as translate
 translate.textdomain("pykickstart")
 
 class FC6_IscsiName(KickstartCommand):
-    def __init__(self, writePriority=71, iscsiname=""):
+    def __init__(self, writePriority=70, iscsiname=""):
         KickstartCommand.__init__(self, writePriority)
         self.iscsiname = iscsiname
 
     def __str__(self):
         if self.iscsiname != "":
-            return "iscsiname %s" % self.iscsiname
+            return "iscsiname %s\n" % self.iscsiname
         else:
             return ""
 

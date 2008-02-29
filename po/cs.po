@@ -6,20 +6,20 @@
 # Nikola Štohanzl <niko@srnet.cz>, 2006.
 # Milan Kerslager <kerslage@linux.cz>, 2007.
 # Adam Přibyl <pribyl@lowlevel.cz>, 2007.
+# Miloslav Trmač <mitr@volny.cz>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-04 22:09+0200\n"
-"Last-Translator: Adam Přibyl <pribyl@lowlevel.cz>\n"
+"PO-Revision-Date: 2008-02-04 01:57+0100\n"
+"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -101,9 +101,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Volba %(opt)s: neplatná boolean hodnota: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Volba %(opt)s: neplatná boolean hodnota: %(value)r"
+msgstr "Volba %(opt)s: neplatná hodnota řetězce: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -125,20 +125,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina nemůže mít zároveň --nodefaults a --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není "
-"používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by "
-"mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
-"soubor tak, aby tuto volbu neobsahoval."
+msgstr "%s nekončí s %%end. Tato syntaxe je zastaralá. V budoucnosti může být odstraněna, což by mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš soubor kickstart tak, aby používal tuto novou syntaxi."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
