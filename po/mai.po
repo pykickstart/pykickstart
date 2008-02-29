@@ -1,0 +1,174 @@
+# translation of pykickstart.master.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Sangeeta Kumari <sangeeta09@gmail.com>, 2008.
+msgid ""
+msgstr ""
+"Project-Id-Version: pykickstart.master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-10-04 13:22-0400\n"
+"PO-Revision-Date: 2008-02-29 01:51+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
+
+#: ../pykickstart/base.py:147
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"%(lineno)s पंक्ति पर पदावनत कमांड अनदेखा कए रहल अछि.  %(cmd)s कमांड पदावनत कएल जाए "
+"रहल अछि आओर आब कोनो प्रभाव नहि राखैत अछि. एकरा भविष्यक रिलीजसँ हटाओल जाए सकैत अछि जे "
+"किकस्टार्ट सँ गंभीर त्रुटि आनत.  कृप्या ई कमांड हटाबै क' लेल अपन किकस्टार्ट रूपांतरित "
+"करू."
+
+#: ../pykickstart/base.py:315
+#, python-format
+msgid "Unknown command: %s"
+msgstr "अनजान कमांड: %s"
+
+#: ../pykickstart/errors.py:48
+#, python-format
+msgid ""
+"The following problem occurred on line %(lineno)s of the kickstart file:\n"
+"\n"
+"%(msg)s\n"
+msgstr ""
+"किकस्टार्ट फाइल %(lineno)s क' पंक्ति पर निम्न समस्या आएल:\n"
+"\n"
+"%(msg)s\n"
+
+#: ../pykickstart/errors.py:50
+#, python-format
+msgid "There was a problem reading from line %s of the kickstart file"
+msgstr "किकस्टार्ट फाइल क' %s पंक्तिसँ पढ़एमे समस्या छल"
+
+#: ../pykickstart/options.py:84
+#, python-format
+msgid "Option %s is required"
+msgstr "%s विकल्प जरूरी अछि"
+
+#: ../pykickstart/options.py:87
+#, python-format
+msgid ""
+"The option %(option)s was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr "%(option)s विकल्प %(intro)s संस्करणमे आनल गेल छला, मुदा अहाँ किकस्टार्ट वाक्यरचना संस्करण %(version)s क' प्रयोग कए रहल अछि"
+
+#: ../pykickstart/options.py:90
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"%(lineno)s पंक्ति पर पदावनत विकल्प अनदेखा कएलक:  %(option)s विकल्प पदावनत कएल "
+"गेल अछि आओर आब कोनो प्रभाव नहि राखैत अछि. एकरा भविष्यक रिलीजसँ हटाओल जाए सकैत अछि. जे "
+"किकस्टार्टसँ गंभीर परिणाम आनत.  ई विकल्प हटाबै क' लेल अपन किकस्टार्ट फाइल बदलू."
+
+#: ../pykickstart/options.py:93
+#, python-format
+msgid ""
+"The option %(option)s was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s"
+msgstr "%(option)s विकल्प %(removed)s संस्करणमे हटाओल गेल छल, मुदा अहाँ किकस्टार्ट वाक्यरचना संस्करण %(version)s क' प्रयोग कए रहल छी"
+
+#: ../pykickstart/options.py:147
+msgid "Required flag set for option that doesn't take a value"
+msgstr "विकल्प क' लेल फ्लैग सेट जरूरी जे एकटा मान नहि राखैत अछि"
+
+#: ../pykickstart/options.py:156
+#, python-format
+msgid "Option %(opt)s: invalid boolean value: %(value)r"
+msgstr "विकल्प %(opt)s: अवैध बुलियन मान: %(value)r"
+
+#: ../pykickstart/options.py:161
+#, python-format
+msgid "Option %(opt)s: invalid string value: %(value)r"
+msgstr ""
+
+#: ../pykickstart/parser.py:90
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:95
+#, python-format
+msgid "Unable to open %%ksappend file: "
+msgstr ""
+
+#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#, python-format
+msgid "Unable to open %%ksappend file"
+msgstr ""
+
+#: ../pykickstart/parser.py:286
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr "समूह --nodefaults आओर --optional दुनूकेँ निर्दिष्ट नहि कए सकैत अछि"
+
+#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#, python-format
+msgid ""
+"%s does not end with %%end.  This syntax has been deprecated.  It may be "
+"removed from future releases, which will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr ""
+
+#: ../pykickstart/parser.py:604
+msgid "Script"
+msgstr "स्किप्ट"
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:150
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr "असमर्थित संस्करण निर्दिष्ट: %s"
+
+#: ../tools/ksvalidator:52
+msgid "halt after the first error or warning"
+msgstr "पहिले त्रुटि अथवा चेतावनीक बाद रोकू"
+
+#: ../tools/ksvalidator:55
+#, python-format
+msgid "parse include files when %include is seen"
+msgstr "जखन %include देखल जाएत अछि विश्लेषण फाइल सामिल करैत अछि"
+
+#: ../tools/ksvalidator:57
+msgid "version of kickstart syntax to validate against"
+msgstr "किकस्टार्ट वाक्य रचनाक संस्करण जकर वरक्स सत्यापित कएनाइ अछि"
+
+#: ../tools/ksvalidator:71
+#, python-format
+msgid "The version %s is not supported by pykickstart"
+msgstr "संस्करण %s pykickstart क' द्वारा समर्थित नहि अछि"
+
+#: ../tools/ksvalidator:87
+#, python-format
+msgid ""
+"File uses a deprecated option or command.\n"
+"%s"
+msgstr ""
+"फाइल एकटा पदावनत संस्करण अथवा कमांड प्रयोग करैत अछि.\n"
+"%s"
+
+#: ../tools/ksvalidator:93
+msgid "General kickstart error in input file"
+msgstr "इनपुट फाइलमे सामान्य किकस्टार्ट त्रुटि"
+
+#: ../tools/ksvalidator:96
+#, python-format
+msgid "General error in input file:  %s"
+msgstr "इनपुट फाइलमे सामान्य त्रुटि:  %s"
+
