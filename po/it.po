@@ -1,16 +1,16 @@
-# translation of it.po to
+# translation of it.po to Italiano
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
-# Francesco Tombolini <tombo@adamantio.net>, 2006, 2007.
+# Francesco Tombolini <tombo@adamantio.net>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-22 14:01+0200\n"
+"PO-Revision-Date: 2008-03-09 06:42+0100\n"
 "Last-Translator: Francesco Tombolini <tombo@adamantio.net>\n"
-"Language-Team:  <fedora-trans-it@redhat.com>\n"
+"Language-Team: Italiano <fedora-trans-it@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -101,9 +101,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opzione %(opt)s: valore booleano non valido: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opzione %(opt)s: valore booleano non valido: %(value)r"
+msgstr "Opzione %(opt)s: valore stringa non valido: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -125,21 +125,18 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Group non può specificare sia --nodefaults che --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"L'opzione deprecata sulla riga %(lineno)s sarà ignorata:  L'opzione %(option)"
-"s è stata deprecata e non possiede alcun effetto.  Tale opzione potrà essere "
-"rimossa dalle versioni future, che risulterà in un errore fatale di "
-"kickstart.  Si prega di modificare il file kickstart in modo da rimuovere "
-"questa opzione."
+"%s non termina con %%end.  Questa sintassi è deprecata.  Tale opzione potrà essere "
+"rimossa dalle versioni future, causando un errore fatale in kickstart.  Si prega di modificare il file kickstart per usare questa sintassi aggiornata."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -184,3 +181,4 @@ msgstr "Errore kickstart generale nel file input"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Errore generale nel file input:  %s"
+
