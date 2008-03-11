@@ -1,16 +1,17 @@
-# translation of bn_IN.po to Bengali INDIA
+# translation of pykickstart.master.po to Bengali INDIA
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Runa Bhattacharjee <runab@redhat.com>, 2006, 2007.
+# Runa Bhattacharjee <runab@fedoraproject.org>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: bn_IN\n"
+"Project-Id-Version: pykickstart.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-08 15:44+0530\n"
-"Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
-"Language-Team: Bengali INDIA <fedora-trans-bn_in@redhat.com>\n"
+"PO-Revision-Date: 2008-03-11 12:58+0530\n"
+"Last-Translator: Runa Bhattacharjee <runab@fedoraproject.org>\n"
+"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -92,8 +93,7 @@ msgstr ""
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
-"কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
+msgstr "কোনো মান গ্রহণ করতে অক্ষম বিকল্পের জন্য আবশ্যক মানের ফ্ল্যাগ নির্ধারণ করা হয়েছে"
 
 #: ../pykickstart/options.py:156
 #, python-format
@@ -101,9 +101,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "%(opt)s বিকল্প: বুলিয়ান মান বৈধ নয়: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "%(opt)s বিকল্প: বুলিয়ান মান বৈধ নয়: %(value)r"
+msgstr "%(opt)s বিকল্প: স্ট্রিং মান বৈধ নয়: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -125,20 +125,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "দল দ্বারা --nodefaults ও --optional উভয় একযোগে নির্ধারণ করা যাবে না"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s পংক্তির মধ্যে উল্লিখিত অবচিত বিকল্প অগ্রাহ্য করা হচ্ছে:  %(option)s "
-"বিকল্পটি অবচিত হয়েছে ও বর্তমানে কোনো প্রভাব সৃষ্টি করে না। ভবিষ্যতের কোনো রিলিজে "
+"%s-র শেষে %%end প্রয়োগ করা হয় না। এই সিন্টেক্স বর্তমানে অবচিত হয়েছে।  ভবিষ্যতের কোনো রিলিজে "
 "এটি অপসারণ করা হবে যার ফলে kickstart কর্মের সময় গুরুতর ত্রুটির ইঙ্গিত দেওয়া হবে। "
-"অনুগ্রহ করে kickstart ফাইল থেকে এই বিকল্পটি মুছে ফেলুন।"
+"নতুন সিন্টেক্স ব্যবহার করে kickstart ফাইলটি অনগ্রহ করে পরিবর্তন করুন।"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "স্ক্রিপ্ট"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -183,3 +182,4 @@ msgstr "ইনপুট ফাইলের মধ্যে kickstart সংক�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ইনপুট ফাইলের মধ্যে সাধারণ সমস্যা:  %s"
+
