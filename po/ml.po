@@ -1,4 +1,4 @@
-# translation of ml.po to Malayalam
+# translation of ml.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: ml\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-06 10:49+0530\n"
-"Last-Translator: Ani Peter <apeter@redhat.com>\n"
-"Language-Team: Malayalam <en@li.org>\n"
+"PO-Revision-Date: 2008-03-12 12:53+0530\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -98,9 +98,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "%(opt)s ഉപാധി: അസാധുവായ ബൂളിയന്‍ വാല്യു: %(value)r"
+msgstr "ഉപാധി %(opt)s: അസാധുവായ സ്ട്രിങ് മൂല്ല്യം: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -122,19 +122,20 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ഗ്റൂപ്പിന് --nodefaults-ഉം --optional-ഉം നല്‍കുവാന്‍ സാധ്യമല്ല"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s വരിയിലുളള തെറ്റായ ഉപാധി ഉപേക്ഷിക്കുന്നു:  %(option)s കമാന്‍ഡ് ഇനി "
-"സ്വീകരിക്കുന്നില്ല. ഇനിയുളള റിലീസില്‍ ഇത് നീക്കം ചെയ്യുക, kickstart-ന്‍റെ ഒരു പിഴവായി ഇത് "
-"കാണപ്പെടുന്നതാണ്.  ഈ കമാന്‍ഡ് നീക്കം ചെയ്ത് നിങ്ങളുടെ kickstart ഫയലില്‍ മാറ്റം വരുത്തുക"
+"%s, %%end-ല്‍ അവസാനിക്കുന്നില്ല.  ഈ സിന്റാക്സ് ഇപ്പോള്‍ ലഭ്യമല്ല. ഇനിയുളള റിലീസില്‍ നിന്നും "
+"ഇത് നീക്കപ്പെടുന്നതാണ്. ഇത് കിക്ക്സ്റ്റാര്‍ട്ടില്‍ തകരാറുകള്‍ക്ക് കാരണമാകുന്നു. അതിനാല്‍ "
+"പരിഷ്കരിച്ച സിന്റാക്സ് ഉപയോഗിക്കുന്നതിനായി ദയവായി നിങ്ങളുടെ കിക്ക്സ്റ്റാര്‍ട്ട് "
+"ഫയലില്‍ മാറ്റം വരുത്തുക."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "സ്ക്രിപ്റ്റ്"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -179,3 +180,4 @@ msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ 
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ഇന്‍പുട്ട് ഫൈലില്‍ സാധാരണ പിഴവ് :  %s"
+
