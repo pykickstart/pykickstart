@@ -1,24 +1,24 @@
-# translation of mr.po to marathi
+# translation of pykickstart.master.mr.po to marathi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # sandeep shedmake <sandeepshedmake@yahoo.co.in>, 2006.
 # Rahul Bhalerao <b.rahul.pm@gmail.com>, 2006.
 # sandeep shedmake <sandeep.shedmake@gmail.com>, 2007.
+# Sandeep Shedmake <sandeep.shedmake@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: mr\n"
+"Project-Id-Version: pykickstart.master.mr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-23 17:58+0530\n"
-"Last-Translator: sandeep shedmake <sandeep.shedmake@gmail.com>\n"
+"PO-Revision-Date: 2008-03-12 16:44+0530\n"
+"Last-Translator: Sandeep Shedmake <sandeep.shedmake@gmail.com>\n"
 "Language-Team: marathi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
-"\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -100,9 +100,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "पर्याय %(opt)s: अप्रमाणीत बुलियन मूल्य: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "पर्याय %(opt)s: अप्रमाणीत बुलियन मूल्य: %(value)r"
+msgstr "पर्याय %(opt)s: अप्रमाणीत स्ट्रींग मुल्य: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -124,20 +124,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "संच --nodefaults व --optional पर्याय दर्शवू शकत नाही"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s ओळीवर नापसंत पर्यायाकडे दुर्लक्ष केल्यास:  %(option)s पर्याय नापसंत केले आणि "
-"त्यामुळे त्याचा ह्यापुढे काहीच परिणाम राहणार नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ "
+"%s %%end सह समाप्त होत नाही.  ही रचना वापरणीत नाही.  ते पुढच्या प्रकाशनासाठी नाहीसे होऊ "
 "शकते, ज्याचा परिणाम किकस्टार्टकडून गंभीर चूका घडतील.  हा पर्याय काढून टाकण्साठी कृपया "
 "तुमच्या किकस्टार्ट फाइल मध्ये सुधारणा करा."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "स्क्रीप्ट"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -182,3 +181,4 @@ msgstr "इनपुट फाइल मध्ये सर्वसाधार
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल मध्ये सर्वसाधारण चूका:  %s"
+
