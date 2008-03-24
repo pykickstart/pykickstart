@@ -3,14 +3,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Amanpreet Singh Alam <aalam@redhat.com>, 2006.
-# Jaswinder Singh Phulewala <jsingh@redhat.com>, 2006, 2007.
+# Jaswinder Singh Phulewala <jsingh@redhat.com>, 2006, 2007, 2008.
 # A S Alam <apbrar@gmail.com>, 2006.
 msgid ""
 msgstr ""
 "Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-03 14:17+0530\n"
+"PO-Revision-Date: 2008-03-24 12:09+0530\n"
 "Last-Translator: Jaswinder Singh <jsingh@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -100,9 +100,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "ਚੋਣ %(opt)s: ਸਹੀ ਬੂਲੀਅਨ ਮੁੱਲ: %(value)r"
+msgstr "ਚੋਣ %(opt)s: ਗਲਤ ਸਤਰ ਮੁੱਲ: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -124,20 +124,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ਗਰੁੱਪ --nodefaults ਅਤੇ --optional ਦੋਨਾਂ ਨੂੰ ਦਰਸਾ ਨਹੀਂ ਸਕਦਾ"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"%(lineno)s ਸਤਰ ਵਿੱਚ ਗਲਤ ਚੋਣ ਨੂੰ ਬਰਤਰਫ਼ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ: %(option)s ਕਮਾਂਡ ਬਰਤਰਫ਼ ਕੀਤੀ "
-"ਗਈ ਹੈ ਅਤੇ ਇਸ ਦਾ ਕੋਈ ਅਸਰ ਨਹੀਂ ਹੋਵੇਗਾ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ "
-"ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਆਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਚੋਣ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ "
-"ਦੀ ਸੋਧ ਕਰੋ।"
+msgstr "%s ਦਾ ਅੰਤ %%end ਨਾਲ ਨਹੀਂ ਹੁੰਦਾ।  ਇਹ ਖਾਕਾ ਛੱਡਿਆ ਗਿਆ ਹੈ। ਇਹ ਆਉਣ ਵਾਲੇ ਰੀਲਿਜ਼ਾਂ ਵਿੱਚੋਂ ਹਟਾਈ ਜਾ ਸਕਦੀ ਹੈ, ਜਿਸ ਦੇ ਨਤੀਜੇ ਵਜੋਂ ਕਿੱਕਸਟਾਰਟ ਤੋਂ ਘਾਤਕ ਗਲਤੀ ਆਵੇਗੀ। ਕਿਰਪਾ ਕਰਕੇ ਇਸ ਚੋਣ ਨੂੰ ਹਟਾਉਣ ਲਈ ਆਪਣੀ ਕਿੱਕਸਟਾਰਟ ਦੀ ਸੋਧ ਕਰੋ।"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "ਸਕਰਿਪਟ"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -182,3 +178,4 @@ msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਕਿੱਕਸ�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ਇੰਨਪੁੱਟ ਫਾਇਲ ਵਿੱਚ ਆਮ ਗਲਤੀ ਹੈ:  %s"
+
