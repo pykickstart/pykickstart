@@ -1,22 +1,22 @@
-# translation of hi.po to Hindi
+# translation of pykickstart.master.hi.po to Hindi
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
-# Rajesh Ranjan <rranjan@redhat.com>, 2006, 2007.
+# Rajesh Ranjan <rranjan@redhat.com>, 2006, 2007, 2008.
 # hi <rranjan@redhat.com>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: hi\n"
+"Project-Id-Version: pykickstart.master.hi\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-20 16:18+0530\n"
+"PO-Revision-Date: 2008-03-24 12:36+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <hindi.sf.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n\n"
 "\n"
 "\n"
 "\n"
@@ -103,9 +103,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "विकल्प %(opt)s: अवैध बुलियन मान: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "विकल्प %(opt)s: अवैध बुलियन मान: %(value)r"
+msgstr "विकल्प %(opt)s: अवैध स्ट्रिंग मान: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -127,19 +127,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "समूह --nodefaults और --optional दोनों को निर्दिष्ट नहीं कर सकता है"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"%(lineno)s पंक्ति पर पदावनत विकल्प अनदेखा किया:  %(option)s विकल्प पदावनत किया "
-"गया है और अब कोई प्रभाव नहीं रखता है.  इसे भविष्य के रिलीज से हटाया जा सकता है, जो "
-"किकस्टार्ट से गंभीर परिणाम लायेगा.  यह विकल्प हटाने के लिये अपना किकस्टार्ट फाइल बदलें."
+msgstr "%s समाप्त नहीं होता है %%end के साथ.   यह वाक्यरचना पदावनत किया गया है.  इसे भविष्य के रिलीज से हटाया जा सकता है, जो किकस्टार्ट से गंभीर परिणाम लायेगा.  इस अद्यतनीकृत वाक्यरचना को प्रयोग के लिये अपना किकस्टार्ट फाइल बदलें."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "स्क्रिप्ट"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -184,3 +181,4 @@ msgstr "इनपुट फाइल में सामान्य किक�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "इनपुट फाइल में सामान्य त्रुटि:  %s"
+
