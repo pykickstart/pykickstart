@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.30
+Version: 1.31
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Tue Mar 25 2008 Chris Lumens <clumens@redhat.com> - 1.31-1
+- Support end-of-line comments. (clumens)
+- Lots of translation updates.
+
 * Tue Feb 26 2008 Chris Lumens <clumens@redhat.com> - 1.30-1
 - Reverse writePriorities of iscsi and iscsname (#434965, jlaska).
 - Fix printing of iscsiname command (#434945, jlaska).
