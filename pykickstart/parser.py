@@ -535,6 +535,9 @@ class KickstartParser:
                 else:
                     args = None
             else:
+                # Remove any end-of-line comments.
+                (h, s, t) = self._line.partition("#")
+                self._line = h.rstrip()
                 args = shlex.split(self._line)
 
             if args and args[0] == "%include":
