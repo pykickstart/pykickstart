@@ -1,17 +1,19 @@
-# Xi Huang <xhuang@redhat.com>, 2006.
+# translation of pykickstart.master.po to Simplified Chinese
 #
+# Xi Huang <xhuang@redhat.com>, 2006.
+# Leah Liu <lliu@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: zh_CN\n"
+"Project-Id-Version: pykickstart.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-03 10:00+0800\n"
-"Last-Translator: zhangnan <znflint@126.com>\n"
-"Language-Team:  <zh@li.org>\n"
+"PO-Revision-Date: 2008-03-26 11:27+1000\n"
+"Last-Translator: Leah Liu <lliu@redhat.com>\n"
+"Language-Team: Simplified Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -91,9 +93,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "选项%(opt)s: 无效的布尔值:%(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "选项%(opt)s: 无效的布尔值:%(value)r"
+msgstr "选项 %(opt)s：无效的字符串值：%(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -115,19 +117,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "组都不能注明--nodefaults 和--optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"忽略第 %(lineno)s: 行中的过时选项:%(option)s  选项已经过时，不再起任何作用。"
-"这个选项可能会在未来的版本中被删除，这会导致 kickstart 运行时产生严重错误。请"
-"修改您的 kickstart 文件，删除该选项。"
+msgstr "%s 不是以 %%end 结尾。这个语法已经过时，这个选项可能会在未来的发行版本中被删除，这会导致 kickstart 运行时产生严重错误。请将您的 kickstart 文件改为使用这个更新的语法。"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "脚本"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -172,3 +171,4 @@ msgstr "输入文件中的 kickstart 错误"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "输入文件有错误： %s"
+
