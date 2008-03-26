@@ -1,22 +1,23 @@
-# translation of ko.po to Korean
+# translation of pykickstart.master.po to Korean
 # translation of ko.po to
 # translation of ko.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
 #
-# Eunju Kim <eukim@redhat.com>, 2006, 2007.
+# Eunju Kim <eukim@redhat.com>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: ko\n"
+"Project-Id-Version: pykickstart.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-06 12:17+1000\n"
+"PO-Revision-Date: 2008-03-26 16:38+1000\n"
 "Last-Translator: Eunju Kim <eukim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n!=1);\n\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -98,9 +99,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "옵션 %(opt)s: 유효하지 않은 부울(boolean) 값: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "옵션 %(opt)s: 유효하지 않은 부울(boolean) 값: %(value)r"
+msgstr "옵션 %(opt)s: 유효하지 않은 문자열 값: %(value)r "
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -122,20 +123,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "그룹은 --nodefaults 및 --optional을 지정할 수 없음"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %(option)s 옵션은 삭"
-"제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 "
-"오류를 가져오는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 "
-"제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
+"%s은 %%end로 끝나지 않습니다. 이러한 구문은 삭제되었습니다.  킥스타트에서 치명적인 "
+"오류를 가져오는 이 구문은 다음 배포판부터 완전히 삭제될 것입니다. 업데이트된 구문을 "
+"사용하려면 킥스타트 파일을 수정해 주시기 바랍니다. "
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "스크립트 "
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -180,3 +180,4 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
+
