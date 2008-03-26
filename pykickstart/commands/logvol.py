@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -96,7 +96,7 @@ class F9_LogVolData(FC3_LogVolData):
     def __init__(self, fsopts="", fstype="", grow=False,
                  maxSizeMB=0, name="", format=True, percent=0,
                  recommended=False, size=None, preexist=False, vgname="",
-                 mountpoint="", fsprofile=""):
+                 mountpoint="", fsprofile="", encrypted=False, passphrase=""):
         FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
                                maxSizeMB=maxSizeMB, name=name,
                                format=format, percent=percent,
@@ -105,12 +105,19 @@ class F9_LogVolData(FC3_LogVolData):
                                mountpoint=mountpoint)
         self.fsopts = fsopts
         self.fsprofile = fsprofile
+        self.encrypted = encrypted
+        self.passphrase = passphrase
 
     def _getArgsAsStr(self):
         retval = FC3_LogVolData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 
@@ -191,4 +198,6 @@ class F9_LogVol(FC4_LogVol):
         op.add_option("--bytes-per-inode", deprecated=1)
         op.add_option("--fsprofile", dest="fsprofile", action="store",
                       type="string", nargs=1)
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
         return op
