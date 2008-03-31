@@ -1,182 +1,208 @@
-# translation of kn.po to Kannada
+# translation of rhpxl.master.kn.po to Kannada
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
 # shankar Prasad <svenkate@redhat.com>, 2006.
-# Shankar Prasad <svenkate@redhat.com>, 2007.
+# Shankar Prasad <svenkate@redhat.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: kn\n"
+"Project-Id-Version: rhpxl.master.kn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-12 23:42+0530\n"
+"POT-Creation-Date: 2008-02-25 10:17-0500\n"
+"PO-Revision-Date: 2008-03-28 23:15+0530\n"
 "Last-Translator: Shankar Prasad <svenkate@redhat.com>\n"
 "Language-Team: Kannada <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
-
-#: ../pykickstart/base.py:147
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"%(lineno)s ಸಾಲಿನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಜ್ಞೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(cmd)s ಯು "
-"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
-"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
-"ದಯವಿಟ್ಟು ಈ ಆಜ್ಞೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
-
-#: ../pykickstart/base.py:315
-#, python-format
-msgid "Unknown command: %s"
-msgstr "ಗೊತ್ತಿರದ ಆಜ್ಞೆ: %s"
-
-#: ../pykickstart/errors.py:48
-#, python-format
-msgid ""
-"The following problem occurred on line %(lineno)s of the kickstart file:\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
 "\n"
-"%(msg)s\n"
-msgstr ""
-"ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತದ  %(lineno)s ಸಾಲಿನಲ್ಲಿ ಈ ಕೆಳಗಿನ ತೊಂದರೆಯು ಕಂಡುಬಂದಿದೆ:\n"
-"\n"
-"%(msg)s\n"
 
-#: ../pykickstart/errors.py:50
+#. (shortname: make, model, gpm protocol, X protocol, input protocol, device, emulate3)
+#: ../rhpxl/mouse.py:25
+msgid "ASCII"
+msgstr "ASCII"
+
+#: ../rhpxl/mouse.py:25
+msgid "MieMouse (serial)"
+msgstr "ಮೀ ಮೌಸ್ (ಅನುಕ್ರಮಿ)"
+
+#: ../rhpxl/mouse.py:27 ../rhpxl/mouse.py:29 ../rhpxl/mouse.py:31
+#: ../rhpxl/mouse.py:33 ../rhpxl/mouse.py:35 ../rhpxl/mouse.py:37
+#: ../rhpxl/mouse.py:39 ../rhpxl/mouse.py:41
+msgid "Generic"
+msgstr "ವರ್ಗೀಯ"
+
+#: ../rhpxl/mouse.py:27
+msgid "2 Button Mouse (serial)"
+msgstr "೨ ಗುಂಡಿಗಳ ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:29
+msgid "3 Button Mouse (serial)"
+msgstr "೩ ಗುಂಡಿಗಳ ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:31
+msgid "2 Button Mouse (PS/2)"
+msgstr "೨ ಗುಂಡಿಗಳ ಮೌಸ್ (PS/2)"
+
+#: ../rhpxl/mouse.py:33
+msgid "3 Button Mouse (PS/2)"
+msgstr "೩ ಗುಂಡಿಗಳ ಮೌಸ್ (PS/2)"
+
+#: ../rhpxl/mouse.py:35
+msgid "Wheel Mouse (PS/2)"
+msgstr "ಚಕ್ರೀಯ ಮೌಸ್ (PS/2)"
+
+#: ../rhpxl/mouse.py:37
+msgid "2 Button Mouse (USB)"
+msgstr "೨ ಗುಂಡಿಗಳ ಮೌಸ್ (USB)"
+
+#: ../rhpxl/mouse.py:39
+msgid "3 Button Mouse (USB)"
+msgstr "3 ಗುಂಡಿಗಳ ಮೌಸ್ (USB)"
+
+#: ../rhpxl/mouse.py:41
+msgid "Wheel Mouse (USB)"
+msgstr "ಚಕ್ರೀಯ ಮೌಸ್ (USB)"
+
+#: ../rhpxl/mouse.py:43
+msgid "Genius"
+msgstr "ಮೇಧಾವಿ"
+
+#: ../rhpxl/mouse.py:43
+msgid "NetMouse (serial)"
+msgstr "ಜಾಲಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:45
+msgid "Kensington"
+msgstr "ಕೆನ್ಸಿಂಗ್ಟನ್"
+
+#: ../rhpxl/mouse.py:45
+msgid "Thinking Mouse (serial)"
+msgstr "ಆಲೋಚನಾ ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:47 ../rhpxl/mouse.py:49 ../rhpxl/mouse.py:51
+#: ../rhpxl/mouse.py:53
+msgid "Logitech"
+msgstr "ಲಾಜಿಟೆಕ್"
+
+#: ../rhpxl/mouse.py:47
+msgid "C7 Mouse (serial, old C7 type)"
+msgstr "ಸಿ೭ ಮೌಸ್ (ಅನುಕ್ರಮಿತ, ಹಳೆ ಸಿ೭ ರೀತಿಯ)"
+
+#: ../rhpxl/mouse.py:49
+msgid "CC Series (serial)"
+msgstr "ಸಿಸಿ ಕ್ರಮ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:51
+msgid "MouseMan/FirstMouse (serial)"
+msgstr "ಮೌಸ್ ಮ್ಯಾನ್/ಫಸ್ಟ್ ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:53
+msgid "MouseMan+/FirstMouse+ (serial)"
+msgstr "ಮೌಸ್ ಮ್ಯಾನ್+/ಫಸ್ಟ್ ಮೌಸ್+ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:55 ../rhpxl/mouse.py:57 ../rhpxl/mouse.py:59
+msgid "Microsoft"
+msgstr "ಮೌಕ್ರೋಸಾಫ್ಟ್"
+
+#: ../rhpxl/mouse.py:55
+msgid "Compatible Mouse (serial)"
+msgstr "ಸಹವರ್ತಿಸುವ ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:57
+msgid "Rev 2.1A or higher (serial)"
+msgstr "Rev 2.1A ಅಥವ ಹೆಚ್ಚಿನ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:59
+msgid "IntelliMouse (serial)"
+msgstr "ಇಂಟೆಲ್ಲಿಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:61
+msgid "Mouse Systems"
+msgstr "ಮೌಸ್ ವ್ಯವಸ್ಥೆಗಳು"
+
+#: ../rhpxl/mouse.py:61
+msgid "Mouse (serial)"
+msgstr "ಮೌಸ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:63 ../rhpxl/mouse.py:65
+msgid "MM"
+msgstr "ಎಂಎಂ"
+
+#: ../rhpxl/mouse.py:63
+msgid "MM Series (serial)"
+msgstr "ಎಂಎಂ ಕ್ರಮ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:65
+msgid "MM HitTablet (serial)"
+msgstr "ಎಂಎಂ ಹಿಟ್ ಟೇಬಲ್ (ಅನುಕ್ರಮಿತ)"
+
+#: ../rhpxl/mouse.py:68
+msgid "Sun"
+msgstr "ಸನ್"
+
+#: ../rhpxl/mouse.py:68
+msgid "Mouse"
+msgstr "ಮೌಸ್"
+
+#: ../rhpxl/mouse.py:69
+msgid "Synaptics"
+msgstr "ಸಿನಾಪ್ಟಿಕ್ಸ್"
+
+#: ../rhpxl/mouse.py:69
+msgid "Synaptics Touchpad"
+msgstr "ಸಿನಾಪ್ಟಿಕ್ಸ್ ಟಚ್ ಪ್ಯಾಡ್"
+
+#: ../rhpxl/mouse.py:71
+msgid "VMWare"
+msgstr "VMWare"
+
+#: ../rhpxl/mouse.py:71
+msgid "VMWare Mouse"
+msgstr "VMWare ಮೌಸ್"
+
+#: ../rhpxl/mouse.py:213 ../rhpxl/xserver.py:92
+msgid "Unable to probe"
+msgstr "ಪರೀಕ್ಷಿಸಲಾಗಿಲ್ಲ"
+
+#: ../rhpxl/xhwstate.py:140
+msgid "Probing monitor"
+msgstr "ತೆರೆಯನ್ನು ಪರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../rhpxl/xhwstate.py:148
+msgid "Probing videocard"
+msgstr "ವೀಡಿಯೂ ಕಾರ್ಡನ್ನು ಪರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../rhpxl/xserver.py:94
 #, python-format
-msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "ಕಿಕ್ ಸ್ಟಾರ್ಟಿನ ಕಡತದ್ %s ಸಾಲಿನಿಂದ ಓದುವಲ್ಲಿ ತೊಂದರೆ ಉಂಟಾಗಿದೆ"
+msgid "Probing for video card:   %s"
+msgstr "   %s ವೀಡಿಯೋ ಕಾರ್ಡಿಗಾಗಿ ಪರೀಕ್ಷಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../pykickstart/options.py:84
+#: ../rhpxl/xserver.py:137
+msgid "Attempting to start native X server"
+msgstr "ಸ್ಥಳಿಯ X ಪರಿಚಾರಕವನ್ನು ಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../rhpxl/xserver.py:148
 #, python-format
-msgid "Option %s is required"
-msgstr "ಆಯ್ಕೆ %s ನ ಆವಶ್ಯಕತೆ ಇದೆ"
+msgid "Attempting to start native X server using resolution %s"
+msgstr "ಸ್ಥಳಿಯ X ಪರಿಚಾರಕವನ್ನು %s ರಿಸಲ್ಯೂಶನನ್ನು ಉಪಯೋಗಿಸಿ ಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ"
 
-#: ../pykickstart/options.py:87
+#: ../rhpxl/xserver.py:154
+msgid "Attempting to start VESA X server"
+msgstr "VESA X ಪರಿಚಾರಕವನ್ನು ಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../rhpxl/xserver.py:163
+msgid "Attempting to start frame buffer X server"
+msgstr "ಫ್ರೇಮ್ ಬಫರ್ X ಪರಿಚಾರಕವನ್ನು ಪ್ರಾರಂಭಿಸಲು ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ"
+
+#: ../rhpxl/xserver.py:187
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(intro)s ಯಲ್ಲ್ಲಿ ಪರಿಚಯಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು ಕಿಕ್-ಸ್ಟಾರ್ಟ್ "
-"ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
+msgid "Waiting for X server to start...log located in %s\n"
+msgstr "X ಪರಿಚಾರಕ ಪ್ರಾರಂಭಿವಾಗುದನ್ನು ಕಾಯಲಾಗುತ್ತಿದೆ...ಲಾಗ್ %s ನಲ್ಲಿ ಪತ್ತೆಯಾಗಿದೆ\n"
 
-#: ../pykickstart/options.py:90
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"ಸಾಲು %(lineno)s ನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(option)s ಯು "
-"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
-"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
-"ದಯವಿಟ್ಟು ಈ ಆಯ್ಕೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
+#: ../rhpxl/xserver.py:211
+msgid " X server started successfully."
+msgstr "X ಪರಿಚಾರಕವು ಯಶಸ್ವಿಯಾಗಿ ಪ್ರಾರಂಭವಾಗಿದೆ."
 
-#: ../pykickstart/options.py:93
-#, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"ಆಯ್ಕೆ %(option)s ಯು ಆವೃತ್ತಿ %(removed)s ನಲ್ಲ್ಲಿ ವಜಾಗೊಳಿಸಲಾಗಿದೆ, ಆದರೆ ನೀವು ಕಿಕ್-"
-"ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಆವೃತ್ತಿ %(version)s ಯನ್ನು ಬಳಸುತ್ತಿದ್ದೀರಿ."
-
-#: ../pykickstart/options.py:147
-msgid "Required flag set for option that doesn't take a value"
-msgstr "ಮೌಲ್ಯವನ್ನು ಹೊಂದದ ಆಯ್ಕೆಗಳಿಗೆ ತಲೆಚೀಟಿಯ ಅಗತ್ಯವಿದೆ"
-
-#: ../pykickstart/options.py:156
-#, python-format
-msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌಲ್ಯ: %(value)r"
-
-#: ../pykickstart/options.py:161
-#, fuzzy, python-format
-msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "ಆಯ್ಕೆ %(opt)s: ಅಮಾನ್ಯ ಬೂಲಿಯನ್ ಮೌಲ್ಯ: %(value)r"
-
-#: ../pykickstart/parser.py:90
-#, python-format
-msgid "Illegal url for %%ksappend: %s"
-msgstr "%%ksappend ಗೆ ಅಸಮ್ಮತ url: %s"
-
-#: ../pykickstart/parser.py:95
-#, python-format
-msgid "Unable to open %%ksappend file: "
-msgstr "%%ksappend ಕಡತವನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ: "
-
-#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
-#, python-format
-msgid "Unable to open %%ksappend file"
-msgstr "%%ksappend ಕಡತವನ್ನು ತೆರೆಯಲಾಗಿಲ್ಲ"
-
-#: ../pykickstart/parser.py:286
-msgid "Group cannot specify both --nodefaults and --optional"
-msgstr "ಸಮೂಹಕ್ಕೆ --nodefaults ಹಾಗೂ --optional ಗಳೆರೆಡನ್ನೂ ನಿಗದಿಸಲು ಸಾಧ್ಯವಿರುವುದಿಲ್ಲ"
-
-#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
-msgid ""
-"%s does not end with %%end.  This syntax has been deprecated.  It may be "
-"removed from future releases, which will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"ಸಾಲು %(lineno)s ನ ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆಯನ್ನುನಿರ್ಲಕ್ಷಿಸಲಾಗುತ್ತಿದೆ:  ಆಯ್ಕೆ %(option)s ಯು "
-"ಅಸಮ್ಮತಿಗೊಂಡಿದ್ದು ಹಾಗು ಇನ್ನು ಮುಂದೆ ಯಾವುದೇ ಪರಿಣಾಮ ನೀಡುವುದಿಲ್ಲ.  ಅದು ಮುಂದಿನ "
-"ಬಿಡುಗಡೆಗಳಲ್ಲಿ ತೆಗೆಲ್ಪಟ್ಟು, ಕೊನೆಗೆ ಕಿಕ್ ಸ್ಟಾರ್ಟಿನಿಂದ ಮಾರಕ ದೋಷಕ್ಕೆ ಕಾರಣವಾಗುತ್ತದೆ.  "
-"ದಯವಿಟ್ಟು ಈ ಆಯ್ಕೆಯನ್ನು ತೆಗೆಯಲು ನಿಮ್ಮ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ಕಡತವನ್ನು ಮಾರ್ಪಡಿಸಿ"
-
-#: ../pykickstart/parser.py:604
-msgid "Script"
-msgstr ""
-
-#. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
-#: ../pykickstart/version.py:150
-#, python-format
-msgid "Unsupported version specified: %s"
-msgstr "ಬೆಂಬಲಿತವಾಗದ ಆವೃತ್ತಿಯನ್ನು ಸೂಚಿಸಲಾಗಿದೆ: %s"
-
-#: ../tools/ksvalidator:52
-msgid "halt after the first error or warning"
-msgstr "ಪ್ರಥಮ ದೋಷ ಅಥವ ಎಚ್ಚರಿಕೆಯ ನಂತರ ನಿಲ್ಲು"
-
-#: ../tools/ksvalidator:55
-#, python-format
-msgid "parse include files when %include is seen"
-msgstr "%include ಕಂಡಾಗ ವಿಶ್ಲೇಷಣೆಯು ಕಡತಗಳನ್ನು ಸೇರಿಸುತ್ತದೆ"
-
-#: ../tools/ksvalidator:57
-msgid "version of kickstart syntax to validate against"
-msgstr "ಇದರ ವಿರುದ್ಧ ಮಾನ್ಯಮಾಡಬೇಕಾದ ಕಿಕ್-ಸ್ಟಾರ್ಟ್ ಸಿಂಟ್ಯಾಕ್ಸಿನ ಆವೃತ್ತಿ"
-
-#: ../tools/ksvalidator:71
-#, python-format
-msgid "The version %s is not supported by pykickstart"
-msgstr "pykickstart ನಿಂದ ಬೆಂಬಲಿತವಾಗದೇ ಇರುವ %s ಆವೃತ್ತಿ"
-
-#: ../tools/ksvalidator:87
-#, python-format
-msgid ""
-"File uses a deprecated option or command.\n"
-"%s"
-msgstr ""
-"ಕಡತವು ಅಸಮ್ಮತಿಗೊಂಡ ಆಯ್ಕೆ ಅಥವ ಆಜ್ಞೆಯನ್ನು ಉಪಯೋಗಿಸುತ್ತದೆ.\n"
-"%s"
-
-#: ../tools/ksvalidator:93
-msgid "General kickstart error in input file"
-msgstr "ಆದಾನಗೊಂಡ ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ಕಿಕ್ ಸ್ಟಾರ್ಟ್ ದೋಷ"
-
-#: ../tools/ksvalidator:96
-#, python-format
-msgid "General error in input file:  %s"
-msgstr "%s ಕಡತದಲ್ಲಿ ಸಾಮನ್ಯ ದೋಷ"
