@@ -177,6 +177,6 @@ class F8_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_option("--timeout", dest="timeout")
+        op.add_option("--timeout", dest="timeout", type="int")
         op.add_option("--default", dest="default")
         return op
