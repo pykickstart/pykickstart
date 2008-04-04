@@ -169,9 +169,9 @@ class F8_Bootloader(FC4_Bootloader):
         ret = FC4_Bootloader._getArgsAsStr(self)
 
         if self.timeout is not None:
-            ret += "--timeout=%d" %(self.timeout,)
+            ret += " --timeout=%d" %(self.timeout,)
         if self.default:
-            ret += "--default=%s" %(self.default,)
+            ret += " --default=%s" %(self.default,)
 
         return ret
 
