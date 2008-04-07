@@ -126,7 +126,7 @@ def preprocessFromString (str):
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
-    i = iter(str.splitlines(True))
+    i = iter(str.splitlines(True) + [""])
     rc = _preprocessStateMachine (lambda: i.next())
     return rc
 
@@ -679,7 +679,10 @@ class KickstartParser:
         if reset:
             self._reset()
 
-        i = iter(str.splitlines(True))
+        # Add a "" to the end of the list so the string reader acts like the
+        # file reader and we only get StopIteration when we're after the final
+        # line of input.
+        i = iter(str.splitlines(True) + [""])
         self._stateMachine (lambda: i.next())
 
     def readKickstart(self, file, reset=True):
