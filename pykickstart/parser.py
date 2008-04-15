@@ -581,7 +581,7 @@ class KickstartHandlers:
     def doNetwork(self, args):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bootproto", dest="bootProto", default="dhcp",
-                      choices=["dhcp", "bootp", "static"])
+                      choices=["dhcp", "bootp", "static", "query"])
         op.add_option("--class", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
