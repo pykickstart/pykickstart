@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43
+Version: 0.43.1
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.gz
 License: GPL
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Apr 15 2008 Chris Lumens <clumens@redhat.com> 0.43.1-1
+- query is now a valid bootproto for network devices (#441837).
+
 * Fri Dec 15 2006 Chris Lumens <clumens@redhat.com> - 0.43-1
 - Pull in new translations (#216620).
 
