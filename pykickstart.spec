@@ -4,7 +4,7 @@ Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Version: 0.43.1
 Release: 1%{?dist}
-Source0: %{name}-%{version}.tar.gz
+Source0: %{name}-%{version}.tar.bz2
 License: GPL
 Group: System Environment/Libraries
 BuildArch: noarch

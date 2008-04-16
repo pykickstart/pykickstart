@@ -1,7 +1,7 @@
 PKGNAME=pykickstart
 VERSION=$(shell awk '/Version:/ { print $$2 }' ${PKGNAME}.spec)
 RELEASE=$(shell awk '/Release:/ { print $$2 }' ${PKGNAME}.spec | sed -e 's|%.*$$||g')
-CVSTAG=r$(subst .,_,$(VERSION)-$(RELEASE))
+TAG=r$(VERSION)-$(RELEASE)
 
 MANDIR=/usr/share/man
 PREFIX=/usr
@@ -21,22 +21,25 @@ install: all
 	$(MAKE) -C po install
 
 tag:
-	cvs tag -FR $(CVSTAG)
+	git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	@echo "Tagged as $(TAG)"
 
-archive: tag
-	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
-	@CVSROOT=`cat CVS/Root`; cd /tmp; cvs -d $$CVSROOT export -r$(CVSTAG) ${PKGNAME}
-	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
-	@cd /tmp/${PKGNAME}-$(VERSION) ; python setup.py -q sdist
-	@cp /tmp/${PKGNAME}-$(VERSION)/dist/${PKGNAME}-$(VERSION).tar.gz .
-	@rm -rf /tmp/${PKGNAME}-$(VERSION)
-	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
+archive: create-archive
 
-local:
-	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
-	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
-	@dir=$$PWD; cp -a $$dir /tmp/${PKGNAME}-$(VERSION)
-	@cd /tmp/${PKGNAME}-$(VERSION) ; python setup.py -q sdist
-	@cp /tmp/${PKGNAME}-$(VERSION)/dist/${PKGNAME}-$(VERSION).tar.gz .
-	@rm -rf /tmp/${PKGNAME}-$(VERSION)	
-	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.gz"
+src: create-archive
+	@rpmbuild -ts --nodeps pykickstart-$(VERSION).tar.bz2 || exit 1
+	@rm -f pykickstart-$(VERSION).tar.bz2
+
+build: src
+	@rm -rf /tmp/pykickstart
+	@mkdir /tmp/pykickstart
+	cd /tmp/pykickstart ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-5 $(SRPMDIR)/pykickstart-$(VERSION)-$(RELEASE).src.rpm
+	@rm -rf /tmp/pykickstart
+	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?pykickstart/RHEL-5#$(TAG)'
+
+create-snapshot: tag
+	@git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | bzip2 > pykickstart-$(VERSION).tar.bz2
+	@echo "the final archive is in pykickstart-$(VERSION).tar.bz2"
+
+create-archive:
+	make create-snapshot
