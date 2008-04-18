@@ -236,10 +236,10 @@ class BaseHandler:
         return retval
 
     def _insertSorted(self, list, obj):
-        max = len(list)
+        length = len(list)
         i = 0
 
-        while i < max:
+        while i < length:
             # If the two classes have the same name, it's because we are
             # overriding an existing class with one from a later kickstart
             # version, so remove the old one in favor of the new one.
@@ -251,7 +251,7 @@ class BaseHandler:
             elif obj.__class__.__name__ < list[i].__class__.__name__:
                 break
 
-        if i >= max:
+        if i >= length:
             list.append(obj)
         else:
             list.insert(i, obj)

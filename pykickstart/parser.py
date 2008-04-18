@@ -685,26 +685,26 @@ class KickstartParser:
         i = iter(str.splitlines(True) + [""])
         self._stateMachine (lambda: i.next())
 
-    def readKickstart(self, file, reset=True):
-        """Process a kickstart file, given by the filename file."""
+    def readKickstart(self, f, reset=True):
+        """Process a kickstart file, given by the filename f."""
         if reset:
             self._reset()
-        
+
         # an %include might not specify a full path.  if we don't try to figure
         # out what the path should have been, then we're unable to find it
         # requiring full path specification, though, sucks.  so let's make
         # the reading "smart" by keeping track of what the path is at each
         # include depth.
-        if not os.path.exists(file):
+        if not os.path.exists(f):
             if self.currentdir.has_key(self._includeDepth - 1):
-                if os.path.exists(os.path.join(self.currentdir[self._includeDepth - 1], file)):
-                    file = os.path.join(self.currentdir[self._includeDepth - 1], file)
+                if os.path.exists(os.path.join(self.currentdir[self._includeDepth - 1], f)):
+                    f = os.path.join(self.currentdir[self._includeDepth - 1], f)
 
-        cd = os.path.dirname(file)
+        cd = os.path.dirname(f)
         if not cd.startswith("/"):
             cd = os.path.abspath(cd)
         self.currentdir[self._includeDepth] = cd
 
-        fh = urlopen(file)
+        fh = urlopen(f)
         self._stateMachine (lambda: fh.readline())
         fh.close()
