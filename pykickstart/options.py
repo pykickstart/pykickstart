@@ -120,6 +120,22 @@ class KSOptionParser(OptionParser):
         self.lineno = lineno
         self.version = version
 
+def _check_ksboolean(option, opt, value):
+    if value.lower() in ("on", "yes", "true", "1"):
+        return True
+    elif value.lower() in ("off", "no", "false", "0"):
+        return False
+    else:
+        mapping = {"opt": opt, "value": value}
+        raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
+
+def _check_string(option, opt, value):
+    if len(value) > 2 and value.startswith("--"):
+        mapping = {"opt": opt, "value": value}
+        raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
+    else:
+        return value
+
 # Creates a new Option class that supports several new attributes:
 # - required:  any option with this attribute must be supplied or an exception
 #              is thrown
@@ -153,22 +169,6 @@ class KSOption (Option):
         if self.required and not self.takes_value():
             raise OptionError(_("Required flag set for option that doesn't take a value"), self)
 
-    def _check_ksboolean(option, opt, value):
-        if value.lower() in ("on", "yes", "true", "1"):
-            return True
-        elif value.lower() in ("off", "no", "false", "0"):
-            return False
-        else:
-            mapping = {"opt": opt, "value": value}
-            raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
-
-    def _check_string(option, opt, value):
-        if len(value) > 2 and value.startswith("--"):
-            mapping = {"opt": opt, "value": value}
-            raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
-        else:
-            return value
-
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
     TYPE_CHECKER.update({"ksboolean": _check_ksboolean, "string": _check_string})
@@ -185,3 +185,7 @@ class KSOption (Option):
             values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
+
+    def __init__(self, *args, **kwargs):
+        Option.__init__(self, *args, **kwargs)
+        self.required = False

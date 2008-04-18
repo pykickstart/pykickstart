@@ -179,6 +179,8 @@ class BaseHandler:
                        command object should ever exist.  Most users should
                        never have to deal with this directly, as it is
                        manipulated internally and called through dispatcher.
+           currentLine -- The current unprocessed line from the input file
+                          that caused this handler to be run.
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
@@ -198,7 +200,9 @@ class BaseHandler:
         self.packages = Packages()
         self.platform = ""
 
+        # These will be set by the dispatcher.
         self.commands = {}
+        self.currentLine = 0
 
         # A dict keyed by an integer priority number, with each value being a
         # list of KickstartCommand subclasses.  This dict is maintained by
