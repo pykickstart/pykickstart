@@ -302,6 +302,7 @@ class BaseHandler:
 
             # Finally, add the mapping to the commands dict.
             self.commands[cmdName] = cmdObj
+            self.commands[cmdName].handler = self
 
         # We also need to create attributes for the various data objects.
         # No checks here because dMap is a bijection.  At least, that's what
@@ -323,7 +324,6 @@ class BaseHandler:
         elif self.commands[cmd] != None:
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
-            self.commands[cmd].handler = self
             self.commands[cmd].lineno = lineno
             self.commands[cmd].parse(args[1:])
 
