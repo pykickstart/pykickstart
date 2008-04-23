@@ -5,26 +5,22 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-03-27 19:39+0200\n"
-"Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
-"Language-Team: \n"
+"PO-Revision-Date: 2008-04-23 21:05+0100\n"
+"Last-Translator: Sulyok Péter <peti@sulyok.hu>\n"
+"Language-Team: Hungarian <fedora-trans-hu@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"X-Poedit-Language: Hungarian\n"
+"X-Poedit-Country: HUNGARY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Figyelmen kívül lesz hagyva egy elavult parancs a(z) %(lineno)s. sorban: a"
-"(z) %(cmd)s parancs elavult, már nincs hatása. A későbbi kiadások esetleg "
-"már nem fogják elfogadni, és a Kickstart végzetes hibát jelezhet. Célszerű "
-"ezért eltávolítani ezt a parancsot a Kickstart-fájlból."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Elavult parancs mellőzése  a(z) %(lineno)s. sorban: a(z) %(cmd)s parancs elavult, már nincs hatása. További kiadásokból talán már eltávolítják, és a kickstart végzetes hibát fog jelezni. Kérem távolítsa el ezt a parancsot a kickstart fájlból!"
 
 #: ../pykickstart/base.py:315
 #, python-format
@@ -38,50 +34,34 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Az alábbi hiba történt a Kickstart-fájl %(lineno)s. sorában:\n"
+"Az alábbi hiba történt a kickstart fájl %(lineno)s. sorában:\n"
 "\n"
 "%(msg)s\n"
 
 #: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Hiba történt a Kickstart-fájl %s. sorának beolvasása közben"
+msgstr "Hiba történt a kickstart fájl %s. sorát beolvasva"
 
 #: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
-msgstr "A(z) %s opciót kötelező megadni"
+msgstr "%s opció szükséges"
 
 #: ../pykickstart/options.py:87
 #, python-format
-msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"A(z) \"%(option)s\" opció a(z) \"%(intro)s\" verzióban lett bevezetve, de Ön "
-"\"%(version)s\" verziójú Kickstart-szintaxist használ."
+msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
+msgstr "%(option)s opciót a(z) %(intro)s változatban vezették be, de kickstart szintaxis %(version)s változatát használja"
 
 #: ../pykickstart/options.py:90
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Elavult beállítás szerepel a(z) %(lineno)s. sorban, figyelmen kívül lesz "
-"hagyva: a(z) %(option)s beállítás már elavult, nincs hatása. A későbbi "
-"kiadások esetleg már nem fogják elfogadni, és a Kickstart végzetes hibát "
-"jelezhet. Célszerű ezért eltávolítani ezt a beállítást a Kickstart-fájlból."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "%(lineno)s. sorban elavult beállítás mellőzése,: %(option)s beállítás már elavult, nincs hatása. A későbbi kiadásokból talán már eltávolítják, és kickstart végzetes hibát fog jelezni. Kérem távolítsa el ezt a beállítást a kickstart fájlból!"
 
 #: ../pykickstart/options.py:93
 #, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"A(z) \"%(option)s\" opció meg lett szüntetve a(z) \"%(removed)s\" verzióban, "
-"de Ön \"%(version)s\" verziójú Kickstart-szintaxist használ."
+msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
+msgstr "%(option)s opciót megszüntették %(removed)s változatban, de %(version)s verziójú kickstart szintaxist használ"
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
@@ -93,48 +73,45 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "%(opt)s beállítás: érvénytelen logikai érték: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "%(opt)s beállítás: érvénytelen logikai érték: %(value)r"
+msgstr "%(opt)s beállítás: érvénytelen szöveg: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Érvénytelen URL %%ksappend fájlhoz: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Nem lehet megnyitni %%ksappend fájlt:"
 
-#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#: ../pykickstart/parser.py:101
+#: ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Nem lehet megnyitni %%ksappend fájlt"
 
 #: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "A csoport nem adhat meg --nodefaults és --optional opciót egyszerre"
 
-#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
-msgid ""
-"%s does not end with %%end.  This syntax has been deprecated.  It may be "
-"removed from future releases, which will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"Elavult beállítás szerepel a(z) %(lineno)s. sorban, figyelmen kívül lesz "
-"hagyva: a(z) %(option)s beállítás már elavult, nincs hatása. A későbbi "
-"kiadások esetleg már nem fogják elfogadni, és a Kickstart végzetes hibát "
-"jelezhet. Célszerű ezért eltávolítani ezt a beállítást a Kickstart-fájlból."
+#: ../pykickstart/parser.py:545
+#: ../pykickstart/parser.py:604
+#, python-format
+msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
+msgstr "%s nem %%end kifejezésre végződik. Ez a szintaxis elavult. További kiadásokból talán már eltávolítják, és a kickstart végzetes hibát fog jelezni. Kérem távolítsa el ezt a parancsot a kickstart fájlból!"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Írás"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
+#: ../pykickstart/version.py:87
+#: ../pykickstart/version.py:96
+#: ../pykickstart/version.py:99
+#: ../pykickstart/version.py:110
 #: ../pykickstart/version.py:150
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -147,17 +124,16 @@ msgstr "leállás az első hiba vagy figyelmeztetés után"
 #: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "az include fájlok feldolgozása %include argumentum előfordulásakor"
+msgstr "az include fájlok feldolgozása %include előfordulásakor"
 
 #: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
-msgstr ""
-"melyik Kickstart-szintaxisverziónak megfelelően kell végezni az ellenőrzést"
+msgstr "melyik Kickstart-szintaxisverziónak megfelelően kell végezni az ellenőrzést"
 
 #: ../tools/ksvalidator:71
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr "A(z) \"%s\" verziót a Pykickstart nem támogatja"
+msgstr "Pykickstart nem támogatja %s változatot"
 
 #: ../tools/ksvalidator:87
 #, python-format
@@ -176,3 +152,4 @@ msgstr "Általános Kickstart-hiba történt egy bemeneti fájlban"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Általános hiba történt egy bemeneti fájlban: %s"
+
