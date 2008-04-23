@@ -179,6 +179,8 @@ class BaseHandler:
                        command object should ever exist.  Most users should
                        never have to deal with this directly, as it is
                        manipulated internally and called through dispatcher.
+           currentLine -- The current unprocessed line from the input file
+                          that caused this handler to be run.
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
@@ -198,7 +200,9 @@ class BaseHandler:
         self.packages = Packages()
         self.platform = ""
 
+        # These will be set by the dispatcher.
         self.commands = {}
+        self.currentLine = 0
 
         # A dict keyed by an integer priority number, with each value being a
         # list of KickstartCommand subclasses.  This dict is maintained by
@@ -232,10 +236,10 @@ class BaseHandler:
         return retval
 
     def _insertSorted(self, list, obj):
-        max = len(list)
+        length = len(list)
         i = 0
 
-        while i < max:
+        while i < length:
             # If the two classes have the same name, it's because we are
             # overriding an existing class with one from a later kickstart
             # version, so remove the old one in favor of the new one.
@@ -247,7 +251,7 @@ class BaseHandler:
             elif obj.__class__.__name__ < list[i].__class__.__name__:
                 break
 
-        if i >= max:
+        if i >= length:
             list.append(obj)
         else:
             list.insert(i, obj)
@@ -298,6 +302,7 @@ class BaseHandler:
 
             # Finally, add the mapping to the commands dict.
             self.commands[cmdName] = cmdObj
+            self.commands[cmdName].handler = self
 
         # We also need to create attributes for the various data objects.
         # No checks here because dMap is a bijection.  At least, that's what
@@ -319,7 +324,6 @@ class BaseHandler:
         elif self.commands[cmd] != None:
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
-            self.commands[cmd].handler = self
             self.commands[cmd].lineno = lineno
             self.commands[cmd].parse(args[1:])
 

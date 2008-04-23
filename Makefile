@@ -6,7 +6,7 @@ TAG=r$(VERSION)-$(RELEASE)
 MANDIR=/usr/share/man
 PREFIX=/usr
 
-PYCHECKEROPTS=--no-shadowbuiltin --no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only
+PYCHECKEROPTS=--no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only -Q
 
 default: all
 
@@ -17,6 +17,7 @@ docs:
 	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
 
 check:
+	@echo "*** Running pychecker to verify source ***"
 	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
 
 clean:
@@ -35,7 +36,7 @@ tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
-archive: tag docs
+archive: check tag docs
 	@rm -f ChangeLog
 	@make ChangeLog
 	git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar

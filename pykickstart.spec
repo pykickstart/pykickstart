@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.32
+Version: 1.33
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Tue Apr 08 2008 Chris Lumens <clumens@redhat.com> - 1.33-1
+- Fix whitespace when printing out the bootloader command (pmeyers).
+- Fix the type on bootloader --timeout processing. (clumens)
+
 * Wed Apr 02 2008 Chris Lumens <clumens@redhat.com> - 1.32-1
 - Make the string reader act like the file reader upon EOF. (clumens)
 - Add syntax for encrypted logical volumes. (clumens)
