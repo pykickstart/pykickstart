@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -152,3 +152,7 @@ class F9_XConfig(FC6_XConfig):
         op.remove_option("--noprobe")
         op.remove_option("--vsync")
         return op
+
+class F10_XConfig(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)
