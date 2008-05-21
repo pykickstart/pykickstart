@@ -46,7 +46,7 @@ class FC3_VolGroupData(BaseData):
         if self.preexist:
             retval += " --useexisting"
 
-        return retval + " " + string.join(self.physvols, ",") + "\n"
+        return retval + " " + string.join(self.physvols, " ") + "\n"
 
 class FC3_VolGroup(KickstartCommand):
     def __init__(self, writePriority=131, vgList=None):
