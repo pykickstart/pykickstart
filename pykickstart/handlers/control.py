@@ -635,6 +635,7 @@ commandMap = {
 """
 dataMap = {
     FC3: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "LogVolData": logvol.FC3_LogVolData,
         "NetworkData": network.FC3_NetworkData,
         "PartData": partition.FC3_PartData,
@@ -643,6 +644,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     FC4: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "LogVolData": logvol.FC4_LogVolData,
         "NetworkData": network.FC4_NetworkData,
         "PartData": partition.FC4_PartData,
@@ -651,6 +653,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     FC5: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "LogVolData": logvol.FC4_LogVolData,
         "NetworkData": network.FC4_NetworkData,
         "PartData": partition.FC4_PartData,
@@ -659,6 +662,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     FC6: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
         "LogVolData": logvol.FC4_LogVolData,
@@ -672,6 +676,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F7: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
         "LogVolData": logvol.FC4_LogVolData,
@@ -685,6 +690,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F8: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
@@ -699,6 +705,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F9: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
@@ -713,6 +720,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F10: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
@@ -727,6 +735,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     RHEL3: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "LogVolData": logvol.FC4_LogVolData,
         "NetworkData": network.RHEL4_NetworkData,
         "PartData": partition.FC3_PartData,
@@ -735,6 +744,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     RHEL4: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "LogVolData": logvol.FC4_LogVolData,
         "NetworkData": network.RHEL4_NetworkData,
         "PartData": partition.FC3_PartData,
@@ -743,6 +753,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     RHEL5: {
+        "DriverDiskData": driverdisk.FC3_DriverDiskData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.FC6_IscsiData,
         "LogVolData": logvol.FC4_LogVolData,
