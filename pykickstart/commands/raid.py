@@ -134,7 +134,7 @@ class F9_RaidData(FC5_RaidData):
         return retval
 
 class FC3_Raid(KickstartCommand):
-    def __init__(self, writePriority=140, raidList=None):
+    def __init__(self, writePriority=131, raidList=None):
         KickstartCommand.__init__(self, writePriority)
         self.op = self._getParser()
 
@@ -209,7 +209,7 @@ class FC3_Raid(KickstartCommand):
         self.raidList.append(newObj)
 
 class FC4_Raid(FC3_Raid):
-    def __init__(self, writePriority=140, raidList=None):
+    def __init__(self, writePriority=131, raidList=None):
         FC3_Raid.__init__(self, writePriority, raidList)
 
     def _getParser(self):
@@ -218,7 +218,7 @@ class FC4_Raid(FC3_Raid):
         return op
 
 class FC5_Raid(FC4_Raid):
-    def __init__(self, writePriority=140, raidList=None):
+    def __init__(self, writePriority=131, raidList=None):
         FC4_Raid.__init__(self, writePriority, raidList)
 
     def _getParser(self):
@@ -228,13 +228,13 @@ class FC5_Raid(FC4_Raid):
         return op
 
 class F7_Raid(FC5_Raid):
-    def __init__(self, writePriority=140, raidList=None):
+    def __init__(self, writePriority=131, raidList=None):
         FC5_Raid.__init__(self, writePriority, raidList)
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
 
 class F9_Raid(F7_Raid):
-    def __init__(self, writePriority=140, raidList=None):
+    def __init__(self, writePriority=131, raidList=None):
         F7_Raid.__init__(self, writePriority, raidList)
 
     def _getParser(self):
