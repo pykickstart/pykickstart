@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.34
+Version: 1.35
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Fri May 23 2008 Chris Lumens <clumens@redhat.com> - 1.35-1
+- Bring driverdisk command in line with the docs. (clumens)
+- Change RAID command print priorities (jlaska).
+- According to docs, physvols are space delimited. (jlaska)
+- Don't write the label out twice (jlaska).
+- Deprecate monitor and xconfig commands. (clumens)
+
 * Wed May 07 2008 Chris Lumens <clumens@redhat.com> - 1.34-1
 - Load the handler module automatically. (clumens)
 - Add support for F10. (clumens)
