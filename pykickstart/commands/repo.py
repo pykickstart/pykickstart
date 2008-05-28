@@ -49,19 +49,19 @@ class FC6_RepoData(BaseData):
         return "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
 
 class F8_RepoData(FC6_RepoData):
-    def __init__(self, baseurl="", mirrorlist="", name="", priority=None,
+    def __init__(self, baseurl="", mirrorlist="", name="", cost=None,
                  includepkgs=[], excludepkgs=[]):
         FC6_RepoData.__init__(self, baseurl=baseurl, mirrorlist=mirrorlist,
                               name=name)
-        self.priority = priority
+        self.cost = cost
         self.includepkgs = includepkgs
         self.excludepkgs = excludepkgs
 
     def _getArgsAsStr(self):
         retval = FC6_RepoData._getArgsAsStr(self)
 
-        if self.priority:
-            retval += " --priority=%s" % self.priority
+        if self.cost:
+            retval += " --cost=%s" % self.cost
         if self.includepkgs:
             retval += " --includepkgs=\"%s\"" % string.join(self.includepkgs, ",")
         if self.excludepkgs:
@@ -128,7 +128,7 @@ class F8_Repo(FC6_Repo):
                 parser.values.ensure_value(option.dest, []).append(d)
 
         op = FC6_Repo._getParser(self)
-        op.add_option("--priority", action="store", type="int")
+        op.add_option("--cost", action="store", type="int")
         op.add_option("--excludepkgs", action="callback", callback=list_cb,
                       nargs=1, type="string")
         op.add_option("--includepkgs", action="callback", callback=list_cb,
