@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.35
+Version: 1.36
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Thu May 29 2008 Chris Lumens <clumens@redhat.com> - 1.36-1
+- It should be repo --cost, not repo --priority. (clumens)
+
 * Fri May 23 2008 Chris Lumens <clumens@redhat.com> - 1.35-1
 - Bring driverdisk command in line with the docs. (clumens)
 - Change RAID command print priorities (jlaska).
