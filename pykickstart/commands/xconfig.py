@@ -153,6 +153,10 @@ class F9_XConfig(FC6_XConfig):
         op.remove_option("--vsync")
         return op
 
-class F10_XConfig(DeprecatedCommand):
-    def __init__(self):
-        DeprecatedCommand.__init__(self)
+class F10_XConfig(F10_XConfig):
+    def _getParser(self):
+        op = F9_XConfig._getParser(self)
+        op.add_option("--driver", deprecated=1)
+        op.add_option("--depth", deprecated=1)
+        op.add_option("--resolution", deprecated=1)
+        op.add_option("--videoram", deprecated=1)
