@@ -153,7 +153,7 @@ class F9_XConfig(FC6_XConfig):
         op.remove_option("--vsync")
         return op
 
-class F10_XConfig(F10_XConfig):
+class F10_XConfig(F9_XConfig):
     def _getParser(self):
         op = F9_XConfig._getParser(self)
         op.add_option("--driver", deprecated=1)
