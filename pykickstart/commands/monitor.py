@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -95,3 +95,7 @@ class FC6_Monitor(FC3_Monitor):
         op.add_option("--noprobe", dest="probe", action="store_false",
                       default=True)
         return op
+
+class F10_Monitor(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)

@@ -135,8 +135,6 @@ class F9_PartData(FC4_PartData):
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
-        if self.label != "":
-            retval += " --label=%s" % self.label
         if self.encrypted:
             retval += " --encrypted"
 

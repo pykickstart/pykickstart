@@ -43,7 +43,7 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import re
+import imputil, re, sys
 from urlgrabber import urlopen
 
 from rhpl.translate import _
@@ -60,15 +60,16 @@ RHEL5 = 4100
 F7  = 5000
 F8 = 6000
 F9 = 7000
+F10 = 8000
 
 # This always points at the latest version and is the default.
-DEVEL = F9
+DEVEL = F10
 
 """A one-to-one mapping from string representations to version numbers."""
 versionMap = {
         "DEVEL": DEVEL,
         "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
-        "F9": F9,
+        "F9": F9, "F10": F10,
         "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
@@ -105,12 +106,15 @@ def stringToVersion(s):
     # If nothing else worked, we're out of options.
     raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
-def versionToString(version):
+def versionToString(version, skipDevel=False):
     """Convert version into a string representation of the version number.
        This is the reverse operation of stringToVersion.  Raises
        KickstartVersionError if version does not match anything.
     """
     for (key, val) in versionMap.iteritems():
+        if version == DEVEL and key == "DEVEL" and skipDevel:
+            continue
+
         if val == version:
             return key
 
@@ -151,40 +155,23 @@ def returnClassForVersion(version=DEVEL):
     """
     try:
         version = int(version)
+        module = "%s" % versionToString(version, skipDevel=True)
     except ValueError:
+        module = "%s" % version
         version = stringToVersion(version)
 
-    if version == FC3:
-        from pykickstart.handlers.fc3 import FC3Handler
-        return FC3Handler
-    elif version == FC4:
-        from pykickstart.handlers.fc4 import FC4Handler
-        return FC4Handler
-    elif version == FC5:
-        from pykickstart.handlers.fc5 import FC5Handler
-        return FC5Handler
-    elif version == FC6:
-        from pykickstart.handlers.fc6 import FC6Handler
-        return FC6Handler
-    elif version == F7:
-        from pykickstart.handlers.f7 import F7Handler
-        return F7Handler
-    elif version == F8:
-        from pykickstart.handlers.f8 import F8Handler
-        return F8Handler
-    elif version == F9:
-        from pykickstart.handlers.f9 import F9Handler
-        return F9Handler
-    elif version == RHEL3:
-        from pykickstart.handlers.rhel3 import RHEL3Handler
-        return RHEL3Handler
-    elif version == RHEL4:
-        from pykickstart.handlers.rhel4 import RHEL4Handler
-        return RHEL4Handler
-    elif version == RHEL5:
-        from pykickstart.handlers.rhel5 import RHEL5Handler
-        return RHEL5Handler
-    else:
+    module = module.lower()
+
+    try:
+        import pykickstart.handlers
+        sys.path.extend(pykickstart.handlers.__path__)
+        found = imputil.imp.find_module(module)
+        loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
+
+        for (k, v) in loaded.__dict__.iteritems():
+            if k.find("Handler") != -1:
+                return v
+    except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
 def makeVersion(version=DEVEL):

@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -152,3 +152,11 @@ class F9_XConfig(FC6_XConfig):
         op.remove_option("--noprobe")
         op.remove_option("--vsync")
         return op
+
+class F10_XConfig(F9_XConfig):
+    def _getParser(self):
+        op = F9_XConfig._getParser(self)
+        op.add_option("--driver", deprecated=1)
+        op.add_option("--depth", deprecated=1)
+        op.add_option("--resolution", deprecated=1)
+        op.add_option("--videoram", deprecated=1)
