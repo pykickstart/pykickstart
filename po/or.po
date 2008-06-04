@@ -1,22 +1,23 @@
-# translation of or.po to Oriya
+# translation of pykickstart.master.or.po to Oriya
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Subhransu Behera <sbehera@redhat.com>, 2006, 2007.
 # Subhransu Behera <arya_subhransu@yahoo.co.in>, 2007.
+# Manoj Kumar Giri <giri.manojkr@gmail.com>, 2008.
 msgid ""
 msgstr ""
-"Project-Id-Version: or\n"
+"Project-Id-Version: pykickstart.master.or\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-06 16:52+0530\n"
-"Last-Translator: Subhransu Behera <arya_subhransu@yahoo.co.in>\n"
-"Language-Team: Oriya <oriya-group@lists.sarovar.org>\n"
+"PO-Revision-Date: 2008-06-03 17:55+0530\n"
+"Last-Translator: Manoj Kumar Giri <giri.manojkr@gmail.com>\n"
+"Language-Team: Oriya\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
 "\n"
@@ -107,9 +108,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ପସନ୍ଦ %(opt)s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "ପସନ୍ଦ %(opt)s: ଅବୈଧ ବୁଲିଆନ ମୂଲ୍ଯ: %(value)r"
+msgstr "ବିକଳ୍ପ %(opt)s: ଅବୈଧ ବାକ୍ୟଖଣ୍ଡ ମୂଲ୍ଯ: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -131,20 +132,19 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "ସମୂହ ଉଭୟ --nodefaults ଏବଂ --optional କୁ ଉଲ୍ଲେଖ କରିପାରିବ ନାହିଁ"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%(lineno)s ଲାଇନରେ ଥିବା ଅଦରକାରି ପସନ୍ଦକୁ ଆଗ୍ରହ୍ଯ କରୁଅଛି: %(option)s ପସନ୍ଦଟି ଅଦରକାରି ଅଟେ "
-"ଏବଂ ଏବେ ଏହାର କୌଣସି ପ୍ରଭାବନାହିଁ। ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି "
-"କିକଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେଏହି ପସନ୍ଦକୁ କାଢିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ "
+"%s %%end ସହିତ ଶେଷ ହୁଏନାହିଁ।  ଏହି ବାକ୍ୟବିନ୍ୟାସକୁ ଅପସନ୍ଦ କରାଯାଇଛି।  ଏହା ଭବିଷ୍ଯତ ସଂସ୍କରଣ ମାନଙ୍କରେ କାଢି ଦିଆ ଯାଇପାରେ, ଯାହାକି "
+"କିକଷ୍ଟାର୍ଟରେ ଗୋଟିଏ ମାରାତ୍ମକ ତୃଟି ସୃଷ୍ଟି କରିପାରେ।  ବାକ୍ୟବିନ୍ୟାସ ଅଦ୍ୟତନକୁ ବ୍ୟବହାର କରିବା ପାଇଁ ଦୟାକରି ଆପଣଙ୍କ କିକଷ୍ଟାର୍ଟ "
 "ଫାଇଲକୁ ରୂପାନ୍ତର କରନ୍ତୁ।"
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "ସ୍କ୍ରିପ୍ଟ"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -189,3 +189,4 @@ msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ କିକଷ୍�
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "ନିବେଶ ଫାଇଲ ରେ ସାଧାରଣ ତୃଟି:  %s"
+
