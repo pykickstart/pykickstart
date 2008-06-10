@@ -169,7 +169,7 @@ def returnClassForVersion(version=DEVEL):
         loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
 
         for (k, v) in loaded.__dict__.iteritems():
-            if k.find("Handler") != -1:
+            if k.lower.endswith("%shandler" % module):
                 return v
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
