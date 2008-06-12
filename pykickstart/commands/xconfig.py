@@ -160,3 +160,4 @@ class F10_XConfig(F9_XConfig):
         op.add_option("--depth", deprecated=1)
         op.add_option("--resolution", deprecated=1)
         op.add_option("--videoram", deprecated=1)
+        return op
