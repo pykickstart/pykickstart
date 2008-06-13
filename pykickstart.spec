@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.38
+Version: 1.39
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Fri Jun 13 2008 Chris Lumens <clumens@redhat.com> - 1.39-1
+- It's helpful to return the parser object. (clumens)
+
 * Tue Jun 10 2008 Chris Lumens <clumens@redhat.com> - 1.38-1
 - Fix loading the Handler object by looking for a more specific
   name (#450740). (clumens)
