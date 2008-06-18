@@ -52,7 +52,7 @@ from pykickstart.version import versionToString
 ###
 ### COMMANDS
 ###
-class KickstartCommand:
+class KickstartCommand(object):
     """The base class for all kickstart commands.  This is an abstract class."""
     def __init__(self, writePriority=0):
         """Create a new KickstartCommand instance.  This method must be
@@ -151,7 +151,7 @@ class DeprecatedCommand(KickstartCommand):
 ###
 ### HANDLERS
 ###
-class BaseHandler:
+class BaseHandler(object):
     """Each version of kickstart syntax is provided by a subclass of this
        class.  These subclasses are what users will interact with for parsing,
        extracting data, and writing out kickstart files.  This is an abstract
@@ -345,7 +345,7 @@ class BaseHandler:
 ###
 ### DATA
 ###
-class BaseData:
+class BaseData(object):
     """The base class for all data objects.  This is an abstract class."""
     def __init__(self):
         """Create a new BaseData instance.  There are no attributes."""
