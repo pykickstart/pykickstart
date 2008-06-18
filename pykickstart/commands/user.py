@@ -24,11 +24,6 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
-
 class FC6_UserData(BaseData):
     def __init__(self, groups=None, homedir="", isCrypted=False, name="",
                  password="", shell="", uid=None):

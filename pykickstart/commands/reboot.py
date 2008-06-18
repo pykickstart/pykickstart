@@ -22,11 +22,6 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
-
 class FC3_Reboot(KickstartCommand):
     def __init__(self, writePriority=0, action=None):
         KickstartCommand.__init__(self, writePriority)

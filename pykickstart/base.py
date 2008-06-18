@@ -38,10 +38,9 @@ This module exports several important base classes:
                        Command objects are contained within a BaseHandler
                        object.
 """
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+gettext.textdomain("pykickstart")
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 import warnings
 from pykickstart.errors import *

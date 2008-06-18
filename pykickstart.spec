@@ -15,7 +15,7 @@ Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext, python-setuptools-devel
-Requires: python, python-urlgrabber, rhpl
+Requires: python, python-urlgrabber
 
 %description
 The pykickstart package is a python library for manipulating kickstart

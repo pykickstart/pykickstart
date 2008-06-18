@@ -21,10 +21,8 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_Logging(KickstartCommand):
     def __init__(self, writePriority=0, host="", level="", port=""):

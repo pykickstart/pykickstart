@@ -23,10 +23,9 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import string
-from rhpl.translate import _
-import rhpl.translate as translate
 
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_RepoData(BaseData):
     def __init__(self, baseurl="", mirrorlist="", name=""):

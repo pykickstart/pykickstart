@@ -46,7 +46,9 @@ This module also exports several functions:
 import imputil, re, sys
 from urlgrabber import urlopen
 
-from rhpl.translate import _
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 from pykickstart.errors import KickstartVersionError
 
 # Symbolic names for internal version numbers.

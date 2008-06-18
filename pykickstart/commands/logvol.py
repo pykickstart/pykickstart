@@ -21,10 +21,8 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_LogVolData(BaseData):
     def __init__(self, fstype="", grow=False, maxSizeMB=0, name="",

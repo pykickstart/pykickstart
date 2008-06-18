@@ -21,11 +21,6 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
-
 class FC3_Vnc(KickstartCommand):
     def __init__(self, writePriority=0, enabled=False, password="", connect=""):
         KickstartCommand.__init__(self, writePriority)

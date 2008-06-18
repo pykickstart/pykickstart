@@ -23,10 +23,8 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_RaidData(BaseData):
     def __init__(self, device=None, fstype="", level="", format=True,

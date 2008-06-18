@@ -47,10 +47,8 @@ from errors import *
 from options import *
 from version import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 STATE_END = 0
 STATE_COMMANDS = 1

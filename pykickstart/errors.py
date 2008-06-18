@@ -36,10 +36,8 @@ It also exports several exception classes:
     KickstartVersionError - An exception for errors relating to unsupported
                             syntax versions.
 """
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 def formatErrorMsg(lineno, msg=""):
     """Properly format the error message msg for inclusion in an exception."""

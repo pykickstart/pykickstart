@@ -35,10 +35,8 @@ from constants import *
 from errors import *
 from version import *
 
-from rhpl.translate import _
-import rhpl.translate as translate
-
-translate.textdomain("pykickstart")
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class KSOptionParser(OptionParser):
     """A specialized subclass of optparse.OptionParser to handle extra option
