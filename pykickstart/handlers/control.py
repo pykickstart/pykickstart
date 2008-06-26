@@ -736,7 +736,7 @@ dataMap = {
     },
     RHEL3: {
         "DriverDiskData": driverdisk.FC3_DriverDiskData,
-        "LogVolData": logvol.FC4_LogVolData,
+        "LogVolData": logvol.FC3_LogVolData,
         "NetworkData": network.RHEL4_NetworkData,
         "PartData": partition.FC3_PartData,
         "RaidData": raid.FC3_RaidData,
@@ -745,7 +745,7 @@ dataMap = {
     },
     RHEL4: {
         "DriverDiskData": driverdisk.FC3_DriverDiskData,
-        "LogVolData": logvol.FC4_LogVolData,
+        "LogVolData": logvol.FC3_LogVolData,
         "NetworkData": network.RHEL4_NetworkData,
         "PartData": partition.FC3_PartData,
         "RaidData": raid.FC3_RaidData,
