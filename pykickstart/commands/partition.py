@@ -109,6 +109,34 @@ class FC4_PartData(FC3_PartData):
 
         return retval
 
+class RHEL5_PartData(FC4_PartData):
+    def __init__(self, active=False, primOnly=False, end=0, fsopts="",
+                 fstype="", grow=False, label="", maxSizeMB=0,
+                 format=True, onbiosdisk="", disk="", onPart="",
+                 recommended=False, size=None, start=0, mountpoint="",
+                 bytesPerInode=4096, encrypted=False, passphrase=""):
+        FC4_PartData.__init__(self, active=active, primOnly=primOnly,
+                             end=end, fstype=fstype, grow=grow,
+                             maxSizeMB=maxSizeMB, format=format,
+                             onbiosdisk=onbiosdisk, disk=disk,
+                             onPart=onPart, size=size, start=start,
+                             recommended=recommended,
+                             bytesPerInode=bytesPerInode,
+                             mountpoint=mountpoint)
+        self.encrypted = encrypted
+        self.passphrase = passphrase
+
+    def _getArgsAsStr(self):
+        retval = FC4_PartData._getArgsAsStr(self)
+
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
+
+        return retval
+
 class F9_PartData(FC4_PartData):
     def __init__(self, active=False, primOnly=False, fsprofile="",
                  end=0, fsopts="", fstype="", grow=False, label="",
@@ -227,6 +255,22 @@ class FC4_Partition(FC3_Partition):
         op.add_option("--label", dest="label")
         return op
 
+class RHEL5_Partition(FC4_Partition):
+    def __init__(self, writePriority=130, partitions=None):
+        FC4_Partition.__init__(self, writePriority, partitions)
+
+        def part_cb (option, opt_str, value, parser):
+            if value.startswith("/dev/"):
+                parser.values.ensure_value(option.dest, value[5:])
+            else:
+                parser.values.ensure_value(option.dest, value)
+
+    def _getParser(self):
+        op = FC4_Partition._getParser(self)
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
+        return op
+
 class F9_Partition(FC4_Partition):
     def __init__(self, writePriority=130, partitions=None):
         FC4_Partition.__init__(self, writePriority, partitions)
@@ -244,3 +288,4 @@ class F9_Partition(FC4_Partition):
         op.add_option("--encrypted", action="store_true", default=False)
         op.add_option("--passphrase")
         return op
+

@@ -103,6 +103,31 @@ class FC5_RaidData(FC4_RaidData):
 
         return retval
 
+class RHEL5_RaidData(FC5_RaidData):
+    def __init__(self, device=None, fsopts="", fstype="", level="",
+                 format=True, spares=0, preexist=False, mountpoint="",
+                 members=None, encrypted=False, passphrase="",
+                 bytesPerInode=4096):
+        FC5_RaidData.__init__(self, device=device, fsopts=fsopts,
+                              fstype=fstype, level=level,
+                              format=format, spares=spares,
+                              preexist=preexist,
+                              bytesPerInode=bytesPerInode,
+                              mountpoint=mountpoint, members=members)
+        self.encrypted = encrypted
+        self.passphrase = passphrase
+
+    def _getArgsAsStr(self):
+        retval = FC5_RaidData._getArgsAsStr(self)
+
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
+
+        return retval
+
 F7_RaidData = FC5_RaidData
 
 class F9_RaidData(FC5_RaidData):
@@ -223,6 +248,16 @@ class FC5_Raid(FC4_Raid):
         op = FC4_Raid._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
+        return op
+
+class RHEL5_Raid(FC5_Raid):
+    def __init__(self, writePriority=131, raidList=None):
+        FC5_Raid.__init__(self, writePriority, raidList)
+
+    def _getParser(self):
+        op = FC5_Raid._getParser(self)
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
         return op
 
 class F7_Raid(FC5_Raid):

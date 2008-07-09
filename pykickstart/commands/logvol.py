@@ -90,6 +90,33 @@ class FC4_LogVolData(FC3_LogVolData):
 
         return retval
 
+class RHEL5_LogVolData(FC3_LogVolData):
+    def __init__(self, fsopts="", fstype="", grow=False,
+                 maxSizeMB=0, name="", format=True, percent=0,
+                 recommended=False, size=None, preexist=False, vgname="",
+                 bytesPerInode=4096, mountpoint="", encrypted=False,
+                 passphrase=""):
+        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
+                               maxSizeMB=maxSizeMB, name=name,
+                               format=format, percent=percent,
+                               recommended=recommended, size=size,
+                               preexist=preexist, vgname=vgname,
+                               bytesPerInode=bytesPerInode,
+                               mountpoint=mountpoint)
+        self.encrypted = encrypted
+        self.passphrase = passphrase
+
+    def _getArgsAsStr(self):
+        retval = FC3_LogVolData._getArgsAsStr(self)
+
+        if self.encrypted:
+            retval += " --encrypted"
+
+            if self.passphrase != "":
+                retval += " --passphrase=\"%s\"" % self.passphrase
+
+        return retval
+
 class F9_LogVolData(FC3_LogVolData):
     def __init__(self, fsopts="", fstype="", grow=False,
                  maxSizeMB=0, name="", format=True, percent=0,
@@ -185,6 +212,16 @@ class FC4_LogVol(FC3_LogVol):
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
                       type="int", nargs=1)
         op.add_option("--fsoptions", dest="fsopts")
+        return op
+
+class RHEL5_LogVol(FC4_LogVol):
+    def __init__(self, writePriority=132, lvList=None):
+        FC4_LogVol.__init__(self, writePriority, lvList)
+
+    def _getParser(self):
+        op = FC4_LogVol._getParser(self)
+        op.add_option("--encrypted", action="store_true", default=False)
+        op.add_option("--passphrase")
         return op
 
 class F9_LogVol(FC4_LogVol):
