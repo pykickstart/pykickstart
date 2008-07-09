@@ -78,8 +78,15 @@ class KickstartWriter:
         return retval
 
     def doAutoPart(self):
+        retval = ""
         if self.ksdata.autopart:
-            return "autopart"
+            retval = "autopart"
+
+            if self.ksdata.encrypted:
+                retval = retval + " --encrypted"
+                retval = retval + " --passphrase=\"%s\"" % (self.ksdata.passphrase,)
+
+        return retval
 
     def doAutoStep(self):
         if self.ksdata.autostep["autoscreenshot"]:

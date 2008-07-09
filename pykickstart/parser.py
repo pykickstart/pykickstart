@@ -301,10 +301,15 @@ class KickstartHandlers:
         self.ksdata.authconfig = string.join(args)
 
     def doAutoPart(self, args):
-        if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s does not take any arguments") % "autopart")
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--encrypted", dest="encrypted", action="store_true",
+                      default=False)
+        op.add_option("--passphrase", dest="passphrase")
 
+        (opts, extra) = op.parse_args(args=args)
         self.ksdata.autopart = True
+        self.ksdata.encrypted = opts.encrypted
+        self.ksdata.passphrase = opts.passphrase
 
     def doAutoStep(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -504,6 +509,9 @@ class KickstartHandlers:
         op.add_option("--useexisting", dest="preexist", action="store_true",
                       default=False)
         op.add_option("--vgname", dest="vgname", required=1)
+        op.add_option("--encrypted", dest="encrypted", action="store_true",
+                      default=False)
+        op.add_option("--passphrase", dest="passphrase")
 
         (opts, extra) = op.parse_args(args=args)
 
@@ -581,7 +589,7 @@ class KickstartHandlers:
     def doNetwork(self, args):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bootproto", dest="bootProto", default="dhcp",
-                      choices=["dhcp", "bootp", "static", "query"])
+                      choices=["dhcp", "bootp", "static"])
         op.add_option("--class", dest="dhcpclass")
         op.add_option("--device", dest="device")
         op.add_option("--essid", dest="essid")
@@ -691,6 +699,9 @@ class KickstartHandlers:
                       nargs=1)
         op.add_option("--start", dest="start", action="store", type="int",
                       nargs=1)
+        op.add_option("--encrypted", dest="encrypted", action="store_true",
+                      default=False)
+        op.add_option("--passphrase", dest="passphrase")
 
         (opts, extra) = op.parse_args(args=args)
 
@@ -771,6 +782,9 @@ class KickstartHandlers:
                       nargs=1, default=0)
         op.add_option("--useexisting", dest="preexist", action="store_true",
                       default=False)
+        op.add_option("--encrypted", dest="encrypted", action="store_true",
+                      default=False)
+        op.add_option("--passphrase", dest="passphrase")
 
         (opts, extra) = op.parse_args(args=args)
 
