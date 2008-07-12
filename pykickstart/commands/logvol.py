@@ -90,24 +90,24 @@ class FC4_LogVolData(FC3_LogVolData):
 
         return retval
 
-class RHEL5_LogVolData(FC3_LogVolData):
+class RHEL5_LogVolData(FC4_LogVolData):
     def __init__(self, fsopts="", fstype="", grow=False,
                  maxSizeMB=0, name="", format=True, percent=0,
                  recommended=False, size=None, preexist=False, vgname="",
                  bytesPerInode=4096, mountpoint="", encrypted=False,
                  passphrase=""):
-        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
+        FC4_LogVolData.__init__(self, fstype=fstype, grow=grow,
                                maxSizeMB=maxSizeMB, name=name,
                                format=format, percent=percent,
                                recommended=recommended, size=size,
                                preexist=preexist, vgname=vgname,
                                bytesPerInode=bytesPerInode,
-                               mountpoint=mountpoint)
+                               mountpoint=mountpoint, fsopts=fsopts)
         self.encrypted = encrypted
         self.passphrase = passphrase
 
     def _getArgsAsStr(self):
-        retval = FC3_LogVolData._getArgsAsStr(self)
+        retval = FC4_LogVolData._getArgsAsStr(self)
 
         if self.encrypted:
             retval += " --encrypted"
