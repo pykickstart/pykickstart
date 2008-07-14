@@ -193,7 +193,7 @@ class Script:
     def write(self):
         retval = ""
         if self.interp != "/bin/sh" and self.interp != "":
-            retval = retval + " --interp %s" % self.interp
+            retval = retval + " --interpreter=%s" % self.interp
         if self.type == KS_SCRIPT_POST and not self.inChroot:
             retval = retval + " --nochroot"
         if self.logfile != None:
