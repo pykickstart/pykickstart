@@ -39,3 +39,9 @@ class FC3_Lang(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "lang")
 
         self.lang = args[0]
+
+    def apply(self, instroot="/"):
+        if self.lang == "": return
+        f = open(instroot + "/etc/sysconfig/i18n", "w+")
+        f.write("LANG=\"%s\"\n" %(self.lang,))
+        f.close()

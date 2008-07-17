@@ -106,6 +106,14 @@ class KickstartCommand(object):
         """
         raise TypeError, "parse() not implemented for KickstartCommand"
 
+
+    def apply(self, instroot="/"):
+        """Write out the configuration related to the KickstartCommand object.
+           Subclasses which do not provide this method will not have their
+           configuration written out.
+        """
+        return
+
     # Set the contents of the opts object (an instance of optparse.Values
     # returned by parse_args) as attributes on the KickstartCommand object.
     # It's useful to call this from KickstartCommand subclasses after parsing
