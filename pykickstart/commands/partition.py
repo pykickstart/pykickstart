@@ -132,9 +132,6 @@ class RHEL5_PartData(FC4_PartData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
-
         return retval
 
 class F9_PartData(FC4_PartData):
@@ -163,9 +160,6 @@ class F9_PartData(FC4_PartData):
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
-
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 

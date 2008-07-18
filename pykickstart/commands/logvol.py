@@ -112,9 +112,6 @@ class RHEL5_LogVolData(FC4_LogVolData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
-
         return retval
 
 class F9_LogVolData(FC3_LogVolData):
@@ -140,9 +137,6 @@ class F9_LogVolData(FC3_LogVolData):
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
-
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 

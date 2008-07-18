@@ -123,9 +123,6 @@ class RHEL5_RaidData(FC5_RaidData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
-
         return retval
 
 F7_RaidData = FC5_RaidData
@@ -150,9 +147,6 @@ class F9_RaidData(FC5_RaidData):
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
-
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
 
