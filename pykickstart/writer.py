@@ -84,7 +84,6 @@ class KickstartWriter:
 
             if self.ksdata.encrypted:
                 retval = retval + " --encrypted"
-                retval = retval + " --passphrase=\"%s\"" % (self.ksdata.passphrase,)
 
         return retval
 
@@ -303,6 +302,8 @@ class KickstartWriter:
                 retval = retval + " --size=%d" % part.size
             if part.preexist:
                 retval = retval + " --useexisting"
+            if part.encrypted:
+                retval = retval + " --encrypted"
 
             retval = retval + " --name=%s --vgname=%s\n" % (part.name, part.vgname)
 
@@ -431,6 +432,8 @@ class KickstartWriter:
                 retval = retval + " --size=%d" % int(part.size)
             if part.start != 0:
                 retval = retval + " --start=%d" % part.start
+            if part.encrypted:
+                retval = retval + " --encrypted"
 
             retval = retval + "\n"
 
@@ -487,6 +490,8 @@ class KickstartWriter:
                 retval = retval + " --spares=%d" % raid.spares
             if raid.preexist:
                 retval = retval + " --useexisting"
+            if raid.encrypted:
+                retval = retval + " --encrypted"
 
             retval = retval + " %s\n" % string.join(raid.members)
 
