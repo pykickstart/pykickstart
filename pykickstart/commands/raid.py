@@ -128,9 +128,6 @@ class F9_RaidData(FC5_RaidData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
-
         return retval
 
 class FC3_Raid(KickstartCommand):

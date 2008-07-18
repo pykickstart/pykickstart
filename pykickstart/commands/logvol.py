@@ -116,9 +116,6 @@ class F9_LogVolData(FC3_LogVolData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
-
         return retval
 
 class FC3_LogVol(KickstartCommand):
