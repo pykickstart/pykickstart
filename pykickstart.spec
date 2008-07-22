@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43.1
+Version: 0.43.2
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.bz2
 License: GPL
@@ -38,6 +38,14 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Jul 22 2008 Chris Lumens <clumens@redhat.com> 0.43.2-1
+- Support creation of encrypted block devices in RHEL5 (#449830, dlehman).
+- Note if block device is encrypted in anaconda-ks.cfg, do not include
+  passphrase (dlehman).
+- Correct dhcpclass parameter (#248912).
+- Fix writing out --interpreter for script headers (#222877).
+- Add support for the --only-use argument to RHEL5 (#318351, rvykydal)
+
 * Tue Apr 15 2008 Chris Lumens <clumens@redhat.com> 0.43.1-1
 - query is now a valid bootproto for network devices (#441837).
 
