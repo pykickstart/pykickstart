@@ -33,7 +33,7 @@ class KickstartData:
         self.driverdisk = ""
         self.firewall = {"enabled": True, "ports": [], "trusts": []}
         self.firstboot = FIRSTBOOT_SKIP
-        self.ignoredisk = []
+        self.ignoredisk = {"drives": [], "onlyuse": []}
         self.interactive = False
         self.iscsi = []
         self.iscsiname = ""

@@ -212,9 +212,16 @@ class KickstartWriter:
             return retval + "firstboot --reconfig"
 
     def doIgnoreDisk(self):
-        if len(self.ksdata.ignoredisk) > 0:
-            retval = string.join (self.ksdata.ignoredisk, ",")
-            return "ignoredisk --drives=%s" % retval
+        retval = ""
+
+        if len(self.ksdata.ignoredisk["drives"]) > 0:
+            retval = retval + " --drives=%" % string.join(self.ksdata.ignoredisk["drives"], ",")
+
+        if len(self.ksdata.ignoredisk["onlyuse"]) > 0:
+            retval = retval + " --only-use=%" % string.join(self.ksdata.ignoredisk["onlyuse"], ",")
+
+        if retval != "":
+            return "ignoredisk %s" % retval
 
     def doInteractive(self):
         if self.ksdata.interactive:

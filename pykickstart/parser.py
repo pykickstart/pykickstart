@@ -423,10 +423,12 @@ class KickstartHandlers:
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--drives", dest="drives", action="callback",
                       callback=drive_cb, nargs=1, type="string")
+        op.add_option("--only-use", dest="onlyuse", action="callback",
+                      callback=drive_cb, nargs=1, type="string")
 
         (opts, extra) = op.parse_args(args=args)
 
-        self.ksdata.ignoredisk = opts.drives
+        self._setToDict(op, opts, self.ksdata.ignoredisk)
 
     def doInteractive(self, args):
         if len(args) > 0:
