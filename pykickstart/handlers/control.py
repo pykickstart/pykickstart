@@ -586,7 +586,7 @@ commandMap = {
         "graphical": displaymode.FC3_DisplayMode,
         "halt": reboot.FC6_Reboot,
         "harddrive": method.FC6_Method,
-        "ignoredisk": ignoredisk.FC3_IgnoreDisk,
+        "ignoredisk": ignoredisk.RHEL5_IgnoreDisk,
         "install": upgrade.FC3_Upgrade,
         "interactive": interactive.FC3_Interactive,
         "iscsi": iscsi.FC6_Iscsi,

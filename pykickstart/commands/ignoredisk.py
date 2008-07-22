@@ -80,3 +80,5 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
         return op
 
 RHEL4_IgnoreDisk = F8_IgnoreDisk
+
+RHEL5_IgnoreDisk = F8_IgnoreDisk
