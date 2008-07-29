@@ -449,6 +449,7 @@ commandMap = {
         "raid": raid.F9_Raid,
         "reboot": reboot.FC6_Reboot,
         "repo": repo.F8_Repo,
+        "rescue": rescue.F10_Rescue,
         "rootpw": rootpw.F8_RootPw,
         "selinux": selinux.FC3_SELinux,
         "services": services.FC6_Services,
