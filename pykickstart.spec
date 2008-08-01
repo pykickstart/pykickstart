@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.40
+Version: 1.41
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Fri Aug 01 2008 Chris Lumens <clumens@redhat.com> - 1.41-1
+- RHEL5 supports ignoredisk --only-use now too. (clumens)
+- Do not include passphrases for encrypted block devices in
+  anaconda-ks.cfg. (dlehman)
+- Fix F9,F10,RHEL5 "part" commands to use the same class as
+  "partition". (dlehman)
+- Add an apply method() for commands and implement for lang (katzj)
+
 * Tue Jul 15 2008 Chris Lumens <clumens@redhat.com> - 1.40-1
 - RHEL5_LogVolData should inherit from FC4, not FC3.
   Also fix FC9->F9 typo. (dlehman)
