@@ -136,7 +136,7 @@ class F8_Repo(FC6_Repo):
 
     def methodToRepo(self):
         if not self.handler.method.url:
-            raise KickstartError, formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo lsit."))
+            raise KickstartError, formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo list."))
         reponame = "ks-method-url"
         repourl = self.handler.method.url
         rd = self.handler.RepoData(name=reponame, baseurl=repourl)
