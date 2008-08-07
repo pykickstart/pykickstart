@@ -229,6 +229,13 @@ class Group:
         else:
             return "@%s" % self.name
 
+    def __cmp__(self, other):
+        if self.name < other.name:
+            return -1
+        elif self.name > other.name:
+            return 1
+        return 0
+
 class Packages:
     """A class representing the %packages section of the kickstart file."""
     def __init__(self):
@@ -265,13 +272,19 @@ class Packages:
         pkgs = ""
 
         if not self.default:
-            for grp in self.groupList:
+            grps = self.groupList
+            grps.sort()
+            for grp in grps:
                 pkgs += "%s\n" % grp.__str__()
 
-            for pkg in self.packageList:
+            p = self.packageList
+            p.sort()
+            for pkg in p:
                 pkgs += "%s\n" % pkg
 
-            for pkg in self.excludedList:
+            p = self.excludedList
+            p.sort()
+            for pkg in p:
                 pkgs += "-%s\n" % pkg
 
             if pkgs == "":
