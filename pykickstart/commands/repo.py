@@ -28,7 +28,7 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_RepoData(BaseData):
-    def __init__(self, baseurl="", mirrorlist="", name=""):
+    def __init__(self, baseurl="", mirrorlist=None, name=""):
         BaseData.__init__(self)
         self.baseurl = baseurl
         self.mirrorlist = mirrorlist
@@ -48,7 +48,7 @@ class FC6_RepoData(BaseData):
         return "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
 
 class F8_RepoData(FC6_RepoData):
-    def __init__(self, baseurl="", mirrorlist="", name="", cost=None,
+    def __init__(self, baseurl="", mirrorlist=None, name="", cost=None,
                  includepkgs=[], excludepkgs=[]):
         FC6_RepoData.__init__(self, baseurl=baseurl, mirrorlist=mirrorlist,
                               name=name)
