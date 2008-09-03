@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.42
+Version: 1.43
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Wed Sep 03 2008 Chris Lumens <clumens@redhat.com> - 1.43-1
+- Revert "Do not include passphrases for encrypted block devices in
+  anaconda-ks.cfg." (dlehman)
+- yum doesn't like when mirrorlist is "". (clumens)
+
 * Mon Aug 11 2008 Chris Lumens <clumens@redhat.com> - 1.42-1
 - Add rescue command to pykickstart (atodorov)
 - Sort %packages output (katzj)
