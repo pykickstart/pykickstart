@@ -195,6 +195,8 @@ class KickstartIscsiData:
         self.target = ""
         self.user = None
         self.password = None
+        self.user_in = None
+        self.password_in = None
 
 class KickstartZFCPData:
     def __init__(self):

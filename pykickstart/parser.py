@@ -445,6 +445,10 @@ class KickstartHandlers:
         op.add_option("--user", dest="user", action="store", type="string")
         op.add_option("--password", dest="password", action="store",
                       type="string")
+        op.add_option("--reverse-user", dest="user_in", action="store",
+                      type="string")
+        op.add_option("--reverse-password", dest="password_in", action="store",
+                      type="string")
 
         (opts, extra) = op.parse_args(args=args)
 

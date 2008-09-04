@@ -246,6 +246,10 @@ class KickstartWriter:
                 retval += " --user=%s" % i.user
             if i.password is not None:
                 retval += " --password=%s" % i.password
+            if i.user_in is not None:
+                retval += " --reverse-user=%s" % i.user_in
+            if i.password_in is not None:
+                retval += " --reverse-password=%s" % i.password_in
 
             retval += "\n"
 
