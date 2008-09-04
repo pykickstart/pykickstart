@@ -24,6 +24,7 @@ class KickstartData:
                            "forceLBA": False, "location": "mbr", "md5pass": "",
                            "password": "", "upgrade": False}
         self.dmraids = []
+        self.encrypted = False
         self.mpaths = []
         self.clearpart = {"drives": [], "initAll": False,
                           "type": CLEARPART_TYPE_NONE}
@@ -93,6 +94,7 @@ class KickstartLogVolData:
         self.preexist = False
         self.vgname = ""
         self.mountpoint = ""
+        self.encrypted = False
 
 class KickstartNetworkData:
     def __init__(self):
@@ -133,6 +135,7 @@ class KickstartPartData:
         self.size = None
         self.start = 0
         self.mountpoint = ""
+        self.encrypted = False
 
 class KickstartRaidData:
     def __init__ (self):
@@ -146,6 +149,7 @@ class KickstartRaidData:
         self.mountpoint = ""
         self.members = []
         self.bytesPerInode = 4096
+        self.encrypted = False
 
 class KickstartRepoData:
     def __init__ (self):
