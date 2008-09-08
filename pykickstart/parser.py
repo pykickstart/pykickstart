@@ -473,7 +473,7 @@ class KickstartParser:
             self.handler.packages.default = True
 
         if opts.instLangs:
-            self.handler.packages.instLange = opts.instLangs
+            self.handler.packages.instLangs = opts.instLangs
 
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
