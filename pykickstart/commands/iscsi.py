@@ -34,8 +34,8 @@ class FC6_IscsiData(BaseData):
         self.user = user
         self.password = password
 
-    def __str__(self):
-        retval = "iscsi"
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.target != "":
             retval += " --target=%s" % self.target
@@ -48,7 +48,28 @@ class FC6_IscsiData(BaseData):
         if self.password is not None:
             retval += " --password=%s" % self.password
 
-        return retval + "\n"
+        return retval
+
+    def __str__(self):
+        return "iscsi%s\n" % self._getArgsAsStr()
+
+class F10_IscsiData(FC6_IscsiData):
+    def __init__(self, ipaddr="", port="", target="", user=None, password=None,
+                 user_in=None, password_in=None):
+        FC6_IscsiData.__init__(self, ipaddr=ipaddr, port=port, user=user,
+                               password=password)
+        self.user_in = user_in
+        self.password_in = password_in
+
+    def _getArgsAsStr(self):
+        retval = FC6_IscsiData._getArgsAsStr(self)
+
+        if self.user_in is not None:
+            retval += " --reverse-user=%s" % self.user_in
+        if self.password_in is not None:
+            retval += " --reverse-password=%s" % self.password_in
+
+        return retval
 
 class FC6_Iscsi(KickstartCommand):
     def __init__(self, writePriority=71, iscsi=None):
@@ -85,9 +106,21 @@ class FC6_Iscsi(KickstartCommand):
             mapping = {"command": "scsi", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
-        dd = FC6_IscsiData()
+        dd = self.handler.IscsiData()
         self._setToObj(self.op, opts, dd)
         self.add(dd)
 
     def add(self, newObj):
         self.iscsi.append(newObj)
+
+class F10_Iscsi(FC6_Iscsi):
+    def __init__(self, writePriority=71, iscsi=None):
+        FC6_Iscsi.__init__(self, writePriority, iscsi)
+
+    def _getParser(self):
+        op = FC6_Iscsi._getParser(self)
+        op.add_option("--reverse-user", dest="user_in", action="store",
+                      type="string")
+        op.add_option("--reverse-password", dest="password_in", action="store",
+                      type="string")
+        return op
