@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: pykickstart.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2008-09-02 16:04+1000\n"
+"PO-Revision-Date: 2008-09-24 14:24+1000\n"
 "Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
 "Language-Team: Traditional Chinese <zh@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -32,7 +32,7 @@ msgstr ""
 #: ../pykickstart/base.py:315
 #, python-format
 msgid "Unknown command: %s"
-msgstr "未知的指令：%s"
+msgstr "不明指令：%s"
 
 #: ../pykickstart/errors.py:48
 #, python-format
