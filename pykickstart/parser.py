@@ -547,7 +547,12 @@ class KickstartParser:
                     args = None
             else:
                 # Remove any end-of-line comments.
-                (h, s, t) = self._line.partition("#")
+                ind = self._line.find("#")
+                if (ind > -1):
+                    h = self._line[:ind]
+                else:
+                    h = self._line
+
                 self._line = h.rstrip()
                 args = shlex.split(self._line)
 
