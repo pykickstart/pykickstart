@@ -26,7 +26,7 @@ msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-08-26 04:18+0100\n"
+"PO-Revision-Date: 2008-09-27 04:18+0100\n"
 "Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -117,9 +117,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opció %(opt)s: el valor booleà no és vàlid: %(value)r"
+msgstr "Opció %(opt)s: el valor de la cadena no és vàlid: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -142,20 +142,17 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "El grup no pot especificar --nodefaults i --optional alhora"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"S'ha ignorat una opció obsoleta a la línia %(lineno)s:  L'opció %(option)s "
-"és obsoleta i no tindrà cap efecte. S'eliminarà de futures versions, i "
-"provocarà un error fatal del kickstart. Modifiqueu el vostre fitxer "
-"kickstart per eliminar aquesta opció."
+"%s no acaba amb %%end. Aquesta sintaxi és obsoleta. Podria ser eliminada de les properes versions, i provocarà un error del kickstart. Modifiqueu el fitxer kickstart per usar la sintaxi actualitzada."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Script"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
