@@ -1,16 +1,16 @@
 # pykickstart Bahasa Indonesia (Id).
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pykickstart package.
-# Teguh DC <dheche@bradjamoesti.or.id>, 2006-2007.
+# Teguh DC <dheche@songolimo.net>, 2006-2008.
 # $Id$
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-09 12:00+0700\n"
+"PO-Revision-Date: 2008-09-02 14:28+0700\n"
 "Last-Translator: Teguh DC <dheche@songolimo.net>\n"
-"Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
+"Language-Team: Fedora Trans ID <fedora-trans-id@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,7 +23,7 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Mengabaikan perintah usang pada baris %(lineno)s: Perintah %(cmd) telah "
+"Mengabaikan perintah usang pada baris %(lineno)s: Perintah %(cmd)s telah "
 "usang dan tidak memiliki efek apapun. Perintah ini mungkin akan dihilangkan "
 "dari rilis selanjutnya, yang akan mengakibatkan kesalahan fatal dari "
 "kickstart. Silakan modifikasi berkas kickstart untuk menghapus perintah ini."
@@ -40,9 +40,9 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Masalah berikut ini terdapat pada baris %(lineno) dalam berkas kickstart:\n"
+"Masalah berikut ini terdapat pada baris %(lineno)s dalam berkas kickstart:\n"
 "\n"
-"%(msg)\n"
+"%(msg)s\n"
 
 #: ../pykickstart/errors.py:50
 #, python-format
@@ -60,8 +60,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Opsi %(option) diperkenalkan pada versi %(intro), tapi anda mempergunakan "
-"sintak kickstart versi %(version)"
+"Opsi %(option)s diperkenalkan pada versi %(intro)s, tapi anda mempergunakan "
+"sintak kickstart versi %(version)s"
 
 #: ../pykickstart/options.py:90
 #, python-format
@@ -71,7 +71,7 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Mengabaikan opsi usang pada baris %(lineno): Opsi %(option) telah usang dan "
+"Mengabaikan opsi usang pada baris %(lineno)s: Opsi %(option)s telah usang dan "
 "tidak lagi memiliki efek apa pun. Opsi ini kemungkinan akan dihilangkan pada "
 "rilis selanjutnya, dimana akan menghasilkan kesalahan fatal dari kickstart. "
 "Silakan modifikasi berkas kickstart anda untuk menghapus opsi ini."
@@ -82,8 +82,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Opsi %(option) telah dihilangkan di versi %(removed), tapi anda memakai "
-"sintak kickstart versi %(version)"
+"Opsi %(option)s telah dihilangkan di versi %(removed)s, tapi anda memakai "
+"sintak kickstart versi %(version)s"
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
@@ -92,12 +92,12 @@ msgstr "Flag yang dibutuhkan untuk opsi tidak memiliki nilai"
 #: ../pykickstart/options.py:156
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Opsi %(ipt): nilai boolean tidak valid: %(value)"
+msgstr "Opsi %(opt)s: nilai boolean tidak valid: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opsi %(ipt): nilai boolean tidak valid: %(value)"
+msgstr "Opsi %(opt)s: nilai string tidak valid: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -119,20 +119,20 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Group tidak menemukan spesifikasi untuk --nodefaults dan --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Mengabaikan opsi usang pada baris %(lineno): Opsi %(option) telah usang dan "
-"tidak lagi memiliki efek apa pun. Opsi ini kemungkinan akan dihilangkan pada "
-"rilis selanjutnya, dimana akan menghasilkan kesalahan fatal dari kickstart. "
-"Silakan modifikasi berkas kickstart anda untuk menghapus opsi ini."
+"%s tidak diakhiri dengan %%end. Sintak ini sudah usang. Kemungkinan "
+"ini akan ditinggalkan di rilis selanjutnya, yang mana akan mengakibatkan "
+"kesalahan fatal dari kickstart. Silakan modifikasi berkas kickstart anda "
+"dengan sintak yang telah diperbarui."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skrip"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
