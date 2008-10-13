@@ -1,16 +1,16 @@
 # Swedish messages for pykickstart.
-# Copyright © 2001-2007 Free Software Foundation, Inc.
+# Copyright © 2001-2008 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2006.
 # Magnus Larsson <fedoratrans@gmail.com>, 2007.
-# 
-# 
+# Göran Uddeborg <goeran@uddeborg.se>, 2008.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-09-22 23:10-0400\n"
-"Last-Translator: Christian Rose <menthos@menthos.com>\n"
+"PO-Revision-Date: 2008-10-13 22:47+0200\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,9 +97,9 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Flagga %(opt)s: ogiltigt booleskt värde: %(value)r"
+msgstr "Flagga %(opt)s: ogiltigt strängvärde: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
@@ -121,20 +121,16 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Grupp kan inte ange både --nodefaults och --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr ""
-"Ignorerar föråldrad flagga på rad %(lineno)s: %(option)s-flaggan är "
-"föråldrad och har inte längre någon effekt. Den kan komma att tas bort från "
-"framtida utgåvor, vilket kommer att resultera i ett ödesdigert fel från "
-"kickstart. Ändra din kickstart-fil och ta bort denna flagga."
+msgstr "%s avslutas inte med %%end.  Denna syntax är föråldrad.  Den kan komma att tas bort från framtida utgåvor, vilket kommer att resultera i ett ödesdigert fel från kickstart.  Ändra din kickstart-fil till att använda den uppdaterade syntaxen."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
