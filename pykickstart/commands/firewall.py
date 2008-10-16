@@ -119,3 +119,48 @@ class F9_Firewall(FC3_Firewall):
         op.remove_option("--high")
         op.remove_option("--medium")
         return op
+
+class F10_Firewall(F9_Firewall):
+    def __init__(self, writePriority=0, enabled=None, ports=None, trusts=None,
+                 services=None):
+        F9_Firewall.__init__(self, writePriority, enabled=enabled, ports=ports,
+                             trusts=trusts)
+
+        if services == None:
+            services = []
+
+        self.services = services
+
+    def __str__(self):
+        if self.enabled is None:
+            return ""
+
+        retval = F9_Firewall.__str__(self)
+        if self.enabled:
+            retval = retval.strip()
+
+            svcstr = string.join(self.services, ",")
+            if len(svcstr) > 0:
+                svcstr = " --service=" + svcstr
+            else:
+                svcstr = ""
+
+            return retval + "%s\n" % svcstr
+        else:
+            return retval
+
+    def _getParser(self):
+        def service_cb (option, opt_str, value, parser):
+            for p in value.split(","):
+                p = p.strip()
+                parser.values.ensure_value(option.dest, []).append(p)
+
+        op = F9_Firewall._getParser(self)
+        op.add_option("--service", dest="services", action="callback",
+                      callback=service_cb, nargs=1, type="string")
+        op.add_option("--ftp", dest="services", action="append", type="string")
+        op.add_option("--http", dest="services", action="append", type="string")
+        op.add_option("--smtp", dest="services", action="append", type="string")
+        op.add_option("--ssh", dest="services", action="append", type="string")
+        op.add_option("--telnet", dest="services", action="append", type="string")
+        return op

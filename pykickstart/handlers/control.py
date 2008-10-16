@@ -423,7 +423,7 @@ commandMap = {
         "deviceprobe": deviceprobe.FC3_DeviceProbe,
         "dmraid": dmraid.FC6_DmRaid,
         "driverdisk": driverdisk.FC3_DriverDisk,
-        "firewall": firewall.F9_Firewall,
+        "firewall": firewall.F10_Firewall,
         "firstboot": firstboot.FC3_Firstboot,
         "graphical": displaymode.FC3_DisplayMode,
         "halt": reboot.FC6_Reboot,
