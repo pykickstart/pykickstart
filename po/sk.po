@@ -1,19 +1,21 @@
 # Slovak translation of pykickstart.
-# Copyright (C) 2007 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# Mike Karas <zoliqe@gmail.com>, 2007.
+# This file is distributed under the same license as the pykickstart package.
 #
+# Mike Karas <zoliqe@gmail.com>, 2007.
+# Ondrej Šulek <feonsu@gmail.com>, 2008.
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-04-03 13:10+0200\n"
-"Last-Translator: Mike Karas <zoliqe@gmail.com>\n"
-"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
+"PO-Revision-Date: 2008-10-19 20:23+0200\n"
+"Last-Translator: Ondrej Šulek <feonsu@gmail.com>\n"
+"Language-Team: Slovak <fedora-trans-sk@redhat.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 0.2\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -24,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 "Zastaraný príkaz na riadku %(lineno)s bude ignorovaný: Príkaz %(cmd)s bol "
-"zavrhnutý a viac už nemá žiaden význam. Z novších vydaní môže byť "
+"zavrhnutý a viac už nemá žiaden efekt. Z novších vydaní môže byť "
 "odstránený, čo spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš "
 "kickstart súbor odstránením tohoto príkazu."
 
@@ -74,7 +76,7 @@ msgstr ""
 "Zastaraná voľba na riadku %(lineno)s bude ignorovaná: Voľba %(option)s bola "
 "zavrhnutá a viac už nemá žiaden význam. Z novších vydaní môže byť "
 "odstránená, čo spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš "
-"kickstart súbor odstranením tejto voľby."
+"kickstart súbor odstránením tejto voľby."
 
 #: ../pykickstart/options.py:93
 #, python-format
@@ -87,7 +89,7 @@ msgstr ""
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Príznak \"Požadované\" nastavený pre voľbu, ktorá nemá žiadnú hodnotu"
+msgstr "Príznak \"Požadované\" nastavený pre voľbu, ktorá nemá žiadnu hodnotu"
 
 #: ../pykickstart/options.py:156
 #, python-format
@@ -95,44 +97,43 @@ msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Voľba %(opt)s: nesprávna logická hodnota: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Voľba %(opt)s: nesprávna logická hodnota: %(value)r"
+msgstr "Voľba %(opt)s: nesprávna hodnota reťazca: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Neplatné url pre %%ksappend: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Nepodarilo sa otvoriť %%ksappend súbor: "
 
 #: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Nepodarilo sa otvoriť %%ksappend súbor"
 
 #: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina nemôže špecifikovať oba, --nodefaults a --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Zastaraná voľba na riadku %(lineno)s bude ignorovaná: Voľba %(option)s bola "
-"zavrhnutá a viac už nemá žiaden význam. Z novších vydaní môže byť "
+"%s nekončí s %%end. Táto syntaxa je zastaralá. Z novších vydaní môže byť "
 "odstránená, čo spôsobí úplné zlyhanie kickstart-u. Prosím opravte Váš "
-"kickstart súbor odstranením tejto voľby."
+"kickstart súbor použitím tejto upravenej syntaxe."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -153,7 +154,7 @@ msgstr "spracovať vložené súbory ak bude nájdené %include"
 
 #: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
-msgstr "vezria kickstart syntaxe oproti ktorej validovať"
+msgstr "verzia kickstart syntaxe oproti ktorej validovať"
 
 #: ../tools/ksvalidator:71
 #, python-format
@@ -177,3 +178,4 @@ msgstr "Všeobecná chyba kickstart-u vo vstupnom súbore"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Všeobecná chyba vo vstupnom súbore: %s"
+
