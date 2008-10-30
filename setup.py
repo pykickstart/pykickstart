@@ -2,7 +2,7 @@
 
 from distutils.core import setup
 
-setup(name='pykickstart', version='1.46',
+setup(name='pykickstart', version='1.47',
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='http://fedoraproject.org/wiki/pykickstart',
