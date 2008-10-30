@@ -158,9 +158,9 @@ class F10_Firewall(F9_Firewall):
         op = F9_Firewall._getParser(self)
         op.add_option("--service", dest="services", action="callback",
                       callback=service_cb, nargs=1, type="string")
-        op.add_option("--ftp", dest="services", action="append", type="string")
-        op.add_option("--http", dest="services", action="append", type="string")
-        op.add_option("--smtp", dest="services", action="append", type="string")
-        op.add_option("--ssh", dest="services", action="append", type="string")
-        op.add_option("--telnet", dest="services", action="append", type="string")
+        op.add_option("--ftp", dest="services", action="append_const", const="ftp")
+        op.add_option("--http", dest="services", action="append_const", const="http")
+        op.add_option("--smtp", dest="services", action="append_const", const="smtp")
+        op.add_option("--ssh", dest="services", action="append_const", const="ssh")
+        op.add_option("--telnet", deprecated=1)
         return op
