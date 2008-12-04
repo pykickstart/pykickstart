@@ -53,7 +53,7 @@ from pykickstart.version import versionToString
 ###
 class KickstartCommand(object):
     """The base class for all kickstart commands.  This is an abstract class."""
-    def __init__(self, writePriority=0):
+    def __init__(self, writePriority=0, *args, **kwargs):
         """Create a new KickstartCommand instance.  This method must be
            provided by all subclasses, but subclasses must call
            KickstartCommand.__init__ first.  Instance attributes:
@@ -85,12 +85,32 @@ class KickstartCommand(object):
         self.handler = None
         self.lineno = 0
 
+        # If these two lists are not provided by a subclass, set them to empty
+        # so we don't need to test for their existance later.
+        if not hasattr(self, "removedKeywords"):
+            self.removedKeywords = []
+
+        if not hasattr(self, "removedAttrs"):
+            self.removedAttrs = []
+
+        # If a subclass provides a removedKeywords list, remove all the
+        # members from the kwargs list before we start processing it.  This
+        # ensures that subclasses don't continue to recognize arguments that
+        # were removed.
+        for arg in filter(lambda k: kwargs.has_key(k), self.removedKeywords):
+            kwargs.pop(arg)
+
     def __call__(self, *args, **kwargs):
         """Set multiple attributes on a subclass of KickstartCommand at once
            via keyword arguments.  Valid attributes are anything specified in
            a subclass, but unknown attributes will be ignored.
         """
         for (key, val) in kwargs.items():
+            # Ignore setting attributes that were removed in a subclass, as
+            # if they were unknown attributes.
+            if key in self.removedAttrs:
+                continue
+
             if hasattr(self, key):
                 setattr(self, key, val)
 
@@ -106,7 +126,6 @@ class KickstartCommand(object):
         """
         raise TypeError, "parse() not implemented for KickstartCommand"
 
-
     def apply(self, instroot="/"):
         """Write out the configuration related to the KickstartCommand object.
            Subclasses which do not provide this method will not have their
@@ -114,13 +133,20 @@ class KickstartCommand(object):
         """
         return
 
+    def deleteRemovedAttrs(self):
+        """Remove all attributes from self that are given in the removedAttrs
+           list.  This method should be called from __init__ in a subclass,
+           but only after the superclass's __init__ method has been called.
+        """
+        for attr in filter(lambda k: hasattr(self, k), self.removedAttrs):
+            delattr(self, attr)
+
     # Set the contents of the opts object (an instance of optparse.Values
     # returned by parse_args) as attributes on the KickstartCommand object.
     # It's useful to call this from KickstartCommand subclasses after parsing
     # the arguments.
     def _setToSelf(self, optParser, opts):
-        for key in filter (lambda k: getattr(opts, k) != None, optParser.keys()):
-            setattr(self, key, getattr(opts, key))
+        self._setToObj(optParser, opts, self)
 
     # Sets the contents of the opts object (an instance of optparse.Values
     # returned by parse_args) as attributes on the provided object obj.  It's
@@ -137,13 +163,13 @@ class DeprecatedCommand(KickstartCommand):
        only specifying an __init__ method that calls the superclass's __init__.
        This is an abstract class.
     """
-    def __init__(self, writePriority=None):
+    def __init__(self, writePriority=None, *args, **kwargs):
         # We don't want people using this class by itself.
         if self.__class__ is KickstartCommand:
             raise TypeError, "DeprecatedCommand is an abstract class."
 
         """Create a new DeprecatedCommand instance."""
-        KickstartCommand.__init__(self, writePriority)
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
 
     def __str__(self):
         """Placeholder since DeprecatedCommands don't work anymore."""
@@ -354,12 +380,20 @@ class BaseHandler(object):
 ###
 class BaseData(object):
     """The base class for all data objects.  This is an abstract class."""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Create a new BaseData instance.  There are no attributes."""
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseData:
             raise TypeError, "BaseData is an abstract class."
+
+        # If these two lists are not provided by a subclass, set them to empty
+        # so we don't need to test for their existance later.
+        if not hasattr(self, "removedKeywords"):
+            self.removedKeywords = []
+
+        if not hasattr(self, "removedAttrs"):
+            self.removedAttrs = []
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -371,5 +405,18 @@ class BaseData(object):
            subclass, but unknown attributes will be ignored.
         """
         for (key, val) in kwargs.items():
+            # Ignore setting attributes that were removed in a subclass, as
+            # if they were unknown attributes.
+            if key in self.removedAttrs:
+                continue
+
             if hasattr(self, key):
                 setattr(self, key, val)
+
+    def deleteRemovedAttrs(self):
+        """Remove all attributes from self that are given in the removedAttrs
+           list.  This method should be called from __init__ in a subclass,
+           but only after the superclass's __init__ method has been called.
+        """
+        for attr in filter(lambda k: hasattr(self, k), self.removedAttrs):
+            delattr(self, attr)
