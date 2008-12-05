@@ -22,11 +22,14 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_Firstboot(KickstartCommand):
-    def __init__(self, writePriority=0, firstboot=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.firstboot = firstboot
+        self.firstboot = kwargs.get("firstboot", None)
 
     def __str__(self):
         if self.firstboot is None:

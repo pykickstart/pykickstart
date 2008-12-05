@@ -25,13 +25,16 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F10_Rescue(KickstartCommand):
-    def __init__(self, writePriority=0, nomount=False, romount=False):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
         self.rescue = False
-        self.nomount = nomount
-        self.romount = romount
+        self.nomount = kwargs.get("nomount", False)
+        self.romount = kwargs.get("romount", False)
 
     def __str__(self):
         if self.rescue:

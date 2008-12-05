@@ -22,9 +22,12 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_DisplayMode(KickstartCommand):
-    def __init__(self, writePriority=0, displayMode=None):
-        KickstartCommand.__init__(self, writePriority)
-        self.displayMode = displayMode
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.displayMode = kwargs.get("displayMode", None)
 
     def __str__(self):
         if self.displayMode is None:

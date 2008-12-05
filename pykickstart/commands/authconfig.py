@@ -20,9 +20,12 @@
 from pykickstart.base import *
 
 class FC3_Authconfig(KickstartCommand):
-    def __init__(self, writePriority=0, authconfig=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.authconfig = authconfig
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, *args, **kwargs)
+        self.authconfig = kwargs.get("authconfig", "")
 
     def __str__(self):
         if self.authconfig:

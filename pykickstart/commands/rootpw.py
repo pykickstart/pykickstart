@@ -25,12 +25,15 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_RootPw(KickstartCommand):
-    def __init__(self, writePriority=0, isCrypted=False, password=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.isCrypted = isCrypted
-        self.password = password
+        self.isCrypted = kwargs.get("isCrypted", False)
+        self.password = kwargs.get("password", "")
 
     def __str__(self):
         if self.password != "":
@@ -59,10 +62,12 @@ class FC3_RootPw(KickstartCommand):
         self.password = extra[0]
 
 class F8_RootPw(FC3_RootPw):
-    def __init__(self, writePriority=0, isCrypted=False, password="",
-                 lock=False):
-        FC3_RootPw.__init__(self, writePriority, isCrypted, password)
-        self.lock = lock
+    removedKeywords = FC3_RootPw.removedKeywords
+    removedAttrs = FC3_RootPw.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_RootPw.__init__(self, writePriority, *args, **kwargs)
+        self.lock = kwargs.get("lock", False)
 
     def __str__(self):
         retval = FC3_RootPw.__str__(self)

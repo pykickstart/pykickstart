@@ -25,12 +25,15 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Timezone(KickstartCommand):
-    def __init__(self, writePriority=0, isUtc=False, timezone=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.isUtc = isUtc
-        self.timezone = timezone
+        self.isUtc = kwargs.get("isUtc", False)
+        self.timezone = kwargs.get("timezone", "")
 
     def __str__(self):
         if self.timezone != "":
@@ -58,8 +61,8 @@ class FC3_Timezone(KickstartCommand):
         self.timezone = extra[0]
 
 class FC6_Timezone(FC3_Timezone):
-    def __init__(self, writePriority=0, isUtc=False, timezone=""):
-        FC3_Timezone.__init__(self, writePriority, isUtc, timezone)
+    removedKeywords = FC3_Timezone.removedKeywords
+    removedAttrs = FC3_Timezone.removedAttrs
 
     def __str__(self):
         if self.timezone != "":

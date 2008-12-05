@@ -25,20 +25,18 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 class FC6_UserData(BaseData):
-    def __init__(self, groups=None, homedir="", isCrypted=False, name="",
-                 password="", shell="", uid=None):
-        BaseData.__init__(self)
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        if groups == None:
-            groups = []
-
-        self.groups = groups
-        self.homedir = homedir
-        self.isCrypted = isCrypted
-        self.name = name
-        self.password = password
-        self.shell = shell
-        self.uid = uid
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.groups = kwargs.get("groups", [])
+        self.homedir = kwargs.get("homedir", "")
+        self.isCrypted = kwargs.get("isCrypted", False)
+        self.name = kwargs.get("name", "")
+        self.password = kwargs.get("password", "")
+        self.shell = kwargs.get("shell", "")
+        self.uid = kwargs.get("uid", None)
 
     def __str__(self):
         retval = "user"
@@ -61,11 +59,12 @@ class FC6_UserData(BaseData):
         return retval + "\n"
 
 class F8_UserData(FC6_UserData):
-    def __init__(self, groups=None, homedir="", isCrypted=False, name="",
-                 password="", shell="", uid=None, lock=False):
-        FC6_UserData.__init__(self, groups, homedir, isCrypted, name, password,
-                              shell, uid)
-        self.lock = lock
+    removedKeywords = FC6_UserData.removedKeywords
+    removedAttrs = FC6_UserData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC6_UserData.__init__(self, *args, **kwargs)
+        self.lock = kwargs.get("lock", False)
 
     def __str__(self):
         retval = FC6_UserData.__str__(self)
@@ -76,14 +75,14 @@ class F8_UserData(FC6_UserData):
             return retval
 
 class FC6_User(KickstartCommand):
-    def __init__(self, writePriority=0, userList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if userList == None:
-            userList = []
-
-        self.userList = userList
+        self.userList = kwargs.get("userList", [])
 
     def __str__(self):
         retval = ""
@@ -119,6 +118,9 @@ class FC6_User(KickstartCommand):
         self.userList.append(newObj)
 
 class F8_User(FC6_User):
+    removedKeywords = FC6_User.removedKeywords
+    removedAttrs = FC6_User.removedAttrs
+
     def _getParser(self):
         op = FC6_User._getParser(self)
         op.add_option("--lock", action="store_true", default=False)

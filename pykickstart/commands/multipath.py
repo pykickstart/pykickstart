@@ -26,24 +26,26 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_MpPathData(BaseData):
-    def __init__(self, mpdev="", device="", rule=""):
-        BaseData.__init__(self)
-        self.mpdev = mpdev
-        self.device = device
-        self.rule = rule
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.mpdev = kwargs.get("mpdev", "")
+        self.device = kwargs.get("device", "")
+        self.rule = kwargs.get("rule", "")
 
     def __str__(self):
         return " --device=%s --rule=\"%s\"" % (self.device, self.rule)
 
 class FC6_MultiPathData(BaseData):
-    def __init__(self, name="", paths=None):
-        BaseData.__init__(self)
-        self.name = name
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        if paths == None:
-            paths = []
-
-        self.paths = paths
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.name = kwargs.get("name", "")
+        self.paths = kwargs.get("paths", [])
 
     def __str__(self):
         retval = ""
@@ -54,14 +56,14 @@ class FC6_MultiPathData(BaseData):
         return retval
 
 class FC6_MultiPath(KickstartCommand):
-    def __init__(self, writePriority=50, mpaths=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=50, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if mpaths == None:
-            mpaths = []
-
-        self.mpaths = mpaths
+        self.mpaths = kwargs.get("mpaths", [])
 
     def __str__(self):
         retval = ""

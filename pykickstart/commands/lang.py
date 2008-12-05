@@ -24,9 +24,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Lang(KickstartCommand):
-    def __init__(self, writePriority=0, lang=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.lang = lang
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.lang = kwargs.get("lang", "")
 
     def __str__(self):
         if self.lang != "":

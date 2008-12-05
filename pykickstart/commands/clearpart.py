@@ -25,17 +25,16 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 class FC3_ClearPart(KickstartCommand):
-    def __init__(self, writePriority=120, drives=None, initAll=False,
-                 type=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=120, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if drives == None:
-            drives = []
-
-        self.drives = drives
-        self.initAll = initAll
-        self.type = type
+        self.drives = kwargs.get("drives", [])
+        self.initAll = kwargs.get("initAll", False)
+        self.type = kwargs.get("type", None)
 
     def __str__(self):
         if self.type is None:

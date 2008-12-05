@@ -25,23 +25,24 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_XConfig(KickstartCommand):
-    def __init__(self, writePriority=0, card="", defaultdesktop="", depth=0,
-                 hsync="", monitor="", noProbe=False, resolution="", server="",
-                 startX=False, videoRam="", vsync=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.card = card
-        self.defaultdesktop = defaultdesktop
-        self.depth = depth
-        self.hsync = hsync
-        self.monitor = monitor
-        self.noProbe = noProbe
-        self.resolution = resolution
-        self.server = server
-        self.startX = startX
-        self.videoRam = videoRam
-        self.vsync = vsync
+        self.card = kwargs.get("card", "")
+        self.defaultdesktop = kwargs.get("defaultdesktop", "")
+        self.depth = kwargs.get("depth", 0)
+        self.hsync = kwargs.get("hsync", "")
+        self.monitor = kwargs.get("monitor", "")
+        self.noProbe = kwargs.get("noProbe", False)
+        self.resolution = kwargs.get("resolution", "")
+        self.server = kwargs.get("server", "")
+        self.startX = kwargs.get("startX", False)
+        self.videoRam = kwargs.get("videoRam", "")
+        self.vsync = kwargs.get("vsync", "")
 
     def __str__(self):
         retval = ""
@@ -100,30 +101,29 @@ class FC3_XConfig(KickstartCommand):
         self._setToSelf(self.op, opts)
 
 class FC6_XConfig(FC3_XConfig):
-    def __init__(self, writePriority=0, driver="", defaultdesktop="", depth=0,
-                 resolution="", startX=False, videoRam=""):
-        FC3_XConfig.__init__(self, writePriority)
-        self.driver = driver
-        self.defaultdesktop = defaultdesktop
-        self.depth = depth
-        self.resolution = resolution
-        self.startX = startX
-        self.videoRam = videoRam
+    removedKeywords = FC3_XConfig.removedKeywords + ["card", "hsync", "monitor", "noProbe", "vsync"]
+    removedAttrs = FC3_XConfig.removedAttrs + ["card", "hsync", "monitor", "noProbe", "vsync"]
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_XConfig.__init__(self, writePriority, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.driver = kwargs.get("driver", "")
 
     def __str__(self):
         retval = ""
 
-        if self.driver != "":
+        if hasattr(self, "driver") and self.driver != "":
             retval += " --driver=%s" % self.driver
         if self.defaultdesktop != "":
             retval += " --defaultdesktop=%s" % self.defaultdesktop
         if self.depth != 0:
             retval += " --depth=%d" % self.depth
-        if self.resolution != "":
+        if hasattr(self, "resolution") and self.resolution != "":
             retval += " --resolution=%s" % self.resolution
         if self.startX:
             retval += " --startxonboot"
-        if self.videoRam != "":
+        if hasattr(self, "videoRam") and self.videoRam != "":
             retval += " --videoram=%s" % self.videoRam
 
         if retval != "":
@@ -142,6 +142,9 @@ class FC6_XConfig(FC3_XConfig):
         return op
 
 class F9_XConfig(FC6_XConfig):
+    removedKeywords = FC6_XConfig.removedKeywords
+    removedAttrs = FC6_XConfig.removedAttrs
+
     def _getParser(self):
         op = FC6_XConfig._getParser(self)
         op.remove_option("--card")
@@ -152,6 +155,13 @@ class F9_XConfig(FC6_XConfig):
         return op
 
 class F10_XConfig(F9_XConfig):
+    removedKeywords = F9_XConfig.removedKeywords + ["driver", "resolution", "videoRam"]
+    removedAttrs = F9_XConfig.removedAttrs + ["driver", "resolution", "videoRam"]
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F9_XConfig.__init__(self, writePriority, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
     def _getParser(self):
         op = F9_XConfig._getParser(self)
         op.add_option("--driver", deprecated=1)

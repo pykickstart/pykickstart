@@ -25,21 +25,22 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_LogVolData(BaseData):
-    def __init__(self, fstype="", grow=False, maxSizeMB=0, name="",
-                 format=True, percent=0, recommended=False, size=None,
-                 preexist=False, vgname="", mountpoint=""):
-        BaseData.__init__(self)
-        self.fstype = fstype
-        self.grow = grow
-        self.maxSizeMB = maxSizeMB
-        self.name = name
-        self.format = format
-        self.percent = percent
-        self.recommended = recommended
-        self.size = size
-        self.preexist = preexist
-        self.vgname = vgname
-        self.mountpoint = mountpoint
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.fstype = kwargs.get("fstype", "")
+        self.grow = kwargs.get("grow", False)
+        self.maxSizeMB = kwargs.get("maxSizeMB", 0)
+        self.name = kwargs.get("name", "")
+        self.format = kwargs.get("format", True)
+        self.percent = kwargs.get("percent", 0)
+        self.recommended = kwargs.get("recommended", False)
+        self.size = kwargs.get("size", None)
+        self.preexist = kwargs.get("preexist", False)
+        self.vgname = kwargs.get("vgname", "")
+        self.mountpoint = kwargs.get("mountpoint", "")
 
     def _getArgsAsStr(self):
         retval = ""
@@ -67,23 +68,18 @@ class FC3_LogVolData(BaseData):
         return "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
 
 class FC4_LogVolData(FC3_LogVolData):
-    def __init__(self, bytesPerInode=4096, fsopts="", fstype="", grow=False,
-                 maxSizeMB=0, name="", format=True, percent=0,
-                 recommended=False, size=None, preexist=False, vgname="",
-                 mountpoint=""):
-        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
-                               maxSizeMB=maxSizeMB, name=name,
-                               format=format, percent=percent,
-                               recommended=recommended, size=size,
-                               preexist=preexist, vgname=vgname,
-                               mountpoint=mountpoint)
-        self.bytesPerInode = bytesPerInode
-        self.fsopts = fsopts
+    removedKeywords = FC3_LogVolData.removedKeywords
+    removedAttrs = FC3_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC3_LogVolData.__init__(self, *args, **kwargs)
+        self.bytesPerInode = kwargs.get("bytesPerInode", 4096)
+        self.fsopts = kwargs.get("fsopts", "")
 
     def _getArgsAsStr(self):
         retval = FC3_LogVolData._getArgsAsStr(self)
 
-        if self.bytesPerInode > 0:
+        if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -91,20 +87,13 @@ class FC4_LogVolData(FC3_LogVolData):
         return retval
 
 class RHEL5_LogVolData(FC4_LogVolData):
-    def __init__(self, fsopts="", fstype="", grow=False,
-                 maxSizeMB=0, name="", format=True, percent=0,
-                 recommended=False, size=None, preexist=False, vgname="",
-                 bytesPerInode=4096, mountpoint="", encrypted=False,
-                 passphrase=""):
-        FC4_LogVolData.__init__(self, fstype=fstype, grow=grow,
-                               maxSizeMB=maxSizeMB, name=name,
-                               format=format, percent=percent,
-                               recommended=recommended, size=size,
-                               preexist=preexist, vgname=vgname,
-                               bytesPerInode=bytesPerInode,
-                               mountpoint=mountpoint, fsopts=fsopts)
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC4_LogVolData.removedKeywords
+    removedAttrs = FC4_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC4_LogVolData.__init__(self, *args, **kwargs)
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC4_LogVolData._getArgsAsStr(self)
@@ -118,20 +107,17 @@ class RHEL5_LogVolData(FC4_LogVolData):
         return retval
 
 class F9_LogVolData(FC3_LogVolData):
-    def __init__(self, fsopts="", fstype="", grow=False,
-                 maxSizeMB=0, name="", format=True, percent=0,
-                 recommended=False, size=None, preexist=False, vgname="",
-                 mountpoint="", fsprofile="", encrypted=False, passphrase=""):
-        FC3_LogVolData.__init__(self, fstype=fstype, grow=grow,
-                               maxSizeMB=maxSizeMB, name=name,
-                               format=format, percent=percent,
-                               recommended=recommended, size=size,
-                               preexist=preexist, vgname=vgname,
-                               mountpoint=mountpoint)
-        self.fsopts = fsopts
-        self.fsprofile = fsprofile
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC3_LogVolData.removedKeywords + ["bytesPerInode"]
+    removedAttrs = FC3_LogVolData.removedAttrs + ["bytesPerInode"]
+
+    def __init__(self, *args, **kwargs):
+        FC3_LogVolData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.fsopts = kwargs.get("fsopts", "")
+        self.fsprofile = kwargs.get("fsprofile", "")
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC3_LogVolData._getArgsAsStr(self)
@@ -147,14 +133,14 @@ class F9_LogVolData(FC3_LogVolData):
         return retval
 
 class FC3_LogVol(KickstartCommand):
-    def __init__(self, writePriority=132, lvList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=132, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if lvList == None:
-            lvList = []
-
-        self.lvList = lvList
+        self.lvList = kwargs.get("lvList", [])
 
     def __str__(self):
         retval = ""
@@ -204,8 +190,11 @@ class FC3_LogVol(KickstartCommand):
         self.lvList.append(newObj)
 
 class FC4_LogVol(FC3_LogVol):
-    def __init__(self, writePriority=132, lvList=None):
-        FC3_LogVol.__init__(self, writePriority, lvList)
+    removedKeywords = FC3_LogVol.removedKeywords
+    removedAttrs = FC3_LogVol.removedAttrs
+
+    def __init__(self, writePriority=132, *args, **kwargs):
+        FC3_LogVol.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC3_LogVol._getParser(self)
@@ -215,8 +204,11 @@ class FC4_LogVol(FC3_LogVol):
         return op
 
 class RHEL5_LogVol(FC4_LogVol):
-    def __init__(self, writePriority=132, lvList=None):
-        FC4_LogVol.__init__(self, writePriority, lvList)
+    removedKeywords = FC4_LogVol.removedKeywords
+    removedAttrs = FC4_LogVol.removedAttrs
+
+    def __init__(self, writePriority=132, *args, **kwargs):
+        FC4_LogVol.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
@@ -225,8 +217,11 @@ class RHEL5_LogVol(FC4_LogVol):
         return op
 
 class F9_LogVol(FC4_LogVol):
-    def __init__(self, writePriority=132, lvList=None):
-        FC4_LogVol.__init__(self, writePriority, lvList)
+    removedKeywords = FC4_LogVol.removedKeywords
+    removedAttrs = FC4_LogVol.removedAttrs
+
+    def __init__(self, writePriority=132, *args, **kwargs):
+        FC4_LogVol.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)

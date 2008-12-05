@@ -26,25 +26,25 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_NetworkData(BaseData):
-    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
-                 essid="", ethtool="", gateway="", hostname="", ip="",
-                 mtu="", nameserver="", netmask="", nodns=False,
-                 onboot=True, wepkey=""):
-        BaseData.__init__(self)
-        self.bootProto = bootProto
-        self.dhcpclass = dhcpclass
-        self.device = device
-        self.essid = essid
-        self.ethtool = ethtool
-        self.gateway = gateway
-        self.hostname = hostname
-        self.ip = ip
-        self.mtu = mtu
-        self.nameserver = nameserver
-        self.netmask = netmask
-        self.nodns = nodns
-        self.onboot = onboot
-        self.wepkey = wepkey
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.bootProto = kwargs.get("bootProto", BOOTPROTO_DHCP)
+        self.dhcpclass = kwargs.get("dhcpclass", "")
+        self.device = kwargs.get("device", "")
+        self.essid = kwargs.get("essid", "")
+        self.ethtool = kwargs.get("ethtool", "")
+        self.gateway = kwargs.get("gateway", "")
+        self.hostname = kwargs.get("hostname", "")
+        self.ip = kwargs.get("ip", "")
+        self.mtu = kwargs.get("mtu", "")
+        self.nameserver = kwargs.get("nameserver", "")
+        self.netmask = kwargs.get("netmask", "")
+        self.nodns = kwargs.get("nodns", False)
+        self.onboot = kwargs.get("onboot", True)
+        self.wepkey = kwargs.get("wepkey", "")
 
     def _getArgsAsStr(self):
         retval = ""
@@ -84,18 +84,12 @@ class FC3_NetworkData(BaseData):
         return "network %s\n" % self._getArgsAsStr()
 
 class FC4_NetworkData(FC3_NetworkData):
-    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
-                 essid="", ethtool="", gateway="", hostname="", ip="",
-                 mtu="", nameserver="", netmask="", nodns=False,
-                 notksdevice=False, onboot=True, wepkey=""):
-        FC3_NetworkData.__init__(self, bootProto=bootProto,
-                                dhcpclass=dhcpclass, device=device,
-                                essid=essid, ethtool=ethtool,
-                                gateway=gateway, hostname=hostname,
-                                ip=ip, mtu=mtu, netmask=netmask,
-                                nameserver=nameserver, nodns=nodns,
-                                onboot=onboot, wepkey=wepkey)
-        self.notksdevice = notksdevice
+    removedKeywords = FC3_NetworkData.removedKeywords
+    removedAttrs = FC3_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC3_NetworkData.__init__(self, *args, **kwargs)
+        self.notksdevice = kwargs.get("notksdevice", False)
 
     def _getArgsAsStr(self):
         retval = FC3_NetworkData._getArgsAsStr(self)
@@ -106,20 +100,13 @@ class FC4_NetworkData(FC3_NetworkData):
         return retval
 
 class FC6_NetworkData(FC4_NetworkData):
-    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
-                 essid="", ethtool="", gateway="", hostname="", ip="",
-                 noipv4=False, noipv6=False, mtu="", nameserver="", netmask="",
-                 nodns=False, notksdevice=False, onboot=True, wepkey=""):
-        FC4_NetworkData.__init__(self, bootProto=bootProto,
-                                dhcpclass=dhcpclass, device=device,
-                                essid=essid, ethtool=ethtool,
-                                gateway=gateway, hostname=hostname,
-                                ip=ip, mtu=mtu, netmask=netmask,
-                                nameserver=nameserver, nodns=nodns,
-                                notksdevice=notksdevice,
-                                onboot=onboot, wepkey=wepkey)
-        self.noipv4 = noipv4
-        self.noipv6 = noipv6
+    removedKeywords = FC4_NetworkData.removedKeywords
+    removedAttrs = FC4_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC4_NetworkData.__init__(self, *args, **kwargs)
+        self.noipv4 = kwargs.get("noipv4", False)
+        self.noipv6 = kwargs.get("noipv6", False)
 
     def _getArgsAsStr(self):
         retval = FC4_NetworkData._getArgsAsStr(self)
@@ -128,25 +115,16 @@ class FC6_NetworkData(FC4_NetworkData):
             retval += " --noipv4"
         if self.noipv6:
             retval += " --noipv6"
-        if self.notksdevice:
-            retval += " --notksdevice"
 
         return retval
 
 class F8_NetworkData(FC6_NetworkData):
-    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
-                 essid="", ethtool="", gateway="", hostname="", ip="", ipv6="",
-                 noipv4=False, noipv6=False, mtu="", nameserver="", netmask="",
-                 nodns=False, notksdevice=False, onboot=True, wepkey=""):
-        FC6_NetworkData.__init__(self, bootProto=bootProto,
-                                dhcpclass=dhcpclass, device=device,
-                                essid=essid, ethtool=ethtool,
-                                gateway=gateway, hostname=hostname,
-                                ip=ip, mtu=mtu, netmask=netmask,
-                                nameserver=nameserver, nodns=nodns,
-                                notksdevice=notksdevice, noipv4=noipv4,
-                                noipv6=noipv6, onboot=onboot, wepkey=wepkey)
-        self.ipv6 = ipv6
+    removedKeywords = FC6_NetworkData.removedKeywords
+    removedAttrs = FC6_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC6_NetworkData.__init__(self, *args, **kwargs)
+        self.ipv6 = kwargs.get("ipv6", "")
 
     def _getArgsAsStr(self):
         retval = FC6_NetworkData._getArgsAsStr(self)
@@ -157,18 +135,12 @@ class F8_NetworkData(FC6_NetworkData):
         return retval
 
 class RHEL4_NetworkData(FC3_NetworkData):
-    def __init__(self, bootProto=BOOTPROTO_DHCP, dhcpclass="", device="",
-                 essid="", ethtool="", gateway="", hostname="", ip="",
-                 mtu="", nameserver="", netmask="", nodns=False,
-                 notksdevice=False, onboot=True, wepkey=""):
-        FC3_NetworkData.__init__(self, bootProto=bootProto,
-                                dhcpclass=dhcpclass, device=device,
-                                essid=essid, ethtool=ethtool,
-                                gateway=gateway, hostname=hostname,
-                                ip=ip, mtu=mtu, netmask=netmask,
-                                nameserver=nameserver, nodns=nodns,
-                                onboot=onboot, wepkey=wepkey)
-        self.notksdevice = notksdevice
+    removedKeywords = FC3_NetworkData.removedKeywords
+    removedAttrs = FC3_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC3_NetworkData.__init__(self, *args, **kwargs)
+        self.notksdevice = kwargs.get("notksdevice", False)
 
     def _getArgsAsStr(self):
         retval = FC3_NetworkData._getArgsAsStr(self)
@@ -179,17 +151,17 @@ class RHEL4_NetworkData(FC3_NetworkData):
         return retval
 
 class FC3_Network(KickstartCommand):
-    def __init__(self, writePriority=0, network=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.bootprotoList = [BOOTPROTO_DHCP, BOOTPROTO_BOOTP,
                               BOOTPROTO_STATIC]
 
         self.op = self._getParser()
 
-        if network == None:
-            network = []
-
-        self.network = network
+        self.network = kwargs.get("network", [])
 
     def __str__(self):
         retval = ""
@@ -234,8 +206,11 @@ class FC3_Network(KickstartCommand):
         self.network.append(newObj)
 
 class FC4_Network(FC3_Network):
-    def __init__(self, writePriority=0, network=None):
-        FC3_Network.__init__(self, writePriority, network)
+    removedKeywords = FC3_Network.removedKeywords
+    removedAttrs = FC3_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
@@ -244,8 +219,11 @@ class FC4_Network(FC3_Network):
         return op
 
 class FC6_Network(FC4_Network):
-    def __init__(self, writePriority=0, network=None):
-        FC4_Network.__init__(self, writePriority, network)
+    removedKeywords = FC4_Network.removedKeywords
+    removedAttrs = FC4_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC4_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_Network._getParser(self)
@@ -256,8 +234,11 @@ class FC6_Network(FC4_Network):
         return op
 
 class F8_Network(FC6_Network):
-    def __init__(self, writePriority=0, network=None):
-        FC6_Network.__init__(self, writePriority, network)
+    removedKeywords = FC6_Network.removedKeywords
+    removedAttrs = FC6_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC6_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
@@ -265,8 +246,11 @@ class F8_Network(FC6_Network):
         return op
 
 class F9_Network(F8_Network):
-    def __init__(self, writePriority=0, network=None):
-        F8_Network.__init__(self, writePriority, network)
+    removedKeywords = F8_Network.removedKeywords
+    removedAttrs = F8_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F8_Network.__init__(self, writePriority, *args, **kwargs)
         self.bootprotoList.append(BOOTPROTO_QUERY)
 
     def _getParser(self):
@@ -277,8 +261,11 @@ class F9_Network(F8_Network):
         return op
 
 class RHEL4_Network(FC3_Network):
-    def __init__(self, writePriority=0, network=None):
-        FC3_Network.__init__(self, writePriority, network)
+    removedKeywords = FC3_Network.removedKeywords
+    removedAttrs = FC3_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
@@ -287,8 +274,11 @@ class RHEL4_Network(FC3_Network):
         return op
 
 class RHEL5_Network(FC6_Network):
-    def __init__(self, writePriority=0, network=None):
-        FC6_Network.__init__(self, writePriority, network)
+    removedKeywords = FC6_Network.removedKeywords
+    removedAttrs = FC6_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC6_Network.__init__(self, writePriority, *args, **kwargs)
         self.bootprotoList.append(BOOTPROTO_QUERY)
 
     def _getParser(self):

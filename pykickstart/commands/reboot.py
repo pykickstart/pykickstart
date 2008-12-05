@@ -23,9 +23,12 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 class FC3_Reboot(KickstartCommand):
-    def __init__(self, writePriority=0, action=None):
-        KickstartCommand.__init__(self, writePriority)
-        self.action = action
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.action = kwargs.get("action", None)
 
     def __str__(self):
         if self.action == KS_REBOOT:
@@ -42,11 +45,14 @@ class FC3_Reboot(KickstartCommand):
             self.action = KS_SHUTDOWN
 
 class FC6_Reboot(FC3_Reboot):
-    def __init__(self, writePriority=0, action=None, eject=False):
-        FC3_Reboot.__init__(self, writePriority, action=action)
+    removedKeywords = FC3_Reboot.removedKeywords
+    removedAttrs = FC3_Reboot.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Reboot.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.eject = eject
+        self.eject = kwargs.get("eject", False)
 
     def __str__(self):
         retval = FC3_Reboot.__str__(self).rstrip()

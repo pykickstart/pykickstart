@@ -26,9 +26,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_IscsiName(KickstartCommand):
-    def __init__(self, writePriority=70, iscsiname=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.iscsiname = iscsiname
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=70, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.iscsiname = kwargs.get("iscsiname", "")
 
     def __str__(self):
         if self.iscsiname != "":

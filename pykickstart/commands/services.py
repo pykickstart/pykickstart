@@ -24,19 +24,15 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 class FC6_Services(KickstartCommand):
-    def __init__(self, writePriority=0, disabled=None, enabled=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if disabled == None:
-            disabled = []
-
-        self.disabled = disabled
-
-        if enabled == None:
-            enabled = []
-
-        self.enabled = enabled
+        self.disabled = kwargs.get("disabled", [])
+        self.enabled = kwargs.get("enabled", [])
 
     def __str__(self):
         retval = ""

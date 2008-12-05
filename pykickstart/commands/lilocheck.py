@@ -25,9 +25,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_LiloCheck(KickstartCommand):
-    def __init__(self, writePriority=0, check=False):
-        KickstartCommand.__init__(self, writePriority)
-        self.check = check
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.check = kwargs.get("check", False)
 
     def __str__(self):
         if self.check:

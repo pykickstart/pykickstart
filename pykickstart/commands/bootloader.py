@@ -23,26 +23,22 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_Bootloader(KickstartCommand):
-    def __init__(self, writePriority=10, appendLine="", driveorder=None,
-                 forceLBA=False, linear=True, location="", md5pass="",
-                 password="", upgrade=False, useLilo=False):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.appendLine = appendLine
-
-        if driveorder == None:
-            driveorder = []
-
-        self.driveorder = driveorder
-
-        self.forceLBA = forceLBA
-        self.linear = linear
-        self.location = location
-        self.md5pass = md5pass
-        self.password = password
-        self.upgrade = upgrade
-        self.useLilo = useLilo
+        self.driveorder = kwargs.get("driveorder", [])
+        self.appendLine = kwargs.get("appendLine", "")
+        self.forceLBA = kwargs.get("forceLBA", False)
+        self.linear = kwargs.get("linear", True)
+        self.location = kwargs.get("location", "")
+        self.md5pass = kwargs.get("md5pass", "")
+        self.password = kwargs.get("password", "")
+        self.upgrade = kwargs.get("upgrade", False)
+        self.useLilo = kwargs.get("useLilo", False)
 
     def _getArgsAsStr(self):
         retval = ""
@@ -109,22 +105,12 @@ class FC3_Bootloader(KickstartCommand):
             self.useLilo = True
 
 class FC4_Bootloader(FC3_Bootloader):
-    def __init__(self, writePriority=10, appendLine="", driveorder=None,
-                 forceLBA=False, location="", md5pass="", password="",
-                 upgrade=False):
-        FC3_Bootloader.__init__(self, writePriority)
-        self.appendLine = appendLine
+    removedKeywords = FC3_Bootloader.removedKeywords + ["linear", "useLilo"]
+    removedAttrs = FC3_Bootloader.removedAttrs + ["linear", "useLilo"]
 
-        if driveorder == None:
-            driveorder = []
-
-        self.driveorder = driveorder
-
-        self.forceLBA = forceLBA
-        self.location = location
-        self.md5pass = md5pass
-        self.password = password
-        self.upgrade = upgrade
+    def __init__(self, writePriority=10, *args, **kwargs):
+        FC3_Bootloader.__init__(self, writePriority, *args, **kwargs)
+        self.deleteRemovedAttrs()
 
     def _getArgsAsStr(self):
         retval = ""
@@ -156,14 +142,14 @@ class FC4_Bootloader(FC3_Bootloader):
         self._setToSelf(self.op, opts)
 
 class F8_Bootloader(FC4_Bootloader):
-    def __init__(self, writePriority=10, appendLine="", driveorder=None,
-                 forceLBA=False, location="", md5pass="", password="",
-                 upgrade=False):
-        FC4_Bootloader.__init__(self, writePriority, appendLine, driveorder,
-                                forceLBA, location, md5pass, password, upgrade)
+    removedKeywords = FC4_Bootloader.removedKeywords
+    removedAttrs = FC4_Bootloader.removedAttrs
 
-        self.timeout = None
-        self.default = None
+    def __init__(self, writePriority=10, *args, **kwargs):
+        FC4_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.timeout = kwargs.get("timeout", None)
+        self.default = kwargs.get("default", "")
 
     def _getArgsAsStr(self):
         ret = FC4_Bootloader._getArgsAsStr(self)

@@ -25,13 +25,16 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Monitor(KickstartCommand):
-    def __init__(self, writePriority=0, hsync="", monitor="", vsync=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.hsync = hsync
-        self.monitor = monitor
-        self.vsync = vsync
+        self.hsync = kwargs.get("hsync", "")
+        self.monitor = kwargs.get("monitor", "")
+        self.vsync = kwargs.get("vsync", "")
 
     def __str__(self):
         retval = "monitor"
@@ -65,11 +68,12 @@ class FC3_Monitor(KickstartCommand):
         self._setToSelf(self.op, opts)
 
 class FC6_Monitor(FC3_Monitor):
-    def __init__(self, writePriority=0, hsync="", monitor="", probe=True,
-                 vsync=""):
-        FC3_Monitor.__init__(self, writePriority, hsync=hsync,
-                            monitor=monitor, vsync=vsync)
-        self.probe = probe
+    removedKeywords = FC3_Monitor.removedKeywords
+    removedAttrs = FC3_Monitor.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Monitor.__init__(self, writePriority, *args, **kwargs)
+        self.probe = kwargs.get("probe", True)
 
     def __str__(self):
         retval = "monitor"

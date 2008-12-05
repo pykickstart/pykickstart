@@ -28,11 +28,14 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_RepoData(BaseData):
-    def __init__(self, baseurl="", mirrorlist=None, name=""):
-        BaseData.__init__(self)
-        self.baseurl = baseurl
-        self.mirrorlist = mirrorlist
-        self.name = name
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.baseurl = kwargs.get("baseurl", "")
+        self.mirrorlist = kwargs.get("mirrorlist", None)
+        self.name = kwargs.get("name", "")
 
     def _getArgsAsStr(self):
         retval = ""
@@ -48,13 +51,14 @@ class FC6_RepoData(BaseData):
         return "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
 
 class F8_RepoData(FC6_RepoData):
-    def __init__(self, baseurl="", mirrorlist=None, name="", cost=None,
-                 includepkgs=[], excludepkgs=[]):
-        FC6_RepoData.__init__(self, baseurl=baseurl, mirrorlist=mirrorlist,
-                              name=name)
-        self.cost = cost
-        self.includepkgs = includepkgs
-        self.excludepkgs = excludepkgs
+    removedKeywords = FC6_RepoData.removedKeywords
+    removedAttrs = FC6_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC6_RepoData.__init__(self, *args, **kwargs)
+        self.cost = kwargs.get("cost", None)
+        self.includepkgs = kwargs.get("includepkgs", [])
+        self.excludepkgs = kwargs.get("excludepkgs", [])
 
     def _getArgsAsStr(self):
         retval = FC6_RepoData._getArgsAsStr(self)
@@ -69,14 +73,14 @@ class F8_RepoData(FC6_RepoData):
         return retval
 
 class FC6_Repo(KickstartCommand):
-    def __init__(self, writePriority=0, repoList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if repoList == None:
-            repoList = []
-
-        self.repoList = repoList
+        self.repoList = kwargs.get("repoList", [])
 
     def __str__(self):
         retval = ""
@@ -111,8 +115,11 @@ class FC6_Repo(KickstartCommand):
         self.repoList.append(newObj)
 
 class F8_Repo(FC6_Repo):
-    def __init__(self, writePriority=0, repoList=None):
-        FC6_Repo.__init__(self, writePriority, repoList)
+    removedKeywords = FC6_Repo.removedKeywords
+    removedAttrs = FC6_Repo.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC6_Repo.__init__(self, writePriority, *args, **kwargs)
 
     def __str__(self):
         retval = ""

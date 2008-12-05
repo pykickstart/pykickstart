@@ -22,13 +22,16 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 class FC3_Vnc(KickstartCommand):
-    def __init__(self, writePriority=0, enabled=False, password="", connect=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.enabled = enabled
-        self.password = password
-        self.connect = connect
+        self.enabled = kwargs.get("enabled", False)
+        self.password = kwargs.get("password", "")
+        self.connect = kwargs.get("connect", "")
 
     def __str__(self):
         if not self.enabled:
@@ -55,13 +58,15 @@ class FC3_Vnc(KickstartCommand):
         self._setToSelf(self.op, opts)
 
 class FC6_Vnc(FC3_Vnc):
-    def __init__(self, writePriority=0, enabled=False, password="", host="",
-                 port=""):
-        FC3_Vnc.__init__(self, writePriority)
-        self.enabled = enabled
-        self.password = password
-        self.host = host
-        self.port = port
+    removedKeywords = FC3_Vnc.removedKeywords + ["connect"]
+    removedAttrs = FC3_Vnc.removedAttrs + ["connect"]
+
+    def __init__(self, writePriority=0, host="", port="", *args, **kwargs):
+        FC3_Vnc.__init__(self, writePriority, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.host = kwargs.get("host", "")
+        self.port = kwargs.get("port", "")
 
     def __str__(self):
         if not self.enabled:
@@ -95,6 +100,9 @@ class FC6_Vnc(FC3_Vnc):
         return op
 
 class F9_Vnc(FC6_Vnc):
+    removedKeywords = FC6_Vnc.removedKeywords
+    removedAttrs = FC6_Vnc.removedAttrs
+
     def _getParser(self):
         op = FC6_Vnc._getParser(self)
         op.remove_option("--connect")

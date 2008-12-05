@@ -25,25 +25,25 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_PartData(BaseData):
-    def __init__(self, active=False, primOnly=False, end=0, fstype="",
-                 grow=False, maxSizeMB=0, format=True, onbiosdisk="",
-                 disk="", onPart="", recommended=False, size=None,
-                 start=0, mountpoint=""):
-        BaseData.__init__(self)
-        self.active = active
-        self.primOnly = primOnly
-        self.end = end
-        self.fstype = fstype
-        self.grow = grow
-        self.maxSizeMB = maxSizeMB
-        self.format = format
-        self.onbiosdisk = onbiosdisk
-        self.disk = disk
-        self.onPart = onPart
-        self.recommended = recommended
-        self.size = size
-        self.start = start
-        self.mountpoint = mountpoint
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.active = kwargs.get("active", False)
+        self.primOnly = kwargs.get("primOnly", False)
+        self.end = kwargs.get("end", 0)
+        self.fstype = kwargs.get("fstype", "")
+        self.grow = kwargs.get("grow", False)
+        self.maxSizeMB = kwargs.get("maxSizeMB", 0)
+        self.format = kwargs.get("format", True)
+        self.onbiosdisk = kwargs.get("onbiosdisk", "")
+        self.disk = kwargs.get("disk", "")
+        self.onPart = kwargs.get("onPart", "")
+        self.recommended = kwargs.get("recommended", False)
+        self.size = kwargs.get("size", None)
+        self.start = kwargs.get("start", 0)
+        self.mountpoint = kwargs.get("mountpoint", "")
 
     def _getArgsAsStr(self):
         retval = ""
@@ -81,26 +81,19 @@ class FC3_PartData(BaseData):
         return "part %s %s\n" % (self.mountpoint, self._getArgsAsStr())
 
 class FC4_PartData(FC3_PartData):
-    def __init__(self, active=False, primOnly=False, bytesPerInode=4096,
-                 end=0, fsopts="", fstype="", grow=False, label="",
-                 maxSizeMB=0, format=True, onbiosdisk="", disk="",
-                 onPart="", recommended=False, size=None, start=0,
-                 mountpoint=""):
-        FC3_PartData.__init__(self, active=active, primOnly=primOnly,
-                             end=end, fstype=fstype, grow=grow,
-                             maxSizeMB=maxSizeMB, format=format,
-                             onbiosdisk=onbiosdisk, disk=disk,
-                             onPart=onPart, size=size, start=start,
-                             recommended=recommended,
-                             mountpoint=mountpoint)
-        self.bytesPerInode = bytesPerInode
-        self.fsopts = fsopts
-        self.label = label
+    removedKeywords = FC3_PartData.removedKeywords
+    removedAttrs = FC3_PartData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC3_PartData.__init__(self, *args, **kwargs)
+        self.bytesPerInode = kwargs.get("bytesPerInode", 4096)
+        self.fsopts = kwargs.get("fsopts", "")
+        self.label = kwargs.get("label", "")
 
     def _getArgsAsStr(self):
         retval = FC3_PartData._getArgsAsStr(self)
 
-        if self.bytesPerInode != 0:
+        if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
         if self.fsopts != "":
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -110,21 +103,13 @@ class FC4_PartData(FC3_PartData):
         return retval
 
 class RHEL5_PartData(FC4_PartData):
-    def __init__(self, active=False, primOnly=False, end=0, fsopts="",
-                 fstype="", grow=False, label="", maxSizeMB=0,
-                 format=True, onbiosdisk="", disk="", onPart="",
-                 recommended=False, size=None, start=0, mountpoint="",
-                 bytesPerInode=4096, encrypted=False, passphrase=""):
-        FC4_PartData.__init__(self, active=active, primOnly=primOnly,
-                             end=end, fstype=fstype, grow=grow,
-                             maxSizeMB=maxSizeMB, format=format,
-                             onbiosdisk=onbiosdisk, disk=disk,
-                             onPart=onPart, size=size, start=start,
-                             recommended=recommended,
-                             bytesPerInode=bytesPerInode,
-                             mountpoint=mountpoint)
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC4_PartData.removedKeywords
+    removedAttrs = FC4_PartData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC4_PartData.__init__(self, *args, **kwargs)
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC4_PartData._getArgsAsStr(self)
@@ -138,23 +123,18 @@ class RHEL5_PartData(FC4_PartData):
         return retval
 
 class F9_PartData(FC4_PartData):
-    def __init__(self, active=False, primOnly=False, fsprofile="",
-                 end=0, fsopts="", fstype="", grow=False, label="",
-                 maxSizeMB=0, format=True, onbiosdisk="", disk="",
-                 onPart="", recommended=False, size=None, start=0,
-                 mountpoint="", encrypted=False, passphrase=""):
-        FC4_PartData.__init__(self, active=active, primOnly=primOnly,
-                             end=end, fstype=fstype, grow=grow,
-                             maxSizeMB=maxSizeMB, format=format,
-                             onbiosdisk=onbiosdisk, disk=disk,
-                             onPart=onPart, size=size, start=start,
-                             recommended=recommended,
-                             mountpoint=mountpoint)
-        self.fsopts = fsopts
-        self.label = label
-        self.fsprofile = fsprofile
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC4_PartData.removedKeywords + ["bytesPerInode"]
+    removedAttrs = FC4_PartData.removedAttrs + ["bytesPerInode"]
+
+    def __init__(self, *args, **kwargs):
+        FC4_PartData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.fsopts = kwargs.get("fsopts", "")
+        self.label = kwargs.get("label", "")
+        self.fsprofile = kwargs.get("fsprofile", "")
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC4_PartData._getArgsAsStr(self)
@@ -171,14 +151,14 @@ class F9_PartData(FC4_PartData):
 
 
 class FC3_Partition(KickstartCommand):
-    def __init__(self, writePriority=130, partitions=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=130, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if partitions == None:
-            partitions = []
-
-        self.partitions = partitions
+        self.partitions = kwargs.get("partitions", [])
 
     def __str__(self):
         retval = ""
@@ -238,8 +218,11 @@ class FC3_Partition(KickstartCommand):
         self.partitions.append(newObj)
 
 class FC4_Partition(FC3_Partition):
-    def __init__(self, writePriority=130, partitions=None):
-        FC3_Partition.__init__(self, writePriority, partitions)
+    removedKeywords = FC3_Partition.removedKeywords
+    removedAttrs = FC3_Partition.removedAttrs
+
+    def __init__(self, writePriority=130, *args, **kwargs):
+        FC3_Partition.__init__(self, writePriority, *args, **kwargs)
 
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
@@ -256,8 +239,11 @@ class FC4_Partition(FC3_Partition):
         return op
 
 class RHEL5_Partition(FC4_Partition):
-    def __init__(self, writePriority=130, partitions=None):
-        FC4_Partition.__init__(self, writePriority, partitions)
+    removedKeywords = FC4_Partition.removedKeywords
+    removedAttrs = FC4_Partition.removedAttrs
+
+    def __init__(self, writePriority=130, *args, **kwargs):
+        FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
@@ -272,8 +258,11 @@ class RHEL5_Partition(FC4_Partition):
         return op
 
 class F9_Partition(FC4_Partition):
-    def __init__(self, writePriority=130, partitions=None):
-        FC4_Partition.__init__(self, writePriority, partitions)
+    removedKeywords = FC4_Partition.removedKeywords
+    removedAttrs = FC4_Partition.removedAttrs
+
+    def __init__(self, writePriority=130, *args, **kwargs):
+        FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):

@@ -26,9 +26,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_ZeroMbr(KickstartCommand):
-    def __init__(self, writePriority=110, zerombr=False):
-        KickstartCommand.__init__(self, writePriority)
-        self.zerombr = zerombr
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=110, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.zerombr = kwargs.get("zerombr", False)
 
     def __str__(self):
         if self.zerombr:
@@ -43,6 +46,9 @@ class FC3_ZeroMbr(KickstartCommand):
         self.zerombr = True
 
 class F9_ZeroMbr(FC3_ZeroMbr):
+    removedKeywords = FC3_ZeroMbr.removedKeywords
+    removedAttrs = FC3_ZeroMbr.removedAttrs
+
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr")

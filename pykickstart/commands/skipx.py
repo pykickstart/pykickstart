@@ -25,9 +25,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_SkipX(KickstartCommand):
-    def __init__(self, writePriority=0, skipx=False):
-        KickstartCommand.__init__(self, writePriority)
-        self.skipx = skipx
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.skipx = kwargs.get("skipx", False)
 
     def __str__(self):
         if self.skipx:

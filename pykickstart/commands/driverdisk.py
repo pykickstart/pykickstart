@@ -24,12 +24,15 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_DriverDiskData(BaseData):
-    def __init__(self, writePriority=0, partition="", source="", type=""):
-        BaseData.__init__(self)
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        self.partition = partition
-        self.source = source
-        self.type = type
+    def __init__(self, writePriority=0, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+
+        self.partition = kwargs.get("partition", "")
+        self.source = kwargs.get("source", "")
+        self.type = kwargs.get("type", "")
 
     def __str__(self):
         retval = "driverdisk"
@@ -45,14 +48,14 @@ class FC3_DriverDiskData(BaseData):
         return retval + "\n"
 
 class FC3_DriverDisk(KickstartCommand):
-    def __init__(self, writePriority=0, driverdiskList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if driverdiskList is None:
-            driverdiskList = []
-
-        self.driverdiskList = driverdiskList
+        self.driverdiskList = kwargs.get("driverdiskList", [])
 
     def __str__(self):
         retval = ""

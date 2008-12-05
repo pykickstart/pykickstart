@@ -21,16 +21,15 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_LangSupport(KickstartCommand):
-    def __init__(self, writePriority=0, deflang="", supported=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.deflang = deflang
-
-        if supported == None:
-            supported = []
-
-        self.supported = supported
+        self.deflang = kwargs.get("deflang", "")
+        self.supported = kwargs.get("supported", [])
 
     def __str__(self):
         if self.deflang:

@@ -24,9 +24,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Keyboard(KickstartCommand):
-    def __init__(self, writePriority=0, keyboard=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.keyboard = keyboard
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.keyboard = kwargs.get("keyboard", "")
 
     def __str__(self):
         if self.keyboard != "":

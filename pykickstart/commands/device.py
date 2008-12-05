@@ -24,10 +24,13 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F8_DeviceData(BaseData):
-    def __init__(self, moduleName="", moduleOpts=""):
-        BaseData.__init__(self)
-        self.moduleName = moduleName
-        self.moduleOpts = moduleOpts
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.moduleName = kwargs.get("moduleName", "")
+        self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __str__(self):
         if self.moduleName != "":
@@ -41,13 +44,16 @@ class F8_DeviceData(BaseData):
             return ""
 
 class FC3_Device(KickstartCommand):
-    def __init__(self, writePriority=0, type="", moduleName="", moduleOpts=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.type = type
-        self.moduleName = moduleName
-        self.moduleOpts = moduleOpts
+        self.type = kwargs.get("type", "")
+        self.moduleName = kwargs.get("moduleName", "")
+        self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __str__(self):
         if self.moduleName != "":
@@ -76,13 +82,12 @@ class FC3_Device(KickstartCommand):
         self.moduleName = extra[1]
 
 class F8_Device(FC3_Device):
-    def __init__(self, writePriority=0, deviceList=None):
-        FC3_Device.__init__(self, writePriority)
+    removedKeywords = FC3_Device.removedKeywords
+    removedAttrs = FC3_Device.removedAttrs
 
-        if deviceList == None:
-            deviceList = []
-
-        self.deviceList = deviceList
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Device.__init__(self, writePriority, *args, **kwargs)
+        self.deviceList = kwargs.get("deviceList", [])
 
     def __str__(self):
         retval = ""

@@ -25,9 +25,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_AutoPart(KickstartCommand):
-    def __init__(self, writePriority=100, autopart=False):
-        KickstartCommand.__init__(self, writePriority)
-        self.autopart = autopart
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.autopart = kwargs.get("autopart", False)
 
     def __str__(self):
         if self.autopart:
@@ -42,13 +45,15 @@ class FC3_AutoPart(KickstartCommand):
         self.autopart = True
 
 class F9_AutoPart(FC3_AutoPart):
-    def __init__(self, writePriority=100, autopart=False, encrypted=False,
-                 passphrase=""):
-        FC3_AutoPart.__init__(self, writePriority=writePriority, autopart=autopart)
-        self.op = self._getParser()
+    removedKeywords = FC3_AutoPart.removedKeywords
+    removedAttrs = FC3_AutoPart.removedAttrs
 
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    def __init__(self, writePriority=100, *args, **kwargs):
+        FC3_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
+
+        self.op = self._getParser()
 
     def __str__(self):
         if self.autopart:

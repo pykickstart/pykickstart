@@ -26,15 +26,15 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_DmRaidData(BaseData):
-    def __init__(self, name="", devices=None, dmset=None):
-        BaseData.__init__(self)
-        self.name = name
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        if devices == None:
-            devices = []
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
 
-        self.devices = devices
-        self.dmset = dmset
+        self.name = kwargs.get("name", "")
+        self.devices = kwargs.get("devices", [])
+        self.dmset = kwargs.get("dmset", None)
 
     def __str__(self):
         retval = "dmraid --name=%s" % self.name
@@ -45,14 +45,14 @@ class FC6_DmRaidData(BaseData):
         return retval + "\n"
 
 class FC6_DmRaid(KickstartCommand):
-    def __init__(self, writePriority=60, dmraids=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=60, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if dmraids == None:
-            dmraids = []
-
-        self.dmraids = dmraids
+        self.dmraids = kwargs.get("dmraids", [])
 
     def __str__(self):
         retval = ""

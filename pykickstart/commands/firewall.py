@@ -23,21 +23,16 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_Firewall(KickstartCommand):
-    def __init__(self, writePriority=0, enabled=None, ports=None, trusts=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.enabled = enabled
-
-        if ports == None:
-            ports = []
-
-        self.ports = ports
-
-        if trusts == None:
-            trusts = []
-
-        self.trusts = trusts
+        self.enabled = kwargs.get("enabled", None)
+        self.ports = kwargs.get("ports", [])
+        self.trusts = kwargs.get("trusts", [])
 
     def __str__(self):
         extra = []
@@ -114,6 +109,9 @@ class FC3_Firewall(KickstartCommand):
         self._setToSelf(self.op, opts)
 
 class F9_Firewall(FC3_Firewall):
+    removedKeywords = FC3_Firewall.removedKeywords
+    removedAttrs = FC3_Firewall.removedAttrs
+
     def _getParser(self):
         op = FC3_Firewall._getParser(self)
         op.remove_option("--high")
@@ -121,15 +119,12 @@ class F9_Firewall(FC3_Firewall):
         return op
 
 class F10_Firewall(F9_Firewall):
-    def __init__(self, writePriority=0, enabled=None, ports=None, trusts=None,
-                 services=None):
-        F9_Firewall.__init__(self, writePriority, enabled=enabled, ports=ports,
-                             trusts=trusts)
+    removedKeywords = F9_Firewall.removedKeywords
+    removedAttrs = F9_Firewall.removedAttrs
 
-        if services == None:
-            services = []
-
-        self.services = services
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F9_Firewall.__init__(self, writePriority, *args, **kwargs)
+        self.services = kwargs.get("services", [])
 
     def __str__(self):
         if self.enabled is None:

@@ -25,13 +25,16 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_Logging(KickstartCommand):
-    def __init__(self, writePriority=0, host="", level="", port=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.host = host
-        self.level = level
-        self.port = port
+        self.host = kwargs.get("host", "")
+        self.level = kwargs.get("level", "")
+        self.port = kwargs.get("port", "")
 
     def __str__(self):
         if self.level != "":

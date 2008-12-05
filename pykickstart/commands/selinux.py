@@ -22,11 +22,14 @@ from pykickstart.constants import *
 from pykickstart.options import *
 
 class FC3_SELinux(KickstartCommand):
-    def __init__(self, writePriority=0, selinux=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.selinux = selinux
+        self.selinux = kwargs.get("selinux", None)
 
     def __str__(self):
         retval = "# SELinux configuration\n"

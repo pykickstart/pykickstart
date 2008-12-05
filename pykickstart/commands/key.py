@@ -26,9 +26,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F7_Key(KickstartCommand):
-    def __init__(self, writePriority=0, key=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.key = key
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.key = kwargs.get("key", "")
 
     def __str__(self):
         if self.key == KS_INSTKEY_SKIP:

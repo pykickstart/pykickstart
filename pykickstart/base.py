@@ -53,6 +53,9 @@ from pykickstart.version import versionToString
 ###
 class KickstartCommand(object):
     """The base class for all kickstart commands.  This is an abstract class."""
+    removedKeywords = []
+    removedAttrs = []
+
     def __init__(self, writePriority=0, *args, **kwargs):
         """Create a new KickstartCommand instance.  This method must be
            provided by all subclasses, but subclasses must call
@@ -84,14 +87,6 @@ class KickstartCommand(object):
         self.currentLine = ""
         self.handler = None
         self.lineno = 0
-
-        # If these two lists are not provided by a subclass, set them to empty
-        # so we don't need to test for their existance later.
-        if not hasattr(self, "removedKeywords"):
-            self.removedKeywords = []
-
-        if not hasattr(self, "removedAttrs"):
-            self.removedAttrs = []
 
         # If a subclass provides a removedKeywords list, remove all the
         # members from the kwargs list before we start processing it.  This
@@ -380,20 +375,15 @@ class BaseHandler(object):
 ###
 class BaseData(object):
     """The base class for all data objects.  This is an abstract class."""
+    removedKeywords = []
+    removedAttrs = []
+
     def __init__(self, *args, **kwargs):
         """Create a new BaseData instance.  There are no attributes."""
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseData:
             raise TypeError, "BaseData is an abstract class."
-
-        # If these two lists are not provided by a subclass, set them to empty
-        # so we don't need to test for their existance later.
-        if not hasattr(self, "removedKeywords"):
-            self.removedKeywords = []
-
-        if not hasattr(self, "removedAttrs"):
-            self.removedAttrs = []
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""

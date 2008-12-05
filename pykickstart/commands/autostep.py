@@ -21,11 +21,14 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_AutoStep(KickstartCommand):
-    def __init__(self, writePriority=0, autoscreenshot=False):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.autoscreenshot = autoscreenshot
+        self.autoscreenshot = kwargs.get("autoscreenshot", False)
 
     def __str__(self):
         if self.autoscreenshot:

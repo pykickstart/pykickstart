@@ -27,21 +27,19 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_RaidData(BaseData):
-    def __init__(self, device=None, fstype="", level="", format=True,
-                 spares=0, preexist=False, mountpoint="", members=None):
-        BaseData.__init__(self)
-        self.device = device
-        self.fstype = fstype
-        self.level = level
-        self.format = format
-        self.spares = spares
-        self.preexist = preexist
-        self.mountpoint = mountpoint
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        if members == None:
-            members = []
-
-        self.members = members
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.device = kwargs.get("device", None)
+        self.fstype = kwargs.get("fstype", "")
+        self.level = kwargs.get("level", "")
+        self.format = kwargs.get("format", True)
+        self.spares = kwargs.get("spares", 0)
+        self.preexist = kwargs.get("preexist", False)
+        self.mountpoint = kwargs.get("mountpoint", "")
+        self.members = kwargs.get("members", [])
 
     def _getArgsAsStr(self):
         retval = ""
@@ -66,15 +64,12 @@ class FC3_RaidData(BaseData):
                                     string.join(self.members))
 
 class FC4_RaidData(FC3_RaidData):
-    def __init__(self, device=None, fsopts="", fstype="", level="",
-                 format=True, spares=0, preexist=False, mountpoint="",
-                 members=None):
-        FC3_RaidData.__init__(self, device=device, fstype=fstype,
-                             level=level, format=format,
-                             spares=spares, preexist=preexist,
-                             mountpoint=mountpoint,
-                             members=members)
-        self.fsopts = fsopts
+    removedKeywords = FC3_RaidData.removedKeywords
+    removedAttrs = FC3_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC3_RaidData.__init__(self, *args, **kwargs)
+        self.fsopts = kwargs.get("fsopts", "")
 
     def _getArgsAsStr(self):
         retval = FC3_RaidData._getArgsAsStr(self)
@@ -85,37 +80,29 @@ class FC4_RaidData(FC3_RaidData):
         return retval
 
 class FC5_RaidData(FC4_RaidData):
-    def __init__(self, device=None, fsopts="", fstype="", level="",
-                 format=True, spares=0, preexist=False, mountpoint="",
-                 members=None, bytesPerInode=4096):
-        FC4_RaidData.__init__(self, device=device, fsopts=fsopts,
-                             fstype=fstype, level=level,
-                             format=format, spares=spares,
-                             preexist=preexist,
-                             mountpoint=mountpoint, members=members)
-        self.bytesPerInode = bytesPerInode
+    removedKeywords = FC4_RaidData.removedKeywords
+    removedAttrs = FC4_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC4_RaidData.__init__(self, *args, **kwargs)
+        self.bytesPerInode = kwargs.get("bytesPerInode", 4096)
 
     def _getArgsAsStr(self):
         retval = FC4_RaidData._getArgsAsStr(self)
 
-        if self.bytesPerInode != 0:
+        if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
 
         return retval
 
 class RHEL5_RaidData(FC5_RaidData):
-    def __init__(self, device=None, fsopts="", fstype="", level="",
-                 format=True, spares=0, preexist=False, mountpoint="",
-                 members=None, encrypted=False, passphrase="",
-                 bytesPerInode=4096):
-        FC5_RaidData.__init__(self, device=device, fsopts=fsopts,
-                              fstype=fstype, level=level,
-                              format=format, spares=spares,
-                              preexist=preexist,
-                              bytesPerInode=bytesPerInode,
-                              mountpoint=mountpoint, members=members)
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC5_RaidData.removedKeywords
+    removedAttrs = FC5_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC5_RaidData.__init__(self, *args, **kwargs)
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC5_RaidData._getArgsAsStr(self)
@@ -131,17 +118,16 @@ class RHEL5_RaidData(FC5_RaidData):
 F7_RaidData = FC5_RaidData
 
 class F9_RaidData(FC5_RaidData):
-    def __init__(self, device=None, fsopts="", fstype="", level="",
-                 format=True, spares=0, preexist=False, mountpoint="",
-                 members=None, fsprofile="", encrypted=False, passphrase=""):
-        FC5_RaidData.__init__(self, device=device, fsopts=fsopts,
-                              fstype=fstype, level=level,
-                              format=format, spares=spares,
-                              preexist=preexist,
-                              mountpoint=mountpoint, members=members)
-        self.fsprofile = fsprofile
-        self.encrypted = encrypted
-        self.passphrase = passphrase
+    removedKeywords = FC5_RaidData.removedKeywords + ["bytesPerInode"]
+    removedAttrs = FC5_RaidData.removedAttrs + ["bytesPerInode"]
+
+    def __init__(self, *args, **kwargs):
+        FC5_RaidData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.fsprofile = kwargs.get("fsprofile", "")
+        self.encrypted = kwargs.get("encrypted", False)
+        self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
         retval = FC5_RaidData._getArgsAsStr(self)
@@ -157,8 +143,11 @@ class F9_RaidData(FC5_RaidData):
         return retval
 
 class FC3_Raid(KickstartCommand):
-    def __init__(self, writePriority=131, raidList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
         # A dict of all the RAID levels we support.  This means that if we
@@ -169,10 +158,7 @@ class FC3_Raid(KickstartCommand):
                           "RAID5": "RAID5", "5": "RAID5",
                           "RAID6": "RAID6", "6": "RAID6" }
 
-        if raidList == None:
-            raidList = []
-
-        self.raidList = raidList
+        self.raidList = kwargs.get("raidList", [])
 
     def __str__(self):
         retval = ""
@@ -232,8 +218,11 @@ class FC3_Raid(KickstartCommand):
         self.raidList.append(newObj)
 
 class FC4_Raid(FC3_Raid):
-    def __init__(self, writePriority=131, raidList=None):
-        FC3_Raid.__init__(self, writePriority, raidList)
+    removedKeywords = FC3_Raid.removedKeywords
+    removedAttrs = FC3_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        FC3_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC3_Raid._getParser(self)
@@ -241,8 +230,11 @@ class FC4_Raid(FC3_Raid):
         return op
 
 class FC5_Raid(FC4_Raid):
-    def __init__(self, writePriority=131, raidList=None):
-        FC4_Raid.__init__(self, writePriority, raidList)
+    removedKeywords = FC4_Raid.removedKeywords
+    removedAttrs = FC4_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        FC4_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
@@ -251,8 +243,11 @@ class FC5_Raid(FC4_Raid):
         return op
 
 class RHEL5_Raid(FC5_Raid):
-    def __init__(self, writePriority=131, raidList=None):
-        FC5_Raid.__init__(self, writePriority, raidList)
+    removedKeywords = FC5_Raid.removedKeywords
+    removedAttrs = FC5_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        FC5_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC5_Raid._getParser(self)
@@ -261,14 +256,20 @@ class RHEL5_Raid(FC5_Raid):
         return op
 
 class F7_Raid(FC5_Raid):
-    def __init__(self, writePriority=131, raidList=None):
-        FC5_Raid.__init__(self, writePriority, raidList)
+    removedKeywords = FC5_Raid.removedKeywords
+    removedAttrs = FC5_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        FC5_Raid.__init__(self, writePriority, *args, **kwargs)
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
 
 class F9_Raid(F7_Raid):
-    def __init__(self, writePriority=131, raidList=None):
-        F7_Raid.__init__(self, writePriority, raidList)
+    removedKeywords = F7_Raid.removedKeywords
+    removedAttrs = F7_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        F7_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = F7_Raid._getParser(self)

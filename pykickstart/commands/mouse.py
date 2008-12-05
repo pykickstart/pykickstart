@@ -21,13 +21,16 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class RHEL3_Mouse(KickstartCommand):
-    def __init__(self, writePriority=0, device="", emulthree=False, mouse=""):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        self.device = device
-        self.emulthree = emulthree
-        self.mouse = mouse
+        self.device = kwargs.get("device", "")
+        self.emulthree = kwargs.get("emulthree", False)
+        self.mouse = kwargs.get("mouse", "")
 
     def __str__(self):
         opts = ""

@@ -24,9 +24,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F7_Updates(KickstartCommand):
-    def __init__(self, writePriority=0, url=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.url = url
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.url = kwargs.get("url", "")
 
     def __str__(self):
         if self.url == "floppy":

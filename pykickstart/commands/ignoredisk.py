@@ -23,14 +23,14 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_IgnoreDisk(KickstartCommand):
-    def __init__(self, writePriority=0, ignoredisk=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if ignoredisk == None:
-            ignoredisk = []
-
-        self.ignoredisk = ignoredisk
+        self.ignoredisk = kwargs.get("ignoredisk", [])
 
     def __str__(self):
         if len(self.ignoredisk) > 0:
@@ -53,13 +53,13 @@ class FC3_IgnoreDisk(KickstartCommand):
         self._setToSelf(self.op, opts)
 
 class F8_IgnoreDisk(FC3_IgnoreDisk):
-    def __init__(self, writePriority=0, ignoredisk=None, onlyuse=None):
-        FC3_IgnoreDisk.__init__(self, writePriority, ignoredisk)
+    removedKeywords = FC3_IgnoreDisk.removedKeywords
+    removedAttrs = FC3_IgnoreDisk.removedAttrs
 
-        if onlyuse == None:
-            onlyuse = []
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_IgnoreDisk.__init__(self, writePriority, *args, **kwargs)
 
-        self.onlyuse = onlyuse
+        self.onlyuse = kwargs.get("onlyuse", [])
 
     def __str__(self):
         if len(self.ignoredisk) > 0:

@@ -25,9 +25,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC4_MediaCheck(KickstartCommand):
-    def __init__(self, writePriority=0, mediacheck=False):
-        KickstartCommand.__init__(self, writePriority)
-        self.mediacheck = mediacheck
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.mediacheck = kwargs.get("mediacheck", False)
 
     def __str__(self):
         if self.mediacheck:

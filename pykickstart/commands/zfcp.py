@@ -21,13 +21,16 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_ZFCPData(BaseData):
-    def __init__(self, devnum="", wwpn="", fcplun="", scsiid="", scsilun=""):
-        BaseData.__init__(self)
-        self.devnum = devnum
-        self.wwpn = wwpn
-        self.fcplun = fcplun
-        self.scsiid = scsiid
-        self.scsilun = scsilun
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.devnum = kwargs.get("devnum", "")
+        self.wwpn = kwargs.get("wwpn", "")
+        self.fcplun = kwargs.get("fcplun", "")
+        self.scsiid = kwargs.get("scsiid", "")
+        self.scsilun = kwargs.get("scsilun", "")
 
     def __str__(self):
         retval = "zfcp"
@@ -46,14 +49,14 @@ class FC3_ZFCPData(BaseData):
         return retval + "\n"
 
 class FC3_ZFCP(KickstartCommand):
-    def __init__(self, writePriority=0, zfcp=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if zfcp == None:
-            zfcp = []
-
-        self.zfcp = zfcp
+        self.zfcp = kwargs.get("zfcp", [])
 
     def __str__(self):
         retval = ""

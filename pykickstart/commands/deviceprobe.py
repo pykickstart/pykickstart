@@ -22,9 +22,12 @@ import string
 from pykickstart.base import *
 
 class FC3_DeviceProbe(KickstartCommand):
-    def __init__(self, writePriority=0, deviceprobe=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.deviceprobe = deviceprobe
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.deviceprobe = kwargs.get("deviceprobe", "")
 
     def __str__(self):
         if self.deviceprobe != "":

@@ -25,9 +25,12 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Method(KickstartCommand):
-    def __init__(self, writePriority=0, method=""):
-        KickstartCommand.__init__(self, writePriority)
-        self.method = method
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.method = kwargs.get("method", "")
 
         # Set all these attributes so calls to this command's __call__
         # method can set them.  However we don't want to provide them as
@@ -84,8 +87,11 @@ class FC3_Method(KickstartCommand):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
 
 class FC6_Method(FC3_Method):
-    def __init__(self, writePriority=0, method=""):
-        FC3_Method.__init__(self, writePriority, method)
+    removedKeywords = FC3_Method.removedKeywords
+    removedAttrs = FC3_Method.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Method.__init__(self, writePriority, *args, **kwargs)
 
         # Same reason for this attribute as the comment in FC3_Method.
         self.opts = None

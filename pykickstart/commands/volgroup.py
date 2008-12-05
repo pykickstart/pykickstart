@@ -23,18 +23,16 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 class FC3_VolGroupData(BaseData):
-    def __init__(self, format=True, pesize=32768, preexist=False, vgname="",
-                 physvols=None):
-        BaseData.__init__(self)
-        self.format = format
-        self.pesize = pesize
-        self.preexist = preexist
-        self.vgname = vgname
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
 
-        if physvols == None:
-            physvols = []
-
-        self.physvols = physvols
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.format = kwargs.get("format", True)
+        self.pesize = kwargs.get("pesize", 32768)
+        self.preexist = kwargs.get("preexist", False)
+        self.vgname = kwargs.get("vgname", "")
+        self.physvols = kwargs.get("physvols", [])
 
     def __str__(self):
         retval = "volgroup %s" % self.vgname
@@ -49,14 +47,14 @@ class FC3_VolGroupData(BaseData):
         return retval + " " + string.join(self.physvols, " ") + "\n"
 
 class FC3_VolGroup(KickstartCommand):
-    def __init__(self, writePriority=131, vgList=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if vgList == None:
-            vgList = []
-
-        self.vgList = vgList
+        self.vgList = kwargs.get("vgList", [])
 
     def __str__(self):
         retval = ""

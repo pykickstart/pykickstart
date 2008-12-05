@@ -26,13 +26,16 @@ import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_IscsiData(BaseData):
-    def __init__(self, ipaddr="", port="", target="", user=None, password=None):
-        BaseData.__init__(self)
-        self.ipaddr = ipaddr
-        self.port = port
-        self.target = target
-        self.user = user
-        self.password = password
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.ipaddr = kwargs.get("ipaddr", "")
+        self.port = kwargs.get("port", "")
+        self.target = kwargs.get("target", "")
+        self.user = kwargs.get("user", None)
+        self.password = kwargs.get("password", None)
 
     def _getArgsAsStr(self):
         retval = ""
@@ -54,12 +57,13 @@ class FC6_IscsiData(BaseData):
         return "iscsi%s\n" % self._getArgsAsStr()
 
 class F10_IscsiData(FC6_IscsiData):
-    def __init__(self, ipaddr="", port="", target="", user=None, password=None,
-                 user_in=None, password_in=None):
-        FC6_IscsiData.__init__(self, ipaddr=ipaddr, port=port, user=user,
-                               password=password)
-        self.user_in = user_in
-        self.password_in = password_in
+    removedKeywords = FC6_IscsiData.removedKeywords
+    removedAttrs = FC6_IscsiData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC6_IscsiData.__init__(self, *args, **kwargs)
+        self.user_in = kwargs.get("user_in", None)
+        self.password_in = kwargs.get("password_in", None)
 
     def _getArgsAsStr(self):
         retval = FC6_IscsiData._getArgsAsStr(self)
@@ -72,14 +76,14 @@ class F10_IscsiData(FC6_IscsiData):
         return retval
 
 class FC6_Iscsi(KickstartCommand):
-    def __init__(self, writePriority=71, iscsi=None):
-        KickstartCommand.__init__(self, writePriority)
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=71, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
-        if iscsi == None:
-            iscsi = []
-
-        self.iscsi = iscsi
+        self.iscsi = kwargs.get("iscsi", [])
 
     def __str__(self):
         retval = ""
@@ -114,8 +118,11 @@ class FC6_Iscsi(KickstartCommand):
         self.iscsi.append(newObj)
 
 class F10_Iscsi(FC6_Iscsi):
-    def __init__(self, writePriority=71, iscsi=None):
-        FC6_Iscsi.__init__(self, writePriority, iscsi)
+    removedKeywords = FC6_Iscsi.removedKeywords
+    removedAttrs = FC6_Iscsi.removedAttrs
+
+    def __init__(self, writePriority=71, *args, **kwargs):
+        FC6_Iscsi.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC6_Iscsi._getParser(self)
