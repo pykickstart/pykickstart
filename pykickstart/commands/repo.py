@@ -118,9 +118,6 @@ class F8_Repo(FC6_Repo):
     removedKeywords = FC6_Repo.removedKeywords
     removedAttrs = FC6_Repo.removedAttrs
 
-    def __init__(self, writePriority=0, *args, **kwargs):
-        FC6_Repo.__init__(self, writePriority, *args, **kwargs)
-
     def __str__(self):
         retval = ""
         for repo in self.repoList:

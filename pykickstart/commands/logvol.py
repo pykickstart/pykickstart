@@ -193,9 +193,6 @@ class FC4_LogVol(FC3_LogVol):
     removedKeywords = FC3_LogVol.removedKeywords
     removedAttrs = FC3_LogVol.removedAttrs
 
-    def __init__(self, writePriority=132, *args, **kwargs):
-        FC3_LogVol.__init__(self, writePriority, *args, **kwargs)
-
     def _getParser(self):
         op = FC3_LogVol._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
@@ -207,9 +204,6 @@ class RHEL5_LogVol(FC4_LogVol):
     removedKeywords = FC4_LogVol.removedKeywords
     removedAttrs = FC4_LogVol.removedAttrs
 
-    def __init__(self, writePriority=132, *args, **kwargs):
-        FC4_LogVol.__init__(self, writePriority, *args, **kwargs)
-
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
         op.add_option("--encrypted", action="store_true", default=False)
@@ -219,9 +213,6 @@ class RHEL5_LogVol(FC4_LogVol):
 class F9_LogVol(FC4_LogVol):
     removedKeywords = FC4_LogVol.removedKeywords
     removedAttrs = FC4_LogVol.removedAttrs
-
-    def __init__(self, writePriority=132, *args, **kwargs):
-        FC4_LogVol.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)

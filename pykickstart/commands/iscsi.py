@@ -121,9 +121,6 @@ class F10_Iscsi(FC6_Iscsi):
     removedKeywords = FC6_Iscsi.removedKeywords
     removedAttrs = FC6_Iscsi.removedAttrs
 
-    def __init__(self, writePriority=71, *args, **kwargs):
-        FC6_Iscsi.__init__(self, writePriority, *args, **kwargs)
-
     def _getParser(self):
         op = FC6_Iscsi._getParser(self)
         op.add_option("--reverse-user", dest="user_in", action="store",

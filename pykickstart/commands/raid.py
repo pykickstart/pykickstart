@@ -221,9 +221,6 @@ class FC4_Raid(FC3_Raid):
     removedKeywords = FC3_Raid.removedKeywords
     removedAttrs = FC3_Raid.removedAttrs
 
-    def __init__(self, writePriority=131, *args, **kwargs):
-        FC3_Raid.__init__(self, writePriority, *args, **kwargs)
-
     def _getParser(self):
         op = FC3_Raid._getParser(self)
         op.add_option("--fsoptions", dest="fsopts")
@@ -232,9 +229,6 @@ class FC4_Raid(FC3_Raid):
 class FC5_Raid(FC4_Raid):
     removedKeywords = FC4_Raid.removedKeywords
     removedAttrs = FC4_Raid.removedAttrs
-
-    def __init__(self, writePriority=131, *args, **kwargs):
-        FC4_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
@@ -245,9 +239,6 @@ class FC5_Raid(FC4_Raid):
 class RHEL5_Raid(FC5_Raid):
     removedKeywords = FC5_Raid.removedKeywords
     removedAttrs = FC5_Raid.removedAttrs
-
-    def __init__(self, writePriority=131, *args, **kwargs):
-        FC5_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC5_Raid._getParser(self)
@@ -267,9 +258,6 @@ class F7_Raid(FC5_Raid):
 class F9_Raid(F7_Raid):
     removedKeywords = F7_Raid.removedKeywords
     removedAttrs = F7_Raid.removedAttrs
-
-    def __init__(self, writePriority=131, *args, **kwargs):
-        F7_Raid.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = F7_Raid._getParser(self)

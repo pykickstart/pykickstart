@@ -209,9 +209,6 @@ class FC4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
 
-    def __init__(self, writePriority=0, *args, **kwargs):
-        FC3_Network.__init__(self, writePriority, *args, **kwargs)
-
     def _getParser(self):
         op = FC3_Network._getParser(self)
         op.add_option("--notksdevice", dest="notksdevice", action="store_true",
@@ -221,9 +218,6 @@ class FC4_Network(FC3_Network):
 class FC6_Network(FC4_Network):
     removedKeywords = FC4_Network.removedKeywords
     removedAttrs = FC4_Network.removedAttrs
-
-    def __init__(self, writePriority=0, *args, **kwargs):
-        FC4_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC4_Network._getParser(self)
@@ -236,9 +230,6 @@ class FC6_Network(FC4_Network):
 class F8_Network(FC6_Network):
     removedKeywords = FC6_Network.removedKeywords
     removedAttrs = FC6_Network.removedAttrs
-
-    def __init__(self, writePriority=0, *args, **kwargs):
-        FC6_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
@@ -263,9 +254,6 @@ class F9_Network(F8_Network):
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
-
-    def __init__(self, writePriority=0, *args, **kwargs):
-        FC3_Network.__init__(self, writePriority, *args, **kwargs)
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
