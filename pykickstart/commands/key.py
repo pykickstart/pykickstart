@@ -49,5 +49,3 @@ class F7_Key(KickstartCommand):
             self.key = KS_INSTKEY_SKIP
         else:
             self.key = args[0]
-
-RHEL5_Key = F7_Key
