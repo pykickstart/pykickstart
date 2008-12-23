@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.47
+Version: 1.48
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,16 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Tue Dec 23 2008 Chris Lumens <clumens@redhat.com> - 1.48-1
+- Allow ignoring group metadata from repos, using a '--ignoregroups'
+  boolean. (notting)
+- Add initial support for F11.
+- Specify the command versions in the handlers instead of making copies.
+- Remove empty and pointless __init__ methods.
+- Pass arguments to superclasses via *args and **kwargs, all the way up.
+- Add removedKeywords and removedAttrs lists on Commands and Data.
+- Fix version regexes to handle double digits and minor releases (jlaska).
+
 * Thu Oct 30 2008 Chris Lumens <clumens@redhat.com> - 1.47-1
 - Fix enabling services we specify by specific options.
 
