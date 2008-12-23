@@ -72,6 +72,21 @@ class F8_RepoData(FC6_RepoData):
 
         return retval
 
+class F11_RepoData(F8_RepoData):
+    removedKeywords = F8_RepoData.removedKeywords
+    removedAttrs = F8_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F8_RepoData.__init__(self, *args, **kwargs)
+        self.ignoregroups = kwargs.get("ignoregroups", None)
+
+    def _getArgsAsStr(self):
+        retval = F8_RepoData._getArgsAsStr(self)
+
+        if self.ignoregroups:
+            retval += " --ignoregroups true"
+        return retval
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -145,4 +160,13 @@ class F8_Repo(FC6_Repo):
         repourl = self.handler.method.url
         rd = self.handler.RepoData(name=reponame, baseurl=repourl)
         self.add(rd)
+
+class F11_Repo(F8_Repo):
+    removedKeywords = F8_Repo.removedKeywords
+    removedAttrs = F8_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F8_Repo._getParser(self)
+        op.add_option("--ignoregroups", action="store", type="ksboolean")
+        return op
 
