@@ -38,7 +38,6 @@ import string
 import tempfile
 from copy import copy
 from optparse import *
-from sets import *
 from urlgrabber import urlopen
 import urlgrabber.grabber as grabber
 
@@ -333,10 +332,10 @@ class Packages:
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = Set(self.excludedList)
-        existingPackageSet = Set(self.packageList)
-        newExcludedSet = Set()
-        newPackageSet = Set()
+        existingExcludedSet = set(self.excludedList)
+        existingPackageSet = set(self.packageList)
+        newExcludedSet = set()
+        newPackageSet = set()
 
         for pkg in pkgList:
             stripped = pkg.strip()
