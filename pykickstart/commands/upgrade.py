@@ -49,3 +49,39 @@ class FC3_Upgrade(KickstartCommand):
            self.upgrade = True
         else:
            self.upgrade = False
+
+class F11_Upgrade(FC3_Upgrade):
+    removedKeywords = FC3_Upgrade.removedKeywords
+    removedAttrs = FC3_Upgrade.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Upgrade.__init__(self, writePriority, *args, **kwargs)
+
+        self.op = self._getParser()
+        self.root_device = kwargs.get("root_device", None)
+
+    def __str__(self):
+        if self.upgrade and (self.root_device is not None):
+            retval="# Upgrade existing installation\nupgrade --root-device=%s\n" % self.root_device
+        else:
+            retval=FC3_Upgrade.__str__(self)
+
+        return retval
+
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--root-device", dest="root_device")
+        return op
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
+
+        if (opts.root_device is not None) and (opts.root_device == ""):
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not accept empty parameter %s") % ("upgrade", "--root-device"))
+        else:
+            self.root_device = opts.root_device
+
+        if self.currentCmd == "upgrade":
+           self.upgrade = True
+        else:
+           self.upgrade = False
