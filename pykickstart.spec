@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.48
+Version: 1.49
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -44,6 +44,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksflatten
 
 %changelog
+* Thu Jan 08 2009 Chris Lumens <clumens@redhat.com> - 1.49-1
+- Add upgrade --root-device (atodorov, #471232).
+- Use python's builtin set rather than the Sets module (#477836, dcantrell).
+
 * Tue Dec 23 2008 Chris Lumens <clumens@redhat.com> - 1.48-1
 - Allow ignoring group metadata from repos, using a '--ignoregroups'
   boolean. (notting)
