@@ -37,7 +37,8 @@ class FC6_DmRaidData(BaseData):
         self.dmset = kwargs.get("dmset", None)
 
     def __str__(self):
-        retval = "dmraid --name=%s" % self.name
+        retval = BaseData.__str__(self)
+        retval += "dmraid --name=%s" % self.name
 
         for dev in self.devices:
             retval += " --dev=\"%s\"" % dev
@@ -74,7 +75,7 @@ class FC6_DmRaid(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(self.op, opts, dm)
-        self.add(dm)
+        return dm
 
-    def add(self, newObj):
-        self.dmraids.append(newObj)
+    def dataList(self):
+        return self.dmraids

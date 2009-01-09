@@ -32,15 +32,15 @@ class FC3_LangSupport(KickstartCommand):
         self.supported = kwargs.get("supported", [])
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.deflang:
-            retval = "langsupport --default=%s" % self.deflang
+            retval += "langsupport --default=%s" % self.deflang
 
             if self.supported:
                 retval += " %s" % " ".join(self.supported)
 
-            return retval + "\n"
-        else:
-            return ""
+        return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -51,6 +51,7 @@ class FC3_LangSupport(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
         self.supported = extra
+        return self
 
 class FC5_LangSupport(DeprecatedCommand):
     def __init__(self):

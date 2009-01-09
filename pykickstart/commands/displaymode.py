@@ -30,15 +30,19 @@ class FC3_DisplayMode(KickstartCommand):
         self.displayMode = kwargs.get("displayMode", None)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.displayMode is None:
-            return ""
+            return retval
 
         if self.displayMode == DISPLAY_MODE_CMDLINE:
-            return "cmdline\n"
+            retval += "cmdline\n"
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
-            return "# Use graphical install\ngraphical\n"
+            retval += "# Use graphical install\ngraphical\n"
         elif self.displayMode == DISPLAY_MODE_TEXT:
-            return "# Use text mode install\ntext\n"
+            retval += "# Use text mode install\ntext\n"
+
+        return retval
 
     def parse(self, args):
         if self.currentCmd == "cmdline":
@@ -47,3 +51,5 @@ class FC3_DisplayMode(KickstartCommand):
             self.displayMode = DISPLAY_MODE_GRAPHICAL
         elif self.currentCmd == "text":
             self.displayMode = DISPLAY_MODE_TEXT
+
+        return self

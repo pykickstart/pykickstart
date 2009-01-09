@@ -28,10 +28,13 @@ class FC3_Authconfig(KickstartCommand):
         self.authconfig = kwargs.get("authconfig", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.authconfig:
-            return "# System authorization information\nauth %s\n" % self.authconfig
-        else:
-            return ""
+            retval += "# System authorization information\nauth %s\n" % self.authconfig
+
+        return retval
 
     def parse(self, args):
         self.authconfig = self.currentLine[len(self.currentCmd):].strip()
+        return self

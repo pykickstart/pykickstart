@@ -34,16 +34,19 @@ class FC3_ZeroMbr(KickstartCommand):
         self.zerombr = kwargs.get("zerombr", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.zerombr:
-            return "# Clear the Master Boot Record\nzerombr\n"
-        else:
-            return ""
+            retval += "# Clear the Master Boot Record\nzerombr\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
             warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, DeprecationWarning)
 
         self.zerombr = True
+        return self
 
 class F9_ZeroMbr(FC3_ZeroMbr):
     removedKeywords = FC3_ZeroMbr.removedKeywords
@@ -54,3 +57,4 @@ class F9_ZeroMbr(FC3_ZeroMbr):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr")
 
         self.zerombr = True
+        return self

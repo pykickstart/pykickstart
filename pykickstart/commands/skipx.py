@@ -33,13 +33,16 @@ class FC3_SkipX(KickstartCommand):
         self.skipx = kwargs.get("skipx", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.skipx:
-            return "# Do not configure the X Window System\nskipx\n"
-        else:
-            return ""
+            retval += "# Do not configure the X Window System\nskipx\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx")
 
         self.skipx = True
+        return self

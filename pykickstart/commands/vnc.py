@@ -34,10 +34,12 @@ class FC3_Vnc(KickstartCommand):
         self.connect = kwargs.get("connect", "")
 
     def __str__(self):
-        if not self.enabled:
-            return ""
+        retval = KickstartCommand.__str__(self)
 
-        retval = "vnc"
+        if not self.enabled:
+            return retval
+
+        retval += "vnc"
 
         if self.connect != "":
             retval += " --connect=%s" % self.connect
@@ -56,6 +58,7 @@ class FC3_Vnc(KickstartCommand):
         self.enabled = True
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self
 
 class FC6_Vnc(FC3_Vnc):
     removedKeywords = FC3_Vnc.removedKeywords + ["connect"]
@@ -69,10 +72,12 @@ class FC6_Vnc(FC3_Vnc):
         self.port = kwargs.get("port", "")
 
     def __str__(self):
-        if not self.enabled:
-            return ""
+        retval = KickstartCommand.__str__(self)
 
-        retval = "vnc"
+        if not self.enabled:
+            return retval
+
+        retval += "vnc"
 
         if self.host != "":
             retval += " --host=%s" % self.host

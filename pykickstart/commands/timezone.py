@@ -36,15 +36,17 @@ class FC3_Timezone(KickstartCommand):
         self.timezone = kwargs.get("timezone", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.timezone != "":
             if self.isUtc:
                 utc = "--utc"
             else:
                 utc = ""
 
-            return "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
-        else:
-            return ""
+            retval += "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -59,21 +61,24 @@ class FC3_Timezone(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
 
         self.timezone = extra[0]
+        return self
 
 class FC6_Timezone(FC3_Timezone):
     removedKeywords = FC3_Timezone.removedKeywords
     removedAttrs = FC3_Timezone.removedAttrs
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.timezone != "":
             if self.isUtc:
                 utc = "--isUtc"
             else:
                 utc = ""
 
-            return "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
-        else:
-            return ""
+            retval += "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
+
+        return retval
 
     def _getParser(self):
         op = FC3_Timezone._getParser(self)

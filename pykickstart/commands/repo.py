@@ -48,7 +48,9 @@ class FC6_RepoData(BaseData):
         return retval
 
     def __str__(self):
-        return "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
+        retval = BaseData.__str__(self)
+        retval += "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
+        return retval
 
 class F8_RepoData(FC6_RepoData):
     removedKeywords = FC6_RepoData.removedKeywords
@@ -124,10 +126,10 @@ class FC6_Repo(KickstartCommand):
 
         rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)
-        self.add(rd)
+        return rd
 
-    def add(self, newObj):
-        self.repoList.append(newObj)
+    def dataList(self):
+        return self.repoList
 
 class F8_Repo(FC6_Repo):
     removedKeywords = FC6_Repo.removedKeywords
@@ -159,7 +161,7 @@ class F8_Repo(FC6_Repo):
         reponame = "ks-method-url"
         repourl = self.handler.method.url
         rd = self.handler.RepoData(name=reponame, baseurl=repourl)
-        self.add(rd)
+        return rd
 
 class F11_Repo(F8_Repo):
     removedKeywords = F8_Repo.removedKeywords
@@ -169,4 +171,3 @@ class F11_Repo(F8_Repo):
         op = F8_Repo._getParser(self)
         op.add_option("--ignoregroups", action="store", type="ksboolean")
         return op
-

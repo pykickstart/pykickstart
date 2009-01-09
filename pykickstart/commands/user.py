@@ -39,7 +39,8 @@ class FC6_UserData(BaseData):
         self.uid = kwargs.get("uid", None)
 
     def __str__(self):
-        retval = "user"
+        retval = BaseData.__str__(self)
+        retval += "user"
 
         if len(self.groups) > 0:
             retval += " --groups=%s" % string.join(self.groups, ",")
@@ -112,10 +113,10 @@ class FC6_User(KickstartCommand):
         ud = self.handler.UserData()
         (opts, extra) = self.op.parse_args(args=args)
         self._setToObj(self.op, opts, ud)
-        self.add(ud)
+        return ud
 
-    def add(self, newObj):
-        self.userList.append(newObj)
+    def dataList(self):
+        return self.userList
 
 class F8_User(FC6_User):
     removedKeywords = FC6_User.removedKeywords

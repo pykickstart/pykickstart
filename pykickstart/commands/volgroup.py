@@ -35,7 +35,8 @@ class FC3_VolGroupData(BaseData):
         self.physvols = kwargs.get("physvols", [])
 
     def __str__(self):
-        retval = "volgroup %s" % self.vgname
+        retval = BaseData.__str__(self)
+        retval += "volgroup %s" % self.vgname
 
         if not self.format:
             retval += " --noformat"
@@ -84,7 +85,7 @@ class FC3_VolGroup(KickstartCommand):
         self._setToObj(self.op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
-        self.add(vg)
+        return vg
 
-    def add(self, newObj):
-        self.vgList.append(newObj)
+    def dataList(self):
+        return self.vgList

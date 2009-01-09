@@ -33,13 +33,17 @@ class FC3_Upgrade(KickstartCommand):
         self.upgrade = kwargs.get("upgrade", None)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.upgrade is None:
-            return ""
+            return retval
 
         if self.upgrade:
-            return "# Upgrade existing installation\nupgrade\n"
+            retval += "# Upgrade existing installation\nupgrade\n"
         else:
-            return "# Install OS instead of upgrade\ninstall\n"
+            retval += "# Install OS instead of upgrade\ninstall\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
@@ -49,6 +53,8 @@ class FC3_Upgrade(KickstartCommand):
            self.upgrade = True
         else:
            self.upgrade = False
+
+        return self
 
 class F11_Upgrade(FC3_Upgrade):
     removedKeywords = FC3_Upgrade.removedKeywords
@@ -62,9 +68,10 @@ class F11_Upgrade(FC3_Upgrade):
 
     def __str__(self):
         if self.upgrade and (self.root_device is not None):
-            retval="# Upgrade existing installation\nupgrade --root-device=%s\n" % self.root_device
+            retval = KickstartCommand.__str__(self)
+            retval += "# Upgrade existing installation\nupgrade --root-device=%s\n" % self.root_device
         else:
-            retval=FC3_Upgrade.__str__(self)
+            retval = FC3_Upgrade.__str__(self)
 
         return retval
 
@@ -85,3 +92,5 @@ class F11_Upgrade(FC3_Upgrade):
            self.upgrade = True
         else:
            self.upgrade = False
+
+        return self

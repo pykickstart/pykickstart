@@ -32,16 +32,21 @@ class FC3_SELinux(KickstartCommand):
         self.selinux = kwargs.get("selinux", None)
 
     def __str__(self):
-        retval = "# SELinux configuration\n"
+        retval = KickstartCommand.__str__(self)
+
+        if not retval and not self.selinux:
+            return ""
+
+        retval += "# SELinux configuration\n"
 
         if self.selinux == SELINUX_DISABLED:
-            return retval + "selinux --disabled\n"
+            retval += "selinux --disabled\n"
         elif self.selinux == SELINUX_ENFORCING:
-            return retval + "selinux --enforcing\n"
+            retval += "selinux --enforcing\n"
         elif self.selinux == SELINUX_PERMISSIVE:
-            return retval + "selinux --permissive\n"
-        else:
-            return ""
+            retval += "selinux --permissive\n"
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -56,3 +61,4 @@ class FC3_SELinux(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self

@@ -78,7 +78,9 @@ class FC3_PartData(BaseData):
         return retval
 
     def __str__(self):
-        return "part %s %s\n" % (self.mountpoint, self._getArgsAsStr())
+        retval = BaseData.__str__(self)
+        retval += "part %s %s\n" % (self.mountpoint, self._getArgsAsStr())
+        return retval
 
 class FC4_PartData(FC3_PartData):
     removedKeywords = FC3_PartData.removedKeywords
@@ -212,10 +214,10 @@ class FC3_Partition(KickstartCommand):
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
         pd.mountpoint=extra[0]
-        self.add(pd)
+        return pd
 
-    def add(self, newObj):
-        self.partitions.append(newObj)
+    def dataList(self):
+        return self.partitions
 
 class FC4_Partition(FC3_Partition):
     removedKeywords = FC3_Partition.removedKeywords

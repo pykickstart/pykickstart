@@ -33,15 +33,16 @@ class RHEL3_Mouse(KickstartCommand):
         self.mouse = kwargs.get("mouse", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         opts = ""
         if self.device:
             opts += "--device=%s " % self.device
         if self.emulthree:
             opts += "--emulthree " 
 
-        retval = ""
         if self.mouse:
-            retval = "# System mouse\nmouse %s%s\n" % (opts, self.mouse)
+            retval += "# System mouse\nmouse %s%s\n" % (opts, self.mouse)
         return retval
 
     def _getParser(self):
@@ -54,6 +55,7 @@ class RHEL3_Mouse(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
         self.mouse = extra[0]
+        return self
 
 class FC3_Mouse(DeprecatedCommand):
     def __init__(self):

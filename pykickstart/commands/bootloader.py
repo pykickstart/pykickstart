@@ -65,12 +65,13 @@ class FC3_Bootloader(KickstartCommand):
         return retval
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.location != "":
-            retval = "# System bootloader configuration\nbootloader"
+            retval += "# System bootloader configuration\nbootloader"
             retval += self._getArgsAsStr()
-            return retval + "\n"
-        else:
-            return ""
+
+        return retval + "\n"
 
     def _getParser(self):
         def driveorder_cb (option, opt_str, value, parser):
@@ -103,6 +104,8 @@ class FC3_Bootloader(KickstartCommand):
 
         if self.currentCmd == "lilo":
             self.useLilo = True
+
+        return self
 
 class FC4_Bootloader(FC3_Bootloader):
     removedKeywords = FC3_Bootloader.removedKeywords + ["linear", "useLilo"]
@@ -140,6 +143,7 @@ class FC4_Bootloader(FC3_Bootloader):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self
 
 class F8_Bootloader(FC4_Bootloader):
     removedKeywords = FC4_Bootloader.removedKeywords

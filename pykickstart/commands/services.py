@@ -35,18 +35,18 @@ class FC6_Services(KickstartCommand):
         self.enabled = kwargs.get("enabled", [])
 
     def __str__(self):
-        retval = ""
+        retval = KickstartCommand.__str__(self)
+        args = ""
 
         if len(self.disabled) > 0:
-            retval += " --disabled=%s" % string.join(self.disabled, ",")
+            args += " --disabled=%s" % string.join(self.disabled, ",")
         if len(self.enabled) > 0:
-            retval += " --enabled=%s" % string.join(self.enabled, ",")
+            args += " --enabled=%s" % string.join(self.enabled, ",")
 
-        if retval != "":
-            return "# System services\nservices %s\n" % retval
-        else:
-            return ""
+        if args != "":
+            retval += "# System services\nservices %s\n" % args
 
+        return retval
 
     def _getParser(self):
         def services_cb (option, opt_str, value, parser):
@@ -63,3 +63,4 @@ class FC6_Services(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self

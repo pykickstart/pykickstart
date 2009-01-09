@@ -34,12 +34,14 @@ class F7_Key(KickstartCommand):
         self.key = kwargs.get("key", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.key == KS_INSTKEY_SKIP:
-            return "key --skip\n"
+            retval += "key --skip\n"
         elif self.key != "":
-            return "key %s\n" % self.key
-        else:
-            return ""
+            retval += "key %s\n" % self.key
+
+        return retval
 
     def parse(self, args):
         if len(args) > 1:
@@ -49,3 +51,5 @@ class F7_Key(KickstartCommand):
             self.key = KS_INSTKEY_SKIP
         else:
             self.key = args[0]
+
+        return self

@@ -32,16 +32,19 @@ class FC3_Lang(KickstartCommand):
         self.lang = kwargs.get("lang", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.lang != "":
-            return "# System language\nlang %s\n" % self.lang
-        else:
-            return ""
+            retval += "# System language\nlang %s\n" % self.lang
+
+        return retval
 
     def parse(self, args):
         if len(args) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "lang")
 
         self.lang = args[0]
+        return self
 
     def apply(self, instroot="/"):
         if self.lang == "": return

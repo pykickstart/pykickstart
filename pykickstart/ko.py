@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -17,31 +17,13 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.errors import *
-from pykickstart.options import *
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
-
-class FC4_MediaCheck(KickstartCommand):
-    removedKeywords = KickstartCommand.removedKeywords
-    removedAttrs = KickstartCommand.removedAttrs
-
-    def __init__(self, writePriority=0, *args, **kwargs):
-        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-        self.mediacheck = kwargs.get("mediacheck", False)
+class KickstartObject(object):
+    def __init__(self, *args, **kwargs):
+        self.preceededInclude = kwargs.get("preceededInclude", None)
 
     def __str__(self):
-        retval = KickstartCommand.__str__(self)
-        if self.mediacheck:
-            retval += "mediacheck\n"
-
-        return retval
-
-    def parse(self, args):
-        if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "mediacheck")
-
-        self.mediacheck = True
-        return self
+        if self.preceededInclude:
+            return "\n%%include %s\n" % self.preceededInclude
+        else:
+            return ""

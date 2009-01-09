@@ -33,15 +33,15 @@ class F8_DeviceData(BaseData):
         self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __str__(self):
-        if self.moduleName != "":
-            if self.moduleOpts != "":
-                retval = "--opts=%s" % self.moduleOpts
-            else:
-                retval = ""
+        retval = BaseData.__str__(self)
 
-            return "device %s %s\n" % (self.moduleName, retval)
-        else:
-            return ""
+        if self.moduleName != "":
+            retval += "device %s" % self.moduleName
+
+            if self.moduleOpts != "":
+                retval += " --opts=%s" % self.moduleOpts
+
+        return retval
 
 class FC3_Device(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -56,15 +56,15 @@ class FC3_Device(KickstartCommand):
         self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __str__(self):
-        if self.moduleName != "":
-            if self.moduleOpts != "":
-                retval = "--opts=%s" % self.moduleOpts
-            else:
-                retval = ""
+        retval = KickstartCommand.__str__(self)
 
-            return "device %s %s %s\n" % (self.type, self.moduleName, retval)
-        else:
-            return ""
+        if self.moduleName != "":
+            retval += "device %s %s" % (self.type, self.moduleName)
+
+            if self.moduleOpts != "":
+                retval += " --opts=%s" % self.moduleOpts
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -80,6 +80,7 @@ class FC3_Device(KickstartCommand):
         self.opts = opts.moduleOpts
         self.type = extra[0]
         self.moduleName = extra[1]
+        return self
 
 class F8_Device(FC3_Device):
     removedKeywords = FC3_Device.removedKeywords
@@ -105,7 +106,7 @@ class F8_Device(FC3_Device):
         dd = F8_DeviceData()
         self._setToObj(self.op, opts, dd)
         dd.moduleName = extra[0]
-        self.add(dd)
+        return dd
 
-    def add(self, newObj):
-        self.deviceList.append(newObj)
+    def dataList(self):
+        return self.deviceList

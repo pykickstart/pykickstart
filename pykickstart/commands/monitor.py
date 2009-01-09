@@ -37,7 +37,8 @@ class FC3_Monitor(KickstartCommand):
         self.vsync = kwargs.get("vsync", "")
 
     def __str__(self):
-        retval = "monitor"
+        retval = KickstartCommand.__str__(self)
+        retval += "monitor"
 
         if self.hsync != "":
             retval += " --hsync=%s" % self.hsync
@@ -66,6 +67,7 @@ class FC3_Monitor(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping)
 
         self._setToSelf(self.op, opts)
+        return self
 
 class FC6_Monitor(FC3_Monitor):
     removedKeywords = FC3_Monitor.removedKeywords
@@ -76,7 +78,8 @@ class FC6_Monitor(FC3_Monitor):
         self.probe = kwargs.get("probe", True)
 
     def __str__(self):
-        retval = "monitor"
+        retval = KickstartCommand.__str__(self)
+        retval += "monitor"
 
         if self.hsync != "":
             retval += " --hsync=%s" % self.hsync

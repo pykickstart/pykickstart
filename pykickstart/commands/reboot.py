@@ -31,18 +31,22 @@ class FC3_Reboot(KickstartCommand):
         self.action = kwargs.get("action", None)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.action == KS_REBOOT:
-            return "# Reboot after installation\nreboot\n"
+            retval += "# Reboot after installation\nreboot\n"
         elif self.action == KS_SHUTDOWN:
-            return "# Shutdown after installation\nshutdown\n"
-        else:
-            return ""
+            retval += "# Shutdown after installation\nshutdown\n"
+
+        return retval
 
     def parse(self, args):
         if self.currentCmd == "reboot":
             self.action = KS_REBOOT
         else:
             self.action = KS_SHUTDOWN
+
+        return self
 
 class FC6_Reboot(FC3_Reboot):
     removedKeywords = FC3_Reboot.removedKeywords
@@ -60,7 +64,7 @@ class FC6_Reboot(FC3_Reboot):
         if self.eject:
             retval += " --eject"
 
-        return retval + "\n"
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -72,3 +76,4 @@ class FC6_Reboot(FC3_Reboot):
         FC3_Reboot.parse(self, args)
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self

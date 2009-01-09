@@ -37,17 +37,19 @@ class F10_Rescue(KickstartCommand):
         self.romount = kwargs.get("romount", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.rescue:
-            retval = "rescue"
+            retval += "rescue"
 
             if self.nomount:
                retval += " --nomount"
             if self.romount:
                retval += " --romount"
 
-            return "# Start rescue mode\n%s\n" % retval
-	else:
-            return ""
+            retval += "# Start rescue mode\n%s\n" % retval
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -63,3 +65,4 @@ class F10_Rescue(KickstartCommand):
 
         self._setToSelf(self.op, opts)
         self.rescue = True
+        return self

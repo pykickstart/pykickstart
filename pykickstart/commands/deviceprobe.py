@@ -30,10 +30,13 @@ class FC3_DeviceProbe(KickstartCommand):
         self.deviceprobe = kwargs.get("deviceprobe", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.deviceprobe != "":
-            return "deviceprobe %s\n" % self.deviceprobe
-        else:
-            return ""
+            retval += "deviceprobe %s\n" % self.deviceprobe
+
+        return retval
 
     def parse(self, args):
         self.deviceprove = string.join(args)
+        return self

@@ -33,13 +33,16 @@ class FC3_Interactive(KickstartCommand):
         self.interactive = kwargs.get("interactive", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.interactive:
-            return "# Use interactive kickstart installation method\ninteractive\n"
-        else:
-            return ""
+            retval += "# Use interactive kickstart installation method\ninteractive\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "interactive")
 
         self.interactive = True
+        return self

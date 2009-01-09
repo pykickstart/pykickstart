@@ -81,7 +81,9 @@ class FC3_NetworkData(BaseData):
         return retval
 
     def __str__(self):
-        return "network %s\n" % self._getArgsAsStr()
+        retval = BaseData.__str__(self)
+        retval += "network %s\n" % self._getArgsAsStr()
+        return retval
 
 class FC4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
@@ -200,10 +202,10 @@ class FC3_Network(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args)
         nd = self.handler.NetworkData()
         self._setToObj(self.op, opts, nd)
-        self.add(nd)
+        return nd
 
-    def add(self, newObj):
-        self.network.append(newObj)
+    def dataList(self):
+        return self.network
 
 class FC4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords

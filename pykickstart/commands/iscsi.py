@@ -54,7 +54,9 @@ class FC6_IscsiData(BaseData):
         return retval
 
     def __str__(self):
-        return "iscsi%s\n" % self._getArgsAsStr()
+        retval = BaseData.__str__(self)
+        retval += "iscsi%s\n" % self._getArgsAsStr()
+        return retval
 
 class F10_IscsiData(FC6_IscsiData):
     removedKeywords = FC6_IscsiData.removedKeywords
@@ -112,10 +114,10 @@ class FC6_Iscsi(KickstartCommand):
 
         dd = self.handler.IscsiData()
         self._setToObj(self.op, opts, dd)
-        self.add(dd)
+        return self
 
-    def add(self, newObj):
-        self.iscsi.append(newObj)
+    def dataList(self):
+        return self.iscsi
 
 class F10_Iscsi(FC6_Iscsi):
     removedKeywords = FC6_Iscsi.removedKeywords

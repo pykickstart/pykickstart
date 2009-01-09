@@ -65,7 +65,9 @@ class FC3_LogVolData(BaseData):
         return retval
 
     def __str__(self):
-        return "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
+        retval = BaseData.__str__(self)
+        retval += "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
+        return retval
 
 class FC4_LogVolData(FC3_LogVolData):
     removedKeywords = FC3_LogVolData.removedKeywords
@@ -184,10 +186,10 @@ class FC3_LogVol(KickstartCommand):
         lvd = self.handler.LogVolData()
         self._setToObj(self.op, opts, lvd)
         lvd.mountpoint=extra[0]
-        self.add(lvd)
+        return lvd
 
-    def add(self, newObj):
-        self.lvList.append(newObj)
+    def dataList(self):
+        return self.lvList
 
 class FC4_LogVol(FC3_LogVol):
     removedKeywords = FC3_LogVol.removedKeywords

@@ -38,8 +38,10 @@ class FC3_Firewall(KickstartCommand):
         extra = []
         filteredPorts = []
 
+        retval = BaseData.__str__(self)
+
         if self.enabled is None:
-            return ""
+            return retval
 
         if self.enabled:
             # It's possible we have words in the ports list instead of
@@ -75,9 +77,11 @@ class FC3_Firewall(KickstartCommand):
             # The output port list consists only of port:proto for
             # everything that we don't recognize, and special options for
             # those that we do.
-            return "# Firewall configuration\nfirewall --enabled %s %s %s\n" % (extrastr, portstr, truststr)
+            retval += "# Firewall configuration\nfirewall --enabled %s %s %s\n" % (extrastr, portstr, truststr)
         else:
-            return "# Firewall configuration\nfirewall --disabled\n"
+            retval += "# Firewall configuration\nfirewall --disabled\n"
+
+        return retval
 
     def _getParser(self):
         def firewall_port_cb (option, opt_str, value, parser):
@@ -107,6 +111,7 @@ class FC3_Firewall(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self
 
 class F9_Firewall(FC3_Firewall):
     removedKeywords = FC3_Firewall.removedKeywords

@@ -44,14 +44,14 @@ _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 import warnings
 from pykickstart.errors import *
+from pykickstart.ko import *
 from pykickstart.parser import Packages
 from pykickstart.version import versionToString
-
 
 ###
 ### COMMANDS
 ###
-class KickstartCommand(object):
+class KickstartCommand(KickstartObject):
     """The base class for all kickstart commands.  This is an abstract class."""
     removedKeywords = []
     removedAttrs = []
@@ -79,6 +79,8 @@ class KickstartCommand(object):
         # We don't want people using this class by itself.
         if self.__class__ is KickstartCommand:
             raise TypeError, "KickstartCommand is an abstract class."
+
+        KickstartObject.__init__(self, *args, **kwargs)
 
         self.writePriority = writePriority
 
@@ -113,7 +115,7 @@ class KickstartCommand(object):
         """Return a string formatted for output to a kickstart file.  This
            method must be provided by all subclasses.
         """
-        raise TypeError, "__str__() not implemented for KickstartCommand"
+        return KickstartObject.__str__(self)
 
     def parse(self, args):
         """Parse the list of args and set data on the KickstartCommand object.
@@ -127,6 +129,13 @@ class KickstartCommand(object):
            configuration written out.
         """
         return
+
+    def dataList(self):
+        """For commands that can occur multiple times in a single kickstart
+           file (like network, part, etc.), return the list that we should
+           append more data objects to.
+        """
+        return None
 
     def deleteRemovedAttrs(self):
         """Remove all attributes from self that are given in the removedAttrs
@@ -179,7 +188,7 @@ class DeprecatedCommand(KickstartCommand):
 ###
 ### HANDLERS
 ###
-class BaseHandler(object):
+class BaseHandler(KickstartObject):
     """Each version of kickstart syntax is provided by a subclass of this
        class.  These subclasses are what users will interact with for parsing,
        extracting data, and writing out kickstart files.  This is an abstract
@@ -192,7 +201,7 @@ class BaseHandler(object):
     """
     version = None
 
-    def __init__(self, mapping={}):
+    def __init__(self, mapping={}, *args, **kwargs):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
            mapping is a custom map from command strings to classes, useful when
@@ -221,6 +230,8 @@ class BaseHandler(object):
         # We don't want people using this class by itself.
         if self.__class__ is BaseHandler:
             raise TypeError, "BaseHandler is an abstract class."
+
+        KickstartObject.__init__(self, *args, **kwargs)
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
@@ -338,7 +349,7 @@ class BaseHandler(object):
         for (dataName, dataClass) in dMap.iteritems():
             setattr(self, dataName, dataClass)
 
-    def dispatcher(self, args, lineno):
+    def dispatcher(self, args, lineno, include=None):
         """Given a split up line of the input file and the current line number,
            call the appropriate KickstartCommand handler that has been
            previously registered.  lineno is needed for error reporting.  If
@@ -353,7 +364,19 @@ class BaseHandler(object):
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
             self.commands[cmd].lineno = lineno
-            self.commands[cmd].parse(args[1:])
+
+            # The parser returns the data object that was modified.  This could
+            # be a BaseData subclass that should be put into a list, or it
+            # could be the command handler object itself.  If there's an
+            # include that preceeds either, we need to then associated it with
+            # the returned object.
+            obj = self.commands[cmd].parse(args[1:])
+            lst = self.commands[cmd].dataList()
+            if lst is not None:
+                lst.append(obj)
+
+            if include is not None:
+                obj.preceededInclude = include
 
     def maskAllExcept(self, lst):
         """Set all entries in the commands dict to None, except the ones in
@@ -373,7 +396,7 @@ class BaseHandler(object):
 ###
 ### DATA
 ###
-class BaseData(object):
+class BaseData(KickstartObject):
     """The base class for all data objects.  This is an abstract class."""
     removedKeywords = []
     removedAttrs = []
@@ -384,6 +407,8 @@ class BaseData(object):
         # We don't want people using this class by itself.
         if self.__class__ is BaseData:
             raise TypeError, "BaseData is an abstract class."
+
+        KickstartObject.__init__(self, *args, **kwargs)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""

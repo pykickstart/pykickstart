@@ -32,13 +32,16 @@ class FC3_Keyboard(KickstartCommand):
         self.keyboard = kwargs.get("keyboard", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.keyboard != "":
-            return "# System keyboard\nkeyboard %s\n" % self.keyboard
-        else:
-            return ""
+            retval += "# System keyboard\nkeyboard %s\n" % self.keyboard
+
+        return retval
 
     def parse(self, args):
         if len(args) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "keyboard")
 
         self.keyboard = args[0]
+        return self

@@ -35,7 +35,8 @@ class FC3_DriverDiskData(BaseData):
         self.type = kwargs.get("type", "")
 
     def __str__(self):
-        retval = "driverdisk"
+        retval = BaseData.__str__(self)
+        retval += "driverdisk"
 
         if self.partition:
             retval += " %s" % self.partition
@@ -84,7 +85,7 @@ class FC3_DriverDisk(KickstartCommand):
         if len(extra) == 1:
             ddd.partition = extra[0]
 
-        self.add(ddd)
+        return ddd
 
-    def add(self, newObj):
-        self.driverdiskList.append(newObj)
+    def dataList(self):
+        return self.driverdiskList

@@ -33,16 +33,19 @@ class FC3_AutoPart(KickstartCommand):
         self.autopart = kwargs.get("autopart", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.autopart:
-            return "autopart\n"
-        else:
-            return ""
+            retval += "autopart\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart")
 
         self.autopart = True
+        return self
 
 class F9_AutoPart(FC3_AutoPart):
     removedKeywords = FC3_AutoPart.removedKeywords
@@ -56,10 +59,10 @@ class F9_AutoPart(FC3_AutoPart):
         self.op = self._getParser()
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.autopart:
-            retval = "autopart"
-        else:
-            return ""
+            retval += "autopart"
 
         if self.encrypted:
             retval += " --encrypted"
@@ -79,3 +82,4 @@ class F9_AutoPart(FC3_AutoPart):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
         self.autopart = True
+        return self

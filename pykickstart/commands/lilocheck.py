@@ -33,13 +33,16 @@ class FC3_LiloCheck(KickstartCommand):
         self.check = kwargs.get("check", False)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.check:
-            return "lilocheck\n"
-        else:
-            return ""
+            retval += "lilocheck\n"
+
+        return retval
 
     def parse(self, args):
         if len(args) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "lilocheck")
 
         self.check = True
+        return self

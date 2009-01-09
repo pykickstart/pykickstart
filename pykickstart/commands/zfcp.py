@@ -33,7 +33,8 @@ class FC3_ZFCPData(BaseData):
         self.scsilun = kwargs.get("scsilun", "")
 
     def __str__(self):
-        retval = "zfcp"
+        retval = BaseData.__str__(self)
+        retval += "zfcp"
 
         if self.devnum != "":
             retval += " --devnum=%s" % self.devnum
@@ -78,7 +79,7 @@ class FC3_ZFCP(KickstartCommand):
         zd = self.handler.ZFCPData()
         (opts, extra) = self.op.parse_args(args)
         self._setToObj(self.op, opts, zd)
-        self.add(zd)
+        return zd
 
-    def add(self, newObj):
-        self.zfcp.append(newObj)
+    def dataList(self):
+        return self.zfcp

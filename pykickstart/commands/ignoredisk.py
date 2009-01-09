@@ -33,10 +33,12 @@ class FC3_IgnoreDisk(KickstartCommand):
         self.ignoredisk = kwargs.get("ignoredisk", [])
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if len(self.ignoredisk) > 0:
-            return "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
-        else:
-            return ""
+            retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
+
+        return retval
 
     def _getParser(self):
         def drive_cb (option, opt_str, value, parser):
@@ -51,6 +53,7 @@ class FC3_IgnoreDisk(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self
 
 class F8_IgnoreDisk(FC3_IgnoreDisk):
     removedKeywords = FC3_IgnoreDisk.removedKeywords
@@ -62,12 +65,14 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
         self.onlyuse = kwargs.get("onlyuse", [])
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if len(self.ignoredisk) > 0:
-            return "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
+            retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
         elif len(self.onlyuse) > 0:
-            return "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
-        else:
-            return ""
+            retval += "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
+
+        return retval
 
     def _getParser(self):
         def drive_cb (option, opt_str, value, parser):

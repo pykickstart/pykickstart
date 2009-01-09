@@ -42,21 +42,23 @@ class FC3_Method(KickstartCommand):
         self.url = None
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.method == "cdrom":
-            return "# Use CDROM installation media\ncdrom\n"
+            retval += "# Use CDROM installation media\ncdrom\n"
         elif self.method == "harddrive":
             msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.dir
 
             if self.biospart is not None:
-                return msg + " --biospart=%s\n" % self.biospart
+                retval += msg + " --biospart=%s\n" % self.biospart
             else:
-                return msg + " --partition=%s\n" % self.partition
+                retval += msg + " --partition=%s\n" % self.partition
         elif self.method == "nfs":
-            return "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
+            retval += "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
         elif self.method == "url":
-            return "# Use network installation\nurl --url=%s\n" % self.url
-        else:
-            return ""
+            retval += "# Use network installation\nurl --url=%s\n" % self.url
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -86,6 +88,8 @@ class FC3_Method(KickstartCommand):
                self.biospart is not None and self.partition is not None:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
 
+        return self
+
 class FC6_Method(FC3_Method):
     removedKeywords = FC3_Method.removedKeywords
     removedAttrs = FC3_Method.removedAttrs
@@ -97,25 +101,25 @@ class FC6_Method(FC3_Method):
         self.opts = None
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.method == "cdrom":
-            return "# Use CDROM installation media\ncdrom\n"
+            retval += "# Use CDROM installation media\ncdrom\n"
         elif self.method == "harddrive":
             msg = "# Use hard drive installation media\nharddrive --dir=%s" % self.dir
 
             if self.biospart is not None:
-                return msg + " --biospart=%s\n" % self.biospart
+                retval += msg + " --biospart=%s\n" % self.biospart
             else:
-                return msg + " --partition=%s\n" % self.partition
+                retval += msg + " --partition=%s\n" % self.partition
         elif self.method == "nfs":
-            retval = "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
+            retval += "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
             if self.opts is not None:
                 retval += " --opts=\"%s\"" % self.opts
-
-            return retval + "\n"
         elif self.method == "url":
-            return "# Use network installation\nurl --url=%s\n" % self.url
-        else:
-            return ""
+            retval += "# Use network installation\nurl --url=%s\n" % self.url
+
+        return retval + "\n"
 
     def _getParser(self):
         op = FC3_Method._getParser(self)

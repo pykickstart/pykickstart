@@ -43,6 +43,7 @@ import urlgrabber.grabber as grabber
 
 from constants import *
 from errors import *
+from ko import *
 from options import *
 from version import *
 
@@ -141,16 +142,14 @@ def preprocessKickstart (file):
 ###
 ### SCRIPT HANDLING
 ###
-class Script:
+class Script(KickstartObject):
     """A class representing a single kickstart script.  If functionality beyond
        just a data representation is needed (for example, a run method in
        anaconda), Script may be subclassed.  Although a run method is not
        provided, most of the attributes of Script have to do with running the
        script.  Instances of Script are held in a list by the Version object.
     """
-    def __init__(self, script, interp = "/bin/sh", inChroot = False,
-                 lineno = None, logfile = None, errorOnFail = False,
-                 type = KS_SCRIPT_PRE):
+    def __init__(self, script, *args , **kwargs):
         """Create a new Script instance.  Instance attributes:
 
            errorOnFail -- If execution of the script fails, should anaconda
@@ -166,22 +165,29 @@ class Script:
            type        -- The type of the script, which can be KS_SCRIPT_* from
                           pykickstart.constants.
         """
+        KickstartObject.__init__(self, *args, **kwargs)
         self.script = string.join(script, "")
-        self.interp = interp
-        self.inChroot = inChroot
-        self.lineno = lineno
-        self.logfile = logfile
-        self.errorOnFail = errorOnFail
-        self.type = type
+
+        self.interp = kwargs.get("interp", "/bin/sh")
+        self.inChroot = kwargs.get("inChroot", False)
+        self.lineno = kwargs.get("lineno", None)
+        self.logfile = kwargs.get("logfile", None)
+        self.errorOnFail = kwargs.get("errorOnFail", False)
+        self.type = kwargs.get("type", KS_SCRIPT_PRE)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
+        if self.preceededInclude is not None:
+            retval = "\n%%include %s\n" % self.preceededInclude
+        else:
+            retval = ""
+
         if self.type == KS_SCRIPT_PRE:
-            retval = '\n%pre'
+            retval += '\n%pre'
         elif self.type == KS_SCRIPT_POST:
-            retval = '\n%post'
+            retval += '\n%post'
         elif self.type == KS_SCRIPT_TRACEBACK:
-            retval = '\n%traceback'
+            retval += '\n%traceback'
 
         if self.interp != "/bin/sh" and self.interp != "":
             retval += " --interpreter=%s" % self.interp
@@ -235,9 +241,9 @@ class Group:
             return 1
         return 0
 
-class Packages:
+class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Create a new Packages instance.  Instance attributes:
 
            addBase       -- Should the Base group be installed even if it is
@@ -257,6 +263,8 @@ class Packages:
                             %packages section.
            instLangs     -- A list of languages to install.
         """
+        KickstartObject.__init__(self, *args, **kwargs)
+
         self.addBase = True
         self.default = False
         self.excludedList = []
@@ -289,7 +297,12 @@ class Packages:
             if pkgs == "":
                 return ""
 
-        retval = "\n%packages"
+        if self.preceededInclude is not None:
+            retval = "\n%%include %s\n" % self.preceededInclude
+        else:
+            retval = ""
+
+        retval += "\n%packages"
 
         if self.default:
             retval += " --default"
@@ -401,6 +414,7 @@ class KickstartParser:
         self._state = STATE_COMMANDS
         self._script = None
         self._includeDepth = 0
+        self._preceededInclude = None
 
     def addScript (self):
         """Create a new Script instance and add it to the Version object.  This
@@ -410,12 +424,18 @@ class KickstartParser:
         if string.join(self._script["body"]).strip() == "":
             return
 
-        s = Script (self._script["body"], interp=self._script["interp"],
-                    inChroot=self._script["chroot"],
-                    lineno=self._script["lineno"],
-                    logfile=self._script["log"],
-                    errorOnFail=self._script["errorOnFail"],
-                    type=self._script["type"])
+        kwargs = {"interp": self._script["interp"],
+                  "inChroot": self._script["chroot"],
+                  "lineno": self._script["lineno"],
+                  "logfile": self._script["log"],
+                  "errorOnFail": self._script["errorOnFail"],
+                  "type": self._script["type"]}
+
+        if self._preceededInclude is not None:
+            kwargs["preceededInclude"] = self._preceededInclude
+            self._preceededInclude = None
+
+        s = Script (self._script["body"], **kwargs)
 
         if self.handler:
             self.handler.scripts.append(s)
@@ -436,7 +456,8 @@ class KickstartParser:
         if self.handler:
             self.handler.currentCmd = args[0]
             self.handler.currentLine = self._line
-            self.handler.dispatcher(args, lineno)
+            self.handler.dispatcher(args, lineno, self._preceededInclude)
+            self._preceededInclude = None
 
     def handlePackageHdr (self, lineno, args):
         """Process the arguments to the %packages header and set attributes
@@ -473,6 +494,10 @@ class KickstartParser:
 
         if opts.instLangs:
             self.handler.packages.instLangs = opts.instLangs
+
+        if self._preceededInclude is not None:
+            self.handler.packages.preceededInclude = self._preceededInclude
+            self._preceededInclude = None
 
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
@@ -556,6 +581,8 @@ class KickstartParser:
                 args = shlex.split(self._line)
 
             if args and args[0] == "%include":
+                self._preceededInclude = args[1]
+
                 # This case comes up primarily in ksvalidator.
                 if not self.followIncludes:
                     needLine = True

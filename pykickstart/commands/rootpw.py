@@ -36,15 +36,17 @@ class FC3_RootPw(KickstartCommand):
         self.password = kwargs.get("password", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.password != "":
             if self.isCrypted:
                 crypted = "--iscrypted"
             else:
                 crypted = ""
 
-            return "# Root password\nrootpw %s %s\n" % (crypted, self.password)
-        else:
-            return ""
+            retval += "# Root password\nrootpw %s %s\n" % (crypted, self.password)
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -60,6 +62,7 @@ class FC3_RootPw(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
 
         self.password = extra[0]
+        return self
 
 class F8_RootPw(FC3_RootPw):
     removedKeywords = FC3_RootPw.removedKeywords

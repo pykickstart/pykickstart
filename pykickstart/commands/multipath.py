@@ -48,7 +48,7 @@ class FC6_MultiPathData(BaseData):
         self.paths = kwargs.get("paths", [])
 
     def __str__(self):
-        retval = ""
+        retval = BaseData.__str__(self)
 
         for path in self.paths:
             retval += "multipath --mpdev=%s %s\n" % (self.name, path.__str__())
@@ -100,11 +100,11 @@ class FC6_MultiPath(KickstartCommand):
 
         if parent is None:
             mpath = FC6_MultiPathData()
-            self.add(mpath)
+            return mpath
         else:
             mpath = self.mpaths[x]
 
-        mpath.paths.append(dd)
+        return dd
 
-    def add(self, newObj):
-        self.mpaths.append(newObj)
+    def dataList(self):
+        return self.mpaths

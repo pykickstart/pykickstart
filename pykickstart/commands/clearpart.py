@@ -37,8 +37,10 @@ class FC3_ClearPart(KickstartCommand):
         self.type = kwargs.get("type", None)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.type is None:
-            return ""
+            return retval
 
         if self.type == CLEARPART_TYPE_NONE:
             clearstr = "--none"
@@ -59,7 +61,8 @@ class FC3_ClearPart(KickstartCommand):
         else:
             drivestr = ""
 
-        return "# Partition clearing information\nclearpart %s %s %s\n" % (clearstr, initstr, drivestr)
+        retval += "# Partition clearing information\nclearpart %s %s %s\n" % (clearstr, initstr, drivestr)
+        return retval
 
     def _getParser(self):
         def drive_cb (option, opt_str, value, parser):
@@ -82,3 +85,4 @@ class FC3_ClearPart(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self

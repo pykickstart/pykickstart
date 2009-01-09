@@ -45,7 +45,7 @@ class FC3_XConfig(KickstartCommand):
         self.vsync = kwargs.get("vsync", "")
 
     def __str__(self):
-        retval = ""
+        retval = KickstartCommand.__str__(self)
 
         if self.card != "":
             retval += " --card=%s" % self.card
@@ -99,6 +99,7 @@ class FC3_XConfig(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         self._setToSelf(self.op, opts)
+        return self
 
 class FC6_XConfig(FC3_XConfig):
     removedKeywords = FC3_XConfig.removedKeywords + ["card", "hsync", "monitor", "noProbe", "vsync"]
@@ -111,7 +112,7 @@ class FC6_XConfig(FC3_XConfig):
         self.driver = kwargs.get("driver", "")
 
     def __str__(self):
-        retval = ""
+        retval = KickstartCommand.__str__(self)
 
         if hasattr(self, "driver") and self.driver != "":
             retval += " --driver=%s" % self.driver

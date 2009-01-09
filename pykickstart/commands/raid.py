@@ -60,8 +60,10 @@ class FC3_RaidData(BaseData):
         return retval
 
     def __str__(self):
-        return "raid %s %s %s\n" % (self.mountpoint, self._getArgsAsStr(),
-                                    string.join(self.members))
+        retval = BaseData.__str__(self)
+        retval += "raid %s %s %s\n" % (self.mountpoint, self._getArgsAsStr(),
+                                       string.join(self.members))
+        return retval
 
 class FC4_RaidData(FC3_RaidData):
     removedKeywords = FC3_RaidData.removedKeywords
@@ -212,10 +214,10 @@ class FC3_Raid(KickstartCommand):
         rd.device = int(rd.device)
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
-        self.add(rd)
+        return rd
 
-    def add(self, newObj):
-        self.raidList.append(newObj)
+    def dataList(self):
+        return self.raidList
 
 class FC4_Raid(FC3_Raid):
     removedKeywords = FC3_Raid.removedKeywords

@@ -32,12 +32,14 @@ class F7_Updates(KickstartCommand):
         self.url = kwargs.get("url", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.url == "floppy":
-            return "updates\n"
+            retval += "updates\n"
         elif self.url != "":
-            return "updates %s\n" % self.url
-        else:
-            return ""
+            retval += "updates %s\n" % self.url
+
+        return retval
 
     def parse(self, args):
         if len(args) > 1:
@@ -46,3 +48,5 @@ class F7_Updates(KickstartCommand):
             self.url = "floppy"
         else:
             self.url = args[0]
+
+        return self

@@ -34,12 +34,15 @@ class FC6_IscsiName(KickstartCommand):
         self.iscsiname = kwargs.get("iscsiname", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.iscsiname != "":
-            return "iscsiname %s\n" % self.iscsiname
-        else:
-            return ""
+            retval += "iscsiname %s\n" % self.iscsiname
+
+        return retval
 
     def parse(self, args):
         if len(args) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
         self.iscsiname = args[0]
+        return self

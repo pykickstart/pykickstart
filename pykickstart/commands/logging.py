@@ -37,8 +37,10 @@ class FC6_Logging(KickstartCommand):
         self.port = kwargs.get("port", "")
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.level != "":
-            retval = "# Installation logging level\nlogging --level=%s" % self.level
+            retval += "# Installation logging level\nlogging --level=%s" % self.level
 
             if self.host != "":
                 retval += " --host=%s" % self.host
@@ -46,9 +48,7 @@ class FC6_Logging(KickstartCommand):
                 if self.port != "":
                     retval += " --port=%s" % self.port
 
-            return retval + "\n"
-        else:
-            return ""
+        return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -61,3 +61,4 @@ class FC6_Logging(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        return self

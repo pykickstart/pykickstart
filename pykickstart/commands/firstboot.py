@@ -32,15 +32,19 @@ class FC3_Firstboot(KickstartCommand):
         self.firstboot = kwargs.get("firstboot", None)
 
     def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
         if self.firstboot is None:
-            return ""
+            return retval
 
         if self.firstboot == FIRSTBOOT_SKIP:
-            return "firstboot --disable\n"
+            retval += "firstboot --disable\n"
         elif self.firstboot == FIRSTBOOT_DEFAULT:
-            return "# Run the Setup Agent on first boot\nfirstboot --enable\n"
+            retval += "# Run the Setup Agent on first boot\nfirstboot --enable\n"
         elif self.firstboot == FIRSTBOOT_RECONFIG:
-            return "# Run the Setup Agent on first boot\nfirstboot --reconfig\n"
+            retval += "# Run the Setup Agent on first boot\nfirstboot --reconfig\n"
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
@@ -55,3 +59,4 @@ class FC3_Firstboot(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self.firstboot = opts.firstboot
+        return self
