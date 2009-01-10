@@ -350,11 +350,14 @@ class BaseHandler(KickstartObject):
             setattr(self, dataName, dataClass)
 
     def dispatcher(self, args, lineno, include=None):
-        """Given a split up line of the input file and the current line number,
-           call the appropriate KickstartCommand handler that has been
-           previously registered.  lineno is needed for error reporting.  If
-           cmd does not exist in the commands dict, KickstartParseError will be
-           raised.  A handler of None for the given command is not an error.
+        """Call the appropriate KickstartCommand handler for the current line
+           in the kickstart file.  A handler for the current command should
+           be registered, though a handler of None is not an error.
+
+           args    -- A list of arguments to the current command
+           lineno  -- The line number in the file, for error reporting
+           include -- The path to any file %included immediately before the
+                      current command
         """
         cmd = args[0]
 

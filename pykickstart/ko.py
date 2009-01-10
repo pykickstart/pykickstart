@@ -17,9 +17,26 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+"""
+Base classes for internal pykickstart use.
+
+The module exports the following important classes:
+
+    KickstartObject - The base class for all classes in pykickstart
+"""
 
 class KickstartObject(object):
+    """The base class for all other classes in pykickstart."""
     def __init__(self, *args, **kwargs):
+        """Create a new KickstartObject instance.  All other classes in
+           pykickstart should be derived from this one.  Instance attributes:
+
+           preceededInclude -- The path to any include file that preceeded
+                               this object in the input file.  Command/data
+                               handler objects, Package objects, and Script
+                               objects all support an include file preceeding
+                               it.
+        """
         self.preceededInclude = kwargs.get("preceededInclude", None)
 
     def __str__(self):
