@@ -52,10 +52,19 @@ op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
 op.add_option("-i", "--followincludes", dest="followincludes",
               action="store_true", default=False,
               help=_("parse include files when %include is seen"))
+op.add_option("-l", "--listversions", dest="listversions", action="store_true",
+              default=False,
+              help=_("list the available versions of kickstart syntax"))
 op.add_option("-v", "--version", dest="version", default=DEVEL,
               help=_("version of kickstart syntax to validate against"))
 
 (opts, extra) = op.parse_args(sys.argv[1:])
+
+if opts.listversions:
+    for key in sorted(versionMap.keys()):
+        print key
+
+    os._exit(1)
 
 if len(extra) != 1:
     op.print_help()
@@ -67,7 +76,6 @@ else:
     except urlgrabber.grabber.URLGrabError, e:
         print _("Error reading %s:\n%s" % (extra[0],e))
         cleanup(destdir)
-        
 
 try:
     handler = makeVersion(opts.version)
