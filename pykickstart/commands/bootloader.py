@@ -69,9 +69,9 @@ class FC3_Bootloader(KickstartCommand):
 
         if self.location != "":
             retval += "# System bootloader configuration\nbootloader"
-            retval += self._getArgsAsStr()
+            retval += self._getArgsAsStr() + "\n"
 
-        return retval + "\n"
+        return retval
 
     def _getParser(self):
         def driveorder_cb (option, opt_str, value, parser):

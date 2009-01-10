@@ -70,7 +70,10 @@ class F9_AutoPart(FC3_AutoPart):
             if self.passphrase != "":
                 retval += " --passphrase=\"%s\""% self.passphrase
 
-        return retval + "\n"
+        if retval != "":
+            retval += "\n"
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)

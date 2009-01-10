@@ -115,11 +115,11 @@ class FC6_Method(FC3_Method):
         elif self.method == "nfs":
             retval += "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
             if self.opts is not None:
-                retval += " --opts=\"%s\"" % self.opts
+                retval += " --opts=\"%s\"\n" % self.opts
         elif self.method == "url":
             retval += "# Use network installation\nurl --url=%s\n" % self.url
 
-        return retval + "\n"
+        return retval
 
     def _getParser(self):
         op = FC3_Method._getParser(self)
