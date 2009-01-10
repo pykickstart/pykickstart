@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.49
+Version: 1.50
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Sat Jan 10 2009 Chris Lumens <clumens@redhat.com> - 1.50-1
+- Add a script to diff two versions of kickstart syntax.
+- Add an option to ksvalidator to list all available syntax versions.
+- Remove a couple extra newlines in output formatting.
+- Add documentation for the new %include representation.
+- Add support %include to the pykickstart data objects.
+
 * Thu Jan 08 2009 Chris Lumens <clumens@redhat.com> - 1.49-1
 - Add upgrade --root-device (atodorov, #471232).
 - Use python's builtin set rather than the Sets module (#477836, dcantrell).
