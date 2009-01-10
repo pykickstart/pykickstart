@@ -6,5 +6,5 @@ setup(name='pykickstart', version='1.49',
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='http://fedoraproject.org/wiki/pykickstart',
-      scripts=['tools/ksvalidator', 'tools/ksflatten'],
+      scripts=['tools/ksvalidator', 'tools/ksflatten', 'tools/ksverdiff'],
       packages=['pykickstart', 'pykickstart.commands', 'pykickstart.handlers'])

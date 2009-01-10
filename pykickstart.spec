@@ -42,6 +42,7 @@ rm -rf %{buildroot}
 %{python_sitelib}/*
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
+%{_bindir}/ksverdiff
 
 %changelog
 * Thu Jan 08 2009 Chris Lumens <clumens@redhat.com> - 1.49-1

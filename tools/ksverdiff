@@ -1,0 +1,115 @@
+#!/usr/bin/python2
+#
+# Chris Lumens <clumens@redhat.com>
+#
+# Copyright 2009 Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use, modify,
+# copy, or redistribute it subject to the terms and conditions of the GNU
+# General Public License v.2.  This program is distributed in the hope that it
+# will be useful, but WITHOUT ANY WARRANTY expressed or implied, including the
+# implied warranties of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License along with
+# this program; if not, write to the Free Software Foundation, Inc., 51
+# Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
+# trademarks that are incorporated in the source code or documentation are not
+# subject to the GNU General Public License and may only be used or replicated
+# with the express permission of Red Hat, Inc. 
+#
+
+import optparse
+import os
+import sys
+import warnings
+from pykickstart.base import *
+from pykickstart.errors import *
+from pykickstart.parser import *
+from pykickstart.version import *
+
+import gettext
+gettext.textdomain("pykickstart")
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
+def getCommandSet(handler):
+    return set(handler.commands.keys())
+
+def getOptSet(lst):
+    return set(map(lambda o: o.get_opt_string(), lst))
+
+def printList(lst):
+    for e in lst:
+        sys.stdout.write("%s " % e)
+
+    print
+
+op = OptionParser(usage="usage: %prog [options]")
+op.add_option("-f", "--from", dest="f")
+op.add_option("-t", "--to", dest="t")
+
+(opts, extra) = op.parse_args(sys.argv[1:])
+
+if not opts.f or not opts.t:
+    print(_("You must specify two syntax versions."))
+    os._exit(1)
+
+try:
+    fromHandler = makeVersion(opts.f)
+    toHandler = makeVersion(opts.t)
+except KickstartVersionError, e:
+    print(_("The version %s is not supported by pykickstart") % str(e))
+    os._exit(1)
+
+fromCmdSet = getCommandSet(fromHandler)
+toCmdSet = getCommandSet(toHandler)
+bothSet = fromCmdSet & toCmdSet
+
+print(_("The following commands were removed in %s:") % opts.t)
+printList(list(fromCmdSet - toCmdSet))
+
+print(_("The following commands were deprecated in %s:") % opts.t)
+printList(filter(lambda c: isinstance(toHandler.commands[c], DeprecatedCommand), list(bothSet)))
+
+print(_("The following commands were added in %s:") % opts.t)
+printList(list(toCmdSet - fromCmdSet))
+
+print
+
+for cmd in bothSet:
+    printed = False
+
+    newOptList = []
+    deprecatedOptList = []
+    removedOptList = []
+
+    fromCmd = fromHandler.commands[cmd]
+    toCmd = toHandler.commands[cmd]
+
+    if not hasattr(fromCmd, "op") or not hasattr(toCmd, "op"):
+        continue
+
+    fromOpt = fromCmd.op.option_list
+    toOpt = toCmd.op.option_list
+
+    newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
+    removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
+    deprecatedOptList = getOptSet(filter(lambda cmd: cmd.deprecated == 1, toOpt))
+
+    if len(newOptList) > 0:
+        print(_("The following options were added to the %s command in %s:") % (cmd, opts.t))
+        printList(list(newOptList))
+        printed = True
+
+    if len(deprecatedOptList) > 0:
+        print(_("The following options were deprecated from the %s command in %s:") % (cmd, opts.t))
+        printList(list(deprecatedOptList))
+        printed = True
+
+    if len(removedOptList) > 0:
+        print(_("The following options were removed from the %s command in %s:") % (cmd, opts.t))
+        printList(list(removedOptList))
+        printed = True
+
+    if printed:
+        print
