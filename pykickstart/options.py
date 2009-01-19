@@ -186,4 +186,3 @@ class KSOption (Option):
 
     def __init__(self, *args, **kwargs):
         Option.__init__(self, *args, **kwargs)
-        self.required = False
