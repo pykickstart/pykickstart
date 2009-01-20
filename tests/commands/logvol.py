@@ -84,12 +84,12 @@ class FC4_TestCase(FC3_TestCase):
         # Enable checks for --bytes-per-inode -- supported in FC4
         self.bytesPerInode = "--bytes-per-inode=4096 "
 
-    def test_fsoptions(self):
+    def fsoptions_tests(self):
         # --fsoptions
         self.assert_parse("logvol / --fstype=\"BLAFS\" --fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME",
                           "logvol /  --fstype=\"BLAFS\" %s--fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-    def test_bytesPerInode(self):
+    def parse_bytesPerInode(self):
         # --bytes-per-inode implicit
         self.assert_parse("logvol / --name=NAME --vgname=VGNAME",
                           "logvol /  --bytes-per-inode=4096 --name=NAME --vgname=VGNAME\n")
@@ -115,13 +115,13 @@ class FC4_TestCase(FC3_TestCase):
         FC3_TestCase.runTest(self)
 
         # --fsoptions
-        self.test_fsoptions()
+        self.fsoptions_tests()
 
         if self.bytesPerInode.count("--bytes-per-inode") > 0:
             # --bytes-per-inode
-            self.test_bytesPerInode()
+            self.parse_bytesPerInode()
 
-    def test_encrypted(self):
+    def encrypted_tests(self):
 
         # this method is only for derived classes
         self.assertNotEqual(self.__class__, FC4_TestCase)
@@ -157,7 +157,7 @@ class RHEL5_TestCase(FC4_TestCase):
     def runTest(self):
         # run our baseclass tests first
         FC4_TestCase.runTest(self)
-        self.test_encrypted()
+        self.encrypted_tests()
 
 class F9_TestCase(FC4_TestCase):
     def setUp(self):
@@ -165,7 +165,7 @@ class F9_TestCase(FC4_TestCase):
         # Disable checks for --bytes-per-inode
         self.bytesPerInode = ""
 
-    def test_fsprofile(self):
+    def fsprofile_tests(self):
 
         # assert data types
         self.assert_type("logvol", "fsprofile", "string")
@@ -182,13 +182,13 @@ class F9_TestCase(FC4_TestCase):
         FC4_TestCase.runTest(self)
 
         # --encrypted and --passphrase tests
-        self.test_encrypted()
+        self.encrypted_tests()
 
         # --fsoptions
-        self.test_fsoptions()
+        self.fsoptions_tests()
 
         # --fsprofile
-        self.test_fsprofile()
+        self.fsprofile_tests()
 
         # Ensure --bytes-per-inode has been deprecated
         self.assert_deprecated("logvol", "bytes-per-inode")
