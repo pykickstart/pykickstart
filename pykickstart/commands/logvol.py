@@ -108,12 +108,12 @@ class RHEL5_LogVolData(FC4_LogVolData):
 
         return retval
 
-class F9_LogVolData(FC3_LogVolData):
-    removedKeywords = FC3_LogVolData.removedKeywords + ["bytesPerInode"]
-    removedAttrs = FC3_LogVolData.removedAttrs + ["bytesPerInode"]
+class F9_LogVolData(FC4_LogVolData):
+    removedKeywords = FC4_LogVolData.removedKeywords + ["bytesPerInode"]
+    removedAttrs = FC4_LogVolData.removedAttrs + ["bytesPerInode"]
 
     def __init__(self, *args, **kwargs):
-        FC3_LogVolData.__init__(self, *args, **kwargs)
+        FC4_LogVolData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
         self.fsopts = kwargs.get("fsopts", "")
@@ -122,7 +122,7 @@ class F9_LogVolData(FC3_LogVolData):
         self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
-        retval = FC3_LogVolData._getArgsAsStr(self)
+        retval = FC4_LogVolData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
