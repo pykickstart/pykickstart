@@ -185,4 +185,5 @@ class KSOption (Option):
             Option.take_action(self, action, dest, opt, value, values, parser)
 
     def __init__(self, *args, **kwargs):
+        self.required = False
         Option.__init__(self, *args, **kwargs)
