@@ -356,7 +356,15 @@ class Packages(KickstartObject):
             if stripped[0] == "@":
                 self._processGroup(stripped[1:])
             elif stripped[0] == "-":
-                newExcludedSet.add(stripped[1:])
+                # Support syntax for removing a previously included group.  If
+                # the provided group does not exist, it's not an error.
+                if stripped[1] == "@":
+                    try:
+                        self.groupList = filter(lambda g: g.name != stripped[2:], self.groupList)
+                    except ValueError:
+                        pass
+                else:
+                    newExcludedSet.add(stripped[1:])
             else:
                 newPackageSet.add(stripped)
 
