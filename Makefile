@@ -6,6 +6,8 @@ TAG=r$(VERSION)-$(RELEASE)
 MANDIR=/usr/share/man
 PREFIX=/usr
 
+TESTSUITE:=tests/baseclass.py
+
 PYCHECKEROPTS=--no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only -Q
 
 default: all
@@ -19,6 +21,10 @@ docs:
 check:
 	@echo "*** Running pychecker to verify source ***"
 	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
+
+test:
+	@echo "*** Running unittests ***"
+	PYTHONPATH=. python $(TESTSUITE) -v
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc docs/kickstart-docs.txt ChangeLog
