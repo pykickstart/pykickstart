@@ -6,6 +6,7 @@ import imputil
 import glob
 import logging
 import warnings
+import re
 
 from pykickstart.version import versionMap, returnClassForVersion
 from pykickstart.errors import *
@@ -44,17 +45,29 @@ class CommandTest(unittest.TestCase):
             self.handler = returnClassForVersion(version)
         return self.handler().commands[cmd]
 
-    def assert_parse(self, inputStr, expectedStr=None):
+    def assert_parse(self, inputStr, expectedStr=None, ignoreComments=True):
         '''KickstartParseError is not raised and the resulting string matches
         supplied value'''
         args = shlex.split(inputStr)
         parser = self.getParser(args[0])
 
+        # If expectedStr supplied, we want to ensure the parsed result matches
         if expectedStr is not None:
             result = parser.parse(args[1:])
+
+            # Strip any comment lines ... we only match on non-comments
+            if ignoreComments:
+                result = re.sub("^#[^\n]*\n", "", str(result))
+
+            # Ensure we parsed as expected
             self.assertEqual(str(result), expectedStr)
+        # No expectedStr supplied, just make sure it does not raise an
+        # exception
         else:
-            self.assertNotRaises(KickstartParseError, parser.parse, args[1:])
+            try:
+                result = parser.parse(args[1:])
+            except Exception, e:
+                self.fail("Failed while parsing: %s" % e)
 
     def assert_parse_error(self, inputStr, exception=KickstartParseError):
         '''Assert that parsing the supplied string raises a
@@ -99,7 +112,7 @@ def loadTests(moduleDir):
 
     # Make sure moduleDir is in the system path so imputil works.
     if not moduleDir in sys.path:
-        sys.path.append(moduleDir)
+        sys.path.insert(0, moduleDir)
 
     # Get a list of all *.py files in moduleDir
     moduleList = []
