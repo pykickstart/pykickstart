@@ -50,6 +50,8 @@ class CommandTest(unittest.TestCase):
         supplied value'''
         args = shlex.split(inputStr)
         parser = self.getParser(args[0])
+        parser.currentLine = inputStr
+        parser.currentCmd = args[0]
 
         # If expectedStr supplied, we want to ensure the parsed result matches
         if expectedStr is not None:
@@ -74,6 +76,9 @@ class CommandTest(unittest.TestCase):
         KickstartParseError'''
         args = shlex.split(inputStr)
         parser = self.getParser(args[0])
+        parser.currentLine = inputStr
+        parser.currentCmd = args[0]
+
         self.assertRaises(exception, parser.parse, args[1:])
 
     def assert_deprecated(self, cmd, opt):
