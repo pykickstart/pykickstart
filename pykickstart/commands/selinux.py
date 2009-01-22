@@ -34,7 +34,7 @@ class FC3_SELinux(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if not retval and not self.selinux:
+        if not retval and self.selinux is None:
             return ""
 
         retval += "# SELinux configuration\n"
