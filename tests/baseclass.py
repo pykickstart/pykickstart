@@ -37,21 +37,27 @@ class CommandTest(unittest.TestCase):
 
         unittest.TestCase.tearDown(self)
 
-    def getParser(self, cmd):
+    def getParser(self, inputStr):
         '''Find a handler using the class name.  Return the requested command
         object.'''
+        args = shlex.split(inputStr)
+        cmd = args[0]
+
         if self.handler is None:
             version = self.__class__.__name__.split("_")[0]
             self.handler = returnClassForVersion(version)
-        return self.handler().commands[cmd]
+
+        parser = self.handler().commands[cmd]
+        parser.currentLine = inputStr
+        parser.currentCmd = args[0]
+
+        return parser
 
     def assert_parse(self, inputStr, expectedStr=None, ignoreComments=True):
         '''KickstartParseError is not raised and the resulting string matches
         supplied value'''
+        parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
-        parser = self.getParser(args[0])
-        parser.currentLine = inputStr
-        parser.currentCmd = args[0]
 
         # If expectedStr supplied, we want to ensure the parsed result matches
         if expectedStr is not None:
@@ -74,10 +80,8 @@ class CommandTest(unittest.TestCase):
     def assert_parse_error(self, inputStr, exception=KickstartParseError):
         '''Assert that parsing the supplied string raises a
         KickstartParseError'''
+        parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
-        parser = self.getParser(args[0])
-        parser.currentLine = inputStr
-        parser.currentCmd = args[0]
 
         self.assertRaises(exception, parser.parse, args[1:])
 
@@ -110,8 +114,12 @@ class CommandTest(unittest.TestCase):
             if op.dest == opt:
                 self.assertEqual(op.type, opt_type)
 
-def loadTests(moduleDir):
+def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "baseclass"]):
     '''taken from firstboot/loader.py'''
+
+    # Guaruntee that __init__ is skipped
+    if skip_list.count("__init__") == 0:
+        skip_list.append("__init__")
 
     tstList = list()
 
@@ -126,7 +134,7 @@ def loadTests(moduleDir):
 
     # Inspect each .py file found
     for module in lst:
-        if module == "__init__":
+        if module in skip_list:
             continue
 
         logging.debug(_("Loading module %s") % module)
@@ -138,10 +146,10 @@ def loadTests(moduleDir):
         except ImportError, e:
             logging.exception(_("Error loading module %s.") % module)
 
-        # Find class names that match "_TestCase"
+        # Find class names that match the supplied pattern (default: "_TestCase")
         beforeCount = len(tstList)
         for obj in loaded.__dict__.keys():
-            if obj.endswith("_TestCase"):
+            if obj.endswith(cls_pattern):
                 tstList.append(loaded.__dict__[obj])
         afterCount = len(tstList)
 
@@ -158,8 +166,9 @@ if __name__ == "__main__":
     # Create a test suite
     PyKickstartTestSuite = unittest.TestSuite()
 
-    # Add tests for all commands supplied
-    tstList = loadTests(os.path.join(os.environ.get("PWD"), "tests/commands"))
+    # Find tests to add
+    tstList = loadModules(os.path.join(os.environ.get("PWD"), "tests/"))
+    tstList.extend(loadModules(os.path.join(os.environ.get("PWD"), "tests/commands")))
     for tst in tstList:
         PyKickstartTestSuite.addTest(tst())
 
