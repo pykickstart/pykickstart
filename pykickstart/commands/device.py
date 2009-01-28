@@ -77,7 +77,7 @@ class FC3_Device(KickstartCommand):
         if len(extra) != 2:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name"))
 
-        self.opts = opts.moduleOpts
+        self.moduleOpts = opts.moduleOpts
         self.type = extra[0]
         self.moduleName = extra[1]
         return self
