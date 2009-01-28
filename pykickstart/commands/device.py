@@ -41,7 +41,7 @@ class F8_DeviceData(BaseData):
             if self.moduleOpts != "":
                 retval += " --opts=%s" % self.moduleOpts
 
-        return retval
+        return retval + "\n"
 
 class FC3_Device(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -64,7 +64,7 @@ class FC3_Device(KickstartCommand):
             if self.moduleOpts != "":
                 retval += " --opts=%s" % self.moduleOpts
 
-        return retval
+        return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
