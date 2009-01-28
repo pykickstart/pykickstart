@@ -62,7 +62,7 @@ class FC3_Device(KickstartCommand):
             retval += "device %s %s" % (self.type, self.moduleName)
 
             if self.moduleOpts != "":
-                retval += " --opts=%s" % self.moduleOpts
+                retval += " --opts=\"%s\"" % self.moduleOpts
 
         return retval + "\n"
 
