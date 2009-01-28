@@ -28,12 +28,11 @@ class FC3_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("keyboard us", "keyboard us\n")
-        
+
         # fail
         self.assert_parse_error("keyboard", KickstartValueError)
         self.assert_parse_error("keyboard us uk", KickstartValueError)
-        self.assert_parse_error("keyboard --foo us")
-        self.assert_parse_error("keyboard --bar")
+        self.assert_parse_error("keyboard --foo us", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()
