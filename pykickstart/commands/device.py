@@ -39,7 +39,7 @@ class F8_DeviceData(BaseData):
             retval += "device %s" % self.moduleName
 
             if self.moduleOpts != "":
-                retval += " --opts=%s" % self.moduleOpts
+                retval += " --opts=\"%s\"" % self.moduleOpts
 
         return retval + "\n"
 
