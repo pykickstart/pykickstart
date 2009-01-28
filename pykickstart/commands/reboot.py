@@ -64,7 +64,7 @@ class FC6_Reboot(FC3_Reboot):
         if self.eject:
             retval += " --eject"
 
-        return retval
+        return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
