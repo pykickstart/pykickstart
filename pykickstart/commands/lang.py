@@ -40,8 +40,8 @@ class FC3_Lang(KickstartCommand):
         return retval
 
     def parse(self, args):
-        if len(args) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "lang")
+        if len(args) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "lang")
 
         self.lang = args[0]
         return self

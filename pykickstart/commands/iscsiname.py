@@ -42,7 +42,7 @@ class FC6_IscsiName(KickstartCommand):
         return retval
 
     def parse(self, args):
-        if len(args) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "iscsiname")
+        if len(args) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname")
         self.iscsiname = args[0]
         return self

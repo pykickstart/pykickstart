@@ -44,8 +44,8 @@ class F7_Key(KickstartCommand):
         return retval
 
     def parse(self, args):
-        if len(args) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Command %s only takes one argument") % "key")
+        if len(args) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key")
 
         if args[0] == "--skip":
             self.key = KS_INSTKEY_SKIP
