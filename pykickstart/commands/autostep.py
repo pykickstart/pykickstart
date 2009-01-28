@@ -35,6 +35,8 @@ class FC3_AutoStep(KickstartCommand):
 
         if self.autoscreenshot:
             retval += "autostep --autoscreenshot\n"
+        else:
+            retval += "autostep\n"
 
         return retval
 
