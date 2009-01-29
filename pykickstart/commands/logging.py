@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007, 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -33,32 +33,34 @@ class FC6_Logging(KickstartCommand):
         self.op = self._getParser()
 
         self.host = kwargs.get("host", "")
-        self.level = kwargs.get("level", "")
+        self.level = kwargs.get("level", "info")
         self.port = kwargs.get("port", "")
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
+        retval += "# Installation logging level\nlogging --level=%s" % self.level
 
-        if self.level != "":
-            retval += "# Installation logging level\nlogging --level=%s" % self.level
+        if self.host != "":
+            retval += " --host=%s" % self.host
 
-            if self.host != "":
-                retval += " --host=%s" % self.host
-
-                if self.port != "":
-                    retval += " --port=%s" % self.port
+            if self.port != "":
+                retval += " --port=%s" % self.port
 
         return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--host")
-        op.add_option("--level", type="choice",
+        op.add_option("--level", type="choice", default="info",
                       choices=["debug", "info", "warning", "error", "critical"])
         op.add_option("--port")
         return op
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
+
+        if opts.port and not opts.host:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host."))
+
         self._setToSelf(self.op, opts)
         return self
