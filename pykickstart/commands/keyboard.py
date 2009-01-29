@@ -19,6 +19,7 @@
 #
 from pykickstart.base import *
 from pykickstart.errors import *
+from pykickstart.options import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -29,6 +30,7 @@ class FC3_Keyboard(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.keyboard = kwargs.get("keyboard", "")
 
     def __str__(self):
@@ -39,9 +41,15 @@ class FC3_Keyboard(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
-        if len(args) != 1:
+        (opts, extra) = self.op.parse_args(args=args) 
+
+        if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard")
 
-        self.keyboard = args[0]
+        self.keyboard = extra[0]
         return self
