@@ -35,16 +35,19 @@ class FC3_RootPw(KickstartCommand):
         self.isCrypted = kwargs.get("isCrypted", False)
         self.password = kwargs.get("password", "")
 
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.isCrypted:
+            retval += " --iscrypted"
+
+        return retval
+
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
         if self.password != "":
-            if self.isCrypted:
-                crypted = "--iscrypted"
-            else:
-                crypted = ""
-
-            retval += "# Root password\nrootpw %s %s\n" % (crypted, self.password)
+            retval += "# Root password\nrootpw%s %s\n" % (self._getArgsAsStr(), self.password)
 
         return retval
 
@@ -72,13 +75,16 @@ class F8_RootPw(FC3_RootPw):
         FC3_RootPw.__init__(self, writePriority, *args, **kwargs)
         self.lock = kwargs.get("lock", False)
 
-    def __str__(self):
-        retval = FC3_RootPw.__str__(self)
+    def _getArgsAsStr(self):
+        retval = FC3_RootPw._getArgsAsStr(self)
 
-        if retval != "" and self.lock:
-            return retval.strip() + " --lock\n"
-        else:
-            return retval
+        if self.lock:
+            retval += " --lock"
+
+        if not self.isCrypted:
+            retval += " --plaintext"
+
+        return retval
 
     def _getParser(self):
         op = FC3_RootPw._getParser(self)
