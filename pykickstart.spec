@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.50
+Version: 1.51
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,21 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jan 29 2009 Chris Lumens <clumens@redhat.com> - 1.51-1
+- Make a couple changes to how the logging command is handled.
+- Add a lot of test cases (clumens, alindebe, jlaska, fcami, adamwill, pfrields).
+- Fix output formatting for the rootpw command.
+- For commands that take exactly one argument, check and error correctly.
+- Surround module options in quotes on the output side (jlaska).
+- Set module opts in the FC3 handler correctly.
+- Fix newlines on the device command output (jlaska).
+- If --autoscreenshot is not specified, still output "autostep".
+- Move the currentCmd and currentLine into getParser(). (jlaska)
+- Write out an selinux line if set to disabled, but not if None.
+- F9_LogVolData should inherit from FC4_LogVolData, not FC3_LogVolData (jlaska).
+- Add unittest framework along with logvol and vnc unittests. (jlaska)
+- Don't set the KSOption.required attribute in the constructor (jlaska).
+
 * Sat Jan 10 2009 Chris Lumens <clumens@redhat.com> - 1.50-1
 - Add a script to diff two versions of kickstart syntax.
 - Add an option to ksvalidator to list all available syntax versions.
