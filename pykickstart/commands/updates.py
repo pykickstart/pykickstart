@@ -19,6 +19,7 @@
 #
 from pykickstart.base import *
 from pykickstart.errors import *
+from pykickstart.options import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -29,6 +30,7 @@ class F7_Updates(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.url = kwargs.get("url", "")
 
     def __str__(self):
@@ -41,12 +43,18 @@ class F7_Updates(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
-        if len(args) > 1:
+        (opts, extra) = self.op.parse_args(args=args)
+
+        if len(extra) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates")
-        elif len(args) == 0:
+        elif len(extra) == 0:
             self.url = "floppy"
         else:
-            self.url = args[0]
+            self.url = extra[0]
 
         return self

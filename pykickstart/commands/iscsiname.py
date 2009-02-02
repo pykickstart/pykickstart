@@ -31,6 +31,7 @@ class FC6_IscsiName(KickstartCommand):
 
     def __init__(self, writePriority=70, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.iscsiname = kwargs.get("iscsiname", "")
 
     def __str__(self):
@@ -41,8 +42,13 @@ class FC6_IscsiName(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
-        if len(args) != 1:
+        (opts, extra) = self.op.parse_args(args=args)
+        if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname")
-        self.iscsiname = args[0]
+        self.iscsiname = extra[0]
         return self

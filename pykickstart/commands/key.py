@@ -31,6 +31,7 @@ class F7_Key(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.key = kwargs.get("key", "")
 
     def __str__(self):
@@ -43,13 +44,18 @@ class F7_Key(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
-        if len(args) != 1:
+        (opts, extra) = self.op.parse_args(args=args)
+        if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key")
 
-        if args[0] == "--skip":
+        if extra[0] == "--skip":
             self.key = KS_INSTKEY_SKIP
         else:
-            self.key = args[0]
+            self.key = extra[0]
 
         return self

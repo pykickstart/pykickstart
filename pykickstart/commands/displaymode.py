@@ -27,6 +27,7 @@ class FC3_DisplayMode(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.displayMode = kwargs.get("displayMode", None)
 
     def __str__(self):
@@ -44,7 +45,12 @@ class FC3_DisplayMode(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args)
         if self.currentCmd == "cmdline":
             self.displayMode = DISPLAY_MODE_CMDLINE
         elif self.currentCmd == "graphical":

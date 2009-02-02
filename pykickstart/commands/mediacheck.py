@@ -30,6 +30,7 @@ class FC4_MediaCheck(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
         self.mediacheck = kwargs.get("mediacheck", False)
 
     def __str__(self):
@@ -39,8 +40,13 @@ class FC4_MediaCheck(KickstartCommand):
 
         return retval
 
+    def _getParser(self):
+        op = KSOptionParser(lineno=self.lineno)
+        return op
+
     def parse(self, args):
-        if len(args) > 0:
+        (opts, extra) = self.op.parse_args(args=args)
+        if len(extra) > 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "mediacheck")
 
         self.mediacheck = True
