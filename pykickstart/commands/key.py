@@ -46,15 +46,17 @@ class F7_Key(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(lineno=self.lineno)
+        op.add_option("--skip", action="store_true", default=False)
         return op
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
-        if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key")
+        self._setToSelf(self.op, opts)
 
-        if extra[0] == "--skip":
+        if self.skip:
             self.key = KS_INSTKEY_SKIP
+        elif len(extra) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key")
         else:
             self.key = extra[0]
 
