@@ -30,8 +30,8 @@ class FC3_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("interactive giveattentionpls", KickstartValueError)
-        self.assert_parse_error("interactive --cheese", KickstartValueError)
-        self.assert_parse_error("interactive --crackers=CRUNCHY", KickstartValueError)
+        self.assert_parse_error("interactive --cheese", KickstartParseError)
+        self.assert_parse_error("interactive --crackers=CRUNCHY", KickstartParseError)
 
 if __name__ == "__main__":
     unittest.main()

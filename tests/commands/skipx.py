@@ -27,7 +27,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("skipx", "skipx\n")
 
         # fail
-        self.assert_parse_error("skipx --do-something-awesome", KickstartValueError)
+        self.assert_parse_error("skipx --do-something-awesome", KickstartParseError)
         self.assert_parse_error("skipx MAGIC", KickstartValueError)
 
 if __name__ == "__main__":
