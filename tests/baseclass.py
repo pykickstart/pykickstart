@@ -4,21 +4,12 @@ import unittest
 import shlex
 import imputil
 import glob
-import logging
 import warnings
 import re
 
 from pykickstart.version import versionMap, returnClassForVersion
 from pykickstart.errors import *
 from rhpl.translate import _
-
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
-
-plainformatter = logging.Formatter("%(message)s")
-console_stdout = logging.StreamHandler(sys.stdout)
-console_stdout.setFormatter(plainformatter)
-logger.addHandler(console_stdout)
 
 # Base class for any test case
 class CommandTest(unittest.TestCase):
@@ -137,14 +128,12 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
         if module in skip_list:
             continue
 
-        logging.debug(_("Loading module %s") % module)
-
         # Attempt to load the found module.
         try:
             found = imputil.imp.find_module(module)
             loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
         except ImportError, e:
-            logging.exception(_("Error loading module %s.") % module)
+            print(_("Error loading module %s.") % module)
 
         # Find class names that match the supplied pattern (default: "_TestCase")
         beforeCount = len(tstList)
@@ -155,7 +144,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
         # Warn if no tests found
         if beforeCount == afterCount:
-            logging.warning(_("Module %s does not contain any test cases; skipping.") % module)
+            print(_("Module %s does not contain any test cases; skipping.") % module)
             continue
 
     return tstList
