@@ -21,6 +21,9 @@ from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC3_DisplayMode(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -51,6 +54,10 @@ class FC3_DisplayMode(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
+
+        if len(extra) > 0:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd)
+
         if self.currentCmd == "cmdline":
             self.displayMode = DISPLAY_MODE_CMDLINE
         elif self.currentCmd == "graphical":
