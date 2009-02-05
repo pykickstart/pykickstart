@@ -52,15 +52,15 @@ class FC3_Bootloader(KickstartCommand):
         if self.forceLBA:
             retval += " --lba32"
         if self.password != "":
-            retval += " --password=%s" % self.password
+            retval += " --password=\"%s\"" % self.password
         if self.md5pass != "":
-            retval += " --md5pass=%s" % self.md5pass
+            retval += " --md5pass=\"%s\"" % self.md5pass
         if self.upgrade:
             retval += " --upgrade"
         if self.useLilo:
             retval += " --useLilo"
         if len(self.driveorder) > 0:
-            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+            retval += " --driveorder=\"%s\"" % string.join(self.driveorder, ",")
 
         return retval
 
@@ -124,13 +124,13 @@ class FC4_Bootloader(FC3_Bootloader):
         if self.forceLBA:
             retval += " --lba32"
         if self.password != "":
-            retval += " --password=%s" % self.password
+            retval += " --password=\"%s\"" % self.password
         if self.md5pass != "":
-            retval += " --md5pass=%s" % self.md5pass
+            retval += " --md5pass=\"%s\"" % self.md5pass
         if self.upgrade:
             retval += " --upgrade"
         if len(self.driveorder) > 0:
-            retval += " --driveorder=%s" % string.join(self.driveorder, ",")
+            retval += " --driveorder=\"%s\"" % string.join(self.driveorder, ",")
         return retval
 
     def _getParser(self):
