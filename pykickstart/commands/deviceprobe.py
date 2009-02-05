@@ -20,7 +20,6 @@
 import string
 
 from pykickstart.base import *
-from pykickstart.options import *
 
 class FC3_DeviceProbe(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -28,7 +27,6 @@ class FC3_DeviceProbe(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-        self.op = self._getParser()
         self.deviceprobe = kwargs.get("deviceprobe", "")
 
     def __str__(self):
@@ -39,11 +37,6 @@ class FC3_DeviceProbe(KickstartCommand):
 
         return retval
 
-    def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
-        return op
-
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
-        self.deviceprove = string.join(extra)
+        self.deviceprove = string.join(args)
         return self
