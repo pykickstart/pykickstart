@@ -60,7 +60,7 @@ class FC6_Logging(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args)
 
         if opts.port and not opts.host:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host."))
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host."))
 
         self._setToSelf(self.op, opts)
         return self
