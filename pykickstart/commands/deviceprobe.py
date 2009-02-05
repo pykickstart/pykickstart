@@ -38,5 +38,5 @@ class FC3_DeviceProbe(KickstartCommand):
         return retval
 
     def parse(self, args):
-        self.deviceprove = string.join(args)
+        self.deviceprobe = string.join(args)
         return self
