@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -21,6 +21,9 @@ import string
 
 from pykickstart.base import *
 from pykickstart.options import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_IgnoreDisk(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
