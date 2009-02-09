@@ -74,7 +74,13 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
             retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
         elif len(self.onlyuse) > 0:
             retval += "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
-        else:
+
+        return retval
+
+    def parse(self, args):
+        retval = FC3_IgnoreDisk.parse(self, args)
+
+        if (len(self.ignoredisk) == 0 and len(self.onlyuse) == 0) or (len(self.ignoredisk) > 0 and (len(self.onlyuse) > 0)):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command."))
 
         return retval

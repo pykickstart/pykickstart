@@ -33,24 +33,28 @@ class FC3_TestCase(CommandTest):
         # missing arguments
         self.assert_parse_error("ignoredisk --drives", KickstartParseError)
         # empty
-        self.assert_parse("ignoredisk", "")
+        self.assert_parse_error("ignoredisk", KickstartValueError)
 
 class F8_TestCase(FC3_TestCase):
     def runTest(self):
-        # run FC3 test case
-        FC3_TestCase.runTest(self)
-
         # pass
+        self.assert_parse("ignoredisk --drives=sda", "ignoredisk --drives=sda\n")
+        self.assert_parse("ignoredisk --drives=sda,sdb", "ignoredisk --drives=sda,sdb\n")
         self.assert_parse("ignoredisk --only-use=sda", "ignoredisk --only-use=sda\n")
         self.assert_parse("ignoredisk --only-use=sda,sdb", "ignoredisk --only-use=sda,sdb\n")
-
-        # ignore --only-use option if also --drives provided
-        self.assert_parse("ignoredisk --drives=sda --only-use=sdb", "ignoredisk --drives=sda\n")
-        self.assert_parse("ignoredisk --only-use=sda --drives=sdb", "ignoredisk --drives=sdb\n")
 
         # fail
         # missing arguments
         self.assert_parse_error("ignoredisk --only-use", KickstartParseError)
+        # wrong option name
+        self.assert_parse_error("ignoredisk --devices=sda", KickstartParseError)
+        # missing arguments
+        self.assert_parse_error("ignoredisk --drives", KickstartParseError)
+        # empty
+        self.assert_parse_error("ignoredisk", KickstartValueError)
+        # both options provided
+        self.assert_parse_error("ignoredisk --drives=sda --only-use=sdb", KickstartValueError)
+        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()
