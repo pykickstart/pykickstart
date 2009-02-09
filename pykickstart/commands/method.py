@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import *
 from pykickstart.errors import *
@@ -115,7 +115,8 @@ class FC6_Method(FC3_Method):
         elif self.method == "nfs":
             retval += "# Use NFS installation media\nnfs --server=%s --dir=%s" % (self.server, self.dir)
             if self.opts is not None:
-                retval += " --opts=\"%s\"\n" % self.opts
+                retval += " --opts=\"%s\"" % self.opts
+            retval += "\n"
         elif self.method == "url":
             retval += "# Use network installation\nurl --url=%s\n" % self.url
 
