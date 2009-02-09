@@ -47,7 +47,7 @@ class FC3_IgnoreDisk(KickstartCommand):
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--drives", dest="ignoredisk", action="callback",
-                      callback=drive_cb, nargs=1, type="string")
+                      callback=drive_cb, nargs=1, type="string", required=1)
         return op
 
     def parse(self, args):
@@ -71,6 +71,8 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
             retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
         elif len(self.onlyuse) > 0:
             retval += "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
+        else:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command."))
 
         return retval
 
@@ -80,6 +82,8 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
                 parser.values.ensure_value(option.dest, []).append(d)
 
         op = FC3_IgnoreDisk._getParser(self)
+        op.add_option("--drives", dest="ignoredisk", action="callback",
+                      callback=drive_cb, nargs=1, type="string")
         op.add_option("--only-use", dest="onlyuse", action="callback",
                       callback=drive_cb, nargs=1, type="string")
         return op
