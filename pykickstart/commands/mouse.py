@@ -15,10 +15,14 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import *
+from pykickstart.errors import *
 from pykickstart.options import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class RHEL3_Mouse(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -39,7 +43,7 @@ class RHEL3_Mouse(KickstartCommand):
         if self.device:
             opts += "--device=%s " % self.device
         if self.emulthree:
-            opts += "--emulthree " 
+            opts += "--emulthree "
 
         if self.mouse:
             retval += "# System mouse\nmouse %s%s\n" % (opts, self.mouse)
@@ -54,6 +58,10 @@ class RHEL3_Mouse(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+
+        if len(extra) != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse")
+
         self.mouse = extra[0]
         return self
 
