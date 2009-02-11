@@ -86,7 +86,7 @@ class F11_RepoData(F8_RepoData):
         retval = F8_RepoData._getArgsAsStr(self)
 
         if self.ignoregroups:
-            retval += " --ignoregroups true"
+            retval += " --ignoregroups=true"
         return retval
 
 class FC6_Repo(KickstartCommand):
@@ -115,6 +115,10 @@ class FC6_Repo(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
+        
+        if len(extra) != 0:
+            mapping = {"command": "repo", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         # This is lame, but I can't think of a better way to make sure only
         # one of these two is specified.

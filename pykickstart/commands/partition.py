@@ -79,7 +79,7 @@ class FC3_PartData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "part %s %s\n" % (self.mountpoint, self._getArgsAsStr())
+        retval += "part %s%s\n" % (self.mountpoint, self._getArgsAsStr())
         return retval
 
 class FC4_PartData(FC3_PartData):

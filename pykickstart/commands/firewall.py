@@ -20,7 +20,11 @@
 import string
 
 from pykickstart.base import *
+from pykickstart.errors import *
 from pykickstart.options import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Firewall(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -38,7 +42,7 @@ class FC3_Firewall(KickstartCommand):
         extra = []
         filteredPorts = []
 
-        retval = BaseData.__str__(self)
+        retval = KickstartCommand.__str__(self)
 
         if self.enabled is None:
             return retval
@@ -49,35 +53,35 @@ class FC3_Firewall(KickstartCommand):
             # out into their own list leaving what we expect.
             for port in self.ports:
                 if port == "ssh":
-                    extra.append("--ssh")
+                    extra.append(" --ssh")
                 elif port == "telnet":
-                    extra.append("--telnet")
+                    extra.append(" --telnet")
                 elif port == "smtp":
-                    extra.append("--smtp")
+                    extra.append(" --smtp")
                 elif port == "http":
-                    extra.append("--http")
+                    extra.append(" --http")
                 elif port == "ftp":
-                    extra.append("--ftp")
+                    extra.append(" --ftp")
                 else:
                     filteredPorts.append(port)
 
             # All the port:proto strings go into a comma-separated list.
             portstr = string.join (filteredPorts, ",")
             if len(portstr) > 0:
-                portstr = "--port=" + portstr
+                portstr = " --port=" + portstr
             else:
                 portstr = ""
 
-            extrastr = string.join (extra, " ")
+            extrastr = string.join (extra, "")
 
             truststr = string.join (self.trusts, ",")
             if len(truststr) > 0:
-                truststr = "--trust=" + truststr
+                truststr = " --trust=" + truststr
 
             # The output port list consists only of port:proto for
             # everything that we don't recognize, and special options for
             # those that we do.
-            retval += "# Firewall configuration\nfirewall --enabled %s %s %s\n" % (extrastr, portstr, truststr)
+            retval += "# Firewall configuration\nfirewall --enabled%s%s%s\n" % (extrastr, portstr, truststr)
         else:
             retval += "# Firewall configuration\nfirewall --disabled\n"
 
@@ -110,6 +114,11 @@ class FC3_Firewall(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
+        
+        if len(extra) != 0:
+            mapping = {"command": "firewall", "options": extra}
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
+            
         self._setToSelf(self.op, opts)
         return self
 
