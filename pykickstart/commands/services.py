@@ -23,6 +23,9 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC6_Services(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -51,7 +54,7 @@ class FC6_Services(KickstartCommand):
     def _getParser(self):
         def services_cb (option, opt_str, value, parser):
             for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
+                parser.values.ensure_value(option.dest, []).append(d.strip())
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--disabled", dest="disabled", action="callback",
@@ -63,4 +66,8 @@ class FC6_Services(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+
+        if len(self.disabled) == 0 and len(self.enabled) == 0:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided."))
+
         return self
