@@ -39,9 +39,9 @@ class FC6_Services(KickstartCommand):
         args = ""
 
         if len(self.disabled) > 0:
-            args += " --disabled=%s" % string.join(self.disabled, ",")
+            args += " --disabled=\"%s\"" % string.join(self.disabled, ",")
         if len(self.enabled) > 0:
-            args += " --enabled=%s" % string.join(self.enabled, ",")
+            args += " --enabled=\"%s\"" % string.join(self.enabled, ",")
 
         if args != "":
             retval += "# System services\nservices%s\n" % args
