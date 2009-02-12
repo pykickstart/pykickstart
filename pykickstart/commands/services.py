@@ -44,7 +44,7 @@ class FC6_Services(KickstartCommand):
             args += " --enabled=%s" % string.join(self.enabled, ",")
 
         if args != "":
-            retval += "# System services\nservices %s\n" % args
+            retval += "# System services\nservices%s\n" % args
 
         return retval
 
