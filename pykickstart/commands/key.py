@@ -33,6 +33,7 @@ class F7_Key(KickstartCommand):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
         self.key = kwargs.get("key", "")
+        self.skip = kwargs.get("skip", False)
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
