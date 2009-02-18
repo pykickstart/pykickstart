@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.51
+Version: 1.52
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,30 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Feb 18 2009 Chris Lumens <clumens@redhat.com> - 1.52-1
+- Add lots more test cases (alindebe, mgracik, stickster).
+- Add a skip attribute on key to shut up pychecker.
+- Only show autostep command when requested (jlaska)
+- Strip spaces from service names, and require an option to be provided.
+- Surround services lists in double quotes.
+- Remove the extra space from the services __str__ method.
+- Fix output formatting bugs in firewall, partition, and repo (mgracik).
+- Specifying both or neither of --drives and --only-use should be an error.
+- Corrected newline char in return value of FC6_Method. (mgracik)
+- Make --drives a required option for FC3, and catch no args on F8.
+- Fix final printing of the rescue command (mgracik).
+- Surround output strings in double quotes.
+- Fix a typo in the deviceprobe command.
+- Revert the more strict option processing on displaymode.
+- Properly handle erroring on extra args, not just extra options.
+- Don't use the logging class since it interferes with the logging test.
+- port without host should raise KickstartParseError, not kickstartValueError.
+- Add the --key option to option processing, since it's a valid argument.
+- Fix test cases that were failing due to the new use of KSOptionParser.
+- Teach driverdisk.py command to reject extra partitions (stickster).
+- Add KSOptionParser to all commands ... enables more strick option checking (jlaska).
+- Use KSOptionParser so we can catch bad command options (jlaska).
+
 * Thu Jan 29 2009 Chris Lumens <clumens@redhat.com> - 1.51-1
 - Make a couple changes to how the logging command is handled.
 - Add a lot of test cases (clumens, alindebe, jlaska, fcami, adamwill, pfrields).
