@@ -28,15 +28,17 @@ class FC3_AutoStep(KickstartCommand):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
+        self.autostep = kwargs.get("autostep", False)
         self.autoscreenshot = kwargs.get("autoscreenshot", False)
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.autoscreenshot:
-            retval += "autostep --autoscreenshot\n"
-        else:
-            retval += "autostep\n"
+        if self.autostep:
+            if self.autoscreenshot:
+                retval += "autostep --autoscreenshot\n"
+            else:
+                retval += "autostep\n"
 
         return retval
 
@@ -49,4 +51,5 @@ class FC3_AutoStep(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args)
         self._setToSelf(self.op, opts)
+        self.autostep = True
         return self
