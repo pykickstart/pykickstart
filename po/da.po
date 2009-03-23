@@ -1,22 +1,22 @@
-# translation of da.po to
-# Danish messages for pykickstart.
+# Danish translation of pykickstart.
 # Copyright (C) 2006 Christian Rose.
 # Christian Rose <menthos@menthos.com>, 2006.
 # Keld Simonsen <keld@dkuug.dk>, 2006.
 # Keld Simonsen <keld@rap.dk>, 2007.
+# Kris Thomsen <lakristho@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: da\n"
+"Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-04-15 09:28+0200\n"
-"Last-Translator: Keld Simonsen <keld@rap.dk>\n"
-"Language-Team:  <da@li.org>\n"
+"PO-Revision-Date: 2009-03-23 09:45+0100\n"
+"Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
+"Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../pykickstart/base.py:147
 #, python-format
@@ -27,9 +27,9 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 "Ignorerer forældet kommando på linje %(lineno)s: %(cmd)s-kommandoen er "
-"forældet og har ikke længere nogen effekt. Den kan blive fjernet fra "
-"fremtidige udgaver, hvilket vil resultere i en fatal fejl fra kickstart. "
-"Ændr gerne din kickstart-fil for at fjerne denne kommando."
+"forældet og har ikke længere nogen effekt. Den bliver muligvis fjernet fra "
+"fremtidige udgaver, hvilket vil resultere i en fatal fejl fra \"kickstart\". "
+"Redigér venligst din kickstart-fil for at fjerne denne kommando."
 
 #: ../pykickstart/base.py:315
 #, python-format
@@ -43,19 +43,19 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Følgende fejl skete på linje %(lineno)s i kickstart-filen:\n"
+"Følgende fejl opstod på linje %(lineno)s i kickstart-filen:\n"
 "\n"
 "%(msg)s\n"
 
 #: ../pykickstart/errors.py:50
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr "Der var et problem ved indlæsning fra linje %s af kickstart-filen"
+msgstr "Der opstod et problem med læsning fra linje %s af kickstart-filen"
 
 #: ../pykickstart/options.py:84
 #, python-format
 msgid "Option %s is required"
-msgstr "Flaget %s kræves"
+msgstr "Indstillingen %s er krævet"
 
 #: ../pykickstart/options.py:87
 #, python-format
@@ -63,7 +63,7 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Muligheden %(option)s blev introduceret i version %(intro)s, men du bruger "
+"Indstillingen %(option)s blev introduceret i version %(intro)s, men du bruger "
 "kickstart-syntax version %(version)s"
 
 #: ../pykickstart/options.py:90
@@ -74,10 +74,10 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Ignorerer forældet flag på linje %(lineno)s: %(option)s-flaget er forældet "
-"og har ikke længre nogen effekt. Den kan blive fjernet fra fremtidige "
-"udgaver, hvilket vil resultere i en fatal fejl fra kickstart. Ændr gerne din "
-"kickstart-fil for atfjerne dette flag."
+"Ignorerer forældet indstilling på linje %(lineno)s: %(option)s-indstillingen er forældet "
+"og har ikke længre nogen effekt. Den bliver muligvis fjernet fra fremtidige "
+"udgaver, hvilket vil resultere i en fatal fejl fra \"kickstart\". Redigér venligst "
+"din kickstart-fil for at fjerne denne indstilling."
 
 #: ../pykickstart/options.py:93
 #, python-format
@@ -85,58 +85,58 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Muligheden %(option)s blev fjernet i version %(removed)s, men du bruger "
+"Indstillingen %(option)s blev fjernet i version %(removed)s, men du bruger "
 "kickstart-syntaks version %(version)s"
 
 # Hær blir det mærkeligt...
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
-msgstr "Nødvendigt flag sat for flag som ikke tager en værdi"
+msgstr "Nødvendigt flag sat for indstilling, som ikke tager en værdi"
 
 #: ../pykickstart/options.py:156
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Flag %(opt)s: ugyldig sandheds-værdi: %(value)r"
+msgstr "Indstilling %(opt)s: ugyldig sandheds-værdi: %(value)r"
 
 #: ../pykickstart/options.py:161
-#, fuzzy, python-format
+#, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Flag %(opt)s: ugyldig sandheds-værdi: %(value)r"
+msgstr "Indstilling %(opt)s: ugyldig værdi på tekststreng: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr ""
+msgstr "Ugyldig url til %%ksappend: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
 msgid "Unable to open %%ksappend file: "
-msgstr ""
+msgstr "Kunne ikke åbne %%ksappend fil: "
 
 #: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr ""
+msgstr "Kunne ikke åbne %%ksappend fil"
 
 #: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Gruppe kan ikke angive både --nodefaults og --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "%s does not end with %%end.  This syntax has been deprecated.  It may be "
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"Ignorerer forældet flag på linje %(lineno)s: %(option)s-flaget er forældet "
-"og har ikke længre nogen effekt. Den kan blive fjernet fra fremtidige "
-"udgaver, hvilket vil resultere i en fatal fejl fra kickstart. Ændr gerne din "
-"kickstart-fil for atfjerne dette flag."
+"%s slutter ikke med %%end. Denne syntaks er forældet. Den bliver muligvis "
+"fjernet i fremtidige versioner, hvilket vil resultere i en fatal fejl fra "
+"\"kickstart\". Redigér venligst din kickstart-fil til at bruge denne opdaterede "
+"syntaks."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
-msgstr ""
+msgstr "Skript"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:87 ../pykickstart/version.py:96
@@ -153,7 +153,7 @@ msgstr "stop efter den første fejl eller den første advarsel"
 #: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "tolk inkluderingsfiler når %include findes"
+msgstr "tolk inkluderingsfiler når %include er fundet"
 
 #: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
@@ -170,7 +170,7 @@ msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
-"Filen bruger et forældet flag eller en forældet kommando.\n"
+"Filen bruger en forældet indstilling eller en forældet kommando.\n"
 "%s"
 
 #: ../tools/ksvalidator:93
