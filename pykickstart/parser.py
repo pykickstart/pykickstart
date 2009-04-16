@@ -223,6 +223,10 @@ class KickstartHandlers:
         self.lineno = 0
         self.currentCmd = ""
 
+        # And this is set by the parser itself as a hack so we can get at
+        # the full unprocessed input line.
+        self._line = ""
+
         self.handlers = { "auth"    : self.doAuthconfig,
                      "authconfig"   : self.doAuthconfig,
                      "autopart"     : self.doAutoPart,
@@ -298,7 +302,11 @@ class KickstartHandlers:
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
     def doAuthconfig(self, args):
-        self.ksdata.authconfig = string.join(args)
+        # Need to handle the line like this because simply joining args back
+        # together misses spaces, double quotes, or other special characters
+        # that authconfig understands.
+        index = self._line.find(" ")
+        self.ksdata.authconfig = self._line[index:].strip()
 
     def doAutoPart(self, args):
         op = KSOptionParser(lineno=self.lineno)
@@ -1166,6 +1174,9 @@ class KickstartParser:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
+
+                    if self.handler:
+                        self.handler._line = line
 
                     if self.errorsAreFatal:
                         self.handleCommand(lineno, args)
