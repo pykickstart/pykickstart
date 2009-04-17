@@ -1,5 +1,5 @@
 # German translation of pykickstart
-# This file is distributed under the same license as the de package.
+# This file is distributed under the same license as the pykickstart package.
 # Copyright (C) 2006 Red Hat, Inc.
 #
 #
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: pyKickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2009-03-30 23:17+0100\n"
+"PO-Revision-Date: 2009-04-17 23:43+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgstr "Option %(opt)s: ungültiger String-Wert: %(value)r"
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr "Illegale URL für %%ksappend: %s"
+msgstr "Ungültiger URL für %%ksappend: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
@@ -130,11 +130,11 @@ msgstr "nach erstem Fehler oder erster Warnung stoppen"
 #: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "include-Dateien analysieren wenn %include erscheint"
+msgstr "include-Dateien analysieren, wenn %include erscheint"
 
 #: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
-msgstr "Version der Kickstart-Syntax, gegen die validiert werden soll"
+msgstr "Version des Kickstart-Syntax, gegen den bestätigt werden soll"
 
 #: ../tools/ksvalidator:71
 #, python-format
