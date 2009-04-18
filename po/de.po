@@ -2,38 +2,24 @@
 # This file is distributed under the same license as the pykickstart package.
 # Copyright (C) 2006 Red Hat, Inc.
 #
-#
-# Nadine Reissle <nreissle@redhat.com>, 2006.
-# Marcus Gloeckner <mgloeckner@gmail.com>, 2006.
-# Timo Trinks <ttrinks@redhat.com>, 2006, 2007.
 # Fabian Affolter <fab@fedoraproject.org>, 2007-2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pyKickstart\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2009-04-17 23:43+0100\n"
+"POT-Creation-Date: 2006-11-21 11:34-0500\n"
+"PO-Revision-Date: 2009-04-18 13:45+0100\n"
 "Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
 "Language-Team: German <fedora-trans-de@redhat.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: German\n"
 
-#: ../pykickstart/base.py:147
-#, python-format
-msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Veraltete Option in Zeile %(lineno)s nicht beachten: Der Befehl %(cmd)s ist veraltet und hat keine Wirkung mehr. Er wird vielleicht von zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diesen Befehl zu entfernen."
-
-#: ../pykickstart/base.py:315
-#, python-format
-msgid "Unknown command: %s"
-msgstr "Unbekannter Befehl: %s"
-
-#: ../pykickstart/errors.py:48
+#: ../pykickstart/parser.py:46
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -44,104 +30,113 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:50
+#: ../pykickstart/parser.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Es gab ein Problem beim Lesen von Zeile %s der Kickstart-Datei"
 
-#: ../pykickstart/options.py:84
+#: ../pykickstart/parser.py:105
 #, python-format
 msgid "Option %s is required"
 msgstr "Option %s ist erforderlich"
 
-#: ../pykickstart/options.py:87
-#, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Die Option %(option)s wurde in Version %(intro)s eingeführt, Sie benutzen jedoch Kickstart-Syntax-Versionen %(version)s"
-
-#: ../pykickstart/options.py:90
+#: ../pykickstart/parser.py:109
 #, python-format
 msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
 msgstr "Veraltete Option in Zeile %(lineno)s nicht beachten: Die %(option)s Option ist veraltet und hat keine Wirkung mehr. Sie wird vielleicht von zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese Option zu entfernen."
 
-#: ../pykickstart/options.py:93
-#, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Die Option %(option)s wurde in Version %(removed)s entfernt, Sie benutzen jedoch Kickstart-Syntax-Versionen %(version)s"
-
-#: ../pykickstart/options.py:147
+#: ../pykickstart/parser.py:141
 msgid "Required flag set for option that doesn't take a value"
 msgstr "Vorgeschriebene Bitschalter-Einstellung für die Option, die keinen Wert annimmt"
 
-#: ../pykickstart/options.py:156
+#: ../pykickstart/parser.py:150
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Option %(opt)s: ungültiger boolescher Wert: %(value)r"
 
-#: ../pykickstart/options.py:161
+#: ../pykickstart/parser.py:298
 #, python-format
-msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Option %(opt)s: ungültiger String-Wert: %(value)r"
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Veraltete Option in Zeile %(lineno)s nicht beachten: Der Befehl %(cmd)s ist veraltet und hat keine Wirkung mehr. Er wird vielleicht von zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diesen Befehl zu entfernen."
 
-#: ../pykickstart/parser.py:90
+#: ../pykickstart/parser.py:305
+#: ../pykickstart/parser.py:428
+#: ../pykickstart/parser.py:530
+#: ../pykickstart/parser.py:832
+#: ../pykickstart/parser.py:850
 #, python-format
-msgid "Illegal url for %%ksappend: %s"
-msgstr "Ungültiger URL für %%ksappend: %s"
+msgid "Command %s does not take any arguments"
+msgstr "Befehl %s nimmt keine Argumente an."
 
-#: ../pykickstart/parser.py:95
+#: ../pykickstart/parser.py:446
+#: ../pykickstart/parser.py:937
 #, python-format
-msgid "Unable to open %%ksappend file: "
-msgstr "Die Datei %%ksappend kann nicht geöffnet werden: "
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr "Unerwartetes Argument für %(command)s-Befehl: %(options)s"
 
-#: ../pykickstart/parser.py:101
-#: ../pykickstart/parser.py:103
+#: ../pykickstart/parser.py:454
+#: ../pykickstart/parser.py:459
+#: ../pykickstart/parser.py:468
+#: ../pykickstart/parser.py:474
 #, python-format
-msgid "Unable to open %%ksappend file"
-msgstr "Die Datei %%ksappend kann nicht geöffnet werden"
+msgid "Command %s only takes one argument"
+msgstr "Befehl %s darf nur ein Argument haben"
 
-#: ../pykickstart/parser.py:286
-msgid "Group cannot specify both --nodefaults and --optional"
-msgstr "Die Gruppe kann nicht gleichzeitig --nodefaults und --optional angeben"
-
-#: ../pykickstart/parser.py:545
-#: ../pykickstart/parser.py:604
+#: ../pykickstart/parser.py:511
+#: ../pykickstart/parser.py:698
+#: ../pykickstart/parser.py:778
 #, python-format
-msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr "%s endet nicht mit %%end. Diese Syntax ist veraltet. Sie wird vielleicht von zukünftigen Versionen entfernt werden, was dann zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese Option zu entfernen."
+msgid "Mount point required for %s"
+msgstr "Einhängepunkt für %s benötigt"
 
-#: ../pykickstart/parser.py:604
-msgid "Script"
-msgstr "Skript"
+#: ../pykickstart/parser.py:558
+msgid "One of biospart or partition options must be specified."
+msgstr "Ein der BIOS-teil oder Patitionsoptionen mus angegeben werden."
 
-#. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87
-#: ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99
-#: ../pykickstart/version.py:110
-#: ../pykickstart/version.py:150
+#: ../pykickstart/parser.py:574
 #, python-format
-msgid "Unsupported version specified: %s"
-msgstr "Es wurde eine nicht-unterstützte Version angegeben: %s"
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr "Unerwartet Argumente für %(cmd)s-Befehle: %(options)s"
 
-#: ../tools/ksvalidator:52
+#: ../pykickstart/parser.py:634
+#, python-format
+msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
+msgstr "Gerät '%(device)s' wird bereits in multipath '%(multipathdev)s' benutzt"
+
+#: ../pykickstart/parser.py:729
+msgid "Only one of --baseurl and --mirrorlist may be specified for repo command."
+msgstr "Nur eines von --baseurl und --mirrorlist darf für den Repo-Befehl angegeben werden."
+
+#: ../pykickstart/parser.py:732
+msgid "One of --baseurl or --mirrorlist must be specified for repo command."
+msgstr "Eines von --baseurl oder --mirrorlist darf für den Repo-Befehl angegeben werden."
+
+#: ../pykickstart/parser.py:800
+#: ../pykickstart/parser.py:844
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr "Ein einzelnes Argument wird erwartet für den %s-Befehl"
+
+#: ../pykickstart/parser.py:943
+#, python-format
+msgid "Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options."
+msgstr "Veraltete Option in Zeile %s wird nicht beachten: Der zerombr-Befehl nimmt keine Argumente mehr an. In  zukünftigen Versionen wird es zu einem nicht behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre Kickstart-Datei, um diese Optionen zu entfernen."
+
+#: ../pykickstart/parser.py:1015
+#, python-format
+msgid "Unknown command: %s"
+msgstr "Unbekannter Befehl: %s"
+
+#: ../validator/ksvalidator:36
 msgid "halt after the first error or warning"
 msgstr "nach erstem Fehler oder erster Warnung stoppen"
 
-#: ../tools/ksvalidator:55
+#: ../validator/ksvalidator:39
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "include-Dateien analysieren, wenn %include erscheint"
 
-#: ../tools/ksvalidator:57
-msgid "version of kickstart syntax to validate against"
-msgstr "Version des Kickstart-Syntax, gegen den bestätigt werden soll"
-
-#: ../tools/ksvalidator:71
-#, python-format
-msgid "The version %s is not supported by pykickstart"
-msgstr "Die Version %s wird von pykickstart nicht unterstützt"
-
-#: ../tools/ksvalidator:87
+#: ../validator/ksvalidator:62
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -150,12 +145,53 @@ msgstr ""
 "Datei benutzt eine veraltete Option oder Befehl.\n"
 "%s"
 
-#: ../tools/ksvalidator:93
+#: ../validator/ksvalidator:68
 msgid "General kickstart error in input file"
 msgstr "Allgemeiner Kickstart-Fehler in Eingabe-Datei"
 
-#: ../tools/ksvalidator:96
+#: ../validator/ksvalidator:71
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Allgemeiner Fehler in der Eingabe-Datei:  %s"
+
+#~ msgid ""
+#~ "The option %(option)s was introduced in version %(intro)s, but you are "
+#~ "using kickstart syntax version %(version)s"
+#~ msgstr ""
+#~ "Die Option %(option)s wurde in Version %(intro)s eingeführt, Sie benutzen "
+#~ "jedoch Kickstart-Syntax-Versionen %(version)s"
+#~ msgid ""
+#~ "The option %(option)s was removed in version %(removed)s, but you are "
+#~ "using kickstart syntax version %(version)s"
+#~ msgstr ""
+#~ "Die Option %(option)s wurde in Version %(removed)s entfernt, Sie benutzen "
+#~ "jedoch Kickstart-Syntax-Versionen %(version)s"
+#~ msgid "Option %(opt)s: invalid string value: %(value)r"
+#~ msgstr "Option %(opt)s: ungültiger String-Wert: %(value)r"
+#~ msgid "Illegal url for %%ksappend: %s"
+#~ msgstr "Ungültiger URL für %%ksappend: %s"
+#~ msgid "Unable to open %%ksappend file: "
+#~ msgstr "Die Datei %%ksappend kann nicht geöffnet werden: "
+#~ msgid "Unable to open %%ksappend file"
+#~ msgstr "Die Datei %%ksappend kann nicht geöffnet werden"
+#~ msgid "Group cannot specify both --nodefaults and --optional"
+#~ msgstr ""
+#~ "Die Gruppe kann nicht gleichzeitig --nodefaults und --optional angeben"
+#~ msgid ""
+#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
+#~ "removed from future releases, which will result in a fatal error from "
+#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
+#~ msgstr ""
+#~ "%s endet nicht mit %%end. Diese Syntax ist veraltet. Sie wird vielleicht "
+#~ "von zukünftigen Versionen entfernt werden, was dann zu einem nicht "
+#~ "behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre "
+#~ "Kickstart-Datei, um diese Option zu entfernen."
+#~ msgid "Script"
+#~ msgstr "Skript"
+#~ msgid "Unsupported version specified: %s"
+#~ msgstr "Es wurde eine nicht-unterstützte Version angegeben: %s"
+#~ msgid "version of kickstart syntax to validate against"
+#~ msgstr "Version des Kickstart-Syntax, gegen den bestätigt werden soll"
+#~ msgid "The version %s is not supported by pykickstart"
+#~ msgstr "Die Version %s wird von pykickstart nicht unterstützt"
 
