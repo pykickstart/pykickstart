@@ -76,12 +76,12 @@ class F11_Upgrade(FC3_Upgrade):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--root-device", dest="root_device")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if (opts.root_device is not None) and (opts.root_device == ""):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not accept empty parameter %s") % ("upgrade", "--root-device"))

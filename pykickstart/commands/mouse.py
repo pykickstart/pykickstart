@@ -50,13 +50,13 @@ class RHEL3_Mouse(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--device", dest="device", default="")
         op.add_option("--emulthree", dest="emulthree", default=False, action="store_true")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
 
         if len(extra) != 1:

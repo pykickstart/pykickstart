@@ -76,13 +76,13 @@ class F9_AutoPart(FC3_AutoPart):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--encrypted", action="store_true", default=False)
         op.add_option("--passphrase")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         self.autopart = True
         return self

@@ -99,15 +99,19 @@ class KSOptionParser(OptionParser):
 
         return (values, args)
 
-    def __init__(self, map={}, lineno=None, version=None):
+    def parse_args(self, *args, **kwargs):
+        if kwargs.has_key("lineno"):
+            self.lineno = kwargs.pop("lineno")
+
+        return OptionParser.parse_args(self, **kwargs)
+
+    def __init__(self, map={}, version=None):
         """Create a new KSOptionParser instance.  Each KickstartCommand
            subclass should create one instance of KSOptionParser, providing
            at least the lineno attribute.  map and version are not required.
            Instance attributes:
 
            map     -- A mapping from option strings to different values.
-           lineno  -- The line number of the line this KSOptionParser instance
-                      is processing.
            version -- The version of the kickstart syntax we are checking
                       against.
         """
@@ -115,7 +119,6 @@ class KSOptionParser(OptionParser):
                               add_help_option=False,
                               conflict_handler="resolve")
         self.map = map
-        self.lineno = lineno
         self.version = version
 
 def _check_ksboolean(option, opt, value):

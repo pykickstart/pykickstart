@@ -43,12 +43,12 @@ class FC3_LangSupport(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--default", dest="deflang", default="en_US.UTF-8")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         self.supported = extra
         return self

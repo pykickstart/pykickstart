@@ -49,14 +49,14 @@ class FC3_Vnc(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--connect")
         op.add_option("--password", dest="password")
         return op
 
     def parse(self, args):
         self.enabled = True
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
 

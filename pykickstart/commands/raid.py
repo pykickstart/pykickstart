@@ -185,7 +185,7 @@ class FC3_Raid(KickstartCommand):
             if self.levelMap.has_key(value):
                 parser.values.ensure_value(option.dest, self.levelMap[value])
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--device", action="callback", callback=device_cb,
                       dest="device", type="string", nargs=1, required=1)
         op.add_option("--fstype", dest="fstype")
@@ -200,7 +200,7 @@ class FC3_Raid(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")

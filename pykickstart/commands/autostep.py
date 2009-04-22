@@ -43,13 +43,13 @@ class FC3_AutoStep(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--autoscreenshot", dest="autoscreenshot",
                       action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         self.autostep = True
         return self

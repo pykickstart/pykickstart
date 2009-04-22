@@ -157,7 +157,7 @@ class FC3_LogVol(KickstartCommand):
             parser.values.format = False
             parser.values.preexist = True
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--fstype", dest="fstype")
         op.add_option("--grow", dest="grow", action="store_true",
                       default=False)
@@ -178,7 +178,7 @@ class FC3_LogVol(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")

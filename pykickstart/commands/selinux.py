@@ -49,7 +49,7 @@ class FC3_SELinux(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--disabled", dest="selinux", action="store_const",
                       const=SELINUX_DISABLED)
         op.add_option("--enforcing", dest="selinux", action="store_const",
@@ -59,6 +59,6 @@ class FC3_SELinux(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self

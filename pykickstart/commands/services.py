@@ -56,7 +56,7 @@ class FC6_Services(KickstartCommand):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d.strip())
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--disabled", dest="disabled", action="callback",
                       callback=services_cb, nargs=1, type="string")
         op.add_option("--enabled", dest="enabled", action="callback",
@@ -64,7 +64,7 @@ class FC6_Services(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
 
         if len(self.disabled) == 0 and len(self.enabled) == 0:

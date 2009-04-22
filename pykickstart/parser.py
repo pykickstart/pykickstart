@@ -472,7 +472,7 @@ class KickstartParser:
            on the Version's Packages instance appropriate.  This method may be
            overridden in a subclass if necessary.
         """
-        op = KSOptionParser(lineno=lineno, version=self.version)
+        op = KSOptionParser(version=self.version)
         op.add_option("--excludedocs", dest="excludedocs", action="store_true",
                       default=False)
         op.add_option("--ignoremissing", dest="ignoremissing",
@@ -488,7 +488,7 @@ class KickstartParser:
         op.add_option("--instLangs", dest="instLangs", type="string",
                       default="", introduced=F9)
 
-        (opts, extra) = op.parse_args(args=args[1:])
+        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
 
         self.handler.packages.excludeDocs = opts.excludedocs
         self.handler.packages.addBase = not opts.nobase
@@ -512,7 +512,7 @@ class KickstartParser:
            setting on a Script instance once the end of the script is found.
            This method may be overridden in a subclass if necessary.
         """
-        op = KSOptionParser(lineno=lineno, version=self.version)
+        op = KSOptionParser(version=self.version)
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
         op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
@@ -525,7 +525,7 @@ class KickstartParser:
             op.add_option("--nochroot", dest="nochroot", action="store_true",
                           default=False)
 
-        (opts, extra) = op.parse_args(args=args[1:])
+        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
 
         self._script["interp"] = opts.interpreter
         self._script["lineno"] = lineno

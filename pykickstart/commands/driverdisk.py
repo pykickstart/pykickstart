@@ -66,13 +66,13 @@ class FC3_DriverDisk(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--source")
         op.add_option("--type")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command."))

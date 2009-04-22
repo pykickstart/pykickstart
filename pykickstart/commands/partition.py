@@ -184,7 +184,7 @@ class FC3_Partition(KickstartCommand):
             else:
                 parser.values.ensure_value(option.dest, value)
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--active", dest="active", action="store_true",
                       default=False)
         op.add_option("--asprimary", dest="primOnly", action="store_true",
@@ -210,7 +210,7 @@ class FC3_Partition(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")

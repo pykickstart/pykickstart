@@ -177,7 +177,7 @@ class FC3_Network(KickstartCommand):
             return ""
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--bootproto", dest="bootProto",
                       default=BOOTPROTO_DHCP,
                       choices=self.bootprotoList)
@@ -199,7 +199,7 @@ class FC3_Network(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         nd = self.handler.NetworkData()
         self._setToObj(self.op, opts, nd)
         return nd

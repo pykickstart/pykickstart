@@ -70,7 +70,7 @@ class FC3_VolGroup(KickstartCommand):
             parser.values.format = False
             parser.values.preexist = True
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--noformat", action="callback", callback=vg_cb,
                       dest="format", default=True, nargs=0)
         op.add_option("--pesize", dest="pesize", type="int", nargs=1,
@@ -80,7 +80,7 @@ class FC3_VolGroup(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         vg = self.handler.VolGroupData()
         self._setToObj(self.op, opts, vg)
         vg.vgname = extra[0]

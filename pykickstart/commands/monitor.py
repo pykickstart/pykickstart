@@ -53,14 +53,14 @@ class FC3_Monitor(KickstartCommand):
             return ""
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--hsync")
         op.add_option("--monitor")
         op.add_option("--vsync")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if extra:
             mapping = {"cmd": "monitor", "options": extra}

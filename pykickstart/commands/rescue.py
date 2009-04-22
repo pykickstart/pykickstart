@@ -52,13 +52,13 @@ class F10_Rescue(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--nomount", dest="nomount", action="store_true", default=False)
         op.add_option("--romount", dest="romount", action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if opts.nomount and opts.romount:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --nomount and --romount may be specified for rescue command."))

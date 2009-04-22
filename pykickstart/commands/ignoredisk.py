@@ -48,13 +48,13 @@ class FC3_IgnoreDisk(KickstartCommand):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--drives", dest="ignoredisk", action="callback",
                       callback=drive_cb, nargs=1, type="string", required=1)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
 

@@ -95,7 +95,7 @@ class FC6_Iscsi(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--target", dest="target", action="store", type="string")
         op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
                       required=1)
@@ -106,7 +106,7 @@ class FC6_Iscsi(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 0:
             mapping = {"command": "scsi", "options": extra}

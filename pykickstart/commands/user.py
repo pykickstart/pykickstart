@@ -97,7 +97,7 @@ class FC6_User(KickstartCommand):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--groups", dest="groups", action="callback",
                       callback=groups_cb, nargs=1, type="string")
         op.add_option("--homedir")
@@ -111,7 +111,7 @@ class FC6_User(KickstartCommand):
 
     def parse(self, args):
         ud = self.handler.UserData()
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, ud)
         return ud
 

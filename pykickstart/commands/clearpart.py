@@ -69,7 +69,7 @@ class FC3_ClearPart(KickstartCommand):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--all", dest="type", action="store_const",
                       const=CLEARPART_TYPE_ALL)
         op.add_option("--drives", dest="drives", action="callback",
@@ -83,6 +83,6 @@ class FC3_ClearPart(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self

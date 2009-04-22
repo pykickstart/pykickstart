@@ -67,7 +67,7 @@ class FC3_ZFCP(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--devnum", dest="devnum", required=1)
         op.add_option("--fcplun", dest="fcplun", required=1)
         op.add_option("--scsiid", dest="scsiid", required=1)
@@ -77,7 +77,7 @@ class FC3_ZFCP(KickstartCommand):
 
     def parse(self, args):
         zd = self.handler.ZFCPData()
-        (opts, extra) = self.op.parse_args(args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, zd)
         return zd
 

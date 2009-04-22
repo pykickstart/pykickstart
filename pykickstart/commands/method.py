@@ -61,7 +61,7 @@ class FC3_Method(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
 
         # method = "cdrom" falls through to the return
         if self.currentCmd == "harddrive":
@@ -80,7 +80,7 @@ class FC3_Method(KickstartCommand):
         self.method = self.currentCmd
 
         op = self._getParser()
-        (opts, extra) = op.parse_args(args=args)
+        (opts, extra) = op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(op, opts)
 
         if self.currentCmd == "harddrive":

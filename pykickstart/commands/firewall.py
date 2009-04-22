@@ -97,7 +97,7 @@ class FC3_Firewall(KickstartCommand):
 
         op = KSOptionParser(map={"ssh":["22:tcp"], "telnet":["23:tcp"],
                              "smtp":["25:tcp"], "http":["80:tcp", "443:tcp"],
-                             "ftp":["21:tcp"]}, lineno=self.lineno)
+                             "ftp":["21:tcp"]})
 
         op.add_option("--disable", "--disabled", dest="enabled",
                       action="store_false")
@@ -113,7 +113,7 @@ class FC3_Firewall(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         
         if len(extra) != 0:
             mapping = {"command": "firewall", "options": extra}

@@ -73,7 +73,7 @@ class FC6_MultiPath(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--name", dest="name", action="store", type="string",
                       required=1)
         op.add_option("--device", dest="device", action="store", type="string",
@@ -83,7 +83,7 @@ class FC6_MultiPath(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dd = FC6_MpPathData()
         self._setToObj(self.op, opts, dd)
         dd.mpdev = dd.mpdev.split('/')[-1]

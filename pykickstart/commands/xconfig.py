@@ -76,7 +76,7 @@ class FC3_XConfig(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--card")
         op.add_option("--defaultdesktop")
         op.add_option("--depth", action="store", type="int", nargs=1)
@@ -93,7 +93,7 @@ class FC3_XConfig(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if extra:
             mapping = {"command": "xconfig", "options": extra}
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)

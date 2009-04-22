@@ -78,7 +78,7 @@ class FC3_Bootloader(KickstartCommand):
             for d in value.split(','):
                 parser.values.ensure_value(option.dest, []).append(d)
 
-        op = KSOptionParser(lineno=self.lineno)
+        op = KSOptionParser()
         op.add_option("--append", dest="appendLine")
         op.add_option("--linear", dest="linear", action="store_true",
                       default=True)
@@ -99,7 +99,7 @@ class FC3_Bootloader(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
 
         if self.currentCmd == "lilo":
@@ -141,7 +141,7 @@ class FC4_Bootloader(FC3_Bootloader):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
 
