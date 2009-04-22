@@ -52,8 +52,8 @@ class FC3_PartData(BaseData):
             retval += " --active"
         if self.primOnly:
             retval += " --asprimary"
-        if self.end != 0:
-            retval += " --end=%d" % self.end
+        if hasattr(self, "end") and self.end != 0:
+            retval += " --end=%s" % self.end
         if self.fstype != "":
             retval += " --fstype=\"%s\"" % self.fstype
         if self.grow:
@@ -71,9 +71,9 @@ class FC3_PartData(BaseData):
         if self.recommended:
             retval += " --recommended"
         if self.size and self.size != 0:
-            retval += " --size=%d" % int(self.size)
-        if self.start != 0:
-            retval += " --start=%d" % self.start
+            retval += " --size=%s" % self.size
+        if hasattr(self, "start") and self.start != 0:
+            retval += " --start=%s" % self.start
 
         return retval
 
@@ -150,6 +150,10 @@ class F9_PartData(FC4_PartData):
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
+
+class F11_PartData(F9_PartData):
+    removedKeywords = F9_PartData.removedKeywords + ["start", "end"]
+    removedAttrs = F9_PartData.removedAttrs + ["start", "end"]
 
 
 class FC3_Partition(KickstartCommand):
@@ -280,3 +284,12 @@ class F9_Partition(FC4_Partition):
         op.add_option("--passphrase")
         return op
 
+class F11_Partition(F9_Partition):
+    removedKeywords = F9_Partition.removedKeywords
+    removedAttrs = F9_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F9_Partition._getParser(self)
+        op.add_option("--start", deprecated=1)
+        op.add_option("--end", deprecated=1)
+        return op
