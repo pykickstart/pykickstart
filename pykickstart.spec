@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.52
+Version: 1.53
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Apr 29 2009 Chris Lumens <clumens@redhat.com> - 1.53-1
+- Move lineno= from KSOptionParser.__init__ to parse_args (#497149). (clumens)
+- Use the F11 version of the partition command. (clumens)
+- Remove the --start and --end options since anaconda no longer uses them. (clumens)
+- Remove a broken test case. (clumens)
+
 * Wed Feb 18 2009 Chris Lumens <clumens@redhat.com> - 1.52-1
 - Add lots more test cases (alindebe, mgracik, stickster).
 - Add a skip attribute on key to shut up pychecker.
