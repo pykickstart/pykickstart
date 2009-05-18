@@ -502,7 +502,7 @@ commandMap = {
         "multipath": multipath.FC6_MultiPath,
         "network": network.F9_Network,
         "nfs": method.FC6_Method,
-        "part": partition.F9_Partition,
+        "part": partition.F11_Partition,
         "partition": partition.F11_Partition,
         "poweroff": reboot.FC6_Reboot,
         "raid": raid.F9_Raid,
