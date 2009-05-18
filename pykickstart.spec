@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.53
+Version: 1.54
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon May 18 2009 Chris Lumens <clumens@redhat.com> - 1.54-1
+- Make sure the F11 handler gets used for "partition" and "part" (#501020).
+
 * Wed Apr 29 2009 Chris Lumens <clumens@redhat.com> - 1.53-1
 - Move lineno= from KSOptionParser.__init__ to parse_args (#497149). (clumens)
 - Use the F11 version of the partition command. (clumens)
