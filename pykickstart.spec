@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43.3
+Version: 0.43.4
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.bz2
 License: GPL
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Wed May 20 2009 Chris Lumens <clumens@redhat.com> 0.43.4-1
+- Correctly handle authconfig argument processing (#241657).
+
 * Mon Sep 08 2008 Chris Lumens <clumens@redhat.com> 0.43.3-1
 - Add encrypted attributes to __init__ methods (#461160).
 - Add --bootproto=query back in, which got reverted by the encryption patch.
