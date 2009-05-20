@@ -38,7 +38,7 @@ build: src
 	brew build $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?pykickstart/RHEL-5#$(TAG)'
 
 create-snapshot: tag
-	@git-archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | bzip2 > pykickstart-$(VERSION).tar.bz2
+	@git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | bzip2 > pykickstart-$(VERSION).tar.bz2
 	@echo "the final archive is in pykickstart-$(VERSION).tar.bz2"
 
 create-archive:
