@@ -16,7 +16,8 @@ all:
 	$(MAKE) -C po
 
 docs:
-	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/wiki/Anaconda/Kickstart?action=raw"
+	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
+	curl -A "programmers-guide" -o docs/programmers-guide "http://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
 	@echo "*** Running pychecker to verify source ***"
@@ -27,7 +28,7 @@ test:
 	PYTHONPATH=. python $(TESTSUITE) -v
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc tests/*.pyc tests/commands/*.pyc docs/kickstart-docs.txt ChangeLog
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc tests/*.pyc tests/commands/*.pyc docs/* ChangeLog
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
