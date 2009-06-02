@@ -699,7 +699,7 @@ commandMap = {
         "device": device.FC3_Device,
         "deviceprobe": deviceprobe.FC3_DeviceProbe,
         "dmraid": dmraid.FC6_DmRaid,
-        "driverdisk": driverdisk.FC3_DriverDisk,
+        "driverdisk": driverdisk.F12_DriverDisk,
         "firewall": firewall.FC3_Firewall,
         "firstboot": firstboot.FC3_Firstboot,
         "graphical": displaymode.FC3_DisplayMode,
@@ -869,7 +869,7 @@ dataMap = {
         "ZFCPData": zfcp.FC3_ZFCPData,
     },
     F12: {
-        "DriverDiskData": driverdisk.FC3_DriverDiskData,
+        "DriverDiskData": driverdisk.F12_DriverDiskData,
         "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,
         "IscsiData": iscsi.F10_IscsiData,

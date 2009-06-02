@@ -34,19 +34,29 @@ class FC3_DriverDiskData(BaseData):
         self.source = kwargs.get("source", "")
         self.type = kwargs.get("type", "")
 
-    def __str__(self):
-        retval = BaseData.__str__(self)
-        retval += "driverdisk"
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.partition:
             retval += " %s" % self.partition
 
-            if self.type:
+            if hasattr(self, "type") and self.type:
                 retval += " --type=%s" % self.type
         elif self.source:
             retval += " --source=%s" % self.source
 
-        return retval + "\n"
+    def __str__(self):
+        retval = BaseData.__str__(self)
+        retval += "driverdisk %s\n" % self._getArgsAsStr()
+        return retval
+
+class F12_DriverDiskData(FC3_DriverDiskData):
+    removedKeywords = FC3_DriverDiskData.removedKeywords + ["type"]
+    removedAttrs = FC3_DriverDiskData.removedAttrs + ["type"]
+
+    def __init__(self, *args, **kwargs):
+        FC3_DriverDiskData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
 
 class FC3_DriverDisk(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -92,3 +102,12 @@ class FC3_DriverDisk(KickstartCommand):
 
     def dataList(self):
         return self.driverdiskList
+
+class F12_DriverDisk(FC3_DriverDisk):
+    removedKeywords = FC3_DriverDisk.removedKeywords
+    removedAttrs = FC3_DriverDisk.removedKeywords
+
+    def _getParser(self):
+        op = FC3_DriverDisk._getParser(self)
+        op.add_option("--type", deprecated=1)
+        return op
