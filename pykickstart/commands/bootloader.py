@@ -40,6 +40,8 @@ class FC3_Bootloader(KickstartCommand):
         self.upgrade = kwargs.get("upgrade", False)
         self.useLilo = kwargs.get("useLilo", False)
 
+        self.deleteRemovedAttrs()
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -113,7 +115,6 @@ class FC4_Bootloader(FC3_Bootloader):
 
     def __init__(self, writePriority=10, *args, **kwargs):
         FC3_Bootloader.__init__(self, writePriority, *args, **kwargs)
-        self.deleteRemovedAttrs()
 
     def _getArgsAsStr(self):
         retval = ""
@@ -169,4 +170,13 @@ class F8_Bootloader(FC4_Bootloader):
         op = FC4_Bootloader._getParser(self)
         op.add_option("--timeout", dest="timeout", type="int")
         op.add_option("--default", dest="default")
+        return op
+
+class F12_Bootloader(F8_Bootloader):
+    removedKeywords = F8_Bootloader.removedKeywords + ["forceLBA"]
+    removedAttrs = F8_Bootloader.removedAttrs + ["forceLBA"]
+
+    def _getParser(self):
+        op = F8_Bootloader._getParser(self)
+        op.add_option("--lba32", deprecated=1)
         return op
