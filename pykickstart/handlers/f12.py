@@ -20,5 +20,5 @@
 from pykickstart.base import *
 from pykickstart.version import *
 
-class F11Handler(BaseHandler):
+class F12Handler(BaseHandler):
     version = F12
