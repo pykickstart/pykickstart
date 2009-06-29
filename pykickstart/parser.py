@@ -780,6 +780,8 @@ class KickstartHandlers:
                 parser.values.ensure_value(option.dest, "RAID5")
             elif value == "RAID6" or value == "6":
                 parser.values.ensure_value(option.dest, "RAID6")
+            elif value == "RAID10" or value == "10":
+                parser.values.ensure_value(option.dest, "RAID10")
 
         op = KSOptionParser(lineno=self.lineno)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
