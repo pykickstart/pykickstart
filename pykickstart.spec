@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43.4
+Version: 0.43.5
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.bz2
 License: GPL
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Tue Jun 30 2009 Chris Lumens <clumens@redhat.com> 0.43.5-1
+- Support RAID10 on RHEL5 (#508053, rvykydal).
+
 * Wed May 20 2009 Chris Lumens <clumens@redhat.com> 0.43.4-1
 - Correctly handle authconfig argument processing (#241657).
 
