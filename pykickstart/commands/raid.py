@@ -242,6 +242,11 @@ class RHEL5_Raid(FC5_Raid):
     removedKeywords = FC5_Raid.removedKeywords
     removedAttrs = FC5_Raid.removedAttrs
 
+    def __init__(self, writePriority=131, *args, **kwargs):
+        FC5_Raid.__init__(self, writePriority, *args, **kwargs)
+
+        self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
+
     def _getParser(self):
         op = FC5_Raid._getParser(self)
         op.add_option("--encrypted", action="store_true", default=False)
