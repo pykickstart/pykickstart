@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.54
+Version: 1.55
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,15 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jul 02 2009 Chris Lumens <clumens@redhat.com> - 1.55-1
+- Add support for the group command to F12 (#509119).
+- RHEL5 now supports RAID 10.
+- The f12 hander class should be called F12Handler. (jgranado)
+- Remove bootloader --lba32.
+- Add a new version of the driverdisk command without --type=.
+- Add initial support for F12.
+- Fetch the programmers-guide from the wiki now.
+
 * Mon May 18 2009 Chris Lumens <clumens@redhat.com> - 1.54-1
 - Make sure the F11 handler gets used for "partition" and "part" (#501020).
 
