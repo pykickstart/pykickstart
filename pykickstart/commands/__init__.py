@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 import authconfig, autopart, autostep, bootloader, clearpart, device
-import deviceprobe, displaymode, dmraid, driverdisk, firewall, firstboot
+import deviceprobe, displaymode, dmraid, driverdisk, firewall, firstboot, group
 import ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
 import langsupport, lilocheck, logging, logvol, mediacheck, method, monitor
 import mouse, multipath, network, partition, raid, reboot, repo, rescue, rootpw
