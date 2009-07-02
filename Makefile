@@ -49,6 +49,7 @@ archive: check tag docs
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
 	mkdir -p $(PKGNAME)-$(VERSION)/docs/
 	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
+	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
 	cp ChangeLog $(PKGNAME)-$(VERSION)/
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
