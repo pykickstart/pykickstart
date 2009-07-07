@@ -61,7 +61,7 @@ class FC3_RaidData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "raid %s %s %s\n" % (self.mountpoint, self._getArgsAsStr(),
+        retval += "raid %s%s %s\n" % (self.mountpoint, self._getArgsAsStr(),
                                        string.join(self.members))
         return retval
 
@@ -204,6 +204,8 @@ class FC3_Raid(KickstartCommand):
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
+        if len(extra) == 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid")
 
         rd = self.handler.RaidData()
         self._setToObj(self.op, opts, rd)
