@@ -53,7 +53,7 @@ class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 
-    def __init__(self, writePriority=0, *args, **kwargs):
+    def __init__(self, writePriority=71, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
