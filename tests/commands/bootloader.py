@@ -81,6 +81,9 @@ class FC4_TestCase(CommandTest):
 
 class F8_TestCase(FC4_TestCase):
     def runTest(self):
+        # Run parent tests
+        FC4_TestCase.runTest(self)
+
         # pass
         self.assert_parse("bootloader --timeout 47", "bootloader --location=mbr --timeout=47\n")
         self.assert_parse("bootloader --default=this", "bootloader --location=mbr --default=this\n")
@@ -88,6 +91,14 @@ class F8_TestCase(FC4_TestCase):
         # fail
         self.assert_parse_error("bootloader --timeout", KickstartParseError)
         self.assert_parse_error("bootloader --default", KickstartParseError)
+
+class F12_TestCase(F8_TestCase):
+    def runTest(self):
+        # Run parent tests
+        F8_TestCase.runTest(self)
+
+        # deprecated
+        self.assert_deprecated("bootloader", "--lba32")
 
 if __name__ == "__main__":
     unittest.main()

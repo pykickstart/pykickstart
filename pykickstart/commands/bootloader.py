@@ -173,10 +173,10 @@ class F8_Bootloader(FC4_Bootloader):
         return op
 
 class F12_Bootloader(F8_Bootloader):
-    removedKeywords = F8_Bootloader.removedKeywords + ["forceLBA"]
-    removedAttrs = F8_Bootloader.removedAttrs + ["forceLBA"]
+    removedKeywords = F8_Bootloader.removedKeywords
+    removedAttrs = F8_Bootloader.removedAttrs
 
     def _getParser(self):
         op = F8_Bootloader._getParser(self)
-        op.add_option("--lba32", deprecated=1)
+        op.add_option("--lba32", dest="forceLBA", deprecated=1)
         return op
