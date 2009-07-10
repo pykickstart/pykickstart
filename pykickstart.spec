@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.56
+Version: 1.57
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Jul 10 2009 Chris Lumens <clumens@redhat.com> - 1.57-1
+- Another patch to make the bootloader test work (jlaska).
+
 * Thu Jul 09 2009 Chris Lumens <clumens@redhat.com> - 1.56-1
 - Make sure to import the gettext stuff in fcoe. (clumens)
 - Correctly deprecate bootloader --lba32 (jlaska).
