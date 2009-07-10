@@ -20,6 +20,9 @@
 from pykickstart.base import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class F12_FcoeData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
