@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.55
+Version: 1.56
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jul 09 2009 Chris Lumens <clumens@redhat.com> - 1.56-1
+- Make sure to import the gettext stuff in fcoe. (clumens)
+- Correctly deprecate bootloader --lba32 (jlaska).
+- pykickstart: fix zfcp command writepriority (hdegoede)
+- pykickstart: Add fcoe command (take 2) (hdegoede)
+- Add a test case for RAID (jlaska).
+
 * Thu Jul 02 2009 Chris Lumens <clumens@redhat.com> - 1.55-1
 - Add support for the group command to F12 (#509119).
 - RHEL5 now supports RAID 10.
