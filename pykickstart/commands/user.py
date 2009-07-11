@@ -83,6 +83,22 @@ class F8_UserData(FC6_UserData):
 
         return retval
 
+class F12_UserData(F8_UserData):
+    removedKeywords = F8_UserData.removedKeywords
+    removedAttrs = F8_UserData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F8_UserData.__init__(self, *args, **kwargs)
+        self.gecos = kwargs.get("gecos", "")
+
+    def _getArgsAsStr(self):
+        retval = F8_UserData._getArgsAsStr(self)
+
+        if self.gecos:
+            retval += " --gecos=\"%s\"" % (self.gecos,)
+
+        return retval
+
 class FC6_User(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -134,4 +150,13 @@ class F8_User(FC6_User):
         op = FC6_User._getParser(self)
         op.add_option("--lock", action="store_true", default=False)
         op.add_option("--plaintext", dest="isCrypted", action="store_false")
+        return op
+
+class F12_User(F8_User):
+    removedKeywords = F8_User.removedKeywords
+    removedAttrs = F8_User.removedAttrs
+
+    def _getParser(self):
+        op = F8_User._getParser(self)
+        op.add_option("--gecos", type="string")
         return op
