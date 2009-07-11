@@ -40,7 +40,15 @@ class FC6_UserData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "user"
+
+        if self.uid != "":
+            retval += "user"
+            retval += self._getArgsAsStr() + "\n"
+
+        return retval
+
+    def _getArgsAsStr(self):
+        retval = ""
 
         if len(self.groups) > 0:
             retval += " --groups=%s" % string.join(self.groups, ",")
@@ -57,7 +65,7 @@ class FC6_UserData(BaseData):
         if self.uid:
             retval += " --uid=%s" % self.uid
 
-        return retval + "\n"
+        return retval
 
 class F8_UserData(FC6_UserData):
     removedKeywords = FC6_UserData.removedKeywords
@@ -67,13 +75,13 @@ class F8_UserData(FC6_UserData):
         FC6_UserData.__init__(self, *args, **kwargs)
         self.lock = kwargs.get("lock", False)
 
-    def __str__(self):
-        retval = FC6_UserData.__str__(self)
+    def _getArgsAsStr(self):
+        retval = FC6_UserData._getArgsAsStr(self)
 
         if self.lock:
-            return retval.strip() + " --lock\n"
-        else:
-            return retval
+            retval += " --lock"
+
+        return retval
 
 class FC6_User(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
