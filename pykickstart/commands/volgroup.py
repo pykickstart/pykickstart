@@ -51,7 +51,7 @@ class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 
-    def __init__(self, writePriority=131, *args, **kwargs):
+    def __init__(self, writePriority=132, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
