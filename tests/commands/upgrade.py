@@ -29,12 +29,14 @@ class FC3_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("upgrade install", KickstartValueError)
-        self.assert_parse_error("upgrade --bad-flag", KickstartValueError)
-        self.assert_parse_error("install --bad-flag", KickstartValueError)
+        self.assert_parse_error("upgrade --bad-flag")
+        self.assert_parse_error("install --bad-flag")
 
 
 class F11_TestCase(FC3_TestCase):
     def runTest(self):
+        FC3_TestCase.runTest(self)
+
         # pass
         self.assert_parse("upgrade", "upgrade\n")
         self.assert_parse("install", "install\n")
