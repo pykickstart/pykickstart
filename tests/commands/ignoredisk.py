@@ -37,6 +37,9 @@ class FC3_TestCase(CommandTest):
 
 class F8_TestCase(FC3_TestCase):
     def runTest(self):
+        # Run parents class tests
+        FC3_TestCase.runTest(self)
+
         # pass
         self.assert_parse("ignoredisk --drives=sda", "ignoredisk --drives=sda\n")
         self.assert_parse("ignoredisk --drives=sda,sdb", "ignoredisk --drives=sda,sdb\n")
