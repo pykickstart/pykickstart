@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.57
+Version: 1.58
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Jul 17 2009 Chris Lumens <clumens@redhat.com> - 1.58-1
+- Adjust writePriority to fix lvm-on-raid0 test cases (jlaska).
+- Add F12 to the version number tests. (clumens)
+- F12_User test case. (dcantrell)
+- Add --gecos argument to the 'user' command (dcantrell)
+- Convert user.py to use _getArgsAsStr() (dcantrell)
+
 * Fri Jul 10 2009 Chris Lumens <clumens@redhat.com> - 1.57-1
 - Another patch to make the bootloader test work (jlaska).
 

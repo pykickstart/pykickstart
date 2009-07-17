@@ -43,7 +43,7 @@ tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
-archive: check tag docs
+archive: tag docs
 	@rm -f ChangeLog
 	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
