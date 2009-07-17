@@ -38,12 +38,13 @@ class FC3_DriverDiskData(BaseData):
         retval = ""
 
         if self.partition:
-            retval += " %s" % self.partition
+            retval += "%s" % self.partition
 
             if hasattr(self, "type") and self.type:
                 retval += " --type=%s" % self.type
         elif self.source:
-            retval += " --source=%s" % self.source
+            retval += "--source=%s" % self.source
+        return retval
 
     def __str__(self):
         retval = BaseData.__str__(self)

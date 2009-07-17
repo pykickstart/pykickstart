@@ -20,9 +20,7 @@
 import unittest, shlex
 import warnings
 from tests.baseclass import *
-
 from pykickstart.errors import *
-from pykickstart.commands.driverdisk import *
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
@@ -42,5 +40,3 @@ class FC3_TestCase(CommandTest):
 
 if __name__ == "__main__":
     unittest.main()
-
-        
