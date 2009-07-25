@@ -31,6 +31,9 @@ class F12_FcoeData(BaseData):
         BaseData.__init__(self, *args, **kwargs)
         self.nic = kwargs.get("nic", None)
 
+    def __eq__(self, y):
+        return self.nic == y.nic
+
     def __str__(self):
         retval = BaseData.__str__(self)
         retval += "fcoe"
@@ -70,6 +73,11 @@ class F12_Fcoe(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         self._setToObj(self.op, opts, zd)
+
+        # Check for duplicates in the data list.
+        if zd in self.dataList():
+            raise KickstartValueError(_("A FCOE device with the name %s has already been defined.") % zd.nic)
+
         return zd
 
     def dataList(self):

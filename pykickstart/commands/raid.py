@@ -41,6 +41,9 @@ class FC3_RaidData(BaseData):
         self.mountpoint = kwargs.get("mountpoint", "")
         self.members = kwargs.get("members", [])
 
+    def __eq__(self, y):
+        return self.device == y.device
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -216,6 +219,11 @@ class FC3_Raid(KickstartCommand):
         rd.device = int(rd.device)
         rd.mountpoint = extra[0]
         rd.members = extra[1:]
+
+        # Check for duplicates in the data list.
+        if rd in self.dataList():
+            raise KickstartValueError(_("A RAID device with the name %s has already been defined.") % rd.device)
+
         return rd
 
     def dataList(self):

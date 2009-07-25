@@ -45,6 +45,9 @@ class FC3_PartData(BaseData):
         self.start = kwargs.get("start", 0)
         self.mountpoint = kwargs.get("mountpoint", "")
 
+    def __eq__(self, y):
+        return self.mountpoint == y.mountpoint
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -218,6 +221,11 @@ class FC3_Partition(KickstartCommand):
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
         pd.mountpoint=extra[0]
+
+        # Check for duplicates in the data list.
+        if pd in self.dataList():
+            raise KickstartValueError(_("A partition with the mountpoint %s has already been defined.") % pd.mountpoint)
+
         return pd
 
     def dataList(self):

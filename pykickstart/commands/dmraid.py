@@ -36,6 +36,9 @@ class FC6_DmRaidData(BaseData):
         self.devices = kwargs.get("devices", [])
         self.dmset = kwargs.get("dmset", None)
 
+    def __eq__(self, y):
+        return self.name == y.name and self.devices == y.devices
+
     def __str__(self):
         retval = BaseData.__str__(self)
         retval += "dmraid --name=%s" % self.name
@@ -75,6 +78,11 @@ class FC6_DmRaid(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(self.op, opts, dm)
+
+        # Check for duplicates in the data list.
+        if dm in self.dataList():
+            raise KickstartValueError(_("A DM RAID device with the name %s and devices %s has already been defined.") % (dm.name, dm.devices))
+
         return dm
 
     def dataList(self):

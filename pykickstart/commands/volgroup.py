@@ -22,6 +22,9 @@ import string
 from pykickstart.base import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC3_VolGroupData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -33,6 +36,9 @@ class FC3_VolGroupData(BaseData):
         self.preexist = kwargs.get("preexist", False)
         self.vgname = kwargs.get("vgname", "")
         self.physvols = kwargs.get("physvols", [])
+
+    def __eq__(self, y):
+        return self.vgname == y.vgname
 
     def __str__(self):
         retval = BaseData.__str__(self)
@@ -85,6 +91,11 @@ class FC3_VolGroup(KickstartCommand):
         self._setToObj(self.op, opts, vg)
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
+
+        # Check for duplicates in the data list.
+        if vg in self.dataList():
+            raise KickstartValueError(_("A volgroup with the name %s has already been defined.") % vg.vgname)
+
         return vg
 
     def dataList(self):

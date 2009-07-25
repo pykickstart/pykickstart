@@ -42,6 +42,9 @@ class FC3_LogVolData(BaseData):
         self.vgname = kwargs.get("vgname", "")
         self.mountpoint = kwargs.get("mountpoint", "")
 
+    def __eq__(self, y):
+        return self.vgname == y.vgname and self.name == y.name
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -186,6 +189,11 @@ class FC3_LogVol(KickstartCommand):
         lvd = self.handler.LogVolData()
         self._setToObj(self.op, opts, lvd)
         lvd.mountpoint=extra[0]
+
+        # Check for duplicates in the data list.
+        if lvd in self.dataList():
+            raise KickstartValueError(_("A logical volume with the name %s has already been defined in volume group %s.") % (lvd.device, lvd.vgname))
+
         return lvd
 
     def dataList(self):

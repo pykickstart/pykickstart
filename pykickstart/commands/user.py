@@ -24,6 +24,9 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC6_UserData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -37,6 +40,9 @@ class FC6_UserData(BaseData):
         self.password = kwargs.get("password", "")
         self.shell = kwargs.get("shell", "")
         self.uid = kwargs.get("uid", None)
+
+    def __eq__(self, y):
+        return self.name == y.name
 
     def __str__(self):
         retval = BaseData.__str__(self)
@@ -137,6 +143,11 @@ class FC6_User(KickstartCommand):
         ud = self.handler.UserData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, ud)
+
+        # Check for duplicates in the data list.
+        if ud in self.dataList():
+            raise KickstartValueError(_("A user with the name %s has already been defined.") % ud.name)
+
         return ud
 
     def dataList(self):

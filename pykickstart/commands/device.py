@@ -32,6 +32,9 @@ class F8_DeviceData(BaseData):
         self.moduleName = kwargs.get("moduleName", "")
         self.moduleOpts = kwargs.get("moduleOpts", "")
 
+    def __eq__(self, y):
+        return self.moduleName == y.moduleName
+
     def __str__(self):
         retval = BaseData.__str__(self)
 
@@ -54,6 +57,9 @@ class FC3_Device(KickstartCommand):
         self.type = kwargs.get("type", "")
         self.moduleName = kwargs.get("moduleName", "")
         self.moduleOpts = kwargs.get("moduleOpts", "")
+
+    def __eq__(self, y):
+        return self.moduleName == y.moduleName
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
@@ -106,6 +112,11 @@ class F8_Device(FC3_Device):
         dd = F8_DeviceData()
         self._setToObj(self.op, opts, dd)
         dd.moduleName = extra[0]
+
+        # Check for duplicates in the data list.
+        if dd in self.dataList():
+            raise KickstartValueError(_("A module with the name %s has already been defined.") % dd.moduleName)
+
         return dd
 
     def dataList(self):

@@ -22,6 +22,9 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class F12_GroupData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -30,6 +33,9 @@ class F12_GroupData(BaseData):
         BaseData.__init__(self, *args, **kwargs)
         self.name = kwargs.get("name", "")
         self.gid = kwargs.get("gid", None)
+
+    def __eq__(self, y):
+        return self.name == y.name
 
     def __str__(self):
         retval = BaseData.__str__(self)
@@ -69,6 +75,11 @@ class F12_Group(KickstartCommand):
         gd = self.handler.GroupData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, gd)
+
+        # Check for duplicates in the data list.
+        if gd in self.dataList():
+            raise KickstartValueError(_("A group with the name %s has already been defined.") % gd.name)
+
         return gd
 
     def dataList(self):

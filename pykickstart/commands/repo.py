@@ -37,6 +37,9 @@ class FC6_RepoData(BaseData):
         self.mirrorlist = kwargs.get("mirrorlist", None)
         self.name = kwargs.get("name", "")
 
+    def __eq__(self, y):
+        return self.name == y.name
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -130,6 +133,11 @@ class FC6_Repo(KickstartCommand):
 
         rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)
+
+        # Check for duplicates in the data list.
+        if rd in self.dataList():
+            raise KickstartValueError(_("A repo with the name %s has already been defined.") % rd.name)
+
         return rd
 
     def dataList(self):

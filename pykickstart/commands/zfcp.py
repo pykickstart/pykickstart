@@ -20,6 +20,9 @@
 from pykickstart.base import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC3_ZFCPData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -31,6 +34,11 @@ class FC3_ZFCPData(BaseData):
         self.fcplun = kwargs.get("fcplun", "")
         self.scsiid = kwargs.get("scsiid", "")
         self.scsilun = kwargs.get("scsilun", "")
+
+    def __eq__(self, y):
+        return self.devnum == y.devnum and self.wwpn == y.wwpn and \
+               self.fcplun == y.fcplun and self.scsiid == y.scsiid and \
+               self.scsilun == y.scsilun
 
     def __str__(self):
         retval = BaseData.__str__(self)
@@ -79,6 +87,11 @@ class FC3_ZFCP(KickstartCommand):
         zd = self.handler.ZFCPData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, zd)
+
+        # Check for duplicates in the data list.
+        if zd in self.dataList():
+            raise KickstartValueError(_("A zfcp with this information has already been defined."))
+
         return zd
 
     def dataList(self):

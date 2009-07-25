@@ -46,6 +46,9 @@ class FC3_NetworkData(BaseData):
         self.onboot = kwargs.get("onboot", True)
         self.wepkey = kwargs.get("wepkey", "")
 
+    def __eq__(self, y):
+        return self.device and self.device == y.device
+
     def _getArgsAsStr(self):
         retval = ""
 
@@ -202,6 +205,11 @@ class FC3_Network(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         nd = self.handler.NetworkData()
         self._setToObj(self.op, opts, nd)
+
+        # Check for duplicates in the data list.
+        if nd in self.dataList():
+            raise KickstartValueError(_("A network device with the name %s has already been defined.") % nd.device)
+
         return nd
 
     def dataList(self):
