@@ -134,7 +134,11 @@ def preprocessKickstart (file):
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
-    fh = urlopen(file)
+    try:
+        fh = urlopen(file)
+    except grabber.URLGrabError as e:
+        raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: ") % e.strerror)
+
     rc = _preprocessStateMachine (lambda: fh.readline())
     fh.close()
     return rc
@@ -755,6 +759,10 @@ class KickstartParser:
             cd = os.path.abspath(cd)
         self.currentdir[self._includeDepth] = cd
 
-        fh = urlopen(f)
+        try:
+            fh = urlopen(f)
+        except grabber.URLGrabError as e:
+            raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: ") % e.strerror)
+
         self._stateMachine (lambda: fh.readline())
         fh.close()
