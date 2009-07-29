@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.58
+Version: 1.59
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Jul 28 2009 Chris Lumens <clumens@redhat.com> - 1.59-1
+- Handle a few more places where a urlgrabber error could happen (#512951).
+- Error out if the same partition/repo/network is defined twice (#512956).
+- Call parent class tests first. (jlaska)
+- Add KSOptionParser to FC3 upgrade command. (jlaska)
+- Correct missing return stmt in _getArgsAsStr() (jlaska)
+
 * Fri Jul 17 2009 Chris Lumens <clumens@redhat.com> - 1.58-1
 - Adjust writePriority to fix lvm-on-raid0 test cases (jlaska).
 - Add F12 to the version number tests. (clumens)
