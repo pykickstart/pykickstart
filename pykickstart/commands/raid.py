@@ -24,6 +24,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_RaidData(BaseData):
@@ -222,7 +223,7 @@ class FC3_Raid(KickstartCommand):
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
-            raise KickstartValueError(_("A RAID device with the name %s has already been defined.") % rd.device)
+            warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device)
 
         return rd
 

@@ -22,6 +22,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_LogVolData(BaseData):
@@ -192,7 +193,7 @@ class FC3_LogVol(KickstartCommand):
 
         # Check for duplicates in the data list.
         if lvd in self.dataList():
-            raise KickstartValueError(_("A logical volume with the name %s has already been defined in volume group %s.") % (lvd.device, lvd.vgname))
+            warnings.warn(_("A logical volume with the name %s has already been defined in volume group %s.") % (lvd.device, lvd.vgname))
 
         return lvd
 

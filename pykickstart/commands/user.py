@@ -25,6 +25,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_UserData(BaseData):
@@ -146,7 +147,7 @@ class FC6_User(KickstartCommand):
 
         # Check for duplicates in the data list.
         if ud in self.dataList():
-            raise KickstartValueError(_("A user with the name %s has already been defined.") % ud.name)
+            warnings.warn(_("A user with the name %s has already been defined.") % ud.name)
 
         return ud
 

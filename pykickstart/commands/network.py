@@ -23,6 +23,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_NetworkData(BaseData):
@@ -208,7 +209,7 @@ class FC3_Network(KickstartCommand):
 
         # Check for duplicates in the data list.
         if nd in self.dataList():
-            raise KickstartValueError(_("A network device with the name %s has already been defined.") % nd.device)
+            warnings.warn(_("A network device with the name %s has already been defined.") % nd.device)
 
         return nd
 

@@ -21,6 +21,7 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_ZFCPData(BaseData):
@@ -90,7 +91,7 @@ class FC3_ZFCP(KickstartCommand):
 
         # Check for duplicates in the data list.
         if zd in self.dataList():
-            raise KickstartValueError(_("A zfcp with this information has already been defined."))
+            warnings.warn(_("A zfcp with this information has already been defined."))
 
         return zd
 

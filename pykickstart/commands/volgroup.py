@@ -17,12 +17,12 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.options import *
 
 import gettext
+import string
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_VolGroupData(BaseData):
@@ -94,7 +94,7 @@ class FC3_VolGroup(KickstartCommand):
 
         # Check for duplicates in the data list.
         if vg in self.dataList():
-            raise KickstartValueError(_("A volgroup with the name %s has already been defined.") % vg.vgname)
+            warnings.warn(_("A volgroup with the name %s has already been defined.") % vg.vgname)
 
         return vg
 

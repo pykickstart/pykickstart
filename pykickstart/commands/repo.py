@@ -22,9 +22,9 @@ from pykickstart.constants import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
-import string
-
 import gettext
+import string
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_RepoData(BaseData):
@@ -136,7 +136,7 @@ class FC6_Repo(KickstartCommand):
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
-            raise KickstartValueError(_("A repo with the name %s has already been defined.") % rd.name)
+            warnings.warn(_("A repo with the name %s has already been defined.") % rd.name)
 
         return rd
 

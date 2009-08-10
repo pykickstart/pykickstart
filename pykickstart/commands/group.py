@@ -23,6 +23,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F12_GroupData(BaseData):
@@ -78,7 +79,7 @@ class F12_Group(KickstartCommand):
 
         # Check for duplicates in the data list.
         if gd in self.dataList():
-            raise KickstartValueError(_("A group with the name %s has already been defined.") % gd.name)
+            warnings.warn(_("A group with the name %s has already been defined.") % gd.name)
 
         return gd
 

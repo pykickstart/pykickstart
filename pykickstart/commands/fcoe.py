@@ -21,6 +21,7 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F12_FcoeData(BaseData):
@@ -76,7 +77,7 @@ class F12_Fcoe(KickstartCommand):
 
         # Check for duplicates in the data list.
         if zd in self.dataList():
-            raise KickstartValueError(_("A FCOE device with the name %s has already been defined.") % zd.nic)
+            warnings.warn(_("A FCOE device with the name %s has already been defined.") % zd.nic)
 
         return zd
 

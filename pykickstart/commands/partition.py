@@ -22,6 +22,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_PartData(BaseData):
@@ -224,7 +225,7 @@ class FC3_Partition(KickstartCommand):
 
         # Check for duplicates in the data list.
         if pd in self.dataList():
-            raise KickstartValueError(_("A partition with the mountpoint %s has already been defined.") % pd.mountpoint)
+            warnings.warn(_("A partition with the mountpoint %s has already been defined.") % pd.mountpoint)
 
         return pd
 

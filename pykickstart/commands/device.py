@@ -21,6 +21,7 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F8_DeviceData(BaseData):
@@ -115,7 +116,7 @@ class F8_Device(FC3_Device):
 
         # Check for duplicates in the data list.
         if dd in self.dataList():
-            raise KickstartValueError(_("A module with the name %s has already been defined.") % dd.moduleName)
+            warnings.warn(_("A module with the name %s has already been defined.") % dd.moduleName)
 
         return dd
 

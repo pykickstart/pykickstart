@@ -23,6 +23,7 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
+import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC6_DmRaidData(BaseData):
@@ -81,7 +82,7 @@ class FC6_DmRaid(KickstartCommand):
 
         # Check for duplicates in the data list.
         if dm in self.dataList():
-            raise KickstartValueError(_("A DM RAID device with the name %s and devices %s has already been defined.") % (dm.name, dm.devices))
+            warnings.warn(_("A DM RAID device with the name %s and devices %s has already been defined.") % (dm.name, dm.devices))
 
         return dm
 
