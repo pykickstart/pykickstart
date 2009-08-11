@@ -52,7 +52,7 @@ class FC6_RepoData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "repo --name=%s %s\n" % (self.name, self._getArgsAsStr())
+        retval += "repo --name=\"%s\" %s\n" % (self.name, self._getArgsAsStr())
         return retval
 
 class F8_RepoData(FC6_RepoData):
