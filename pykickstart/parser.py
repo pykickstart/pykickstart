@@ -96,7 +96,7 @@ def _preprocessStateMachine (provideLineFn):
         try:
             url = grabber.urlopen(ksurl)
         except grabber.URLGrabError, e:
-            raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: ") % e.strerror)
+            raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror)
         else:
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
@@ -137,7 +137,7 @@ def preprocessKickstart (file):
     try:
         fh = urlopen(file)
     except grabber.URLGrabError as e:
-        raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: ") % e.strerror)
+        raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
     rc = _preprocessStateMachine (lambda: fh.readline())
     fh.close()
@@ -762,7 +762,7 @@ class KickstartParser:
         try:
             fh = urlopen(f)
         except grabber.URLGrabError as e:
-            raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: ") % e.strerror)
+            raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
         self._stateMachine (lambda: fh.readline())
         fh.close()
