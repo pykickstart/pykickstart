@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.60
+Version: 1.61
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Aug 27 2009 Chris Lumens <clumens@redhat.com> - 1.61-1
+- Include the error messages from URLGrabError in the exception (#518443).
+
 * Tue Aug 11 2009 Chris Lumens <clumens@redhat.com> - 1.60-1
 - Put quotes around the repo's name (Marc.Herbert@gmail.com).
 - Make duplicate entries warnings, not errors (#516338).
