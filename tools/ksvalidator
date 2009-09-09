@@ -31,8 +31,7 @@ from pykickstart.parser import *
 from pykickstart.version import *
 
 import gettext
-gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+gettext.install("pykickstart", unicode=True)
 
 def cleanup(destdir, file=None, exitval=1):
     shutil.rmtree(destdir)
