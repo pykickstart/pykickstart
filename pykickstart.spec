@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.61
+Version: 1.62
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Sep 10 2009 Chris Lumens <clumens@redhat.com> - 1.62-1
+- Support translated help text in optparse (#479519).
+- If the input kickstart file cannot be read, raise IOError (#519477).
+
 * Thu Aug 27 2009 Chris Lumens <clumens@redhat.com> - 1.61-1
 - Include the error messages from URLGrabError in the exception (#518443).
 
