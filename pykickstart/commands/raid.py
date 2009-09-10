@@ -148,6 +148,27 @@ class F9_RaidData(FC5_RaidData):
 
         return retval
 
+class F12_RaidData(F9_RaidData):
+    removedKeywords = F9_RaidData.removedKeywords
+    removedAttrs = F9_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F9_RaidData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.escrowcert = kwargs.get("escrowcert", "")
+        self.backuppassphrase = kwargs.get("backuppassphrase", False)
+
+    def _getArgsAsStr(self):
+        retval = F9_RaidData._getArgsAsStr(self)
+
+        if self.encrypted and self.escrowcert != "":
+            retval += " --escrowcert=\"%s\"" % self.escrowcert
+
+            if self.backuppassphrase:
+                retval += " --backuppassphrase"
+        return retval
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -283,4 +304,14 @@ class F9_Raid(F7_Raid):
         op.add_option("--fsprofile")
         op.add_option("--encrypted", action="store_true", default=False)
         op.add_option("--passphrase")
+        return op
+
+class F12_Raid(F9_Raid):
+    removedKeywords = F9_Raid.removedKeywords
+    removedAttrs = F9_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F9_Raid._getParser(self)
+        op.add_option("--escrowcert")
+        op.add_option("--backuppassphrase", action="store_true", default=False)
         return op

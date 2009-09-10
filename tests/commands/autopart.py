@@ -49,5 +49,31 @@ class F9_TestCase(CommandTest):
         self.assert_parse_error("autopart --encrypted=False")
         self.assert_parse_error("autopart --encrypted=True")
 
+class F12_TestCase(F9_TestCase):
+    def runTest(self):
+        # Run F9 test case
+        F9_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --escrowcert=\"http://x/y\"", "autopart\n")
+        self.assert_parse("autopart --encrypted --backuppassphrase",
+                          "autopart --encrypted\n")
+        self.assert_parse("autopart --encrypted --escrowcert=\"http://x/y\"",
+                          "autopart --encrypted --escrowcert=\"http://x/y\"\n")
+        self.assert_parse("autopart --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase",
+                          "autopart --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase\n")
+        self.assert_parse("autopart --encrypted --escrowcert=http://x/y",
+                          "autopart --encrypted --escrowcert=\"http://x/y\"\n")
+
+        # fail
+        self.assert_parse_error("autopart --escrowcert")
+        self.assert_parse_error("autopart --escrowcert --backuppassphrase")
+        self.assert_parse_error("autopart --encrypted --escrowcert "
+                                "--backuppassphrase")
+        self.assert_parse_error("autopart --backuppassphrase=False")
+        self.assert_parse_error("autopart --backuppassphrase=True")
+
 if __name__ == "__main__":
     unittest.main()

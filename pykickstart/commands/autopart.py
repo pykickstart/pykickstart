@@ -86,3 +86,34 @@ class F9_AutoPart(FC3_AutoPart):
         self._setToSelf(self.op, opts)
         self.autopart = True
         return self
+
+class F12_AutoPart(F9_AutoPart):
+    removedKeywords = F9_AutoPart.removedKeywords
+    removedAttrs = F9_AutoPart.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F9_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+
+        self.escrowcert = kwargs.get("escrowcert", "")
+        self.backuppassphrase = kwargs.get("backuppassphrase", False)
+
+    def __str__(self):
+        retval = F9_AutoPart.__str__(self)
+
+        if self.encrypted and self.escrowcert != "":
+            retval = retval.strip()
+
+            retval += " --escrowcert=\"%s\"" % self.escrowcert
+
+            if self.backuppassphrase:
+                retval += " --backuppassphrase"
+
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F9_AutoPart._getParser(self)
+        op.add_option("--escrowcert")
+        op.add_option("--backuppassphrase", action="store_true", default=False)
+        return op

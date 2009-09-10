@@ -166,5 +166,45 @@ class F9_TestCase(F7_TestCase):
         # deprecated
         self.assert_deprecated("raid", "--bytes-per-inode")
 
+class F12_TestCase(F9_TestCase):
+    '''F12_TestCase'''
+    def runTest(self):
+        # run F9 test case
+        F9_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("raid / --device=md0 --escrowcert=\"http://x/y\" "
+                          "raid.01 raid.02",
+                          "raid / --device=0 raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted --backuppassphrase "
+                          "raid.01 raid.02",
+                          "raid / --device=0 --encrypted raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted "
+                          "--escrowcert=\"http://x/y\" raid.01 raid.02",
+                          "raid / --device=0 --encrypted "
+                          "--escrowcert=\"http://x/y\" raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted "
+                          "--escrowcert=\"http://x/y\" --backuppassphrase "
+                          "raid.01 raid.02",
+                          "raid / --device=0 --encrypted "
+                          "--escrowcert=\"http://x/y\" --backuppassphrase "
+                          "raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted "
+                          "--escrowcert=http://x/y raid.01 raid.02",
+                          "raid / --device=0 --encrypted "
+                          "--escrowcert=\"http://x/y\" raid.01 raid.02\n")
+
+        # fail
+        self.assert_parse_error("raid / --device=md0 raid.01 raid.02 "
+                                "--escrowcert")
+        self.assert_parse_error("raid / --device=md0 --escrowcert "
+                                "--backuppassphrase raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --encrypted --escrowcert "
+                                "--backuppassphrase raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --backuppassphrase=False "
+                                "raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --backuppassphrase=True "
+                                "raid.01 raid.02")
+
 if __name__ == "__main__":
     unittest.main()

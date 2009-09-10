@@ -138,6 +138,28 @@ class F9_LogVolData(FC4_LogVolData):
 
         return retval
 
+class F12_LogVolData(F9_LogVolData):
+    removedKeywords = F9_LogVolData.removedKeywords
+    removedAttrs = F9_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F9_LogVolData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.escrowcert = kwargs.get("escrowcert", "")
+        self.backuppassphrase = kwargs.get("backuppassphrase", False)
+
+    def _getArgsAsStr(self):
+        retval = F9_LogVolData._getArgsAsStr(self)
+
+        if self.encrypted and self.escrowcert != "":
+            retval += " --escrowcert=\"%s\"" % self.escrowcert
+
+            if self.backuppassphrase:
+                retval += " --backuppassphrase"
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -232,4 +254,14 @@ class F9_LogVol(FC4_LogVol):
                       type="string", nargs=1)
         op.add_option("--encrypted", action="store_true", default=False)
         op.add_option("--passphrase")
+        return op
+
+class F12_LogVol(F9_LogVol):
+    removedKeywords = F9_LogVol.removedKeywords
+    removedAttrs = F9_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F9_LogVol._getParser(self)
+        op.add_option("--escrowcert")
+        op.add_option("--backuppassphrase", action="store_true", default=False)
         return op

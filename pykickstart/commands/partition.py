@@ -159,6 +159,27 @@ class F11_PartData(F9_PartData):
     removedKeywords = F9_PartData.removedKeywords + ["start", "end"]
     removedAttrs = F9_PartData.removedAttrs + ["start", "end"]
 
+class F12_PartData(F11_PartData):
+    removedKeywords = F11_PartData.removedKeywords
+    removedAttrs = F11_PartData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F11_PartData.__init__(self, *args, **kwargs)
+
+        self.escrowcert = kwargs.get("escrowcert", "")
+        self.backuppassphrase = kwargs.get("backuppassphrase", False)
+
+    def _getArgsAsStr(self):
+        retval = F11_PartData._getArgsAsStr(self)
+
+        if self.encrypted and self.escrowcert != "":
+            retval += " --escrowcert=\"%s\"" % self.escrowcert
+
+            if self.backuppassphrase:
+                retval += " --backuppassphrase"
+
+        return retval
+
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -301,4 +322,14 @@ class F11_Partition(F9_Partition):
         op = F9_Partition._getParser(self)
         op.add_option("--start", deprecated=1)
         op.add_option("--end", deprecated=1)
+        return op
+
+class F12_Partition(F11_Partition):
+    removedKeywords = F11_Partition.removedKeywords
+    removedAttrs = F11_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F11_Partition._getParser(self)
+        op.add_option("--escrowcert")
+        op.add_option("--backuppassphrase", action="store_true", default=False)
         return op

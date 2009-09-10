@@ -22,15 +22,19 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
-    def runTest(self, bytes_per_inode=False):
+    def runTest(self, bytes_per_inode=False, start_end=True):
         bpi = ""
         if bytes_per_inode:
             bpi = " --bytes-per-inode=4096"
 
         # pass
         self.assert_parse("part /home", "part /home%s\n" % bpi)
-        self.assert_parse("partition raid.1 --active --asprimary --start=0 --end=10 --fstype=ext3 --noformat",
-                          "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % bpi)
+        if start_end:
+            self.assert_parse("partition raid.1 --active --asprimary --start=0 --end=10 --fstype=ext3 --noformat",
+                              "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % bpi)
+        else:
+            self.assert_parse("partition raid.1 --active --asprimary --fstype=ext3 --noformat",
+                              "part raid.1 --active --asprimary --fstype=\"ext3\" --noformat%s\n" % bpi)
         self.assert_parse("part pv.1 --ondisk=sda --onpart=sda1 --recommended",
                           "part pv.1 --ondisk=sda --onpart=sda1 --recommended%s\n" % bpi)
         self.assert_parse("part pv.1 --ondrive=sda --usepart=sda1 --recommended",
@@ -47,7 +51,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("part", KickstartValueError)
         self.assert_parse_error("part --ondisk=sda --size=100", KickstartValueError)
 
-        for opt in ("start", "end", "size", "maxsize"):
+        int_params = ["size", "maxsize"]
+        if start_end:
+            int_params += ["start", "end"]
+        for opt in int_params:
             # integer argument required
             self.assert_parse_error("part / --%s=string" % opt, KickstartParseError)
             # value required
@@ -93,9 +100,9 @@ class RHEL5_TestCase(FC4_TestCase):
         self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
 
 class F9_TestCase(FC3_TestCase):
-    def runTest(self):
+    def runTest(self, start_end=True):
         # run FC3 test case
-        FC3_TestCase.runTest(self, bytes_per_inode=False)
+        FC3_TestCase.runTest(self, bytes_per_inode=False, start_end=start_end)
 
         # pass
         self.assert_parse("part / --encrypted --passphrase=blahblah",
@@ -110,6 +117,32 @@ class F9_TestCase(FC3_TestCase):
         self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
         # missing required --fsprofile argument
         self.assert_parse_error("part / --fsprofile", KickstartParseError)
+
+class F12_TestCase(F9_TestCase):
+    def runTest(self):
+        # Run F9 test case
+        F9_TestCase.runTest(self, start_end=False)
+
+        # pass
+        self.assert_parse("part / --escrowcert=\"http://x/y\"", "part /\n")
+        self.assert_parse("part / --encrypted --backuppassphrase",
+                          "part / --encrypted\n")
+        self.assert_parse("part / --encrypted --escrowcert=\"http://x/y\"",
+                          "part / --encrypted --escrowcert=\"http://x/y\"\n")
+        self.assert_parse("part / --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase",
+                          "part / --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase\n")
+        self.assert_parse("part / --encrypted --escrowcert=http://x/y",
+                          "part / --encrypted --escrowcert=\"http://x/y\"\n")
+
+        # fail
+        self.assert_parse_error("part / --escrowcert")
+        self.assert_parse_error("part / --escrowcert --backuppassphrase")
+        self.assert_parse_error("part / --encrypted --escrowcert "
+                                "--backuppassphrase")
+        self.assert_parse_error("part / --backuppassphrase=False")
+        self.assert_parse_error("part / --backuppassphrase=True")
 
 if __name__ == "__main__":
     unittest.main()

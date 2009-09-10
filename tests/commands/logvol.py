@@ -193,5 +193,46 @@ class F9_TestCase(FC4_TestCase):
         # Ensure --bytes-per-inode has been deprecated
         self.assert_deprecated("logvol", "bytes-per-inode")
 
+class F12_TestCase(F9_TestCase):
+    def setUp(self):
+        F9_TestCase.setUp(self)
+
+    def runTest(self):
+        # Run our baseclass tests first
+        F9_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("logvol / --name=NAME --vgname=VGNAME "
+                          "--escrowcert=\"http://x/y\"",
+                          "logvol /  --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --encrypted --backuppassphrase --name=NAME "
+                          "--vgname=VGNAME",
+                          "logvol /  --encrypted --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --encrypted --escrowcert=\"http://x/y\" "
+                          "--name=NAME --vgname=VGNAME",
+                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "--name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase --name=NAME --vgname=VGNAME",
+                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "--backuppassphrase --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --encrypted --escrowcert=http://x/y "
+                          "--name=NAME --vgname=VGNAME",
+                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "--name=NAME --vgname=VGNAME\n")
+
+        # fail
+        self.assert_parse_error("logvol / --escrowcert --name=NAME "
+                                "--vgname=VGNAME")
+        self.assert_parse_error("logvol / --escrowcert --backuppassphrase "
+                                "--name=NAME --vgname=VGNAME")
+        self.assert_parse_error("logvol / --encrypted --escrowcert "
+                                "--backuppassphrase --name=NAME "
+                                "--vgname=VGNAME")
+        self.assert_parse_error("logvol / --backuppassphrase=False --name=NAME "
+                                "--vgname=VGNAME")
+        self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
+                                "--vgname=VGNAME")
+
 if __name__ == "__main__":
     unittest.main()
