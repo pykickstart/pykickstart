@@ -25,9 +25,9 @@ class FC6_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("repo --name=blah --baseurl=http://www.domain.com",
-                          "repo --name=blah --baseurl=http://www.domain.com\n")
+                          "repo --name=\"blah\" --baseurl=http://www.domain.com\n")
         self.assert_parse("repo --name=blah --mirrorlist=http://www.domain.com",
-                          "repo --name=blah --mirrorlist=http://www.domain.com\n")
+                          "repo --name=\"blah\" --mirrorlist=http://www.domain.com\n")
 
         # fail
         # missing required option --name
@@ -52,9 +52,9 @@ class F8_TestCase(FC6_TestCase):
 
         # pass
         self.assert_parse("repo --name=blah --baseurl=www.domain.com --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4",
-                          "repo --name=blah --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
+                          "repo --name=\"blah\" --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
         self.assert_parse("repo --name=blah --baseurl=123xyz --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4",
-                          "repo --name=blah --baseurl=123xyz --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
+                          "repo --name=\"blah\" --baseurl=123xyz --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
 
         # fail
         # missing required arguments
@@ -71,10 +71,10 @@ class F11_TestCase(F8_TestCase):
         # pass
         for val in ("1", "true", "on"):
             self.assert_parse("repo --name=blah --baseurl=www.domain.com --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4 --ignoregroups=%s" % val,
-                              "repo --name=blah --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\" --ignoregroups=true\n")
+                              "repo --name=\"blah\" --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\" --ignoregroups=true\n")
         for val in ("0", "false", "off"):
             self.assert_parse("repo --name=blah --baseurl=www.domain.com --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4 --ignoregroups=%s" % val,
-                              "repo --name=blah --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
+                              "repo --name=\"blah\" --baseurl=www.domain.com --cost=10 --includepkgs=\"pkg3,pkg4\" --excludepkgs=\"pkg1,pkg2\"\n")
 
         # fail
         # missing --ignoregroups argument
