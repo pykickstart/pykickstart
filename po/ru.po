@@ -1,17 +1,19 @@
-# translation of ru.po to 
+# translation of ru.po to Russian
+# translation of ru.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Andrew Martynov <andrewm@inventa.ru>, 2006, 2007.
 # Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
+# Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: pykickstart.master.ru\n"
+"Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-12-31 11:22+0300\n"
-"Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
+"PO-Revision-Date: 2009-09-14 16:12+1000\n"
+"Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,7 +121,7 @@ msgstr "Невозможно открыть файл %%ksappend"
 
 #: ../pykickstart/parser.py:286
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr "Группа не может ожновременно включать --nodefaults и --optional"
+msgstr "Группа не может одновременно включать --nodefaults и --optional"
 
 #: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
 #, python-format
@@ -128,9 +130,10 @@ msgid ""
 "removed from future releases, which will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
-"%s не завершается при помощи %%end.  Подобный синтаксис объявлен устаревшим."
-"  Он может быть удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
-"Измените ваш файл кикстарта и удалите этот параметр."
+"%s не завершается при помощи %%end.  Подобный синтаксис объявлен "
+"устаревшим.  Он может быть удален в будущих выпусках, что приведет к "
+"фатальным ошибкам кикстарта. Измените ваш файл кикстарта и удалите этот "
+"параметр."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
