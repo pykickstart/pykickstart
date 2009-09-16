@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.62
+Version: 1.63
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Sep 16 2009 Chris Lumens <clumens@redhat.com> - 1.63-1
+- Add encryption key escrow support (mitr, #508963).
+- Fix the repo test cases to expect quotes around the repo's name.
+
 * Thu Sep 10 2009 Chris Lumens <clumens@redhat.com> - 1.62-1
 - Support translated help text in optparse (#479519).
 - If the input kickstart file cannot be read, raise IOError (#519477).
