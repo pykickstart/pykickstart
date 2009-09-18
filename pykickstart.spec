@@ -23,9 +23,9 @@ files.
 
 %prep
 %setup -q
-make
 
 %build
+make
 
 %install
 rm -rf %{buildroot}
