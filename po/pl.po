@@ -1,14 +1,14 @@
 # translation of pl.po to Polish
-# Piotr Drąg <raven@pmail.pl>, 2006.
+# Piotr Drąg <piotrdrag@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-10-04 13:22-0400\n"
-"PO-Revision-Date: 2007-10-04 20:14+0200\n"
-"Last-Translator: Piotr Drąg <raven@pmail.pl>\n"
-"Language-Team: Polish <pl@li.org>\n"
+"PO-Revision-Date: 2009-09-22 21:28+0200\n"
+"Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
+"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,9 +22,9 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 "Ignorowanie przestarzałego polecenia w wierszu %(lineno)s: polecenie %(cmd)s "
-"jest przestarzały i jego użycie nie powoduje żadnych zmian. Może zostać "
+"jest przestarzałe i jego użycie nie powoduje żadnych zmian. Może zostać "
 "usunięte z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. "
-"Zmodyfikuj plik kickstart, aby usunąć to polecenie."
+"Należy zmodyfikować plik kickstart, aby usunąć to polecenie."
 
 #: ../pykickstart/base.py:315
 #, python-format
@@ -58,8 +58,8 @@ msgid ""
 "The option %(option)s was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Opcja %(option)s została wprowadzona w wersji %(intro)s, ale używasz wersji "
-"składni kickstart %(version)s"
+"Opcja %(option)s została wprowadzona w wersji %(intro)s, ale używana jest "
+"wersja składni kickstart %(version)s"
 
 #: ../pykickstart/options.py:90
 #, python-format
@@ -71,8 +71,8 @@ msgid ""
 msgstr ""
 "Ignorowanie przestarzałej opcji w wierszu %(lineno)s: opcja %(option)s jest "
 "przestarzała i jej użycie nie powoduje żadnych zmian. Może zostać usunięta z "
-"przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj plik "
-"kickstart, aby usunąć tę opcję."
+"przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Należy "
+"zmodyfikować plik kickstart, aby usunąć tę opcję."
 
 #: ../pykickstart/options.py:93
 #, python-format
@@ -80,8 +80,8 @@ msgid ""
 "The option %(option)s was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s"
 msgstr ""
-"Opcja %(option)s została usunięta w wersji %(removed)s, ale używasz wersji "
-"składni kickstart %(version)s"
+"Opcja %(option)s została usunięta w wersji %(removed)s, ale używana jest "
+"wersja składni kickstart %(version)s"
 
 #: ../pykickstart/options.py:147
 msgid "Required flag set for option that doesn't take a value"
@@ -95,12 +95,12 @@ msgstr "Opcja %(opt)s: nieprawidłowa wartość zmiennej logicznej: %(value)r"
 #: ../pykickstart/options.py:161
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Opcja %(opt)s: nieprawidłowa wartość łańcucha tekstowego: %(value)r"
+msgstr "Opcja %(opt)s: nieprawidłowa wartość ciągu: %(value)r"
 
 #: ../pykickstart/parser.py:90
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr "Niedozwolony URL dla %%ksappend: %s"
+msgstr "Niedozwolony adres URL dla %%ksappend: %s"
 
 #: ../pykickstart/parser.py:95
 #, python-format
@@ -124,8 +124,8 @@ msgid ""
 "kickstart.  Please modify your kickstart file to use this updated syntax."
 msgstr ""
 "%s nie kończy się %%end. Ta składnia jest przestarzała. Może zostać usunięta "
-"z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Zmodyfikuj plik "
-"kickstart, aby używał zaktualizowanej składni."
+"z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Należy "
+"zmodyfikować plik kickstart, aby używał zaktualizowanej składni."
 
 #: ../pykickstart/parser.py:604
 msgid "Script"
@@ -140,12 +140,12 @@ msgstr "Określono nieobsługiwaną wersję: %s"
 
 #: ../tools/ksvalidator:52
 msgid "halt after the first error or warning"
-msgstr "wyłącz po pierwszym błędzie lub ostrzeżeniu"
+msgstr "wyłączenie po pierwszym błędzie lub ostrzeżeniu"
 
 #: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "przeanalizuj pliki nagłówków, gdy zobaczysz %include"
+msgstr "przetworzenie plików nagłówków po zobaczeniu %include"
 
 #: ../tools/ksvalidator:57
 msgid "version of kickstart syntax to validate against"
