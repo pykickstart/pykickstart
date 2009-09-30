@@ -65,15 +65,16 @@ F9 = 7000
 F10 = 8000
 F11 = 9000
 F12 = 10000
+F13 = 11000
 
 # This always points at the latest version and is the default.
-DEVEL = F12
+DEVEL = F13
 
 """A one-to-one mapping from string representations to version numbers."""
 versionMap = {
         "DEVEL": DEVEL,
         "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
-        "F9": F9, "F10": F10, "F11": F11, "F12": F12,
+        "F9": F9, "F10": F10, "F11": F11, "F12": F12, "F13": F13,
         "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5
 }
 
