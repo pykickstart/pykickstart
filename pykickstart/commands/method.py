@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007, 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -56,7 +56,7 @@ class FC3_Method(KickstartCommand):
         elif self.method == "nfs":
             retval += "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
         elif self.method == "url":
-            retval += "# Use network installation\nurl --url=%s\n" % self.url
+            retval += "# Use network installation\nurl --url=\"%s\"\n" % self.url
 
         return retval
 
@@ -118,7 +118,7 @@ class FC6_Method(FC3_Method):
                 retval += " --opts=\"%s\"" % self.opts
             retval += "\n"
         elif self.method == "url":
-            retval += "# Use network installation\nurl --url=%s\n" % self.url
+            retval += "# Use network installation\nurl --url=\"%s\"\n" % self.url
 
         return retval
 
@@ -127,5 +127,32 @@ class FC6_Method(FC3_Method):
 
         if self.currentCmd == "nfs":
             op.add_option("--opts", dest="opts")
+
+        return op
+
+class F13_Method(FC6_Method):
+    removedKeywords = FC6_Method.removedKeywords
+    removedAttrs = FC6_Method.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        FC6_Method.__init__(self, *args, **kwargs)
+
+        # And same as all the other __init__ methods.
+        self.proxy = ""
+
+    def __str__(self):
+        retval = FC6_Method.__str__(self)
+
+        if self.method == "url" and self.proxy:
+            retval = retval.strip()
+            retval += " --proxy=\"%s\"\n" % self.proxy
+
+        return retval
+
+    def _getParser(self):
+        op = FC6_Method._getParser(self)
+
+        if self.currentCmd == "url":
+            op.add_option("--proxy")
 
         return op

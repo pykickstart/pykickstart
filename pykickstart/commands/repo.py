@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007, 2008, 2009 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -90,6 +90,22 @@ class F11_RepoData(F8_RepoData):
 
         if self.ignoregroups:
             retval += " --ignoregroups=true"
+        return retval
+
+class F13_RepoData(F11_RepoData):
+    removedKeywords = F11_RepoData.removedKeywords
+    removedAttrs = F11_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F11_RepoData.__init__(self, *args, **kwargs)
+        self.proxy = kwargs.get("proxy", "")
+
+    def _getArgsAsStr(self):
+        retval = F11_RepoData._getArgsAsStr(self)
+
+        if self.proxy:
+            retval += " --proxy=\"%s\"" % self.proxy
+
         return retval
 
 class FC6_Repo(KickstartCommand):
@@ -182,4 +198,13 @@ class F11_Repo(F8_Repo):
     def _getParser(self):
         op = F8_Repo._getParser(self)
         op.add_option("--ignoregroups", action="store", type="ksboolean")
+        return op
+
+class F13_Repo(F11_Repo):
+    removedKeywords = F11_Repo.removedKeywords
+    removedAttrs = F11_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F11_Repo._getParser(self)
+        op.add_option("--proxy")
         return op

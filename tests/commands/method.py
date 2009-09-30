@@ -35,7 +35,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("nfs --server=1.2.3.4 --dir=/install", "nfs --server=1.2.3.4 --dir=/install\n")
 
         # url
-        self.assert_parse("url --url=http://domain.com", "url --url=http://domain.com\n")
+        self.assert_parse("url --url=http://domain.com", "url --url=\"http://domain.com\"\n")
 
         # fail
         # harddrive
@@ -83,6 +83,20 @@ class FC6_TestCase(FC3_TestCase):
         # --opts requires argument if specified
         self.assert_parse_error("nfs --server=1.2.3.4 --dir=/install --opts", KickstartParseError)
 
+
+class F13_TestCase(FC6_TestCase):
+    def runTest(self):
+        # run FC6 test case
+        FC6_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --url=http://someplace/somewhere --proxy=http://wherever/other",
+                          "url --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\"\n")
+
+        # fail
+        self.assert_parse_error("cdrom --proxy=http://someplace/somewhere", KickstartParseError)
+        self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("url --proxy=http://someplace/somewhere", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()

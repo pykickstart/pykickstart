@@ -80,5 +80,21 @@ class F11_TestCase(F8_TestCase):
         # missing --ignoregroups argument
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --ignoregroups", KickstartParseError)
 
+class F13_TestCase(F11_TestCase):
+    def runTest(self):
+        # run F11 test case
+        F11_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("repo --name=blah --baseurl=www.domain.com --proxy=http://someplace/wherever",
+                          "repo --name=\"blah\" --baseurl=www.domain.com --proxy=\"http://someplace/wherever\"\n")
+        self.assert_parse("repo --name=blah --baseurl=www.domain.com --proxy=\"http://someplace/wherever\"",
+                          "repo --name=\"blah\" --baseurl=www.domain.com --proxy=\"http://someplace/wherever\"\n")
+
+        # fail
+        # missing --proxy argument
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --proxy",
+                                KickstartParseError)
+
 if __name__ == "__main__":
     unittest.main()
