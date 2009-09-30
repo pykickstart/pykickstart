@@ -51,12 +51,20 @@ class FC3_ZFCPData(BaseData):
             retval += " --wwpn=%s" % self.wwpn
         if self.fcplun != "":
             retval += " --fcplun=%s" % self.fcplun
-        if self.scsiid != "":
+        if hasattr(self, "scsiid") and self.scsiid != "":
             retval += " --scsiid=%s" % self.scsiid
-        if self.scsilun != "":
+        if hasattr(self, "scsilun") and self.scsilun != "":
             retval += " --scsilun=%s" % self.scsilun
 
         return retval + "\n"
+
+class F12_ZFCPData(FC3_ZFCPData):
+    removedKeywords = FC3_ZFCPData.removedKeywords + ["scsiid", "scsilun"]
+    removedAttrs = FC3_ZFCPData.removedAttrs + ["scsiid", "scsilun"]
+
+    def __init__(self, *args, **kwargs):
+        FC3_ZFCPData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
 
 class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -97,3 +105,17 @@ class FC3_ZFCP(KickstartCommand):
 
     def dataList(self):
         return self.zfcp
+
+class F12_ZFCP(FC3_ZFCP):
+    removedKeywords = FC3_ZFCP.removedKeywords
+    removedAttrs = FC3_ZFCP.removedAttrs + ["scsiid", "scsilun"]
+
+    def __init__(self, *args, **kwargs):
+        FC3_ZFCP.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+    def _getParser(self):
+        op = FC3_ZFCP._getParser(self)
+        op.add_option("--scsiid", deprecated=1)
+        op.add_option("--scsilun", deprecated=1)
+        return op

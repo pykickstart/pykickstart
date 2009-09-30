@@ -585,7 +585,7 @@ commandMap = {
         "volgroup": volgroup.FC3_VolGroup,
         "xconfig": xconfig.F10_XConfig,
         "zerombr": zerombr.F9_ZeroMbr,
-        "zfcp": zfcp.FC3_ZFCP,
+        "zfcp": zfcp.F12_ZFCP,
     },
 
     # based on fc1
@@ -885,7 +885,7 @@ dataMap = {
         "RepoData": repo.F11_RepoData,
         "UserData": user.F12_UserData,
         "VolGroupData": volgroup.FC3_VolGroupData,
-        "ZFCPData": zfcp.FC3_ZFCPData,
+        "ZFCPData": zfcp.F12_ZFCPData,
     },
     RHEL3: {
         "DriverDiskData": driverdisk.FC3_DriverDiskData,
