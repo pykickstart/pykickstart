@@ -201,12 +201,28 @@ class BaseHandler(KickstartObject):
     """
     version = None
 
-    def __init__(self, mapping={}, *args, **kwargs):
+    def __init__(self, mapping={}, dataMapping={}, commandUpdates={},
+                 dataUpdates={}, *args, **kwargs):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
-           mapping is a custom map from command strings to classes, useful when
-           creating your own handler with special command objects.  It is
-           otherwise unused and rarely needed.
+
+           mapping          -- A custom map from command strings to classes,
+                               useful when creating your own handler with
+                               special command objects.  It is otherwise unused
+                               and rarely needed.  If you give this argument,
+                               the mapping takes the place of the default one
+                               and so must include all commands you want
+                               recognized.
+           dataMapping      -- This is the same as mapping, but for data
+                               objects.  All the same comments apply.
+           commandUpdates   -- This is similar to mapping, but does not take
+                               the place of the defaults entirely.  Instead,
+                               this mapping is applied after the defaults and
+                               updates it with just the commands you want to
+                               modify.
+           dataUpdates      -- This is the same as commandUpdates, but for
+                               data objects.
+
 
            Instance attributes:
 
@@ -249,7 +265,7 @@ class BaseHandler(KickstartObject):
         # it.
         self._writeOrder = {}
 
-        self._registerCommands(mapping=mapping)
+        self._registerCommands(mapping, dataMapping, commandUpdates, dataUpdates)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -313,15 +329,22 @@ class BaseHandler(KickstartObject):
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def _registerCommands(self, mapping={}):
+    def _registerCommands(self, mapping={}, dataMapping={}, commandUpdates={},
+                          dataUpdates={}):
         if mapping == {}:
-            from pykickstart.handlers.control import commandMap, dataMap
+            from pykickstart.handlers.control import commandMap
             cMap = commandMap[self.version]
+        else:
+            cMap = mapping
+
+        if dataMapping == {}:
+            from pykickstart.handlers.control import dataMap
             dMap = dataMap[self.version]
         else:
-            from pykickstart.handlers.control import dataMap
-            cMap = mapping
-            dMap = dataMap[self.version]
+            dMap = dataMapping
+
+        cMap.update(commandUpdates)
+        dMap.update(dataUpdates)
 
         for (cmdName, cmdClass) in cMap.iteritems():
             # First make sure we haven't instantiated this command handler
