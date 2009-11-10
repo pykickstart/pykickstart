@@ -462,14 +462,17 @@ class KickstartParser:
 
     def handleCommand (self, lineno, args):
         """Given the list of command and arguments, call the Version's
-           dispatcher method to handle the command.  This method may be
+           dispatcher method to handle the command.  Returns the command or
+           data object returned by the dispatcher.  This method may be
            overridden in a subclass if necessary.
         """
         if self.handler:
             self.handler.currentCmd = args[0]
             self.handler.currentLine = self._line
-            self.handler.dispatcher(args, lineno, self._preceededInclude)
+            retval = self.handler.dispatcher(args, lineno, self._preceededInclude)
             self._preceededInclude = None
+
+            return retval
 
     def handlePackageHdr (self, lineno, args):
         """Process the arguments to the %packages header and set attributes

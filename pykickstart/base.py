@@ -352,7 +352,8 @@ class BaseHandler(KickstartObject):
     def dispatcher(self, args, lineno, include=None):
         """Call the appropriate KickstartCommand handler for the current line
            in the kickstart file.  A handler for the current command should
-           be registered, though a handler of None is not an error.
+           be registered, though a handler of None is not an error.  Returns
+           the data object returned by KickstartCommand.parse.
 
            args    -- A list of arguments to the current command
            lineno  -- The line number in the file, for error reporting
@@ -380,6 +381,8 @@ class BaseHandler(KickstartObject):
 
             if include is not None:
                 obj.preceededInclude = include
+
+            return obj
 
     def maskAllExcept(self, lst):
         """Set all entries in the commands dict to None, except the ones in
