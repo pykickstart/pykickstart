@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.64
+Version: 1.65
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Nov 12 2009 Chris Lumens <clumens@redhat.com> - 1.65-1
+- Add additional arguments to BaseHandler.__init__ for better map control.
+- Return the KickstartCommand/KickstartData object from dispatcher.
+- Add an "sshpw" command for changing the passwords in anaconda's env.
+- Add --proxy support to the url and repo commands.
+- Add support for F13.  Is it really that time already?
+
 * Wed Sep 30 2009 Chris Lumens <clumens@redhat.com> - 1.64-1
 - Update the zfcp command for F12 (#526360).
 - Move "make" to %build (#524215).
