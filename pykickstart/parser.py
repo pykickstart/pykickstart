@@ -345,6 +345,7 @@ class KickstartHandlers:
                       default=False)
         op.add_option("--driveorder", dest="driveorder", action="callback",
                       callback=driveorder_cb, nargs=1, type="string")
+        op.add_option("--hvargs", dest="hvArgs")
 
         (opts, extra) = op.parse_args(args=args)
         self._setToDict(op, opts, self.ksdata.bootloader)

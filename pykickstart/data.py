@@ -22,7 +22,7 @@ class KickstartData:
         self.autostep = {"autoscreenshot": False}
         self.bootloader = {"appendLine": "", "driveorder": [],
                            "forceLBA": False, "location": "mbr", "md5pass": "",
-                           "password": "", "upgrade": False}
+                           "password": "", "upgrade": False, "hvArgs": ""}
         self.dmraids = []
         self.encrypted = False
         self.mpaths = []
