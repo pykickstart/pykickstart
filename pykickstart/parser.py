@@ -136,7 +136,7 @@ def preprocessKickstart (file):
     """
     try:
         fh = urlopen(file)
-    except grabber.URLGrabError as e:
+    except grabber.URLGrabError, e:
         raise IOError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
     rc = _preprocessStateMachine (lambda: fh.readline())
@@ -764,7 +764,7 @@ class KickstartParser:
 
         try:
             fh = urlopen(f)
-        except grabber.URLGrabError as e:
+        except grabber.URLGrabError, e:
             raise IOError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
         self._stateMachine (lambda: fh.readline())
