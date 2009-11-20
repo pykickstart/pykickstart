@@ -9,7 +9,9 @@ import re
 
 from pykickstart.version import versionMap, returnClassForVersion
 from pykickstart.errors import *
-from rhpl.translate import _
+import gettext
+gettext.textdomain("pykickstart")
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 # Base class for any test case
 class CommandTest(unittest.TestCase):
