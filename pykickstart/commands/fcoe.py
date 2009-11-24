@@ -35,15 +35,34 @@ class F12_FcoeData(BaseData):
     def __eq__(self, y):
         return self.nic == y.nic
 
-    def __str__(self):
-        retval = BaseData.__str__(self)
-        retval += "fcoe"
+    def _getArgsAsStr(self):
+        retval = ""
 
         if self.nic:
             retval += " --nic=%s" % self.nic
 
-        return retval + "\n"
+        return retval
 
+    def __str__(self):
+        retval = BaseData.__str__(self)
+        retval += "fcoe%s\n" % self._getArgsAsStr()
+        return retval
+
+class F13_FcoeData(F12_FcoeData):
+    removedKeywords = F12_FcoeData.removedKeywords
+    removedAttrs = F12_FcoeData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_FcoeData.__init__(self, *args, **kwargs)
+        self.dcb = kwargs.get("dcb", False)
+
+    def _getArgsAsStr(self):
+        retval = F12_FcoeData._getArgsAsStr(self)
+
+        if self.dcb:
+            retval += " --dcb"
+
+        return retval
 
 class F12_Fcoe(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -83,3 +102,12 @@ class F12_Fcoe(KickstartCommand):
 
     def dataList(self):
         return self.fcoe
+
+class F13_Fcoe(F12_Fcoe):
+    removedKeywords = F12_Fcoe.removedKeywords
+    removedAttrs = F12_Fcoe.removedAttrs
+
+    def _getParser(self):
+        op = F12_Fcoe._getParser(self)
+        op.add_option("--dcb", dest="dcb", action="store_true", default=False)
+        return op
