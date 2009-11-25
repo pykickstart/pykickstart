@@ -163,8 +163,10 @@ class KSOption (Option):
     ACTIONS = Option.ACTIONS + ("map", "map_extend",)
     STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
 
-    TYPES = Option.TYPES + ("ksboolean",)
+    TYPES = Option.TYPES + ("ksboolean", "string")
     TYPE_CHECKER = copy(Option.TYPE_CHECKER)
+    TYPE_CHECKER["ksboolean"] = _check_ksboolean
+    TYPE_CHECKER["string"] = _check_string
 
     def _check_required(self):
         if self.required and not self.takes_value():
@@ -172,7 +174,6 @@ class KSOption (Option):
 
     # Make sure _check_required() is called from the constructor!
     CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
-    TYPE_CHECKER.update({"ksboolean": _check_ksboolean, "string": _check_string})
 
     def process (self, opt, value, values, parser):
         Option.process(self, opt, value, values, parser)

@@ -8,7 +8,7 @@ PREFIX=/usr
 
 TESTSUITE:=tests/baseclass.py
 
-PYCHECKEROPTS=--no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only -Q
+PYCHECKEROPTS=--no-override --no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only -Q
 
 default: all
 
