@@ -16,6 +16,7 @@ all:
 	$(MAKE) -C po
 
 docs:
+	mkdir -p docs
 	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
 	curl -A "programmers-guide" -o docs/programmers-guide "http://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
