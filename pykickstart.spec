@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.65
+Version: 1.66
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Nov 25 2009 Hans de Goede <hdgoede@redhat.com> - 1.66-1
+- Add --dcb option to fcoe command (#513011)
+- Remove rhpl from tests
+- Port bootloader --hvargs option added in rhel5
+- Ignore comments when looking for %ksappend lines (#525676)
+- Use python 2.x exception syntax
+
 * Thu Nov 12 2009 Chris Lumens <clumens@redhat.com> - 1.65-1
 - Add additional arguments to BaseHandler.__init__ for better map control.
 - Return the KickstartCommand/KickstartData object from dispatcher.
