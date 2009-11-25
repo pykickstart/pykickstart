@@ -116,11 +116,13 @@ def versionToString(version, skipDevel=False):
        This is the reverse operation of stringToVersion.  Raises
        KickstartVersionError if version does not match anything.
     """
-    for (key, val) in versionMap.iteritems():
-        if version == DEVEL and key == "DEVEL" and skipDevel:
-            continue
+    if not skipDevel and version == versionMap["DEVEL"]:
+        return "DEVEL"
 
-        if val == version:
+    for (key, val) in versionMap.iteritems():
+        if key == "DEVEL":
+            continue
+        elif val == version:
             return key
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
