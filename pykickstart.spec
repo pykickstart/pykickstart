@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.66
+Version: 1.67
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Dec 03 2009 Chris Lumens <clumens@redhat.com> - 1.67-1
+- Don't use action="append_const" in firewall.py.
+- Make "make archive" depend on test and check passing again.
+- versionToString now works in all cases we test for.
+- Fix the few pychecker errors outstanding in options.py.
+- Fix make docs to make docs dir before trying to download files there (hdegoede)
+
 * Wed Nov 25 2009 Hans de Goede <hdgoede@redhat.com> - 1.66-1
 - Add --dcb option to fcoe command (#513011)
 - Remove rhpl from tests
