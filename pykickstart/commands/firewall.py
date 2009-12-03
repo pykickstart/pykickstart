@@ -160,6 +160,13 @@ class F10_Firewall(F9_Firewall):
 
     def _getParser(self):
         def service_cb (option, opt_str, value, parser):
+            # python2.4 does not support action="append_const" that we were
+            # using for these options.  Instead, we have to fake it by
+            # appending whatever the option string is to the service list.
+            if not value:
+                parser.values.ensure_value(option.dest, []).append(opt_str[2:])
+                return
+
             for p in value.split(","):
                 p = p.strip()
                 parser.values.ensure_value(option.dest, []).append(p)
@@ -167,9 +174,13 @@ class F10_Firewall(F9_Firewall):
         op = F9_Firewall._getParser(self)
         op.add_option("--service", dest="services", action="callback",
                       callback=service_cb, nargs=1, type="string")
-        op.add_option("--ftp", dest="services", action="append_const", const="ftp")
-        op.add_option("--http", dest="services", action="append_const", const="http")
-        op.add_option("--smtp", dest="services", action="append_const", const="smtp")
-        op.add_option("--ssh", dest="services", action="append_const", const="ssh")
+        op.add_option("--ftp", dest="services", action="callback",
+                      callback=service_cb)
+        op.add_option("--http", dest="services", action="callback",
+                      callback=service_cb)
+        op.add_option("--smtp", dest="services", action="callback",
+                      callback=service_cb)
+        op.add_option("--ssh", dest="services", action="callback",
+                      callback=service_cb)
         op.add_option("--telnet", deprecated=1)
         return op
