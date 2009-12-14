@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43.6
+Version: 0.43.7
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.bz2
 License: GPL
@@ -38,6 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Mon Dec 14 2009 Chris Lumens <clumens@redhat.com> 0.43.7-1
+- Add line numbers to Scripts for better debugging (#547188).
+
 * Mon Nov 23 2009 Chris Lumens <clumens@redhat.com> 0.43.6-1
 - Add support for xen hypervisor arguments in grub. (#501438, rvykydal)
 
