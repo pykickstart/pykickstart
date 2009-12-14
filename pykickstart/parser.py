@@ -180,13 +180,15 @@ class Script:
         return string.replace(retval, "\n", "|")
 
     def __init__(self, script, interp = "/bin/sh", inChroot = False,
-                 logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE):
+                 logfile = None, errorOnFail = False, type = KS_SCRIPT_PRE,
+                 lineno = None):
         self.script = string.join(script, "")
         self.interp = interp
         self.inChroot = inChroot
         self.logfile = logfile
         self.errorOnFail = errorOnFail
         self.type = type
+        self.lineno = lineno
 
     # Produce a string representation of the script suitable for writing
     # to a kickstart file.  Add this to the end of the %whatever header.
@@ -1021,7 +1023,8 @@ class KickstartParser:
 
         s = Script (self.script["body"], self.script["interp"],
                     self.script["chroot"], self.script["log"],
-                    self.script["errorOnFail"], self.script["type"])
+                    self.script["errorOnFail"], self.script["type"],
+                    self.script["lineno"])
 
         self.ksdata.scripts.append(s)
 
@@ -1091,6 +1094,7 @@ class KickstartParser:
         self.script["interp"] = opts.interpreter
         self.script["log"] = opts.log
         self.script["errorOnFail"] = opts.errorOnFail
+        self.script["lineno"] = lineno
         if hasattr(opts, "nochroot"):
             self.script["chroot"] = not opts.nochroot
 
@@ -1215,7 +1219,7 @@ class KickstartParser:
             elif self.state == STATE_SCRIPT_HDR:
                 needLine = True
                 self.script = {"body": [], "interp": "/bin/sh", "log": None,
-                               "errorOnFail": False}
+                               "errorOnFail": False, "lineno": None}
 
                 if not args and self.includeDepth == 0:
                     self.state = STATE_END
