@@ -32,7 +32,7 @@ class FC6_IscsiData(BaseData):
     def __init__(self, *args, **kwargs):
         BaseData.__init__(self, *args, **kwargs)
         self.ipaddr = kwargs.get("ipaddr", "")
-        self.port = kwargs.get("port", "")
+        self.port = kwargs.get("port", "3260")
         self.target = kwargs.get("target", "")
         self.user = kwargs.get("user", None)
         self.password = kwargs.get("password", None)
@@ -44,7 +44,7 @@ class FC6_IscsiData(BaseData):
             retval += " --target=%s" % self.target
         if self.ipaddr != "":
             retval += " --ipaddr=%s" % self.ipaddr
-        if self.port != "":
+        if self.port != "3260":
             retval += " --port=%s" % self.port
         if self.user is not None:
             retval += " --user=%s" % self.user
