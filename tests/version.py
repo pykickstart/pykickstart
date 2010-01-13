@@ -99,6 +99,16 @@ class StringToVersion_TestCase(CommandTest):
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 5.%s" % MINOR), RHEL5)
         self.assertEqual(stringToVersion("RHEL5"), RHEL5)
 
+        # pass - RHEL6
+        self.assertEqual(stringToVersion("Red Hat Enterprise Linux 6"), RHEL6)
+        self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 6"), RHEL6)
+        self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 6"), RHEL6)
+        for MINOR in range(1,10):
+            self.assertEqual(stringToVersion("Red Hat Enterprise Linux 6.%s" % MINOR), RHEL6)
+            self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 6.%s" % MINOR), RHEL6)
+            self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 6.%s" % MINOR), RHEL6)
+        self.assertEqual(stringToVersion("RHEL6"), RHEL6)
+
 class VersionToString_TestCase(CommandTest):
     def runTest(self):
 
@@ -133,6 +143,7 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(RHEL3), "RHEL3")
         self.assertEqual(versionToString(RHEL4), "RHEL4")
         self.assertEqual(versionToString(RHEL5), "RHEL5")
+        self.assertEqual(versionToString(RHEL6), "RHEL6")
 
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):
