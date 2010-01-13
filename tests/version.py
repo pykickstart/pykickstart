@@ -102,9 +102,13 @@ class StringToVersion_TestCase(CommandTest):
 class VersionToString_TestCase(CommandTest):
     def runTest(self):
 
-        # Make sure DEVEL is the highest version
+        # Make sure DEVEL is the highest version, but RHEL versions aren't
+        # counted as devel.
         highest = 0
         for (ver_str,ver_num) in versionMap.items():
+            if ver_str.startswith("RHEL"):
+                continue
+
             highest = max(ver_num, highest)
         self.assertEqual(highest, DEVEL)
 
