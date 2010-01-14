@@ -240,7 +240,7 @@ class KickstartWriter:
                 retval += " --target=%s" % i.target
             if i.ipaddr != "":
                 retval += " --ipaddr=%s" % i.ipaddr
-            if i.port != "":
+            if i.port != "" and i.port != "3260":
                 retval += " --port=%s" % i.port
             if i.user is not None:
                 retval += " --user=%s" % i.user
