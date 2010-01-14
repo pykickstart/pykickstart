@@ -148,6 +148,14 @@ class VersionToString_TestCase(CommandTest):
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):
 
+        # Test that everything in version.versionMap has a handler, except
+        # for DEVEL.
+        for (name, vers) in versionMap.iteritems():
+            if name == "DEVEL":
+                continue
+
+            self.assertEqual(returnClassForVersion(vers).version, vers)
+
         # Load the handlers
         import pykickstart.handlers
         for module in loadModules(pykickstart.handlers.__path__[0], cls_pattern="Handler", skip_list=["control"]):
@@ -157,8 +165,6 @@ class returnClassForVersion_TestCase(CommandTest):
                 self.assertTrue(versionMap.has_key(vers))
                 # Ensure that returnClassForVersion returns what we expect
                 self.assertEqual(getClassName(returnClassForVersion(versionMap[vers])), getClassName(module))
-
-# TODO - versionFromFile
 
 class versionFromFile_TestCase(CommandTest):
     def runTest(self):
