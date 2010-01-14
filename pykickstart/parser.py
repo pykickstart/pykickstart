@@ -260,6 +260,10 @@ class Packages(KickstartObject):
            groupList     -- A list of Group objects representing all the groups
                             specified in the %packages section.  Names will be
                             stripped of the leading @ symbol.
+           excludedGroupList -- A list of Group objects representing all the
+                                groups specified for removal in the %packages
+                                section.  Names will be stripped of the leading
+                                -@ symbols.
            handleMissing -- If unknown packages are specified in the %packages
                             section, should it be ignored or not?  Values can
                             be KS_MISSING_* from pykickstart.constants.
@@ -272,6 +276,7 @@ class Packages(KickstartObject):
         self.addBase = True
         self.default = False
         self.excludedList = []
+        self.excludedGroupList = []
         self.excludeDocs = False
         self.groupList = []
         self.handleMissing = KS_MISSING_PROMPT
@@ -292,6 +297,11 @@ class Packages(KickstartObject):
             p.sort()
             for pkg in p:
                 pkgs += "%s\n" % pkg
+
+            grps = self.excludedGroupList
+            grps.sort()
+            for grp in grps:
+                pkgs += "-%s\n" % grp.__str__()
 
             p = self.excludedList
             p.sort()
@@ -354,23 +364,35 @@ class Packages(KickstartObject):
         newExcludedSet = set()
         newPackageSet = set()
 
+        excludedGroupList = []
+
         for pkg in pkgList:
             stripped = pkg.strip()
 
             if stripped[0] == "@":
                 self._processGroup(stripped[1:])
             elif stripped[0] == "-":
-                # Support syntax for removing a previously included group.  If
-                # the provided group does not exist, it's not an error.
                 if stripped[1] == "@":
-                    try:
-                        self.groupList = filter(lambda g: g.name != stripped[2:], self.groupList)
-                    except ValueError:
-                        pass
+                    excludedGroupList.append(Group(name=stripped[2:]))
                 else:
                     newExcludedSet.add(stripped[1:])
             else:
                 newPackageSet.add(stripped)
+
+        # Groups have to be excluded in two different ways (note: can't use
+        # sets here because we have to store objects):
+        excludedGroupNames = map(lambda g: g.name, excludedGroupList)
+
+        # First, an excluded group may be cancelling out a previously given
+        # one.  This is often the case when using %include.  So there we should
+        # just remove the group from the list.
+        self.groupList = filter(lambda g: g.name not in excludedGroupNames, self.groupList)
+
+        # Second, the package list could have included globs which are not
+        # processed by pykickstart.  In that case we need to preserve a list of
+        # excluded groups so whatever tool doing package/group installation can
+        # take appropriate action.
+        self.excludedGroupList = excludedGroupList
 
         existingPackageSet = (existingPackageSet - newExcludedSet) | newPackageSet
         existingExcludedSet = (existingExcludedSet - existingPackageSet) | newExcludedSet
