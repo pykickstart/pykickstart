@@ -211,6 +211,7 @@ class FC3_LogVol(KickstartCommand):
 
         lvd = self.handler.LogVolData()
         self._setToObj(self.op, opts, lvd)
+        lvd.lineno = self.lineno
         lvd.mountpoint=extra[0]
 
         # Check for duplicates in the data list.

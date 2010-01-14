@@ -144,6 +144,7 @@ class FC6_User(KickstartCommand):
         ud = self.handler.UserData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, ud)
+        ud.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if ud in self.dataList():

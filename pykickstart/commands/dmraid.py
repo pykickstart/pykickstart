@@ -79,6 +79,7 @@ class FC6_DmRaid(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(self.op, opts, dm)
+        dm.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if dm in self.dataList():

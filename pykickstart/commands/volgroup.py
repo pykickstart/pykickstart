@@ -89,6 +89,7 @@ class FC3_VolGroup(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         vg = self.handler.VolGroupData()
         self._setToObj(self.op, opts, vg)
+        vg.lineno = self.lineno
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
 

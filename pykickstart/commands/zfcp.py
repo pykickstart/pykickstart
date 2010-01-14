@@ -96,6 +96,7 @@ class FC3_ZFCP(KickstartCommand):
         zd = self.handler.ZFCPData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, zd)
+        zd.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if zd in self.dataList():

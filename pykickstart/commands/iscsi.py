@@ -114,6 +114,7 @@ class FC6_Iscsi(KickstartCommand):
 
         dd = self.handler.IscsiData()
         self._setToObj(self.op, opts, dd)
+        dd.lineno = self.lineno
         return dd
 
     def dataList(self):

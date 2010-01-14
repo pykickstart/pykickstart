@@ -431,13 +431,17 @@ class BaseData(KickstartObject):
     removedAttrs = []
 
     def __init__(self, *args, **kwargs):
-        """Create a new BaseData instance.  There are no attributes."""
+        """Create a new BaseData instance.
+        
+           lineno -- Line number in the ks-file where this object was defined
+        """
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseData:
             raise TypeError, "BaseData is an abstract class."
 
         KickstartObject.__init__(self, *args, **kwargs)
+        self.lineno = 0
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""

@@ -206,6 +206,7 @@ class FC3_Network(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         nd = self.handler.NetworkData()
         self._setToObj(self.op, opts, nd)
+        nd.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if nd in self.dataList():

@@ -234,6 +234,7 @@ class FC3_Raid(KickstartCommand):
 
         rd = self.handler.RaidData()
         self._setToObj(self.op, opts, rd)
+        rd.lineno = self.lineno
 
         # --device can't just take an int in the callback above, because it
         # could be specificed as "mdX", which causes optparse to error when

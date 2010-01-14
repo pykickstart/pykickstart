@@ -96,6 +96,7 @@ class FC3_DriverDisk(KickstartCommand):
 
         ddd = self.handler.DriverDiskData()
         self._setToObj(self.op, opts, ddd)
+        ddd.lineno = self.lineno
         if len(extra) == 1:
             ddd.partition = extra[0]
 

@@ -93,6 +93,7 @@ class F12_Fcoe(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
 
         self._setToObj(self.op, opts, zd)
+        zd.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if zd in self.dataList():

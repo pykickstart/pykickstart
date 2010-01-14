@@ -112,6 +112,7 @@ class F8_Device(FC3_Device):
 
         dd = F8_DeviceData()
         self._setToObj(self.op, opts, dd)
+        dd.lineno = self.lineno
         dd.moduleName = extra[0]
 
         # Check for duplicates in the data list.

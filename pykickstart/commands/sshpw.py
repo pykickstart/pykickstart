@@ -90,6 +90,7 @@ class F13_SshPw(KickstartCommand):
         ud = self.handler.SshPwData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, ud)
+        ud.lineno = self.lineno
 
         if len(extra) != 1:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw")

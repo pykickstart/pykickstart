@@ -149,6 +149,7 @@ class FC6_Repo(KickstartCommand):
 
         rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)
+        rd.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if rd in self.dataList():

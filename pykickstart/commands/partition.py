@@ -242,6 +242,7 @@ class FC3_Partition(KickstartCommand):
 
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
+        pd.lineno = self.lineno
         pd.mountpoint=extra[0]
 
         # Check for duplicates in the data list.

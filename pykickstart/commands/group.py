@@ -76,6 +76,7 @@ class F12_Group(KickstartCommand):
         gd = self.handler.GroupData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, gd)
+        gd.lineno = self.lineno
 
         # Check for duplicates in the data list.
         if gd in self.dataList():
