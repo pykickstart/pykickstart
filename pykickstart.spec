@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.67
+Version: 1.68
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,16 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jan 14 2010 Chris Lumens <clumens@redhat.com> - 1.68-1
+- Support removing groups that were included by a glob (#554717). (clumens)
+- Make sure that everything in version.versionMap has a handler. (clumens)
+- Add support for RHEL6 (#552230). (clumens)
+- Don't consider RHEL versions as developmental even if they're latest. (clumens)
+- Add lineno to BaseData and derived classes (version 2) (hdegoede)
+- Give the non mandatory iscsi --port argument a sane default (hdegoede)
+- Change python_sitelib macro to use %global for new rpm (hdegoede)
+- Fix typo in iscsi parsing error message (hdegoede)
+
 * Thu Dec 03 2009 Chris Lumens <clumens@redhat.com> - 1.67-1
 - Don't use action="append_const" in firewall.py.
 - Make "make archive" depend on test and check passing again.
