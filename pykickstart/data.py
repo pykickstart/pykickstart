@@ -195,7 +195,7 @@ class KickstartMultiPathData:
 class KickstartIscsiData:
     def __init__(self):
         self.ipaddr = ""
-        self.port = ""
+        self.port = "3260"
         self.target = ""
         self.user = None
         self.password = None
