@@ -77,6 +77,7 @@ class KickstartData:
         self.groupList = []
         self.packageList = []
         self.excludedList = []
+        self.excludedGroupList = []
         self.scripts = []
 
 class KickstartLogVolData:

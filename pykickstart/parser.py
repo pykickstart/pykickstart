@@ -1032,12 +1032,31 @@ class KickstartParser:
     def addPackages (self, line):
         stripped = line.strip()
 
+        excludedGroupList = []
+
         if stripped[0] == '@':
             self.ksdata.groupList.append(stripped[1:].lstrip())
         elif stripped[0] == '-':
-            self.ksdata.excludedList.append(stripped[1:].lstrip())
+            if stripped[1] == "@":
+                excludedGroupList.append(stripped[2:])
+            else:
+                self.ksdata.excludedList.append(stripped[1:].lstrip())
         else:
             self.ksdata.packageList.append(stripped)
+
+        # Groups have to be excluded in two different ways.  This is all more
+        # simple than what we do on master.
+
+        # First, an excluded group may be cancelling out a previously given
+        # one.  This is often the case when using %include.  So there we should
+        # just remove the group from the list.
+        self.ksdata.groupList = filter(lambda g: g not in excludedGroupList, self.ksdata.groupList)
+
+        # Second, the package list could have included globs which are not
+        # processed by pykickstart.  In that case we need to preserve a list of
+        # excluded groups so whatever tool doing package/group installation can
+        # take appropriate action.
+        self.ksdata.excludedGroupList = excludedGroupList
 
     def handleCommand (self, lineno, args):
         if not self.handler:

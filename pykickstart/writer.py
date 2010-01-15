@@ -694,6 +694,9 @@ class KickstartWriter:
         for pkg in self.ksdata.packageList:
             pkgs += "%s\n" % pkg
 
+        for grp in self.ksdata.excludedGroupList:
+            pkgs += "-@%s\n" % grp
+
         for pkg in self.ksdata.excludedList:
             pkgs += "-%s\n" % pkg
 
