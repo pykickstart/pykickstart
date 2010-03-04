@@ -51,12 +51,37 @@ class FC3_DriverDiskData(BaseData):
         retval += "driverdisk %s\n" % self._getArgsAsStr()
         return retval
 
-class F12_DriverDiskData(FC3_DriverDiskData):
-    removedKeywords = FC3_DriverDiskData.removedKeywords + ["type"]
-    removedAttrs = FC3_DriverDiskData.removedAttrs + ["type"]
+class FC4_DriverDiskData(FC3_DriverDiskData):
+    removedKeywords = FC3_DriverDiskData.removedKeywords
+    removedAttrs = FC3_DriverDiskData.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_DriverDiskData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.biosdisk = kwargs.get("biosdisk", "")
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.partition:
+            retval += "%s" % self.partition
+
+            if hasattr(self, "type") and self.type:
+                retval += " --type=%s" % self.type
+        elif self.source:
+            retval += "--source=%s" % self.source
+        elif self.biosdisk:
+            retval += "--biosdisk=%s" % self.biosdisk
+
+        return retval
+
+class F12_DriverDiskData(FC4_DriverDiskData):
+    removedKeywords = FC4_DriverDiskData.removedKeywords + ["type"]
+    removedAttrs = FC4_DriverDiskData.removedAttrs + ["type"]
 
     def __init__(self, *args, **kwargs):
-        FC3_DriverDiskData.__init__(self, *args, **kwargs)
+        FC4_DriverDiskData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
 class FC3_DriverDisk(KickstartCommand):
@@ -105,11 +130,44 @@ class FC3_DriverDisk(KickstartCommand):
     def dataList(self):
         return self.driverdiskList
 
-class F12_DriverDisk(FC3_DriverDisk):
+class FC4_DriverDisk(FC3_DriverDisk):
     removedKeywords = FC3_DriverDisk.removedKeywords
     removedAttrs = FC3_DriverDisk.removedKeywords
 
     def _getParser(self):
         op = FC3_DriverDisk._getParser(self)
+        op.add_option("--biosdisk")
+        return op
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+
+        if len(extra) > 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command."))
+
+        if len(extra) == 1 and opts.source:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command."))
+        elif len(extra) == 1 and opts.biosdisk:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biosdisk and partition may be specified for driverdisk command."))
+        elif opts.source and opts.biosdisk:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biosdisk and --source may be specified for driverdisk command."))
+
+        if not extra and not opts.source and not opts.biosdisk:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --source, --biosdisk, or partition must be specified for driverdisk command."))
+
+        ddd = self.handler.DriverDiskData()
+        self._setToObj(self.op, opts, ddd)
+        ddd.lineno = self.lineno
+        if len(extra) == 1:
+            ddd.partition = extra[0]
+
+        return ddd
+
+class F12_DriverDisk(FC4_DriverDisk):
+    removedKeywords = FC4_DriverDisk.removedKeywords
+    removedAttrs = FC4_DriverDisk.removedKeywords
+
+    def _getParser(self):
+        op = FC4_DriverDisk._getParser(self)
         op.add_option("--type", deprecated=1)
         return op

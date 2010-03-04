@@ -38,5 +38,19 @@ class FC3_TestCase(CommandTest):
         # fail - specifying both partition and source
         self.assert_parse_error("driverdisk /dev/sdb2 --source=http://10.0.0.1/disk.img", KickstartValueError)
 
+class FC4_TestCase(FC3_TestCase):
+    def runTest(self):
+        FC3_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("driverdisk --biosdisk=0x82", "driverdisk --biosdisk=0x82\n")
+
+        # fail - no arguments
+        self.assert_parse_error("driverdisk --biosdisk", KickstartParseError)
+        # fail - specifying both biosdisk and partition
+        self.assert_parse_error("driverdisk /dev/sdb2 --biosdisk=0x82", KickstartValueError)
+        # fail - specifying both biosdisk and source
+        self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biosdisk=0x82", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()
