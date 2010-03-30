@@ -56,7 +56,7 @@ rm -rf %{buildroot}
 - Don't consider RHEL versions as developmental even if they're latest. (clumens)
 - Add lineno to BaseData and derived classes (version 2) (hdegoede)
 - Give the non mandatory iscsi --port argument a sane default (hdegoede)
-- Change python_sitelib macro to use %global for new rpm (hdegoede)
+- Change python_sitelib macro to use %%global for new rpm (hdegoede)
 - Fix typo in iscsi parsing error message (hdegoede)
 
 * Thu Dec 03 2009 Chris Lumens <clumens@redhat.com> - 1.67-1
@@ -70,7 +70,7 @@ rm -rf %{buildroot}
 - Add --dcb option to fcoe command (#513011)
 - Remove rhpl from tests
 - Port bootloader --hvargs option added in rhel5
-- Ignore comments when looking for %ksappend lines (#525676)
+- Ignore comments when looking for %%ksappend lines (#525676)
 - Use python 2.x exception syntax
 
 * Thu Nov 12 2009 Chris Lumens <clumens@redhat.com> - 1.65-1
@@ -82,7 +82,7 @@ rm -rf %{buildroot}
 
 * Wed Sep 30 2009 Chris Lumens <clumens@redhat.com> - 1.64-1
 - Update the zfcp command for F12 (#526360).
-- Move "make" to %build (#524215).
+- Move "make" to %%build (#524215).
 
 * Wed Sep 16 2009 Chris Lumens <clumens@redhat.com> - 1.63-1
 - Add encryption key escrow support (mitr, #508963).
@@ -184,7 +184,7 @@ rm -rf %{buildroot}
 - Add a script to diff two versions of kickstart syntax.
 - Add an option to ksvalidator to list all available syntax versions.
 - Remove a couple extra newlines in output formatting.
-- Add documentation for the new %include representation.
+- Add documentation for the new %%include representation.
 - Add support %include to the pykickstart data objects.
 
 * Thu Jan 08 2009 Chris Lumens <clumens@redhat.com> - 1.49-1
@@ -222,7 +222,7 @@ rm -rf %{buildroot}
 
 * Mon Aug 11 2008 Chris Lumens <clumens@redhat.com> - 1.42-1
 - Add rescue command to pykickstart (atodorov)
-- Sort %packages output (katzj)
+- Sort %%packages output (katzj)
 - Fix a typo (atodorov).
 
 * Fri Aug 01 2008 Chris Lumens <clumens@redhat.com> - 1.41-1
@@ -306,7 +306,7 @@ rm -rf %{buildroot}
 - Add syntax for encrypted partitions and raid devices. (clumens)
 
 * Thu Jan 10 2008 Chris Lumens <clumens@redhat.com> - 1.24-1
-- Make inheritance and overriding of %packages work (#427768). (clumens)
+- Make inheritance and overriding of %%packages work (#427768). (clumens)
 - Add an option for which languages should be installed. (katzj)
 - Use the right name for the iscsi --target variable (#418781). (clumens)
 
@@ -328,7 +328,7 @@ rm -rf %{buildroot}
 - Fix error messages for options that have been removed after having been
   previously deprecated.
 - zerombr no longer takes any arguments.
-- %packages --ignoredeps --resolvedeps have been removed.
+- %%packages --ignoredeps --resolvedeps have been removed.
 - firewall --high --medium have been removed.
 - vnc --connect has been removed.
 - xconfig options from monitor have now been removed.
@@ -342,7 +342,7 @@ rm -rf %{buildroot}
 - Fix a traceback on the cdrom method.
 
 * Thu Oct 18 2007 Chris Lumens <clumens@redhat.com> 1.18-1
-- Don't write out %end to packages and scripts if the syntax version doesn't
+- Don't write out %%end to packages and scripts if the syntax version doesn't
   support it.
 - Remove obsolete translation (#332221).
 
@@ -350,7 +350,7 @@ rm -rf %{buildroot}
 - Simplify argument processing and printing.
 
 * Wed Oct 03 2007 Chris Lumens <clumens@redhat.com> 1.16-1
-- Undeprecate %packages --excludedocs.
+- Undeprecate %%packages --excludedocs.
 - Fix a traceback in the device command handling.
 - Add bootloader --timeout (katzj).
 
@@ -371,7 +371,7 @@ rm -rf %{buildroot}
 * Tue Sep 04 2007 Chris Lumens <clumens@redhat.com> 1.12-1
 - Fix lots of problems in processing the bootloader, device, network, and
   raid commands.
-- Add %end when writing out scripts and packages.
+- Add %%end when writing out scripts and packages.
 - Add a makefile target to run pychecker to cut down on errors in
   releases.
 
@@ -382,7 +382,7 @@ rm -rf %{buildroot}
 - Add network --ipv6=.
 
 * Fri Aug 24 2007 Chris Lumens <clumens@redhat.com> 1.9-1
-- Add support for the %end directive to be placed at the end of scripts
+- Add support for the %%end directive to be placed at the end of scripts
   and packages sections.  Deprecate old syntax.
 - Clean up after ksvalidator if pykickstart issues a traceback.
 - Add support for repo --priority --includepkgs --excludepkgs.
@@ -407,7 +407,7 @@ rm -rf %{buildroot}
 - Fix traceback when calling preprocessKickstart.
 
 * Tue Jul 17 2007 Chris Lumens <clumens@redhat.com> 1.4-1
-- Add methods to handle the %ksappend directive.
+- Add methods to handle the %%ksappend directive.
 - Fix ignoredisk --disks.
 
 * Wed Jul 11 2007 Chris Lumens <clumens@redhat.com> - 1.3-1
@@ -439,7 +439,7 @@ rm -rf %{buildroot}
 
 * Wed Mar 07 2007 Chris Lumens <clumens@redhat.com> - 0.99-1
 - The timezone command didn't recognize --isUtc before FC6 (#231189).
-- Recognize %ksappend lines in ksvalidator.
+- Recognize %%ksappend lines in ksvalidator.
 - Don't set default values in some command __init__ methods.
 - Added an updates command.
 - Add support for RAID10.
