@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.69
+Version: 1.70
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Mar 31 2010 Chris Lumens <clumens@redhat.com> - 1.70-1
+- Add support for RAID4 (#578514). (clumens)
+- Escape percent signs in the changelog. (clumens)
+
 * Wed Mar 10 2010 Chris Lumens <clumens@redhat.com> - 1.69-1
 - Add driverdisk --biospart= (#570437). (clumens)
 - Fix IOError catching in ksflatten (jgregusk, #558650).
