@@ -169,6 +169,8 @@ class F12_RaidData(F9_RaidData):
                 retval += " --backuppassphrase"
         return retval
 
+F13_RaidData = F12_RaidData
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -316,3 +318,12 @@ class F12_Raid(F9_Raid):
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
         return op
+
+class F13_Raid(F12_Raid):
+    removedKeywords = F12_Raid.removedKeywords
+    removedAttrs = F12_Raid.removedAttrs
+
+    def __init__(self, writePriority=131, *args, **kwargs):
+        F12_Raid.__init__(self, writePriority, *args, **kwargs)
+
+        self.levelMap.update({"RAID4": "RAID4", "4": "RAID4"})

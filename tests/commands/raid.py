@@ -206,5 +206,10 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("raid / --device=md0 --backuppassphrase=True "
                                 "raid.01 raid.02")
 
+class F13_TestCase(F12_TestCase):
+    def __init__(self, *kargs, **kwargs):
+        F12_TestCase.__init__(self, *kargs, **kwargs)
+        self.validLevels.append("RAID4")
+
 if __name__ == "__main__":
     unittest.main()
