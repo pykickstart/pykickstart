@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.70
+Version: 1.71
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Apr 14 2010 Chris Lumens <clumens@redhat.com> - 1.71-1
+- Don't overwrite the excluded group list after every %packages line (#577334). (clumens)
+- Add a bunch of test cases for the packages section. (clumens)
+
 * Wed Mar 31 2010 Chris Lumens <clumens@redhat.com> - 1.70-1
 - Add support for RAID4 (#578514). (clumens)
 - Escape percent signs in the changelog. (clumens)
