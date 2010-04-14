@@ -392,7 +392,7 @@ class Packages(KickstartObject):
         # processed by pykickstart.  In that case we need to preserve a list of
         # excluded groups so whatever tool doing package/group installation can
         # take appropriate action.
-        self.excludedGroupList = excludedGroupList
+        self.excludedGroupList.extend(excludedGroupList)
 
         existingPackageSet = (existingPackageSet - newExcludedSet) | newPackageSet
         existingExcludedSet = (existingExcludedSet - existingPackageSet) | newExcludedSet
