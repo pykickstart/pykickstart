@@ -96,13 +96,13 @@ try:
     cleanup(destdir, processedFile, exitval=0)
 except DeprecationWarning, msg:
     print _("File uses a deprecated option or command.\n%s") % msg
-    cleanup(destdir, processedFile, exitval=0)
+    cleanup(destdir, processedFile)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
-    cleanup(destdir, processedFile, exitval=0)
+    cleanup(destdir, processedFile)
 except KickstartError:
     print _("General kickstart error in input file")
-    cleanup(destdir, processedFile, exitval=0)
+    cleanup(destdir, processedFile)
 except Exception, e:
     print _("General error in input file:  %s") % e
     cleanup(destdir, processedFile)
