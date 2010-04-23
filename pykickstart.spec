@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.71
+Version: 1.72
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Apr 23 2010 Chris Lumens <clumens@redhat.com> - 1.72-1
+- Return non-zero on error from ksvalidator (#585284). (clumens)
+
 * Wed Apr 14 2010 Chris Lumens <clumens@redhat.com> - 1.71-1
 - Don't overwrite the excluded group list after every %packages line (#577334). (clumens)
 - Add a bunch of test cases for the packages section. (clumens)
