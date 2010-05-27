@@ -77,11 +77,12 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
 
         return retval
 
-    def parse(self, args):
+    def parse(self, args, errorCheck=True):
         retval = FC3_IgnoreDisk.parse(self, args)
 
-        if (len(self.ignoredisk) == 0 and len(self.onlyuse) == 0) or (len(self.ignoredisk) > 0 and (len(self.onlyuse) > 0)):
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command."))
+        if errorCheck:
+            if (len(self.ignoredisk) == 0 and len(self.onlyuse) == 0) or (len(self.ignoredisk) > 0 and (len(self.onlyuse) > 0)):
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command."))
 
         return retval
 
@@ -95,4 +96,44 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
                       callback=drive_cb, nargs=1, type="string")
         op.add_option("--only-use", dest="onlyuse", action="callback",
                       callback=drive_cb, nargs=1, type="string")
+        return op
+
+class RHEL6_IgnoreDisk(F8_IgnoreDisk):
+    removedKeywords = F8_IgnoreDisk.removedKeywords
+    removedAttrs = F8_IgnoreDisk.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F8_IgnoreDisk.__init__(self, writePriority, *args, **kwargs)
+
+        self.interactive = kwargs.get("interactive", False)
+        if self.interactive:
+            self.ignoredisk = []
+
+    def __str__(self):
+        retval = F8_IgnoreDisk.__str__(self)
+
+        if self.interactive:
+            retval = "ignoredisk --interactive\n"
+
+        return retval
+
+    def parse(self, args):
+        retval = F8_IgnoreDisk.parse(self, args, errorCheck=False)
+
+        howmany = 0
+        if len(self.ignoredisk) > 0:
+            howmany += 1
+        if len(self.onlyuse) > 0:
+            howmany += 1
+        if self.interactive:
+            howmany += 1
+        if howmany != 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command."))
+
+        return retval
+
+    def _getParser(self):
+        op = F8_IgnoreDisk._getParser(self)
+        op.add_option("--interactive", dest="interactive", action="store_true",
+                      default=False)
         return op

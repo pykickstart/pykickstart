@@ -830,7 +830,7 @@ commandMap = {
         "group": group.F12_Group,
         "halt": reboot.FC6_Reboot,
         "harddrive": method.F13_Method,
-        "ignoredisk": ignoredisk.F8_IgnoreDisk,
+        "ignoredisk": ignoredisk.RHEL6_IgnoreDisk,
         "install": upgrade.F11_Upgrade,
         "interactive": interactive.FC3_Interactive,
         "iscsi": iscsi.F10_Iscsi,

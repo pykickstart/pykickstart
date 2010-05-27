@@ -59,5 +59,22 @@ class F8_TestCase(FC3_TestCase):
         self.assert_parse_error("ignoredisk --drives=sda --only-use=sdb", KickstartValueError)
         self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb", KickstartValueError)
 
+class RHEL6_TestCase(F8_TestCase):
+    def runTest(self):
+        # Run parents class tests
+        F8_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("ignoredisk --interactive", "ignoredisk --interactive\n")
+
+        # fail
+        # both options provided
+        self.assert_parse_error("ignoredisk --drives=sda --interactive", KickstartValueError)
+        self.assert_parse_error("ignoredisk --interactive --drives=sda", KickstartValueError)
+        self.assert_parse_error("ignoredisk --only-use=sda --interactive", KickstartValueError)
+        self.assert_parse_error("ignoredisk --interactive --only-use=sda", KickstartValueError)
+        self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb", KickstartValueError)
+        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()
