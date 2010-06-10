@@ -137,3 +137,5 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         op.add_option("--interactive", dest="interactive", action="store_true",
                       default=False)
         return op
+
+F14_IgnoreDisk = RHEL6_IgnoreDisk
