@@ -188,6 +188,11 @@ class KSOption (Option):
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
 
+    def takes_value(self):
+        # Deprecated options don't take a value.
+        return Option.takes_value(self) and not self.deprecated
+
     def __init__(self, *args, **kwargs):
+        self.deprecated = False
         self.required = False
         Option.__init__(self, *args, **kwargs)
