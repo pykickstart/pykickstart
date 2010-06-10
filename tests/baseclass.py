@@ -83,7 +83,7 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(cmd)
 
         for op in parser.op.option_list:
-            if op.dest == opt:
+            if op.get_opt_string() == opt:
                 self.assert_(op.deprecated)
 
     def assert_removed(self, cmd, opt):
@@ -97,14 +97,14 @@ class CommandTest(unittest.TestCase):
         option_list'''
         parser = self.getParser(cmd)
         for op in parser.op.option_list:
-            if op.dest == opt:
+            if op.get_opt_string() == opt:
                 self.assert_(op.required)
 
     def assert_type(self, cmd, opt, opt_type):
         '''Ensure that the provided option is of the requested type'''
         parser = self.getParser(cmd)
         for op in parser.op.option_list:
-            if op.dest == opt:
+            if op.get_opt_string() == opt:
                 self.assertEqual(op.type, opt_type)
 
 def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "baseclass"]):
