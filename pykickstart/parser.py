@@ -669,8 +669,8 @@ class KickstartParser:
 
             elif self._state == STATE_PACKAGES:
                 if not args and self._includeDepth == 0:
-                    if self.version >= F8 :
-                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % "%packages", DeprecationWarning)
+                    if self.version >= F8:
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
 
                     self._state = STATE_END
                 elif args[0] == "%end":
@@ -730,7 +730,7 @@ class KickstartParser:
             elif self._state == STATE_SCRIPT:
                 if self._line in ["%end", ""] and self._includeDepth == 0:
                     if self._line == "" and self.version >= F8:
-                        warnings.warn(_("%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax.") % _("Script"), DeprecationWarning)
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
 
                     # If we're at the end of the kickstart file, add the script.
                     self.addScript()
