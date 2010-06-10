@@ -99,7 +99,7 @@ class FC6_Vnc(FC3_Vnc):
 
         op = FC3_Vnc._getParser(self)
         op.add_option("--connect", action="callback", callback=connect_cb,
-                      nargs=1, type="string", deprecated=1)
+                      nargs=1, type="string")
         op.add_option("--host", dest="host")
         op.add_option("--port", dest="port")
         return op
