@@ -79,5 +79,12 @@ class F10_TestCase(F9_TestCase):
         # deprecated
         self.assert_deprecated("firewall", "--telnet")
 
+class F14_TestCase(F10_TestCase):
+    def runTest(self):
+        F10_TestCase.runTest(self)
+
+        # removed
+        self.assert_removed("firewall", "--telnet")
+
 if __name__ == "__main__":
     unittest.main()

@@ -160,6 +160,8 @@ class F12_LogVolData(F9_LogVolData):
 
         return retval
 
+F14_LogVolData = F12_LogVolData
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -265,4 +267,13 @@ class F12_LogVol(F9_LogVol):
         op = F9_LogVol._getParser(self)
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
+        return op
+
+class F14_LogVol(F12_LogVol):
+    removedKeywords = F12_LogVol.removedKeywords
+    removedAttrs = F12_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F12_LogVol._getParser(self)
+        op.remove_option("--bytes-per-inode")
         return op

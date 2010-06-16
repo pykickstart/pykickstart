@@ -66,6 +66,8 @@ class F12_ZFCPData(FC3_ZFCPData):
         FC3_ZFCPData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
+F14_ZFCPData = F12_ZFCPData
+
 class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -119,4 +121,14 @@ class F12_ZFCP(FC3_ZFCP):
         op = FC3_ZFCP._getParser(self)
         op.add_option("--scsiid", deprecated=1)
         op.add_option("--scsilun", deprecated=1)
+        return op
+
+class F14_ZFCP(F12_ZFCP):
+    removedKeywords = F12_ZFCP.removedKeywords
+    removedAttrs = F12_ZFCP.removedAttrs
+
+    def _getParser(self):
+        op = F12_ZFCP._getParser(self)
+        op.remove_option("--scsiid")
+        op.remove_option("--scsilun")
         return op

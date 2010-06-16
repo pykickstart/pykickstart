@@ -171,6 +171,8 @@ class F12_RaidData(F9_RaidData):
 
 F13_RaidData = F12_RaidData
 
+F14_RaidData = F13_RaidData
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -327,3 +329,12 @@ class F13_Raid(F12_Raid):
         F12_Raid.__init__(self, writePriority, *args, **kwargs)
 
         self.levelMap.update({"RAID4": "RAID4", "4": "RAID4"})
+
+class F14_Raid(F13_Raid):
+    removedKeywords = F13_Raid.removedKeywords
+    removedAttrs = F13_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F13_Raid._getParser(self)
+        op.remove_option("--bytes-per-inode")
+        return op

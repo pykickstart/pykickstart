@@ -181,5 +181,10 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
                                 "--vgname=VGNAME")
 
+class F14_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+        self.assert_removed("logvol", "--bytes-per-inode")
+
 if __name__ == "__main__":
     unittest.main()

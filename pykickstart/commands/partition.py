@@ -180,6 +180,7 @@ class F12_PartData(F11_PartData):
 
         return retval
 
+F14_PartData = F12_PartData
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -333,4 +334,15 @@ class F12_Partition(F11_Partition):
         op = F11_Partition._getParser(self)
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
+        return op
+
+class F14_Partition(F12_Partition):
+    removedKeywords = F12_Partition.removedKeywords
+    removedAttrs = F12_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F12_Partition._getParser(self)
+        op.remove_option("--bytes-per-inode")
+        op.remove_option("--start")
+        op.remove_option("--end")
         return op

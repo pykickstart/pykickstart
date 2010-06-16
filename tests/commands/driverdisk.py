@@ -29,9 +29,15 @@ class FC3_TestCase(CommandTest):
         # pass
         self.assert_parse("driverdisk /dev/sdb2", "driverdisk /dev/sdb2\n")
         self.assert_parse("driverdisk --source=http://10.0.0.1/disk.img", "driverdisk --source=http://10.0.0.1/disk.img\n")
-        self.assert_parse("driverdisk /dev/sdb2 --type=vfat", "driverdisk /dev/sdb2 --type=vfat\n")
-        # pass - need separate tests per fstype?
-        self.assert_parse("driverdisk /dev/sdb2 --type=ext2", "driverdisk /dev/sdb2 --type=ext2\n")
+
+        if "--type" in self.optionList:
+            self.assert_parse("driverdisk /dev/sdb2 --type=vfat", "driverdisk /dev/sdb2 --type=vfat\n")
+            # pass - need separate tests per fstype?
+            self.assert_parse("driverdisk /dev/sdb2 --type=ext2", "driverdisk /dev/sdb2 --type=ext2\n")
+        else:
+            self.assert_parse("driverdisk /dev/sdb2", "driverdisk /dev/sdb2\n")
+            # pass - need separate tests per fstype?
+            self.assert_parse("driverdisk /dev/sdb2", "driverdisk /dev/sdb2\n")
 
         # fail - no arguments
         self.assert_parse_error("driverdisk", KickstartValueError)
@@ -53,6 +59,16 @@ class FC4_TestCase(FC3_TestCase):
         self.assert_parse_error("driverdisk /dev/sdb2 --biosdisk=0x82", KickstartValueError)
         # fail - specifying both biosdisk and source
         self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biosdisk=0x82", KickstartValueError)
+
+class F12_TestCase(FC4_TestCase):
+    def runTest(self):
+        FC4_TestCase.runTest(self)
+        self.assert_deprecated("driverdisk", "--type=ext4")
+
+class F14_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+        self.assert_removed("driverdisk", "--type=ext4")
 
 if __name__ == "__main__":
     unittest.main()

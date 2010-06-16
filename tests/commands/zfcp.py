@@ -49,5 +49,12 @@ class F12_TestCase(FC3_TestCase):
         self.assert_deprecated("zfcp", "--scsiid")
         self.assert_deprecated("zfcp", "--scsilun")
 
+class F14_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+
+        self.assert_removed("zfcp", "--scsiid")
+        self.assert_removed("zfcp", "--scsilun")
+
 if __name__ == "__main__":
     unittest.main()

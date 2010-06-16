@@ -192,5 +192,10 @@ class F13_TestCase(F12_TestCase):
         F12_TestCase.__init__(self, *kargs, **kwargs)
         self.validLevels.append("RAID4")
 
+class F14_TestCase(F13_TestCase):
+    def runTest(self):
+        F13_TestCase.runTest(self)
+        self.assert_removed("raid", "bytes-per-inode")
+
 if __name__ == "__main__":
     unittest.main()

@@ -152,5 +152,12 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("part / --backuppassphrase=False")
         self.assert_parse_error("part / --backuppassphrase=True")
 
+class F14_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+        self.assert_removed("partition", "--bytes-per-inode")
+        self.assert_removed("partition", "--start")
+        self.assert_removed("partition", "--end")
+
 if __name__ == "__main__":
     unittest.main()

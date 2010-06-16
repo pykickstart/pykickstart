@@ -184,3 +184,12 @@ class F10_Firewall(F9_Firewall):
                       callback=service_cb)
         op.add_option("--telnet", deprecated=1)
         return op
+
+class F14_Firewall(F10_Firewall):
+    removedKeywords = F10_Firewall.removedKeywords + ["telnet"]
+    removedAttrs = F10_Firewall.removedAttrs + ["telnet"]
+
+    def _getParser(self):
+        op = F10_Firewall._getParser(self)
+        op.remove_option("--telnet")
+        return op

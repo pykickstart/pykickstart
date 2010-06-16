@@ -84,6 +84,8 @@ class F12_DriverDiskData(FC4_DriverDiskData):
         FC4_DriverDiskData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
+F14_DriverDiskData = F12_DriverDiskData
+
 class FC3_DriverDisk(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -170,4 +172,13 @@ class F12_DriverDisk(FC4_DriverDisk):
     def _getParser(self):
         op = FC4_DriverDisk._getParser(self)
         op.add_option("--type", deprecated=1)
+        return op
+
+class F14_DriverDisk(F12_DriverDisk):
+    removedKeywords = F12_DriverDisk.removedKeywords
+    removedAttrs = F12_DriverDisk.removedKeywords
+
+    def _getParser(self):
+        op = F12_DriverDisk._getParser(self)
+        op.remove_option("--type")
         return op

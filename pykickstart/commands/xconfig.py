@@ -170,3 +170,15 @@ class F10_XConfig(F9_XConfig):
         op.add_option("--resolution", deprecated=1)
         op.add_option("--videoram", deprecated=1)
         return op
+
+class F14_XConfig(F10_XConfig):
+    removedKeywords = F10_XConfig.removedKeywords
+    removedAttrs = F10_XConfig.removedAttrs
+
+    def _getParser(self):
+        op = F10_XConfig._getParser(self)
+        op.remove_option("--driver")
+        op.remove_option("--depth")
+        op.remove_option("--resolution")
+        op.remove_option("--videoram")
+        return op

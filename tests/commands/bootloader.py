@@ -94,6 +94,14 @@ class F12_TestCase(F8_TestCase):
         # deprecated
         self.assert_deprecated("bootloader", "--lba32")
 
+class F14_TestCase(F12_TestCase):
+    def runTest(self):
+        # Run parent tests
+        F12_TestCase.runTest(self)
+
+        # fail
+        self.assert_parse_error("bootloader --lba32", KickstartParseError)
+
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self):
         FC4_TestCase.runTest(self)
