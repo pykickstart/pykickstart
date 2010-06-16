@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-04 13:22-0400\n"
+"POT-Creation-Date: 2010-06-16 17:03-0400\n"
 "PO-Revision-Date: 2010-03-01 10:13+0200\n"
 "Last-Translator: Pierros Papadeas <pierros@papadeas.gr>\n"
 "Language-Team: Greek <fedora-trans-el@redhat.com>\n"
@@ -21,17 +21,25 @@ msgstr ""
 "X-Poedit-Language: Greek\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../pykickstart/base.py:147
+#: ../pykickstart/base.py:185
 #, python-format
-msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
-msgstr "Αγνόηση άχρηστης εντολής στην γραμμή %(lineno)s: Η εντολή %(cmd)s θεωρείται παλιά και δεν έχει πλέον αποτελέσματα. Πιθανώς να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο kickstart και αφαιρέστε την εντολή."
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+"Αγνόηση άχρηστης εντολής στην γραμμή %(lineno)s: Η εντολή %(cmd)s θεωρείται "
+"παλιά και δεν έχει πλέον αποτελέσματα. Πιθανώς να αφαιρεθεί από μελλοντικές "
+"εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο σφάλμα στο kickstart. "
+"Παρακαλώ τροποποιήστε το αρχείο kickstart και αφαιρέστε την εντολή."
 
-#: ../pykickstart/base.py:315
+#: ../pykickstart/base.py:389
 #, python-format
 msgid "Unknown command: %s"
 msgstr "Άγνωστη εντολή: %s"
 
-#: ../pykickstart/errors.py:48
+#: ../pykickstart/errors.py:46
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -42,104 +50,134 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:50
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "Υπήρξε πρόβλημα κατά την ανάγνωση της γραμμής %s του kickstart αρχείου"
 
-#: ../pykickstart/options.py:84
+#: ../pykickstart/options.py:83
 #, python-format
 msgid "Option %s is required"
 msgstr "Απαιτείται η επιλογή %s"
 
 #: ../pykickstart/options.py:87
-#, python-format
-msgid "The option %(option)s was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s"
-msgstr "Η επιλογή %(option)s εισήχθηκε στην έκδοση %(intro)s, αλλά χρησιμοποιείτε το kickstart με σύνταξη έκδοσης %(version)s"
-
-#: ../pykickstart/options.py:90
-#, python-format
-msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
-msgstr "Αγνόηση επιλογής που δεν είναι πλέον σε χρήση στην γραμμή %(lineno)s: Η επιλογή %(option)s θεωρείται παλιά και δεν έχει πλέον αποτελέσματα. Πιθανώς να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο kickstart και αφαιρέστε την εντολή."
+#, fuzzy, python-format
+msgid ""
+"The %(option)s option was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s."
+msgstr ""
+"Η επιλογή %(option)s εισήχθηκε στην έκδοση %(intro)s, αλλά χρησιμοποιείτε το "
+"kickstart με σύνταξη έκδοσης %(version)s"
 
 #: ../pykickstart/options.py:93
 #, python-format
-msgid "The option %(option)s was removed in version %(removed)s, but you are using kickstart syntax version %(version)s"
-msgstr "Η επιλογή %(option)s αφαιρέθηκε στην έκδοση %(removed)s, αλλά χρησιμοποιείτε σύνταξη της έκδοσης %(version)s του kickstart"
+msgid "The %(option)s option is no longer supported."
+msgstr ""
 
-#: ../pykickstart/options.py:147
-msgid "Required flag set for option that doesn't take a value"
-msgstr "Η απαραίτητη ρύθμιση για την επιλογή δεν δέχεται τιμή"
+#: ../pykickstart/options.py:95
+#, fuzzy, python-format
+msgid ""
+"The %(option)s option was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s."
+msgstr ""
+"Η επιλογή %(option)s αφαιρέθηκε στην έκδοση %(removed)s, αλλά χρησιμοποιείτε "
+"σύνταξη της έκδοσης %(version)s του kickstart"
 
-#: ../pykickstart/options.py:156
+#: ../pykickstart/options.py:98
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this option."
+msgstr ""
+"Αγνόηση επιλογής που δεν είναι πλέον σε χρήση στην γραμμή %(lineno)s: Η "
+"επιλογή %(option)s θεωρείται παλιά και δεν έχει πλέον αποτελέσματα. Πιθανώς "
+"να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο "
+"σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο kickstart και "
+"αφαιρέστε την εντολή."
+
+#: ../pykickstart/options.py:131
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "Επιλογή %(opt)s: μη έγκυρη τιμή boolean: %(value)r"
 
-#: ../pykickstart/options.py:161
+#: ../pykickstart/options.py:136
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
 msgstr "Επιλογή %(opt)s: μη έγκυρη τιμή: %(value)r"
 
-#: ../pykickstart/parser.py:90
+#: ../pykickstart/options.py:173
+msgid "Required flag set for option that doesn't take a value"
+msgstr "Η απαραίτητη ρύθμιση για την επιλογή δεν δέχεται τιμή"
+
+#: ../pykickstart/parser.py:94
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr "Μη έγκυρο URL για το %%ksappend: %s"
 
-#: ../pykickstart/parser.py:95
-#, python-format
-msgid "Unable to open %%ksappend file: "
+#: ../pykickstart/parser.py:99
+#, fuzzy, python-format
+msgid "Unable to open %%ksappend file: %s"
 msgstr "Αποτυχία ανοίγματος του αρχείου %%ksappend:"
 
-#: ../pykickstart/parser.py:101
-#: ../pykickstart/parser.py:103
+#: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "Αποτυχία ανοίγματος του αρχείου %%ksappend"
 
-#: ../pykickstart/parser.py:286
+#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
+#, fuzzy, python-format
+msgid "Unable to open input kickstart file: %s"
+msgstr "Αποτυχία ανοίγματος του αρχείου %%ksappend:"
+
+#: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Αδυναμία ταυτόχρονου ορισμού --nodefaults και --optional από την ομάδα"
 
-#: ../pykickstart/parser.py:545
-#: ../pykickstart/parser.py:604
+#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
-msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
-msgstr "Το %s δεν τελειώνει με %%end.  Η σύνταξη αυτή δεν είναι πλέον σε χρήση. Πιθανώς να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο kickstart και αφαιρέστε την εντολή."
-
-#: ../pykickstart/parser.py:604
-msgid "Script"
-msgstr "Κώδικας"
+msgid "Section does not end with %%end."
+msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87
-#: ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99
-#: ../pykickstart/version.py:110
-#: ../pykickstart/version.py:150
+#: ../pykickstart/version.py:103 ../pykickstart/version.py:112
+#: ../pykickstart/version.py:115 ../pykickstart/version.py:131
+#: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "Μη υποστηριζόμενη  έκδοση: %s"
 
-#: ../tools/ksvalidator:52
+#: ../tools/ksvalidator:50
 msgid "halt after the first error or warning"
 msgstr "τερματισμός μετά το πρώτο σφάλμα ή προειδοποίηση"
 
-#: ../tools/ksvalidator:55
+#: ../tools/ksvalidator:53
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "περιέλαβε τα αρχεία όταν φανεί το %include"
 
-#: ../tools/ksvalidator:57
+#: ../tools/ksvalidator:56
+msgid "list the available versions of kickstart syntax"
+msgstr ""
+
+#: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr "έκδοση σύνταξης kickstart για αναφορά κατά την πιστοποίηση"
 
-#: ../tools/ksvalidator:71
+#: ../tools/ksvalidator:76
+#, python-format
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+
+#: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Η έκδοση %s δεν υποστηρίζεται από το pykickstart"
 
-#: ../tools/ksvalidator:87
+#: ../tools/ksvalidator:98
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -148,14 +186,61 @@ msgstr ""
 "Το αρχείο χρησιμοποιεί μια επιλογή ή εντολή που δεν είναι πλέον σε χρήση.\n"
 "%s"
 
-#: ../tools/ksvalidator:93
+#: ../tools/ksvalidator:104
 msgid "General kickstart error in input file"
 msgstr "Γενικό σφάλμα kickstart στο αρχείο εισαγωγής"
 
-#: ../tools/ksvalidator:96
+#: ../tools/ksvalidator:107
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "Γενικό σφάλμα στο αρχείο εισαγωγής: %s"
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr ""
+
+#: ../tools/ksverdiff:68
+#, python-format
+msgid "The following commands were removed in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:71
+#, python-format
+msgid "The following commands were deprecated in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:74
+#, python-format
+msgid "The following commands were added in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:100
+#, python-format
+msgid "The following options were added to the %s command in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:105
+#, python-format
+msgid "The following options were deprecated from the %s command in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:110
+#, python-format
+msgid "The following options were removed from the %s command in %s:"
+msgstr ""
+
+#~ msgid ""
+#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
+#~ "removed from future releases, which will result in a fatal error from "
+#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
+#~ msgstr ""
+#~ "Το %s δεν τελειώνει με %%end.  Η σύνταξη αυτή δεν είναι πλέον σε χρήση. "
+#~ "Πιθανώς να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα "
+#~ "προκαλέσει μοιραίο σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο "
+#~ "kickstart και αφαιρέστε την εντολή."
+
+#~ msgid "Script"
+#~ msgstr "Κώδικας"
 
 #, fuzzy
 #~ msgid "Command %s does not take any arguments"

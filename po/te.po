@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart.master.te\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-10-04 13:22-0400\n"
+"POT-Creation-Date: 2010-06-16 17:03-0400\n"
 "PO-Revision-Date: 2008-03-26 20:03+0530\n"
 "Last-Translator: Krishna Babu K <kkrothap@redhat.com>\n"
 "Language-Team: Telugu <en@li.org>\n"
@@ -17,9 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 
-#: ../pykickstart/base.py:147
+#: ../pykickstart/base.py:185
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -31,12 +32,12 @@ msgstr ""
 "ప్రభావం కలుగచేయదు. ఏదైతే కిక్ స్టార్టు నుండి ఫాటల్ దోషాలను ఇస్తుందో, దానిని భవిష్య విడుదలలో తీసివేయవచ్చు."
 "ఈ ఆదేశాన్ని తొలగించుటకు కిక్ స్టార్టు దస్త్రాన్ని మార్చండి."
 
-#: ../pykickstart/base.py:315
+#: ../pykickstart/base.py:389
 #, python-format
 msgid "Unknown command: %s"
 msgstr "తెలియని ఆదేశం: %s"
 
-#: ../pykickstart/errors.py:48
+#: ../pykickstart/errors.py:46
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -47,26 +48,40 @@ msgstr ""
 "\n"
 "%(msg)s\n"
 
-#: ../pykickstart/errors.py:50
+#: ../pykickstart/errors.py:48
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr "కిక్ స్టార్టు ఫైలు %s లైను నుండీ చదవటంలో సమస్య ఉంది"
 
-#: ../pykickstart/options.py:84
+#: ../pykickstart/options.py:83
 #, python-format
 msgid "Option %s is required"
 msgstr "%s ఐచ్చికం కావలసి ఉంది"
 
 #: ../pykickstart/options.py:87
-#, python-format
+#, fuzzy, python-format
 msgid ""
-"The option %(option)s was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s"
+"The %(option)s option was introduced in version %(intro)s, but you are using "
+"kickstart syntax version %(version)s."
 msgstr ""
 "ఆ అవకాశం %(option)s విడుదల%(intro)s లో పరిచయం చేయబడింది,అయితే మీరు విడుదల %(version)s "
 "యొక్క కిక్ స్టార్టు సింటాక్సు వాడుతున్నారు"
 
-#: ../pykickstart/options.py:90
+#: ../pykickstart/options.py:93
+#, python-format
+msgid "The %(option)s option is no longer supported."
+msgstr ""
+
+#: ../pykickstart/options.py:95
+#, fuzzy, python-format
+msgid ""
+"The %(option)s option was removed in version %(removed)s, but you are using "
+"kickstart syntax version %(version)s."
+msgstr ""
+"ఆ అవకాశం %(option)s విడుదల%(removed)s లో తొలగించబడింది,అయితే మీరు విడుదల %(version)s "
+"యొక్క కిక్ స్టార్టు సింటాక్సు వాడుతున్నారు"
+
+#: ../pykickstart/options.py:98
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -78,90 +93,87 @@ msgstr ""
 "ఇప్పటివరకూ ఎటువంటి ప్రభావాన్నీ కలిగిలేదు.  ఇది ముందలి విడుదలలో తొలగించబడవచ్చు, ఇది kickstartలో "
 "పెద్ద దోషం.  ఈ ఐచ్ఛికాన్ని తొలగించటానికి kickstart ఫైలును దయచేసి మార్చండి."
 
-#: ../pykickstart/options.py:93
-#, python-format
-msgid ""
-"The option %(option)s was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s"
-msgstr ""
-"ఆ అవకాశం %(option)s విడుదల%(removed)s లో తొలగించబడింది,అయితే మీరు విడుదల %(version)s "
-"యొక్క కిక్ స్టార్టు సింటాక్సు వాడుతున్నారు"
-
-#: ../pykickstart/options.py:147
-msgid "Required flag set for option that doesn't take a value"
-msgstr "ఐచ్ఛికం కోసం ఏ విలువనీ తీసుకోని flag అమర్పు కావలసి ఉంది"
-
-#: ../pykickstart/options.py:156
+#: ../pykickstart/options.py:131
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr "ఐచ్ఛికం %(opt)s: చెల్లని boolean విలువ: %(value)r"
 
-#: ../pykickstart/options.py:161
+#: ../pykickstart/options.py:136
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
 msgstr "ఐచ్చికం %(opt)s: చెల్లని స్ట్రింగ్ విలువ: %(value)r"
 
-#: ../pykickstart/parser.py:90
+#: ../pykickstart/options.py:173
+msgid "Required flag set for option that doesn't take a value"
+msgstr "ఐచ్ఛికం కోసం ఏ విలువనీ తీసుకోని flag అమర్పు కావలసి ఉంది"
+
+#: ../pykickstart/parser.py:94
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr "%%ksappend కు సరికాని url: %s"
 
-#: ../pykickstart/parser.py:95
-#, python-format
-msgid "Unable to open %%ksappend file: "
+#: ../pykickstart/parser.py:99
+#, fuzzy, python-format
+msgid "Unable to open %%ksappend file: %s"
 msgstr "%%ksappend దస్త్రాన్ని తెరువలేదు: "
 
-#: ../pykickstart/parser.py:101 ../pykickstart/parser.py:103
+#: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "%%ksappend దస్త్రాన్ని తెరువలేదు"
 
-#: ../pykickstart/parser.py:286
+#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
+#, fuzzy, python-format
+msgid "Unable to open input kickstart file: %s"
+msgstr "%%ksappend దస్త్రాన్ని తెరువలేదు: "
+
+#: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "--nodefaults మరియు --optional ని సమూహం తెలుపలేదు"
 
-#: ../pykickstart/parser.py:545 ../pykickstart/parser.py:604
+#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
-msgid ""
-"%s does not end with %%end.  This syntax has been deprecated.  It may be "
-"removed from future releases, which will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to use this updated syntax."
+msgid "Section does not end with %%end."
 msgstr ""
-"%s అనునది %%end తో ముగియదు.  ఈ సిన్‌టాక్స్‍ నిరోధించబడింది.  ఇది భవిష్య "
-"విడుదలలనుండి తీసివేయబడవచ్చు, ఏదైతా కిక్‌స్టార్ట్‍ నందు దోషమునకు కారణమౌతుందో. "
-" ఈ నవీకరించిన సిన్టాక్స్‍‌ను ఉపయోగించుటకు దయచేసి మీ కిక్‌స్టార్ట్‍ దస్త్రమును సవరించుము."
-
-#: ../pykickstart/parser.py:604
-msgid "Script"
-msgstr "స్క్రిప్ట్‍"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:87 ../pykickstart/version.py:96
-#: ../pykickstart/version.py:99 ../pykickstart/version.py:110
-#: ../pykickstart/version.py:150
+#: ../pykickstart/version.py:103 ../pykickstart/version.py:112
+#: ../pykickstart/version.py:115 ../pykickstart/version.py:131
+#: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr "మద్దతునీయని విడుదల తెలుపబడినది: %s"
 
-#: ../tools/ksvalidator:52
+#: ../tools/ksvalidator:50
 msgid "halt after the first error or warning"
 msgstr "మొదటి దోషం లేదా హెచ్చరిక తరువాత ఆగు"
 
-#: ../tools/ksvalidator:55
+#: ../tools/ksvalidator:53
 #, python-format
 msgid "parse include files when %include is seen"
 msgstr "%includeని చూసినప్పుడు ఫైళ్లకూడా విశ్లేషించు"
 
-#: ../tools/ksvalidator:57
+#: ../tools/ksvalidator:56
+msgid "list the available versions of kickstart syntax"
+msgstr ""
+
+#: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr "కిక్ స్టార్టు సిన్టాక్సు యోక్క విడుదలకు వ్యతిరేకంగా పరిశీలన"
 
-#: ../tools/ksvalidator:71
+#: ../tools/ksvalidator:76
+#, python-format
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+
+#: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "pykickstart చేత విడుదల %s కు మద్దతు సమకూరదు"
 
-#: ../tools/ksvalidator:87
+#: ../tools/ksvalidator:98
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
@@ -170,12 +182,57 @@ msgstr ""
 "ఫైలు తక్కువ చేయబడిన ఐచ్ఛికం లేదా ఆదేశంను ఉపయోగిస్తుంది.\n"
 "%s"
 
-#: ../tools/ksvalidator:93
+#: ../tools/ksvalidator:104
 msgid "General kickstart error in input file"
 msgstr "input ఫైలులో సాధారణ kickstart దోషం"
 
-#: ../tools/ksvalidator:96
+#: ../tools/ksvalidator:107
 #, python-format
 msgid "General error in input file:  %s"
 msgstr " input ఫైలులో సాధరణ దోషం:  %s"
 
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr ""
+
+#: ../tools/ksverdiff:68
+#, python-format
+msgid "The following commands were removed in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:71
+#, python-format
+msgid "The following commands were deprecated in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:74
+#, python-format
+msgid "The following commands were added in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:100
+#, python-format
+msgid "The following options were added to the %s command in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:105
+#, python-format
+msgid "The following options were deprecated from the %s command in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:110
+#, python-format
+msgid "The following options were removed from the %s command in %s:"
+msgstr ""
+
+#~ msgid ""
+#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
+#~ "removed from future releases, which will result in a fatal error from "
+#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
+#~ msgstr ""
+#~ "%s అనునది %%end తో ముగియదు.  ఈ సిన్‌టాక్స్‍ నిరోధించబడింది.  ఇది భవిష్య విడుదలలనుండి "
+#~ "తీసివేయబడవచ్చు, ఏదైతా కిక్‌స్టార్ట్‍ నందు దోషమునకు కారణమౌతుందో.  ఈ నవీకరించిన సిన్టాక్స్‍‌ను "
+#~ "ఉపయోగించుటకు దయచేసి మీ కిక్‌స్టార్ట్‍ దస్త్రమును సవరించుము."
+
+#~ msgid "Script"
+#~ msgstr "స్క్రిప్ట్‍"
