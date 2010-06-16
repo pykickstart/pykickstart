@@ -4,10 +4,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.vnc import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class FC3_TestCase(CommandTest):
+    command = "vnc"
+
     def runTest(self):
         # pass
         self.assert_parse("vnc", "vnc\n")
@@ -21,16 +21,20 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("vnc --password")
 
 class FC6_TestCase(CommandTest):
+    command = "vnc"
+
     def runTest(self):
         # pass
         self.assert_parse("vnc", "vnc\n")
         self.assert_parse("vnc --host=HOSTNAME", "vnc --host=HOSTNAME\n")
-        self.assert_parse("vnc --connect=HOSTNAME", "vnc --host=HOSTNAME\n")
-        self.assert_parse("vnc --connect=HOSTNAME:PORT", "vnc --host=HOSTNAME --port=PORT\n")
         self.assert_parse("vnc --port=PORT", "vnc\n")
         self.assert_parse("vnc --password=PASSWORD", "vnc --password=PASSWORD\n")
-        self.assert_parse("vnc --connect=HOSTNAME --password=PASSWORD", "vnc --host=HOSTNAME --password=PASSWORD\n")
-        self.assert_parse("vnc --connect=HOSTNAME:PORT --password=PASSWORD", "vnc --host=HOSTNAME --port=PORT --password=PASSWORD\n")
+
+        if "--connect" in self.optionList:
+            self.assert_parse("vnc --connect=HOSTNAME", "vnc --host=HOSTNAME\n")
+            self.assert_parse("vnc --connect=HOSTNAME:PORT", "vnc --host=HOSTNAME --port=PORT\n")
+            self.assert_parse("vnc --connect=HOSTNAME --password=PASSWORD", "vnc --host=HOSTNAME --password=PASSWORD\n")
+            self.assert_parse("vnc --connect=HOSTNAME:PORT --password=PASSWORD", "vnc --host=HOSTNAME --port=PORT --password=PASSWORD\n")
 
         # Ensure --connect has been deprecated
         self.assert_deprecated("vnc", "connect")
@@ -39,13 +43,9 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("vnc --connect")
         self.assert_parse_error("vnc --password")
 
-class F9_TestCase(CommandTest):
+class F9_TestCase(FC6_TestCase):
     def runTest(self):
-        # pass
-        self.assert_parse("vnc", "vnc\n")
-        self.assert_parse("vnc --host=SYSTEM", "vnc --host=SYSTEM\n")
-        self.assert_parse("vnc --port=PORT", "vnc\n")
-        self.assert_parse("vnc --password=PASSWORD", "vnc --password=PASSWORD\n")
+        FC6_TestCase.runTest(self)
 
         # Ensure --connect has been removed
         self.assert_removed("vnc", "connect")

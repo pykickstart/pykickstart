@@ -25,6 +25,8 @@ from pykickstart.errors import *
 from pykickstart.commands.device import *
 
 class FC3_TestCase(CommandTest):
+    command = "device"
+
     def runTest(self):
         # pass
         self.assert_parse("device TYPE MODNAME", "device TYPE MODNAME\n")
@@ -45,6 +47,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("device --opts=\"foo\"", KickstartValueError)
 
 class F8_TestCase(CommandTest):
+    command = "device"
+
     def runTest(self):
         # pass
         self.assert_parse("device MODNAME", "device MODNAME\n")

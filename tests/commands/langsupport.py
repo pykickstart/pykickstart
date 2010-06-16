@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
+    command = "langsupport"
+
     def runTest(self):
         # pass
         self.assert_parse("langsupport --default=sk_SK.UTF-8", "langsupport --default=sk_SK.UTF-8\n")

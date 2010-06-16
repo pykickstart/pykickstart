@@ -24,17 +24,22 @@ from tests.baseclass import *
 from pykickstart.errors import *
 
 class FC3_TestCase(CommandTest):
+    command = "autopart"
+
     def runTest(self):
         # pass
         self.assert_parse("autopart")
 
-        # fail
-        self.assert_parse_error("autopart --blah", KickstartValueError)
+        # fail - on FC3, autopart  took no options so this raises a different
+        # exception than later releases.
+        if self.__class__.__name__ == "FC3_TestCase":
+            self.assert_parse_error("autopart --blah", KickstartValueError)
 
-class F9_TestCase(CommandTest):
+class F9_TestCase(FC3_TestCase):
     def runTest(self):
+        FC3_TestCase.runTest(self)
+
         # pass
-        self.assert_parse("autopart")
         self.assert_parse("autopart --passphrase=whatever", "autopart\n")
         self.assert_parse("autopart --encrypted", "autopart --encrypted\n")
         self.assert_parse("autopart --encrypted --passphrase=\"whatever\"",
@@ -43,7 +48,6 @@ class F9_TestCase(CommandTest):
                           "autopart --encrypted --passphrase=\"whatever\"\n")
 
         # fail
-        self.assert_parse_error("autopart --blah")
         self.assert_parse_error("autopart --passphrase")
         self.assert_parse_error("autopart --encrypted --passphrase")
         self.assert_parse_error("autopart --encrypted=False")

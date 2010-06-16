@@ -25,6 +25,8 @@ from pykickstart.errors import *
 from pykickstart.commands.sshpw import *
 
 class F13_TestCase(CommandTest):
+    command = "sshpw"
+
     def runTest(self):
         # pass
         self.assert_parse("sshpw --username=someguy --iscrypted secrethandshake", "sshpw --username=someguy --iscrypted secrethandshake\n")

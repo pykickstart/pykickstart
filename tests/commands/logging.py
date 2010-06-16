@@ -23,10 +23,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.logging import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class FC6_TestCase(CommandTest):
+    command = "logging"
+
     def runTest(self):
         # pass
         self.assert_parse("logging", "logging --level=info\n")

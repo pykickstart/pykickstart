@@ -6,23 +6,14 @@ from pykickstart.errors import *
 from pykickstart.version import *
 from pykickstart.commands.logvol import *
 
-#class FC3_LogVolData(BaseData):
-#class FC4_LogVolData(FC3_LogVolData):
-#class RHEL5_LogVolData(FC4_LogVolData):
-#class F9_LogVolData(FC3_LogVolData):
-
-#class FC3_LogVol(KickstartCommand):
-#class FC4_LogVol(FC3_LogVol):
-#class RHEL5_LogVol(FC4_LogVol):
-#class F9_LogVol(FC4_LogVol):
-
 class FC3_TestCase(CommandTest):
-    def setUp(self):
-        CommandTest.setUp(self)
-        # Disable checks for --bytes-per-inode -- not supported in FC3
-        self.bytesPerInode = ""
+    command = "logvol"
 
     def runTest(self):
+        if "--bytes-per-inode" in self.optionList:
+            self.bytesPerInode = "--bytes-per-inode=4096 "
+        else:
+            self.bytesPerInode = ""
 
         # --name and --vgname
         self.assert_parse("logvol / --name=NAME --vgname=VGNAME",
@@ -79,35 +70,6 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol --vgname=NAME", KickstartValueError)
 
 class FC4_TestCase(FC3_TestCase):
-    def setUp(self):
-        FC3_TestCase.setUp(self)
-        # Enable checks for --bytes-per-inode -- supported in FC4
-        self.bytesPerInode = "--bytes-per-inode=4096 "
-
-    def fsoptions_tests(self):
-        # --fsoptions
-        self.assert_parse("logvol / --fstype=\"BLAFS\" --fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME",
-                          "logvol /  --fstype=\"BLAFS\" %s--fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-
-    def parse_bytesPerInode(self):
-        # --bytes-per-inode implicit
-        self.assert_parse("logvol / --name=NAME --vgname=VGNAME",
-                          "logvol /  --bytes-per-inode=4096 --name=NAME --vgname=VGNAME\n")
-
-        # --bytes-per-inode explicit
-        self.assert_parse("logvol / --bytes-per-inode=123 --name=NAME --vgname=VGNAME",
-                          "logvol /  --bytes-per-inode=123 --name=NAME --vgname=VGNAME\n")
-
-        # assert data types
-        self.assert_type("logvol", "bytes-per-inode", "int")
-
-        # fail - incorrect type
-        self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError)
-
-        # fail - missing value
-        self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError)
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError)
-
     def runTest(self):
 
         # run our baseclass tests first ... but add --bytes-per-inode to each
@@ -115,57 +77,58 @@ class FC4_TestCase(FC3_TestCase):
         FC3_TestCase.runTest(self)
 
         # --fsoptions
-        self.fsoptions_tests()
+        if "--fsoptions" in self.optionList:
+            self.assert_parse("logvol / --fstype=\"BLAFS\" --fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME",
+                              "logvol /  --fstype=\"BLAFS\" %s--fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-        if self.bytesPerInode.count("--bytes-per-inode") > 0:
-            # --bytes-per-inode
-            self.parse_bytesPerInode()
+        if "--bytes-per-inode" in self.optionList:
+            # --bytes-per-inode explicit
+            self.assert_parse("logvol / --bytes-per-inode=123 --name=NAME --vgname=VGNAME",
+                              "logvol /  --bytes-per-inode=123 --name=NAME --vgname=VGNAME\n")
 
-    def encrypted_tests(self):
+            # assert data types
+            self.assert_type("logvol", "bytes-per-inode", "int")
 
-        # this method is only for derived classes
-        self.assertNotEqual(self.__class__, FC4_TestCase)
+            # fail - incorrect type
+            self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError)
 
-        # Just --encrypted
-        self.assert_parse("logvol / --encrypted --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            # fail - missing value
+            self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError)
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError)
 
-        # Both --encrypted and --passphrase
-        self.assert_parse("logvol / --encrypted --passphrase PASSPHRASE --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--encrypted --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        if "--encrypted" in self.optionList:
+            # Just --encrypted
+            self.assert_parse("logvol / --encrypted --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-        # Using --encrypted with --passphrase=<empty>
-        self.assert_parse("logvol / --encrypted --passphrase= --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-        self.assert_parse("logvol / --encrypted --passphrase=\"\" --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-        self.assert_parse("logvol / --encrypted --passphrase \"\" --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            # Both --encrypted and --passphrase
+            self.assert_parse("logvol / --encrypted --passphrase PASSPHRASE --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--encrypted --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-        # Just --passphrase without --encrypted
-        self.assert_parse("logvol / --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            # Using --encrypted with --passphrase=<empty>
+            self.assert_parse("logvol / --encrypted --passphrase= --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --encrypted --passphrase=\"\" --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --encrypted --passphrase \"\" --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-        # fail - missing value
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError)
+            # Just --passphrase without --encrypted
+            self.assert_parse("logvol / --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME",
+                              "logvol /  %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
-        # fail - --encrypted does not take a value
-        self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError)
+            # fail - missing value
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError)
 
+            # fail - --encrypted does not take a value
+            self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError)
 
-class RHEL5_TestCase(FC4_TestCase):
-    def runTest(self):
-        # run our baseclass tests first
-        FC4_TestCase.runTest(self)
-        self.encrypted_tests()
+RHEL5_TestCase = FC4_TestCase
 
 class F9_TestCase(FC4_TestCase):
-    def setUp(self):
-        FC4_TestCase.setUp(self)
-        # Disable checks for --bytes-per-inode
-        self.bytesPerInode = ""
-
-    def fsprofile_tests(self):
+    def runTest(self):
+        # Run our baseclass tests first
+        FC4_TestCase.runTest(self)
 
         # assert data types
         self.assert_type("logvol", "fsprofile", "string")
@@ -177,26 +140,10 @@ class F9_TestCase(FC4_TestCase):
         self.assert_parse("logvol / --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
                           "logvol /  --fsprofile=\"FS_PROFILE\" --name=NAME --vgname=VGNAME\n")
 
-    def runTest(self):
-        # Run our baseclass tests first
-        FC4_TestCase.runTest(self)
-
-        # --encrypted and --passphrase tests
-        self.encrypted_tests()
-
-        # --fsoptions
-        self.fsoptions_tests()
-
-        # --fsprofile
-        self.fsprofile_tests()
-
         # Ensure --bytes-per-inode has been deprecated
         self.assert_deprecated("logvol", "bytes-per-inode")
 
 class F12_TestCase(F9_TestCase):
-    def setUp(self):
-        F9_TestCase.setUp(self)
-
     def runTest(self):
         # Run our baseclass tests first
         F9_TestCase.runTest(self)

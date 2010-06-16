@@ -24,6 +24,8 @@ from pykickstart.errors import *
 from pykickstart.commands.rootpw import *
 
 class FC3_TestCase(CommandTest):
+    command = "rootpw"
+
     def runTest(self):
         # pass
         self.assert_parse("rootpw --iscrypted secrethandshake", "rootpw --iscrypted secrethandshake\n")

@@ -23,10 +23,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.dmraid import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class FC6_TestCase(CommandTest):
+    command = "dmraid"
+
     def runTest(self):
         # pass
         self.assert_parse("dmraid --name=onamai --dev=debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")

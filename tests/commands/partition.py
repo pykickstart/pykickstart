@@ -22,29 +22,34 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
-    def runTest(self, bytes_per_inode=False, start_end=True):
-        bpi = ""
-        if bytes_per_inode:
-            bpi = " --bytes-per-inode=4096"
+    command = "partition"
+
+    def runTest(self):
+        if "--bytes-per-inode" in self.optionList:
+            self.bytesPerInode = " --bytes-per-inode=4096"
+        else:
+            self.bytesPerInode = ""
 
         # pass
-        self.assert_parse("part /home", "part /home%s\n" % bpi)
-        if start_end:
+        self.assert_parse("part /home", "part /home%s\n" % self.bytesPerInode)
+
+        if "--start" in self.optionList:
             self.assert_parse("partition raid.1 --active --asprimary --start=0 --end=10 --fstype=ext3 --noformat",
-                              "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % bpi)
+                              "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
         else:
             self.assert_parse("partition raid.1 --active --asprimary --fstype=ext3 --noformat",
-                              "part raid.1 --active --asprimary --fstype=\"ext3\" --noformat%s\n" % bpi)
+                              "part raid.1 --active --asprimary --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
+
         self.assert_parse("part pv.1 --ondisk=sda --onpart=sda1 --recommended",
-                          "part pv.1 --ondisk=sda --onpart=sda1 --recommended%s\n" % bpi)
+                          "part pv.1 --ondisk=sda --onpart=sda1 --recommended%s\n" % self.bytesPerInode)
         self.assert_parse("part pv.1 --ondrive=sda --usepart=sda1 --recommended",
-                          "part pv.1 --ondisk=sda --onpart=sda1 --recommended%s\n" % bpi)
-        self.assert_parse("part / --onbiosdisk=hda --size=100", "part / --onbiosdisk=hda --size=100%s\n" % bpi)
-        self.assert_parse("part swap --grow --maxsize=100", "part swap --grow --maxsize=100%s\n" % bpi)
+                          "part pv.1 --ondisk=sda --onpart=sda1 --recommended%s\n" % self.bytesPerInode)
+        self.assert_parse("part / --onbiosdisk=hda --size=100", "part / --onbiosdisk=hda --size=100%s\n" % self.bytesPerInode)
+        self.assert_parse("part swap --grow --maxsize=100", "part swap --grow --maxsize=100%s\n" % self.bytesPerInode)
 
         # does not remove the /dev/ part
         self.assert_parse("part /usr --ondisk=/dev/sda --recommended --noformat --active",
-                          "part /usr --active --noformat --ondisk=/dev/sda --recommended%s\n" % bpi)
+                          "part /usr --active --noformat --ondisk=/dev/sda --recommended%s\n" % self.bytesPerInode)
 
         # fail
         # missing mountpoint
@@ -52,7 +57,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("part --ondisk=sda --size=100", KickstartValueError)
 
         int_params = ["size", "maxsize"]
-        if start_end:
+        if "--start" in self.optionList:
             int_params += ["start", "end"]
         for opt in int_params:
             # integer argument required
@@ -72,19 +77,22 @@ class FC3_TestCase(CommandTest):
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
         # run FC3 test case
-        FC3_TestCase.runTest(self, bytes_per_inode=True)
+        FC3_TestCase.runTest(self)
 
-        # pass
-        self.assert_parse("part /home --bytes-per-inode=2048 --fsoptions=blah --label=home",
-                          "part /home --bytes-per-inode=2048 --fsoptions=\"blah\" --label=home\n")
+        if "--bytes-per-inode" in self.optionList:
+            # pass
+            self.assert_parse("part /home --bytes-per-inode=2048 --fsoptions=blah --label=home",
+                              "part /home --bytes-per-inode=2048 --fsoptions=\"blah\" --label=home\n")
 
-        # fail
-        # --bytes-per-inode requires int argument
-        self.assert_parse_error("part /home --bytes-per-inode=string", KickstartParseError)
-        self.assert_parse_error("part /home --bytes-per-inode", KickstartParseError)
+            # fail
+            # --bytes-per-inode requires int argument
+            self.assert_parse_error("part /home --bytes-per-inode=string", KickstartParseError)
+            self.assert_parse_error("part /home --bytes-per-inode", KickstartParseError)
+
         # missing required arguments
-        for opt in ("fsoptions", "label"):
-            self.assert_parse_error("part /home --%s" % opt, KickstartParseError)
+        for opt in ("--fsoptions", "--label"):
+            if opt in self.optionList:
+                self.assert_parse_error("part /home %s" % opt, KickstartParseError)
 
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self):
@@ -102,7 +110,7 @@ class RHEL5_TestCase(FC4_TestCase):
 class F9_TestCase(FC3_TestCase):
     def runTest(self, start_end=True):
         # run FC3 test case
-        FC3_TestCase.runTest(self, bytes_per_inode=False, start_end=start_end)
+        FC3_TestCase.runTest(self)
 
         # pass
         self.assert_parse("part / --encrypted --passphrase=blahblah",
@@ -121,7 +129,7 @@ class F9_TestCase(FC3_TestCase):
 class F12_TestCase(F9_TestCase):
     def runTest(self):
         # Run F9 test case
-        F9_TestCase.runTest(self, start_end=False)
+        F9_TestCase.runTest(self)
 
         # pass
         self.assert_parse("part / --escrowcert=\"http://x/y\"", "part /\n")

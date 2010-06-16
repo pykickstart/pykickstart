@@ -23,10 +23,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.displaymode import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class FC3_TestCase(CommandTest):
+    command = "displaymode"
+
     def runTest(self):
         # pass
 	self.assert_parse("graphical", "graphical\n")

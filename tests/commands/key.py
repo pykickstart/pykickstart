@@ -25,15 +25,17 @@ from pykickstart.errors import *
 from pykickstart.commands.key import *
 
 class F7_TestCase(CommandTest):
-	def runTest(self):
-		# pass
-		self.assert_parse("key 012345abcd", "key 012345abcd\n")
-		self.assert_parse("key --skip", "key --skip\n")
+    command = "key"
 
-		# fail - command needs argument
-		self.assert_parse_error("key", KickstartValueError)
-		# fail - invalid option w/argument
-		self.assert_parse_error("key --badflag foobar", KickstartParseError)
+    def runTest(self):
+        # pass
+        self.assert_parse("key 012345abcd", "key 012345abcd\n")
+        self.assert_parse("key --skip", "key --skip\n")
+
+        # fail - command needs argument
+        self.assert_parse_error("key", KickstartValueError)
+        # fail - invalid option w/argument
+        self.assert_parse_error("key --badflag foobar", KickstartParseError)
 
 if __name__ == "__main__":
     unittest.main()

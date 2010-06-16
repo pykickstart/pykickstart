@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class F10_TestCase(CommandTest):
+    command = "rescue"
+
     def runTest(self):
         #pass
         self.assert_parse("rescue", "rescue\n")

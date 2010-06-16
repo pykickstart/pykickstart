@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
+    command = "method"
+
     def runTest(self):
         # pass
         # cdrom

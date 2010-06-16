@@ -23,6 +23,8 @@ from tests.baseclass import *
 from pykickstart.errors import *
 
 class FC3_TestCase(CommandTest):
+    command = "driverdisk"
+
     def runTest(self):
         # pass
         self.assert_parse("driverdisk /dev/sdb2", "driverdisk /dev/sdb2\n")

@@ -25,6 +25,8 @@ from pykickstart.errors import *
 from pykickstart.commands.firstboot import *
 
 class FC3_TestCase(CommandTest):
+    command = "firstboot"
+
     def runTest(self):
         # pass
         self.assert_parse("firstboot")

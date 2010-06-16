@@ -25,6 +25,8 @@ from pykickstart.errors import *
 from pykickstart.commands.keyboard import *
 
 class FC3_TestCase(CommandTest):
+    command = "keyboard"
+
     def runTest(self):
         # pass
         self.assert_parse("keyboard us", "keyboard us\n")

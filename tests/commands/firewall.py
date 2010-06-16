@@ -22,15 +22,26 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
+    command = "firewall"
+
     def runTest(self):
         # pass
         # enable firewall
-        self.assert_parse("firewall --enabled --trust=eth0 --ssh --port=imap:tcp",
-                          "firewall --enabled --port=22:tcp,imap:tcp --trust=eth0\n")
-        self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --telnet --http --smtp --ftp --port=1234:udp"
-                          "firewall --enabled --port=22:tcp,23:tcp,80:tcp,443:tcp,25:tcp,21:tcp,1234:udp --trust=eth0,eth1\n")
-        self.assert_parse("firewall --enabled --ssh --ftp", "firewall --enabled --port=22:tcp,21:tcp\n")
-        self.assert_parse("firewall --enable --port=1234:udp,4321:tcp", "firewall --enabled --port=1234:udp,4321:tcp\n")
+        if "--service" in self.optionList:
+            self.assert_parse("firewall --enabled --trust=eth0 --ssh --port=imap:tcp",
+                              "firewall --enabled --port=imap:tcp --trust=eth0 --service=ssh\n")
+            self.assert_parse("firewall --enabled --ssh --ftp", "firewall --enabled --service=ssh,ftp\n")
+        else:
+            self.assert_parse("firewall --enabled --trust=eth0 --ssh --port=imap:tcp",
+                              "firewall --enabled --port=22:tcp,imap:tcp --trust=eth0\n")
+            self.assert_parse("firewall --enable --port=1234:udp,4321:tcp", "firewall --enabled --port=1234:udp,4321:tcp\n")
+
+        if "--telnet" in self.optionList:
+            self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --telnet --http --smtp --ftp --port=1234:udp"
+                              "firewall --enabled --port=22:tcp,23:tcp,80:tcp,443:tcp,25:tcp,21:tcp,1234:udp --trust=eth0,eth1\n")
+        elif "--service" in self.optionList:
+            self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --http --smtp --ftp --port=1234:udp"
+                              "firewall --enabled --port=1234:udp --trust=eth0,eth1 --service=ssh,http,smtp,ftp\n")
 
         # disable firewall
         self.assert_parse("firewall --disabled", "firewall --disabled\n")
@@ -41,8 +52,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("firewall", "firewall --enabled\n")
 
         # deprecated
-        self.assert_deprecated("firewall", "--high")
-        self.assert_deprecated("firewall", "--medium")
+        if "--high" in self.optionList:
+            self.assert_deprecated("firewall", "--high")
+        if "--medium" in self.optionList:
+            self.assert_deprecated("firewall", "--medium")
 
         # fail
         # unknown option
@@ -61,31 +74,10 @@ class F9_TestCase(FC3_TestCase):
 
 class F10_TestCase(F9_TestCase):
     def runTest(self):
-        # pass
-        # enable firewall
-        self.assert_parse("firewall --enabled --trust=eth0 --ssh --port=imap:tcp",
-                          "firewall --enabled --port=imap:tcp --trust=eth0 --service=ssh\n")
-        self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --http --smtp --ftp --port=1234:udp"
-                          "firewall --enabled --port=1234:udp --trust=eth0,eth1 --service=ssh,http,smtp,ftp\n")
-        self.assert_parse("firewall --enabled --ssh --ftp", "firewall --enabled --service=ssh,ftp\n")
-        self.assert_parse("firewall --enable --port=1234:udp,4321:tcp", "firewall --enabled --port=1234:udp,4321:tcp\n")
-
-        # disable firewall
-        self.assert_parse("firewall --disabled", "firewall --disabled\n")
-        self.assert_parse("firewall --disable", "firewall --disabled\n")
-
-        # enable by default
-        self.assert_parse("firewall --trust=eth0", "firewall --enabled --trust=eth0\n")
-        self.assert_parse("firewall", "firewall --enabled\n")
+        F9_TestCase.runTest(self)
 
         # deprecated
         self.assert_deprecated("firewall", "--telnet")
-
-        # fail
-        # unknown option
-        self.assert_parse_error("firewall --bad-flag", KickstartParseError)
-        # unexpected argument
-        self.assert_parse_error("firewall arg", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()

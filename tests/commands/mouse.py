@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class RHEL3_TestCase(CommandTest):
+    command = "mouse"
+
     def runTest(self):
         # pass
         self.assert_parse("mouse jerry", "mouse jerry\n")

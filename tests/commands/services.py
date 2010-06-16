@@ -24,6 +24,8 @@ from tests.baseclass import *
 from pykickstart.errors import *
 
 class FC6_TestCase(CommandTest):
+    command = "services"
+
     def runTest(self):
         # pass
         self.assert_parse("services --enabled=WHEEITSASTRING", "services --enabled=\"WHEEITSASTRING\"\n")

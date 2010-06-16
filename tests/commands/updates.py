@@ -4,10 +4,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.updates import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class F7_TestCase(CommandTest):
+    command = "updates"
+
     def runTest(self):
         # pass
         self.assert_parse("updates", "updates\n")

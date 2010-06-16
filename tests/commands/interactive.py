@@ -24,6 +24,8 @@ from pykickstart.errors import *
 from pykickstart.commands.interactive import *
 
 class FC3_TestCase(CommandTest):
+    command = "interactive"
+
     def runTest(self):
         # pass
         self.assert_parse("interactive", "interactive\n")

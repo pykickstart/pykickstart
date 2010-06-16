@@ -22,16 +22,17 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
+    command = "zerombr"
+
     def runTest(self):
         # pass
         self.assert_parse("zerombr", "zerombr\n")
         # ignoring arguments
         self.assert_parse("zerombr arg", "zerombr\n")
 
-        # fail
-
-
 class F9_TestCase(FC3_TestCase):
+    command = "zerombr"
+
     def runTest(self):
         # pass
         self.assert_parse("zerombr", "zerombr\n")

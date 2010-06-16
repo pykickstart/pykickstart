@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC6_TestCase(CommandTest):
+    command = "repo"
+
     def runTest(self):
         # pass
         self.assert_parse("repo --name=blah --baseurl=http://www.domain.com",

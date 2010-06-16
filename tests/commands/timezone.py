@@ -24,10 +24,17 @@ from tests.baseclass import *
 from pykickstart.errors import *
 
 class FC3_TestCase(CommandTest):
+    command = "timezone"
+
     def runTest(self):
         # pass
         self.assert_parse("timezone Eastern", "timezone  Eastern\n")
-        self.assert_parse("timezone --utc Eastern", "timezone --utc Eastern\n")
+
+        # On FC6 and later, we write out --isUtc regardless of what the input was.
+        if self.__class__.__name__ == "FC3_TestCase":
+            self.assert_parse("timezone --utc Eastern", "timezone --utc Eastern\n")
+        else:
+            self.assert_parse("timezone --utc Eastern", "timezone --isUtc Eastern\n")
 
         # fail
         self.assert_parse_error("timezone", KickstartValueError)
@@ -35,18 +42,14 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("timezone --blah Eastern")
         self.assert_parse_error("timezone --utc", KickstartValueError)
 
-class FC6_TestCase(CommandTest):
+class FC6_TestCase(FC3_TestCase):
     def runTest(self):
+        FC3_TestCase.runTest(self)
+
         # pass
-        self.assert_parse("timezone Eastern", "timezone  Eastern\n")
-        self.assert_parse("timezone --utc Eastern", "timezone --isUtc Eastern\n")
         self.assert_parse("timezone --isUtc Eastern", "timezone --isUtc Eastern\n")
 
         # fail
-        self.assert_parse_error("timezone", KickstartValueError)
-        self.assert_parse_error("timezone Eastern Central", KickstartValueError)
-        self.assert_parse_error("timezone --blah Eastern")
-        self.assert_parse_error("timezone --utc", KickstartValueError)
         self.assert_parse_error("timezone --isUtc", KickstartValueError)
 
 if __name__ == "__main__":

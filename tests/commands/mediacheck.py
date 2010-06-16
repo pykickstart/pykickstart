@@ -23,10 +23,10 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.commands.mediacheck import *
-#from pykickstart.base import *
-#from pykickstart.options import *
 
 class FC4_TestCase(CommandTest):
+    command = "mediacheck"
+
     def runTest(self):
         # pass
         self.assert_parse("mediacheck", "mediacheck\n")

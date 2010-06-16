@@ -24,24 +24,37 @@ from tests.baseclass import *
 from pykickstart.errors import *
 
 class FC3_TestCase(CommandTest):
+    command = "bootloader"
+
     def runTest(self):
+        if "--linear" in self.optionList:
+            linear = "--linear "
+        else:
+            linear = ""
+
         # pass
-        self.assert_parse("bootloader --append=rhgb", "bootloader --append=\"rhgb\" --linear --location=mbr\n")
-        self.assert_parse("bootloader --append=\"rhgb quiet\"", "bootloader --append=\"rhgb quiet\" --linear --location=mbr\n")
-        self.assert_parse("bootloader", "bootloader --linear --location=mbr\n")
-        self.assert_parse("bootloader --nolinear", "bootloader --location=mbr\n")
-        self.assert_parse("bootloader --nolinear --linear", "bootloader --linear --location=mbr\n")
-        self.assert_parse("bootloader --linear --nolinear", "bootloader --location=mbr\n")
+        self.assert_parse("bootloader --append=rhgb","bootloader --append=\"rhgb\" %s--location=mbr\n" % linear)
+        self.assert_parse("bootloader --append=\"rhgb quiet\"", "bootloader --append=\"rhgb quiet\" %s--location=mbr\n" % linear)
+        self.assert_parse("bootloader", "bootloader %s--location=mbr\n" % linear)
+
+        if "--linear" in self.optionList and "--nolinear" in self.optionList:
+            self.assert_parse("bootloader --nolinear", "bootloader --location=mbr\n")
+            self.assert_parse("bootloader --nolinear --linear", "bootloader --linear --location=mbr\n")
+            self.assert_parse("bootloader --linear --nolinear", "bootloader --location=mbr\n")
 
         for loc in ["mbr", "partition", "none", "boot"]:
-            self.assert_parse("bootloader --location=%s" % loc, "bootloader --linear --location=%s\n" % loc)
+            self.assert_parse("bootloader --location=%s" % loc, "bootloader %s--location=%s\n" % (linear, loc))
 
-        self.assert_parse("bootloader --lba32", "bootloader --linear --location=mbr --lba32\n")
-        self.assert_parse("bootloader --password=blahblah", "bootloader --linear --location=mbr --password=\"blahblah\"\n")
-        self.assert_parse("bootloader --md5pass=blahblah", "bootloader --linear --location=mbr --md5pass=\"blahblah\"\n")
-        self.assert_parse("bootloader --upgrade", "bootloader --linear --location=mbr --upgrade\n")
-        self.assert_parse("bootloader --useLilo", "bootloader --linear --location=mbr --useLilo\n")
-        self.assert_parse("bootloader --driveorder=hda,sdb", "bootloader --linear --location=mbr --driveorder=\"hda,sdb\"\n")
+        if "--lba32" in self.optionList:
+            self.assert_parse("bootloader --lba32", "bootloader %s--location=mbr --lba32\n" % linear)
+
+        self.assert_parse("bootloader --password=blahblah", "bootloader %s--location=mbr --password=\"blahblah\"\n" % linear)
+        self.assert_parse("bootloader --md5pass=blahblah", "bootloader %s--location=mbr --md5pass=\"blahblah\"\n" % linear)
+        self.assert_parse("bootloader --upgrade", "bootloader %s--location=mbr --upgrade\n" % linear)
+        self.assert_parse("bootloader --driveorder=hda,sdb", "bootloader %s--location=mbr --driveorder=\"hda,sdb\"\n" % linear)
+
+        if "--useLilo" in self.optionList:
+            self.assert_parse("bootloader --useLilo", "bootloader %s--location=mbr --useLilo\n" % linear)
 
         # fail
         self.assert_parse_error("bootloader --append", KickstartParseError)
@@ -50,34 +63,15 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("bootloader --md5pass", KickstartParseError)
         self.assert_parse_error("bootloader --driveorder", KickstartParseError)
 
-class FC4_TestCase(CommandTest):
+class FC4_TestCase(FC3_TestCase):
     def runTest(self):
+        # Run parent tests
+        FC3_TestCase.runTest(self)
+
         # Ensure these options have been removed.
         self.assert_removed("bootloader", "--linear")
         self.assert_removed("bootloader", "--nolinear")
         self.assert_removed("bootloader", "--useLilo")
-
-        # pass
-        self.assert_parse("bootloader --append=rhgb", "bootloader --append=\"rhgb\" --location=mbr\n")
-        self.assert_parse("bootloader --append=\"rhgb quiet\"", "bootloader --append=\"rhgb quiet\" --location=mbr\n")
-        self.assert_parse("bootloader", "bootloader --location=mbr\n")
-
-        for loc in ["mbr", "partition", "none", "boot"]:
-            self.assert_parse("bootloader --location=%s" % loc, "bootloader --location=%s\n" % loc)
-
-        self.assert_parse("bootloader --lba32", "bootloader --location=mbr --lba32\n")
-        self.assert_parse("bootloader --password=blahblah", "bootloader --location=mbr --password=\"blahblah\"\n")
-        self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --md5pass=\"blahblah\"\n")
-        self.assert_parse("bootloader --upgrade", "bootloader --location=mbr --upgrade\n")
-        self.assert_parse("bootloader --driveorder=hda,sdb", "bootloader --location=mbr --driveorder=\"hda,sdb\"\n")
-        self.assert_parse("bootloader --driveorder hda,sdb", "bootloader --location=mbr --driveorder=\"hda,sdb\"\n")
-
-        # fail
-        self.assert_parse_error("bootloader --append", KickstartParseError)
-        self.assert_parse_error("bootloader --location=nowhere", KickstartParseError)
-        self.assert_parse_error("bootloader --password", KickstartParseError)
-        self.assert_parse_error("bootloader --md5pass", KickstartParseError)
-        self.assert_parse_error("bootloader --driveorder", KickstartParseError)
 
 class F8_TestCase(FC4_TestCase):
     def runTest(self):

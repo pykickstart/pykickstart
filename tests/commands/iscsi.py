@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC6_TestCase(CommandTest):
+    command = "iscsi"
+
     def runTest(self):
         # pass
         self.assert_parse("iscsi --ipaddr=1.1.1.1", "iscsi --ipaddr=1.1.1.1\n")

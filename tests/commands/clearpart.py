@@ -1,13 +1,8 @@
-import unittest, shlex
-import warnings
 from tests.baseclass import *
 
-from pykickstart.errors import *
-from pykickstart.commands.authconfig import *
-#from pykickstart.base import *
-#from pykickstart.options import *
-
 class FC3_TestCase(CommandTest):
+    command = "clearpart"
+
     def runTest(self):
         # pass
         self.assert_parse("clearpart")

@@ -23,11 +23,9 @@ from pykickstart.errors import *
 from pykickstart.commands.monitor import *
 
 class FC3_TestCase(CommandTest):
-    def fc3_unsupported_tests(self):
-        # fail - unsupported
-        self.assert_parse_error("monitor --noprobe", KickstartParseError)
+    command = "monitor"
 
-    def fc3_supported_tests(self):
+    def runTest(self):
         # pass
         self.assert_parse("monitor", "")
         self.assert_parse("monitor --hsync=HSYNC", "monitor --hsync=HSYNC\n")
@@ -40,34 +38,26 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("monitor --hsync=HSYNC --monitor=MONITOR --vsync=VSYNC",
                           "monitor --hsync=HSYNC --monitor=\"MONITOR\" --vsync=VSYNC\n")
 
-        # fail
         self.assert_parse_error("monitor BOGUS", KickstartValueError)
         self.assert_parse_error("monitor --monitor=SOMETHING GREAT", KickstartValueError)
 
-    def runTest(self):
-        self.fc3_supported_tests()
-        self.fc3_unsupported_tests()
+        if "--noprobe" not in self.optionList:
+            self.assert_parse_error("monitor --noprobe", KickstartParseError)
 
 class FC6_TestCase(FC3_TestCase):
-    def noprobe_tests(self):
+    def runTest(self):
+        FC3_TestCase.runTest(self)
+
         # pass
         self.assert_parse("monitor --noprobe", "monitor --noprobe\n")
         # fail
         self.assert_parse_error("monitor --noprobe 1", KickstartValueError)
 
-    def runTest(self):
-        self.fc3_supported_tests()
-        self.noprobe_tests()
-
 class F10_TestCase(FC6_TestCase):
     def runTest(self):
-
         # make sure we've been deprecated
         parser = self.getParser("monitor")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
-
-        # FIXME - how should a DeprecatedCommand parse?
-        #self.assert_parse("monitor", "")
 
 if __name__ == "__main__":
     unittest.main()

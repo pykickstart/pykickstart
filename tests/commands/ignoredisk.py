@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC3_TestCase(CommandTest):
+    command = "ignoredisk"
+
     def runTest(self):
         # pass
         self.assert_parse("ignoredisk --drives=sda", "ignoredisk --drives=sda\n")

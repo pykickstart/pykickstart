@@ -25,6 +25,8 @@ from pykickstart.errors import *
 from pykickstart.commands.autostep import *
 
 class FC3_TestCase(CommandTest):
+    command = "autostep"
+
     def runTest(self):
         # pass
         self.assert_parse("autostep", "autostep\n")

@@ -22,6 +22,8 @@ import unittest
 from tests.baseclass import *
 
 class FC6_TestCase(CommandTest):
+    command = "iscsiname"
+
     def runTest(self):
         #pass
         self.assert_parse("iscsiname foo", "iscsiname foo\n")
