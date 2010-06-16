@@ -30,6 +30,22 @@ class CommandTest(unittest.TestCase):
 
         unittest.TestCase.tearDown(self)
 
+    def __init__(self, *args, **kwargs):
+        unittest.TestCase.__init__(self, *args, **kwargs)
+        self._options = []
+
+    @property
+    def optionList(self):
+        if self._options:
+            return self._options
+
+        parser = self.getParser(self.command)._getParser()
+
+        for opt in filter(lambda o: not o.deprecated, parser.option_list):
+            self._options.append(opt.get_opt_string())
+
+        return self._options
+
     def getParser(self, inputStr):
         '''Find a handler using the class name.  Return the requested command
         object.'''
