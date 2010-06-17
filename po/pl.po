@@ -6,9 +6,9 @@ msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2009-09-22 21:28+0200\n"
+"PO-Revision-Date: 2010-06-17 20:04+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <fedora-trans-pl@redhat.com>\n"
+"Language-Team: Polish <trans-pl@lists.fedoraproject.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Ignorowanie przestarzałego polecenia w wierszu %(lineno)s: polecenie %(cmd)s "
 "jest przestarzałe i jego użycie nie powoduje żadnych zmian. Może zostać "
-"usunięte z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Należy "
-"zmodyfikować plik kickstart, aby usunąć to polecenie."
+"usunięte z przyszłych wydań, co spowoduje krytyczny błąd pliku kickstart. "
+"Należy zmodyfikować plik kickstart, aby usunąć to polecenie."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -53,27 +53,27 @@ msgid "Option %s is required"
 msgstr "Opcja %s jest wymagana"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Opcja %(option)s została wprowadzona w wersji %(intro)s, ale używana jest "
-"wersja składni kickstart %(version)s"
+"wersja składni kickstart %(version)s."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Opcja %(option)s nie jest już obsługiwana."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Opcja %(option)s została usunięta w wersji %(removed)s, ale używana jest "
-"wersja składni kickstart %(version)s"
+"wersja składni kickstart %(version)s."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -85,7 +85,7 @@ msgid ""
 msgstr ""
 "Ignorowanie przestarzałej opcji w wierszu %(lineno)s: opcja %(option)s jest "
 "przestarzała i jej użycie nie powoduje żadnych zmian. Może zostać usunięta z "
-"przyszłych wydań, co spowoduje krytyczny błąd kickstartu. Należy "
+"przyszłych wydań, co spowoduje krytyczny błąd pliku kickstart. Należy "
 "zmodyfikować plik kickstart, aby usunąć tę opcję."
 
 #: ../pykickstart/options.py:131
@@ -108,9 +108,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Niedozwolony adres URL dla %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Nie można otworzyć pliku %%ksappend: "
+msgstr "Nie można otworzyć pliku %%ksappend: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -118,18 +118,18 @@ msgid "Unable to open %%ksappend file"
 msgstr "Nie można otworzyć pliku %%ksappend"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Nie można otworzyć pliku %%ksappend: "
+msgstr "Nie można otworzyć wejściowego pliku kickstart: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr "Grupa nie może określać zarówno --nodefaults, jak i --optional"
+msgstr "Grupa nie może podać zarówno --nodefaults, jak i --optional"
 
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Sekcja nie kończy się na %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -137,7 +137,7 @@ msgstr ""
 #: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
-msgstr "Określono nieobsługiwaną wersję: %s"
+msgstr "Podano nieobsługiwaną wersję: %s"
 
 #: ../tools/ksvalidator:50
 msgid "halt after the first error or warning"
@@ -150,7 +150,7 @@ msgstr "przetworzenie plików nagłówków po zobaczeniu %include"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "wyświetlenie listy dostępnych wersji składni plików kickstart"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -162,11 +162,13 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Błąd podczas odczytywania %s:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr "Wersja %s nie jest obsługiwana przez pykickstart"
+msgstr "Wersja %s nie jest obsługiwana przez program pykickstart"
 
 #: ../tools/ksvalidator:98
 #, python-format
@@ -188,46 +190,34 @@ msgstr "Ogólny błąd w pliku wejściowym: %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Należy podać dwie wersje składni."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Następujące polecenia zostały usunięte w %s:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Następujące polecenia stały się przestarzałe w %s:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Następujące polecenia zostały dodane w %s:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Następujące opcje zostały dodane do polecenia %s w %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Następujące opcje polecenia %s stały się przestarzałe w %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
-
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s nie kończy się %%end. Ta składnia jest przestarzała. Może zostać "
-#~ "usunięta z przyszłych wydań, co spowoduje krytyczny błąd kickstartu. "
-#~ "Należy zmodyfikować plik kickstart, aby używał zaktualizowanej składni."
-
-#~ msgid "Script"
-#~ msgstr "Skrypt"
+msgstr "Następujące opcje zostały usunięte z polecenia %s w %s:"
