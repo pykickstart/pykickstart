@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74
+Version: 1.75
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Jun 22 2010 Chris Lumens <clumens@redhat.com> - 1.75-1
+- Update translation files. (clumens)
+- Remove everything from pykickstart that's been deprecated forever. (clumens)
+- Using the knowledge of what command supports what option, condense test cases. (clumens)
+- Add a method to list all supported options for a command being tested. (clumens)
+- Add support for F14. (clumens)
+- The %end at the end of a section is now required. (clumens)
+
 * Thu Jun 10 2010 Chris Lumens <clumens@redhat.com> - 1.74-1
 - If an option is deprecated, do not care if it takes a value (#602303). (clumens)
 - Don't compare the dest ("telnet") with the option string ("--telnet"). (clumens)
