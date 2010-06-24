@@ -96,5 +96,15 @@ class F13_TestCase(F11_TestCase):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --proxy",
                                 KickstartParseError)
 
+class F14_TestCase(F13_TestCase):
+    def runTest(self):
+        F13_TestCase.runTest(self)        
+        #pass
+        self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --noverifyssl",
+                          "repo --name=\"blah\" --baseurl=https://www.domain.com --noverifyssl\n")
+        #fail
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --noverifyssl=yeeeaah", KickstartParseError)
+        
+
 if __name__ == "__main__":
     unittest.main()

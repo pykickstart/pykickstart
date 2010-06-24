@@ -108,6 +108,22 @@ class F13_RepoData(F11_RepoData):
 
         return retval
 
+class F14_RepoData(F13_RepoData):
+    removedKeywords = F13_RepoData.removedKeywords
+    removedAttrs = F13_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_RepoData.__init__(self, *args, **kwargs)
+        self.noverifyssl = kwargs.get("noverifyssl", False)
+
+    def _getArgsAsStr(self):
+        retval = F13_RepoData._getArgsAsStr(self)
+
+        if self.noverifyssl:
+            retval += " --noverifyssl"
+
+        return retval
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -209,3 +225,13 @@ class F13_Repo(F11_Repo):
         op = F11_Repo._getParser(self)
         op.add_option("--proxy")
         return op
+
+class F14_Repo(F13_Repo):
+    removedKeywords = F13_Repo.removedKeywords
+    removedAttrs = F13_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F13_Repo._getParser(self)
+        op.add_option("--noverifyssl", action="store_true", default=False)
+        return op
+
