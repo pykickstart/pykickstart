@@ -98,5 +98,18 @@ class F13_TestCase(FC6_TestCase):
         self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
         self.assert_parse_error("url --proxy=http://someplace/somewhere", KickstartValueError)
 
+class F14_TestCase(F13_TestCase):
+    def runTest(self):
+        # run FC6 test case
+        F13_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --url=https://someplace/somewhere --noverifyssl",
+                          "url --url=\"https://someplace/somewhere\" --noverifyssl\n")
+
+        # fail
+        self.assert_parse_error("cdrom --noverifyssl", KickstartParseError)
+
+
 if __name__ == "__main__":
     unittest.main()

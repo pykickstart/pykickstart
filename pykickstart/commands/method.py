@@ -156,3 +156,29 @@ class F13_Method(FC6_Method):
             op.add_option("--proxy")
 
         return op
+
+class F14_Method(F13_Method):
+    removedKeywords = F13_Method.removedKeywords
+    removedAttrs = F13_Method.removedAttrs    
+
+    def __init__(self, *args, **kwargs):
+        F13_Method.__init__(self, *args, **kwargs)
+
+        self.noverifyssl = False
+
+    def __str__(self):
+        retval = F13_Method.__str__(self)
+
+        if self.method == "url" and self.noverifyssl:
+            retval = retval.strip()
+            retval += " --noverifyssl\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F13_Method._getParser(self)
+
+        if self.currentCmd == "url":
+            op.add_option("--noverifyssl", action="store_true", default=False)
+
+        return op
