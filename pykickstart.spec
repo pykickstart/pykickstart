@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.75
+Version: 1.76
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jul 08 2010 Chris Lumens <clumens@redhat.com> - 1.76-1
+- method: new parameter '--noverifyssl' after --url. (akozumpl)
+- repo: new parameter '--noverifyssl'. (akozumpl)
+
 * Tue Jun 22 2010 Chris Lumens <clumens@redhat.com> - 1.75-1
 - Update translation files. (clumens)
 - Remove everything from pykickstart that's been deprecated forever. (clumens)
