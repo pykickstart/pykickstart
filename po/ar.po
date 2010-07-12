@@ -1,7 +1,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
-# , 2010.
+# 
+#, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -13,20 +13,13 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 1.0\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.0\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"تجاهل الأوامر الناقصة في السطر %(lineno)s:  الأمر %(cmd)s يعتبر ناقصاً وليس "
-"له أي تأثير.  من المحتمل إزالته من الإصدارات القادمة، والذي سيتسبب في حدوث "
-"خطأ فادح من kickstart.  الرجاء تعديل ملف kickstart لحذف هذا الأمر."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "تجاهل الأوامر الناقصة في السطر %(lineno)s:  الأمر %(cmd)s يعتبر ناقصاً وليس له أي تأثير.  من المحتمل إزالته من الإصدارات القادمة، والذي سيتسبب في حدوث خطأ فادح من kickstart.  الرجاء تعديل ملف kickstart لحذف هذا الأمر."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -56,12 +49,8 @@ msgstr "الخيار %s مطلوب"
 
 #: ../pykickstart/options.py:87
 #, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"الخيار %(option)s تم عرضه في النسخة %(intro)s، ولكنك تستخدم "
-"kickstart صيغة نسخة %(version)s."
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "الخيار %(option)s تم عرضه في النسخة %(intro)s، ولكنك تستخدم kickstart صيغة نسخة %(version)s."
 
 #: ../pykickstart/options.py:93
 #, python-format
@@ -70,24 +59,13 @@ msgstr "الخيار %(option)s لم يعد معتمداً."
 
 #: ../pykickstart/options.py:95
 #, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"الخيار %(option)s تمت إزالته من النسخة %(removed)s, ولكنك تستخدم "
-"kickstart صيغة نسخة %(version)s"
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "الخيار %(option)s تمت إزالته من النسخة %(removed)s, ولكنك تستخدم kickstart صيغة نسخة %(version)s"
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"تجاهل الأوامر الناقصة في السطر %(lineno)s:  الأمر %(option)s يعتبر ناقصاً "
-"وليس له أي تأثير.  من المحتمل إزالته من الإصدارات القادمة، والذي سيتسبب في "
-"حدوث خطأ فادح من kickstart.  الرجاء تعديل ملف  kickstart لحذف هذا الأمر."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "تجاهل الأوامر الناقصة في السطر %(lineno)s:  الأمر %(option)s يعتبر ناقصاً وليس له أي تأثير.  من المحتمل إزالته من الإصدارات القادمة، والذي سيتسبب في حدوث خطأ فادح من kickstart.  الرجاء تعديل ملف  kickstart لحذف هذا الأمر."
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -222,5 +200,3 @@ msgstr "الخيارات التالية ناقصة من الأمر %s في %s:"
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
 msgstr "الخيارات التالية تمت إزالتها من الأمر %s في %s:"
-
-
