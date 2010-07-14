@@ -25,7 +25,7 @@ from pykickstart.options import *
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
-class F7_Key(KickstartCommand):
+class RHEL5_Key(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 

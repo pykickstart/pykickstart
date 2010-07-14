@@ -24,7 +24,7 @@ from tests.baseclass import *
 from pykickstart.errors import *
 from pykickstart.commands.key import *
 
-class F7_TestCase(CommandTest):
+class RHEL5_TestCase(CommandTest):
     command = "key"
 
     def runTest(self):
