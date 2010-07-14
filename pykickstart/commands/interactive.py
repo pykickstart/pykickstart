@@ -52,3 +52,7 @@ class FC3_Interactive(KickstartCommand):
 
         self.interactive = True
         return self
+
+class F14_Interactive(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)
