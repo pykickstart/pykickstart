@@ -1,22 +1,18 @@
 # Translation of pykickstart to Finnish.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the pykickstart package.
-#
-# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2007.
+# Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>, 2007, 2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2007-10-05 20:15+0300\n"
+"PO-Revision-Date: 2010-07-21 00:09+0300\n"
 "Last-Translator: Ville-Pekka Vainio <vpivaini@cs.helsinki.fi>\n"
-"Language-Team: Finnish <laatu@lokalisointi.org>\n"
+"Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Finnish\n"
-"X-Poedit-Country: Finland\n"
-"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../pykickstart/base.py:185
@@ -59,27 +55,27 @@ msgid "Option %s is required"
 msgstr "Valitsin %s vaaditaan"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Valitsin %(option)s esiteltiin versiossa %(intro)s, mutta käytössä on "
-"kicstart-syntaksin versio %(version)s"
+"kicstart-syntaksin versio %(version)s."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Valitsinta %(option)s ei enää tueta."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Valitsin %(option)s poistettiin versiossa %(removed)s, mutta käytät "
-"kickstart-syntaksin versiota %(version)s"
+"kickstart-syntaksin versiota %(version)s."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -114,9 +110,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Tiedoston %%ksappend URL ei kelpaa: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Tiedostoa %%ksappend ei voi avata: "
+msgstr "Tiedostoa %%ksappend ei voi avata: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -124,9 +120,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "Tiedostoa %%ksappend ei voi avata"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Tiedostoa %%ksappend ei voi avata: "
+msgstr "Tiedostoa kickstart-syötetiedostoa ei voi avata: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -135,7 +131,7 @@ msgstr "Ryhmä ei voi määrittää sekä --nodefaults että --optional"
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Osa ei pääty %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -156,7 +152,7 @@ msgstr "jäsennä include-tiedostot kun %include huomataan"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "luetteloi saatavilla olevat kickstart-syntaksin versiot"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -168,6 +164,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Virhe luettaessa %s:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -194,37 +192,37 @@ msgstr "Yleinen virhe syötetiedostossa: %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Kaksi syntaksiversiota on annettava."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Seuraavat komennot poistettiin versiossa %s:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Seuraavat komennot vanhennettiin versiossa %s:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Seuraavat komennot lisättiin versiossa %s:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Seuraavat valitsimet lisättiin %s-komentoon versiossa %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Seuraavat valitsimet vanhennettiin %s-komennosta versiossa %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "Seuraavat valitsimet poistettiin %s-komennosta versiossa %s:"
 
 #~ msgid ""
 #~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
