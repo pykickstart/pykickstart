@@ -1,3 +1,4 @@
+# translation of pykickstart.master.de.po to
 # German translation of pykickstart
 # This file is distributed under the same license as the pykickstart package.
 # Copyright (C) 2006 Red Hat, Inc.
@@ -5,19 +6,18 @@
 #
 # Nadine Reissle <nreissle@redhat.com>, 2006.
 # Marcus Gloeckner <mgloeckner@gmail.com>, 2006.
-# Timo Trinks <ttrinks@redhat.com>, 2006, 2007.
 # Fabian Affolter <fab@fedoraproject.org>, 2007-2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: pyKickstart\n"
+"Project-Id-Version: pykickstart.master.de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2009-04-17 23:43+0100\n"
-"Last-Translator: Fabian Affolter <fab@fedoraproject.org>\n"
-"Language-Team: German <fedora-trans-de@redhat.com>\n"
+"PO-Revision-Date: 2010-07-29 05:39+1000\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -64,27 +64,27 @@ msgid "Option %s is required"
 msgstr "Option %s ist erforderlich"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Die Option %(option)s wurde in Version %(intro)s eingeführt, Sie benutzen "
-"jedoch Kickstart-Syntax-Versionen %(version)s"
+"jedoch Kickstart-Syntax-Version %(version)s"
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Die Option %(option)s wird nicht länger unterstützt."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Die Option %(option)s wurde in Version %(removed)s entfernt, Sie benutzen "
-"jedoch Kickstart-Syntax-Versionen %(version)s"
+"jedoch Kickstart-Syntax-Version %(version)s."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -122,9 +122,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Ungültiger URL für %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Die Datei %%ksappend kann nicht geöffnet werden: "
+msgstr "Die Datei %%ksappend kann nicht geöffnet werden: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -132,9 +132,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "Die Datei %%ksappend kann nicht geöffnet werden"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Die Datei %%ksappend kann nicht geöffnet werden: "
+msgstr "Die Eingabe-Kickstart-Datei kann nicht geöffnet werden: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -143,7 +143,7 @@ msgstr "Die Gruppe kann nicht gleichzeitig --nodefaults und --optional angeben"
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Absatz endet nicht mit %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -164,7 +164,7 @@ msgstr "include-Dateien analysieren, wenn %include erscheint"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "verfügbaren Versionen der Kickstart-Syntax auflisten"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -176,6 +176,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Fehler beim Lesen von %s:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -202,47 +204,35 @@ msgstr "Allgemeiner Fehler in der Eingabe-Datei:  %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Sie müssen zwei Syntax-Versionen angeben."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Die folgenden Befehle wurden in %s entfernt:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Die folgenden Befehle sind in %s veraltet:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Die folgenden Befehle wurden in %s hinzugefügt:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Die folgenden Optionen wurden zu dem Befehl %s in %s hinzugefügt:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Die folgenden Optionen von dem Befehl %s gelten als veraltet in %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "Die folgenden Optionen wurden von dem Befehl %s in %s entfernt:"
 
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s endet nicht mit %%end. Diese Syntax ist veraltet. Sie wird vielleicht "
-#~ "von zukünftigen Versionen entfernt werden, was dann zu einem nicht "
-#~ "behebbaren Fehler von Kickstart führen wird. Bitte ändern Sie Ihre "
-#~ "Kickstart-Datei, um diese Option zu entfernen."
-
-#~ msgid "Script"
-#~ msgstr "Skript"
