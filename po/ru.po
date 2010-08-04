@@ -4,21 +4,21 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Andrew Martynov <andrewm@inventa.ru>, 2006, 2007.
-# Yulia Poyarkova <ypoyarko@redhat.com>, 2006.
+# Yulia <ypoyarko@redhat.com>, 2006, 2010.
 # Nikolay Sivov <bunglehead@gmail.com>, 2007.
-# Yulia Poyarkova <yulia.poyarkova@redhat.com>, 2009.
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2009-09-14 16:12+1000\n"
-"Last-Translator: Yulia Poyarkova <yulia.poyarkova@redhat.com>\n"
-"Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
+"PO-Revision-Date: 2010-08-05 09:52+1000\n"
+"Last-Translator: \n"
+"Language-Team: Russian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
@@ -28,10 +28,8 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this command."
 msgstr ""
-"Устаревший параметр игнорируется в строке %(lineno)s:  Команда %(cmd)s была "
-"объявлена устаревающей и более не оказывает влияния.  Она может быть удалена "
-"в будущих выпусках, что приведет к фатальным ошибкам кикстарта. Измените ваш "
-"файл кикстарта и удалите эту команду."
+"Игнорируется устаревший параметр в строке %(lineno)s:  команда %(cmd)s устарела и больше не используется. Она может быть удалена в будущих выпусках, что приведёт к критическим ошибкам кикстарта. "
+"Удалите эту команду из вашего файла кикстарта."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -45,7 +43,7 @@ msgid ""
 "\n"
 "%(msg)s\n"
 msgstr ""
-"Обнаружена следующая проблема в строке %(lineno)s файла кикстарта:\n"
+"Обнаружена проблема в строке %(lineno)s файла кикстарта:\n"
 "\n"
 "%(msg)s\n"
 
@@ -60,7 +58,7 @@ msgid "Option %s is required"
 msgstr "Параметр %s является обязательным"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
@@ -71,15 +69,15 @@ msgstr ""
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Параметр %(option)s больше не поддерживается"
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
-"Параметр %(option)s удален в версии %(removed)s, вы используете синтаксис "
+"Параметр %(option)s удалён в версии %(removed)s, а вы используете синтаксис "
 "кикстарта версии %(version)s"
 
 #: ../pykickstart/options.py:98
@@ -90,54 +88,53 @@ msgid ""
 "releases, which will result in a fatal error from kickstart.  Please modify "
 "your kickstart file to remove this option."
 msgstr ""
-"Устаревший параметр игнорируется в строке %(lineno)s:  Параметр %(option)s "
-"был объявлен устаревающим и более не оказывает влияния.  Он может быть "
-"удален в будущих выпусках, что приведет к фатальным ошибкам кикстарта. "
-"Измените ваш файл кикстарта и удалите этот параметр."
+"Игнорируется устаревший параметр в строке %(lineno)s:  параметр %(option)s "
+"устарел и больше не используется.  Он может быть "
+"удалён в будущих выпусках, что приведёт к критическим ошибкам кикстарта. "
+"Удалите этот параметр из вашего файла кикстарта."
 
 #: ../pykickstart/options.py:131
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
-msgstr "Параметр %(opt)s: недопустимое булево значение: %(value)r"
+msgstr "Параметр %(opt)s: недопустимое логическое значение: %(value)r"
 
 #: ../pykickstart/options.py:136
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
-msgstr "Параметр %(opt)s: недопустимое строковое значение: %(value)r"
+msgstr "Параметр %(opt)s: недопустимая строка: %(value)r"
 
 #: ../pykickstart/options.py:173
 msgid "Required flag set for option that doesn't take a value"
-msgstr ""
-"Для параметра, который не принимает значения, установлен флаг обязательности"
+msgstr "Для параметра, не принимающего значение, установлен обязательный флаг"
 
 #: ../pykickstart/parser.py:94
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
-msgstr "недопустимый url для %%ksappend: %s"
+msgstr "недопустимый URL для %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Невозможно открыть файл %%ksappend: "
+msgstr "Не удалось открыть файл %%ksappend: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr "Невозможно открыть файл %%ksappend"
+msgstr "Не удалось открыть файл %%ksappend"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Невозможно открыть файл %%ksappend: "
+msgstr "Не удалось открыть входной файл кикстарта: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
-msgstr "Группа не может одновременно включать --nodefaults и --optional"
+msgstr "Группа не может одновременно включать «--nodefaults» и «--optional»"
 
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "В конце секции нет %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -154,15 +151,15 @@ msgstr "останов после первой ошибки или предуп�
 #: ../tools/ksvalidator:53
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "обработать включаемые файлы при обнаружении %include"
+msgstr "обработать включённые файлы при обнаружении %include"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "показать доступные версии синтаксиса кикстарта"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
-msgstr "версия синтаксиса кикстарта, с которой нужно провести проверку"
+msgstr "версия синтаксиса кикстарта, в соответствии с которой будет выполняться проверка"
 
 #: ../tools/ksvalidator:76
 #, python-format
@@ -170,11 +167,13 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Ошибка чтения %s:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
-msgstr "Версия %s не поддерживается pykickstart"
+msgstr "pykickstart не поддерживает версию %s"
 
 #: ../tools/ksvalidator:98
 #, python-format
@@ -196,47 +195,35 @@ msgstr "Общая ошибка во входном файле:  %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Необходимо указать две версии синтаксиса."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Следующие команды удалены в %s:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Следующие команды устарели в %s:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Следующие команды добавлены в %s:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Следующие параметры добавлены к команде %s в %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Следующие параметры команды %s считаются устаревшими в %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "Следующие параметры команды %s удалены в %s:"
 
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s не завершается при помощи %%end.  Подобный синтаксис объявлен "
-#~ "устаревшим.  Он может быть удален в будущих выпусках, что приведет к "
-#~ "фатальным ошибкам кикстарта. Измените ваш файл кикстарта и удалите этот "
-#~ "параметр."
-
-#~ msgid "Script"
-#~ msgstr "Сценарий"
