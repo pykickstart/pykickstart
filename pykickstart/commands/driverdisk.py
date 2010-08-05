@@ -59,7 +59,7 @@ class FC4_DriverDiskData(FC3_DriverDiskData):
         FC3_DriverDiskData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
-        self.biosdisk = kwargs.get("biosdisk", "")
+        self.biospart = kwargs.get("biospart", "")
 
     def _getArgsAsStr(self):
         retval = ""
@@ -71,8 +71,8 @@ class FC4_DriverDiskData(FC3_DriverDiskData):
                 retval += " --type=%s" % self.type
         elif self.source:
             retval += "--source=%s" % self.source
-        elif self.biosdisk:
-            retval += "--biosdisk=%s" % self.biosdisk
+        elif self.biospart:
+            retval += "--biospart=%s" % self.biospart
 
         return retval
 
@@ -136,7 +136,7 @@ class FC4_DriverDisk(FC3_DriverDisk):
 
     def _getParser(self):
         op = FC3_DriverDisk._getParser(self)
-        op.add_option("--biosdisk")
+        op.add_option("--biospart")
         return op
 
     def parse(self, args):
@@ -147,13 +147,13 @@ class FC4_DriverDisk(FC3_DriverDisk):
 
         if len(extra) == 1 and opts.source:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command."))
-        elif len(extra) == 1 and opts.biosdisk:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biosdisk and partition may be specified for driverdisk command."))
-        elif opts.source and opts.biosdisk:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biosdisk and --source may be specified for driverdisk command."))
+        elif len(extra) == 1 and opts.biospart:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biospart and partition may be specified for driverdisk command."))
+        elif opts.source and opts.biospart:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --biospart and --source may be specified for driverdisk command."))
 
-        if not extra and not opts.source and not opts.biosdisk:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --source, --biosdisk, or partition must be specified for driverdisk command."))
+        if not extra and not opts.source and not opts.biospart:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command."))
 
         ddd = self.handler.DriverDiskData()
         self._setToObj(self.op, opts, ddd)
