@@ -51,14 +51,15 @@ class FC4_TestCase(FC3_TestCase):
         FC3_TestCase.runTest(self)
 
         # pass
-        self.assert_parse("driverdisk --biosdisk=0x82", "driverdisk --biosdisk=0x82\n")
+        self.assert_parse("driverdisk --biospart=0x82", "driverdisk --biospart=0x82\n")
+        self.assert_parse("driverdisk --biospart=0x80p1", "driverdisk --biospart=0x80p1\n")
 
         # fail - no arguments
-        self.assert_parse_error("driverdisk --biosdisk", KickstartParseError)
-        # fail - specifying both biosdisk and partition
-        self.assert_parse_error("driverdisk /dev/sdb2 --biosdisk=0x82", KickstartValueError)
-        # fail - specifying both biosdisk and source
-        self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biosdisk=0x82", KickstartValueError)
+        self.assert_parse_error("driverdisk --biospart", KickstartParseError)
+        # fail - specifying both biospart and partition
+        self.assert_parse_error("driverdisk /dev/sdb2 --biospart=0x82", KickstartValueError)
+        # fail - specifying both biospart and source
+        self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biospart=0x82", KickstartValueError)
 
 class F12_TestCase(FC4_TestCase):
     def runTest(self):
