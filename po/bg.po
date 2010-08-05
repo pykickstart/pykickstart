@@ -2,7 +2,7 @@
 # translation of pykickstart.po to Bulgarian
 # Copyright (C) 2008 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Miroslav Ivanov <kiro.kopeleto@gmail.com>, 2007.
 # Doncho N. Gunchev <gunchev@gmail.com>, 2007.
 # Alexander Todorov <atodorov@redhat.com>, 2008
@@ -20,16 +20,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Премахване на старите отхвърлени команди на ред %(lineno)s:  Командата %(cmd)"
-"s е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от "
-"бъдещи версии, което ще предизвика фатални грешки kickstart.  Моля променете "
-"вашия kickstart файл, премахвайки тази команда."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Премахване на старите отхвърлени команди на ред %(lineno)s:  Командата %(cmd)s е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от бъдещи версии, което ще предизвика фатални грешки kickstart.  Моля променете вашия kickstart файл, премахвайки тази команда."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -59,39 +51,18 @@ msgstr "Опцията %s е задължителна"
 
 #: ../pykickstart/options.py:87
 #, fuzzy, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"Опцията %(option)s бе добавена във версия %(intro)s, но вие ползвате "
-"kickstart синтаксис версия %(version)s"
-
-#: ../pykickstart/options.py:93
-#, python-format
-msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "Опцията %(option)s бе добавена във версия %(intro)s, но вие ползвате kickstart синтаксис версия %(version)s"
 
 #: ../pykickstart/options.py:95
 #, fuzzy, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"Опцията %(option)s бе премахната от версията %(removed)s, но вие ползвате "
-"kickstart синтаксис версия %(version)s"
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "Опцията %(option)s бе премахната от версията %(removed)s, но вие ползвате kickstart синтаксис версия %(version)s"
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Премахване на старите отхвърлени опции на ред %(lineno)s:  Опцията %(option)"
-"s е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от "
-"бъдещи версии, което ще предизвика фатални грешки kickstart.  Моля променете "
-"вашия kickstart файл, премахвайки тази опция."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Премахване на старите отхвърлени опции на ред %(lineno)s:  Опцията %(option)s е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от бъдещи версии, което ще предизвика фатални грешки kickstart.  Моля променете вашия kickstart файл, премахвайки тази опция."
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -111,11 +82,6 @@ msgstr "Поставен е флаг за изискване за опция, н
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr "Невалиден адрес (URL) за %%ksappend: %s"
-
-#: ../pykickstart/parser.py:99
-#, fuzzy, python-format
-msgid "Unable to open %%ksappend file: %s"
-msgstr "Не може да се отвори %%ksappend файла: "
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -225,14 +191,18 @@ msgstr ""
 msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s не завършва с %%end:  Опцията  е била  отхвърлена и вече няма ефект.  "
-#~ "Може би ще бъде премахната от бъдещи версии, което ще предизвика фатални "
-#~ "грешки.  Моля променете вашия kickstart файл, премахвайки тази опция."
+#: ../pykickstart/options.py:93
+#, python-format
+msgid "The %(option)s option is no longer supported."
+msgstr "Опцията %(option)s вече не се поддържа"
+
+#: ../pykickstart/parser.py:99
+#, python-format
+msgid "Unable to open %%ksappend file: %s"
+msgstr "Не може да се отвори %%ksappend файла: %s"
+
+#~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
+#~ msgstr "%s не завършва с %%end:  Опцията  е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от бъдещи версии, което ще предизвика фатални грешки.  Моля променете вашия kickstart файл, премахвайки тази опция."
 
 #~ msgid "Script"
 #~ msgstr "Скрипт"
