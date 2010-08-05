@@ -49,16 +49,6 @@ msgstr "Възникна проблем при четене на ред %s от 
 msgid "Option %s is required"
 msgstr "Опцията %s е задължителна"
 
-#: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
-msgstr "Опцията %(option)s бе добавена във версия %(intro)s, но вие ползвате kickstart синтаксис версия %(version)s"
-
-#: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
-msgstr "Опцията %(option)s бе премахната от версията %(removed)s, но вие ползвате kickstart синтаксис версия %(version)s"
-
 #: ../pykickstart/options.py:98
 #, python-format
 msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
@@ -97,11 +87,6 @@ msgstr "Не може да се отвори %%ksappend файла: "
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Групата не може да съдържа едновременно --nodefaults и --optional"
 
-#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
-#, python-format
-msgid "Section does not end with %%end."
-msgstr ""
-
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
 #: ../pykickstart/version.py:115 ../pykickstart/version.py:131
@@ -127,13 +112,6 @@ msgstr ""
 msgid "version of kickstart syntax to validate against"
 msgstr "Версия на kickstart синтаксиса, за която да се валидира"
 
-#: ../tools/ksvalidator:76
-#, python-format
-msgid ""
-"Error reading %s:\n"
-"%s"
-msgstr ""
-
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
@@ -157,38 +135,14 @@ msgstr "Генерална kickstart грешка във сходящия фай
 msgid "General error in input file:  %s"
 msgstr "Генерална грешка във сходящия файл:  %s"
 
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
-msgstr ""
-
-#: ../tools/ksverdiff:68
-#, python-format
-msgid "The following commands were removed in %s:"
-msgstr ""
-
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:74
-#, python-format
-msgid "The following commands were added in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:100
-#, python-format
-msgid "The following options were added to the %s command in %s:"
-msgstr ""
-
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:110
-#, python-format
-msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
 #: ../pykickstart/options.py:93
@@ -200,6 +154,54 @@ msgstr "Опцията %(option)s вече не се поддържа"
 #, python-format
 msgid "Unable to open %%ksappend file: %s"
 msgstr "Не може да се отвори %%ksappend файла: %s"
+
+#: ../pykickstart/options.py:95
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "Опцията %(option)s бе премахната от версията %(removed)s, но вие ползвате kickstart синтаксис версия %(version)s"
+
+#: ../pykickstart/options.py:87
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "Опцията %(option)s бе добавена във версия %(intro)s, но вие ползвате kickstart синтаксис версия %(version)s"
+
+#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
+#, python-format
+msgid "Section does not end with %%end."
+msgstr "Секцията не завършва с %%end."
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr "Трябва да посочите две синктаксис версий."
+
+#: ../tools/ksvalidator:76
+#, python-format
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+"Грешка при четене на %s:\n"
+"%s"
+
+#: ../tools/ksverdiff:68
+#, python-format
+msgid "The following commands were removed in %s:"
+msgstr "Следните команди са премахнати от %s:"
+
+#: ../tools/ksverdiff:110
+#, python-format
+msgid "The following options were removed from the %s command in %s:"
+msgstr "Следните опций са премахнати от %s командата в %s:"
+
+#: ../tools/ksverdiff:100
+#, python-format
+msgid "The following options were added to the %s command in %s:"
+msgstr "Следните опций са добавени с %s командата в %s:"
+
+#: ../tools/ksverdiff:74
+#, python-format
+msgid "The following commands were added in %s:"
+msgstr "Следните команди са добавени в %s:"
 
 #~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
 #~ msgstr "%s не завършва с %%end:  Опцията  е била  отхвърлена и вече няма ефект.  Може би ще бъде премахната от бъдещи версии, което ще предизвика фатални грешки.  Моля променете вашия kickstart файл, премахвайки тази опция."
