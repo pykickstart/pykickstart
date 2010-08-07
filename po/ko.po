@@ -3,7 +3,7 @@
 # translation of ko.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2006.
-#
+# 
 # Eunju Kim <eukim@redhat.com>, 2006, 2007, 2008.
 msgid ""
 msgstr ""
@@ -16,22 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
+"X-Generator: KBabel 1.11.4\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"%(lineno)s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %(cmd)s 명령은 삭제"
-"되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오"
-"류를 가져오는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 제"
-"거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "%(lineno)s 번째 줄에서 앞으로 삭제될 명령은 무시됩니다.  %(cmd)s 명령은 삭제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오는 이 명령은 다음 배포판부터 완전히 삭제될 것입니다. 이 명령을 제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -61,39 +53,18 @@ msgstr "옵션 %s가 필요"
 
 #: ../pykickstart/options.py:87
 #, fuzzy, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"옵션 %(option)s은 버전 %(intro)s에 소개되었으나, 킥스타트 구문 버전 %"
-"(version)s을 사용하시고 있습니다"
-
-#: ../pykickstart/options.py:93
-#, python-format
-msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "옵션 %(option)s은 버전 %(intro)s에 소개되었으나, 킥스타트 구문 버전 %(version)s을 사용하시고 있습니다"
 
 #: ../pykickstart/options.py:95
 #, fuzzy, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"옵션 %(option)s은 버전 %(removed)s에서 삭제되었으나, 킥스타트 구문 버전 %"
-"(version)s을 사용하시고 있습니다"
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "옵션 %(option)s은 버전 %(removed)s에서 삭제되었으나, 킥스타트 구문 버전 %(version)s을 사용하시고 있습니다"
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"%(lineno)s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %(option)s 옵션은 삭"
-"제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 "
-"오류를 가져오는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 "
-"제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "%(lineno)s 번째 줄에서 앞으로 삭제될 옵션은 무시됩니다.  %(option)s 옵션은 삭제되었으며 더이상 아무런 효과를 가지고 있지 않습니다.  킥스타트에서 치명적인 오류를 가져오는 이 옵션은 다음 배포판부터 완전히 삭제될 것입니다. 이 옵션을 제거하기 위해 킥스타트 파일을 수정해 주시기 바랍니다."
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -133,11 +104,6 @@ msgstr "%%ksappend 파일을 열 수 없음: "
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "그룹은 --nodefaults 및 --optional을 지정할 수 없음"
 
-#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
-#, python-format
-msgid "Section does not end with %%end."
-msgstr ""
-
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
 #: ../pykickstart/version.py:115 ../pykickstart/version.py:131
@@ -155,20 +121,9 @@ msgstr "처음 오류 혹은 경고 후에 정지"
 msgid "parse include files when %include is seen"
 msgstr "%include 가 보여질때 include 파일을 구문 분석함"
 
-#: ../tools/ksvalidator:56
-msgid "list the available versions of kickstart syntax"
-msgstr ""
-
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr "확인을 위한 킥스타트 구문의 버전"
-
-#: ../tools/ksvalidator:76
-#, python-format
-msgid ""
-"Error reading %s:\n"
-"%s"
-msgstr ""
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -192,10 +147,6 @@ msgstr "입력 파일에서 일반적인 킥스타트 오류"
 #, python-format
 msgid "General error in input file:  %s"
 msgstr "입력 파일에서 일반적인 오류:  %s"
-
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
-msgstr ""
 
 #: ../tools/ksverdiff:68
 #, python-format
@@ -227,14 +178,35 @@ msgstr ""
 msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s은 %%end로 끝나지 않습니다. 이러한 구문은 삭제되었습니다.  킥스타트에서 "
-#~ "치명적인 오류를 가져오는 이 구문은 다음 배포판부터 완전히 삭제될 것입니"
-#~ "다. 업데이트된 구문을 사용하려면 킥스타트 파일을 수정해 주시기 바랍니다. "
+#: ../pykickstart/options.py:93
+#, python-format
+msgid "The %(option)s option is no longer supported."
+msgstr "옵션 %(option)s 는 더이상 지원되지 않습니다."
+
+#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
+#, python-format
+msgid "Section does not end with %%end."
+msgstr "섹션이 %%end 로 끝나지 않습니다."
+
+#: ../tools/ksvalidator:76
+#, python-format
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+"%s:\n"
+"%s 를 읽는중에 오류가 발생했습니다."
+
+#: ../tools/ksvalidator:56
+msgid "list the available versions of kickstart syntax"
+msgstr "사용 가능한 kickstart 구문 목록을 표시합니다."
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr ""
+
+#~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
+#~ msgstr "%s은 %%end로 끝나지 않습니다. 이러한 구문은 삭제되었습니다.  킥스타트에서 치명적인 오류를 가져오는 이 구문은 다음 배포판부터 완전히 삭제될 것입니다. 업데이트된 구문을 사용하려면 킥스타트 파일을 수정해 주시기 바랍니다. "
 
 #~ msgid "Script"
 #~ msgstr "스크립트 "
