@@ -1,15 +1,16 @@
 # Swedish messages for pykickstart.
-# Copyright © 2001-2008 Free Software Foundation, Inc.
+# Copyright © 2001-2008, 2010 Free Software Foundation, Inc.
 # Christian Rose <menthos@menthos.com>, 2006.
 # Magnus Larsson <fedoratrans@gmail.com>, 2007.
-# Göran Uddeborg <goeran@uddeborg.se>, 2008.
+# Göran Uddeborg <goeran@uddeborg.se>, 2008, 2010.
 #
+# $Revision: 1.4 $
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2008-10-13 22:47+0200\n"
+"PO-Revision-Date: 2010-08-10 12:37+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -56,27 +57,23 @@ msgid "Option %s is required"
 msgstr "Flaggan %s krävs"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
-msgstr ""
-"Flaggan %(option)s introducerades i version %(intro)s, men du använder "
-"version %(version)s av kickstart-syntaxen"
+msgstr "Flaggan %(option)s introducerades i version %(intro)s, men du använder version %(version)s av kickstart-syntaxen."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Flaggan %(option)s stöds inte längre."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
-msgstr ""
-"Flaggan %(option)s togs bort i version %(removed)s, men du använder version %"
-"(version)s av kickstart-syntax"
+msgstr "Flaggan %(option)s togs bort i version %(removed)s, men du använder version %(version)s av kickstart-syntax."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -112,19 +109,19 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Ogiltig url för %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Kan inte öppna %%ksappend filen: "
+msgstr "Kan inte öppna %%ksappend-filen: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
-msgstr "Kan inte öppna %%ksappend filen"
+msgstr "Kan inte öppna %%ksappend-filen"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Kan inte öppna %%ksappend filen: "
+msgstr "Kan inte öppna %%ksappend-filen: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -133,7 +130,7 @@ msgstr "Grupp kan inte ange både --nodefaults och --optional"
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Sektionen slutar inte med %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -154,7 +151,7 @@ msgstr "tolka inkluderingsfiler då %include hittas"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "lista de tillgängliga versionerna av kickstart-syntax"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -166,6 +163,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Fel när %s lästes:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -192,47 +191,34 @@ msgstr "Allmänt fel i indatafil: %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Du måste ange två syntaxversioner."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Följande kommandon togs bort i %s:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Följande kommandon undanbedes i %s:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Följande kommandon lades till i %s:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Följande flaggor lades till kommandot %s i %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Följande flaggor undanbedes från kommandot %s i %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
-
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s avslutas inte med %%end.  Denna syntax är föråldrad.  Den kan komma "
-#~ "att tas bort från framtida utgåvor, vilket kommer att resultera i ett "
-#~ "ödesdigert fel från kickstart.  Ändra din kickstart-fil till att använda "
-#~ "den uppdaterade syntaxen."
-
-#~ msgid "Script"
-#~ msgstr "Skript"
+msgstr "Följande flaggor togs bort från kommandot %s i %s:"
