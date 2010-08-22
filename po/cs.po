@@ -12,28 +12,19 @@ msgstr ""
 "Project-Id-Version: cs\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2008-02-04 01:57+0100\n"
-"Last-Translator: Miloslav Trmač <mitr@volny.cz>\n"
+"PO-Revision-Date: 2010-08-22 10:58+0100\n"
+"Last-Translator: Milan Keršláger <milan.kerslager@pslib.cz>\n"
 "Language-Team: Czech <fedora-cs-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
-"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"Ignoruji zastaralý příkaz na řádku %(lineno)s: Příkaz %(cmd)s již není "
-"používán a nemá již žádný efekt. V budoucnosti může být odstraněn, což by "
-"mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
-"soubor tak, aby zastaralý příkaz neobsahoval."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "Ignoruji zastaralý příkaz na řádku %(lineno)s: Příkaz %(cmd)s již není používán a nemá již žádný efekt. V budoucnosti může být odstraněn, což by mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart soubor tak, aby zastaralý příkaz neobsahoval."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -62,40 +53,24 @@ msgid "Option %s is required"
 msgstr "Volba %s je povinná"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"Volba %(option)s byla přidána ve verzi %(intro)s, avšak vy používáte syntaxi "
-"kickstartu verze %(version)s."
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "Volba %(option)s byla přidána až ve verzi %(intro)s, avšak používáte syntaxi verze %(version)s."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Volba %(option)s již není podporována."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"Volba %(option)s byla odstraněna ve verzi %(removed)s, avšak vy používáte "
-"syntaxi kickstartu verze %(version)s."
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "Volba %(option)s byla odstraněna ve verzi %(removed)s, avšak používáte syntaxi verze %(version)s."
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není "
-"používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by "
-"mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart "
-"soubor tak, aby tuto volbu neobsahoval."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "Ignoruji zastaralou volbu na řádku %(lineno)s: Volba %(option)s již není používána a nemá již žádný efekt. V budoucnosti může být odstraněna, což by mohlo způsobit závažnou chybu kickstartu. Upravte prosím Váš kickstart soubor tak, aby tuto volbu neobsahoval."
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -117,32 +92,37 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Neplatné url pro %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Nemohu otevřít %%ksappend soubor: "
+msgstr "Nelze otevřít %%ksappend soubor: %s"
 
-#: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:105
+#: ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "Nemohu otevřít soubor %%ksappend "
 
-#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#: ../pykickstart/parser.py:140
+#: ../pykickstart/parser.py:790
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Nemohu otevřít %%ksappend soubor: "
+msgstr "Nelze otevřít kickstart soubor: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "Skupina nemůže mít zároveň --nodefaults a --optional"
 
-#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
+#: ../pykickstart/parser.py:673
+#: ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Sekce nekončí značkou %%end."
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:103 ../pykickstart/version.py:112
-#: ../pykickstart/version.py:115 ../pykickstart/version.py:131
+#: ../pykickstart/version.py:103
+#: ../pykickstart/version.py:112
+#: ../pykickstart/version.py:115
+#: ../pykickstart/version.py:131
 #: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -159,7 +139,7 @@ msgstr "zpracovat vložené (include) soubory, je-li zaznamenáno %include"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "vypsat dostupné verze kickstart syntaxe"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -171,8 +151,11 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Chyba při čtení %s:\n"
+"%s"
 
-#: ../tools/ksvalidator:82 ../tools/ksverdiff:61
+#: ../tools/ksvalidator:82
+#: ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "Verze %s není programem pykickstart podporována"
@@ -197,37 +180,37 @@ msgstr "Chyba ve vstupním souboru: %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Je nutné specifikovat dvě verze syntaxe."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Následující příkazy v %s byly odstraněny:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Následující příkazy v %s jsou zastaralé:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Následující příkazy byly do %s přidány:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Následující volby pro příkaz %s byly přidány v %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Následující volby jsou pro příkaz %s zastaralé v %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "Následující volby pro příkaz %s byly odebrány v %s:"
 
 #~ msgid ""
 #~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
