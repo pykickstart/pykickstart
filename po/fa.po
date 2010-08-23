@@ -8,9 +8,10 @@ msgstr ""
 "Project-Id-Version: pyKickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2009-04-20 01:40+0330\n"
-"Last-Translator: Sadid Sahami <sadid.sahami@gmail.com>\n"
+"PO-Revision-Date: 2010-08-23 20:52+0330\n"
+"Last-Translator: Mostafa <info@mostafadaneshvar.com>\n"
 "Language-Team: fedoraproject.ir <sadidsahami@gmail.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,16 +21,8 @@ msgstr ""
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"چشم‌پوشی از فرمان منسوخ شده در خط «%(lineno)s» : فرمان «%(cmd)s» منسوخ گردیده "
-"است و دیگر اثری ندارد. این فرمان ممکن است در نسخه های آینده حذف گردد، که "
-"منجر به خطائی مهلک از kickstart خواهد شد. لطفا پروندهٔ kickstart خود را برای "
-"حذف این فرمان ویرایش نمائید."
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "چشم‌پوشی از فرمان منسوخ شده در خط «%(lineno)s» : فرمان «%(cmd)s» منسوخ گردیده است و دیگر اثری ندارد. این فرمان ممکن است در نسخه های آینده حذف گردد، که منجر به خطائی مهلک از kickstart خواهد شد. لطفا پروندهٔ kickstart خود را برای حذف این فرمان ویرایش نمائید."
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -58,40 +51,24 @@ msgid "Option %s is required"
 msgstr "گزینهٔ «%s» مورد نیاز است"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"گزینهٔ «%(option)s» در نسخهٔ «%(intro)s» معرفی شد، اما شما از نحو (syntax) نسخهٔ «%"
-"(version)s» استفاده میکنید."
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "گزینهٔ «%(option)s» در نسخهٔ «%(intro)s» معرفی شد، اما شما از نحو (syntax) نسخهٔ «%(version)s» استفاده میکنید."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "گزینه ی %(option)s مدتی است حمایت نمی شود."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"گزینهٔ «%(option)s» از نسخهٔ «%(removed)s» حذف گردید، اما شما اکنون از نسخهٔ نحو «%"
-"(version)s» برنامهٔ kickstart‌ استفاده می‌کنید."
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "گزینهٔ «%(option)s» از نسخهٔ «%(removed)s» حذف گردید، اما شما اکنون از نسخهٔ نحو «%(version)s» برنامهٔ kickstart‌ استفاده می‌کنید."
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"چشم پوشی کردن از گزینهٔ منسوخ شده در خط «%(lineno)s»: گزینهٔ «%(option)s» منسوخ "
-"شده است و دیگر اثری ندارد. ممکن است از نسخه‌های آینده حذف گردد، که منجر به یک "
-"خطای مهلک در kickstart خواهد شد. لطفا پروندهٔ kickstrart خود را برای حذف این "
-"انتخاب ویرایش کنید."
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "چشم پوشی کردن از گزینهٔ منسوخ شده در خط «%(lineno)s»: گزینهٔ «%(option)s» منسوخ شده است و دیگر اثری ندارد. ممکن است از نسخه‌های آینده حذف گردد، که منجر به یک خطای مهلک در kickstart خواهد شد. لطفا پروندهٔ kickstrart خود را برای حذف این انتخاب ویرایش کنید."
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -113,32 +90,37 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "نشانهٔ اینترنتی غیرمجاز برای «%%ksappend»: «%s»"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "بازکردن پروندهٔ «%%ksappend» مقدور نیست:"
+msgstr "بازکردن پرونده %%ksappend  مقدور نبود: %s"
 
-#: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:105
+#: ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "بازکردن پروندهٔ «%%ksappend» مقدور نیست"
 
-#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#: ../pykickstart/parser.py:140
+#: ../pykickstart/parser.py:790
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "بازکردن پروندهٔ «%%ksappend» مقدور نیست:"
+msgstr "بازکردن خروجی پرونده kickstart  مقدور نیست:%s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "گروه نمی‌تواند هردوی --nodefaults و --optional را مشخص کند"
 
-#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
+#: ../pykickstart/parser.py:673
+#: ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "بخش نمی‌تواند به %%end ختم شود."
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:103 ../pykickstart/version.py:112
-#: ../pykickstart/version.py:115 ../pykickstart/version.py:131
+#: ../pykickstart/version.py:103
+#: ../pykickstart/version.py:112
+#: ../pykickstart/version.py:115
+#: ../pykickstart/version.py:131
 #: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -155,7 +137,7 @@ msgstr "فایلهای include را هنگامیکه «%include» دیده شد�
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "لیست نسخ موجود از نحو kickstart"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -167,8 +149,11 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"خطا هنگام خواندن  %s:\n"
+"%s"
 
-#: ../tools/ksvalidator:82 ../tools/ksverdiff:61
+#: ../tools/ksvalidator:82
+#: ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "نسخهٔ «%s» بوسیلهٔ pykickstart حمایت نمی‌گردد"
@@ -193,37 +178,37 @@ msgstr "خطای عمومی در پروندهٔ ورودی: «%s»"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "شما باید دو نسخه نحو مشخص کنید."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "دستورهای ذیل از  %s حذف شد:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "دستورهای ذیل در  %s منسوخ شده اند:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "دستورات ذیل به %s افزوده شد:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "گزینه های ذیل به  %s دستور  %s اضافه شد:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "گزینه های ذیل از  %s دستور  %s منسوخ شده اند:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "گزینه های ذیل از  دستور   %s در  %s برداشته شد:"
 
 #~ msgid ""
 #~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
