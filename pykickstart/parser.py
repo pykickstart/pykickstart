@@ -96,7 +96,7 @@ def _preprocessStateMachine (provideLineFn):
         try:
             url = grabber.urlopen(ksurl)
         except grabber.URLGrabError, e:
-            raise IOError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror)
+            raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror)
         else:
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
@@ -137,7 +137,7 @@ def preprocessKickstart (file):
     try:
         fh = urlopen(file)
     except grabber.URLGrabError, e:
-        raise IOError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
+        raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
     rc = _preprocessStateMachine (lambda: fh.readline())
     fh.close()
@@ -632,7 +632,7 @@ class KickstartParser:
 
                     try:
                         self.readKickstart (args[1], reset=False)
-                    except IOError:
+                    except KickstartError:
                         # Handle the include file being provided over the
                         # network in a %pre script.  This case comes up in the
                         # early parsing in anaconda.
@@ -787,7 +787,7 @@ class KickstartParser:
         try:
             fh = urlopen(f)
         except grabber.URLGrabError, e:
-            raise IOError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
+            raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
         self._stateMachine (lambda: fh.readline())
         fh.close()
