@@ -57,11 +57,6 @@ msgstr "Απαιτείται η επιλογή %s"
 msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
 msgstr "Η επιλογή %(option)s εισήχθηκε στην έκδοση %(intro)s, αλλά χρησιμοποιείτε το kickstart με σύνταξη έκδοσης %(version)s"
 
-#: ../pykickstart/options.py:93
-#, python-format
-msgid "The %(option)s option is no longer supported."
-msgstr ""
-
 #: ../pykickstart/options.py:95
 #, fuzzy, python-format
 msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
@@ -132,10 +127,6 @@ msgstr "τερματισμός μετά το πρώτο σφάλμα ή προε
 msgid "parse include files when %include is seen"
 msgstr "περιέλαβε τα αρχεία όταν φανεί το %include"
 
-#: ../tools/ksvalidator:56
-msgid "list the available versions of kickstart syntax"
-msgstr ""
-
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr "έκδοση σύνταξης kickstart για αναφορά κατά την πιστοποίηση"
@@ -163,10 +154,6 @@ msgstr "Γενικό σφάλμα kickstart στο αρχείο εισαγωγή
 msgid "General error in input file:  %s"
 msgstr "Γενικό σφάλμα στο αρχείο εισαγωγής: %s"
 
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
-msgstr ""
-
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
@@ -176,15 +163,6 @@ msgstr ""
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
 msgstr ""
-
-#: ../tools/ksvalidator:76
-#, python-format, fuzzy
-msgid ""
-"Error reading %s:\n"
-"%s"
-msgstr ""
-"Λάθος κατά την ανάγνωση %s:\n"
-"%s"
 
 #: ../tools/ksverdiff:100
 #, python-format, fuzzy
@@ -205,6 +183,30 @@ msgstr "Οι παρακάτω εντολές αφαιρέθηκαν από το 
 #, python-format, fuzzy
 msgid "The following options were removed from the %s command in %s:"
 msgstr "Οι παρακάτω επιλογές αφαιρέθηκαν από την εντολή %s στο %s:"
+
+#: ../pykickstart/options.py:93
+#, python-format, fuzzy
+msgid "The %(option)s option is no longer supported."
+msgstr "Η επιλογή %(option)s δεν υποστηρίζεται πλέον."
+
+#: ../tools/ksvalidator:56
+#, fuzzy
+msgid "list the available versions of kickstart syntax"
+msgstr "Προβολή λίστας όλων των διαθέσιμων εκδόσεων της σύνταξης του kickstart"
+
+#: ../tools/ksverdiff:54
+#, fuzzy
+msgid "You must specify two syntax versions."
+msgstr "Πρέπει να ορίσετε δύο εκδόσεις σύνταξης."
+
+#: ../tools/ksvalidator:76
+#, python-format, fuzzy
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+"Σφάλμα κατά την ανάγνωση %s:\n"
+"%s"
 
 #~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
 #~ msgstr "Το %s δεν τελειώνει με %%end.  Η σύνταξη αυτή δεν είναι πλέον σε χρήση. Πιθανώς να αφαιρεθεί από μελλοντικές εκδόσεις, πράγμα το οποίο θα προκαλέσει μοιραίο σφάλμα στο kickstart. Παρακαλώ τροποποιήστε το αρχείο kickstart και αφαιρέστε την εντολή."
