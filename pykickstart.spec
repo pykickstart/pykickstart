@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.77
+Version: 1.78
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Sep 10 2010 Chris Lumens <clumens@redhat.com> - 1.78-1
+- Raise KickstartError instead of IOError (#618002). (clumens)
+- It's --biospart, not --biosdisk (#620855). (clumens)
+- Translation updates.
+
 * Tue Jul 20 2010 Chris Lumens <clumens@redhat.com> - 1.77-1
 - Send the key command down the memory hole. (clumens)
 - Deprecate interactive kickstart mode. (clumens)
