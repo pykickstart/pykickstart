@@ -64,16 +64,6 @@ msgstr "Hi ha hagut un problema en llegir el fitxer del kickstart a la línia %s
 msgid "Option %s is required"
 msgstr "Es requereix l'opció %s"
 
-#: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
-msgstr "L'opció %(option)s s'introduí en la versió %(intro)s, però esteu fent servir la versió %(version)s de la sintaxi del kickstart"
-
-#: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
-msgstr "L'opció %(option)s s'eliminà en la versió %(removed)s, però esteu fent servir la versió %(version)s de la sintaxi del kickstart"
-
 #: ../pykickstart/options.py:98
 #, python-format
 msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
@@ -98,20 +88,10 @@ msgstr "S'ha establert el senyalador de requerit per a una opció que no pren ca
 msgid "Illegal url for %%ksappend: %s"
 msgstr "La url per a %%ksappend no és vàlida: %s"
 
-#: ../pykickstart/parser.py:99
-#, fuzzy, python-format
-msgid "Unable to open %%ksappend file: %s"
-msgstr "No es pot obrir el fitxer %%ksappend: "
-
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "No es pot obrir el fitxer %%ksappend"
-
-#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
-msgid "Unable to open input kickstart file: %s"
-msgstr "No es pot obrir el fitxer %%ksappend: "
 
 # FIXME: Quin grup??? (josep)
 #: ../pykickstart/parser.py:345
@@ -135,20 +115,9 @@ msgstr "atura't al primer error o avís"
 msgid "parse include files when %include is seen"
 msgstr "analitza fitxers d'inclusió quan es trobi %include"
 
-#: ../tools/ksvalidator:56
-msgid "list the available versions of kickstart syntax"
-msgstr ""
-
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr "la versió de la sintaxi del kickstart a validar"
-
-#: ../tools/ksvalidator:76
-#, python-format
-msgid ""
-"Error reading %s:\n"
-"%s"
-msgstr ""
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -173,40 +142,6 @@ msgstr "S'ha produït un error general del kickstart en el fitxer d'entrada"
 msgid "General error in input file:  %s"
 msgstr "Hi ha un error general al fitxer d'entrada: %s"
 
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
-msgstr ""
-
-#: ../tools/ksverdiff:68
-#, python-format
-msgid "The following commands were removed in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:71
-#, python-format
-msgid "The following commands were deprecated in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:74
-#, python-format
-msgid "The following commands were added in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:100
-#, python-format
-msgid "The following options were added to the %s command in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:105
-#, python-format
-msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:110
-#, python-format
-msgid "The following options were removed from the %s command in %s:"
-msgstr ""
-
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
@@ -216,6 +151,73 @@ msgstr "L'opció %(option)s ja no està suportada."
 #, python-format
 msgid "Section does not end with %%end."
 msgstr "La secció no acaba amb %%end."
+
+#: ../pykickstart/options.py:95
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "L'opció %(option)s es va eliminar en la versió %(removed)s, no obstant esteu utilitzant la versió %(version)s de la sintaxi del kickstart."
+
+#: ../pykickstart/options.py:87
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "L'opció %(option)s es va introduir en la versió %(intro)s, no obstant esteu utilitzant la versió %(version)s de la sintaxi del kickstart"
+
+#: ../pykickstart/parser.py:99
+#, python-format
+msgid "Unable to open %%ksappend file: %s"
+msgstr "No es pot obrir el fitxer %%ksappend : %s"
+
+#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
+#, python-format
+msgid "Unable to open input kickstart file: %s"
+msgstr "No es pot obrir el fitxer d'entrada de kickstart: %s"
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr "Heu d'especificar dos versions de la sintaxis."
+
+#: ../tools/ksvalidator:56
+msgid "list the available versions of kickstart syntax"
+msgstr "llistat de totes les versions disponibles de la sintaxis kickstart"
+
+#: ../tools/ksvalidator:76
+#, python-format
+msgid ""
+"Error reading %s:\n"
+"%s"
+msgstr ""
+"S'ha produït un error mentre es llegia %s:\n"
+"%s"
+
+#: ../tools/ksverdiff:68
+#, python-format
+msgid "The following commands were removed in %s:"
+msgstr "Les següents comandes van ser eliminades en %s:"
+
+#: ../tools/ksverdiff:71
+#, python-format
+msgid "The following commands were deprecated in %s:"
+msgstr "Les següents comandes es van considerar com a obsoletes en %s:"
+
+#: ../tools/ksverdiff:110
+#, python-format
+msgid "The following options were removed from the %s command in %s:"
+msgstr "Les següents opcions van eliminar-se de la comanda %s en %s:"
+
+#: ../tools/ksverdiff:105
+#, python-format
+msgid "The following options were deprecated from the %s command in %s:"
+msgstr "Les següents opcions van considerar-se obsoletes en la comanda %s en %s:"
+
+#: ../tools/ksverdiff:100
+#, python-format
+msgid "The following options were added to the %s command in %s:"
+msgstr "Les següents opcions es van afegir en la comanda %s en %s:"
+
+#: ../tools/ksverdiff:74
+#, python-format
+msgid "The following commands were added in %s:"
+msgstr "Les següents comandes es van afegir en %s:"
 
 #~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
 #~ msgstr "%s no acaba amb %%end. Aquesta sintaxi és obsoleta. Podria ser eliminada de les properes versions, i provocarà un error del kickstart. Modifiqueu el fitxer kickstart per usar la sintaxi actualitzada."
