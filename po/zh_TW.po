@@ -1,33 +1,27 @@
-# translation of pykickstart.master.po to Traditional Chinese
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-#
+# Translation of pykickstart to Traditional Chinese.
+# This file is distributed under the same license as the pykickstart package.
+# Copyright (C) 2010 The pykickstart Project (msgids).
 # Chester Cheng <ccheng@redhat.com>, 2006.
 # Terry Chuang <tchuang@redhat.com>, 2008.
+# Wei-Lun Chao <chaoweilun@gmail.com>, 2010.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: pykickstart.master\n"
+"Project-Id-Version: pykickstart 1.77\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2008-09-24 14:24+1000\n"
-"Last-Translator: Terry Chuang <tchuang@redhat.com>\n"
-"Language-Team: Traditional Chinese <zh@li.org>\n"
+"PO-Revision-Date: 2010-09-18 15:00+0800\n"
+"Last-Translator: Wei-Lun Chao <chaoweilun@gmail.com>\n"
+"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-"忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可能"
-"會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 "
-"kickstart 檔案，移除這選項。"
+msgid "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command."
+msgstr "忽略第 %(lineno)s 行的過時指令：%(cmd)s 已經淘汰，不再起任何作用。這指令可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
 
 #: ../pykickstart/base.py:389
 #, python-format
@@ -37,12 +31,10 @@ msgstr "不明指令：%s"
 #: ../pykickstart/errors.py:46
 #, python-format
 msgid ""
-"The following problem occurred on line %(lineno)s of the kickstart file:\n"
-"\n"
+"The following problem occurred on line %(lineno)s of the kickstart file:\n\n"
 "%(msg)s\n"
 msgstr ""
-"以下問題發生在 kickstart 檔案的第 %(lineno)s 行：\n"
-"\n"
+"以下問題發生在 kickstart 檔案的第 %(lineno)s 行：\n\n"
 "%(msg)s\n"
 
 #: ../pykickstart/errors.py:48
@@ -56,39 +48,24 @@ msgid "Option %s is required"
 msgstr "選項 %s 是必需的"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was introduced in version %(intro)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"%(option)s 這個選項介紹於 %(intro)s 版本中，不過您正在使用 kickstart 語法版"
-"本 %(version)s"
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "%(option)s 這個選項被引介於 %(intro)s 版本中，但是您正在使用 kickstart 語法版本 %(version)s"
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "%(option)s 選項已不再支援。"
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid ""
-"The %(option)s option was removed in version %(removed)s, but you are using "
-"kickstart syntax version %(version)s."
-msgstr ""
-"%(option)s 這個選項已由 %(removed)s 版本中移除，不過您正在使用 kickstart 語法"
-"版本 %(version)s"
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "%(option)s 這個選項已自 %(removed)s 版本中移除，但是您正在使用 kickstart 語法版本 %(version)s"
 
 #: ../pykickstart/options.py:98
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this option."
-msgstr ""
-"忽略第 %(lineno)s 行中的過時選項：%(option)s 選項已經淘汰，不再起任何作用。這"
-"選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您"
-"的 kickstart 檔案，移除這選項。"
+msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
+msgstr "忽略第 %(lineno)s 行中的過時選項：%(option)s 選項已經淘汰，不再起任何作用。這選項可能會自未來的版本中移除，這會讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案，移除這選項。"
 
 #: ../pykickstart/options.py:131
 #, python-format
@@ -110,9 +87,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "不合規定的 %%ksappend url：%s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "無法開啟 %%ksappend 檔案："
+msgstr "無法開啟 %%ksappend 檔案：%s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -120,9 +97,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "無法開啟 %%ksappend 檔案"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "無法開啟 %%ksappend 檔案："
+msgstr "無法開啟 kickstart 輸入檔案：%s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -131,7 +108,7 @@ msgstr "群組不可同時指定 --nodefaults 和 --optional"
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "區段未以 %%end 做結束。"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -148,11 +125,11 @@ msgstr "在第一次錯誤或警告時中止執行"
 #: ../tools/ksvalidator:53
 #, python-format
 msgid "parse include files when %include is seen"
-msgstr "遇到 %include 時，解析引入檔（include file）"
+msgstr "遇到 %include 時，解析引入檔"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "列出 kickstart 語法的可用版本"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -164,6 +141,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"讀取 %s 時發生錯誤：\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -190,46 +169,34 @@ msgstr "輸入檔中發生一般錯誤：%s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "您必須指定兩種語法版本。"
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "下列命令在 %s 中已移除："
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "下列命令在 %s 中已過時："
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "下列命令在 %s 中已加入："
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "下列選項已加入至 %s 命令於 %s 之中："
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "下列選項已不宜用在 %s 命令於 %s 之中："
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
-
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s 不以 %%end 作為結尾。此語法已被淘汰，並且可能會自未來的版本中移除，這會"
-#~ "讓 kickstart 執行時產生嚴重的錯誤。請修改您的 kickstart 檔案來使用此更新語"
-#~ "法。"
-
-#~ msgid "Script"
-#~ msgstr "Script"
+msgstr "下列選項已移除自 %s 命令於 %s 之中："
