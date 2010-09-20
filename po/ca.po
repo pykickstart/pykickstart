@@ -3,35 +3,37 @@
 # Traduccions al català del paquet «pykickstart».
 # Copyright © 2006, 2007 The Free Software Foundation, Inc.
 # This file is distributed under the same license as the pykickstart package.
-# 
-# 
+#
+# Robert Antoni Buj Gelonch <robert.buj@gmail.com>, 2010
+# Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006, 2007.
+# Cristina Gil Rodríguez <crisgil79@hotmail.com>, 2006.
+# Xavier Conde Rueda <xavi.conde@gmail.com>, 2006
+#
 # This file is translated according to the glossary and style guide of
 #   Softcatalà. If you plan to modify this file, please read first the page
 #   of the Catalan translation team for the Fedora project at:
 #   http://www.softcatala.org/projectes/fedora/
 #   and contact the previous translator
-# 
+#
 # Aquest fitxer s'ha de traduir d'acord amb el recull de termes i la guia
 #   d'estil de Softcatalà. Si voleu modificar aquest fitxer, llegiu si
 #   us plau la pàgina de catalanització del projecte Fedora a:
 #   http://www.softcatala.org/projectes/fedora/
 #   i contacteu l'anterior traductor/a.
-# 
-# Josep Puigdemont i Casamajó <josep.puigdemont@gmail.com>, 2006, 2007.
-# Cristina Gil Rodríguez <crisgil79@hotmail.com>, 2006.
-# Xavier Conde Rueda <xavi.conde@gmail.com>, 2006
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2008-09-27 04:18+0100\n"
-"Last-Translator: Xavier Conde Rueda <xavi.conde@gmail.com>\n"
+"PO-Revision-Date: 2010-09-20 05:42+0100\n"
+"Last-Translator: Robert Antoni Buj Gelonch <robert.buj@gmail.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Catalan\n"
 
 #: ../pykickstart/base.py:185
 #, python-format
@@ -88,7 +90,8 @@ msgstr "S'ha establert el senyalador de requerit per a una opció que no pren ca
 msgid "Illegal url for %%ksappend: %s"
 msgstr "La url per a %%ksappend no és vàlida: %s"
 
-#: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
+#: ../pykickstart/parser.py:105
+#: ../pykickstart/parser.py:107
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr "No es pot obrir el fitxer %%ksappend"
@@ -99,8 +102,10 @@ msgid "Group cannot specify both --nodefaults and --optional"
 msgstr "El grup no pot especificar --nodefaults i --optional alhora"
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:103 ../pykickstart/version.py:112
-#: ../pykickstart/version.py:115 ../pykickstart/version.py:131
+#: ../pykickstart/version.py:103
+#: ../pykickstart/version.py:112
+#: ../pykickstart/version.py:115
+#: ../pykickstart/version.py:131
 #: ../pykickstart/version.py:185
 #, python-format
 msgid "Unsupported version specified: %s"
@@ -119,7 +124,8 @@ msgstr "analitza fitxers d'inclusió quan es trobi %include"
 msgid "version of kickstart syntax to validate against"
 msgstr "la versió de la sintaxi del kickstart a validar"
 
-#: ../tools/ksvalidator:82 ../tools/ksverdiff:61
+#: ../tools/ksvalidator:82
+#: ../tools/ksverdiff:61
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr "El pykickstart no és compatible amb la versió %s"
@@ -147,7 +153,8 @@ msgstr "Hi ha un error general al fitxer d'entrada: %s"
 msgid "The %(option)s option is no longer supported."
 msgstr "L'opció %(option)s ja no està suportada."
 
-#: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
+#: ../pykickstart/parser.py:673
+#: ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
 msgstr "La secció no acaba amb %%end."
@@ -167,7 +174,8 @@ msgstr "L'opció %(option)s es va introduir en la versió %(intro)s, no obstant 
 msgid "Unable to open %%ksappend file: %s"
 msgstr "No es pot obrir el fitxer %%ksappend : %s"
 
-#: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
+#: ../pykickstart/parser.py:140
+#: ../pykickstart/parser.py:790
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr "No es pot obrir el fitxer d'entrada de kickstart: %s"
