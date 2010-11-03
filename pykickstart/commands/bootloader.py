@@ -181,6 +181,33 @@ class F12_Bootloader(F8_Bootloader):
         op.add_option("--lba32", dest="forceLBA", deprecated=1, action="store_true")
         return op
 
+class RHEL6_Bootloader(F12_Bootloader):
+    removedKeywords = F12_Bootloader.removedKeywords
+    removedAttrs = F12_Bootloader.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F12_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.isCrypted = kwargs.get("isCrypted", False)
+
+    def _getArgsAsStr(self):
+        ret = F12_Bootloader._getArgsAsStr(self)
+
+        if self.isCrypted:
+            ret += " --iscrypted"
+
+        return ret
+
+    def _getParser(self):
+        def password_cb(option, opt_str, value, parser):
+            parser.values.isCrypted = True
+            parser.values.password = value
+
+        op = F12_Bootloader._getParser(self)
+        op.add_option("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
+        return op
+
 class RHEL5_Bootloader(FC4_Bootloader):
     removedKeywords = FC4_Bootloader.removedKeywords
     removedAttrs = FC4_Bootloader.removedAttrs

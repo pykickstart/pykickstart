@@ -815,7 +815,7 @@ commandMap = {
         "authconfig": authconfig.FC3_Authconfig,
         "autopart": autopart.F12_AutoPart,
         "autostep": autostep.FC3_AutoStep,
-        "bootloader": bootloader.F12_Bootloader,
+        "bootloader": bootloader.RHEL6_Bootloader,
         "cdrom": method.F13_Method,
         "clearpart": clearpart.FC3_ClearPart,
         "cmdline": displaymode.FC3_DisplayMode,
