@@ -96,12 +96,21 @@ class F12_TestCase(F8_TestCase):
         self.assert_deprecated("bootloader", "--lba32")
 
 class F14_TestCase(F12_TestCase):
-    def runTest(self):
+    def runTest(self, iscrypted=False):
         # Run parent tests
-        F12_TestCase.runTest(self)
+        F12_TestCase.runTest(self, iscrypted)
 
         # fail
         self.assert_parse_error("bootloader --lba32", KickstartParseError)
+
+class F15_TestCase(F14_TestCase):
+    def runTest(self, iscrypted=False):
+        # Run parent tests
+        F14_TestCase.runTest(self, iscrypted=True)
+
+        # pass
+        self.assert_parse("bootloader --password=blahblah --iscrypted", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
+        self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
 
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self, iscrypted=False):
