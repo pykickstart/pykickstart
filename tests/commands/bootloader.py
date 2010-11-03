@@ -26,7 +26,7 @@ from pykickstart.errors import *
 class FC3_TestCase(CommandTest):
     command = "bootloader"
 
-    def runTest(self):
+    def runTest(self, iscrypted=False):
         if "--linear" in self.optionList:
             linear = "--linear "
         else:
@@ -49,7 +49,8 @@ class FC3_TestCase(CommandTest):
             self.assert_parse("bootloader --lba32", "bootloader %s--location=mbr --lba32\n" % linear)
 
         self.assert_parse("bootloader --password=blahblah", "bootloader %s--location=mbr --password=\"blahblah\"\n" % linear)
-        self.assert_parse("bootloader --md5pass=blahblah", "bootloader %s--location=mbr --md5pass=\"blahblah\"\n" % linear)
+        if not iscrypted:
+            self.assert_parse("bootloader --md5pass=blahblah", "bootloader %s--location=mbr --md5pass=\"blahblah\"\n" % linear)
         self.assert_parse("bootloader --upgrade", "bootloader %s--location=mbr --upgrade\n" % linear)
         self.assert_parse("bootloader --driveorder=hda,sdb", "bootloader %s--location=mbr --driveorder=\"hda,sdb\"\n" % linear)
 
@@ -64,9 +65,9 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("bootloader --driveorder", KickstartParseError)
 
 class FC4_TestCase(FC3_TestCase):
-    def runTest(self):
+    def runTest(self, iscrypted=False):
         # Run parent tests
-        FC3_TestCase.runTest(self)
+        FC3_TestCase.runTest(self, iscrypted)
 
         # Ensure these options have been removed.
         self.assert_removed("bootloader", "--linear")
@@ -74,9 +75,9 @@ class FC4_TestCase(FC3_TestCase):
         self.assert_removed("bootloader", "--useLilo")
 
 class F8_TestCase(FC4_TestCase):
-    def runTest(self):
+    def runTest(self, iscrypted=False):
         # Run parent tests
-        FC4_TestCase.runTest(self)
+        FC4_TestCase.runTest(self, iscrypted)
 
         # pass
         self.assert_parse("bootloader --timeout 47", "bootloader --location=mbr --timeout=47\n")
@@ -87,9 +88,9 @@ class F8_TestCase(FC4_TestCase):
         self.assert_parse_error("bootloader --default", KickstartParseError)
 
 class F12_TestCase(F8_TestCase):
-    def runTest(self):
+    def runTest(self, iscrypted=False):
         # Run parent tests
-        F8_TestCase.runTest(self)
+        F8_TestCase.runTest(self, iscrypted)
 
         # deprecated
         self.assert_deprecated("bootloader", "--lba32")
@@ -103,14 +104,23 @@ class F14_TestCase(F12_TestCase):
         self.assert_parse_error("bootloader --lba32", KickstartParseError)
 
 class RHEL5_TestCase(FC4_TestCase):
-    def runTest(self):
-        FC4_TestCase.runTest(self)
+    def runTest(self, iscrypted=False):
+        FC4_TestCase.runTest(self, iscrypted)
 
         self.assert_parse("bootloader --hvargs=bleh",
                           "bootloader --location=mbr --hvargs=\"bleh\"\n")
         self.assert_parse("bootloader --hvargs=\"bleh bleh\"",
                           "bootloader --location=mbr --hvargs=\"bleh bleh\"\n")
         self.assert_parse_error("bootloader --hvargs", KickstartParseError)
+
+class RHEL6_TestCase(F12_TestCase):
+    def runTest(self, iscrypted=False):
+        # Run parent tests
+        F12_TestCase.runTest(self, iscrypted=True)
+
+        # pass
+        self.assert_parse("bootloader --password=blahblah --iscrypted", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
+        self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
 
 if __name__ == "__main__":
     unittest.main()
