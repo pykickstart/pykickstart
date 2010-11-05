@@ -42,6 +42,7 @@ import gettext
 gettext.textdomain("pykickstart")
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
+import types
 import warnings
 from pykickstart.errors import *
 from pykickstart.ko import *
@@ -200,8 +201,8 @@ class BaseHandler(KickstartObject):
     """
     version = None
 
-    def __init__(self, mapping={}, dataMapping={}, commandUpdates={},
-                 dataUpdates={}, *args, **kwargs):
+    def __init__(self, mapping=None, dataMapping=None, commandUpdates=None,
+                 dataUpdates=None, *args, **kwargs):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
 
@@ -328,22 +329,25 @@ class BaseHandler(KickstartObject):
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def _registerCommands(self, mapping={}, dataMapping={}, commandUpdates={},
-                          dataUpdates={}):
-        if mapping == {}:
+    def _registerCommands(self, mapping=None, dataMapping=None, commandUpdates=None,
+                          dataUpdates=None):
+        if mapping == {} or mapping == None:
             from pykickstart.handlers.control import commandMap
             cMap = commandMap[self.version]
         else:
             cMap = mapping
 
-        if dataMapping == {}:
+        if dataMapping == {} or dataMapping == None:
             from pykickstart.handlers.control import dataMap
             dMap = dataMap[self.version]
         else:
             dMap = dataMapping
 
-        cMap.update(commandUpdates)
-        dMap.update(dataUpdates)
+        if type(commandUpdates) == types.DictType:
+            cMap.update(commandUpdates)
+
+        if type(dataUpdates) == types.DictType:
+            dMap.update(dataUpdates)
 
         for (cmdName, cmdClass) in cMap.iteritems():
             # First make sure we haven't instantiated this command handler
