@@ -117,24 +117,24 @@ def _preprocessStateMachine (provideLineFn):
     os.close(outF)
     return outName
 
-def preprocessFromString (str):
+def preprocessFromString (s):
     """Preprocess the kickstart file, provided as the string str.  This
         method is currently only useful for handling %ksappend lines,
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
-    i = iter(str.splitlines(True) + [""])
+    i = iter(s.splitlines(True) + [""])
     rc = _preprocessStateMachine (lambda: i.next())
     return rc
 
-def preprocessKickstart (file):
+def preprocessKickstart (f):
     """Preprocess the kickstart file, given by the filename file.  This
         method is currently only useful for handling %ksappend lines,
         which need to be fetched before the real kickstart parser can be
         run.  Returns the location of the complete kickstart file.
     """
     try:
-        fh = urlopen(file)
+        fh = urlopen(f)
     except grabber.URLGrabError, e:
         raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
@@ -752,7 +752,7 @@ class KickstartParser:
             elif self._state == STATE_END:
                 break
 
-    def readKickstartFromString (self, str, reset=True):
+    def readKickstartFromString (self, s, reset=True):
         """Process a kickstart file, provided as the string str."""
         if reset:
             self._reset()
@@ -760,7 +760,7 @@ class KickstartParser:
         # Add a "" to the end of the list so the string reader acts like the
         # file reader and we only get StopIteration when we're after the final
         # line of input.
-        i = iter(str.splitlines(True) + [""])
+        i = iter(s.splitlines(True) + [""])
         self._stateMachine (lambda: i.next())
 
     def readKickstart(self, f, reset=True):

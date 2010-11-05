@@ -289,26 +289,26 @@ class BaseHandler(KickstartObject):
 
         return retval
 
-    def _insertSorted(self, list, obj):
-        length = len(list)
+    def _insertSorted(self, lst, obj):
+        length = len(lst)
         i = 0
 
         while i < length:
             # If the two classes have the same name, it's because we are
             # overriding an existing class with one from a later kickstart
             # version, so remove the old one in favor of the new one.
-            if obj.__class__.__name__ > list[i].__class__.__name__:
+            if obj.__class__.__name__ > lst[i].__class__.__name__:
                 i += 1
-            elif obj.__class__.__name__ == list[i].__class__.__name__:
-                list[i] = obj
+            elif obj.__class__.__name__ == lst[i].__class__.__name__:
+                lst[i] = obj
                 return
-            elif obj.__class__.__name__ < list[i].__class__.__name__:
+            elif obj.__class__.__name__ < lst[i].__class__.__name__:
                 break
 
         if i >= length:
-            list.append(obj)
+            lst.append(obj)
         else:
-            list.insert(i, obj)
+            lst.insert(i, obj)
 
     def _setCommand(self, cmdObj):
         # Add an attribute on this version object.  We need this to provide a

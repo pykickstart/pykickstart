@@ -93,7 +93,7 @@ class FC3_Firewall(KickstartCommand):
                     p = "%s:tcp" % p
                 parser.values.ensure_value(option.dest, []).append(p)
 
-        op = KSOptionParser(map={"ssh":["22:tcp"], "telnet":["23:tcp"],
+        op = KSOptionParser(mapping={"ssh":["22:tcp"], "telnet":["23:tcp"],
                              "smtp":["25:tcp"], "http":["80:tcp", "443:tcp"],
                              "ftp":["21:tcp"]})
 

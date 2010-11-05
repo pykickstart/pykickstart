@@ -105,20 +105,20 @@ class KSOptionParser(OptionParser):
 
         return OptionParser.parse_args(self, **kwargs)
 
-    def __init__(self, map={}, version=None):
+    def __init__(self, mapping={}, version=None):
         """Create a new KSOptionParser instance.  Each KickstartCommand
            subclass should create one instance of KSOptionParser, providing
-           at least the lineno attribute.  map and version are not required.
+           at least the lineno attribute.  mapping and version are not required.
            Instance attributes:
 
-           map     -- A mapping from option strings to different values.
+           mapping -- A mapping from option strings to different values.
            version -- The version of the kickstart syntax we are checking
                       against.
         """
         OptionParser.__init__(self, option_class=KSOption,
                               add_help_option=False,
                               conflict_handler="resolve")
-        self.map = map
+        self.map = mapping
         self.version = version
 
 def _check_ksboolean(option, opt, value):
