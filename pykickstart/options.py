@@ -122,6 +122,9 @@ class KSOptionParser(OptionParser):
             self.map = {}
         else:
             self.map = mapping
+
+        self.lineno = None
+        self.option_seen = {}
         self.version = version
 
 def _check_ksboolean(option, opt, value):

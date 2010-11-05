@@ -430,8 +430,11 @@ class KickstartParser:
         self.handler = handler
         self.currentdir = {}
         self.missingIncludeIsFatal = missingIncludeIsFatal
-        self._reset()
 
+        self._state = STATE_COMMANDS
+        self._script = None
+        self._includeDepth = 0
+        self._preceededInclude = None
         self._line = ""
 
         self.version = self.handler.version
