@@ -124,7 +124,7 @@ def preprocessFromString (s):
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (lambda: i.next())
+    rc = _preprocessStateMachine (i.next)
     return rc
 
 def preprocessKickstart (f):
@@ -138,7 +138,7 @@ def preprocessKickstart (f):
     except grabber.URLGrabError, e:
         raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
-    rc = _preprocessStateMachine (lambda: fh.readline())
+    rc = _preprocessStateMachine (fh.readline)
     fh.close()
     return rc
 
@@ -761,7 +761,7 @@ class KickstartParser:
         # file reader and we only get StopIteration when we're after the final
         # line of input.
         i = iter(s.splitlines(True) + [""])
-        self._stateMachine (lambda: i.next())
+        self._stateMachine (i.next)
 
     def readKickstart(self, f, reset=True):
         """Process a kickstart file, given by the filename f."""
@@ -788,5 +788,5 @@ class KickstartParser:
         except grabber.URLGrabError, e:
             raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
-        self._stateMachine (lambda: fh.readline())
+        self._stateMachine (fh.readline)
         fh.close()

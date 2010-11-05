@@ -94,7 +94,7 @@ class KickstartCommand(KickstartObject):
         # members from the kwargs list before we start processing it.  This
         # ensures that subclasses don't continue to recognize arguments that
         # were removed.
-        for arg in filter(lambda k: kwargs.has_key(k), self.removedKeywords):
+        for arg in filter(kwargs.has_key, self.removedKeywords):
             kwargs.pop(arg)
 
     def __call__(self, *args, **kwargs):
