@@ -8,8 +8,6 @@ PREFIX=/usr
 
 TESTSUITE:=tests/baseclass.py
 
-PYCHECKEROPTS=--no-override --no-argsused --no-miximport --maxargs 0 --no-local -\# 0 --only -Q
-
 default: all
 
 all:
@@ -21,8 +19,8 @@ docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "http://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
-	@echo "*** Running pychecker to verify source ***"
-	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
+	@echo "*** Running pylint to verify source ***"
+	PYTHONPATH=. pylint pykickstart/*.py pykickstart/*/*.py --rcfile=/dev/null -i y -r n --disable=C,R --disable=W0141,W0142,W0221,W0401,W0403,W0603,W0611,W0612,W0613,W0614,W0703
 
 test:
 	@echo "*** Running unittests ***"
