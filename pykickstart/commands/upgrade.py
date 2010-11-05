@@ -57,9 +57,9 @@ class FC3_Upgrade(KickstartCommand):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade")
 
         if self.currentCmd == "upgrade":
-           self.upgrade = True
+            self.upgrade = True
         else:
-           self.upgrade = False
+            self.upgrade = False
 
         return self
 
@@ -99,8 +99,8 @@ class F11_Upgrade(FC3_Upgrade):
             self.root_device = opts.root_device
 
         if self.currentCmd == "upgrade":
-           self.upgrade = True
+            self.upgrade = True
         else:
-           self.upgrade = False
+            self.upgrade = False
 
         return self

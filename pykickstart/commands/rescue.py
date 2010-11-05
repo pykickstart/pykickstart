@@ -43,9 +43,9 @@ class F10_Rescue(KickstartCommand):
             retval += "rescue"
 
             if self.nomount:
-               retval += " --nomount"
+                retval += " --nomount"
             if self.romount:
-               retval += " --romount"
+                retval += " --romount"
 
             retval = "# Start rescue mode\n%s\n" % retval
 
