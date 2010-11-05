@@ -103,7 +103,7 @@ class FC6_MultiPath(KickstartCommand):
             mpath = FC6_MultiPathData()
             return mpath
         else:
-            mpath = self.mpaths[x]
+            mpath = self.mpaths[parent]
 
         return dd
 
