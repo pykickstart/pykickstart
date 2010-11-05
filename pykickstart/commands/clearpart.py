@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.errors import *
@@ -57,7 +55,7 @@ class FC3_ClearPart(KickstartCommand):
             initstr = ""
 
         if len(self.drives) > 0:
-            drivestr = "--drives=" + string.join (self.drives, ",")
+            drivestr = "--drives=" + ",".join(self.drives)
         else:
             drivestr = ""
 

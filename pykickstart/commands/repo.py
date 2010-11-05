@@ -23,7 +23,6 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
-import string
 import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
@@ -71,9 +70,9 @@ class F8_RepoData(FC6_RepoData):
         if self.cost:
             retval += " --cost=%s" % self.cost
         if self.includepkgs:
-            retval += " --includepkgs=\"%s\"" % string.join(self.includepkgs, ",")
+            retval += " --includepkgs=\"%s\"" % ",".join(self.includepkgs)
         if self.excludepkgs:
-            retval += " --excludepkgs=\"%s\"" % string.join(self.excludepkgs, ",")
+            retval += " --excludepkgs=\"%s\"" % ",".join(self.excludepkgs)
 
         return retval
 

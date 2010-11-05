@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.options import *
 
@@ -62,7 +60,7 @@ class FC3_Bootloader(KickstartCommand):
         if self.useLilo:
             retval += " --useLilo"
         if len(self.driveorder) > 0:
-            retval += " --driveorder=\"%s\"" % string.join(self.driveorder, ",")
+            retval += " --driveorder=\"%s\"" % ",".join(self.driveorder)
 
         return retval
 
@@ -131,7 +129,7 @@ class FC4_Bootloader(FC3_Bootloader):
         if self.upgrade:
             retval += " --upgrade"
         if len(self.driveorder) > 0:
-            retval += " --driveorder=\"%s\"" % string.join(self.driveorder, ",")
+            retval += " --driveorder=\"%s\"" % ",".join(self.driveorder)
         return retval
 
     def _getParser(self):

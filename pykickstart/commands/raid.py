@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
@@ -66,7 +64,7 @@ class FC3_RaidData(BaseData):
     def __str__(self):
         retval = BaseData.__str__(self)
         retval += "raid %s%s %s\n" % (self.mountpoint, self._getArgsAsStr(),
-                                       string.join(self.members))
+                                      " ".join(self.members))
         return retval
 
 class FC4_RaidData(FC3_RaidData):

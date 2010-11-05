@@ -21,7 +21,6 @@ from pykickstart.base import *
 from pykickstart.options import *
 
 import gettext
-import string
 import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
@@ -51,7 +50,7 @@ class FC3_VolGroupData(BaseData):
         if self.preexist:
             retval += " --useexisting"
 
-        return retval + " " + string.join(self.physvols, " ") + "\n"
+        return retval + " " + " ".join(self.physvols) + "\n"
 
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

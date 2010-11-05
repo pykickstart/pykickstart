@@ -34,7 +34,6 @@ This module exports several important classes:
 import os
 import shlex
 import sys
-import string
 import tempfile
 from copy import copy
 from optparse import *
@@ -89,7 +88,7 @@ def _preprocessStateMachine (provideLineFn):
 
         # Try to pull down the remote file.
         try:
-            ksurl = string.split(ll, ' ')[1]
+            ksurl = ll.split(' ')[1]
         except:
             raise KickstartParseError, formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll)
 
@@ -170,7 +169,7 @@ class Script(KickstartObject):
                           pykickstart.constants.
         """
         KickstartObject.__init__(self, *args, **kwargs)
-        self.script = string.join(script, "")
+        self.script = "".join(script)
 
         self.interp = kwargs.get("interp", "/bin/sh")
         self.inChroot = kwargs.get("inChroot", False)
@@ -455,7 +454,7 @@ class KickstartParser:
            is called when the end of a script section is seen and may be
            overridden in a subclass if necessary.
         """
-        if string.join(self._script["body"]).strip() == "":
+        if " ".join(self._script["body"]).strip() == "":
             return
 
         kwargs = {"interp": self._script["interp"],
@@ -601,7 +600,7 @@ class KickstartParser:
                 # Have we found a state transition?  If so, we still want
                 # to split.  Otherwise, args won't be set but we'll fall through
                 # all the way to the last case.
-                if self._line != "" and string.split(self._line.lstrip())[0] in \
+                if self._line != "" and self._line.lstrip().split()[0] in \
                    ["%end", "%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
                     args = shlex.split(self._line)
                 else:
@@ -696,7 +695,7 @@ class KickstartParser:
                     raise KickstartParseError, formatErrorMsg(lineno)
                 else:
                     needLine = True
-                    self.addPackages (string.rstrip(self._line))
+                    self.addPackages(self._line.rstrip())
 
             elif self._state == STATE_SCRIPT_HDR:
                 needLine = True

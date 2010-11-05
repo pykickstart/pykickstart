@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.options import *
 
@@ -39,7 +37,7 @@ class FC3_IgnoreDisk(KickstartCommand):
         retval = KickstartCommand.__str__(self)
 
         if len(self.ignoredisk) > 0:
-            retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
+            retval += "ignoredisk --drives=%s\n" % ",".join(self.ignoredisk)
 
         return retval
 
@@ -71,9 +69,9 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
         retval = KickstartCommand.__str__(self)
 
         if len(self.ignoredisk) > 0:
-            retval += "ignoredisk --drives=%s\n" % string.join(self.ignoredisk, ",")
+            retval += "ignoredisk --drives=%s\n" % ",".join(self.ignoredisk)
         elif len(self.onlyuse) > 0:
-            retval += "ignoredisk --only-use=%s\n" % string.join(self.onlyuse, ",")
+            retval += "ignoredisk --only-use=%s\n" % ",".join(self.onlyuse)
 
         return retval
 

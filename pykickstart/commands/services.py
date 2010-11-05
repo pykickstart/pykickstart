@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
@@ -42,9 +40,9 @@ class FC6_Services(KickstartCommand):
         args = ""
 
         if len(self.disabled) > 0:
-            args += " --disabled=\"%s\"" % string.join(self.disabled, ",")
+            args += " --disabled=\"%s\"" % ",".join(self.disabled)
         if len(self.enabled) > 0:
-            args += " --enabled=\"%s\"" % string.join(self.enabled, ",")
+            args += " --enabled=\"%s\"" % ",".join(self.enabled)
 
         if args != "":
             retval += "# System services\nservices%s\n" % args

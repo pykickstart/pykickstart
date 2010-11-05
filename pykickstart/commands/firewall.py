@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
@@ -66,15 +64,15 @@ class FC3_Firewall(KickstartCommand):
                     filteredPorts.append(port)
 
             # All the port:proto strings go into a comma-separated list.
-            portstr = string.join (filteredPorts, ",")
+            portstr = ",".join(filteredPorts)
             if len(portstr) > 0:
                 portstr = " --port=" + portstr
             else:
                 portstr = ""
 
-            extrastr = string.join (extra, "")
+            extrastr = "".join(extra)
+            truststr = ",".join(self.trusts)
 
-            truststr = string.join (self.trusts, ",")
             if len(truststr) > 0:
                 truststr = " --trust=" + truststr
 
@@ -148,7 +146,7 @@ class F10_Firewall(F9_Firewall):
         if self.enabled:
             retval = retval.strip()
 
-            svcstr = string.join(self.services, ",")
+            svcstr = ",".join(self.services)
             if len(svcstr) > 0:
                 svcstr = " --service=" + svcstr
             else:

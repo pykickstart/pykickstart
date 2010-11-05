@@ -17,8 +17,6 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import string
-
 from pykickstart.base import *
 from pykickstart.constants import *
 from pykickstart.errors import *
@@ -58,7 +56,7 @@ class FC6_UserData(BaseData):
         retval = ""
 
         if len(self.groups) > 0:
-            retval += " --groups=%s" % string.join(self.groups, ",")
+            retval += " --groups=%s" % ",".join(self.groups)
         if self.homedir:
             retval += " --homedir=%s" % self.homedir
         if self.name:
