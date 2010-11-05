@@ -55,9 +55,6 @@ STATE_PACKAGES = 2
 STATE_SCRIPT_HDR = 3
 STATE_SCRIPT = 4
 
-# FIXME:  This is a hack until I have time to think about making the parser
-# itself support multiple syntax versions.  Yes, I know this means it will
-# never be fixed.
 ver = DEVEL
 
 def _preprocessStateMachine (provideLineFn):
