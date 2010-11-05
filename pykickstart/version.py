@@ -73,7 +73,7 @@ F15 = 13000
 # This always points at the latest version and is the default.
 DEVEL = F15
 
-"""A one-to-one mapping from string representations to version numbers."""
+# A one-to-one mapping from string representations to version numbers.
 versionMap = {
         "DEVEL": DEVEL,
         "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,

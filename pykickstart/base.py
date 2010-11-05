@@ -172,7 +172,7 @@ class DeprecatedCommand(KickstartCommand):
         if self.__class__ is KickstartCommand:
             raise TypeError, "DeprecatedCommand is an abstract class."
 
-        """Create a new DeprecatedCommand instance."""
+        # Create a new DeprecatedCommand instance.
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
 
     def __str__(self):
@@ -193,9 +193,8 @@ class BaseHandler(KickstartObject):
        class.  These subclasses are what users will interact with for parsing,
        extracting data, and writing out kickstart files.  This is an abstract
        class.
-    """
 
-    """version -- The version this syntax handler supports.  This is set by
+       version -- The version this syntax handler supports.  This is set by
                   a class attribute of a BaseHandler subclass and is used to
                   set up the command dict.  It is for read-only use.
     """

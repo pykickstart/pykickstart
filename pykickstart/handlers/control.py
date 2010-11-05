@@ -20,12 +20,11 @@
 from pykickstart.version import *
 from pykickstart.commands import *
 
-"""This map is keyed on kickstart syntax version as provided by
-   pykickstart.version.  Within each sub-dict is a mapping from command name
-   to the class that handles it.  This is an onto mapping - that is, multiple
-   command names can map to the same class.  However, the Handler will ensure
-   that only one instance of each class ever exists.
-"""
+# This map is keyed on kickstart syntax version as provided by
+# pykickstart.version.  Within each sub-dict is a mapping from command name
+# to the class that handles it.  This is an onto mapping - that is, multiple
+# command names can map to the same class.  However, the Handler will ensure
+# that only one instance of each class ever exists.
 commandMap = {
     FC3: {
         "auth": authconfig.FC3_Authconfig,
@@ -986,12 +985,11 @@ commandMap = {
     }
 }
 
-"""This map is keyed on kickstart syntax version as provided by
-   pykickstart.version.  Within each sub-dict is a mapping from a data object
-   name to the class that provides it.  This is a bijective mapping - that is,
-   each name maps to exactly one data class and all data classes have a name.
-   More than one instance of each class is allowed to exist, however.
-"""
+# This map is keyed on kickstart syntax version as provided by
+# pykickstart.version.  Within each sub-dict is a mapping from a data object
+# name to the class that provides it.  This is a bijective mapping - that is,
+# each name maps to exactly one data class and all data classes have a name.
+# More than one instance of each class is allowed to exist, however.
 dataMap = {
     FC3: {
         "DriverDiskData": driverdisk.FC3_DriverDiskData,
