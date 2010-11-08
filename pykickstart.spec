@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.78
+Version: 1.79
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Nov 08 2010 Chris Lumens <clumens@redhat.com> 1.79-1
+- Move from pychecker to pylint, since the latter actually works.
+- Lots of minor corrections for pylint.
+- Add bootloader --iscrypted (#554870).
+- Add support for F15.
+
 * Fri Sep 10 2010 Chris Lumens <clumens@redhat.com> - 1.78-1
 - Raise KickstartError instead of IOError (#618002). (clumens)
 - It's --biospart, not --biosdisk (#620855). (clumens)
