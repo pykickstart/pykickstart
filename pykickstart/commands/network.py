@@ -156,6 +156,22 @@ class RHEL4_NetworkData(FC3_NetworkData):
 
         return retval
 
+class RHEL6_NetworkData(F8_NetworkData):
+    removedKeywords = F8_NetworkData.removedKeywords
+    removedAttrs = F8_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F8_NetworkData.__init__(self, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+
+    def _getArgsAsStr(self):
+        retval = F8_NetworkData._getArgsAsStr(self)
+
+        if self.activate:
+            retval += " --activate"
+
+        return retval
+
 class FC3_Network(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -286,4 +302,18 @@ class RHEL5_Network(FC6_Network):
         op.add_option("--bootproto", dest="bootProto",
                       default=BOOTPROTO_DHCP,
                       choices=self.bootprotoList)
+        return op
+
+class RHEL6_Network(F9_Network):
+    removedKeywords = F9_Network.removedKeywords
+    removedAttrs = F9_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F9_Network.__init__(self, writePriority, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+
+    def _getParser(self):
+        op = F9_Network._getParser(self)
+        op.add_option("--activate", dest="activate", action="store_true",
+                      default=False)
         return op
