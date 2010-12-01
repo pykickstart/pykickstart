@@ -140,6 +140,18 @@ class F8_NetworkData(FC6_NetworkData):
 
         return retval
 
+class F16_NetworkData(F8_NetworkData):
+    removedKeywords = F8_NetworkData.removedKeywords
+    removedAttrs = F8_NetworkData.removedAttrs
+
+    def _getArgsAsStr(self):
+        retval = F8_NetworkData._getArgsAsStr(self)
+
+        if self.activate:
+            retval += " --activate"
+
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -153,6 +165,18 @@ class RHEL4_NetworkData(FC3_NetworkData):
 
         if self.notksdevice:
             retval += " --notksdevice"
+
+        return retval
+
+class RHEL6_NetworkData(F8_NetworkData):
+    removedKeywords = F8_NetworkData.removedKeywords
+    removedAttrs = F8_NetworkData.removedAttrs
+
+    def _getArgsAsStr(self):
+        retval = F8_NetworkData._getArgsAsStr(self)
+
+        if self.activate:
+            retval += " --activate"
 
         return retval
 
@@ -263,6 +287,20 @@ class F9_Network(F8_Network):
                       choices=self.bootprotoList)
         return op
 
+class F16_Network(F9_Network):
+    removedKeywords = F9_Network.removedKeywords
+    removedAttrs = F9_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F9_Network.__init__(self, writePriority, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+
+    def _getParser(self):
+        op = F9_Network._getParser(self)
+        op.add_option("--activate", dest="activate", action="store_true",
+                      default=False)
+        return op
+
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
@@ -286,4 +324,18 @@ class RHEL5_Network(FC6_Network):
         op.add_option("--bootproto", dest="bootProto",
                       default=BOOTPROTO_DHCP,
                       choices=self.bootprotoList)
+        return op
+
+class RHEL6_Network(F9_Network):
+    removedKeywords = F9_Network.removedKeywords
+    removedAttrs = F9_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F9_Network.__init__(self, writePriority, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+
+    def _getParser(self):
+        op = F9_Network._getParser(self)
+        op.add_option("--activate", dest="activate", action="store_true",
+                      default=False)
         return op
