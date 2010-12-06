@@ -96,7 +96,7 @@ class F13_TestCase(F11_TestCase):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --proxy",
                                 KickstartParseError)
 
-class F14_TestCase(F13_TestCase):
+class RHEL6_TestCase(F13_TestCase):
     def runTest(self):
         F13_TestCase.runTest(self)        
         #pass

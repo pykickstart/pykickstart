@@ -98,7 +98,7 @@ class F13_TestCase(FC6_TestCase):
         self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
         self.assert_parse_error("url --proxy=http://someplace/somewhere", KickstartValueError)
 
-class F14_TestCase(F13_TestCase):
+class RHEL6_TestCase(F13_TestCase):
     def runTest(self):
         # run FC6 test case
         F13_TestCase.runTest(self)
