@@ -15,11 +15,6 @@ default: all
 all:
 	$(MAKE) -C po
 
-docs:
-	mkdir -p docs
-	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
-	curl -A "programmers-guide" -o docs/programmers-guide "http://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
-
 check:
 	@echo "*** Running pychecker to verify source ***"
 	PYTHONPATH=. pychecker $(PYCHECKEROPTS) pykickstart/*.py pykickstart/commands/*.py pykickstart/handlers/*.py
@@ -29,7 +24,7 @@ test:
 	PYTHONPATH=. python $(TESTSUITE) -v
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc tests/*.pyc tests/commands/*.pyc docs/* ChangeLog
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc tests/*.pyc tests/commands/*.pyc ChangeLog
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
@@ -44,7 +39,7 @@ tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
-archive: check test tag docs
+archive: check test tag
 	@rm -f ChangeLog
 	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
@@ -57,7 +52,7 @@ archive: check test tag docs
 	rm -rf $(PKGNAME)-$(VERSION)
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
-local: docs
+local:
 	@rm -f ChangeLog
 	@make ChangeLog
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
@@ -83,4 +78,4 @@ bumpver:
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py
 
-.PHONY: check clean install tag archive local docs
+.PHONY: check clean install tag archive local
