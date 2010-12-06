@@ -124,6 +124,8 @@ class F14_RepoData(F13_RepoData):
 
         return retval
 
+RHEL6_RepoData = F14_RepoData
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -235,3 +237,4 @@ class F14_Repo(F13_Repo):
         op.add_option("--noverifyssl", action="store_true", default=False)
         return op
 
+RHEL6_Repo = F14_Repo
