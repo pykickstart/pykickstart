@@ -182,3 +182,5 @@ class F14_Method(F13_Method):
             op.add_option("--noverifyssl", action="store_true", default=False)
 
         return op
+
+RHEL6_Method = F14_Method
