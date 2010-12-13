@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.1
+Version: 1.74.2
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Dec 13 2010 Chris Lumens <clumens@redhat.com> - 1.74.2-1
+- Add the documentation from the website to this package. (clumens)
+- F14 TestCase classes won't work on rhel6-branch, use RHEL6. (akozumpl)
+- support noverifyssl on the rhel6-branch (method, repo) (#660340). (akozumpl)
+- method: new parameter '--noverifyssl' after --url. (akozumpl)
+- repo: new parameter '--noverifyssl'. (akozumpl)
+- Add bootloader --iscrypted (#554870). (clumens)
+
 * Fri Aug 06 2010 Chris Lumens <clumens@redhat.com> 1.74.1-1
 - It's --biospart, not --biosdisk (#620855).
 
