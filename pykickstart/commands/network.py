@@ -163,12 +163,15 @@ class RHEL6_NetworkData(F8_NetworkData):
     def __init__(self, *args, **kwargs):
         F8_NetworkData.__init__(self, *args, **kwargs)
         self.activate = kwargs.get("activate", False)
+        self.nodefroute = kwargs.get("nodefroute", False)
 
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
 
         if self.activate:
             retval += " --activate"
+        if self.nodefroute:
+            retval += " --nodefroute"
 
         return retval
 
@@ -311,10 +314,13 @@ class RHEL6_Network(F9_Network):
     def __init__(self, writePriority=0, *args, **kwargs):
         F9_Network.__init__(self, writePriority, *args, **kwargs)
         self.activate = kwargs.get("activate", False)
+        self.nodefroute = kwargs.get("nodefroute", False)
         self.bootprotoList.append(BOOTPROTO_IBFT)
 
     def _getParser(self):
         op = F9_Network._getParser(self)
         op.add_option("--activate", dest="activate", action="store_true",
+                      default=False)
+        op.add_option("--nodefroute", dest="nodefroute", action="store_true",
                       default=False)
         return op
