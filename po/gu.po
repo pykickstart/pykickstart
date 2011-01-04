@@ -1,21 +1,22 @@
-# translation of gu.po to Gujarati
+# translation of pykickstart.master.gu.po to Gujarati
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Ankit Patel <ankit@redhat.com>, 2006, 2007.
+# Sweta Kothari <swkothar@redhat.com>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: gu\n"
+"Project-Id-Version: pykickstart.master.gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2007-10-05 11:49+0530\n"
-"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
-"Language-Team: Gujarati <fedora-trans-gu@redhat.com>\n"
+"PO-Revision-Date: 2011-01-04 14:35+0530\n"
+"Last-Translator: Sweta Kothari <swkothar@redhat.com>\n"
+"Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
-"Plural-Forms:  nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
 "\n"
 "\n"
 "\n"
@@ -65,27 +66,27 @@ msgid "Option %s is required"
 msgstr "વિકલ્પ %s જરૂરી છે"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "વિકલ્પ %(option)s એ આવૃત્તિ %(intro)s માં પરિચયમાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ "
-"વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
+"વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "%(option)s વિકલ્પ લાંબા સમય સુધી આધારભૂત નથી."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "વિકલ્પ %(option)s એ આવૃત્તિ %(removed)s માં દૂર કરવામાં આવ્યો હતો, પરંતુ તમે કિકસ્ટાર્ટ "
-"વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો"
+"વાક્યરચના આવૃત્તિ %(version)s વાપરી રહ્યા છો."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -120,9 +121,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "%%ksappend માટે અયોગ્ય url: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ: "
+msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -130,9 +131,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "%%ksappend ફાઈલ ખોલવામાં અસમર્થ: "
+msgstr "ઇનપુટ કિકસ્ટાર્ટ ફાઈલ ખોલવામાં અસમર્થ: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -141,7 +142,7 @@ msgstr "જૂથ --nodefaults અને --optional બંને સ્પષ્
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "વિભાગ %%end સાથે અંત થતો નથી."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -162,7 +163,7 @@ msgstr "જ્યારે %include એ દેખાય ત્યારે સ�
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ સંદર્ભની ઉપલબ્ધ આવૃત્તિઓની યાદી કરો"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -174,6 +175,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"%s ને વાંચી રહ્યા હોય ત્યારે ભૂલ:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -200,46 +203,35 @@ msgstr "ઈનપુટ ફાઈલમાં સામાન્ય ભૂલ:  
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "તમારે બે સંદર્ભ આવૃત્તિઓને સ્પષ્ટ કરવુ જ જોઇએ."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "નીચેનાં આદેશો %s માં દૂર કરવામાં આવ્યા હતા:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "નીચેનાં આદેશો %s માં અપ્રચલિત કરી દીધા હતા:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "નીચેનાં આદેશોને %s માં ઉમેરાયેલ હતા:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "નીચેનાં વિકલ્પો %s માં %s આદેશમાં ઉમેરાયેલ હતા:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "નીચેનાં વિકલ્પો %s માં %s આદેશમાંથી અપ્રચલિત કર્યા હતા:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "નીચેનાં વિકલ્પોને %s માં %s આદેશમાંથી દૂર કરી દીધા હતા:"
 
-#~ msgid ""
-#~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
-#~ "removed from future releases, which will result in a fatal error from "
-#~ "kickstart.  Please modify your kickstart file to use this updated syntax."
-#~ msgstr ""
-#~ "%s એ %%end થી અંત થતી નથી.  આ વાક્યરચના દૂર કરવામાં આવેલ છે.  તે ભવિષ્યના "
-#~ "પ્રકાશનોમાંથી પણ દૂર કરવામાં આવશે, કે જે કિકસ્ટાર્ટમાંથી ઘાતક ભૂલમાં પરિણમશે.  મહેરબાની "
-#~ "કરીને આ સુધારાયેલ વાક્યરચના વાપરવા માટે તમારી કિકસ્ટાર્ટ ફાઈલ સુધારો."
-
-#~ msgid "Script"
-#~ msgstr "સ્ક્રિપ્ટ"
