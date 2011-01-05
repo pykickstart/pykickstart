@@ -726,7 +726,6 @@ commandMap = {
         "harddrive": method.F14_Method,
         "ignoredisk": ignoredisk.F14_IgnoreDisk,
         "install": upgrade.F11_Upgrade,
-        "interactive": interactive.F14_Interactive,
         "iscsi": iscsi.F10_Iscsi,
         "iscsiname": iscsiname.FC6_IscsiName,
         "keyboard": keyboard.FC3_Keyboard,

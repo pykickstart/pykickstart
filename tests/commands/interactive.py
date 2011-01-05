@@ -35,5 +35,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("interactive --cheese", KickstartParseError)
         self.assert_parse_error("interactive --crackers=CRUNCHY", KickstartParseError)
 
+
+class F14_TestCase(FC3_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("interactive")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
 if __name__ == "__main__":
     unittest.main()
