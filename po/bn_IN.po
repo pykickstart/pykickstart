@@ -3,19 +3,19 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 #
 # Runa Bhattacharjee <runab@redhat.com>, 2006, 2007.
-# Runa Bhattacharjee <runab@fedoraproject.org>, 2008.
+# Runa Bhattacharjee <runab@fedoraproject.org>, 2008, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart.master\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2008-03-11 12:58+0530\n"
-"Last-Translator: Runa Bhattacharjee <runab@fedoraproject.org>\n"
-"Language-Team: Bengali INDIA <fedora-trans-bn_IN@redhat.com>\n"
+"PO-Revision-Date: 2011-01-05 14:19+0530\n"
+"Last-Translator: \n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 1.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "\n"
 "\n"
@@ -61,7 +61,7 @@ msgid "Option %s is required"
 msgstr "%s বিকল্প উল্লেখ করা আবশ্যক"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
@@ -72,10 +72,10 @@ msgstr ""
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "%(option)s বিকল্পটি বর্তমানে সমর্থিত হয় না।"
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
@@ -117,9 +117,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "%%ksappend-র ক্ষেত্রে অবৈধ url: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "%%ksappend ফাইল খুলতে ব্যর্থ: "
+msgstr "%%ksappend ফাইল খুলতে ব্যর্থ: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -127,9 +127,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "%%ksappend ফাইল খুলতে ব্যর্থ"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "%%ksappend ফাইল খুলতে ব্যর্থ: "
+msgstr "ইনপুট kickstart ফাইল খুলতে ব্যর্থ: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -138,7 +138,7 @@ msgstr "দল দ্বারা --nodefaults ও --optional উভয় এক�
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "বিভাগের অন্তে %%end অনুপস্থিত।"
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -159,7 +159,7 @@ msgstr "%include প্রদর্শিত হলে include ফাইল প�
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "kickstart সিন্টেক্সের উপলব্ধ সংস্করণগুলির তালিকা প্রদর্শন করা হবে"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -171,6 +171,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"%s পড়তে সমস্যা:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -197,37 +199,37 @@ msgstr "ইনপুট ফাইলের মধ্যে সাধারণ �
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "সিন্টেক্সের দুটি সংস্করণ উল্লেখ করা আবশ্যক।"
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "%s-র মধ্যে নিম্নলিখিত কমান্ডগুলি মুছে ফেলা হয়েছে:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "%s-এ নিম্নলিখিত কমান্ডগুলি অবচিত হয়েছে:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "%s-এ নিম্নলিখিত কমান্ডগুলি যোগ করা হয়েছে:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "%s-র কমান্ডের সাথে নিম্নলিখিত বিকল্পগুলি %s-এ যোগ করা হয়েছে:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "%s-র কমান্ড থেকে নিম্নলিখিত বিকল্পগুলি %s-এ অবচিত করা হয়েছে:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "%s-র কমান্ডের থেকে নিম্নলিখিত বিকল্পগুলি %s-এ মুছে ফেলা হয়েছে:"
 
 #~ msgid ""
 #~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
