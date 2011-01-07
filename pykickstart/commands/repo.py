@@ -125,9 +125,13 @@ class F14_RepoData(F13_RepoData):
 
 RHEL6_RepoData = F14_RepoData
 
+F15_RepoData = F14_RepoData
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
+
+    urlRequired = True
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
@@ -161,7 +165,7 @@ class FC6_Repo(KickstartCommand):
         if opts.baseurl and opts.mirrorlist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command."))
 
-        if not opts.baseurl and not opts.mirrorlist:
+        if self.urlRequired and not opts.baseurl and not opts.mirrorlist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
 
         rd = self.handler.RepoData()
@@ -237,3 +241,9 @@ class F14_Repo(F13_Repo):
         return op
 
 RHEL6_Repo = F14_Repo
+
+class F15_Repo(F14_Repo):
+    removedKeywords = F14_Repo.removedKeywords
+    removedAttrs = F14_Repo.removedAttrs
+
+    urlRequired = False

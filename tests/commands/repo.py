@@ -24,7 +24,7 @@ from tests.baseclass import *
 class FC6_TestCase(CommandTest):
     command = "repo"
 
-    def runTest(self):
+    def runTest(self, urlRequired=True):
         # pass
         self.assert_parse("repo --name=blah --baseurl=http://www.domain.com",
                           "repo --name=\"blah\" --baseurl=http://www.domain.com\n")
@@ -36,9 +36,10 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("repo --baseurl=www.domain.com", KickstartValueError)
         self.assert_parse_error("repo --name --baseurl=www.domain.com", KickstartParseError)
         # missing one of required options --baseurl or --mirrorlist
-        self.assert_parse_error("repo --name=blah", KickstartValueError)
-        self.assert_parse_error("repo --name=blah --baseurl", KickstartParseError)
-        self.assert_parse_error("repo --name=blah --mirrorlist", KickstartParseError)
+        if urlRequired:
+            self.assert_parse_error("repo --name=blah", KickstartValueError)
+            self.assert_parse_error("repo --name=blah --baseurl", KickstartParseError)
+            self.assert_parse_error("repo --name=blah --mirrorlist", KickstartParseError)
         # only one of --baseurl or --mirrorlist must be specified
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --mirrorlist=www.domain.com",
                                 KickstartValueError)
@@ -48,9 +49,9 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah", KickstartValueError)
 
 class F8_TestCase(FC6_TestCase):
-    def runTest(self):
+    def runTest(self, urlRequired=True):
         # run FC6 test case
-        FC6_TestCase.runTest(self)
+        FC6_TestCase.runTest(self, urlRequired=urlRequired)
 
         # pass
         self.assert_parse("repo --name=blah --baseurl=www.domain.com --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4",
@@ -66,9 +67,9 @@ class F8_TestCase(FC6_TestCase):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --cost=high", KickstartParseError)
 
 class F11_TestCase(F8_TestCase):
-    def runTest(self):
+    def runTest(self, urlRequired=True):
         # run F8 test case
-        F8_TestCase.runTest(self)
+        F8_TestCase.runTest(self, urlRequired=urlRequired)
 
         # pass
         for val in ("1", "true", "on"):
@@ -83,9 +84,9 @@ class F11_TestCase(F8_TestCase):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --ignoregroups", KickstartParseError)
 
 class F13_TestCase(F11_TestCase):
-    def runTest(self):
+    def runTest(self, urlRequired=True):
         # run F11 test case
-        F11_TestCase.runTest(self)
+        F11_TestCase.runTest(self, urlRequired=urlRequired)
 
         # pass
         self.assert_parse("repo --name=blah --baseurl=www.domain.com --proxy=http://someplace/wherever",
@@ -99,14 +100,17 @@ class F13_TestCase(F11_TestCase):
                                 KickstartParseError)
 
 class F14_TestCase(F13_TestCase):
-    def runTest(self):
-        F13_TestCase.runTest(self)        
+    def runTest(self, urlRequired=True):
+        F13_TestCase.runTest(self, urlRequired=urlRequired)
         #pass
         self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --noverifyssl",
                           "repo --name=\"blah\" --baseurl=https://www.domain.com --noverifyssl\n")
         #fail
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --noverifyssl=yeeeaah", KickstartParseError)
-        
+
+class F15_TestCase(F14_TestCase):
+    def runTest(self, urlRequired=False):
+        F14_TestCase.runTest(self, urlRequired=urlRequired)
 
 if __name__ == "__main__":
     unittest.main()
