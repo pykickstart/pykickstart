@@ -46,16 +46,6 @@ msgstr "读取 kickstart 文件的第 %s 行时发生问题"
 msgid "Option %s is required"
 msgstr "选项 %s 是必需的"
 
-#: ../pykickstart/options.py:87
-#, fuzzy, python-format
-msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
-msgstr "这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的kickstart语法"
-
-#: ../pykickstart/options.py:95
-#, fuzzy, python-format
-msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
-msgstr "选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本kickstart的语法"
-
 #: ../pykickstart/options.py:98
 #, python-format
 msgid "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option."
@@ -133,31 +123,6 @@ msgstr "输入文件中的 kickstart 错误"
 msgid "General error in input file:  %s"
 msgstr "输入文件有错误： %s"
 
-#: ../tools/ksverdiff:71
-#, python-format
-msgid "The following commands were deprecated in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:74
-#, python-format
-msgid "The following commands were added in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:100
-#, python-format
-msgid "The following options were added to the %s command in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:105
-#, python-format
-msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:110
-#, python-format
-msgid "The following options were removed from the %s command in %s:"
-msgstr ""
-
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
@@ -187,18 +152,53 @@ msgstr ""
 "读取 %s:\n"
 "%s 时错误"
 
+#: ../pykickstart/options.py:95
+#, python-format
+msgid "The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s."
+msgstr "选项 %(option)s 在%(removed)s版本中被移除，但是你正在使用%(version)s版本kickstart的语法。"
+
+#: ../pykickstart/options.py:87
+#, python-format
+msgid "The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s."
+msgstr "这个选项 %(option)s 被 %(intro)s 版本引入，但是您正在使用 %(version)s 版本的kickstart语法。"
+
+#: ../tools/ksverdiff:74
+#, python-format
+msgid "The following commands were added in %s:"
+msgstr "以下命令在 %s 中被添加："
+
+#: ../tools/ksverdiff:100
+#, python-format
+msgid "The following options were added to the %s command in %s:"
+msgstr "以下选项添加到 %s ，在 %s 中："
+
+#: ../tools/ksverdiff:105
+#, python-format
+msgid "The following options were deprecated from the %s command in %s:"
+msgstr "以下选项在 %s 命令在 %s 中不被推荐："
+
+#: ../tools/ksverdiff:110
+#, python-format
+msgid "The following options were removed from the %s command in %s:"
+msgstr "以下选项从 %s 中移除，在 %s："
+
+#: ../tools/ksverdiff:71
+#, python-format
+msgid "The following commands were deprecated in %s:"
+msgstr "以下命令在 %s 中不推荐："
+
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
-
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "列出kickstart的可用符号版本"
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "以下命令在 %s 中被移除："
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
+msgstr "你必须指定两个符号版本。"
 
 #~ msgid "%s does not end with %%end.  This syntax has been deprecated.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to use this updated syntax."
 #~ msgstr "%s 不是以 %%end 结尾。这个语法已经过时，这个选项可能会在未来的发行版本中被删除，这会导致 kickstart 运行时产生严重错误。请将您的 kickstart 文件改为使用这个更新的语法。"
