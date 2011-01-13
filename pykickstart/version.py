@@ -69,7 +69,7 @@ F13 = 11000
 RHEL6 = 11100
 
 # This always points at the latest version and is the default.
-DEVEL = F13
+DEVEL = RHEL6
 
 """A one-to-one mapping from string representations to version numbers."""
 versionMap = {
