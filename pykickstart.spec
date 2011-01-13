@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.2
+Version: 1.74.3
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jan 13 2011 Chris Lumens <clumens@redhat.com> - 1.74.3-1
+- Set RHEL6 to be the default syntax version for rhel6-branch. (clumens)
+
 * Mon Dec 13 2010 Chris Lumens <clumens@redhat.com> - 1.74.2-1
 - Add the documentation from the website to this package. (clumens)
 - F14 TestCase classes won't work on rhel6-branch, use RHEL6. (akozumpl)
