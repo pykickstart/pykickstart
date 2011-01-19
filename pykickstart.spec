@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.80
+Version: 1.81
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Jan 19 2011 Chris Lumens <clumens@redhat.com> - 1.81-1
+- Add support for "raid --label=" (#670643). (clumens)
+- --baseurl/--mirrorlist are no longer required for the repo command. (clumens)
+- Make use of the "interactive" command an error. (clumens)
+
 * Fri Dec 10 2010 Chris Lumens <clumens@redhat.com> - 1.80-1
 - Remove preceededInclude= support (#639372). (clumens)
 - support noverifyssl on the rhel6-branch (method, repo) (#660340). (akozumpl)
