@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2011 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -171,6 +171,24 @@ F13_RaidData = F12_RaidData
 
 F14_RaidData = F13_RaidData
 
+class F15_RaidData(F14_RaidData):
+    removedKeywords = F14_RaidData.removedKeywords
+    removedAttrs = F14_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F14_RaidData.__init__(self, *args, **kwargs)
+        self.deleteRemovedAttrs()
+
+        self.label = kwargs.get("label", "")
+
+    def _getArgsAsStr(self):
+        retval = F14_RaidData._getArgsAsStr(self)
+
+        if self.label != "":
+            retval += " --label=%s" % self.label
+
+        return retval
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -335,4 +353,13 @@ class F14_Raid(F13_Raid):
     def _getParser(self):
         op = F13_Raid._getParser(self)
         op.remove_option("--bytes-per-inode")
+        return op
+
+class F15_Raid(F14_Raid):
+    removedKeywords = F14_Raid.removedKeywords
+    removedAttrs = F14_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F14_Raid._getParser(self)
+        op.add_option("--label")
         return op

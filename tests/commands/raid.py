@@ -197,5 +197,13 @@ class F14_TestCase(F13_TestCase):
         F13_TestCase.runTest(self)
         self.assert_removed("raid", "bytes-per-inode")
 
+class F15_TestCase(F14_TestCase):
+    def runTest(self):
+        F14_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("raid / --device=md0 --label=ROOT raid.01 raid.02",
+                          "raid / --device=0 --label=ROOT raid.01 raid.02\n")
+
 if __name__ == "__main__":
     unittest.main()
