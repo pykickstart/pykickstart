@@ -181,10 +181,7 @@ class Script(KickstartObject):
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
-        if self.preceededInclude is not None:
-            retval = "\n%%include %s\n" % self.preceededInclude
-        else:
-            retval = ""
+        retval = ""
 
         if self.type == KS_SCRIPT_PRE:
             retval += '\n%pre'
@@ -311,12 +308,7 @@ class Packages(KickstartObject):
             if pkgs == "":
                 return ""
 
-        if self.preceededInclude is not None:
-            retval = "\n%%include %s\n" % self.preceededInclude
-        else:
-            retval = ""
-
-        retval += "\n%packages"
+        retval = "\n%packages"
 
         if self.default:
             retval += " --default"
@@ -448,7 +440,6 @@ class KickstartParser:
         self._state = STATE_COMMANDS
         self._script = None
         self._includeDepth = 0
-        self._preceededInclude = None
 
     def addScript (self):
         """Create a new Script instance and add it to the Version object.  This
@@ -464,10 +455,6 @@ class KickstartParser:
                   "logfile": self._script["log"],
                   "errorOnFail": self._script["errorOnFail"],
                   "type": self._script["type"]}
-
-        if self._preceededInclude is not None:
-            kwargs["preceededInclude"] = self._preceededInclude
-            self._preceededInclude = None
 
         s = Script (self._script["body"], **kwargs)
 
@@ -491,8 +478,7 @@ class KickstartParser:
         if self.handler:
             self.handler.currentCmd = args[0]
             self.handler.currentLine = self._line
-            retval = self.handler.dispatcher(args, lineno, self._preceededInclude)
-            self._preceededInclude = None
+            retval = self.handler.dispatcher(args, lineno)
 
             return retval
 
@@ -531,10 +517,6 @@ class KickstartParser:
 
         if opts.instLangs:
             self.handler.packages.instLangs = opts.instLangs
-
-        if self._preceededInclude is not None:
-            self.handler.packages.preceededInclude = self._preceededInclude
-            self._preceededInclude = None
 
     def handleScriptHdr (self, lineno, args):
         """Process the arguments to a %pre/%post/%traceback header for later
@@ -618,8 +600,6 @@ class KickstartParser:
                 args = shlex.split(self._line)
 
             if args and args[0] == "%include":
-                self._preceededInclude = args[1]
-
                 # This case comes up primarily in ksvalidator.
                 if not self.followIncludes:
                     needLine = True

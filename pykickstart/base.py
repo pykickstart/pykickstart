@@ -372,7 +372,7 @@ class BaseHandler(KickstartObject):
         for (dataName, dataClass) in dMap.iteritems():
             setattr(self, dataName, dataClass)
 
-    def dispatcher(self, args, lineno, include=None):
+    def dispatcher(self, args, lineno):
         """Call the appropriate KickstartCommand handler for the current line
            in the kickstart file.  A handler for the current command should
            be registered, though a handler of None is not an error.  Returns
@@ -380,8 +380,6 @@ class BaseHandler(KickstartObject):
 
            args    -- A list of arguments to the current command
            lineno  -- The line number in the file, for error reporting
-           include -- The path to any file %included immediately before the
-                      current command
         """
         cmd = args[0]
 
@@ -394,16 +392,11 @@ class BaseHandler(KickstartObject):
 
             # The parser returns the data object that was modified.  This could
             # be a BaseData subclass that should be put into a list, or it
-            # could be the command handler object itself.  If there's an
-            # include that preceeds either, we need to then associated it with
-            # the returned object.
+            # could be the command handler object itself.
             obj = self.commands[cmd].parse(args[1:])
             lst = self.commands[cmd].dataList()
             if lst is not None:
                 lst.append(obj)
-
-            if include is not None:
-                obj.preceededInclude = include
 
             return obj
 
