@@ -313,8 +313,6 @@ class RHEL6_Network(F9_Network):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         F9_Network.__init__(self, writePriority, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
-        self.nodefroute = kwargs.get("nodefroute", False)
         self.bootprotoList.append(BOOTPROTO_IBFT)
 
     def _getParser(self):
