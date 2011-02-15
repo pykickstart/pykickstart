@@ -162,6 +162,22 @@ class F12_LogVolData(F9_LogVolData):
 
 F14_LogVolData = F12_LogVolData
 
+class F15_LogVolData(F14_LogVolData):
+    removedKeywords = F14_LogVolData.removedKeywords
+    removedAttrs = F14_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F14_LogVolData.__init__(self, *args, **kwargs)
+        self.label = kwargs.get("label", "")
+
+    def _getArgsAsStr(self):
+        retval = F14_LogVolData._getArgsAsStr(self)
+
+        if self.label != "":
+            retval += " --label=\"%s\"" % self.label
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -276,4 +292,13 @@ class F14_LogVol(F12_LogVol):
     def _getParser(self):
         op = F12_LogVol._getParser(self)
         op.remove_option("--bytes-per-inode")
+        return op
+
+class F15_LogVol(F14_LogVol):
+    removedKeywords = F14_LogVol.removedKeywords
+    removedAttrs = F14_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F14_LogVol._getParser(self)
+        op.add_option("--label")
         return op

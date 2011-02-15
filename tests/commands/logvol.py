@@ -186,5 +186,11 @@ class F14_TestCase(F12_TestCase):
         F12_TestCase.runTest(self)
         self.assert_removed("logvol", "--bytes-per-inode")
 
+class F15_TestCase(F14_TestCase):
+    def runTest(self):
+        F14_TestCase.runTest(self)
+        self.assert_parse("logvol / --name=NAME --vgname=VGNAME --label=ROOT",
+                          "logvol /  --label=\"ROOT\" --name=NAME --vgname=VGNAME\n")
+
 if __name__ == "__main__":
     unittest.main()
