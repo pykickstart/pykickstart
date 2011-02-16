@@ -3,14 +3,14 @@
 # Christian Rose <menthos@menthos.com>, 2006.
 # Keld Simonsen <keld@dkuug.dk>, 2006.
 # Keld Simonsen <keld@rap.dk>, 2007.
-# Kris Thomsen <lakristho@gmail.com>, 2009.
+# Kris Thomsen <lakristho@gmail.com>, 2009-2011.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pykickstart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-06-16 17:03-0400\n"
-"PO-Revision-Date: 2009-03-23 09:45+0100\n"
+"PO-Revision-Date: 2011-02-11 18:12+0100\n"
 "Last-Translator: Kris Thomsen <lakristho@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "MIME-Version: 1.0\n"
@@ -58,27 +58,27 @@ msgid "Option %s is required"
 msgstr "Indstillingen %s er krævet"
 
 #: ../pykickstart/options.py:87
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Indstillingen %(option)s blev introduceret i version %(intro)s, men du "
-"bruger kickstart-syntax version %(version)s"
+"bruger kickstart-syntax version %(version)s."
 
 #: ../pykickstart/options.py:93
 #, python-format
 msgid "The %(option)s option is no longer supported."
-msgstr ""
+msgstr "Indstillingen %(option)s er ikke længere understøttet."
 
 #: ../pykickstart/options.py:95
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 "Indstillingen %(option)s blev fjernet i version %(removed)s, men du bruger "
-"kickstart-syntaks version %(version)s"
+"kickstart-syntaks version %(version)s."
 
 #: ../pykickstart/options.py:98
 #, python-format
@@ -114,9 +114,9 @@ msgid "Illegal url for %%ksappend: %s"
 msgstr "Ugyldig url til %%ksappend: %s"
 
 #: ../pykickstart/parser.py:99
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open %%ksappend file: %s"
-msgstr "Kunne ikke åbne %%ksappend fil: "
+msgstr "Kunne ikke åbne %%ksappend fil: %s"
 
 #: ../pykickstart/parser.py:105 ../pykickstart/parser.py:107
 #, python-format
@@ -124,9 +124,9 @@ msgid "Unable to open %%ksappend file"
 msgstr "Kunne ikke åbne %%ksappend fil"
 
 #: ../pykickstart/parser.py:140 ../pykickstart/parser.py:790
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to open input kickstart file: %s"
-msgstr "Kunne ikke åbne %%ksappend fil: "
+msgstr "Kunne ikke åbne %%ksappend fil: %s"
 
 #: ../pykickstart/parser.py:345
 msgid "Group cannot specify both --nodefaults and --optional"
@@ -135,7 +135,7 @@ msgstr "Gruppe kan ikke angive både --nodefaults og --optional"
 #: ../pykickstart/parser.py:673 ../pykickstart/parser.py:733
 #, python-format
 msgid "Section does not end with %%end."
-msgstr ""
+msgstr "Sektionen slutter ikke med %%end."
 
 #. If nothing else worked, we're out of options.
 #: ../pykickstart/version.py:103 ../pykickstart/version.py:112
@@ -156,7 +156,7 @@ msgstr "tolk inkluderingsfiler når %include er fundet"
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
+msgstr "oplist de tilgængelige versioner af kickstart-syntax"
 
 #: ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
@@ -168,6 +168,8 @@ msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
+"Fejl under læsning af %s:\n"
+"%s"
 
 #: ../tools/ksvalidator:82 ../tools/ksverdiff:61
 #, python-format
@@ -194,37 +196,37 @@ msgstr "Generel fejl i inddatafil: %s"
 
 #: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
-msgstr ""
+msgstr "Du sḱal angive to syntaxversioner."
 
 #: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
-msgstr ""
+msgstr "Følgende kommandoer blev fjernet i %s:"
 
 #: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
-msgstr ""
+msgstr "Følgende kommandoer blev forældret i %s:"
 
 #: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
-msgstr ""
+msgstr "Følgende kommandoer blev tilføjet i %s:"
 
 #: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
-msgstr ""
+msgstr "Følgende indstillinger blev tilføjet til kommandoen %s i %s:"
 
 #: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
-msgstr ""
+msgstr "Følgende indstillinger blev forældet fra kommandoen %s i %s:"
 
 #: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
-msgstr ""
+msgstr "Følgende indstillinger blev fjernet fra kommandoen %s i %s:"
 
 #~ msgid ""
 #~ "%s does not end with %%end.  This syntax has been deprecated.  It may be "
