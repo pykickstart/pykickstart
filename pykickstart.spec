@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.81
+Version: 1.82
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Feb 18 2011 Chris Lumens <clumens@redhat.com> - 1.82-1
+- Add support for "logvol --label=" (#677571). (clumens)
+
 * Wed Jan 19 2011 Chris Lumens <clumens@redhat.com> - 1.81-1
 - Add support for "raid --label=" (#670643). (clumens)
 - --baseurl/--mirrorlist are no longer required for the repo command. (clumens)
