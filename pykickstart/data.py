@@ -32,7 +32,7 @@ class KickstartData:
         self.deviceprobe = ""
         self.displayMode = DISPLAY_MODE_GRAPHICAL
         self.driverdisk = ""
-        self.firewall = {"enabled": True, "ports": [], "trusts": []}
+        self.firewall = {"enabled": True, "ports": [], "trusts": [], "disableSsh": False}
         self.firstboot = FIRSTBOOT_SKIP
         self.ignoredisk = {"drives": [], "onlyuse": []}
         self.interactive = False

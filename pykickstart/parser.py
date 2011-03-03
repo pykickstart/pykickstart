@@ -410,6 +410,8 @@ class KickstartHandlers:
         op.add_option("--port", dest="ports", action="callback",
                       callback=firewall_port_cb, nargs=1, type="string")
         op.add_option("--trust", dest="trusts", action="append")
+        op.add_option("--no-ssh", dest="disableSsh", action="store_true",
+                      default=False)
 
         (opts, extra) = op.parse_args(args=args)
         self._setToDict(op, opts, self.ksdata.firewall)
