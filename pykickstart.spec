@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.82
+Version: 1.83
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Mar 25 2011 Chris Lumens <clumens@redhat.com> - 1.83-1
+- Add kickstart network --nodefroute option (#668417) (rvykydal)
+- Add support for network --bootproto ibft option (#668417) (rvykydal)
+- Add network --activate option (#668417) (rvykydal)
+- Add support for F16. (clumens)
+
 * Fri Feb 18 2011 Chris Lumens <clumens@redhat.com> - 1.82-1
 - Add support for "logvol --label=" (#677571). (clumens)
 
