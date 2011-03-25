@@ -144,6 +144,11 @@ class F16_NetworkData(F8_NetworkData):
     removedKeywords = F8_NetworkData.removedKeywords
     removedAttrs = F8_NetworkData.removedAttrs
 
+    def __init__(self, *args, **kwargs):
+        F8_NetworkData.__init__(self, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+        self.nodefroute = kwargs.get("nodefroute", False)
+
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
 
@@ -173,6 +178,11 @@ class RHEL4_NetworkData(FC3_NetworkData):
 class RHEL6_NetworkData(F8_NetworkData):
     removedKeywords = F8_NetworkData.removedKeywords
     removedAttrs = F8_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F8_NetworkData.__init__(self, *args, **kwargs)
+        self.activate = kwargs.get("activate", False)
+        self.nodefroute = kwargs.get("nodefroute", False)
 
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
@@ -297,8 +307,6 @@ class F16_Network(F9_Network):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         F9_Network.__init__(self, writePriority, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
-        self.nodefroute = kwargs.get("nodefroute", False)
         self.bootprotoList.append(BOOTPROTO_IBFT)
 
     def _getParser(self):
@@ -340,8 +348,6 @@ class RHEL6_Network(F9_Network):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         F9_Network.__init__(self, writePriority, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
-        self.nodefroute = kwargs.get("nodefroute", False)
         self.bootprotoList.append(BOOTPROTO_IBFT)
 
     def _getParser(self):
