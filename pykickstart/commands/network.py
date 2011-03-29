@@ -77,8 +77,8 @@ class FC3_NetworkData(BaseData):
             retval += " --netmask=%s" % self.netmask
         if self.nodns:
             retval += " --nodns"
-        if self.onboot:
-            retval += " --onboot=on"
+        if not self.onboot:
+            retval += " --onboot=off"
         if self.wepkey != "":
             retval += " --wepkey=%s" % self.wepkey
 
