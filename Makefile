@@ -15,8 +15,8 @@ all:
 
 docs:
 	mkdir -p docs
-	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "http://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
-	curl -A "programmers-guide" -o docs/programmers-guide "http://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
+	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "https://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
+	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
 	@echo "*** Running pylint to verify source ***"
