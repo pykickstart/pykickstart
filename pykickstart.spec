@@ -2,7 +2,7 @@
 
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
-Version: 0.43.8
+Version: 0.43.9
 Release: 1%{?dist}
 Source0: %{name}-%{version}.tar.bz2
 License: GPL
@@ -38,6 +38,10 @@ rm -rf $RPM_BUILD_ROOT
 /usr/share/locale/*/*/*
 
 %changelog
+* Thu Apr 07 2011 Chris Lumens <clumens@redhat.com> 0.43.9-1
+- Add "firewall --no-ssh" option (#681944).
+- Don't overwrite the excluded group list after every %packages line (#577334).
+
 * Fri Jan 15 2010 Chris Lumens <clumens@redhat.com> 0.43.8-1
 - Support -@group-name syntax for removing previously included groups (#555311).
 - Set a default value for iscsi --port (#547678).
