@@ -148,6 +148,7 @@ class F16_NetworkData(F8_NetworkData):
         F8_NetworkData.__init__(self, *args, **kwargs)
         self.activate = kwargs.get("activate", False)
         self.nodefroute = kwargs.get("nodefroute", False)
+        self.wpakey = kwargs.get("wpakey", "");
 
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
@@ -156,6 +157,8 @@ class F16_NetworkData(F8_NetworkData):
             retval += " --activate"
         if self.nodefroute:
             retval += " --nodefroute"
+        if self.wpakey != "":
+            retval += "--wpakey=%s" % self.wpakey
 
         return retval
 
@@ -315,6 +318,7 @@ class F16_Network(F9_Network):
                       default=False)
         op.add_option("--nodefroute", dest="nodefroute", action="store_true",
                       default=False)
+        op.add_option("--wpakey", dest="wpakey", action="store", default="")
         return op
 
 class RHEL4_Network(FC3_Network):
