@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2011 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -31,33 +31,31 @@ This module exports several important classes:
     KickstartParser - The kickstart file parser state machine.
 """
 
+from collections import Iterator
 import os
 import shlex
 import sys
 import tempfile
 from copy import copy
 from optparse import *
-from urlgrabber import urlopen
+from urlgrabber import urlread
 import urlgrabber.grabber as grabber
 
-from constants import *
-from errors import *
-from ko import *
-from options import *
-from version import *
+import constants
+from errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
+from ko import KickstartObject
+from sections import *
+import version
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
-STATE_END = 0
-STATE_COMMANDS = 1
-STATE_PACKAGES = 2
-STATE_SCRIPT_HDR = 3
-STATE_SCRIPT = 4
+STATE_END = "end"
+STATE_COMMANDS = "commands"
 
-ver = DEVEL
+ver = version.DEVEL
 
-def _preprocessStateMachine (provideLineFn):
+def _preprocessStateMachine (lineIter):
     l = None
     lineno = 0
 
@@ -67,7 +65,7 @@ def _preprocessStateMachine (provideLineFn):
 
     while True:
         try:
-            l = provideLineFn()
+            l = lineIter.next()
         except StopIteration:
             break
 
@@ -139,6 +137,25 @@ def preprocessKickstart (f):
     fh.close()
     return rc
 
+class PutBackIterator(Iterator):
+    def __init__(self, iterable):
+        self._iterable = iter(iterable)
+        self._buf = None
+
+    def __iter__(self):
+        return self
+
+    def put(self, s):
+        self._buf = s
+
+    def next(self):
+        if self._buf:
+            retval = self._buf
+            self._buf = None
+            return retval
+        else:
+            return self._iterable.next()
+
 ###
 ### SCRIPT HANDLING
 ###
@@ -173,22 +190,22 @@ class Script(KickstartObject):
         self.lineno = kwargs.get("lineno", None)
         self.logfile = kwargs.get("logfile", None)
         self.errorOnFail = kwargs.get("errorOnFail", False)
-        self.type = kwargs.get("type", KS_SCRIPT_PRE)
+        self.type = kwargs.get("type", constants.KS_SCRIPT_PRE)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         retval = ""
 
-        if self.type == KS_SCRIPT_PRE:
+        if self.type == constants.KS_SCRIPT_PRE:
             retval += '\n%pre'
-        elif self.type == KS_SCRIPT_POST:
+        elif self.type == constants.KS_SCRIPT_POST:
             retval += '\n%post'
-        elif self.type == KS_SCRIPT_TRACEBACK:
+        elif self.type == constants.KS_SCRIPT_TRACEBACK:
             retval += '\n%traceback'
 
         if self.interp != "/bin/sh" and self.interp != "":
             retval += " --interpreter=%s" % self.interp
-        if self.type == KS_SCRIPT_POST and not self.inChroot:
+        if self.type == constants.KS_SCRIPT_POST and not self.inChroot:
             retval += " --nochroot"
         if self.logfile != None:
             retval += " --logfile %s" % self.logfile
@@ -196,12 +213,12 @@ class Script(KickstartObject):
             retval += " --erroronfail"
 
         if self.script.endswith("\n"):
-            if ver >= F8:
+            if ver >= version.F8:
                 return retval + "\n%s%%end\n" % self.script
             else:
                 return retval + "\n%s\n" % self.script
         else:
-            if ver >= F8:
+            if ver >= version.F8:
                 return retval + "\n%s\n%%end\n" % self.script
             else:
                 return retval + "\n%s\n" % self.script
@@ -212,7 +229,7 @@ class Script(KickstartObject):
 ##
 class Group:
     """A class representing a single group in the %packages section."""
-    def __init__(self, name="", include=GROUP_DEFAULT):
+    def __init__(self, name="", include=constants.GROUP_DEFAULT):
         """Create a new Group instance.  Instance attributes:
 
            name    -- The group's identifier
@@ -224,9 +241,9 @@ class Group:
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
-        if self.include == GROUP_REQUIRED:
+        if self.include == constants.GROUP_REQUIRED:
             return "@%s --nodefaults" % self.name
-        elif self.include == GROUP_ALL:
+        elif self.include == constants.GROUP_ALL:
             return "@%s --optional" % self.name
         else:
             return "@%s" % self.name
@@ -272,7 +289,7 @@ class Packages(KickstartObject):
         self.excludedGroupList = []
         self.excludeDocs = False
         self.groupList = []
-        self.handleMissing = KS_MISSING_PROMPT
+        self.handleMissing = constants.KS_MISSING_PROMPT
         self.packageList = []
         self.instLangs = None
 
@@ -312,12 +329,12 @@ class Packages(KickstartObject):
             retval += " --excludedocs"
         if not self.addBase:
             retval += " --nobase"
-        if self.handleMissing == KS_MISSING_IGNORE:
+        if self.handleMissing == constants.KS_MISSING_IGNORE:
             retval += " --ignoremissing"
         if self.instLangs:
             retval += " --instLangs=%s" % self.instLangs
 
-        if ver >= F8:
+        if ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"
         else:
             return retval + "\n" + pkgs + "\n"
@@ -337,11 +354,11 @@ class Packages(KickstartObject):
         grp = " ".join(extra)
 
         if opts.nodefaults:
-            self.groupList.append(Group(name=grp, include=GROUP_REQUIRED))
+            self.groupList.append(Group(name=grp, include=constants.GROUP_REQUIRED))
         elif opts.optional:
-            self.groupList.append(Group(name=grp, include=GROUP_ALL))
+            self.groupList.append(Group(name=grp, include=constants.GROUP_ALL))
         else:
-            self.groupList.append(Group(name=grp, include=GROUP_DEFAULT))
+            self.groupList.append(Group(name=grp, include=constants.GROUP_DEFAULT))
 
     def add (self, pkgList):
         """Given a list of lines from the input file, strip off any leading
@@ -424,7 +441,6 @@ class KickstartParser:
         self.missingIncludeIsFatal = missingIncludeIsFatal
 
         self._state = STATE_COMMANDS
-        self._script = None
         self._includeDepth = 0
         self._line = ""
 
@@ -433,39 +449,13 @@ class KickstartParser:
         global ver
         ver = self.version
 
+        self._sections = {}
+        self.setupSections()
+
     def _reset(self):
         """Reset the internal variables of the state machine for a new kickstart file."""
         self._state = STATE_COMMANDS
-        self._script = None
         self._includeDepth = 0
-
-    def addScript (self):
-        """Create a new Script instance and add it to the Version object.  This
-           is called when the end of a script section is seen and may be
-           overridden in a subclass if necessary.
-        """
-        if " ".join(self._script["body"]).strip() == "":
-            return
-
-        kwargs = {"interp": self._script["interp"],
-                  "inChroot": self._script["chroot"],
-                  "lineno": self._script["lineno"],
-                  "logfile": self._script["log"],
-                  "errorOnFail": self._script["errorOnFail"],
-                  "type": self._script["type"]}
-
-        s = Script (self._script["body"], **kwargs)
-
-        if self.handler:
-            self.handler.scripts.append(s)
-
-    def addPackages (self, line):
-        """Add the single package, exclude, or group into the Version's
-           Packages instance.  This method may be overridden in a subclass
-           if necessary.
-        """
-        if self.handler:
-            self.handler.packages.add([line])
 
     def handleCommand (self, lineno, args):
         """Given the list of command and arguments, call the Version's
@@ -480,254 +470,177 @@ class KickstartParser:
 
             return retval
 
-    def handlePackageHdr (self, lineno, args):
-        """Process the arguments to the %packages header and set attributes
-           on the Version's Packages instance appropriate.  This method may be
-           overridden in a subclass if necessary.
+    def registerSection(self, obj):
+        """Given an instance of a Section subclass, register the new section
+           with the parser.  Calling this method means the parser will
+           recognize your new section and dispatch into the given object to
+           handle it.
         """
-        op = KSOptionParser(version=self.version)
-        op.add_option("--excludedocs", dest="excludedocs", action="store_true",
-                      default=False)
-        op.add_option("--ignoremissing", dest="ignoremissing",
-                      action="store_true", default=False)
-        op.add_option("--nobase", dest="nobase", action="store_true",
-                      default=False)
-        op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
-                      deprecated=FC4, removed=F9)
-        op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
-                      deprecated=FC4, removed=F9)
-        op.add_option("--default", dest="defaultPackages", action="store_true",
-                      default=False, introduced=F7)
-        op.add_option("--instLangs", dest="instLangs", type="string",
-                      default="", introduced=F9)
+        if not obj.sectionOpen:
+            raise TypeError, "no sectionOpen given for section %s" % obj
 
-        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        if not obj.sectionOpen.startswith("%"):
+            raise TypeError, "section %s tag does not start with a %%" % obj.sectionOpen
 
-        self.handler.packages.excludeDocs = opts.excludedocs
-        self.handler.packages.addBase = not opts.nobase
-        if opts.ignoremissing:
-            self.handler.packages.handleMissing = KS_MISSING_IGNORE
-        else:
-            self.handler.packages.handleMissing = KS_MISSING_PROMPT
+        self._sections[obj.sectionOpen] = obj
 
-        if opts.defaultPackages:
-            self.handler.packages.default = True
-
-        if opts.instLangs:
-            self.handler.packages.instLangs = opts.instLangs
-
-    def handleScriptHdr (self, lineno, args):
-        """Process the arguments to a %pre/%post/%traceback header for later
-           setting on a Script instance once the end of the script is found.
-           This method may be overridden in a subclass if necessary.
+    def _finalize(self, obj):
+        """Called at the close of a kickstart section to take any required
+           actions.  Internally, this is used to add scripts once we have the
+           whole body read.
         """
-        op = KSOptionParser(version=self.version)
-        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
-                      default=False)
-        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log")
+        obj.finalize()
+        self._state = STATE_COMMANDS
 
-        if args[0] == "%pre" or args[0] == "%traceback":
-            self._script["chroot"] = False
-        elif args[0] == "%post":
-            self._script["chroot"] = True
-            op.add_option("--nochroot", dest="nochroot", action="store_true",
-                          default=False)
+    def _handleSpecialComments(self, line):
+        """Kickstart recognizes a couple special comments."""
+        if self._state != STATE_COMMANDS:
+            return
 
-        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        # Save the platform for s-c-kickstart.
+        if line[:10] == "#platform=":
+            self.handler.platform = self._line[11:]
 
-        self._script["interp"] = opts.interpreter
-        self._script["lineno"] = lineno
-        self._script["log"] = opts.log
-        self._script["errorOnFail"] = opts.errorOnFail
-        if hasattr(opts, "nochroot"):
-            self._script["chroot"] = not opts.nochroot
-
-    def _stateMachine (self, provideLineFn):
-        # For error reporting.
-        lineno = 0
-        needLine = True
+    def _readSection(self, lineIter, lineno):
+        obj = self._sections[self._state]
 
         while True:
-            if needLine:
-                try:
-                    self._line = provideLineFn()
-                except StopIteration:
-                    break
+            try:
+                line = lineIter.next()
+                if line == "":
+                    # This section ends at the end of the file.
+                    if self.version >= version.F8:
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
 
-                lineno += 1
-                needLine = False
-
-            # At the end of an included file
-            if self._line == "" and self._includeDepth > 0:
+                    self._finalize(obj)
+            except StopIteration:
                 break
 
-            # Don't eliminate whitespace or comments from scripts.
-            if self._line.isspace() or (self._line != "" and self._line.lstrip()[0] == '#'):
-                # Save the platform for s-c-kickstart, though.
-                if self._line[:10] == "#platform=" and self._state == STATE_COMMANDS:
-                    self.handler.platform = self._line[11:]
+            lineno += 1
 
-                if self._state == STATE_SCRIPT:
-                    self._script["body"].append(self._line)
-
-                needLine = True
+            # Throw away blank lines and comments, unless the section wants all
+            # lines.
+            if self._isBlankOrComment(line) and not obj.allLines:
                 continue
 
-            # We only want to split the line if we're outside of a script,
-            # as inside the script might involve some pretty weird quoting
-            # that shlex doesn't understand.
-            if self._state == STATE_SCRIPT:
-                # Have we found a state transition?  If so, we still want
-                # to split.  Otherwise, args won't be set but we'll fall through
-                # all the way to the last case.
-                if self._line != "" and self._line.lstrip().split()[0] in \
-                   ["%end", "%post", "%pre", "%traceback", "%include", "%packages", "%ksappend"]:
-                    args = shlex.split(self._line)
-                else:
-                    args = None
+            if line.startswith("%"):
+                args = shlex.split(line)
+
+                if args and args[0] == "%end":
+                    # This is a properly terminated section.
+                    self._finalize(obj)
+                    break
+                elif args and args[0] == "%ksappend":
+                    continue
+                elif args and (self._validState(args[0]) or args[0] in ["%include", "%ksappend"]):
+                    # This is an unterminated section.
+                    if self.version >= version.F8:
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
+
+                    # Finish up.  We do not process the header here because
+                    # kicking back out to STATE_COMMANDS will ensure that happens.
+                    lineIter.put(line)
+                    lineno -= 1
+                    self._finalize(obj)
+                    break
             else:
-                # Remove any end-of-line comments.
-                ind = self._line.find("#")
-                if (ind > -1):
-                    h = self._line[:ind]
-                else:
-                    h = self._line
+                # This is just a line within a section.  Pass it off to whatever
+                # section handles it.
+                obj.handleLine(line)
 
-                self._line = h.rstrip()
-                args = shlex.split(self._line)
+        return lineno
 
-            if args and args[0] == "%include":
+    def _validState(self, st):
+        """Is the given section tag one that has been registered with the parser?"""
+        return st in self._sections.keys()
+
+    def _tryFunc(self, fn):
+        """Call the provided function (which doesn't take any arguments) and
+           do the appropriate error handling.  If errorsAreFatal is False, this
+           function will just print the exception and keep going.
+        """
+        try:
+            fn()
+        except Exception as msg:
+            if self.errorsAreFatal:
+                raise
+            else:
+                print msg
+
+    def _isBlankOrComment(self, line):
+        return line.isspace() or line == "" or line.lstrip()[0] == '#'
+
+    def _stateMachine(self, lineIter):
+        # For error reporting.
+        lineno = 0
+
+        while True:
+            # Get the next line out of the file, quitting if this is the last line.
+            try:
+                self._line = lineIter.next()
+                if self._line == "":
+                    break
+            except StopIteration:
+                break
+
+            lineno += 1
+
+            # Eliminate blank lines, whitespace-only lines, and comments.
+            if self._isBlankOrComment(self._line):
+                self._handleSpecialComments(self._line)
+                continue
+
+            # Remove any end-of-line comments.
+            sanitized = self._line.split("#")[0]
+
+            # Then split the line.
+            args = shlex.split(sanitized.rstrip())
+
+            if args[0] == "%include":
                 # This case comes up primarily in ksvalidator.
                 if not self.followIncludes:
-                    needLine = True
                     continue
 
-                if not args[1]:
+                if len(args) == 1 or not args[1]:
                     raise KickstartParseError, formatErrorMsg(lineno)
-                else:
-                    self._includeDepth += 1
 
-                    try:
-                        self.readKickstart (args[1], reset=False)
-                    except KickstartError:
-                        # Handle the include file being provided over the
-                        # network in a %pre script.  This case comes up in the
-                        # early parsing in anaconda.
-                        if self.missingIncludeIsFatal:
-                            raise
+                self._includeDepth += 1
 
-                    self._includeDepth -= 1
-                    needLine = True
-                    continue
+                try:
+                    self.readKickstart(args[1], reset=False)
+                except KickstartError:
+                    # Handle the include file being provided over the
+                    # network in a %pre script.  This case comes up in the
+                    # early parsing in anaconda.
+                    if self.missingIncludeIsFatal:
+                        raise
 
+                self._includeDepth -= 1
+                continue
+
+            # Now on to the main event.
             if self._state == STATE_COMMANDS:
-                if not args and self._includeDepth == 0:
-                    self._state = STATE_END
-                elif args[0] == "%ksappend":
-                    needLine = True
-                elif args[0] in ["%pre", "%post", "%traceback"]:
-                    self._state = STATE_SCRIPT_HDR
-                elif args[0] == "%packages":
-                    self._state = STATE_PACKAGES
+                if args[0] == "%ksappend":
+                    # This is handled by the preprocess* functions, so continue.
+                    continue
                 elif args[0][0] == '%':
-                    # This error is too difficult to continue from, without
-                    # lots of resync code.  So just print this one and quit.
-                    raise KickstartParseError, formatErrorMsg(lineno)
+                    # This is the beginning of a new section.  Handle its header
+                    # here.
+                    newSection = args[0]
+                    if not self._validState(newSection):
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s" % newSection))
+
+                    self._state = newSection
+                    obj = self._sections[self._state]
+                    self._tryFunc(lambda: obj.handleHeader(lineno, args))
+
+                    # This will handle all section processing, kicking us back
+                    # out to STATE_COMMANDS at the end with the current line
+                    # being the next section header, etc.
+                    lineno = self._readSection(lineIter, lineno)
                 else:
-                    needLine = True
-
-                    if self.errorsAreFatal:
-                        self.handleCommand(lineno, args)
-                    else:
-                        try:
-                            self.handleCommand(lineno, args)
-                        except Exception, msg:
-                            print msg
-
-            elif self._state == STATE_PACKAGES:
-                if not args and self._includeDepth == 0:
-                    if self.version >= F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
-
-                    self._state = STATE_END
-                elif args[0] == "%end":
-                    self._state = STATE_COMMANDS
-                    needLine = True
-                elif args[0] == "%ksappend":
-                    needLine = True
-                elif args[0] in ["%pre", "%post", "%traceback"]:
-                    self._state = STATE_SCRIPT_HDR
-                elif args[0] == "%packages":
-                    needLine = True
-
-                    if self.errorsAreFatal:
-                        self.handlePackageHdr (lineno, args)
-                    else:
-                        try:
-                            self.handlePackageHdr (lineno, args)
-                        except Exception, msg:
-                            print msg
-                elif args[0][0] == '%':
-                    # This error is too difficult to continue from, without
-                    # lots of resync code.  So just print this one and quit.
-                    raise KickstartParseError, formatErrorMsg(lineno)
-                else:
-                    needLine = True
-                    self.addPackages(self._line.rstrip())
-
-            elif self._state == STATE_SCRIPT_HDR:
-                needLine = True
-                self._script = {"body": [], "interp": "/bin/sh", "log": None,
-                                "errorOnFail": False, lineno: None}
-
-                if not args and self._includeDepth == 0:
-                    self._state = STATE_END
-                elif args[0] == "%pre":
-                    self._state = STATE_SCRIPT
-                    self._script["type"] = KS_SCRIPT_PRE
-                elif args[0] == "%post":
-                    self._state = STATE_SCRIPT
-                    self._script["type"] = KS_SCRIPT_POST
-                elif args[0] == "%traceback":
-                    self._state = STATE_SCRIPT
-                    self._script["type"] = KS_SCRIPT_TRACEBACK
-                elif args[0][0] == '%':
-                    # This error is too difficult to continue from, without
-                    # lots of resync code.  So just print this one and quit.
-                    raise KickstartParseError, formatErrorMsg(lineno)
-
-                if self.errorsAreFatal:
-                    self.handleScriptHdr (lineno, args)
-                else:
-                    try:
-                        self.handleScriptHdr (lineno, args)
-                    except Exception, msg:
-                        print msg
-
-            elif self._state == STATE_SCRIPT:
-                if self._line in ["%end", ""] and self._includeDepth == 0:
-                    if self._line == "" and self.version >= F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
-
-                    # If we're at the end of the kickstart file, add the script.
-                    self.addScript()
-                    self._state = STATE_END
-                elif args and args[0] in ["%end", "%pre", "%post", "%traceback", "%packages", "%ksappend"]:
-                    # Otherwise we're now at the start of the next section.
-                    # Figure out what kind of a script we just finished
-                    # reading, add it to the list, and switch to the initial
-                    # state.
-                    self.addScript()
-                    self._state = STATE_COMMANDS
-
-                    if args[0] == "%end":
-                        needLine = True
-                else:
-                    # Otherwise just add to the current script body.
-                    self._script["body"].append(self._line)
-                    needLine = True
-
+                    # This is a command in the command section.  Dispatch to it.
+                    self._tryFunc(lambda: self.handleCommand(lineno, args))
             elif self._state == STATE_END:
                 break
 
@@ -739,8 +652,8 @@ class KickstartParser:
         # Add a "" to the end of the list so the string reader acts like the
         # file reader and we only get StopIteration when we're after the final
         # line of input.
-        i = iter(s.splitlines(True) + [""])
-        self._stateMachine (i.next)
+        i = PutBackIterator(s.splitlines(True) + [""])
+        self._stateMachine (i)
 
     def readKickstart(self, f, reset=True):
         """Process a kickstart file, given by the filename f."""
@@ -763,9 +676,21 @@ class KickstartParser:
         self.currentdir[self._includeDepth] = cd
 
         try:
-            fh = urlopen(f)
+            s = urlread(f)
         except grabber.URLGrabError, e:
             raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
-        self._stateMachine (fh.readline)
-        fh.close()
+        self.readKickstartFromString(s, reset=False)
+
+    def setupSections(self):
+        """Install the sections all kickstart files support.  You may override
+           this method in a subclass, but should avoid doing so unless you know
+           what you're doing.
+        """
+        self._sections = {}
+
+        # Install the sections all kickstart files support.
+        self.registerSection(PreScriptSection(self.handler, dataObj=Script))
+        self.registerSection(PostScriptSection(self.handler, dataObj=Script))
+        self.registerSection(TracebackScriptSection(self.handler, dataObj=Script))
+        self.registerSection(PackageSection(self.handler))
