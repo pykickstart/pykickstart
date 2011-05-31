@@ -27,7 +27,7 @@ test:
 	PYTHONPATH=. python $(TESTSUITE) -v
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/commands/*.pyc pykickstart/handlers/*.pyc tests/*.pyc tests/commands/*.pyc docs/* ChangeLog
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/* ChangeLog
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 

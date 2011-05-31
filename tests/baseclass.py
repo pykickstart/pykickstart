@@ -7,13 +7,29 @@ import glob
 import warnings
 import re
 
-from pykickstart.version import versionMap, returnClassForVersion
 from pykickstart.errors import *
+from pykickstart.parser import KickstartParser
+from pykickstart.version import DEVEL, makeVersion, versionMap, returnClassForVersion
 import gettext
 gettext.textdomain("pykickstart")
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
-# Base class for any test case
+class ParserTest(unittest.TestCase):
+    version = DEVEL
+
+    def setUp(self):
+        self.handler = makeVersion(self.version)
+        self.parser = KickstartParser(self.handler)
+        unittest.TestCase.setUp(self)
+
+    def tearDown(self):
+        """Undo anything performed by setUp"""
+        unittest.TestCase.tearDown(self)
+
+    def __init__(self, *args, **kwargs):
+        unittest.TestCase.__init__(self, *args, **kwargs)
+
+# Base class for any command test case
 class CommandTest(unittest.TestCase):
     def setUp(self):
         '''Perform any command setup'''
@@ -176,6 +192,7 @@ if __name__ == "__main__":
     # Find tests to add
     tstList = loadModules(os.path.join(os.environ.get("PWD"), "tests/"))
     tstList.extend(loadModules(os.path.join(os.environ.get("PWD"), "tests/commands")))
+    tstList.extend(loadModules(os.path.join(os.environ.get("PWD"), "tests/parser")))
     for tst in tstList:
         PyKickstartTestSuite.addTest(tst())
 
