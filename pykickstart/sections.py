@@ -90,6 +90,20 @@ class Section(object):
         """
         pass
 
+class NullSection(Section):
+    """This defines a section that pykickstart will recognize but do nothing
+       with.  If the parser runs across a %section that has no object registered,
+       it will raise an error.  Sometimes, you may want to simply ignore those
+       sections instead.  This class is useful for that purpose.
+    """
+    def __init__(self, *args, **kwargs):
+        """Create a new NullSection instance.  You must pass a sectionOpen
+           parameter (including a leading '%') for the section you wish to
+           ignore.
+        """
+        Section.__init__(self, *args, **kwargs)
+        self.sectionOpen = kwargs.get("sectionOpen")
+
 class ScriptSection(Section):
     allLines = True
 
