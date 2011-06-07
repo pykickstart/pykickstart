@@ -43,9 +43,14 @@ class Section(object):
                       for every line in the section, even blanks and comments?
        sectionOpen -- The string that denotes the start of this section.  You
                       must start your tag with a percent sign.
+       timesSeen   -- This attribute is for informational purposes only.  It is
+                      incremented every time handleHeader is called to keep
+                      track of the number of times a section of this type is
+                      seen.
     """
     allLines = False
     sectionOpen = ""
+    timesSeen = 0
 
     def __init__(self, handler, **kwargs):
         """Create a new Script instance.  At the least, you must pass in an
@@ -88,7 +93,7 @@ class Section(object):
            args -- A list of all strings passed as arguments to the section
                    opening tag.
         """
-        pass
+        self.timesSeen += 1
 
 class NullSection(Section):
     """This defines a section that pykickstart will recognize but do nothing
@@ -149,6 +154,7 @@ class ScriptSection(Section):
            setting on a Script instance once the end of the script is found.
            This method may be overridden in a subclass if necessary.
         """
+        Section.handleHeader(self, lineno, args)
         op = self._getParser()
 
         (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
@@ -202,6 +208,7 @@ class PackageSection(Section):
            on the Version's Packages instance appropriate.  This method may be
            overridden in a subclass if necessary.
         """
+        Section.handleHeader(self, lineno, args)
         op = KSOptionParser(version=self.version)
         op.add_option("--excludedocs", dest="excludedocs", action="store_true",
                       default=False)

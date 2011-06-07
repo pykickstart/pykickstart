@@ -457,6 +457,12 @@ class KickstartParser:
         self._state = STATE_COMMANDS
         self._includeDepth = 0
 
+    def getSection(self, s):
+        """Return a reference to the requested section (s must start with '%'s),
+           or raise KeyError if not found.
+        """
+        return self._sections[s]
+
     def handleCommand (self, lineno, args):
         """Given the list of command and arguments, call the Version's
            dispatcher method to handle the command.  Returns the command or
