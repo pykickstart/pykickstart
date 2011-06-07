@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.83
+Version: 1.99.0
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Jun 07 2011 Chris Lumens <clumens@redhat.com> 1.99.0-1
+- Add a way to tell how often a section has been handled. (clumens)
+- Add a NullSection that just ignores any section provided. (clumens)
+- Add test cases for the parser itself. (clumens)
+- Allow for defining your own kickstart %sections. (clumens)
+- The docs need to be fetched from an HTTPS location now. (clumens)
+- Write out --onboot=off if it's False. (clumens)
+
 * Fri Mar 25 2011 Chris Lumens <clumens@redhat.com> - 1.83-1
 - Add kickstart network --nodefroute option (#668417) (rvykydal)
 - Add support for network --bootproto ibft option (#668417) (rvykydal)
