@@ -3,15 +3,16 @@ VERSION=$(shell awk '/Version:/ { print $$2 }' $(PKGNAME).spec)
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(PKGNAME).spec | sed -e 's|%.*$$||g')
 TAG=r$(VERSION)-$(RELEASE)
 
+TX_PULL_ARGS = -a --disable-overwrite
+TX_PUSH_ARGS = -s
+
 MANDIR=/usr/share/man
 PREFIX=/usr
 
 TESTSUITE:=tests/baseclass.py
 
-default: all
-
-all:
-	$(MAKE) -C po
+po-pull:
+	tx pull $(TX_PULL_ARGS)
 
 docs:
 	mkdir -p docs
@@ -31,7 +32,7 @@ clean:
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
-install: all
+install: po-pull
 	python setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
@@ -53,9 +54,10 @@ archive: check test tag docs
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
 	rm -rf $(PKGNAME)-$(VERSION)
+	git checkout -- po/$(PACKAGE_NAME).pot
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
-local: docs
+local: docs po-pull
 	@rm -f ChangeLog
 	@make ChangeLog
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
@@ -70,7 +72,7 @@ rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/'
 	@echo
 
-bumpver:
+bumpver: po-pull
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
@@ -79,6 +81,8 @@ bumpver:
 	(head -n $$cl pykickstart.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > pykickstart.spec.new ; \
 	mv pykickstart.spec.new pykickstart.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
-	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py
+	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	@make -C po $(PACKAGE_NAME).pot-update ; \
+	tx push $(TX_PUSH_ARGS)
 
 .PHONY: check clean install tag archive local docs

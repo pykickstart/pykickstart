@@ -27,8 +27,6 @@ MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
 PYSRC		= $(wildcard ../pykickstart/*.py)
 SRCFILES 	= $(PYSRC) $(wildcard ../tools/ks*)
 
-#default:: clean
-
 all::  update-po $(MOFILES)
 
 $(POTFILE): $(SRCFILES)
