@@ -15,6 +15,7 @@ Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext, python-setuptools-devel
+BuildRequires: transifex-client
 Requires: python, python-urlgrabber
 
 %description
