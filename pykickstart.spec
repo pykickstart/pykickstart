@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.1
+Version: 1.99.2
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Jun 27 2011 Chris Lumens <clumens@redhat.com> - 1.99.2-1
+- Don't do "make po-pull" during installation. (clumens)
+
 * Mon Jun 27 2011 Chris Lumens <clumens@redhat.com> - 1.99.1-1
 - Fix a couple Makefile typos. (clumens)
 - typo fix (vpodzime)
