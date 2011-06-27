@@ -11,6 +11,9 @@ PREFIX=/usr
 
 TESTSUITE:=tests/baseclass.py
 
+all:
+	$(MAKE) -C po
+
 po-pull:
 	tx pull $(TX_PULL_ARGS)
 
@@ -32,7 +35,7 @@ clean:
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
-install: po-pull
+install:
 	python setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
@@ -48,6 +51,7 @@ archive: check test tag docs
 	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
 	mkdir -p $(PKGNAME)-$(VERSION)/docs/
+	cp -r po $(PKGNAME)-$(VERSION)
 	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
 	cp ChangeLog $(PKGNAME)-$(VERSION)/
