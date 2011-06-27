@@ -54,7 +54,7 @@ archive: check test tag docs
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
 	rm -rf $(PKGNAME)-$(VERSION)
-	git checkout -- po/$(PACKAGE_NAME).pot
+	git checkout -- po/$(PKGNAME).pot
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 local: docs po-pull
@@ -82,7 +82,7 @@ bumpver: po-pull
 	mv pykickstart.spec.new pykickstart.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	@make -C po $(PACKAGE_NAME).pot-update ; \
+	make -C po $(PKGNAME).pot ; \
 	tx push $(TX_PUSH_ARGS)
 
 .PHONY: check clean install tag archive local docs
