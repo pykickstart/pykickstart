@@ -133,7 +133,7 @@ def preprocessKickstart (f):
     except grabber.URLGrabError, e:
         raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
 
-    rc = _preprocessStateMachine (fh.readline)
+    rc = _preprocessStateMachine (iter(fh.readlines()))
     fh.close()
     return rc
 
