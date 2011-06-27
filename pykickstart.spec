@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.0
+Version: 1.99.1
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,17 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Jun 27 2011 Chris Lumens <clumens@redhat.com> - 1.99.1-1
+- Fix a couple Makefile typos. (clumens)
+- typo fix (vpodzime)
+- option for wpa wifi connection specification added (vpodzime)
+- Update Makefiles to work with new translation system. (clumens)
+- BuildRequires transifex-client. (clumens)
+- Ignore po/*.po files. (clumens)
+- Remove translation files. (clumens)
+- Add transifex-client configuration file. (clumens)
+- Fix po files so "msgfmt -c" passes and they can be uploaded to transifex. (clumens)
+
 * Tue Jun 07 2011 Chris Lumens <clumens@redhat.com> 1.99.0-1
 - Add a way to tell how often a section has been handled. (clumens)
 - Add a NullSection that just ignores any section provided. (clumens)
