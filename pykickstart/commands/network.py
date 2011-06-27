@@ -148,7 +148,7 @@ class F16_NetworkData(F8_NetworkData):
         F8_NetworkData.__init__(self, *args, **kwargs)
         self.activate = kwargs.get("activate", False)
         self.nodefroute = kwargs.get("nodefroute", False)
-        self.wpakey = kwargs.get("wpakey", "");
+        self.wpakey = kwargs.get("wpakey", "")
 
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
