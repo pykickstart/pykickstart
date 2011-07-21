@@ -95,7 +95,8 @@ try:
     ksparser.readKickstart(processedFile)
     cleanup(destdir, processedFile, exitval=0)
 except DeprecationWarning, msg:
-    print _("File uses a deprecated option or command.\n%s") % msg
+    print _("File uses a deprecated option or command.\n%s") % ""
+    print msg
     cleanup(destdir, processedFile)
 except (KickstartParseError, KickstartValueError), msg:
     print msg
