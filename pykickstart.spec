@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.5
+Version: 1.74.6
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Aug 05 2011 Chris Lumens <clumens@redhat.com> - 1.74.6-1
+- Fix a UnicodeDecodeError when printing a deprecation warning (ofourdan). (clumens)
+
 * Wed Jan 26 2011 Chris Lumens <clumens@redhat.com> 1.74.5-1
 - Don't set new attrs on the RHEL6_Network object. (clumens)
 - Add kickstart network --nodefroute option (#668417) (rvykydal)
