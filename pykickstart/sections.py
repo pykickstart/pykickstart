@@ -201,6 +201,9 @@ class PackageSection(Section):
         if not self.handler:
             return
 
+        (h, s, t) = line.partition('#')
+        line = h.rstrip()
+
         self.handler.packages.add([line])
 
     def handleHeader(self, lineno, args):
