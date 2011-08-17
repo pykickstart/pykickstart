@@ -95,7 +95,7 @@ def _preprocessStateMachine (lineIter):
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
             try:
-                if url.info()["content-length"] < 1:
+                if url.hdr["content-length"] < 1:
                     raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
             except:
                 raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
