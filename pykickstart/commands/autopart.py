@@ -83,8 +83,10 @@ class F9_AutoPart(FC3_AutoPart):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        # Rely on any error handling from baseclass
+        FC3_AutoPart.parse(self, extra)
+
         self._setToSelf(self.op, opts)
-        self.autopart = True
         return self
 
 class F12_AutoPart(F9_AutoPart):
