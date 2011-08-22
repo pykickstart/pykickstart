@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.2
+Version: 1.99.3
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Aug 22 2011 Chris Lumens <clumens@redhat.com> - 1.99.3-1
+- Ignore reimport warnings. (clumens)
+- Add support for 'autopart --nolvm' (jlaska)
+- autopart - Inherit error checking from base class (jlaska)
+- Let's just use url.size instead.  That's defined for both FTP and HTTP. (clumens)
+- It's url.hdr now, not url.info. (clumens)
+- Support end-of-line comments in the %packages section (#728563). (clumens)
+
 * Mon Jun 27 2011 Chris Lumens <clumens@redhat.com> - 1.99.2-1
 - Don't do "make po-pull" during installation. (clumens)
 
