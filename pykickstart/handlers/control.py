@@ -767,7 +767,7 @@ commandMap = {
     F16: {
         "auth": authconfig.FC3_Authconfig,
         "authconfig": authconfig.FC3_Authconfig,
-        "autopart": autopart.F12_AutoPart,
+        "autopart": autopart.F16_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.F15_Bootloader,
         "cdrom": method.F14_Method,

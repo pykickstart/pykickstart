@@ -79,5 +79,20 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("autopart --backuppassphrase=False")
         self.assert_parse_error("autopart --backuppassphrase=True")
 
+class F16_TestCase(F12_TestCase):
+    def runTest(self):
+        # Run F12 test case
+        F12_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --nolvm",
+                          "autopart --nolvm\n")
+
+        # fail
+        self.assert_parse_error("autopart --nolvm=asdf")
+        self.assert_parse_error("autopart --nolvm True", KickstartValueError)
+        self.assert_parse_error("autopart --nolvm=1")
+        self.assert_parse_error("autopart --nolvm 0", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

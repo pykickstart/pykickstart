@@ -119,3 +119,29 @@ class F12_AutoPart(F9_AutoPart):
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
         return op
+
+class F16_AutoPart(F12_AutoPart):
+    removedKeywords = F12_AutoPart.removedKeywords
+    removedAttrs = F12_AutoPart.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F12_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.lvm = kwargs.get("lvm", True)
+
+    def __str__(self):
+        retval = F12_AutoPart.__str__(self)
+
+        # If requested, disable LVM autopart
+        if not self.lvm:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --nolvm"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F12_AutoPart._getParser(self)
+        op.add_option("--nolvm", action="store_false", dest="lvm",
+            default=True)
+        return op
