@@ -24,7 +24,7 @@ docs:
 
 check:
 	@echo "*** Running pylint to verify source ***"
-	PYTHONPATH=. pylint pykickstart/*.py pykickstart/*/*.py --rcfile=/dev/null -i y -r n --disable=C,R --disable=W0141,W0142,W0221,W0401,W0403,W0603,W0611,W0612,W0613,W0614,W0703
+	PYTHONPATH=. pylint pykickstart/*.py pykickstart/*/*.py --rcfile=/dev/null -i y -r n --disable=C,R --disable=W0141,W0142,W0221,W0401,W0403,W0404,W0603,W0611,W0612,W0613,W0614,W0703
 
 test:
 	@echo "*** Running unittests ***"
