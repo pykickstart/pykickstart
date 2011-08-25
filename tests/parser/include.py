@@ -19,6 +19,24 @@ class Base_Include(ParserTest):
         ParserTest.tearDown(self)
         os.unlink(self._path)
 
+class Include_Packages_TestCase(Base_Include):
+    ks = """
+%%packages
+%%include %s
+-packageB
+%%end
+"""
+
+    includeKS = """
+packageA
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks % self._path)
+
+        self.assertEqual(len(self.handler.packages.packageList), 1)
+        self.assertEqual(len(self.handler.packages.excludeList), 1)
+
 class Include_Commands_TestCase(Base_Include):
     ks = """
 rootpw 123456
