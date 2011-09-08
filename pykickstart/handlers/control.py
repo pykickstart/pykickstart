@@ -817,7 +817,7 @@ commandMap = {
         "url": method.F14_Method,
         "user": user.F12_User,
         "vnc": vnc.F9_Vnc,
-        "volgroup": volgroup.FC3_VolGroup,
+        "volgroup": volgroup.FC16_VolGroup,
         "xconfig": xconfig.F14_XConfig,
         "zerombr": zerombr.F9_ZeroMbr,
         "zfcp": zfcp.F14_ZFCP,
@@ -1251,7 +1251,7 @@ dataMap = {
         "RepoData": repo.F15_RepoData,
         "SshPwData": sshpw.F13_SshPwData,
         "UserData": user.F12_UserData,
-        "VolGroupData": volgroup.FC3_VolGroupData,
+        "VolGroupData": volgroup.FC16_VolGroupData,
         "ZFCPData": zfcp.F14_ZFCPData,
     },
     RHEL3: {
