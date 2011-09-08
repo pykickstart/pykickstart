@@ -18,6 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import *
+from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
@@ -40,10 +41,8 @@ class FC3_VolGroupData(BaseData):
     def __eq__(self, y):
         return self.vgname == y.vgname
 
-    def __str__(self):
-        retval = BaseData.__str__(self)
-        retval += "volgroup %s" % self.vgname
-
+    def _getArgsAsStr(self):
+        retval = ""
         if not self.format:
             retval += " --noformat"
         if self.pesize != 0:
@@ -51,7 +50,28 @@ class FC3_VolGroupData(BaseData):
         if self.preexist:
             retval += " --useexisting"
 
-        return retval + " " + string.join(self.physvols, " ") + "\n"
+        return retval
+
+    def __str__(self):
+        retval = BaseData.__str__(self)
+        retval += "volgroup %s" % self.vgname
+        retval += self._getArgsAsStr()
+        return retval + " " + " ".join(self.physvols) + "\n"
+
+class F16_VolGroupData(FC3_VolGroupData):
+    def __init__(self, *args, **kwargs):
+        FC3_VolGroupData.__init__(self, *args, **kwargs)
+        self.reserved_space = kwargs.get("reserved-space", 0)
+        self.reserved_percent = kwargs.get("reserved-percent", 0)
+
+    def _getArgsAsStr(self):
+        retval = FC3_VolGroupData._getArgsAsStr(self)
+        if self.reserved_space > 0:
+            retval += " --reserved-space=%d" % self.reserved_space
+        if self.reserved_percent > 0:
+            retval += " --reserved-percent=%d" % self.reserved_percent
+
+        return retval
 
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -90,6 +110,13 @@ class FC3_VolGroup(KickstartCommand):
         vg = self.handler.VolGroupData()
         self._setToObj(self.op, opts, vg)
         vg.lineno = self.lineno
+
+        if len(extra) == 0:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name"))
+
+        if len(extra) == 1:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions"))
+
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
 
@@ -101,3 +128,24 @@ class FC3_VolGroup(KickstartCommand):
 
     def dataList(self):
         return self.vgList
+
+class F16_VolGroup(FC3_VolGroup):
+    def _getParser(self):
+        def space_cb(option, opt_str, value, parser):
+            if value < 0:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
+
+            parser.values.reserved_space = value
+
+        def percent_cb(option, opt_str, value, parser):
+            if not 0 < value < 100:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
+
+            parser.values.reserved_percent = value
+
+        op = FC3_VolGroup._getParser(self)
+        op.add_option("--reserved-space", action="callback", callback=space_cb,
+                      dest="reserved_space", type="int", nargs=1, default=0)
+        op.add_option("--reserved-percent", action="callback", callback=percent_cb,
+                      dest="reserved_percent", type="int", nargs=1, default=0)
+        return op
