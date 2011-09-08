@@ -35,7 +35,7 @@ packageA
         self.parser.readKickstartFromString(self.ks % self._path)
 
         self.assertEqual(len(self.handler.packages.packageList), 1)
-        self.assertEqual(len(self.handler.packages.excludeList), 1)
+        self.assertEqual(len(self.handler.packages.excludedList), 1)
 
 class Include_Commands_TestCase(Base_Include):
     ks = """

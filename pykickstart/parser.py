@@ -513,7 +513,7 @@ class KickstartParser:
         while True:
             try:
                 line = lineIter.next()
-                if line == "":
+                if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
                         raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
@@ -536,9 +536,15 @@ class KickstartParser:
                     # This is a properly terminated section.
                     self._finalize(obj)
                     break
+                elif args and args[0] == "%include":
+                    if len(args) == 1 or not args[1]:
+                        raise KickstartParseError, formatErrorMsg(lineno)
+
+                    self._handleInclude(args[1])
+                    continue
                 elif args and args[0] == "%ksappend":
                     continue
-                elif args and (self._validState(args[0]) or args[0] in ["%include", "%ksappend"]):
+                elif args and self._validState(args[0]):
                     # This is an unterminated section.
                     if self.version >= version.F8:
                         raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
@@ -576,6 +582,24 @@ class KickstartParser:
     def _isBlankOrComment(self, line):
         return line.isspace() or line == "" or line.lstrip()[0] == '#'
 
+    def _handleInclude(self, f):
+        # This case comes up primarily in ksvalidator.
+        if not self.followIncludes:
+            return
+
+        self._includeDepth += 1
+
+        try:
+            self.readKickstart(f, reset=False)
+        except KickstartError:
+            # Handle the include file being provided over the
+            # network in a %pre script.  This case comes up in the
+            # early parsing in anaconda.
+            if self.missingIncludeIsFatal:
+                raise
+
+        self._includeDepth -= 1
+
     def _stateMachine(self, lineIter):
         # For error reporting.
         lineno = 0
@@ -603,25 +627,10 @@ class KickstartParser:
             args = shlex.split(sanitized.rstrip())
 
             if args[0] == "%include":
-                # This case comes up primarily in ksvalidator.
-                if not self.followIncludes:
-                    continue
-
                 if len(args) == 1 or not args[1]:
                     raise KickstartParseError, formatErrorMsg(lineno)
 
-                self._includeDepth += 1
-
-                try:
-                    self.readKickstart(args[1], reset=False)
-                except KickstartError:
-                    # Handle the include file being provided over the
-                    # network in a %pre script.  This case comes up in the
-                    # early parsing in anaconda.
-                    if self.missingIncludeIsFatal:
-                        raise
-
-                self._includeDepth -= 1
+                self._handleInclude(args[1])
                 continue
 
             # Now on to the main event.
@@ -649,6 +658,10 @@ class KickstartParser:
                     self._tryFunc(lambda: self.handleCommand(lineno, args))
             elif self._state == STATE_END:
                 break
+            elif self._includeDepth > 0:
+                lineIter.put(self._line)
+                lineno -= 1
+                lineno = self._readSection(lineIter, lineno)
 
     def readKickstartFromString (self, s, reset=True):
         """Process a kickstart file, provided as the string str."""
