@@ -109,6 +109,13 @@ class FC3_VolGroup(KickstartCommand):
         vg = self.handler.VolGroupData()
         self._setToObj(self.op, opts, vg)
         vg.lineno = self.lineno
+
+        if len(extra) == 0:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name"))
+
+        if len(extra) == 1:
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions"))
+
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
 
