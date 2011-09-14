@@ -130,18 +130,21 @@ class FC3_VolGroup(KickstartCommand):
 
 class FC16_VolGroup(FC3_VolGroup):
     def _getParser(self):
+        def space_cb(option, opt_str, value, parser):
+            if value < 0:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
+
+            parser.values.reserved_space = value
+
+        def percent_cb(option, opt_str, value, parser):
+            if not 0 < value < 100:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
+
+            parser.values.reserved_percent = value
+
         op = FC3_VolGroup._getParser(self)
-        op.add_option("--reserved-space", dest="reserved_space", type="int",
-                      nargs=1, default=0)
-        op.add_option("--reserved-percent", dest="reserved_percent", type="int",
-                      nargs=1, default=0)
+        op.add_option("--reserved-space", action="callback", callback=space_cb,
+                      dest="reserved_space", type="int", nargs=1, default=0)
+        op.add_option("--reserved-percent", action="callback", callback=percent_cb,
+                      dest="reserved_percent", type="int", nargs=1, default=0)
         return op
-
-    def parse(self, args):
-        vg = FC3_VolGroup.parse(self, args)
-        if vg.reserved_space < 0:
-            raise KickstartValueError(formatErrorMsg(vg.lineno, msg="Volume group reserved space must be a positive integer."))
-        elif not 0 < vg.reserved_percent < 100:
-            raise KickstartValueError(formatErrorMsg(vg.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
-
-        return vg
