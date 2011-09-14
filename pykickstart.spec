@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.3
+Version: 1.99.4
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Sep 14 2011 Chris Lumens <clumens@redhat.com> - 1.99.4-1
+- --reserved-space and --reserved-percent should be checked on a callback. (clumens)
+- Add a volgroup unit test, and fix a bug it uncovered. (clumens)
+- Add support for reserved space in volume group. (dlehman)
+- Allow a %include to come in the middle of a section (#733455). (clumens)
+- Add a test case for %include inside %packages. (clumens)
+
 * Mon Aug 22 2011 Chris Lumens <clumens@redhat.com> - 1.99.3-1
 - Ignore reimport warnings. (clumens)
 - Add support for 'autopart --nolvm' (jlaska)
