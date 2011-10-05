@@ -516,7 +516,7 @@ class KickstartParser:
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen)
 
                     self._finalize(obj)
             except StopIteration:
@@ -547,7 +547,7 @@ class KickstartParser:
                 elif args and self._validState(args[0]):
                     # This is an unterminated section.
                     if self.version >= version.F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section does not end with %%end."))
+                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen)
 
                     # Finish up.  We do not process the header here because
                     # kicking back out to STATE_COMMANDS will ensure that happens.
