@@ -231,8 +231,11 @@ class FC3_Raid(KickstartCommand):
 
         if len(extra) == 0:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid")
-        if len(extra) == 1:
+
+        if len(extra) == 1 and not opts.preexist:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid")
+        elif len(extra) > 1 and opts.preexist:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device"))
 
         rd = self.handler.RaidData()
         self._setToObj(self.op, opts, rd)
@@ -243,11 +246,16 @@ class FC3_Raid(KickstartCommand):
         # it runs int().
         rd.device = int(rd.device)
         rd.mountpoint = extra[0]
-        rd.members = extra[1:]
+
+        if len(extra) > 1:
+            rd.members = extra[1:]
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
             warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device)
+
+        if not rd.preexist and not rd.level:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
 
         return rd
 

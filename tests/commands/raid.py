@@ -61,12 +61,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("raid / --device=md0 --fstype=ASDF --level=6 %sraid.01 raid.02" % (bpi), \
                           "raid / --device=0 --fstype=\"ASDF\" --level=RAID6 %sraid.01 raid.02\n" % (bpi))
         # useexisting
-        self.assert_parse("raid / --device=md0 --level=6 --useexisting %sraid.01 raid.02" % (bpi), \
-                          "raid / --device=0 --level=RAID6 --useexisting %sraid.01 raid.02\n" % (bpi))
+        self.assert_parse("raid / --device=md0 --level=6 --useexisting %s" % (bpi), \
+                          "raid / --device=0 --level=RAID6 --useexisting %s\n" % (bpi))
 
         # noformat
-        self.assert_parse("raid / --device=md0 --level=6 --noformat --useexisting %sraid.01 raid.02" % (bpi), \
-                          "raid / --device=0 --level=RAID6 --noformat --useexisting %sraid.01 raid.02\n" % (bpi))
+        self.assert_parse("raid / --device=md0 --level=6 --noformat --useexisting %s" % (bpi), \
+                          "raid / --device=0 --level=RAID6 --noformat --useexisting %s\n" % (bpi))
 
         # fail
         # no mountpoint or options
@@ -79,10 +79,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("raid /", KickstartValueError)
         # no device
         self.assert_parse_error("raid / --level=0", KickstartValueError)
-        # no level -- FIXME -- I would think should should fail, but it doesn't
-        # self.assert_parse_error("raid / --device=md0", KickstartValueError)
+        # no level
+        self.assert_parse_error("raid / --device=md0", KickstartValueError)
         # No raid members defined
         self.assert_parse_error("raid / --level=0 --device=md0", KickstartValueError)
+        # Both raid members and useexisting given
+        self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02", KickstartValueError)
 
         # Invalid device string - device=asdf0
         self.assert_parse_error("raid / --device=asdf0 --level=RAID1 raid.01 raid.02 raid.03", ValueError)
@@ -173,38 +175,23 @@ class F12_TestCase(F9_TestCase):
         F9_TestCase.runTest(self)
 
         # pass
-        self.assert_parse("raid / --device=md0 --escrowcert=\"http://x/y\" "
-                          "raid.01 raid.02",
-                          "raid / --device=0 raid.01 raid.02\n")
-        self.assert_parse("raid / --device=md0 --encrypted --backuppassphrase "
-                          "raid.01 raid.02",
-                          "raid / --device=0 --encrypted raid.01 raid.02\n")
-        self.assert_parse("raid / --device=md0 --encrypted "
-                          "--escrowcert=\"http://x/y\" raid.01 raid.02",
-                          "raid / --device=0 --encrypted "
-                          "--escrowcert=\"http://x/y\" raid.01 raid.02\n")
-        self.assert_parse("raid / --device=md0 --encrypted "
-                          "--escrowcert=\"http://x/y\" --backuppassphrase "
-                          "raid.01 raid.02",
-                          "raid / --device=0 --encrypted "
-                          "--escrowcert=\"http://x/y\" --backuppassphrase "
-                          "raid.01 raid.02\n")
-        self.assert_parse("raid / --device=md0 --encrypted "
-                          "--escrowcert=http://x/y raid.01 raid.02",
-                          "raid / --device=0 --encrypted "
-                          "--escrowcert=\"http://x/y\" raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --escrowcert=\"http://x/y\" --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted --backuppassphrase --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted --escrowcert=\"http://x/y\" --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --escrowcert=\"http://x/y\" raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted --escrowcert=\"http://x/y\" --backuppassphrase --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --escrowcert=\"http://x/y\" --backuppassphrase raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --encrypted --escrowcert=http://x/y --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --escrowcert=\"http://x/y\" raid.01 raid.02\n")
 
         # fail
-        self.assert_parse_error("raid / --device=md0 raid.01 raid.02 "
-                                "--escrowcert")
-        self.assert_parse_error("raid / --device=md0 --escrowcert "
-                                "--backuppassphrase raid.01 raid.02")
-        self.assert_parse_error("raid / --device=md0 --encrypted --escrowcert "
-                                "--backuppassphrase raid.01 raid.02")
-        self.assert_parse_error("raid / --device=md0 --backuppassphrase=False "
-                                "raid.01 raid.02")
-        self.assert_parse_error("raid / --device=md0 --backuppassphrase=True "
-                                "raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --level=1 raid.01 raid.02 -escrowcert")
+        self.assert_parse_error("raid / --device=md0 --escrowcert --backuppassphrase --level=1 raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --encrypted --escrowcert --backuppassphrase --level=1 raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --backuppassphrase=False --level=1 raid.01 raid.02")
+        self.assert_parse_error("raid / --device=md0 --backuppassphrase=True --level=1 raid.01 raid.02")
 
 class F13_TestCase(F12_TestCase):
     def __init__(self, *kargs, **kwargs):
