@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.4
+Version: 1.99.5
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Oct 19 2011 Chris Lumens <clumens@redhat.com> - 1.99.5-1
+- Don't error out if raid --useexisting is given with no members (#741728). (clumens)
+- When %end is missing, include the unterminated section in the error message. (clumens)
+
 * Wed Sep 14 2011 Chris Lumens <clumens@redhat.com> - 1.99.4-1
 - --reserved-space and --reserved-percent should be checked on a callback. (clumens)
 - Add a volgroup unit test, and fix a bug it uncovered. (clumens)
