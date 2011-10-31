@@ -5,6 +5,18 @@ from pykickstart import constants
 from pykickstart.errors import KickstartParseError
 from pykickstart import version
 
+class Script_Includes_Percent_Sign(ParserTest):
+    ks = """
+%post
+echo "# Added by kickstart
+%wheel ALL=(ALL) ALL" >> /etc/sudoers
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+        self.assertEqual(lan(self.handler.scripts), 1)
+
 class Simple_Terminated_TestCase(ParserTest):
     ks = """
 %post

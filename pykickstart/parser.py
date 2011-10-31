@@ -530,6 +530,15 @@ class KickstartParser:
                 continue
 
             if line.startswith("%"):
+                # If we're in a script, the line may begin with "%something"
+                # that's not the start of any section we recognize, but still
+                # valid for that script.  So, don't do the split below unless
+                # we're sure.
+                possibleSectionStart = line.split()[0]
+                if not self._validState(possibleSectionStart) and possibleSectionStart != "%end":
+                    obj.handleLine(line)
+                    continue
+
                 args = shlex.split(line)
 
                 if args and args[0] == "%end":
