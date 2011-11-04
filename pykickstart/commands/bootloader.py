@@ -215,6 +215,25 @@ class F15_Bootloader(F14_Bootloader):
         op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
         return op
 
+class F17_Bootloader(F15_Bootloader):
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F15_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.bootDrive = kwargs.get("bootDrive", "")
+
+    def _getArgsAsStr(self):
+        ret = F15_Bootloader._getArgsAsStr(self)
+
+        if self.bootDrive:
+            ret += " --boot-drive=%s" % self.bootDrive
+
+        return ret
+
+    def _getParser(self):
+        op = F15_Bootloader._getParser(self)
+        op.add_option("--boot-drive", dest="bootDrive", default="")
+        return op
+
 class RHEL5_Bootloader(FC4_Bootloader):
     removedKeywords = FC4_Bootloader.removedKeywords
     removedAttrs = FC4_Bootloader.removedAttrs

@@ -112,6 +112,15 @@ class F15_TestCase(F14_TestCase):
         self.assert_parse("bootloader --password=blahblah --iscrypted", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
         self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
 
+class F17_TestCase(F15_TestCase):
+    def runTest(self, iscrypted=False):
+        # run parent tests
+        F15_TestCase.runTest(self, iscrypted=iscrypted)
+
+        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/sda")
+        self.assert_parse("bootloader --location=mbr --boot-drive=sda")
+        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0")
+
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self, iscrypted=False):
         FC4_TestCase.runTest(self, iscrypted)
