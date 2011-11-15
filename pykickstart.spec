@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.5
+Version: 1.99.6
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Nov 15 2011 Chris Lumens <clumens@redhat.com> - 1.99.6-1
+- Add --boot-drive option to bootloader command to pick boot drive. (dlehman)
+- Add support for F17. (clumens)
+- The guts of a script could include a line starting with a % (#746928). (clumens)
+
 * Wed Oct 19 2011 Chris Lumens <clumens@redhat.com> - 1.99.5-1
 - Don't error out if raid --useexisting is given with no members (#741728). (clumens)
 - When %end is missing, include the unterminated section in the error message. (clumens)
