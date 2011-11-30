@@ -830,6 +830,7 @@ commandMap = {
         "autopart": autopart.F16_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.F17_Bootloader,
+        "btrfs": btrfs.F17_BTRFS,
         "cdrom": method.F14_Method,
         "clearpart": clearpart.FC3_ClearPart,
         "cmdline": displaymode.FC3_DisplayMode,
@@ -1315,6 +1316,7 @@ dataMap = {
         "ZFCPData": zfcp.F14_ZFCPData,
     },
     F17: {
+        "BTRFSData": btrfs.F17_BTRFSData,
         "DriverDiskData": driverdisk.F14_DriverDiskData,
         "DeviceData": device.F8_DeviceData,
         "DmRaidData": dmraid.FC6_DmRaidData,

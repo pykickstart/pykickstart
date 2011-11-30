@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import authconfig, autopart, autostep, bootloader, clearpart, device
+import authconfig, autopart, autostep, bootloader, btrfs, clearpart, device
 import deviceprobe, displaymode, dmraid, driverdisk, fcoe, firewall, firstboot
 import group, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
 import langsupport, lilocheck, logging, logvol, mediacheck, method, monitor
