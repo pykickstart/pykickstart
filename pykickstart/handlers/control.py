@@ -827,7 +827,7 @@ commandMap = {
     F17: {
         "auth": authconfig.FC3_Authconfig,
         "authconfig": authconfig.FC3_Authconfig,
-        "autopart": autopart.F16_AutoPart,
+        "autopart": autopart.F17_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.F17_Bootloader,
         "btrfs": btrfs.F17_BTRFS,

@@ -145,3 +145,57 @@ class F16_AutoPart(F12_AutoPart):
         op.add_option("--nolvm", action="store_false", dest="lvm",
             default=True)
         return op
+
+class F17_AutoPart(F16_AutoPart):
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F16_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.type = kwargs.get("type", None)
+        self.typeMap = { "lvm": AUTOPART_TYPE_LVM,
+                         "btrfs": AUTOPART_TYPE_BTRFS,
+                         "plain": AUTOPART_TYPE_PLAIN,
+                         "partition": AUTOPART_TYPE_PLAIN }
+
+    def __str__(self):
+        retval = F16_AutoPart.__str__(self)
+        if self.type is not None:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --type="
+            if self.type == AUTOPART_TYPE_LVM:
+                retval += "lvm"
+            elif self.type == AUTOPART_TYPE_BTRFS:
+                retval += "btrfs"
+            else:
+                retval += "plain"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        def type_cb(option, opt_str, value, parser):
+            if self.typeMap.has_key(value.lower()):
+                parser.values.ensure_value(option.dest,
+                                           self.typeMap[value.lower()])
+
+        def nolvm_cb(option, opt_str, value, parser):
+            parser.values.ensure_value(option.dest, AUTOPART_TYPE_PLAIN)
+
+        op = F16_AutoPart._getParser(self)
+        op.add_option("--nolvm", action="callback", callback=nolvm_cb,
+                      dest="type", nargs=0)
+
+        op.add_option("--type", action="callback", callback=type_cb,
+                      dest="type", nargs=1, type="string")
+        return op
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        # Rely on any error handling from baseclass
+        F16_AutoPart.parse(self, extra)
+
+        self._setToSelf(self.op, opts)
+
+        # make this always True to avoid writing --nolvm
+        self.lvm = True
+
+        return self

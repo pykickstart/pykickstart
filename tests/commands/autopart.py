@@ -84,15 +84,39 @@ class F16_TestCase(F12_TestCase):
         # Run F12 test case
         F12_TestCase.runTest(self)
 
+        if "--type" not in self.optionList:
+            # pass
+            self.assert_parse("autopart --nolvm",
+                              "autopart --nolvm\n")
+
+            # fail
+            self.assert_parse_error("autopart --nolvm=asdf")
+            self.assert_parse_error("autopart --nolvm True", KickstartValueError)
+            self.assert_parse_error("autopart --nolvm=1")
+            self.assert_parse_error("autopart --nolvm 0", KickstartValueError)
+
+class F17_TestCase(F16_TestCase):
+    def runTest(self):
+        # Run F16 test case
+        F16_TestCase.runTest(self)
+
         # pass
+        self.assert_parse("autopart --type=plain",
+                          "autopart --type=plain\n")
+        self.assert_parse("autopart --type=lvm",
+                          "autopart --type=lvm\n")
+        self.assert_parse("autopart --type=btrfs",
+                          "autopart --type=btrfs\n")
+
         self.assert_parse("autopart --nolvm",
-                          "autopart --nolvm\n")
+                          "autopart --type=plain\n")
+
+        # don't add --type= if none was specified
+        self.assert_parse("autopart",
+                          "autopart\n")
 
         # fail
-        self.assert_parse_error("autopart --nolvm=asdf")
-        self.assert_parse_error("autopart --nolvm True", KickstartValueError)
-        self.assert_parse_error("autopart --nolvm=1")
-        self.assert_parse_error("autopart --nolvm 0", KickstartValueError)
+        self.assert_parse_error("autopart --type")
 
 if __name__ == "__main__":
     unittest.main()
