@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.6
+Version: 1.99.7
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Jan 11 2012 Chris Lumens <clumens@redhat.com> - 1.99.7-1
+- Add --type option to autopart command. (dlehman)
+- Add btrfs command. (dlehman)
+
 * Tue Nov 15 2011 Chris Lumens <clumens@redhat.com> - 1.99.6-1
 - Add --boot-drive option to bootloader command to pick boot drive. (dlehman)
 - Add support for F17. (clumens)
