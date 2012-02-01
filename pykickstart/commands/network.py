@@ -142,7 +142,7 @@ class F8_NetworkData(FC6_NetworkData):
         retval = FC6_NetworkData._getArgsAsStr(self)
 
         if self.ipv6 != "":
-            retval += " --ipv6" % self.ipv6
+            retval += " --ipv6=%s" % self.ipv6
 
         return retval
 
