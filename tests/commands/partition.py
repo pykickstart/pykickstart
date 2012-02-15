@@ -159,5 +159,20 @@ class F14_TestCase(F12_TestCase):
         self.assert_removed("partition", "--start")
         self.assert_removed("partition", "--end")
 
+class F17_TestCase(F14_TestCase):
+    def runTest(self):
+        F14_TestCase.runTest(self)
+        self.assert_parse("part /foo --resize --size 500 --onpart=sda3",
+                          "part /foo --onpart=sda3 --size=500 --resize\n")
+
+        # no onpart or size
+        self.assert_parse_error("part /foo --resize")
+
+        # no onpart
+        self.assert_parse_error("part /foo --size=999 --resize")
+
+        # no size
+        self.assert_parse_error("part /foo --onpart=LABEL=var --resize")
+
 if __name__ == "__main__":
     unittest.main()

@@ -192,5 +192,21 @@ class F15_TestCase(F14_TestCase):
         self.assert_parse("logvol / --name=NAME --vgname=VGNAME --label=ROOT",
                           "logvol /  --label=\"ROOT\" --name=NAME --vgname=VGNAME\n")
 
+class F17_TestCase(F15_TestCase):
+    def runTest(self):
+        F15_TestCase.runTest(self)
+        self.assert_parse("logvol /x --name=NAME --size 1000 --vgname=VGNAME "
+                          "--useexisting --resize",
+                          "logvol /x  --size=1000 --useexisting --resize "
+                          "--name=NAME --vgname=VGNAME\n")
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize")
+
+        # no useexisting
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --size=500")
+
+        # no size
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --useexisting")
+
+
 if __name__ == "__main__":
     unittest.main()

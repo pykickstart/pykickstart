@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -188,6 +188,20 @@ class F12_PartData(F11_PartData):
 
 F14_PartData = F12_PartData
 
+class F17_PartData(F14_PartData):
+    def __init__(self, *args, **kwargs):
+        F14_PartData.__init__(self, *args, **kwargs)
+
+        self.resize = kwargs.get("resize", False)
+
+    def _getArgsAsStr(self):
+        retval = F14_PartData._getArgsAsStr(self)
+
+        if self.resize:
+            retval += " --resize"
+
+        return retval
+
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -352,3 +366,20 @@ class F14_Partition(F12_Partition):
         op.remove_option("--start")
         op.remove_option("--end")
         return op
+
+class F17_Partition(F14_Partition):
+    def _getParser(self):
+        op = F14_Partition._getParser(self)
+        op.add_option("--resize", action="store_true", default=False)
+        return op
+
+    def parse(self, args):
+        retval = F14_Partition.parse(self, args)
+
+        if retval.resize and not retval.onPart:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize can only be used in conjunction with --onpart")))
+
+        if retval.resize and not retval.size:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to specify new size")))
+
+        return retval

@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -184,6 +184,18 @@ class F15_LogVolData(F14_LogVolData):
 
         return retval
 
+class F17_LogVolData(F15_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F15_LogVolData.__init__(self, *args, **kwargs)
+        self.resize = kwargs.get("resize", False)
+
+    def _getArgsAsStr(self):
+        retval = F15_LogVolData._getArgsAsStr(self)
+        if self.resize:
+            retval += " --resize"
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -308,3 +320,20 @@ class F15_LogVol(F14_LogVol):
         op = F14_LogVol._getParser(self)
         op.add_option("--label")
         return op
+
+class F17_LogVol(F15_LogVol):
+    def _getParser(self):
+        op = F15_LogVol._getParser(self)
+        op.add_option("--resize", action="store_true", default=False)
+        return op
+
+    def parse(self, args):
+        retval = F15_LogVol.parse(self, args)
+
+        if retval.resize and not retval.preexist:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize can only be used in conjunction with --useexisting")))
+
+        if retval.resize and not retval.size:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to indicate new size")))
+
+        return retval
