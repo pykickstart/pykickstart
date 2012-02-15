@@ -29,5 +29,11 @@ class FC3_TestCase(CommandTest):
         # nonsensical parameter test
         self.assert_parse_error("clearpart --cheese")
 
+class F17_TestCase(FC3_TestCase):
+    def runTest(self):
+        FC3_TestCase.runTest(self)
+        self.assert_parse("clearpart --list=sda2,sda3,disk/by-label/foo",
+                          "clearpart --list=sda2,sda3,disk/by-label/foo\n")
+
 if __name__ == "__main__":
     unittest.main()

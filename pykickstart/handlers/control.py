@@ -832,7 +832,7 @@ commandMap = {
         "bootloader": bootloader.F17_Bootloader,
         "btrfs": btrfs.F17_BTRFS,
         "cdrom": method.F14_Method,
-        "clearpart": clearpart.FC3_ClearPart,
+        "clearpart": clearpart.F17_ClearPart,
         "cmdline": displaymode.FC3_DisplayMode,
         "device": device.F8_Device,
         "deviceprobe": deviceprobe.FC3_DeviceProbe,

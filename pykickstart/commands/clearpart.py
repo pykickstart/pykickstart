@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -84,3 +84,27 @@ class FC3_ClearPart(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
+
+class F17_ClearPart(FC3_ClearPart):
+    def __init__(self, *args, **kwargs):
+        super(F17_ClearPart, self).__init__(*args, **kwargs)
+        self.devices = kwargs.get("devices", [])
+
+    def __str__(self):
+        s = super(F17_ClearPart, self).__str__()
+        if s and len(self.devices) > 0:
+            s = s.rstrip()
+            s += " --list=" + ",".join(self.devices)
+            s += "\n"
+        return s
+
+    def _getParser(self):
+        op = super(F17_ClearPart, self)._getParser()
+        def list_cb (option, opt_str, value, parser):
+            self.type = CLEARPART_TYPE_LIST
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+
+        op.add_option("--list", dest="devices", action="callback",
+                      callback=list_cb, nargs=1, type="string")
+        return op
