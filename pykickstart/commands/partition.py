@@ -180,6 +180,22 @@ class F12_PartData(F11_PartData):
 
         return retval
 
+class RHEL6_PartData(F12_PartData):
+    removedKeywords = F12_PartData.removedKeywords
+    removedAttrs = F12_PartData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_PartData.__init__(self, *args, **kwargs)
+
+        self.sameAsRam = kwargs.get("sameAsRam", False)
+
+    def _getArgsAsStr(self):
+        retval = F11_PartData._getArgsAsStr(self)
+
+        if self.sameAsRam:
+            retval += "--same-as-ram"
+
+        return retval
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -334,3 +350,23 @@ class F12_Partition(F11_Partition):
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
         return op
+
+class RHEL6_Partition(F12_Partition):
+    removedKeywords = F12_Partition.removedKeywords
+    removedAttrs = F12_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F12_Partition._getParser(self)
+        op.add_option("--same-as-ram", dest="sameAsRam", action="store_true",
+                        default=False)
+        return op
+
+    def parse(self, args):
+        pd = F12_Partition.parse(self, args)
+
+        if pd.recommended and pd.sameAsRam:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+             msg=_("Options --recommended and --same-as-ram are mutually exclusive.")))
+
+        return pd
+
