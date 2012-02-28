@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.7
+Version: 1.74.8
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Feb 28 2012 Chris Lumens <clumens@redhat.com> - 1.74.8-1
+- Add support for reserved space in volume group. (dlehman)
+- Add --same-as-ram option for swap size specification (#744129) (vpodzime)
+
 * Fri Feb 10 2012 Chris Lumens <clumens@redhat.com> - 1.74.7-1
 - Don't error out if raid --useexisting is given with no members. (clumens)
 
