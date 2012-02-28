@@ -67,6 +67,11 @@ class F10_TestCase(FC6_TestCase):
         self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-user", KickstartParseError)
         self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-password", KickstartParseError)
 
+class RHEL6_TestCase(F10_TestCase):
+    def runTest(self):
+        F10_TestCase.runTest(self)
+
+        self.assert_parse("iscsi --ipaddr=1.1.1.1 --iface=eth0\n")
 
 if __name__ == "__main__":
     unittest.main()
