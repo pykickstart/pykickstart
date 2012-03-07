@@ -93,6 +93,22 @@ class RHEL6_IscsiData(F10_IscsiData):
 
         return retval
 
+class F17_IscsiData(F10_IscsiData):
+    removedKeywords = F10_IscsiData.removedKeywords
+    removedAttrs = F10_IscsiData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F10_IscsiData.__init__(self, *args, **kwargs)
+        self.iface = kwargs.get("iface", None)
+
+    def _getArgsAsStr(self):
+        retval = F10_IscsiData._getArgsAsStr(self)
+
+        if self.iface is not None:
+            retval += " --iface=%s" % self.iface
+
+        return retval
+
 class FC6_Iscsi(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -149,6 +165,16 @@ class F10_Iscsi(FC6_Iscsi):
         return op
 
 class RHEL6_Iscsi(F10_Iscsi):
+    removedKeywords = F10_Iscsi.removedKeywords
+    removedAttrs = F10_Iscsi.removedAttrs
+
+    def _getParser(self):
+        op = F10_Iscsi._getParser(self)
+        op.add_option("--iface", dest="iface", action="store",
+                      type="string")
+        return op
+
+class F17_Iscsi(F10_Iscsi):
     removedKeywords = F10_Iscsi.removedKeywords
     removedAttrs = F10_Iscsi.removedAttrs
 
