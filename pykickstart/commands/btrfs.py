@@ -81,9 +81,9 @@ class F17_BTRFS(KickstartCommand):
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
-        self.levelMap = { "RAID0": "RAID0", "0": "RAID0",
-                          "RAID1": "RAID1", "1": "RAID1",
-                          "RAID10": "RAID10", "10": "RAID10",
+        self.levelMap = { "RAID0": "raid0", "0": "raid0",
+                          "RAID1": "raid1", "1": "raid1",
+                          "RAID10": "raid10", "10": "raid10",
                           "single": "single" }
 
         self.btrfsList = kwargs.get("btrfsList", [])
