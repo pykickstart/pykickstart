@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006, 2007, 2008, 2009, 2010 Red Hat, Inc.
+# Copyright 2006, 2007, 2008, 2009, 2010, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -71,6 +71,7 @@ F14 = 12000
 F15 = 13000
 F16 = 14000
 F17 = 15000
+RHEL7 = 15100
 
 # This always points at the latest version and is the default.
 DEVEL = F17
@@ -81,7 +82,8 @@ versionMap = {
         "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
         "F9": F9, "F10": F10, "F11": F11, "F12": F12, "F13": F13,
         "F14": F14, "F15": F15, "F16": F16, "F17": F17,
-        "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6
+        "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
+        "RHEL7": RHEL7
 }
 
 def stringToVersion(s):
