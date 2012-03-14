@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -353,6 +353,9 @@ class BaseHandler(KickstartObject):
             # First make sure we haven't instantiated this command handler
             # already.  If we have, we just need to make another mapping to
             # it in self.commands.
+            # NOTE:  We can't use the resetCommand method here since that relies
+            # upon cmdClass already being instantiated.  We'll just have to keep
+            # these two code blocks in sync.
             cmdObj = None
 
             for (key, val) in self.commands.iteritems():
@@ -374,6 +377,23 @@ class BaseHandler(KickstartObject):
         # the comment says.  Hope no one screws that up.
         for (dataName, dataClass) in dMap.iteritems():
             setattr(self, dataName, dataClass)
+
+    def resetCommand(self, cmdName):
+        """Given the name of a command that's already been instantiated, create
+           a new instance of it that will take the place of the existing
+           instance.  This is equivalent to quickly blanking out all the
+           attributes that were previously set.
+
+           This method raises a KeyError if cmdName is invalid.
+        """
+        if cmdName not in self.commands:
+            raise KeyError
+
+        cmdObj = self.commands[cmdName].__class__()
+
+        self._setCommand(cmdObj)
+        self.commands[cmdName] = cmdObj
+        self.commands[cmdName].handler = self
 
     def dispatcher(self, args, lineno):
         """Call the appropriate KickstartCommand handler for the current line
