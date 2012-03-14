@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-01-11 13:54-0500\n"
+"POT-Creation-Date: 2012-03-14 11:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:390
+#: ../pykickstart/base.py:410
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -66,9 +66,9 @@ msgid "Unknown kickstart section: %s"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:106 ../pykickstart/version.py:115
-#: ../pykickstart/version.py:118 ../pykickstart/version.py:134
-#: ../pykickstart/version.py:188
+#: ../pykickstart/version.py:108 ../pykickstart/version.py:117
+#: ../pykickstart/version.py:120 ../pykickstart/version.py:136
+#: ../pykickstart/version.py:190
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr ""

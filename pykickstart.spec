@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.7
+Version: 1.99.8
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Mar 14 2012 Chris Lumens <clumens@redhat.com> - 1.99.8-1
+- Add support for RHEL7 (#802369).
+- Add a method to set a command back to its initial blank state.
+- btrfs likes its raid levels in lower case. (#799154) (dlehman)
+- iscsi: add support for interface binding to F17 (rvykydal)
+- iscsi: add support for interface binding (#500273) (rvykydal)
+
 * Wed Jan 11 2012 Chris Lumens <clumens@redhat.com> - 1.99.7-1
 - Add --type option to autopart command. (dlehman)
 - Add btrfs command. (dlehman)
