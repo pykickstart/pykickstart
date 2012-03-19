@@ -41,6 +41,22 @@ class FC3_Method(KickstartCommand):
         self.dir = None
         self.url = None
 
+    def __eq__(self, other):
+        if other == None:
+            return False
+
+        if self.method != other.method:
+            return False
+
+        if self.method == "harddrive":
+            return self.biospart == other.biospart and self.partition == other.partition
+        elif self.method == "nfs":
+            return self.server == other.server and self.dir == other.dir
+        elif self.method == "url":
+            return self.url == other.url
+        else:
+            return True
+
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
@@ -100,6 +116,15 @@ class FC6_Method(FC3_Method):
         # Same reason for this attribute as the comment in FC3_Method.
         self.opts = None
 
+    def __eq__(self, other):
+        if not FC3_Method.__eq__(self, other):
+            return False
+
+        if self.method == "nfs":
+            return self.opts == other.opts
+        else:
+            return True
+
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
@@ -140,6 +165,15 @@ class F13_Method(FC6_Method):
         # And same as all the other __init__ methods.
         self.proxy = ""
 
+    def __eq__(self, other):
+        if not FC6_Method.__eq__(self, other):
+            return False
+
+        if self.method == "url":
+            return self.proxy == other.proxy
+        else:
+            return True
+
     def __str__(self):
         retval = FC6_Method.__str__(self)
 
@@ -165,6 +199,15 @@ class F14_Method(F13_Method):
         F13_Method.__init__(self, *args, **kwargs)
 
         self.noverifyssl = False
+
+    def __eq__(self, other):
+        if not F13_Method.__eq__(self, other):
+            return False
+
+        if self.method == "url":
+            return self.noverifyssl == other.noverifyssl
+        else:
+            return True
 
     def __str__(self):
         retval = F13_Method.__str__(self)
