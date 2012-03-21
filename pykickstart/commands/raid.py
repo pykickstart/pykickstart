@@ -41,7 +41,13 @@ class FC3_RaidData(BaseData):
         self.members = kwargs.get("members", [])
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.device == y.device
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""

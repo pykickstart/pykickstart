@@ -36,7 +36,13 @@ class F12_GroupData(BaseData):
         self.gid = kwargs.get("gid", None)
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.name == y.name
+
+    def __ne__(self, y):
+        return not self == y
 
     def __str__(self):
         retval = BaseData.__str__(self)

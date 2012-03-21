@@ -37,7 +37,13 @@ class FC6_RepoData(BaseData):
         self.name = kwargs.get("name", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.name == y.name
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""

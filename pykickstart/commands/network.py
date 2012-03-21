@@ -48,7 +48,13 @@ class FC3_NetworkData(BaseData):
         self.wepkey = kwargs.get("wepkey", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.device and self.device == y.device
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""

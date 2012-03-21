@@ -34,7 +34,13 @@ class F8_DeviceData(BaseData):
         self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.moduleName == y.moduleName
+
+    def __ne__(self, y):
+        return not self == y
 
     def __str__(self):
         retval = BaseData.__str__(self)
@@ -60,7 +66,13 @@ class FC3_Device(KickstartCommand):
         self.moduleOpts = kwargs.get("moduleOpts", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.moduleName == y.moduleName
+
+    def __ne__(self, y):
+        return not self == y
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)

@@ -37,9 +37,15 @@ class FC3_ZFCPData(BaseData):
         self.scsilun = kwargs.get("scsilun", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.devnum == y.devnum and self.wwpn == y.wwpn and \
                self.fcplun == y.fcplun and self.scsiid == y.scsiid and \
                self.scsilun == y.scsilun
+
+    def __ne__(self, y):
+        return not self == y
 
     def __str__(self):
         retval = BaseData.__str__(self)

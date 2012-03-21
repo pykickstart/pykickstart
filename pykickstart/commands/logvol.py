@@ -44,7 +44,13 @@ class FC3_LogVolData(BaseData):
         self.mountpoint = kwargs.get("mountpoint", "")
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.vgname == y.vgname and self.name == y.name
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""

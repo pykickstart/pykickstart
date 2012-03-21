@@ -42,7 +42,7 @@ class FC3_Method(KickstartCommand):
         self.url = None
 
     def __eq__(self, other):
-        if other == None:
+        if not other:
             return False
 
         if self.method != other.method:
@@ -56,6 +56,9 @@ class FC3_Method(KickstartCommand):
             return self.url == other.url
         else:
             return True
+
+    def __ne__(self, other):
+        return not self == other
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)

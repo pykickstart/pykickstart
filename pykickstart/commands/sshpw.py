@@ -36,7 +36,13 @@ class F13_SshPwData(BaseData):
         self.lock = kwargs.get("lock", False)
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.username == y.username
+
+    def __ne__(self, y):
+        return not self == y
 
     def __str__(self):
         retval = BaseData.__str__(self)

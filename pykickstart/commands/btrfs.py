@@ -45,7 +45,13 @@ class F17_BTRFSData(BaseData):
         self.name = kwargs.get("name", None)        # required
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.mountpoint == y.mountpoint
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""

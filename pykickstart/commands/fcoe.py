@@ -33,7 +33,13 @@ class F12_FcoeData(BaseData):
         self.nic = kwargs.get("nic", None)
 
     def __eq__(self, y):
+        if not y:
+            return False
+
         return self.nic == y.nic
+
+    def __ne__(self, y):
+        return not self == y
 
     def _getArgsAsStr(self):
         retval = ""
