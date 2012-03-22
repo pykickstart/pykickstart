@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.8
+Version: 1.99.9
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Mar 22 2012 Chris Lumens <clumens@redhat.com> - 1.99.9-1
+- Add __ne__ methods to every object with an __eq__ method. (clumens)
+- Use the older exception syntax for python 2.4 compatibility. (clumens)
+- Add an __eq__ method to the method command. (clumens)
+
 * Wed Mar 14 2012 Chris Lumens <clumens@redhat.com> - 1.99.8-1
 - Add support for RHEL7 (#802369).
 - Add a method to set a command back to its initial blank state.
