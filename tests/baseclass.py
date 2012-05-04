@@ -168,6 +168,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
             loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
         except ImportError, e:
             print(_("Error loading module %s.") % module)
+            continue
 
         # Find class names that match the supplied pattern (default: "_TestCase")
         beforeCount = len(tstList)
