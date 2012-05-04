@@ -36,5 +36,18 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("keyboard us uk", KickstartValueError)
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
+class F18_TestCase(FC3_TestCase):
+    command = "keyboard"
+
+    def runTest(self):
+        self.assert_parse("keyboard us")
+
+        # we now support defining multiple layouts
+        self.assert_parse("keyboard us cz")
+
+        # fail
+        self.assert_parse_error("keyboard", KickstartValueError)
+        self.assert_parse_error("keyboard --foo us", KickstartParseError)
+
 if __name__ == "__main__":
     unittest.main()

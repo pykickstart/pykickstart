@@ -53,3 +53,40 @@ class FC3_Keyboard(KickstartCommand):
 
         self.keyboard = extra[0]
         return self
+
+class F18_Keyboard(FC3_Keyboard):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Keyboard.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+        self.layouts_list = kwargs.get("layouts_list", [])
+
+    def __str__(self):
+        if not self.layouts_list:
+            return ""
+
+        retval = "# Keyboard layouts\nkeyboard"
+        for layout in self.layouts_list:
+            retval += " %s" % layout
+
+        return retval
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+
+        if len(extra) < 1:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires at least"\
+                                                                         "one argument") % "keyboard")
+        self.layouts_list = extra
+        return self
+
+    @property
+    def keyboard(self):
+        if self.layouts_list:
+            return self.layouts_list[0]
+
+        else:
+            return ""
+
+    @keyboard.setter
+    def keyboard(self, value):
+        self.layouts_list = [value]

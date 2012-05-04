@@ -910,7 +910,7 @@ commandMap = {
         "install": upgrade.F11_Upgrade,
         "iscsi": iscsi.F17_Iscsi,
         "iscsiname": iscsiname.FC6_IscsiName,
-        "keyboard": keyboard.FC3_Keyboard,
+        "keyboard": keyboard.F18_Keyboard,
         "lang": lang.FC3_Lang,
         "logging": logging.FC6_Logging,
         "logvol": logvol.F17_LogVol,
