@@ -79,14 +79,15 @@ class F18_Keyboard(FC3_Keyboard):
         self.layouts_list = extra
         return self
 
+    # pylint: disable-msg=E0202
     @property
     def keyboard(self):
         if self.layouts_list:
             return self.layouts_list[0]
-
         else:
             return ""
 
+    # pylint: disable-msg=E0102,E1101
     @keyboard.setter
     def keyboard(self, value):
         self.layouts_list = [value]
