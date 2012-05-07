@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.10
+Version: 1.99.11
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,12 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon May 07 2012 Chris Lumens <clumens@redhat.com> - 1.99.11-1
+- pylint doesn't like .setter syntax at all. (clumens)
+- Modify keyboard command to handle multiple layouts (vpodzime)
+- Add support for F18. (vpodzime)
+- Fix traceback if modules cannot be loaded when running tests (vpodzime)
+
 * Mon Apr 02 2012 Chris Lumens <clumens@redhat.com> - 1.99.10-1
 - Add resize option to partition and logvol commands. (dlehman)
 - Add --list= mode to clearpart for explicit list of partitions to remove. (dlehman)
