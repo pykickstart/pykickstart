@@ -187,13 +187,13 @@ class RHEL6_PartData(F12_PartData):
     def __init__(self, *args, **kwargs):
         F12_PartData.__init__(self, *args, **kwargs)
 
-        self.sameAsRam = kwargs.get("sameAsRam", False)
+        self.hibernation = kwargs.get("hibernation", False)
 
     def _getArgsAsStr(self):
         retval = F11_PartData._getArgsAsStr(self)
 
-        if self.sameAsRam:
-            retval += "--same-as-ram"
+        if self.hibernation:
+            retval += "--hibernation"
 
         return retval
 
@@ -357,16 +357,7 @@ class RHEL6_Partition(F12_Partition):
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
-        op.add_option("--same-as-ram", dest="sameAsRam", action="store_true",
+        op.add_option("--hibernation", dest="hibernation", action="store_true",
                         default=False)
         return op
-
-    def parse(self, args):
-        pd = F12_Partition.parse(self, args)
-
-        if pd.recommended and pd.sameAsRam:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
-             msg=_("Options --recommended and --same-as-ram are mutually exclusive.")))
-
-        return pd
 
