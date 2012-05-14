@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.9
+Version: 1.74.10
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon May 14 2012 Chris Lumens <clumens@redhat.com> - 1.74.10-1
+- Change swap option --same-as-ram to --hibernation (#821315) (vpodzime)
+
 * Wed Feb 29 2012 Chris Lumens <clumens@redhat.com> - 1.74.9-1
 - iscsi: add support for interface binding (#500273) (rvykydal)
 
