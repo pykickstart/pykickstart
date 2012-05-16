@@ -66,7 +66,7 @@ class F18_Keyboard(FC3_Keyboard):
 
         retval = "# Keyboard layouts\nkeyboard"
         for layout in self.layouts_list:
-            retval += " %s" % layout
+            retval += " '%s'" % layout
 
         return retval
 
