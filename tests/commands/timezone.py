@@ -52,5 +52,30 @@ class FC6_TestCase(FC3_TestCase):
         # fail
         self.assert_parse_error("timezone --isUtc", KickstartValueError)
 
+class F18_TestCase(FC6_TestCase):
+    def runTest(self):
+        # pass
+        self.assert_parse("timezone --utc Europe/Prague")
+        self.assert_parse("timezone --isUtc Europe/Prague\n")
+        self.assert_parse("timezone --isUtc Eastern", "timezone Eastern --isUtc\n")
+        self.assert_parse("timezone Europe/Prague")
+        self.assert_parse("timezone Europe/Prague --nontp")
+        self.assert_parse("timezone Europe/Prague "\
+                          "--ntpservers=ntp.cesnet.cz,tik.nic.cz")
+        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz,")
+
+        # fail
+        self.assert_parse_error("timezone", KickstartValueError)
+        self.assert_parse_error("timezone Eastern Central", KickstartValueError)
+        self.assert_parse_error("timezone --blah Eastern")
+        self.assert_parse_error("timezone --utc", KickstartValueError)
+        self.assert_parse_error("timezone --isUtc", KickstartValueError)
+        self.assert_parse_error("timezone Europe/Prague --nontp "\
+                                "--ntpservers=ntp.cesnet.cz",
+                                KickstartParseError)
+        self.assert_parse_error("timezone Europe/Prague --ntpservers="\
+                                "ntp.cesnet.cz, tik.nic.cz",
+                                KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

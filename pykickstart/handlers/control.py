@@ -933,7 +933,7 @@ commandMap = {
         "skipx": skipx.FC3_SkipX,
         "sshpw": sshpw.F13_SshPw,
         "text": displaymode.FC3_DisplayMode,
-        "timezone": timezone.FC6_Timezone,
+        "timezone": timezone.F18_Timezone,
         "updates": updates.F7_Updates,
         "upgrade": upgrade.F11_Upgrade,
         "url": method.F14_Method,

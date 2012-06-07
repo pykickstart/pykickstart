@@ -84,3 +84,56 @@ class FC6_Timezone(FC3_Timezone):
         op = FC3_Timezone._getParser(self)
         op.add_option("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
         return op
+
+class F18_Timezone(FC6_Timezone):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC6_Timezone.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+        self.nontp = kwargs.get("nontp", False)
+        self.ntpservers = kwargs.get("ntpservers", set())
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
+        retval += "# System timezone\n"
+        retval += "timezone " + self._getArgsAsStr() + "\n"
+
+        return retval
+
+    def _getArgsAsStr(self):
+        retval = self.timezone
+
+        if self.isUtc:
+            retval += " --isUtc"
+
+        if self.nontp:
+            retval += " --nontp"
+
+        if self.ntpservers:
+            retval += " --ntpservers=" + ",".join(self.ntpservers)
+
+        return retval
+
+    def _getParser(self):
+        def servers_cb(option, opt_str, value, parser):
+            for server in value.split(","):
+                if server:
+                    parser.values.ensure_value(option.dest, set()).add(server)
+
+
+        op = FC6_Timezone._getParser(self)
+        op.add_option("--nontp", dest="nontp", action="store_true", default=False)
+        op.add_option("--ntpservers", dest="ntpservers", action="callback",
+                      callback=servers_cb, nargs=1, type="string")
+
+        return op
+
+    def parse(self, args):
+        FC6_Timezone.parse(self, args)
+
+        if self.ntpservers and self.nontp:
+            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
+                                    "--ntpservers are mutually exclusive"))
+            raise KickstartParseError(msg)
+
+        return self
