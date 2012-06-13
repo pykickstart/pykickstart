@@ -535,7 +535,8 @@ class KickstartParser:
                 # valid for that script.  So, don't do the split below unless
                 # we're sure.
                 possibleSectionStart = line.split()[0]
-                if not self._validState(possibleSectionStart) and possibleSectionStart != "%end":
+                if not self._validState(possibleSectionStart) \
+                   and possibleSectionStart not in ("%end", "%include"):
                     obj.handleLine(line)
                     continue
 

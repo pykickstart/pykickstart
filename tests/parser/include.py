@@ -85,5 +85,57 @@ ls /tmp
         # Also verify the body, which is the most important part.
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
+class Include_Post_TestCase(Base_Include):
+    ks = """
+%%post
+%%include %s
+%%end
+"""
+
+    includeKS = """
+ls /tmp
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks % self._path)
+        self.assertEqual(len(self.handler.scripts), 1)
+
+        # Verify the script defaults.
+        script = self.handler.scripts[0]
+        self.assertEqual(script.interp, "/bin/sh")
+        self.assertTrue(script.inChroot)
+        self.assertEqual(script.lineno, 2)
+        self.assertFalse(script.errorOnFail)
+        self.assertEqual(script.type, constants.KS_SCRIPT_POST)
+
+        # Also verify the body, which is the most important part.
+        self.assertEqual(script.script.rstrip(), "ls /tmp")
+
+class Include_Pre_TestCase(Base_Include):
+    ks = """
+%%pre
+%%include %s
+%%end
+"""
+
+    includeKS = """
+ls /tmp
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks % self._path)
+        self.assertEqual(len(self.handler.scripts), 1)
+
+        # Verify the script defaults.
+        script = self.handler.scripts[0]
+        self.assertEqual(script.interp, "/bin/sh")
+        self.assertFalse(script.inChroot)
+        self.assertEqual(script.lineno, 2)
+        self.assertFalse(script.errorOnFail)
+        self.assertEqual(script.type, constants.KS_SCRIPT_PRE)
+
+        # Also verify the body, which is the most important part.
+        self.assertEqual(script.script.rstrip(), "ls /tmp")
+
 if __name__ == "__main__":
     unittest.main()
