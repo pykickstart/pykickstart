@@ -174,5 +174,12 @@ class F17_TestCase(F14_TestCase):
         # no size
         self.assert_parse_error("part /foo --onpart=LABEL=var --resize")
 
+class F18_TestCase(F17_TestCase):
+    def runTest(self):
+        F17_TestCase.runTest(self)
+        self.assert_parse("part swap --hibernation")
+        self.assert_parse("part swap --recommended")
+        self.assert_parse("part swap --recommended --hibernation")
+
 if __name__ == "__main__":
     unittest.main()

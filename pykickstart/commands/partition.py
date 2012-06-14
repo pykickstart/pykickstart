@@ -202,6 +202,20 @@ class F17_PartData(F14_PartData):
 
         return retval
 
+class F18_PartData(F17_PartData):
+    def __init__(self, *args, **kwargs):
+        F17_PartData.__init__(self, *args, **kwargs)
+
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def _getArgsAsStr(self):
+        retval = F17_PartData._getArgsAsStr(self)
+
+        if self.hibernation:
+            retval += " --hibernation"
+
+        return retval
+
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -383,3 +397,10 @@ class F17_Partition(F14_Partition):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to specify new size")))
 
         return retval
+
+class F18_Partition(F17_Partition):
+    def _getParser(self):
+        op = F17_Partition._getParser(self)
+        op.add_option("--hibernation", dest="hibernation", action="store_true", default=False)
+
+        return op
