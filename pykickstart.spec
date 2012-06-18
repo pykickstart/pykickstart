@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.11
+Version: 1.99.12
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Jun 18 2012 Chris Lumens <clumens@redhat.com> - 1.99.12-1
+- Add --nontp option and a way to specify NTP servers to the timezone command (vpodzime)
+- fix TypeError in network.py with ipv6 static addresses (wwoods)
+- Layouts may include spaces, so put them in quotes (vpodzime)
+
 * Mon May 07 2012 Chris Lumens <clumens@redhat.com> - 1.99.11-1
 - pylint doesn't like .setter syntax at all. (clumens)
 - Modify keyboard command to handle multiple layouts (vpodzime)
