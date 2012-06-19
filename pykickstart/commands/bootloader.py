@@ -216,6 +216,9 @@ class F15_Bootloader(F14_Bootloader):
         return op
 
 class F17_Bootloader(F15_Bootloader):
+    removedKeywords = F15_Bootloader.removedKeywords
+    removedAttrs = F15_Bootloader.removedAttrs
+
     def __init__(self, writePriority=10, *args, **kwargs):
         F15_Bootloader.__init__(self, writePriority, *args, **kwargs)
 
@@ -232,6 +235,20 @@ class F17_Bootloader(F15_Bootloader):
     def _getParser(self):
         op = F15_Bootloader._getParser(self)
         op.add_option("--boot-drive", dest="bootDrive", default="")
+        return op
+
+class F18_Bootloader(F17_Bootloader):
+    removedKeywords = F17_Bootloader.removedKeywords
+    removedAttrs = F17_Bootloader.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F17_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.leavebootorder = kwargs.get("leavebootorder", False)
+
+    def _getParser(self):
+        op = F17_Bootloader._getParser(self)
+        op.add_option("--leavebootorder", dest="leavebootorder", action="store_true", default=False)
         return op
 
 class RHEL5_Bootloader(FC4_Bootloader):
