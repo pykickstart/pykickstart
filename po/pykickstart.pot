@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-04-02 12:44-0400\n"
+"POT-Creation-Date: 2012-06-19 16:02-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,7 +46,7 @@ msgstr ""
 msgid "Unable to open %%ksappend file"
 msgstr ""
 
-#: ../pykickstart/parser.py:134 ../pykickstart/parser.py:709
+#: ../pykickstart/parser.py:134 ../pykickstart/parser.py:710
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
@@ -55,20 +55,20 @@ msgstr ""
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:519 ../pykickstart/parser.py:559
+#: ../pykickstart/parser.py:519 ../pykickstart/parser.py:560
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:655
+#: ../pykickstart/parser.py:656
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:108 ../pykickstart/version.py:117
-#: ../pykickstart/version.py:120 ../pykickstart/version.py:136
-#: ../pykickstart/version.py:190
+#: ../pykickstart/version.py:109 ../pykickstart/version.py:118
+#: ../pykickstart/version.py:121 ../pykickstart/version.py:137
+#: ../pykickstart/version.py:191
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr ""
