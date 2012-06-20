@@ -121,6 +121,14 @@ class F17_TestCase(F15_TestCase):
         self.assert_parse("bootloader --location=mbr --boot-drive=sda")
         self.assert_parse("bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0")
 
+class F18_TestCase(F17_TestCase):
+    def runTest(self, iscrypted=False):
+        # run parent tests
+        F17_TestCase.runTest(self, iscrypted=iscrypted)
+
+        self.assert_parse("bootloader --location=mbr --timeout=5 --append=\"rhgb quiet\"")
+        self.assert_parse("bootloader --location=mbr --timeout=5 --leavebootorder --append=\"rhgb quiet\"")
+
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self, iscrypted=False):
         FC4_TestCase.runTest(self, iscrypted)

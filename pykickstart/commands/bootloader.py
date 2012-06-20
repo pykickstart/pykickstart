@@ -246,6 +246,14 @@ class F18_Bootloader(F17_Bootloader):
 
         self.leavebootorder = kwargs.get("leavebootorder", False)
 
+    def _getArgsAsStr(self):
+        ret = F17_Bootloader._getArgsAsStr(self)
+
+        if self.leavebootorder:
+            ret += " --leavebootorder"
+
+        return ret
+
     def _getParser(self):
         op = F17_Bootloader._getParser(self)
         op.add_option("--leavebootorder", dest="leavebootorder", action="store_true", default=False)
