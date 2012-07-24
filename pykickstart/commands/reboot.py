@@ -77,3 +77,26 @@ class FC6_Reboot(FC3_Reboot):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
+
+class F18_Reboot(FC6_Reboot):
+    removedKeywords = FC6_Reboot.removedKeywords
+    removedAttrs = FC6_Reboot.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC6_Reboot.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+
+    def __str__(self):
+        retval = FC6_Reboot.__str__(self).rstrip()
+
+        if self.action == KS_WAIT:
+            retval += "# Halt after installation\nhalt\n"
+
+        return retval
+
+    def parse(self, args):
+        FC6_Reboot.parse(self, args)
+        if self.currentCmd == "halt":
+            self.action = KS_WAIT
+        return self
+
