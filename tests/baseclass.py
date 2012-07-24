@@ -86,21 +86,23 @@ class CommandTest(unittest.TestCase):
 
         # If expectedStr supplied, we want to ensure the parsed result matches
         if expectedStr is not None:
-            result = parser.parse(args[1:])
+            obj = parser.parse(args[1:])
+            result = str(obj)
 
             # Strip any comment lines ... we only match on non-comments
             if ignoreComments:
-                result = re.sub("^#[^\n]*\n", "", str(result))
+                result = re.sub("^#[^\n]*\n", "", result)
 
             # Ensure we parsed as expected
-            self.assertEqual(str(result), expectedStr)
+            self.assertEqual(result, expectedStr)
         # No expectedStr supplied, just make sure it does not raise an
         # exception
         else:
             try:
-                result = parser.parse(args[1:])
+                obj = parser.parse(args[1:])
             except Exception, e:
                 self.fail("Failed while parsing: %s" % e)
+        return obj
 
     def assert_parse_error(self, inputStr, exception=KickstartParseError):
         '''Assert that parsing the supplied string raises a
