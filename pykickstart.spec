@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.13
+Version: 1.99.14
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Jul 26 2012 Chris Lumens <clumens@redhat.com> - 1.99.14-1
+- add reboot test (bcl)
+- add correct halt command handling (bcl)
+- return parsed object from assert_parse (bcl)
+- The monitor command has been deprecated since F10.  Get rid of it. (clumens)
+- Add --hibernation option for swap size specification (vpodzime)
+- Add leavebootorder test (hamzy)
+
 * Tue Jun 19 2012 Chris Lumens <clumens@redhat.com> - 1.99.13-1
 - Support bootloader --leavebootorder for F18 and RHEL7 (#824801) (pjones)
 - Allow %include in %pre and %post (#827269) (bcl)
