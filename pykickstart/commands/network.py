@@ -327,6 +327,15 @@ class F16_Network(F9_Network):
         op.add_option("--wpakey", dest="wpakey", action="store", default="")
         return op
 
+class F18_Network(F16_Network):
+
+    @property
+    def hostname(self):
+        for nd in self.dataList():
+            if nd.hostname:
+                return nd.hostname
+        return None
+
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
