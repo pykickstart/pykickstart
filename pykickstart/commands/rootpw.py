@@ -91,3 +91,27 @@ class F8_RootPw(FC3_RootPw):
         op.add_option("--lock", dest="lock", action="store_true", default=False)
         op.add_option("--plaintext", dest="isCrypted", action="store_false")
         return op
+
+class F18_RootPw(F8_RootPw):
+    removedKeywords = F8_RootPw.removedKeywords
+    removedAttrs = F8_RootPw.removedAttrs
+
+    def __str__(self):
+        retval = F8_RootPw.__str__(self)
+
+        if not retval and self.lock:
+            retval = "#Root password\nrootpw --lock\n"
+
+        return retval
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(self.op, opts)
+
+        if len(extra) != 1 and not self.lock:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw")
+
+        if len(extra) == 1:
+            self.password = extra[0]
+
+        return self

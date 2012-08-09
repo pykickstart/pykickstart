@@ -55,7 +55,15 @@ class F8_TestCase(FC3_TestCase):
         self.assert_parse_error("rootpw --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
         self.assert_parse_error("rootpw --lock=NOKEYSFORYOU secrethandshake", KickstartParseError)
         self.assert_parse_error("rootpw --plaintext", KickstartValueError)
-        self.assert_parse_error("rootpw --lock", KickstartValueError)
+
+        if self.__class__.__name__ == "F8_TestCase":
+            self.assert_parse_error("rootpw --lock", KickstartValueError)
+
+class F18_TestCase(F8_TestCase):
+    def runTest(self):
+        F8_TestCase.runTest(self)
+
+        self.assert_parse("rootpw --lock", "rootpw --lock\n")
 
 if __name__ == "__main__":
     unittest.main()
