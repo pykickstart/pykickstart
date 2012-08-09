@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.14
+Version: 1.99.15
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Aug 09 2012 Chris Lumens <clumens@redhat.com> - 1.99.15-1
+- No argument needs to be given to rootpw if you're just locking the account. (clumens)
+
 * Thu Jul 26 2012 Chris Lumens <clumens@redhat.com> - 1.99.14-1
 - add reboot test (bcl)
 - add correct halt command handling (bcl)
