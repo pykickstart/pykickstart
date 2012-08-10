@@ -165,6 +165,8 @@ class RHEL6_NetworkData(F8_NetworkData):
         self.activate = kwargs.get("activate", False)
         self.nodefroute = kwargs.get("nodefroute", False)
         self.vlanid = kwargs.get("vlanid", "")
+        self.bondslaves = kwargs.get("bondslaves", "")
+        self.bondopts = kwargs.get("bondopts", "")
 
     def _getArgsAsStr(self):
         retval = F8_NetworkData._getArgsAsStr(self)
@@ -175,6 +177,11 @@ class RHEL6_NetworkData(F8_NetworkData):
             retval += " --nodefroute"
         if self.vlanid:
             retval += " --vlanid %s" % self.vlanid
+        if self.bondslaves:
+            retval += " --bondslaves %s" % self.bondslaves
+        if self.bondopts:
+            retval += " --bondopts %s" % self.bondopts
+
 
         return retval
 
@@ -325,4 +332,6 @@ class RHEL6_Network(F9_Network):
         op.add_option("--nodefroute", dest="nodefroute", action="store_true",
                       default=False)
         op.add_option("--vlanid", dest="vlanid")
+        op.add_option("--bondslaves", dest="bondslaves")
+        op.add_option("--bondopts", dest="bondopts")
         return op
