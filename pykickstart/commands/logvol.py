@@ -160,6 +160,23 @@ class F12_LogVolData(F9_LogVolData):
 
         return retval
 
+class RHEL6_LogVolData(F12_LogVolData):
+    removedKeywords = F12_LogVolData.removedKeywords
+    removedAttrs = F12_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_LogVolData.__init__(self, *args, **kwargs)
+
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def _getArgsAsStr(self):
+        retval = F12_LogVolData._getArgsAsStr(self)
+
+        if self.hibernation:
+            retval += " --hibernation"
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -265,4 +282,15 @@ class F12_LogVol(F9_LogVol):
         op = F9_LogVol._getParser(self)
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
+        return op
+
+class RHEL6_LogVol(F12_LogVol):
+    removedKeywords = F12_LogVol.removedKeywords
+    removedAttrs = F12_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F12_LogVol._getParser(self)
+        op.add_option("--hibernation", dest="hibernation", action="store_true",
+                        default=False)
+
         return op

@@ -234,5 +234,17 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
                                 "--vgname=VGNAME")
 
+class RHEL6_TestCase(F12_TestCase):
+    def setUp(self):
+        F12_TestCase.setUp(self)
+
+    def runTest(self):
+        F12_TestCase.runTest(self)
+
+        self.assert_parse("logvol swap --hibernation "
+                            "--name=NAME --vgname=VGNAME")
+        self.assert_parse("logvol swap --recommended --hibernation "
+                            "--name=NAME --vgname=VGNAME")
+
 if __name__ == "__main__":
     unittest.main()

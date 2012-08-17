@@ -190,7 +190,7 @@ class RHEL6_PartData(F12_PartData):
         self.hibernation = kwargs.get("hibernation", False)
 
     def _getArgsAsStr(self):
-        retval = F11_PartData._getArgsAsStr(self)
+        retval = F12_PartData._getArgsAsStr(self)
 
         if self.hibernation:
             retval += "--hibernation"
