@@ -207,6 +207,14 @@ class F17_TestCase(F15_TestCase):
         # no size
         self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --useexisting")
 
+class F18_TestCase(F17_TestCase):
+    def runTest(self):
+        F17_TestCase.runTest(self)
+
+        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
+                          "--hibernation")
+        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
+                          "--recommended --hibernation")
 
 if __name__ == "__main__":
     unittest.main()

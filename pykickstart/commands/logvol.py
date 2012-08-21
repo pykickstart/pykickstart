@@ -196,6 +196,19 @@ class F17_LogVolData(F15_LogVolData):
 
         return retval
 
+class F18_LogVolData(F17_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F17_LogVolData.__init__(self, *args, **kwargs)
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def _getArgsAsStr(self):
+        retval = F17_LogVolData._getArgsAsStr(self)
+
+        if self.hibernation:
+            retval += " --hibernation"
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -337,3 +350,10 @@ class F17_LogVol(F15_LogVol):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to indicate new size")))
 
         return retval
+
+class F18_LogVol(F17_LogVol):
+    def _getParser(self):
+        op = F17_LogVol._getParser(self)
+        op.add_option("--hibernation", action="store_true", default=False)
+        return op
+
