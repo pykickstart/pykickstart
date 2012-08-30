@@ -227,6 +227,8 @@ class PackageSection(Section):
                       default=False, introduced=F7)
         op.add_option("--instLangs", dest="instLangs", type="string",
                       default="", introduced=F9)
+        op.add_option("--multilib", dest="multiLib", action="store_true",
+                      default=False, introduced=F18)
 
         (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
 
@@ -242,3 +244,5 @@ class PackageSection(Section):
 
         if opts.instLangs:
             self.handler.packages.instLangs = opts.instLangs
+
+        self.handler.packages.multiLib = opts.multiLib

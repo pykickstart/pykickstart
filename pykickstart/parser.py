@@ -280,6 +280,7 @@ class Packages(KickstartObject):
            packageList   -- A list of all the packages specified in the
                             %packages section.
            instLangs     -- A list of languages to install.
+           multiLib      -- Whether to use yum's "all" multilib policy.
         """
         KickstartObject.__init__(self, *args, **kwargs)
 
@@ -292,6 +293,7 @@ class Packages(KickstartObject):
         self.handleMissing = constants.KS_MISSING_PROMPT
         self.packageList = []
         self.instLangs = None
+        self.multiLib = False
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -333,6 +335,8 @@ class Packages(KickstartObject):
             retval += " --ignoremissing"
         if self.instLangs:
             retval += " --instLangs=%s" % self.instLangs
+        if self.multiLib:
+            retval += " --multilib"
 
         if ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"
