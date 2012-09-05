@@ -218,7 +218,7 @@ class PackageSection(Section):
         op.add_option("--ignoremissing", dest="ignoremissing",
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
-                      default=False)
+                      default=False, deprecated=F18)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
                       deprecated=FC4, removed=F9)
         op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
