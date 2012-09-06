@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.17
+Version: 1.99.18
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu Sep 06 2012 Chris Lumens <clumens@redhat.com> - 1.99.18-1
+- Fix the multilib package test case. (clumens)
+- Add support for --multilib option to %packages. (dlehman)
+- Mark --nobase as deprecated. (notting)
+
 * Tue Aug 28 2012 Chris Lumens <clumens@redhat.com> - 1.99.17-1
 - Add ksdata.network.hostname (readonly) property (rvykydal)
 
