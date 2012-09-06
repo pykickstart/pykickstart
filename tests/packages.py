@@ -146,8 +146,11 @@ vim-enhanced
 class MultiLib_TestCase(CommandTest):
     def runTest(self):
         pkgs = Packages()
+        pkgs.default = True
         pkgs.multiLib = True
-        self.assertEqual("%%packages --multilib", str(pkgs).strip())
+        self.assertEqual("""%packages --default --multilib
+
+%end""", str(pkgs).strip())
 
 if __name__ == "__main__":
     unittest.main()
