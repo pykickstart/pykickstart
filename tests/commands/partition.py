@@ -144,5 +144,21 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("part / --backuppassphrase=False")
         self.assert_parse_error("part / --backuppassphrase=True")
 
+class RHEL6_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+
+        self.assert_parse("part / --encrypted --cipher=3-rot13",
+                          "part / --encrypted --cipher=\"3-rot13\"\n")
+        # Allowed here, but anaconda should complain.  Note how we throw out
+        # cipher from the output if there's no --encrypted.
+        self.assert_parse("part / --cipher=3-rot13",
+                          "part /\n")
+
+        self.assert_parse_error("part / --cipher")
+
+        self.assert_parse("part swap --hibernation")
+        self.assert_parse("part swap --recommended --hibernation")
+
 if __name__ == "__main__":
     unittest.main()

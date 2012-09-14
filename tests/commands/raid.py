@@ -198,5 +198,18 @@ class F13_TestCase(F12_TestCase):
         F12_TestCase.__init__(self, *kargs, **kwargs)
         self.validLevels.append("RAID4")
 
+class RHEL6_TestCase(F13_TestCase):
+    def runTest(self):
+        F13_TestCase.runTest(self)
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --cipher=3-rot13 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --cipher=\"3-rot13\" raid.01 raid.02\n")
+        # Allowed here, but anaconda should complain.  Note how we throw out
+        # cipher from the output if there's no --encrypted.
+        self.assert_parse("raid / --device=md0 --level=1 --cipher=3-rot13 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 raid.01 raid.02\n")
+
+        self.assert_parse_error("raid / --cipher --device=md0 --level=1 raid.01 raid.02")
+
 if __name__ == "__main__":
     unittest.main()

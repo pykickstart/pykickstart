@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -171,6 +171,23 @@ class F12_RaidData(F9_RaidData):
 
 F13_RaidData = F12_RaidData
 
+class RHEL6_RaidData(F13_RaidData):
+    removedKeywords = F13_RaidData.removedKeywords
+    removedAttrs = F13_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_RaidData.__init__(self, *args, **kwargs)
+
+        self.cipher = kwargs.get("cipher", "")
+
+    def _getArgsAsStr(self):
+        retval = F13_RaidData._getArgsAsStr(self)
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
+
+        return retval
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -335,3 +352,12 @@ class F13_Raid(F12_Raid):
         F12_Raid.__init__(self, writePriority, *args, **kwargs)
 
         self.levelMap.update({"RAID4": "RAID4", "4": "RAID4"})
+
+class RHEL6_Raid(F13_Raid):
+    removedKeywords = F13_Raid.removedKeywords
+    removedAttrs = F13_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F13_Raid._getParser(self)
+        op.add_option("--cipher")
+        return op

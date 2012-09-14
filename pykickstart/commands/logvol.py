@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -167,11 +167,14 @@ class RHEL6_LogVolData(F12_LogVolData):
     def __init__(self, *args, **kwargs):
         F12_LogVolData.__init__(self, *args, **kwargs)
 
+        self.cipher = kwargs.get("cipher", "")
         self.hibernation = kwargs.get("hibernation", False)
 
     def _getArgsAsStr(self):
         retval = F12_LogVolData._getArgsAsStr(self)
 
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
         if self.hibernation:
             retval += " --hibernation"
 
@@ -290,6 +293,7 @@ class RHEL6_LogVol(F12_LogVol):
 
     def _getParser(self):
         op = F12_LogVol._getParser(self)
+        op.add_option("--cipher")
         op.add_option("--hibernation", dest="hibernation", action="store_true",
                         default=False)
 
