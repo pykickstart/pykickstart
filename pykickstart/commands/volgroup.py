@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -61,7 +61,9 @@ class FC3_VolGroupData(BaseData):
         retval = BaseData.__str__(self)
         retval += "volgroup %s" % self.vgname
         retval += self._getArgsAsStr()
-        return retval + " " + " ".join(self.physvols) + "\n"
+        retval += " " + " ".join(self.physvols)
+
+        return retval.strip() + "\n"
 
 class FC16_VolGroupData(FC3_VolGroupData):
     def __init__(self, *args, **kwargs):
@@ -119,11 +121,15 @@ class FC3_VolGroup(KickstartCommand):
         if len(extra) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
 
-        if len(extra) == 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
+        if len(extra) == 1 and not opts.preexist:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
+        elif len(extra) > 1 and opts.preexist:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
 
         vg.vgname = extra[0]
-        vg.physvols = extra[1:]
+
+        if len(extra) > 1:
+            vg.physvols = extra[1:]
 
         # Check for duplicates in the data list.
         if vg in self.dataList():
