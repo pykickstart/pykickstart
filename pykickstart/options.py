@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -187,10 +187,6 @@ class KSOption (Option):
             values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
-
-    def takes_value(self):
-        # Deprecated options don't take a value.
-        return Option.takes_value(self) and not self.deprecated
 
     def __init__(self, *args, **kwargs):
         self.deprecated = False

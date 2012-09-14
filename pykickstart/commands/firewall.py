@@ -182,5 +182,6 @@ class F10_Firewall(F9_Firewall):
                       callback=service_cb)
         op.add_option("--ssh", dest="services", action="callback",
                       callback=service_cb)
-        op.add_option("--telnet", deprecated=1)
+        op.add_option("--telnet", dest="services", action="callback",
+                      callback=service_cb, deprecated=1)
         return op
