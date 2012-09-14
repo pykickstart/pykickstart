@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.18
+Version: 1.99.19
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Sep 14 2012 Chris Lumens <clumens@redhat.com> - 1.99.19-1
+- bonding support: add network --bondslaves --bondopts options (rvykydal)
+- vlan support: add network --vlanid option. (rvykydal)
+
 * Thu Sep 06 2012 Chris Lumens <clumens@redhat.com> - 1.99.18-1
 - Fix the multilib package test case. (clumens)
 - Add support for --multilib option to %packages. (dlehman)
