@@ -11,11 +11,11 @@ class FC3_TestCase(CommandTest):
 
     def runTest(self):
         # --noformat
-        self.assert_parse("volgroup vg.01 pv.01 --noformat",
-                          "volgroup vg.01 --noformat --pesize=32768 --useexisting pv.01\n")
+        self.assert_parse("volgroup vg.01 --noformat",
+                          "volgroup vg.01 --noformat --pesize=32768 --useexisting\n")
         # --useexisting
-        self.assert_parse("volgroup vg.01 pv.01 --useexisting",
-                          "volgroup vg.01 --pesize=32768 --useexisting pv.01\n")
+        self.assert_parse("volgroup vg.01 --useexisting",
+                          "volgroup vg.01 --pesize=32768 --useexisting\n")
 
         # --pesize
         self.assert_parse("volgroup vg.01 pv.01 --pesize=70000",
@@ -33,7 +33,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("volgroup", KickstartParseError)
 
         # fail - missing list of partitions
-        self.assert_parse_error("volgroup vg01", KickstartParseError)
+        self.assert_parse_error("volgroup vg01", KickstartValueError)
+
+        # fail - both members and useexisting specified
+        self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02", KickstartValueError)
 
 class RHEL6_TestCase(FC3_TestCase):
     def runTest(self):
