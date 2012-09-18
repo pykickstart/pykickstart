@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.10
+Version: 1.74.11
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,20 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Sep 18 2012 Chris Lumens <clumens@redhat.com> - 1.74.11-1
+- Deprecated options that required a value should still accept one (jbastian).
+  Resolves: rhbz#815573
+- Don't error out if volgroup --useexisting is given with no members. (clumens)
+  Resolves: rhbz#823856, rhbz#837440
+- Add an argument for specifying the luks algorithm. (clumens)
+  Resolves: rhbz#843174
+- bonding support: add network --bondslaves --bondopts options (rvykydal)
+  Resolves: rhbz#662007
+- vlan support: add network --vlanid option. (rvykydal)
+  Resolves: rhbz#668065
+- Add swap --hibernation to logvol command (vpodzime)
+  Resolves: rhbz#848818
+
 * Mon May 14 2012 Chris Lumens <clumens@redhat.com> - 1.74.10-1
 - Change swap option --same-as-ram to --hibernation (#821315) (vpodzime)
 
