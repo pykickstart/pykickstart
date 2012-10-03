@@ -40,13 +40,21 @@ class F18_TestCase(FC3_TestCase):
     command = "keyboard"
 
     def runTest(self):
+        # pass
         self.assert_parse("keyboard us")
-
-        # we now support defining multiple layouts
-        self.assert_parse("keyboard us cz")
+        self.assert_parse("keyboard --vckeymap=us")
+        self.assert_parse("keyboard --vckeymap=us sk")
+        self.assert_parse("keyboard --xlayouts='cz (qwerty)'")
+        self.assert_parse("keyboard --xlayouts=cz,'cz (qwerty)'")
+        self.assert_parse("keyboard --xlayouts=cz sk")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz,'cz (qwerty)' sk")
 
         # fail
         self.assert_parse_error("keyboard", KickstartValueError)
+        self.assert_parse_error("keyboard cz sk", KickstartValueError)
+        self.assert_parse_error("keyboard --vckeymap=us --xlayouts=cz,"
+                                "'cz (qwerty)' cz sk", KickstartValueError)
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
 if __name__ == "__main__":

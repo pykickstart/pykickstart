@@ -56,38 +56,85 @@ class FC3_Keyboard(KickstartCommand):
 
 class F18_Keyboard(FC3_Keyboard):
     def __init__(self, writePriority=0, *args, **kwargs):
-        FC3_Keyboard.__init__(self, writePriority, *args, **kwargs)
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
-        self.layouts_list = kwargs.get("layouts_list", [])
+        self._keyboard = kwargs.get("_keyboard", "")
+        self.vc_keymap = kwargs.get("vc_keymap", "")
+        self.x_layouts = kwargs.get("x_layouts", [])
 
     def __str__(self):
-        if not self.layouts_list:
+        if not any((self._keyboard, self.x_layouts, self.vc_keymap)):
             return ""
 
-        retval = "# Keyboard layouts\nkeyboard"
-        for layout in self.layouts_list:
-            retval += " '%s'" % layout
+        retval = "# Keyboard layouts\n"
+        if not self.vc_keymap and not self.x_layouts:
+            retval += "keyboard '%s'" % self._keyboard
+            return retval
+
+        if self._keyboard:
+            retval += "# old format: keyboard %s\n" % self._keyboard
+            retval += "# new format:\n"
+        retval += "keyboard" + self._getArgsAsStr() + "\n"
 
         return retval
 
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.vc_keymap:
+            retval += " --vckeymap=%s" % self.vc_keymap
+
+        if self.x_layouts:
+            layouts_str = "'%s'" % self.x_layouts[0]
+            for layout in self.x_layouts[1:]:
+                layouts_str += ",'%s'" % layout
+            retval += " --xlayouts=%s" % layouts_str
+
+        return retval
+
+    def _getParser(self):
+        def x_layouts_callback(option, opt_str, value, parser):
+            for layout in value.split(","):
+                if layout:
+                    parser.values.ensure_value(option.dest, []).append(layout)
+
+        op = FC3_Keyboard._getParser(self)
+        op.add_option("--vckeymap", dest="vc_keymap", action="store", default="")
+        op.add_option("--xlayouts", dest="x_layouts", action="callback",
+                      callback=x_layouts_callback, nargs=1, type="string")
+
+        return op
+
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(self.op, opts)
 
-        if len(extra) < 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires at least"\
-                                                                         "one argument") % "keyboard")
-        self.layouts_list = extra
+        if len(extra) > 1:
+            message = _("A single argument is expected for the %s command") % \
+                        "keyboard"
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+
+        elif len(extra) == 0 and not self.vc_keymap and not self.x_layouts:
+            message = _("One of --xlayouts, --vckeymap options with value(s) "
+                        "or argument is expected for the keyboard command")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+
+        if len(extra) > 0:
+            self._keyboard = extra[0]
+
         return self
 
+    # property for backwards compatibility
     # pylint: disable-msg=E0202
     @property
     def keyboard(self):
-        if self.layouts_list:
-            return self.layouts_list[0]
+        if self.x_layouts:
+            return self._keyboard or self.vc_keymap or self.x_layouts[0]
         else:
-            return ""
+            return self._keyboard or self.vc_keymap or ""
 
     # pylint: disable-msg=E0102,E1101
     @keyboard.setter
     def keyboard(self, value):
-        self.layouts_list = [value]
+        self._keyboard = value
+
