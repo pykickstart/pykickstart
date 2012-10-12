@@ -175,6 +175,23 @@ class F12_RaidData(F9_RaidData):
 
 F13_RaidData = F12_RaidData
 
+class RHEL6_RaidData(F13_RaidData):
+    removedKeywords = F13_RaidData.removedKeywords
+    removedAttrs = F13_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_RaidData.__init__(self, *args, **kwargs)
+
+        self.cipher = kwargs.get("cipher", "")
+
+    def _getArgsAsStr(self):
+        retval = F13_RaidData._getArgsAsStr(self)
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
+
+        return retval
+
 F14_RaidData = F13_RaidData
 
 class F15_RaidData(F14_RaidData):
@@ -192,6 +209,23 @@ class F15_RaidData(F14_RaidData):
 
         if self.label != "":
             retval += " --label=%s" % self.label
+
+        return retval
+
+class F18_RaidData(F15_RaidData):
+    removedKeywords = F15_RaidData.removedKeywords
+    removedAttrs = F15_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F15_RaidData.__init__(self, *args, **kwargs)
+
+        self.cipher = kwargs.get("cipher", "")
+
+    def _getArgsAsStr(self):
+        retval = F15_RaidData._getArgsAsStr(self)
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
 
         return retval
 
@@ -360,6 +394,15 @@ class F13_Raid(F12_Raid):
 
         self.levelMap.update({"RAID4": "RAID4", "4": "RAID4"})
 
+class RHEL6_Raid(F13_Raid):
+    removedKeywords = F13_Raid.removedKeywords
+    removedAttrs = F13_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F13_Raid._getParser(self)
+        op.add_option("--cipher")
+        return op
+
 class F14_Raid(F13_Raid):
     removedKeywords = F13_Raid.removedKeywords
     removedAttrs = F13_Raid.removedAttrs
@@ -376,4 +419,13 @@ class F15_Raid(F14_Raid):
     def _getParser(self):
         op = F14_Raid._getParser(self)
         op.add_option("--label")
+        return op
+
+class F18_Raid(F15_Raid):
+    removedKeywords = F15_Raid.removedKeywords
+    removedAttrs = F15_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F15_Raid._getParser(self)
+        op.add_option("--cipher")
         return op

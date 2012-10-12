@@ -186,6 +186,26 @@ class F12_PartData(F11_PartData):
 
         return retval
 
+class RHEL6_PartData(F12_PartData):
+    removedKeywords = F12_PartData.removedKeywords
+    removedAttrs = F12_PartData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_PartData.__init__(self, *args, **kwargs)
+
+        self.cipher = kwargs.get("cipher", "")
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def _getArgsAsStr(self):
+        retval = F12_PartData._getArgsAsStr(self)
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
+        if self.hibernation:
+            retval += " --hibernation"
+
+        return retval
+
 F14_PartData = F12_PartData
 
 class F17_PartData(F14_PartData):
@@ -207,12 +227,16 @@ class F18_PartData(F17_PartData):
         F17_PartData.__init__(self, *args, **kwargs)
 
         self.hibernation = kwargs.get("hibernation", False)
+        self.cipher = kwargs.get("cipher", "")
 
     def _getArgsAsStr(self):
         retval = F17_PartData._getArgsAsStr(self)
 
         if self.hibernation:
             retval += " --hibernation"
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
 
         return retval
 
@@ -370,6 +394,17 @@ class F12_Partition(F11_Partition):
         op.add_option("--backuppassphrase", action="store_true", default=False)
         return op
 
+class RHEL6_Partition(F12_Partition):
+    removedKeywords = F12_Partition.removedKeywords
+    removedAttrs = F12_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F12_Partition._getParser(self)
+        op.add_option("--cipher")
+        op.add_option("--hibernation", dest="hibernation", action="store_true",
+                        default=False)
+        return op
+
 class F14_Partition(F12_Partition):
     removedKeywords = F12_Partition.removedKeywords
     removedAttrs = F12_Partition.removedAttrs
@@ -402,5 +437,6 @@ class F18_Partition(F17_Partition):
     def _getParser(self):
         op = F17_Partition._getParser(self)
         op.add_option("--hibernation", dest="hibernation", action="store_true", default=False)
+        op.add_option("--cipher")
 
         return op

@@ -181,6 +181,24 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
                                 "--vgname=VGNAME")
 
+class RHEL6_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+
+        self.assert_parse("logvol / --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
+        # Allowed here, but anaconda should complain.  Note how we throw out
+        # cipher from the output if there's no --encrypted.
+        self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --name=NAME --vgname=VGNAME\n")
+
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME")
+
+        self.assert_parse("logvol swap --hibernation "
+                            "--name=NAME --vgname=VGNAME")
+        self.assert_parse("logvol swap --recommended --hibernation "
+                            "--name=NAME --vgname=VGNAME")
+
 class F14_TestCase(F12_TestCase):
     def runTest(self):
         F12_TestCase.runTest(self)
@@ -215,6 +233,15 @@ class F18_TestCase(F17_TestCase):
                           "--hibernation")
         self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
                           "--recommended --hibernation")
+
+        self.assert_parse("logvol / --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
+        # Allowed here, but anaconda should complain.  Note how we throw out
+        # cipher from the output if there's no --encrypted.
+        self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --name=NAME --vgname=VGNAME\n")
+
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME")
 
 if __name__ == "__main__":
     unittest.main()

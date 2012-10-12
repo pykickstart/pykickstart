@@ -166,6 +166,26 @@ class F12_LogVolData(F9_LogVolData):
 
         return retval
 
+class RHEL6_LogVolData(F12_LogVolData):
+    removedKeywords = F12_LogVolData.removedKeywords
+    removedAttrs = F12_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_LogVolData.__init__(self, *args, **kwargs)
+
+        self.cipher = kwargs.get("cipher", "")
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def _getArgsAsStr(self):
+        retval = F12_LogVolData._getArgsAsStr(self)
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
+        if self.hibernation:
+            retval += " --hibernation"
+
+        return retval
+
 F14_LogVolData = F12_LogVolData
 
 class F15_LogVolData(F14_LogVolData):
@@ -200,12 +220,16 @@ class F18_LogVolData(F17_LogVolData):
     def __init__(self, *args, **kwargs):
         F17_LogVolData.__init__(self, *args, **kwargs)
         self.hibernation = kwargs.get("hibernation", False)
+        self.cipher = kwargs.get("cipher", "")
 
     def _getArgsAsStr(self):
         retval = F17_LogVolData._getArgsAsStr(self)
 
         if self.hibernation:
             retval += " --hibernation"
+
+        if self.encrypted and self.cipher:
+            retval += " --cipher=\"%s\"" % self.cipher
 
         return retval
 
@@ -316,6 +340,18 @@ class F12_LogVol(F9_LogVol):
         op.add_option("--backuppassphrase", action="store_true", default=False)
         return op
 
+class RHEL6_LogVol(F12_LogVol):
+    removedKeywords = F12_LogVol.removedKeywords
+    removedAttrs = F12_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F12_LogVol._getParser(self)
+        op.add_option("--cipher")
+        op.add_option("--hibernation", dest="hibernation", action="store_true",
+                        default=False)
+
+        return op
+
 class F14_LogVol(F12_LogVol):
     removedKeywords = F12_LogVol.removedKeywords
     removedAttrs = F12_LogVol.removedAttrs
@@ -355,5 +391,6 @@ class F18_LogVol(F17_LogVol):
     def _getParser(self):
         op = F17_LogVol._getParser(self)
         op.add_option("--hibernation", action="store_true", default=False)
+        op.add_option("--cipher")
         return op
 
