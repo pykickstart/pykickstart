@@ -75,5 +75,18 @@ class F12_TestCase(F9_TestCase):
         self.assert_parse_error("autopart --backuppassphrase=False")
         self.assert_parse_error("autopart --backuppassphrase=True")
 
+class RHEL6_TestCase(F12_TestCase):
+    def runTest(self):
+        F12_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --cipher=foo", "autopart\n")
+        self.assert_parse("autopart --encrypted --cipher=3-rot13",
+                          "autopart --encrypted --cipher=\"3-rot13\"\n")
+
+        # fail
+        self.assert_parse_error("autopart --cipher")
+        self.assert_parse_error("autopart --encrypted --cipher")
+
 if __name__ == "__main__":
     unittest.main()

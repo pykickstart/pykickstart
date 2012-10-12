@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2008 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2008, 2012 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -116,4 +116,28 @@ class F12_AutoPart(F9_AutoPart):
         op = F9_AutoPart._getParser(self)
         op.add_option("--escrowcert")
         op.add_option("--backuppassphrase", action="store_true", default=False)
+        return op
+
+class RHEL6_AutoPart(F12_AutoPart):
+    removedKeywords = F12_AutoPart.removedKeywords
+    removedAttrs = F12_AutoPart.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F12_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.cipher = kwargs.get("cipher", "")
+
+    def __str__(self):
+        retval = F12_AutoPart.__str__(self)
+
+        if self.encrypted and self.cipher:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --cipher=\"%s\"" % self.cipher
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F12_AutoPart._getParser(self)
+        op.add_option("--cipher")
         return op

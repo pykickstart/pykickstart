@@ -813,7 +813,7 @@ commandMap = {
     RHEL6: {
         "auth": authconfig.FC3_Authconfig,
         "authconfig": authconfig.FC3_Authconfig,
-        "autopart": autopart.F12_AutoPart,
+        "autopart": autopart.RHEL6_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.RHEL6_Bootloader,
         "cdrom": method.RHEL6_Method,
