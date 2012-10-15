@@ -55,7 +55,9 @@ class FC3_Keyboard(KickstartCommand):
         return self
 
 class F18_Keyboard(FC3_Keyboard):
+    # pylint: disable-msg=W0231
     def __init__(self, writePriority=0, *args, **kwargs):
+        # pylint: disable-msg=W0233
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
         self._keyboard = kwargs.get("_keyboard", "")
