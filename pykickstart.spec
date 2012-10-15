@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.11
+Version: 1.74.12
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Oct 15 2012 Chris Lumens <clumens@redhat.com> - 1.74.12-1
+- Add cipher option for encrypted autopart. (dlehman)
+- Add support for fcoe --autovlan option (#813998) (rvykydal)
+- add unsupported_hardware command (#824963) (bcl)
+
 * Tue Sep 18 2012 Chris Lumens <clumens@redhat.com> - 1.74.11-1
 - Deprecated options that required a value should still accept one (jbastian).
   Resolves: rhbz#815573
