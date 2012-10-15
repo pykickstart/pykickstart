@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.19
+Version: 1.99.20
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,14 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Oct 15 2012 Chris Lumens <clumens@redhat.com> - 1.99.20-1
+- Disable pylint warnings related to the previous patch. (clumens)
+- Revert "Fix superclass constructor call in F18_Keyboard." (clumens)
+- Fix superclass constructor call in F18_Keyboard. (dlehman)
+- Add cipher option for encrypting block devices. (dlehman)
+- Change keyboard command to accept VConsole keymap and X layouts (vpodzime)
+- add unsupported_hardware command (#824963) (bcl)
+
 * Fri Sep 14 2012 Chris Lumens <clumens@redhat.com> - 1.99.19-1
 - bonding support: add network --bondslaves --bondopts options (rvykydal)
 - vlan support: add network --vlanid option. (rvykydal)
