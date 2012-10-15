@@ -56,7 +56,7 @@ class FC3_Keyboard(KickstartCommand):
 
 class F18_Keyboard(FC3_Keyboard):
     def __init__(self, writePriority=0, *args, **kwargs):
-        FC3_Keyboard.__init__(self, writePriority, *args, **kwargs)
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
         self._keyboard = kwargs.get("_keyboard", "")
         self.vc_keymap = kwargs.get("vc_keymap", "")
