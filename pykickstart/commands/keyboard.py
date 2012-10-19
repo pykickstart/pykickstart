@@ -63,6 +63,7 @@ class F18_Keyboard(FC3_Keyboard):
         self._keyboard = kwargs.get("_keyboard", "")
         self.vc_keymap = kwargs.get("vc_keymap", "")
         self.x_layouts = kwargs.get("x_layouts", [])
+        self.switch_options = kwargs.get("switch_options", [])
 
     def __str__(self):
         if not any((self._keyboard, self.x_layouts, self.vc_keymap)):
@@ -92,18 +93,26 @@ class F18_Keyboard(FC3_Keyboard):
                 layouts_str += ",'%s'" % layout
             retval += " --xlayouts=%s" % layouts_str
 
+        if self.switch_options:
+            switch_str = "'%s'" % self.switch_options[0]
+            for opt in self.switch_options[1:]:
+                switch_str += ",'%s'" % opt
+            retval += " --switch=%s" % switch_str
+
         return retval
 
     def _getParser(self):
-        def x_layouts_callback(option, opt_str, value, parser):
-            for layout in value.split(","):
-                if layout:
-                    parser.values.ensure_value(option.dest, []).append(layout)
+        def csv_parse_callback(option, opt_str, value, parser):
+            for item in value.split(","):
+                if item:
+                    parser.values.ensure_value(option.dest, []).append(item)
 
         op = FC3_Keyboard._getParser(self)
         op.add_option("--vckeymap", dest="vc_keymap", action="store", default="")
         op.add_option("--xlayouts", dest="x_layouts", action="callback",
-                      callback=x_layouts_callback, nargs=1, type="string")
+                      callback=csv_parse_callback, nargs=1, type="string")
+        op.add_option("--switch", dest="switch_options", action="callback",
+                      callback=csv_parse_callback, nargs=1, type="string")
 
         return op
 

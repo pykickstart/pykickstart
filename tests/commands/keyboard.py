@@ -49,6 +49,10 @@ class F18_TestCase(FC3_TestCase):
         self.assert_parse("keyboard --xlayouts=cz sk")
         self.assert_parse("keyboard --vckeymap=us --xlayouts=cz")
         self.assert_parse("keyboard --vckeymap=us --xlayouts=cz,'cz (qwerty)' sk")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz "
+                          "--switch=grp:alt_shift_toggle")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz "
+                          "--switch=grp:alt_shift_toggle,grp:switch")
 
         # fail
         self.assert_parse_error("keyboard", KickstartValueError)
