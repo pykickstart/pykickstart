@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.20
+Version: 1.99.21
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Oct 24 2012 Chris Lumens <clumens@redhat.com> - 1.99.21-1
+- Add support for layout switching options (vpodzime)
+
 * Mon Oct 15 2012 Chris Lumens <clumens@redhat.com> - 1.99.20-1
 - Disable pylint warnings related to the previous patch. (clumens)
 - Revert "Fix superclass constructor call in F18_Keyboard." (clumens)
