@@ -38,7 +38,7 @@ class FC3_Timezone(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.timezone != "":
+        if self.timezone:
             if self.isUtc:
                 utc = "--utc"
             else:
@@ -70,7 +70,7 @@ class FC6_Timezone(FC3_Timezone):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.timezone != "":
+        if self.timezone:
             if self.isUtc:
                 utc = "--isUtc"
             else:
@@ -95,8 +95,9 @@ class F18_Timezone(FC6_Timezone):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        retval += "# System timezone\n"
-        retval += "timezone " + self._getArgsAsStr() + "\n"
+        if self.timezone:
+            retval += "# System timezone\n"
+            retval += "timezone " + self._getArgsAsStr() + "\n"
 
         return retval
 
