@@ -33,25 +33,31 @@ class FC6_Logging(KickstartCommand):
         self.op = self._getParser()
 
         self.host = kwargs.get("host", "")
-        self.level = kwargs.get("level", "info")
+        self.level = kwargs.get("level", "")
         self.port = kwargs.get("port", "")
+
+        self._levelProvided = self.level != ""
+        if not self._levelProvided:
+            self.level = "info"
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
-        retval += "# Installation logging level\nlogging --level=%s" % self.level
 
-        if self.host != "":
-            retval += " --host=%s" % self.host
+        if self.level and self._levelProvided:
+            retval += "# Installation logging level\nlogging --level=%s" % self.level
 
-            if self.port != "":
-                retval += " --port=%s" % self.port
+            if self.host != "":
+                retval += " --host=%s" % self.host
+
+                if self.port != "":
+                    retval += " --port=%s" % self.port
 
         return retval + "\n"
 
     def _getParser(self):
         op = KSOptionParser()
         op.add_option("--host")
-        op.add_option("--level", type="choice", default="info",
+        op.add_option("--level", type="choice",
                       choices=["debug", "info", "warning", "error", "critical"])
         op.add_option("--port")
         return op
@@ -63,4 +69,9 @@ class FC6_Logging(KickstartCommand):
             raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host."))
 
         self._setToSelf(self.op, opts)
+
+        self._levelProvided = self.level != ""
+        if not self._levelProvided:
+            self.level = "info"
+
         return self
