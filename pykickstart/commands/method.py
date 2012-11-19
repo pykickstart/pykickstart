@@ -196,7 +196,7 @@ class F13_Method(FC6_Method):
 
 class F14_Method(F13_Method):
     removedKeywords = F13_Method.removedKeywords
-    removedAttrs = F13_Method.removedAttrs    
+    removedAttrs = F13_Method.removedAttrs
 
     def __init__(self, *args, **kwargs):
         F13_Method.__init__(self, *args, **kwargs)
@@ -230,3 +230,66 @@ class F14_Method(F13_Method):
         return op
 
 RHEL6_Method = F14_Method
+
+class F18_Method(F14_Method):
+    removedKeywords = F14_Method.removedKeywords
+    removedAttrs = F14_Method.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F14_Method.__init__(self, *args, **kwargs)
+        self.mirrorlist = None
+
+    def __eq__(self, other):
+        if not F14_Method.__eq__(self, other):
+            return False
+
+        if self.method == "url":
+            return self.mirrorlist == other.mirrorlist
+        else:
+            return True
+
+    def __str__(self):
+        if self.method == "url":
+            retval = KickstartCommand.__str__(self)
+            retval += "# Use network installation\n"
+
+            if self.url:
+                retval += "url --url=\"%s\"" % self.url
+            elif self.mirrorlist:
+                retval += "url --mirrorlist=\"%s\"" % self.mirrorlist
+
+            if self.proxy:
+                retval += " --proxy=\"%s\"" % self.proxy
+
+            if self.noverifyssl:
+                retval += " --noverifyssl"
+
+            return retval + "\n"
+        else:
+            retval = F14_Method.__str__(self)
+
+        return retval
+
+    def _getParser(self):
+        op = F14_Method._getParser(self)
+
+        if self.currentCmd == "url":
+            # This overrides the option set in the superclass's _getParser
+            # method.  --url is no longer required because you could do
+            # --mirrorlist instead.
+            op.add_option("--url", dest="url")
+            op.add_option("--mirrorlist", dest="mirrorlist")
+
+        return op
+
+    def parse(self, args):
+        retval = F14_Method.parse(self, args)
+
+        if self.currentCmd == "url":
+            if self.url and self.mirrorlist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --url and --mirrorlist may be specified for url command."))
+
+            if not self.url and not self.mirrorlist:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command."))
+
+        return retval

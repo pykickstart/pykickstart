@@ -112,6 +112,26 @@ class F14_TestCase(F13_TestCase):
         # fail
         self.assert_parse_error("cdrom --noverifyssl", KickstartParseError)
 
+class F18_TestCase(F14_TestCase):
+    def runTest(self):
+        # run F14 test case.
+        F14_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --mirrorlist=http://www.wherever.com/mirror",
+                          "url --mirrorlist=\"http://www.wherever.com/mirror\"\n")
+
+        # fail
+        # missing one of required options --url or --mirrorlist
+        self.assert_parse_error("url", KickstartValueError)
+        self.assert_parse_error("url --mirrorlist", KickstartParseError)
+
+        # It's --url, not --baseurl.
+        self.assert_parse_error("url --baseurl=www.wherever.com", KickstartParseError)
+
+        # only one of --url or --mirrorlist may be specified
+        self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com",
+                                KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()
