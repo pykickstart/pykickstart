@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.21
+Version: 1.99.22
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Nov 20 2012 Chris Lumens <clumens@redhat.com> - 1.99.22-1
+- Add support for url --mirrorlist, needed by anaconda (#868558). (clumens)
+- Only write out a logging line if one was provided (#873242). (clumens)
+- If no timezone was provided, do not write out an empty timezone command. (clumens)
+
 * Wed Oct 24 2012 Chris Lumens <clumens@redhat.com> - 1.99.21-1
 - Add support for layout switching options (vpodzime)
 
