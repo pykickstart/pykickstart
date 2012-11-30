@@ -281,10 +281,16 @@ class BaseHandler(KickstartObject):
 
         for prio in lst:
             for obj in self._writeOrder[prio]:
-                retval += obj.__str__()
+                obj_str = obj.__str__()
+                if type(obj_str) == types.UnicodeType:
+                    obj_str = obj_str.encode("utf-8")
+                retval += obj_str
 
         for script in self.scripts:
-            retval += script.__str__()
+            script_str = script.__str__()
+            if type(script_str) == types.UnicodeType:
+                script_str = script_str.encode("utf-8")
+            retval += script_str
 
         retval += self.packages.__str__()
 
