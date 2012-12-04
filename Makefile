@@ -30,6 +30,12 @@ test:
 	@echo "*** Running unittests ***"
 	PYTHONPATH=. python $(TESTSUITE) -v
 
+coverage:
+	@which coverage || (echo "*** Please install python-coverage ***"; exit 2)
+	@echo "*** Running unittests with coverage ***"
+	PYTHONPATH=. coverage run $(TESTSUITE) -v
+	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
+
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/* ChangeLog
 	$(MAKE) -C po clean
