@@ -52,9 +52,3 @@ class FC3_Lang(KickstartCommand):
 
         self.lang = extra[0]
         return self
-
-    def apply(self, instroot="/"):
-        if self.lang == "": return
-        f = open(instroot + "/etc/sysconfig/i18n", "w+")
-        f.write("LANG=\"%s\"\n" %(self.lang,))
-        f.close()
