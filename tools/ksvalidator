@@ -43,7 +43,7 @@ def cleanup(destdir, file=None, exitval=1):
        except:
            pass
 
-    os._exit(exitval)
+    sys.exit(exitval)
 
 op = OptionParser(usage="usage: %prog [options] ksfile|url")
 op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
@@ -63,11 +63,11 @@ if opts.listversions:
     for key in sorted(versionMap.keys()):
         print key
 
-    os._exit(1)
+    sys.exit(1)
 
 if len(extra) != 1:
     op.print_help()
-    os._exit(1)
+    sys.exit(1)
 else:
     destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
     try:
