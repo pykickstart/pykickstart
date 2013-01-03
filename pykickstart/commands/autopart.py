@@ -61,8 +61,10 @@ class F9_AutoPart(FC3_AutoPart):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.autopart:
-            retval += "autopart"
+        if not self.autopart:
+            return retval
+
+        retval += "autopart"
 
         if self.encrypted:
             retval += " --encrypted"
@@ -70,9 +72,7 @@ class F9_AutoPart(FC3_AutoPart):
             if self.passphrase != "":
                 retval += " --passphrase=\"%s\""% self.passphrase
 
-        if retval != "":
-            retval += "\n"
-
+        retval += "\n"
         return retval
 
     def _getParser(self):
@@ -102,6 +102,9 @@ class F12_AutoPart(F9_AutoPart):
     def __str__(self):
         retval = F9_AutoPart.__str__(self)
 
+        if not self.autopart:
+            return retval
+
         if self.encrypted and self.escrowcert != "":
             retval = retval.strip()
 
@@ -130,6 +133,8 @@ class RHEL6_AutoPart(F12_AutoPart):
 
     def __str__(self):
         retval = F12_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
 
         if self.encrypted and self.cipher:
             # remove any trailing newline
@@ -154,6 +159,8 @@ class F16_AutoPart(F12_AutoPart):
 
     def __str__(self):
         retval = F12_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
 
         # If requested, disable LVM autopart
         if not self.lvm:
@@ -181,6 +188,9 @@ class F17_AutoPart(F16_AutoPart):
 
     def __str__(self):
         retval = F16_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
         if self.type is not None:
             # remove any trailing newline
             retval = retval.strip()
@@ -234,6 +244,8 @@ class F18_AutoPart(F17_AutoPart):
 
     def __str__(self):
         retval = F17_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
 
         if self.encrypted and self.cipher:
             # remove any trailing newline
