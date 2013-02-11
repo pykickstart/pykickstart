@@ -70,6 +70,10 @@ class KickstartCommand(KickstartObject):
                             command is contained withing.  This is needed to
                             allow referencing of Data objects.
            lineno        -- The current line number in the input file.
+           seen          -- If this command was ever used in the kickstart file,
+                            this attribute will be set to True.  This allows
+                            for differentiating commands that were omitted
+                            from those that default to unset.
            writePriority -- An integer specifying when this command should be
                             printed when iterating over all commands' __str__
                             methods.  The higher the number, the later this
@@ -90,6 +94,7 @@ class KickstartCommand(KickstartObject):
         self.currentLine = ""
         self.handler = None
         self.lineno = 0
+        self.seen = False
 
         # If a subclass provides a removedKeywords list, remove all the
         # members from the kwargs list before we start processing it.  This
@@ -418,6 +423,7 @@ class BaseHandler(KickstartObject):
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
             self.commands[cmd].lineno = lineno
+            self.commands[cmd].seen = True
 
             # The parser returns the data object that was modified.  This could
             # be a BaseData subclass that should be put into a list, or it
@@ -454,7 +460,7 @@ class BaseData(KickstartObject):
 
     def __init__(self, *args, **kwargs):
         """Create a new BaseData instance.
-        
+
            lineno -- Line number in the ks-file where this object was defined
         """
 

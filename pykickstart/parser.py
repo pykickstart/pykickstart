@@ -281,6 +281,9 @@ class Packages(KickstartObject):
                             %packages section.
            instLangs     -- A list of languages to install.
            multiLib      -- Whether to use yum's "all" multilib policy.
+           seen          -- If %packages was ever used in the kickstart file,
+                            this attribute will be set to True.
+
         """
         KickstartObject.__init__(self, *args, **kwargs)
 
@@ -294,6 +297,7 @@ class Packages(KickstartObject):
         self.packageList = []
         self.instLangs = None
         self.multiLib = False
+        self.seen = False
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""

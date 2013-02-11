@@ -95,6 +95,13 @@ class Section(object):
         """
         self.timesSeen += 1
 
+    @property
+    def seen(self):
+        """This property is given for consistency with KickstartCommand objects
+           only.  It simply returns whether timesSeen is non-zero.
+        """
+        return self.timesSeen > 0
+
 class NullSection(Section):
     """This defines a section that pykickstart will recognize but do nothing
        with.  If the parser runs across a %section that has no object registered,
@@ -246,3 +253,4 @@ class PackageSection(Section):
             self.handler.packages.instLangs = opts.instLangs
 
         self.handler.packages.multiLib = opts.multiLib
+        self.handler.packages.seen = True
