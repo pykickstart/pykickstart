@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.23
+Version: 1.99.24
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Feb 13 2013 Chris Lumens <clumens@redhat.com> - 1.99.24-1
+- Add a seen attribute to commands, sections, and the packages object. (clumens)
+
 * Mon Jan 14 2013 Chris Lumens <clumens@redhat.com> - 1.99.23-1
 - Don't print any of the autopart command if autopart is disabled (#888841). (clumens)
 - Call sys.exit instead of os._exit (#891419, gconradi AT factset.com). (clumens)

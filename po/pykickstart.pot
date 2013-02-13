@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-14 13:13-0400\n"
+"POT-Creation-Date: 2013-02-13 10:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:186
+#: ../pykickstart/base.py:191
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -26,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:410
+#: ../pykickstart/base.py:421
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -46,21 +46,21 @@ msgstr ""
 msgid "Unable to open %%ksappend file"
 msgstr ""
 
-#: ../pykickstart/parser.py:134 ../pykickstart/parser.py:714
+#: ../pykickstart/parser.py:134 ../pykickstart/parser.py:718
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:354
+#: ../pykickstart/parser.py:358
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:523 ../pykickstart/parser.py:564
+#: ../pykickstart/parser.py:527 ../pykickstart/parser.py:568
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:660
+#: ../pykickstart/parser.py:664
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
