@@ -87,7 +87,7 @@ class F18_Reboot(FC6_Reboot):
         self.op = self._getParser()
 
     def __str__(self):
-        retval = FC6_Reboot.__str__(self).rstrip()
+        retval = FC6_Reboot.__str__(self)
 
         if self.action == KS_WAIT:
             retval += "# Halt after installation\nhalt\n"
