@@ -168,6 +168,25 @@ class F16_NetworkData(F8_NetworkData):
 
         return retval
 
+class F19_NetworkData(F16_NetworkData):
+    removedKeywords = F16_NetworkData.removedKeywords
+    removedAttrs = F16_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F16_NetworkData.__init__(self, *args, **kwargs)
+        self.bondslaves = kwargs.get("bondslaves", "")
+        self.bondopts = kwargs.get("bondopts", "")
+
+    def _getArgsAsStr(self):
+        retval = F16_NetworkData._getArgsAsStr(self)
+
+        if self.bondslaves != "":
+            retval += " --bondslaves=%s" % self.bondslaves
+        if self.bondopts != "":
+            retval += " --bondopts=%s" % self.bondopts
+
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -345,6 +364,16 @@ class F18_Network(F16_Network):
             if nd.hostname:
                 return nd.hostname
         return None
+
+class F19_Network(F18_Network):
+
+    def _getParser(self):
+        op = F18_Network._getParser(self)
+        op.add_option("--bondslaves", dest="bondslaves", action="store",
+                default="")
+        op.add_option("--bondopts", dest="bondopts", action="store",
+                default="")
+        return op
 
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
