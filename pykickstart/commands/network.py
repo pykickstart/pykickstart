@@ -164,7 +164,7 @@ class F16_NetworkData(F8_NetworkData):
         if self.nodefroute:
             retval += " --nodefroute"
         if self.wpakey != "":
-            retval += "--wpakey=%s" % self.wpakey
+            retval += " --wpakey=%s" % self.wpakey
 
         return retval
 
