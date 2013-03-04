@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.24
+Version: 1.99.25
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,15 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Mar 04 2013 Chris Lumens <clumens@redhat.com> - 1.99.25-1
+- pylint appears to have gotten pickier. (clumens)
+- Fix typo in --wpakey string representation method (rvykydal)
+- Also add the F19 handler file. (clumens)
+- Don't strip the newline from reboot or shutdown commands (#915013). (clumens)
+- Add bonding support to RHEL 7 (rvykydal)
+- Add bonding support to F19 (rvykydal)
+- Add support for F19 (rvykydal)
+
 * Wed Feb 13 2013 Chris Lumens <clumens@redhat.com> - 1.99.24-1
 - Add a seen attribute to commands, sections, and the packages object. (clumens)
 

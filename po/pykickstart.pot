@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-13 10:58-0500\n"
+"POT-Creation-Date: 2013-03-04 12:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -66,9 +66,9 @@ msgid "Unknown kickstart section: %s"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:109 ../pykickstart/version.py:118
-#: ../pykickstart/version.py:121 ../pykickstart/version.py:137
-#: ../pykickstart/version.py:191
+#: ../pykickstart/version.py:111 ../pykickstart/version.py:120
+#: ../pykickstart/version.py:123 ../pykickstart/version.py:139
+#: ../pykickstart/version.py:193
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr ""
