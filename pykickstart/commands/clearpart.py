@@ -99,7 +99,8 @@ class F17_ClearPart(FC3_ClearPart):
         return s
 
     def _getParser(self):
-        op = super(F17_ClearPart, self)._getParser()
+        op = FC3_ClearPart._getParser(self)
+
         def list_cb (option, opt_str, value, parser):
             self.type = CLEARPART_TYPE_LIST
             for d in value.split(','):

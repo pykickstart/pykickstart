@@ -100,7 +100,7 @@ def stringToVersion(s):
         pass
 
     # Now try the Fedora versions.
-    m = re.match("^fedora.* (\d+)$", s, re.I)
+    m = re.match(r"^fedora.* (\d+)$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("FC" + m.group(1)):
@@ -111,7 +111,7 @@ def stringToVersion(s):
             raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
     # Now try the RHEL versions.
-    m = re.match("^red hat enterprise linux.* (\d+)([\.\d]*)$", s, re.I)
+    m = re.match(r"^red hat enterprise linux.* (\d+)([\.\d]*)$", s, re.I)
 
     if m and m.group(1):
         if versionMap.has_key("RHEL" + m.group(1)):
