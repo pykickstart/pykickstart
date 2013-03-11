@@ -176,6 +176,7 @@ class F19_NetworkData(F16_NetworkData):
         F16_NetworkData.__init__(self, *args, **kwargs)
         self.bondslaves = kwargs.get("bondslaves", "")
         self.bondopts = kwargs.get("bondopts", "")
+        self.vlanid = kwargs.get("vlanid", "")
 
     def _getArgsAsStr(self):
         retval = F16_NetworkData._getArgsAsStr(self)
@@ -184,6 +185,8 @@ class F19_NetworkData(F16_NetworkData):
             retval += " --bondslaves=%s" % self.bondslaves
         if self.bondopts != "":
             retval += " --bondopts=%s" % self.bondopts
+        if self.vlanid:
+            retval += " --vlanid %s" % self.vlanid
 
         return retval
 
@@ -373,6 +376,7 @@ class F19_Network(F18_Network):
                 default="")
         op.add_option("--bondopts", dest="bondopts", action="store",
                 default="")
+        op.add_option("--vlanid", dest="vlanid")
         return op
 
 class RHEL4_Network(FC3_Network):
