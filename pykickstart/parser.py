@@ -638,11 +638,8 @@ class KickstartParser:
                 self._handleSpecialComments(self._line)
                 continue
 
-            # Remove any end-of-line comments.
-            sanitized = self._line.split("#")[0]
-
-            # Then split the line.
-            args = shlex.split(sanitized.rstrip())
+            # Split the line, discarding comments.
+            args = shlex.split(self._line, comments=True)
 
             if args[0] == "%include":
                 if len(args) == 1 or not args[1]:
