@@ -133,5 +133,33 @@ class F18_TestCase(F14_TestCase):
         self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com",
                                 KickstartValueError)
 
+class F19_TestCase(F18_TestCase):
+    def runTest(self):
+        # run F18 test case.
+        F18_TestCase.runTest(self)
+
+        # liveimg pass
+        self.assert_parse("liveimg --url=http://someplace/somewhere --proxy=http://wherever/other "
+                          "--noverifyssl --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba",
+                          "liveimg --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\" "
+                          "--noverifyssl --checksum=\"e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba\"\n")
+        self.assert_parse("liveimg --url=http://someplace/somewhere --proxy=http://wherever/other "
+                          "--noverifyssl",
+                          "liveimg --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\" "
+                          "--noverifyssl\n")
+        self.assert_parse("liveimg --url=http://someplace/somewhere --proxy=http://wherever/other ",
+                          "liveimg --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\"\n")
+        self.assert_parse("liveimg --url=http://someplace/somewhere",
+                          "liveimg --url=\"http://someplace/somewhere\"\n")
+
+        # liveimg fail
+        self.assert_parse_error("liveimg", KickstartValueError)
+        self.assert_parse_error("liveimg --url", KickstartParseError)
+        self.assert_parse_error("liveimg --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("liveimg --proxy=http://someplace/somewhere", KickstartValueError)
+        self.assert_parse_error("liveimg --noverifyssl", KickstartValueError)
+        self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba", KickstartValueError)
+
+
 if __name__ == "__main__":
     unittest.main()

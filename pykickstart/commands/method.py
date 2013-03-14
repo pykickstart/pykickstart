@@ -293,3 +293,55 @@ class F18_Method(F14_Method):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command."))
 
         return retval
+
+class F19_Method(F18_Method):
+    removedKeywords = F18_Method.removedKeywords
+    removedAttrs = F18_Method.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F18_Method.__init__(self, *args, **kwargs)
+        self.checksum = ""
+
+    def __eq__(self, other):
+        if not F18_Method.__eq__(self, other):
+            return False
+
+        if self.method == "liveimg":
+            return self.url == other.url and self.proxy == other.proxy and \
+                   self.noverifyssl == other.noverifyssl and \
+                   self.checksum == other.checksum
+        else:
+            return True
+
+    def __str__(self):
+        if self.method == "liveimg":
+            retval = KickstartCommand.__str__(self)
+            retval += "# Use live disk image installation\n"
+
+            retval += "liveimg --url=\"%s\"" % self.url
+
+            if self.proxy:
+                retval += " --proxy=\"%s\"" % self.proxy
+
+            if self.noverifyssl:
+                retval += " --noverifyssl"
+
+            if self.checksum:
+                retval += " --checksum=\"%s\"" % self.checksum
+
+            return retval + "\n"
+        else:
+            retval = F18_Method.__str__(self)
+
+        return retval
+
+    def _getParser(self):
+        op = F18_Method._getParser(self)
+
+        if self.currentCmd == "liveimg":
+            op.add_option("--url", required=1)
+            op.add_option("--proxy")
+            op.add_option("--noverifyssl", action="store_true", default=False)
+            op.add_option("--checksum")
+
+        return op
