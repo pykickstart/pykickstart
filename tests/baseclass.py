@@ -169,7 +169,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
             found = imputil.imp.find_module(module)
             loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
         except ImportError, e:
-            print(_("Error loading module %s.") % module)
+            print(_("Error loading module %s: %s") % (module, e))
             continue
 
         # Find class names that match the supplied pattern (default: "_TestCase")
@@ -188,6 +188,8 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
 # Run the tests
 if __name__ == "__main__":
+    # Make sure PWD is in the path before the eggs, system paths, etc.
+    sys.path.insert(0, os.environ.get("PWD"))
 
     # Create a test suite
     PyKickstartTestSuite = unittest.TestSuite()
