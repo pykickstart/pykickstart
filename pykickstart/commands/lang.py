@@ -52,3 +52,37 @@ class FC3_Lang(KickstartCommand):
 
         self.lang = extra[0]
         return self
+
+class F19_Lang(FC3_Lang):
+    removedKeywords = FC3_Lang.removedKeywords
+    removedAttrs = FC3_Lang.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_Lang.__init__(self, writePriority, *args, **kwargs)
+        self.addsupport = kwargs.get("addsupport", [])
+
+        self.op = self._getParser()
+
+    def __str__(self):
+        s = FC3_Lang.__str__(self)
+        if s and self.addsupport:
+            s = s.rstrip()
+            s += " --addsupport=%s\n" % ",".join(self.addsupport)
+        return s
+
+    def _getParser(self):
+        def list_cb (option, opt_str, value, parser):
+            for item in value.split(','):
+                if item:
+                    parser.values.ensure_value(option.dest, []).append(item)
+
+        op = FC3_Lang._getParser(self)
+        op.add_option("--addsupport", dest="addsupport", action="callback",
+                      callback=list_cb, nargs=1, type="string")
+        return op
+
+    def parse(self, args):
+        FC3_Lang.parse(self, args)
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(self.op, opts)
+        return self

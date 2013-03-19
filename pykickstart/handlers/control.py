@@ -971,7 +971,7 @@ commandMap = {
         "iscsi": iscsi.F17_Iscsi,
         "iscsiname": iscsiname.FC6_IscsiName,
         "keyboard": keyboard.F18_Keyboard,
-        "lang": lang.FC3_Lang,
+        "lang": lang.F19_Lang,
         "logging": logging.FC6_Logging,
         "logvol": logvol.F18_LogVol,
         "mediacheck": mediacheck.FC4_MediaCheck,
