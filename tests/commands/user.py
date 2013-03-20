@@ -72,6 +72,14 @@ class F12_TestCase(F8_TestCase):
         # pass
         self.assert_parse("user --name=user --gecos=\"User Name\"", "user --name=user --gecos=\"User Name\"\n")
 
+class F19_TestCase(F12_TestCase):
+    def runTest(self):
+        # run F12 test case
+        F12_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("user --name=user --gid=500", "user --name=user --gid=500\n")
+
 
 if __name__ == "__main__":
     unittest.main()

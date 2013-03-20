@@ -110,6 +110,23 @@ class F12_UserData(F8_UserData):
 
         return retval
 
+class F19_UserData(F12_UserData):
+    removedKeywords = F12_UserData.removedKeywords
+    removedAttrs = F12_UserData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F12_UserData.__init__(self, *args, **kwargs)
+        self.gid = kwargs.get("gid", 0)
+
+    def _getArgsAsStr(self):
+        retval = F12_UserData._getArgsAsStr(self)
+
+        if self.gid:
+            retval += " --gid=%d" % (self.gid,)
+
+        return retval
+
+
 class FC6_User(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -176,4 +193,13 @@ class F12_User(F8_User):
     def _getParser(self):
         op = F8_User._getParser(self)
         op.add_option("--gecos", type="string")
+        return op
+
+class F19_User(F12_User):
+    removedKeywords = F12_User.removedKeywords
+    removedAttrs = F12_User.removedAttrs
+
+    def _getParser(self):
+        op = F12_User._getParser(self)
+        op.add_option("--gid", type="int")
         return op
