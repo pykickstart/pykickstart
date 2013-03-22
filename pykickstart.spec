@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.25
+Version: 1.99.26
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Mar 22 2013 Chris Lumens <clumens@redhat.com> - 1.99.26-1
+- parser.py: Allow shlex to strip lines (fedora.dm0)
+- Fix a bug in logvol duplicate reporting (#924579, mhuth). (clumens)
+- Add gid attribute to User command and associated data structure (msivak)
+- Make sure tests can run and report import errors (bcl)
+- Add network --vlanid option to Fedora. (rvykydal)
+
 * Mon Mar 04 2013 Chris Lumens <clumens@redhat.com> - 1.99.25-1
 - pylint appears to have gotten pickier. (clumens)
 - Fix typo in --wpakey string representation method (rvykydal)
