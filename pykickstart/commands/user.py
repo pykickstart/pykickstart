@@ -116,7 +116,7 @@ class F19_UserData(F12_UserData):
 
     def __init__(self, *args, **kwargs):
         F12_UserData.__init__(self, *args, **kwargs)
-        self.gid = kwargs.get("gid", 0)
+        self.gid = kwargs.get("gid", None)
 
     def _getArgsAsStr(self):
         retval = F12_UserData._getArgsAsStr(self)
