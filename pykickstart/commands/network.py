@@ -177,6 +177,7 @@ class F19_NetworkData(F16_NetworkData):
         self.bondslaves = kwargs.get("bondslaves", "")
         self.bondopts = kwargs.get("bondopts", "")
         self.vlanid = kwargs.get("vlanid", "")
+        self.ipv6gateway = kwargs.get("ipv6gateway", "")
 
     def _getArgsAsStr(self):
         retval = F16_NetworkData._getArgsAsStr(self)
@@ -187,6 +188,8 @@ class F19_NetworkData(F16_NetworkData):
             retval += " --bondopts=%s" % self.bondopts
         if self.vlanid:
             retval += " --vlanid %s" % self.vlanid
+        if self.ipv6gateway:
+            retval += " --ipv6gateway %s" % self.ipv6gateway
 
         return retval
 
@@ -377,6 +380,8 @@ class F19_Network(F18_Network):
         op.add_option("--bondopts", dest="bondopts", action="store",
                 default="")
         op.add_option("--vlanid", dest="vlanid")
+        op.add_option("--ipv6gateway", dest="ipv6gateway", action="store",
+                default="")
         return op
 
 class RHEL4_Network(FC3_Network):
