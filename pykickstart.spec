@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.26
+Version: 1.99.27
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Apr 10 2013 Chris Lumens <clumens@redhat.com> - 1.99.27-1
+- A new user's group should default to None, not 0 (#929204). (clumens)
+
 * Fri Mar 22 2013 Chris Lumens <clumens@redhat.com> - 1.99.26-1
 - parser.py: Allow shlex to strip lines (fedora.dm0)
 - Fix a bug in logvol duplicate reporting (#924579, mhuth). (clumens)
