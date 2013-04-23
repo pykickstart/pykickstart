@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.27
+Version: 1.99.28
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Apr 23 2013 Chris Lumens <clumens@redhat.com> - 1.99.28-1
+- Add network --ipv6gateway option (#905226) (rvykydal)
+- Add lang --addsupport option (#912364) (rvykydal)
+
 * Wed Apr 10 2013 Chris Lumens <clumens@redhat.com> - 1.99.27-1
 - A new user's group should default to None, not 0 (#929204). (clumens)
 
