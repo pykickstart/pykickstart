@@ -148,5 +148,14 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse("bootloader --password=blahblah --iscrypted", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
         self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
 
+class F19_TestCase(F18_TestCase):
+    def runTest(self, iscrypted=False):
+        # run parent tests
+        F18_TestCase.runTest(self, iscrypted=iscrypted)
+
+        self.assert_parse("bootloader --location=mbr --timeout=5 --append=\"rhgb quiet\"")
+        self.assert_parse("bootloader --location=mbr --timeout=5 --extlinux --append=\"rhgb quiet\"")
+
+
 if __name__ == "__main__":
     unittest.main()

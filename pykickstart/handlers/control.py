@@ -950,7 +950,7 @@ commandMap = {
         "authconfig": authconfig.FC3_Authconfig,
         "autopart": autopart.F18_AutoPart,
         "autostep": autostep.FC3_AutoStep,
-        "bootloader": bootloader.F18_Bootloader,
+        "bootloader": bootloader.F19_Bootloader,
         "btrfs": btrfs.F17_BTRFS,
         "cdrom": method.F18_Method,
         "clearpart": clearpart.F17_ClearPart,

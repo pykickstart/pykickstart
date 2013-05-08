@@ -307,3 +307,26 @@ class RHEL6_Bootloader(F12_Bootloader):
         op.add_option("--iscrypted", dest="isCrypted", action="store_true", default=False)
         op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
         return op
+
+class F19_Bootloader(F18_Bootloader):
+    removedKeywords = F18_Bootloader.removedKeywords
+    removedAttrs = F18_Bootloader.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F18_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.extlinux = kwargs.get("extlinux", False)
+
+    def _getArgsAsStr(self):
+        ret = F18_Bootloader._getArgsAsStr(self)
+
+        if self.extlinux:
+            ret += " --extlinux"
+
+        return ret
+
+    def _getParser(self):
+        op = F18_Bootloader._getParser(self)
+        op.add_option("--extlinux", dest="extlinux", action="store_true",
+                      default=False)
+        return op
