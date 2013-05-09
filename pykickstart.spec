@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.29
+Version: 1.99.30
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -46,6 +46,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Thu May 09 2013 Chris Lumens <clumens@redhat.com> - 1.99.30-1
+- Add support for the realm command (mkolman)
+- Add liveimg install method (bcl)
+
 * Thu May 09 2013 Chris Lumens <clumens@redhat.com> - 1.99.29-1
 - add --extlinux option (mattdm)
 
