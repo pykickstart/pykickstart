@@ -143,6 +143,10 @@ class F18_TestCase(F17_TestCase):
         self.assert_parse_error("autopart --cipher")
         self.assert_parse_error("autopart --encrypted --cipher")
 
+class F20_TestCase(F18_TestCase):
+    def runTest(self):
+        self.assert_parse("autopart --type=thinp",
+                          "autopart --type=thinp\n")
 
 if __name__ == "__main__":
     unittest.main()

@@ -233,6 +233,34 @@ class F18_LogVolData(F17_LogVolData):
 
         return retval
 
+class F20_LogVolData(F18_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F18_LogVolData.__init__(self, *args, **kwargs)
+        self.thin_pool = kwargs.get("thin_pool", False)
+        self.thin_volume = kwargs.get("thin_volume", False)
+        self.pool_name = kwargs.get("pool_name", "")
+
+        # these are only for thin pools
+        self.chunk_size = kwargs.get("chunk_size", None)        # kilobytes
+        self.metadata_size = kwargs.get("metadata_size", None)  # megabytes
+
+    def _getArgsAsStr(self):
+        retval = F18_LogVolData._getArgsAsStr(self)
+
+        if self.thin_pool:
+            retval += " --thinpool"
+
+            if self.metadata_size:
+                retval += " --metadatasize=%d" % self.metadata_size
+
+            if self.chunk_size:
+                retval += " --chunksize=%d" % self.chunk_size
+
+        if self.thin_volume:
+            retval += " --thin --poolname=%s" % self.pool_name
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -394,3 +422,38 @@ class F18_LogVol(F17_LogVol):
         op.add_option("--cipher")
         return op
 
+class F20_LogVol(F18_LogVol):
+    def _getParser(self):
+        op = F18_LogVol._getParser(self)
+        op.add_option("--thinpool", action="store_true", dest="thin_pool",
+                      default=False)
+        op.add_option("--thin", action="store_true", dest="thin_volume",
+                      default=False)
+        op.add_option("--poolname", dest="pool_name")
+        op.add_option("--chunksize", type="int", dest="chunk_size")
+        op.add_option("--metadatasize", type="int", dest="metadata_size")
+        return op
+
+    def parse(self, args):
+        retval = F18_LogVol.parse(self, args)
+
+        if retval.thin_volume and retval.thin_pool:
+            err = formatErrorMsg(self.lineno,
+                                 msg=_("--thin and --thinpool cannot both be "
+                                       "specified for the same logvol"))
+            raise KickstartParseError(err)
+
+        if retval.thin_volume and not retval.pool_name:
+            err = formatErrorMsg(self.lineno,
+                                 msg=_("--thin requires --poolname to specify "
+                                       "pool name"))
+            raise KickstartParseError(err)
+
+        if (retval.chunk_size or retval.metadata_size) and \
+           not retval.thin_pool:
+            err = formatErrorMsg(self.lineno,
+                                 msg=_("--chunksize and --metadatasize are "
+                                       "for thin pools only"))
+            raise KickstartParseError(err)
+
+        return retval

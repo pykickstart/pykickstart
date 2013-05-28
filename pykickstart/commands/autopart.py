@@ -21,6 +21,8 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+from collections import OrderedDict
+
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
@@ -181,10 +183,13 @@ class F17_AutoPart(F16_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
         F16_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.type = kwargs.get("type", None)
-        self.typeMap = { "lvm": AUTOPART_TYPE_LVM,
-                         "btrfs": AUTOPART_TYPE_BTRFS,
-                         "plain": AUTOPART_TYPE_PLAIN,
-                         "partition": AUTOPART_TYPE_PLAIN }
+        # This uses OrderedDict because we want to always output --type=plain
+        # (as opposed to --type=partition) in __str__ when self.type is
+        # AUTOPART_TYPE_PLAIN.
+        self.typeMap = OrderedDict([("lvm", AUTOPART_TYPE_LVM),
+                                    ("btrfs", AUTOPART_TYPE_BTRFS),
+                                    ("plain", AUTOPART_TYPE_PLAIN),
+                                    ("partition", AUTOPART_TYPE_PLAIN)])
 
     def __str__(self):
         retval = F16_AutoPart.__str__(self)
@@ -195,12 +200,10 @@ class F17_AutoPart(F16_AutoPart):
             # remove any trailing newline
             retval = retval.strip()
             retval += " --type="
-            if self.type == AUTOPART_TYPE_LVM:
-                retval += "lvm"
-            elif self.type == AUTOPART_TYPE_BTRFS:
-                retval += "btrfs"
-            else:
-                retval += "plain"
+            for s, n in self.typeMap.items():
+                if self.type == n:
+                    retval += s
+                    break
             retval += "\n"
 
         return retval
@@ -259,3 +262,8 @@ class F18_AutoPart(F17_AutoPart):
         op = F17_AutoPart._getParser(self)
         op.add_option("--cipher")
         return op
+
+class F20_AutoPart(F18_AutoPart):
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F18_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
