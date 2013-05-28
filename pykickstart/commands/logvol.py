@@ -176,6 +176,12 @@ class RHEL6_LogVolData(F12_LogVolData):
         self.cipher = kwargs.get("cipher", "")
         self.hibernation = kwargs.get("hibernation", False)
 
+        self.thin_pool = kwargs.get("thin_pool", False)
+        self.thin_volume = kwargs.get("thin_volume", False)
+        self.pool_name = kwargs.get("pool_name", "")
+        self.chunk_size = kwargs.get("chunk_size", None)        # kilobytes
+        self.metadata_size = kwargs.get("metadata_size", None)  # megabytes
+
     def _getArgsAsStr(self):
         retval = F12_LogVolData._getArgsAsStr(self)
 
@@ -183,6 +189,19 @@ class RHEL6_LogVolData(F12_LogVolData):
             retval += " --cipher=\"%s\"" % self.cipher
         if self.hibernation:
             retval += " --hibernation"
+
+        # these are only for thin pools
+        if self.thin_pool:
+            retval += " --thinpool"
+
+            if self.metadata_size:
+                retval += " --metadatasize=%d" % self.metadata_size
+
+            if self.chunk_size:
+                retval += " --chunksize=%d" % self.chunk_size
+
+        if self.thin_volume:
+            retval += " --thin --poolname=%s" % self.pool_name
 
         return retval
 
@@ -404,6 +423,13 @@ class RHEL6_LogVol(F12_LogVol):
         op.add_option("--hibernation", dest="hibernation", action="store_true",
                         default=False)
 
+        op.add_option("--thinpool", action="store_true", dest="thin_pool",
+                      default=False)
+        op.add_option("--thin", action="store_true", dest="thin_volume",
+                      default=False)
+        op.add_option("--poolname", dest="pool_name")
+        op.add_option("--chunksize", type="int", dest="chunk_size")
+        op.add_option("--metadatasize", type="int", dest="metadata_size")
         return op
 
     def parse(self, args):
@@ -413,7 +439,22 @@ class RHEL6_LogVol(F12_LogVol):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+
+        if retval.thin_volume and retval.thin_pool:
+            errorMsg = _("--thin and --thinpool cannot both be specified for "
+                         "the same logvol")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+
+        if retval.thin_volume and not retval.pool_name:
+            errorMsg = _("--thin requires --poolname to specify pool name")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+
+        if (retval.chunk_size or retval.metadata_size) and \
+           not retval.thin_pool:
+            errorMsg = _("--chunksize and --metadatasize are for thin pools only")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+
         return retval
 
 class F14_LogVol(F12_LogVol):
