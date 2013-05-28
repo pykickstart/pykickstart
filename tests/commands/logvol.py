@@ -252,5 +252,35 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse("logvol swap --recommended --hibernation "
                             "--name=NAME --vgname=VGNAME")
 
+        # thinp
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool",
+                          "logvol none  --thinpool --name=pool1 --vgname=vg\n")
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool "
+                          "--chunksize=512",
+                          "logvol none  --thinpool --chunksize=512 "
+                          "--name=pool1 --vgname=vg\n")
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool "
+                          "--metadatasize=4 --chunksize=1024",
+                          "logvol none  --thinpool --metadatasize=4 "
+                          "--chunksize=1024 --name=pool1 --vgname=vg\n")
+        self.assert_parse("logvol /home --name=home --vgname=vg "
+                          "--thin --poolname=pool1",
+                          "logvol /home  --thin --poolname=pool1 "
+                          "--name=home --vgname=vg\n")
+
+        # missing pool name
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --thin")
+
+        # chunksize is an int
+        self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
+                                "--thinpool --chunksize=foo")
+
+        # both --thin and --thinpool
+        self.assert_parse_error("logvol /home --name=home --thin --thinpool --vgname=vg --size=10000")
+
+        # chunksize and/or metadata size and not thinpool
+        self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
+                                "--chunksize=512")
+
 if __name__ == "__main__":
     unittest.main()
