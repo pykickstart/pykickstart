@@ -1,0 +1,22 @@
+.TH "KSVERDIFF" "1"
+.SH "NAME"
+ksverdiff \(em display the differences in kickstart syntax
+.SH "SYNOPSIS"
+.PP
+\fBksverdiff\fR [\fB\-f\fR | \fB\-\-from FROMVER\fP]  [\fB\-t\fR | \fB\-\-to TOVER\fP]
+.SH "DESCRIPTION"
+.PP
+\fBksverdiff\fR is a program that takes two versions of kickstart syntax and lists the differences between them.
+It will generate a list of options added to every command since FROMVER, a list of commands added since FROMVER,
+a list of commands deprecated since FROMVER, and a list of commands removed since FROMVER.
+.SH "EXIT STATUS"
+.PP
+\fBksverdiff\fR returns 0 on success, and 1 if either FROMVER or TOVER are invalid.
+.SH "OPTIONS"
+.IP "\fB\-f\fR | \fB\-\-from FROMVER\fP" 10
+The version of kickstart syntax to start with.  In other words, this is the lower bound version.
+.IP "\fB\-t\fR | \fB\-\-TO TOVER\fP" 10
+The version of kickstart syntax to end with.  In other words, this is the upper bound version.
+.SH "SEE ALSO"
+.PP
+ksflatten (1), ksvalidator (1)

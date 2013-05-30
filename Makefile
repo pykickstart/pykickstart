@@ -18,7 +18,6 @@ po-pull:
 	tx pull $(TX_PULL_ARGS)
 
 docs:
-	mkdir -p docs
 	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "https://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
@@ -37,7 +36,7 @@ coverage:
 	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/* ChangeLog
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.txt docs/programmers-guide ChangeLog
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
@@ -56,7 +55,6 @@ archive: check test tag docs
 	@rm -f ChangeLog
 	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
-	mkdir -p $(PKGNAME)-$(VERSION)/docs/
 	cp -r po $(PKGNAME)-$(VERSION)
 	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/

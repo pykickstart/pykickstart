@@ -1,0 +1,36 @@
+.TH "KSVALIDATOR" "1"
+.SH "NAME"
+ksvalidator \(em verify the syntax of a kickstart file
+.SH "SYNOPSIS"
+.PP
+\fBksvalidator\fR [\fB\-e\fR | \fB\-\-firsterror\fP]  [\fB\-i\fR | \fB\-\-followincludes\fP]  [\fB\-l\fR | \fB\-\-listversions\fP]  [\fB\-v\fR | \fB\-\-version VERSION\fP]  INFILE
+.SH "DESCRIPTION"
+.PP
+\fBksvalidator\fR is a program that takes an input kickstart file and attempts to verify that it is syntactically correct.  This
+includes checking basics like proper quoting and making sure required options have values, and more advanced checks like verifying
+the file does not include deprecated or removed kickstart commands.  Mutually exclusive options can also be caught, as can certain
+classes of partitioning errors (like using the same device name multiple times).
+.PP
+\fBksvalidator\fR does have its limitations.  It cannot run validate the syntax of %pre and %post scripts, nor does it attempt to
+run them.  It cannot check that the %packages section is valid.  Most importantly, it cannot guarantee that an input kickstart
+file will install properly, because it does not understand the complexities of partitioning and what potentially already exists
+on disk.
+.SH "EXIT STATUS"
+.PP
+\fBksvalidator\fR returns 0 on success, and 1 if INFILE does not exist or there is an error parsing the kickstart file.
+.SH "OPTIONS"
+.IP "\fB\-e\fP, \fB\-\-firsterror\fP" 10
+Stop on the first warning or error.  By default, \fBksvalidator\fR will attempt to process the entire file, potentially raising
+multiple errors.
+.IP "\fB\-i\fP, \fB\-\-followincludes\fP" 10
+Process included files in the input file when they are seen, like anaconda would.  If the included file does not exist (this can
+happen for a variety of reasons, but the most common being a %pre script that generates an included file) and this option is
+given, an error will be generated and processing halted.
+.IP "\fB\-l\fP, \fB\-\-listversions\fP" 10
+List all versions of kickstart syntax supported by \fBksvalidator\fR.  This is useful for determining what values can be
+fed back in on a second run.
+.IP "\fB\-v\fP, \fB\-\-version VERSION\fP" 10
+Use this version of kickstart syntax when processing the file, or the latest if no version is given.
+.SH "SEE ALSO"
+.PP
+ksflatten (1), ksverdiff (1)

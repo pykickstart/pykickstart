@@ -1,0 +1,23 @@
+.TH "KSFLATTEN" "1"
+.SH "NAME"
+ksflatten \(em flatten a kickstart file
+.SH "SYNOPSIS"
+.PP
+\fBksflatten\fR [\fB\-c\fR | \fB\-\-config INFILE\fP]  [\fB\-o\fR | \fB\-\-output OUTFILE\fP]  [\fB\-v\fR | \fB\-\-version VERSION\fP]
+.SH "DESCRIPTION"
+.PP
+\fBksflatten\fR is a program that takes an input kickstart file potentially containing includes and generates an
+output file with all the includes inlined.
+.SH "EXIT STATUS"
+.PP
+\fBksflatten\fR returns 0 on success, and 1 if INFILE does not exist or there is an error parsing the kickstart file.
+.SH "OPTIONS"
+.IP "\fB\-c\fR, \fB\-\-config INFILE\fP" 10
+The name of the input kickstart file.
+.IP "\fB\-o\fR, \fB\-\-output OUTFILE\fP" 10
+Write the flattened kickstart file to OUTFILE, or stdout if no filename is given.
+.IP "\fB\-v\fR, \fB\-\-version VERSION\fP" 10
+Use this version of kickstart syntax when processing the file, or the latest if no version is given.
+.SH "SEE ALSO"
+.PP
+ksvalidator (1), ksverdiff (1)

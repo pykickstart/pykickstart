@@ -44,6 +44,7 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
 %{_bindir}/ksverdiff
+%{_mandir}/man1/*
 
 %changelog
 * Wed May 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.31-1
