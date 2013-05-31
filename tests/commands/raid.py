@@ -30,6 +30,7 @@ class FC3_TestCase(CommandTest):
     def __init__(self, *kargs, **kwargs):
         CommandTest.__init__(self, *kargs, **kwargs)
         self.validLevels = ["RAID0", "RAID1", "RAID5", "RAID6"]
+        self.minorBasedDevice = True
 
     def runTest(self):
         if "--bytes-per-inode" in self.optionList:
@@ -88,8 +89,13 @@ class FC3_TestCase(CommandTest):
         # Both raid members and useexisting given
         self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02", KickstartValueError)
 
-        # Invalid device string - device=asdf0
-        self.assert_parse_error("raid / --device=asdf0 --level=RAID1 raid.01 raid.02 raid.03", ValueError)
+        if self.minorBasedDevice:
+            # Invalid device string - device=asdf0 (--device=(md)?<minor>)
+            self.assert_parse_error("raid / --device=asdf0 --level=RAID1 raid.01 raid.02 raid.03", ValueError)
+        else:
+            # --device=<name>
+            self.assert_parse("raid / --device=root --level=RAID1 raid.01 raid.02 raid.03",
+                              "raid / --device=root --level=RAID1 raid.01 raid.02 raid.03\n")
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -217,6 +223,11 @@ class F18_TestCase(F15_TestCase):
                           "raid / --device=0 --level=RAID1 raid.01 raid.02\n")
 
         self.assert_parse_error("raid / --cipher --device=md0 --level=1 raid.01 raid.02")
+
+class F19_TestCase(F18_TestCase):
+    def __init__(self, *kargs, **kwargs):
+        F18_TestCase.__init__(self, *kargs, **kwargs)
+        self.minorBasedDevice = False
 
 if __name__ == "__main__":
     unittest.main()

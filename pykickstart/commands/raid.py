@@ -284,6 +284,13 @@ class FC3_Raid(KickstartCommand):
                       default=False)
         return op
 
+    def _getDevice(self, s):
+        """ Convert the argument to --device= to its internal format. """
+        # --device can't just take an int in the callback above, because it
+        # could be specificed as "mdX", which causes optparse to error when
+        # it runs int().
+        return int(s)
+
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
@@ -299,10 +306,11 @@ class FC3_Raid(KickstartCommand):
         self._setToObj(self.op, opts, rd)
         rd.lineno = self.lineno
 
-        # --device can't just take an int in the callback above, because it
-        # could be specificed as "mdX", which causes optparse to error when
-        # it runs int().
-        rd.device = int(rd.device)
+        # In older pykickstart --device was always specifying a minor, so
+        # rd.device had to be an integer.
+        # In newer pykickstart it has to be the array name since the minor
+        # cannot be reliably predicted due to lack of mdadm.conf during boot.
+        rd.device = self._getDevice(rd.device)
         rd.mountpoint = extra[0]
 
         if len(extra) > 1:
@@ -314,6 +322,9 @@ class FC3_Raid(KickstartCommand):
 
         if not rd.preexist and not rd.level:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level")
+
+        if rd.preexist and rd.device == "":
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="Device required for preexisting RAID device")
 
         return rd
 
@@ -429,3 +440,7 @@ class F18_Raid(F15_Raid):
         op = F15_Raid._getParser(self)
         op.add_option("--cipher")
         return op
+
+class F19_Raid(F18_Raid):
+    def _getDevice(self, s):
+        return s
