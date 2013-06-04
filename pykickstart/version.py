@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2006, 2007, 2008, 2009, 2010, 2012 Red Hat, Inc.
+# Copyright 2006, 2007, 2008, 2009, 2010, 2012, 2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -73,7 +73,7 @@ F16 = 14000
 F17 = 15000
 F18 = 16000
 F19 = 17000
-RHEL7 = 15100
+RHEL7 = 17100
 
 # This always points at the latest version and is the default.
 DEVEL = F19
