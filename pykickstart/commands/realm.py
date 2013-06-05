@@ -59,7 +59,7 @@ class F19_Realm(KickstartCommand):
                                                        "server-software=",
                                                        "membership-software=",
                                                        "one-time-password=",
-                                                       "no-password=",
+                                                       "no-password",
                                                        "computer-ou="))
         except getopt.GetoptError, ex:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg=_(
