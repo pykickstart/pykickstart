@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.31
+Version: 1.99.32
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -47,6 +47,14 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jun 14 2013 Chris Lumens <clumens@redhat.com> - 1.99.32-1
+- transifex.net is now transifex.com (bcl)
+- Update raid --device to be an array name specifier. (dlehman)
+- Add more tests for the realm command (mkolman)
+- RHEL7 is now more or less based on F19, at least for kickstart. (clumens)
+- realm: Fix --no-password option (stefw)
+- Add man pages for all programs (#948440). (clumens)
+
 * Wed May 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.31-1
 - Fix F18/F19 cdrom methods (bcl)
 
