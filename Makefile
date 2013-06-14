@@ -55,7 +55,9 @@ archive: check test tag docs
 	@rm -f ChangeLog
 	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
-	cp -r po $(PKGNAME)-$(VERSION)
+	mkdir -p $(PKGNAME)-$(VERSION)
+	cp -r po $(PKGNAME)-$(VERSION)/po/
+	mkdir -p $(PKGNAME)-$(VERSION)/docs/
 	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
 	cp ChangeLog $(PKGNAME)-$(VERSION)/
