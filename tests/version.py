@@ -1,5 +1,4 @@
-import unittest, shlex
-import warnings
+import unittest
 import tempfile
 from tests.baseclass import *
 

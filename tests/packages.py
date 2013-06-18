@@ -1,6 +1,5 @@
 from string import strip
 import unittest
-import warnings
 from tests.baseclass import *
 
 from pykickstart.errors import *

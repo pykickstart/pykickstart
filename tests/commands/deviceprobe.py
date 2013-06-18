@@ -18,7 +18,6 @@
 #
 
 import unittest, shlex
-import warnings
 from tests.baseclass import *
 
 from pykickstart.errors import *

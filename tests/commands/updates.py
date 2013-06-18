@@ -1,5 +1,4 @@
-import unittest, shlex
-import warnings
+import unittest
 from tests.baseclass import *
 
 from pykickstart.errors import *

@@ -16,8 +16,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-import unittest, shlex
-import warnings
+import unittest
 from tests.baseclass import *
 
 from pykickstart.errors import *
