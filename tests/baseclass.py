@@ -37,12 +37,13 @@ class CommandTest(unittest.TestCase):
         self.handler = None
 
         # ignore DeprecationWarning
+        warnings.simplefilter("error", category=UserWarning)
         warnings.simplefilter("ignore", category=DeprecationWarning, append=0)
 
     def tearDown(self):
         '''Undo anything performed by setUp(self)'''
         # reset warnings
-        warnings.filters = warnings.filters[1:]
+        warnings.resetwarnings()
 
         unittest.TestCase.tearDown(self)
 
