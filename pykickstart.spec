@@ -44,6 +44,7 @@ rm -rf %{buildroot}
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
 %{_bindir}/ksverdiff
+%{_bindir}/ksshell
 %{_mandir}/man1/*
 
 %changelog

@@ -1,0 +1,37 @@
+.TH "KSSHELL" "1"
+.SH "NAME"
+ksshell \(em an interactive kickstart shell
+.SH "SYNOPSIS"
+.PP
+\fBksflatten\fR [\fB\-i\fR | \fB\-\-input INFILE\fP]  [\fB\-o\fR | \fB\-\-output OUTFILE\fP]  [\fB\-v\fR | \fB\-\-version VERSION\fP]
+.SH "DESCRIPTION"
+.PP
+\fBksshell\fR is an interactive kickstart shell.  It optionally takes an input kickstart file as the basis,
+allows the user to specify additional kickstart commands, and then writes out the finished kickstart file
+to stdout or the given file name.  This program supports all the usual readline niceties including tab
+completion of kickstart commands and their options, though not the values those options can take.
+.PP
+In addition to understanding all the kickstart commands, \fBksshell\fR has some builtin commands of its
+own to make working with kickstart files in the context of a shell easier:
+.IP .clear
+Clear the existing kickstart data, including any from INFILE.  This essentially starts you over from a
+blank state.
+.IP .quit
+Quit the interactive shell, either saving to the file given by OUTFILE or printing to stdout if none
+was given.
+.IP .show
+Print the current kickstart file state.
+.SH "EXIT STATUS"
+.PP
+\fBksflatten\fR returns 0 on success, and 1 if VERSION is incorrect.  If INFILE does not exist, a warning
+will be printed but the user will still be dumped to the interactive shell.
+.SH "OPTIONS"
+.IP "\fB\-i\fR, \fB\-\-input INFILE\fP" 10
+The name of the input kickstart file.
+.IP "\fB\-o\fR, \fB\-\-output OUTFILE\fP" 10
+Write the flattened kickstart file to OUTFILE, or stdout if no filename is given.
+.IP "\fB\-v\fR, \fB\-\-version VERSION\fP" 10
+Use this version of kickstart syntax when processing the file, or the latest if no version is given.
+.SH "SEE ALSO"
+.PP
+ksvalidator (1), ksverdiff (1)
