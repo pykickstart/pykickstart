@@ -76,6 +76,7 @@ class CommandTest(unittest.TestCase):
         parser = self.handler().commands[cmd]
         parser.currentLine = inputStr
         parser.currentCmd = args[0]
+        parser.seen = True
 
         return parser
 
