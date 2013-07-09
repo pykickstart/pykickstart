@@ -22,7 +22,6 @@ from pykickstart.errors import *
 from pykickstart.options import *
 
 import gettext
-import string
 import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 

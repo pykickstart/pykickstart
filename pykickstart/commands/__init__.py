@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+__pychecker__ = "no-import"
 import authconfig, autopart, autostep, bootloader, clearpart, device
 import deviceprobe, displaymode, dmraid, driverdisk, fcoe, firewall, firstboot
 import group, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
