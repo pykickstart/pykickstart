@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.32
+Version: 1.99.33
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -47,6 +47,13 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jul 09 2013 Chris Lumens <clumens@redhat.com> - 1.99.33-1
+- Add support for lvm thin provisioning. (dlehman)
+- Add support for F20. (clumens)
+- Add a new test for the group command. (clumens)
+- In the test cases, error on all non-deprecation warnings. (clumens)
+- Remove unused imports from the test suite. (clumens)
+
 * Fri Jun 14 2013 Chris Lumens <clumens@redhat.com> - 1.99.32-1
 - transifex.net is now transifex.com (bcl)
 - Update raid --device to be an array name specifier. (dlehman)
