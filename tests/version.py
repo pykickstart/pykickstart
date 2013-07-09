@@ -138,12 +138,11 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(F11, skipDevel=False), "F11")
         self.assertEqual(versionToString(F12, skipDevel=True), "F12")
         self.assertEqual(versionToString(F13, skipDevel=True), "F13")
-        self.assertEqual(versionToString(F13, skipDevel=False), "DEVEL")
         # RHEL series
         self.assertEqual(versionToString(RHEL3), "RHEL3")
         self.assertEqual(versionToString(RHEL4), "RHEL4")
         self.assertEqual(versionToString(RHEL5), "RHEL5")
-        self.assertEqual(versionToString(RHEL6), "RHEL6")
+        self.assertEqual(versionToString(RHEL6, skipDevel=True), "RHEL6")
 
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):
