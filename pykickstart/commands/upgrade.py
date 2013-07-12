@@ -104,3 +104,7 @@ class F11_Upgrade(FC3_Upgrade):
             self.upgrade = False
 
         return self
+
+class F20_Upgrade(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)

@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 
+from pykickstart.base import DeprecatedCommand
+
 import unittest
 from tests.baseclass import *
 
@@ -51,6 +53,11 @@ class F11_TestCase(FC3_TestCase):
         # unknown option
         self.assert_parse_error("upgrade --bad-flag", KickstartParseError)
 
+class F20_TestCase(F11_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("upgrade")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()
