@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.12
+Version: 1.74.13
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,13 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Jul 12 2013 Chris Lumens <clumens@redhat.com> - 1.74.13-1
+- Also fix the version test for RHEL6. (clumens)
+- Fix a couple minor problems pychecker caught. (clumens)
+- Add network --ipv6gateway option (#978252) (rvykydal)
+- fix TypeError in network.py with ipv6 static addresses (#966183). (wwoods)
+- Fix a bug in logvol duplicate reporting (#924579, mhuth). (clumens)
+
 * Mon Oct 15 2012 Chris Lumens <clumens@redhat.com> - 1.74.12-1
 - Add cipher option for encrypted autopart. (dlehman)
 - Add support for fcoe --autovlan option (#813998) (rvykydal)
