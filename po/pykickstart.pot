@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-09 14:22-0400\n"
+"POT-Creation-Date: 2013-07-15 16:50-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:191
+#: ../pykickstart/base.py:193
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -26,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:421
+#: ../pykickstart/base.py:423
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -133,13 +133,39 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../tools/ksverdiff:54
-msgid "You must specify two syntax versions."
+#: ../tools/ksshell:147
+msgid "a basis file to use for seeding the kickstart data (optional)"
 msgstr ""
 
-#: ../tools/ksverdiff:61 ../tools/ksvalidator:82
+#: ../tools/ksshell:149
+msgid ""
+"the location to write the finished kickstart file, or stdout if not given"
+msgstr ""
+
+#: ../tools/ksshell:151 ../tools/ksvalidator:58
+msgid "version of kickstart syntax to validate against"
+msgstr ""
+
+#: ../tools/ksshell:165 ../tools/ksverdiff:61 ../tools/ksvalidator:82
 #, python-format
 msgid "The version %s is not supported by pykickstart"
+msgstr ""
+
+#. Errors should just dump you to the prompt anyway.
+#: ../tools/ksshell:177
+#, python-format
+msgid ""
+"Warning:  The following error occurred when processing the input file:\n"
+"%s\n"
+msgstr ""
+
+#: ../tools/ksshell:222
+#, python-format
+msgid "Internal command %s not recognized."
+msgstr ""
+
+#: ../tools/ksverdiff:54
+msgid "You must specify two syntax versions."
 msgstr ""
 
 #: ../tools/ksverdiff:68
@@ -183,10 +209,6 @@ msgstr ""
 
 #: ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
-msgstr ""
-
-#: ../tools/ksvalidator:58
-msgid "version of kickstart syntax to validate against"
 msgstr ""
 
 #: ../tools/ksvalidator:76

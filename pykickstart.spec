@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.33
+Version: 1.99.34
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -48,6 +48,17 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jul 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.34-1
+- Always create self.handler on-demand in the test cases. (clumens)
+- Also set the seen attribute when __call__ is used. (clumens)
+- Mark the upgrade command as deprecated. (clumens)
+- Add the method test case back in. (clumens)
+- Set the seen attribute when parsing in test cases, too. (clumens)
+- Add a proxy method command object. (clumens)
+- Add an interactive kickstart shell command, ksshell. (clumens)
+- Fix string substitution errors in translatable text. (clumens)
+- Break the method command out into individual commands. (clumens)
+
 * Tue Jul 09 2013 Chris Lumens <clumens@redhat.com> - 1.99.33-1
 - Add support for lvm thin provisioning. (dlehman)
 - Add support for F20. (clumens)
