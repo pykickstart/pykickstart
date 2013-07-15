@@ -108,6 +108,8 @@ class KickstartCommand(KickstartObject):
            via keyword arguments.  Valid attributes are anything specified in
            a subclass, but unknown attributes will be ignored.
         """
+        self.seen = True
+
         for (key, val) in kwargs.items():
             # Ignore setting attributes that were removed in a subclass, as
             # if they were unknown attributes.
