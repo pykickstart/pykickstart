@@ -34,7 +34,6 @@ class CommandTest(unittest.TestCase):
     def setUp(self):
         '''Perform any command setup'''
         unittest.TestCase.setUp(self)
-        self.handler = None
 
         # ignore DeprecationWarning
         warnings.simplefilter("error", category=UserWarning)
@@ -50,6 +49,11 @@ class CommandTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         unittest.TestCase.__init__(self, *args, **kwargs)
         self._options = []
+
+    @property
+    def handler(self):
+        version = self.__class__.__name__.split("_")[0]
+        return returnClassForVersion(version)
 
     @property
     def optionList(self):
@@ -68,10 +72,6 @@ class CommandTest(unittest.TestCase):
         object.'''
         args = shlex.split(inputStr)
         cmd = args[0]
-
-        if self.handler is None:
-            version = self.__class__.__name__.split("_")[0]
-            self.handler = returnClassForVersion(version)
 
         parser = self.handler().commands[cmd]
         parser.currentLine = inputStr
