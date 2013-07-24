@@ -3,7 +3,7 @@ from tests.baseclass import *
 
 from pykickstart import constants
 from pykickstart.errors import KickstartParseError
-from pykickstart import version
+from pykickstart.version import RHEL6
 
 class Packages_Contains_Comments_TestCase(ParserTest):
     ks = """
@@ -21,6 +21,35 @@ packageB
         self.assertEqual(len(self.handler.packages.packageList), 2)
         self.assertEqual(self.handler.packages.packageList[0], "packageA")
         self.assertEqual(self.handler.packages.packageList[1], "packageB")
+
+class Packages_Contains_Nobase_1_TestCase(ParserTest):
+    ks = """
+%packages --nobase
+bash
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 1)
+            self.assertIn("deprecated", str(w[-1].message))
+
+class Packages_Contains_Nobase_2_TestCase(ParserTest):
+    version = RHEL6
+
+    ks = """
+%packages --nobase
+bash
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 0)
 
 if __name__ == "__main__":
     unittest.main()
