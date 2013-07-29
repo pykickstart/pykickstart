@@ -62,6 +62,18 @@ class FC3_Method(KickstartCommand):
         else:
             setattr(self.handler.url, name, value)
 
+# These are all just for compat.  Calling into the appropriate version-specific
+# method command will deal with making sure the right options are used.
+FC6_Method = FC3_Method
+
+F13_Method = FC6_Method
+
+F14_Method = F13_Method
+
+RHEL6_Method = F14_Method
+
+F18_Method = F14_Method
+
 class F19_Method(FC3_Method):
     removedKeywords = FC3_Method.removedKeywords
     removedAttrs = FC3_Method.removedAttrs
