@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.34
+Version: 1.99.35
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -48,6 +48,10 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jul 29 2013 Chris Lumens <clumens@redhat.com> - 1.99.35-1
+- Add aliases for all the old method classes (#986069). (clumens)
+- Check syntax version before issuing a deprecation warning (#972098). (clumens)
+
 * Mon Jul 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.34-1
 - Always create self.handler on-demand in the test cases. (clumens)
 - Also set the seen attribute when __call__ is used. (clumens)
