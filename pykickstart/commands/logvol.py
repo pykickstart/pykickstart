@@ -380,6 +380,16 @@ class RHEL6_LogVol(F12_LogVol):
 
         return op
 
+    def parse(self, args):
+        # call the overriden method
+        retval = F12_LogVol.parse(self, args)
+        # the logvol command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The logvol and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval
+
 class F14_LogVol(F12_LogVol):
     removedKeywords = F12_LogVol.removedKeywords
     removedAttrs = F12_LogVol.removedAttrs
@@ -455,5 +465,11 @@ class F20_LogVol(F18_LogVol):
                                  msg=_("--chunksize and --metadatasize are "
                                        "for thin pools only"))
             raise KickstartParseError(err)
+
+        # the logvol command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The logvol and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
 
         return retval

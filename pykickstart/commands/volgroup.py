@@ -154,3 +154,29 @@ class FC16_VolGroup(FC3_VolGroup):
         op.add_option("--reserved-percent", action="callback", callback=percent_cb,
                       dest="reserved_percent", type="int", nargs=1, default=0)
         return op
+
+
+class RHEL6_VolGroup(FC3_VolGroup):
+
+    def parse(self, args):
+        # first call the overriden method
+        retval = FC3_VolGroup.parse(self, args)
+        # the volgroup command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The volgroup and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval
+
+
+class F20_VolGroup(FC16_VolGroup):
+
+    def parse(self, args):
+        # first call the overriden method
+        retval = FC16_VolGroup.parse(self, args)
+        # the volgroup command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The volgroup and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval

@@ -414,6 +414,16 @@ class RHEL6_Raid(F13_Raid):
         op.add_option("--cipher")
         return op
 
+    def parse(self, args):
+        # first call the overriden method
+        retval = F13_Raid.parse(self, args)
+        # the raid command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The raid and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval
+
 class F14_Raid(F13_Raid):
     removedKeywords = F13_Raid.removedKeywords
     removedAttrs = F13_Raid.removedAttrs
@@ -444,3 +454,14 @@ class F18_Raid(F15_Raid):
 class F19_Raid(F18_Raid):
     def _getDevice(self, s):
         return s
+
+class F20_Raid(F19_Raid):
+    def parse(self, args):
+        # first call the overriden method
+        retval = F19_Raid.parse(self, args)
+        # the raid command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The raid and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval
