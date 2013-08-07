@@ -365,3 +365,12 @@ class RHEL6_Partition(F12_Partition):
                         default=False)
         return op
 
+    def parse(self, args):
+        # first call the overriden command
+        retval = F12_Partition.parse(self, args)
+        # the part command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.currentCmd:
+            errorMsg = _("The part/partition and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval

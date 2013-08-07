@@ -141,3 +141,35 @@ class RHEL6_AutoPart(F12_AutoPart):
         op = F12_AutoPart._getParser(self)
         op.add_option("--cipher")
         return op
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F12_AutoPart.parse(self, args)
+
+        # Using autopart together with other partitioning command such as
+        # part/partition, raid, logvol or volgroup can lead to hard to debug
+        # behavior that might among other result into an unbootable system.
+        #
+        # Therefore if any of those commands is detected in the same kickstart
+        # together with autopart, an error is raised and installation is
+        # aborted.
+        conflicting_command = ""
+
+        # currentCmd != "" indicates that the corresponding
+        # command has been seen in kickstart
+        if self.handler.partition.currentCmd:
+            conflicting_command = "part/partition)"
+        elif self.handler.raid.currentCmd:
+            conflicting_command = "raid"
+        elif self.handler.volgroup.currentCmd:
+            conflicting_command = "volgroup"
+        elif self.handler.logvol.currentCmd:
+            conflicting_command = "logvol"
+
+        if conflicting_command:
+            # allow for translation of the error message
+            errorMsg = _("The %s and autopart commands can't be used at the same time")
+            # set the placeholder with the offending command
+            errorMsg = errorMsg % conflicting_command
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval

@@ -361,3 +361,13 @@ class RHEL6_Raid(F13_Raid):
         op = F13_Raid._getParser(self)
         op.add_option("--cipher")
         return op
+
+    def parse(self, args):
+        # first call the overriden method
+        retval = F13_Raid.parse(self, args)
+        # the raid command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.currentCmd:
+            errorMsg = _("The raid and autopart commands can't be used at the same time")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+        return retval

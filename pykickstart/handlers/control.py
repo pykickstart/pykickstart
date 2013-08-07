@@ -866,7 +866,7 @@ commandMap = {
         "url": method.RHEL6_Method,
         "user": user.F12_User,
         "vnc": vnc.F9_Vnc,
-        "volgroup": volgroup.F16_VolGroup,
+        "volgroup": volgroup.RHEL6_VolGroup,
         "xconfig": xconfig.F10_XConfig,
         "zerombr": zerombr.F9_ZeroMbr,
         "zfcp": zfcp.F12_ZFCP,
