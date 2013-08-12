@@ -6,9 +6,12 @@ import imputil
 import glob
 import warnings
 import re
+import tempfile
+import shutil
 
-from pykickstart.version import versionMap, returnClassForVersion
+from pykickstart.version import *
 from pykickstart.errors import *
+from pykickstart.parser import preprocessFromString, KickstartParser
 import gettext
 gettext.textdomain("pykickstart")
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -106,6 +109,62 @@ class CommandTest(unittest.TestCase):
         for op in parser.op.option_list:
             if op.get_opt_string() == opt:
                 self.assertEqual(op.type, opt_type)
+
+
+class CommandSequenceTest(unittest.TestCase):
+    """Kickstart command sequence testing
+
+    Enables testing kickstart command sequences
+    and checking if their parsing raises or doesn't raise
+    a parsing exception.
+    """
+
+    def setUp(self):
+        '''Perform a directory for the temporary kickstart file'''
+        unittest.TestCase.setUp(self)
+        self.destdir = tempfile.mkdtemp("", "ks_command_sequence_test-tmp-", "/tmp")
+        self.processedFile = None
+
+    def tearDown(self):
+        '''Remove the temporary folder and kickstart file'''
+        self._cleanup()
+        unittest.TestCase.tearDown(self)
+
+    def _parse_ks_string(self, ks_string):
+        self.processedFile = preprocessFromString(ks_string)
+        handler = makeVersion(DEVEL)
+        ksparser = KickstartParser(handler, followIncludes=False,
+                                   errorsAreFatal=True)
+        ksparser.readKickstart(self.processedFile)
+
+    def _cleanup(self):
+        shutil.rmtree(self.destdir)
+
+        # Don't care if this file doesn't exist.
+        if self.processedFile is not None:
+            try:
+                os.remove(self.processedFile)
+            except:
+                pass
+
+    def assert_parse_error(self, ks_string, exception=KickstartParseError):
+        """Parsing of this command sequence is expected to raise an exception,
+        exception type can be set by the exception keyword argument.
+
+        By default the KickstartParseError is expected.
+        """
+
+        self.assertRaises(exception, self._parse_ks_string, ks_string)
+
+    def assert_parse(self, ks_string):
+        """Parsing of his command sequence is expected to finish without
+        raising an exception; if it raises an exception, the test failed
+        """
+        try:
+            self._parse_ks_string(ks_string)
+        except Exception, e:
+            self.fail("Failed while parsing command %s: %s" % (ks_string, e))
+
 
 def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "baseclass"]):
     '''taken from firstboot/loader.py'''
