@@ -6,10 +6,12 @@ import imputil
 import glob
 import warnings
 import re
+import tempfile
+import shutil
 
 from pykickstart.errors import *
-from pykickstart.parser import KickstartParser
-from pykickstart.version import DEVEL, makeVersion, versionMap, returnClassForVersion
+from pykickstart.parser import preprocessFromString, KickstartParser
+from pykickstart.version import *
 import gettext
 gettext.textdomain("pykickstart")
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -17,17 +19,70 @@ _ = lambda x: gettext.ldgettext("pykickstart", x)
 class ParserTest(unittest.TestCase):
     version = DEVEL
 
+    def __init__(self, *args, **kwargs):
+        unittest.TestCase.__init__(self, *args, **kwargs)
+
     def setUp(self):
-        self.handler = makeVersion(self.version)
-        self.parser = KickstartParser(self.handler)
+        self._handler = None
+        self._parser = None
         unittest.TestCase.setUp(self)
 
     def tearDown(self):
         """Undo anything performed by setUp"""
         unittest.TestCase.tearDown(self)
 
-    def __init__(self, *args, **kwargs):
-        unittest.TestCase.__init__(self, *args, **kwargs)
+    def get_parser(self):
+        """This function can be overriden by subclasses,
+        for example if the subclass wants to use a fresh
+        parser for every test
+        """
+        if self._parser is None:
+            self._parser = KickstartParser(self.handler)
+        return self._parser
+
+    @property
+    def parser(self):
+        return self.get_parser()
+
+    @property
+    def handler(self):
+        if self._handler is None:
+            self._handler = makeVersion(self.version)
+        return self._handler
+
+    def assert_parse_error(self, ks_string, exception=KickstartParseError):
+        """Parsing of this command sequence is expected to raise an exception,
+        exception type can be set by the exception keyword argument.
+
+        By default the KickstartParseError is expected.
+        """
+
+        self.assertRaises(exception, self.parser.readKickstartFromString, ks_string)
+
+    def assert_parse(self, ks_string):
+        """Parsing of his command sequence is expected to finish without
+        raising an exception; if it raises an exception, the test failed
+        """
+        try:
+            self.parser.readKickstartFromString(ks_string)
+        except Exception, e:
+            self.fail("Failed while parsing commands %s: %s" % (ks_string, e))
+
+
+class CommandSequenceTest(ParserTest):
+    """Kickstart command sequence testing
+
+    Enables testing kickstart indepdent command sequences
+    and checking if their parsing raises or doesn't raise
+    a parsing exception.
+    """
+
+    def get_parser(self):
+        """Command sequence tests need a fresh parser
+        for each test"""
+        handler = makeVersion(self.version)
+        return KickstartParser(handler)
+
 
 # Base class for any command test case
 class CommandTest(unittest.TestCase):
@@ -142,6 +197,7 @@ class CommandTest(unittest.TestCase):
         for op in parser.op.option_list:
             if op.get_opt_string() == opt:
                 self.assertEqual(op.type, opt_type)
+
 
 def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "baseclass"]):
     '''taken from firstboot/loader.py'''
