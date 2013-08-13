@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.13
+Version: 1.74.14
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,11 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Tue Aug 13 2013 Chris Lumens <clumens@redhat.com> - 1.74.14-1
+- Add tests for incorrect command usage detection (mkolman)
+- Add class for multi-line command sequence tests (mkolman)
+- Raise an error if autopart is combined with partitioning commands (#886010) (mkolman)
+
 * Fri Jul 12 2013 Chris Lumens <clumens@redhat.com> - 1.74.13-1
 - Also fix the version test for RHEL6. (clumens)
 - Fix a couple minor problems pychecker caught. (clumens)
