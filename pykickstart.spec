@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.35.1
+Version: 1.99.35.2
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -47,6 +47,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Aug 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.2-1
+- Remove the BuildRequires on transifex-client. (clumens)
+
 * Thu Aug 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.1-1
 - When method.method is set, also set the right seen attribute (#994553). (clumens)
 
