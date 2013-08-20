@@ -60,8 +60,7 @@ class FC3_Method(KickstartCommand):
                 setattr(self.handler.nfs, "seen", True)
             elif name == "method" and value == "url":
                 setattr(self.handler.url, "seen", True)
-            else:
-                KickstartCommand.__setattr__(self, name, value)
+            KickstartCommand.__setattr__(self, name, value)
         elif self.handler.cdrom.seen:
             setattr(self.handler.cdrom, name, value)
         elif self.handler.harddrive.seen:
