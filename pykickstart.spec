@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.36
+Version: 1.99.37
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -48,6 +48,11 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Aug 21 2013 Chris Lumens <clumens@redhat.com> - 1.99.37-1
+- Correct exception raising style. (clumens)
+- Fix up how we call pylint for 1.0.0. (clumens)
+- Set method.method when attempted. (dshea)
+
 * Mon Aug 19 2013 Chris Lumens <clumens@redhat.com> - 1.99.36-1
 - When method.method is set, also set the right seen attribute (#994553). (clumens)
 - Add tests for incorrect command usage detection (mkolman)
