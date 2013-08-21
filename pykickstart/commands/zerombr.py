@@ -63,7 +63,7 @@ class F9_ZeroMbr(FC3_ZeroMbr):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr"))
 
         self.zerombr = True
         return self

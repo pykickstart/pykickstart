@@ -48,7 +48,7 @@ class FC3_SkipX(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx"))
 
         self.skipx = True
         return self

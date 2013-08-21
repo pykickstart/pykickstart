@@ -297,7 +297,7 @@ class FC3_Partition(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
 
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
@@ -412,7 +412,7 @@ class RHEL6_Partition(F12_Partition):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 class F14_Partition(F12_Partition):
@@ -459,5 +459,5 @@ class F20_Partition(F18_Partition):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval

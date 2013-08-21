@@ -117,10 +117,10 @@ class FC3_VolGroup(KickstartCommand):
         vg.lineno = self.lineno
 
         if len(extra) == 0:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
 
         if len(extra) == 1:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
 
         vg.vgname = extra[0]
         vg.physvols = extra[1:]
@@ -165,7 +165,7 @@ class RHEL6_VolGroup(FC3_VolGroup):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 
@@ -178,5 +178,5 @@ class F20_VolGroup(FC16_VolGroup):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval

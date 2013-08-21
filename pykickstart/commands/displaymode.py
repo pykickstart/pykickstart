@@ -56,7 +56,7 @@ class FC3_DisplayMode(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         if self.currentCmd == "cmdline":
             self.displayMode = DISPLAY_MODE_CMDLINE

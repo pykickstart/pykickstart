@@ -143,15 +143,15 @@ class F17_BTRFS(KickstartCommand):
         data.lineno = self.lineno
 
         if len(extra) == 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
 
         if len(extra) == 1 and not data.subvol:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
         elif len(extra) == 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")))
 
         if data.subvol and not data.name:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")))
 
         data.mountpoint = extra[0]
         data.devices = extra[1:]

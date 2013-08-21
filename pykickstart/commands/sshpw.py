@@ -99,7 +99,7 @@ class F13_SshPw(KickstartCommand):
         ud.lineno = self.lineno
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
         ud.password = extra[0]
 
         if ud in self.dataList():

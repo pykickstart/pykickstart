@@ -308,7 +308,7 @@ class FC3_LogVol(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
 
         lvd = self.handler.LogVolData()
         self._setToObj(self.op, opts, lvd)
@@ -387,7 +387,7 @@ class RHEL6_LogVol(F12_LogVol):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 class F14_LogVol(F12_LogVol):
@@ -470,6 +470,6 @@ class F20_LogVol(F18_LogVol):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval

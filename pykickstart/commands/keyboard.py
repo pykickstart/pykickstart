@@ -49,7 +49,7 @@ class FC3_Keyboard(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno) 
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
 
         self.keyboard = extra[0]
         return self

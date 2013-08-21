@@ -73,6 +73,6 @@ class FC3_HardDrive(KickstartCommand):
 
         if self.biospart is None and self.partition is None or \
            self.biospart is not None and self.partition is not None:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified."))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified.")))
 
         return self

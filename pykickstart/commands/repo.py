@@ -161,18 +161,18 @@ class FC6_Repo(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        
+
         if len(extra) != 0:
             mapping = {"command": "repo", "options": extra}
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         # This is lame, but I can't think of a better way to make sure only
         # one of these two is specified.
         if opts.baseurl and opts.mirrorlist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command."))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
 
         if self.urlRequired and not opts.baseurl and not opts.mirrorlist:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command."))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
 
         rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)
@@ -213,7 +213,7 @@ class F8_Repo(FC6_Repo):
 
     def methodToRepo(self):
         if not self.handler.method.url:
-            raise KickstartError, formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo list."))
+            raise KickstartError(formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo list.")))
         reponame = "ks-method-url"
         repourl = self.handler.method.url
         rd = self.handler.RepoData(name=reponame, baseurl=repourl)

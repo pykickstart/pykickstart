@@ -44,7 +44,7 @@ class FC3_AutoPart(KickstartCommand):
 
     def parse(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart"))
 
         self.autopart = True
         return self
@@ -179,7 +179,7 @@ class RHEL6_AutoPart(F12_AutoPart):
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % \
                          conflicting_command
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 
@@ -329,5 +329,5 @@ class F20_AutoPart(F18_AutoPart):
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % \
                          conflicting_command
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval

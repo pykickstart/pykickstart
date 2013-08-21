@@ -58,7 +58,7 @@ class FC3_Timezone(KickstartCommand):
         self._setToSelf(self.op, opts)
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))
 
         self.timezone = extra[0]
         return self

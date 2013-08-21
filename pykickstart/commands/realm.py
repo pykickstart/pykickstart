@@ -39,18 +39,18 @@ class F19_Realm(KickstartCommand):
 
     def _parseArguments(self, string):
         if self.join_realm:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_(
-                "The realm command 'join' should only be specified once"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_(
+                "The realm command 'join' should only be specified once")))
         args = shlex.split(string)
         if not args:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_(
-                "Missing realm command arguments"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+                "Missing realm command arguments")))
         command = args.pop(0)
         if command == "join":
             self._parseJoin(args)
         else:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_(
-                "Unsupported realm '%s' command" % command))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+                "Unsupported realm '%s' command" % command)))
 
     def _parseJoin(self, args):
         try:
@@ -62,12 +62,12 @@ class F19_Realm(KickstartCommand):
                                                        "no-password",
                                                        "computer-ou="))
         except getopt.GetoptError, ex:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_(
-                "Invalid realm arguments: %s") % str(ex))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+                "Invalid realm arguments: %s") % str(ex)))
 
         if len(remaining) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_(
-                "Specify only one realm to join"))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+                "Specify only one realm to join")))
 
         # Parse successful, just use this as the join command
         self.join_realm = remaining[0]

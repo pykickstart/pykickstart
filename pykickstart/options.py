@@ -48,9 +48,9 @@ class KSOptionParser(OptionParser):
 
     def error(self, msg):
         if self.lineno != None:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=msg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
         else:
-            raise KickstartParseError, msg
+            raise KickstartParseError(msg)
 
     def keys(self):
         retval = []
@@ -80,7 +80,7 @@ class KSOptionParser(OptionParser):
 
         for option in filter(lambda o: isinstance(o, Option), self.option_list):
             if option.required and not seen(self, option):
-                raise KickstartValueError, formatErrorMsg(self.lineno, _("Option %s is required") % option)
+                raise KickstartValueError(formatErrorMsg(self.lineno, _("Option %s is required") % option))
             elif seen(self, option) and usedTooNew(self, option):
                 mapping = {"option": option, "intro": versionToString(option.introduced),
                            "version": versionToString(self.version)}
