@@ -63,7 +63,7 @@ class F19_Realm(KickstartCommand):
                                                        "computer-ou="))
         except getopt.GetoptError, ex:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
-                "Invalid realm arguments: %s") % str(ex)))
+                "Invalid realm arguments: %s") % ex))
 
         if len(remaining) != 1:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
