@@ -1352,7 +1352,7 @@ commandMap = {
         "part": partition.F18_Partition,
         "partition": partition.F18_Partition,
         "poweroff": reboot.F18_Reboot,
-        "raid": raid.F18_Raid,
+        "raid": raid.F20_Raid,
         "realm": realm.F19_Realm,
         "reboot": reboot.F18_Reboot,
         "repo": repo.F15_Repo,
