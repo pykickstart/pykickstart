@@ -44,11 +44,13 @@ class FC3_Method(KickstartCommand):
                 return "nfs"
             else:
                 return getattr(self.handler.nfs, name)
-        else:
+        elif self.handler.url.seen:
             if name == "method":
                 return "url"
             else:
                 return getattr(self.handler.url, name)
+        else:
+            return None
 
     def __setattr__(self, name, value):
         if name in self.internals:
