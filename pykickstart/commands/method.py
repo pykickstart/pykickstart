@@ -59,7 +59,7 @@ class FC3_Method(KickstartCommand):
         elif name == "method":
             return None
         else:
-            return KickstartCommand.__getattr__(self, name)
+            return object.__getattribute__(self, name)
 
     def __setattr__(self, name, value):
         if name in self.internals:
