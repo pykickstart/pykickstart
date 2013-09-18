@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.35.3
+Version: 1.99.35.4
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -47,6 +47,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Sep 18 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.4-1
+- Return None for attributes if no method has been set (#1002371) (dshea)
+
 * Wed Aug 21 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.3-1
 - Set method.method when attempted. (#999173) (dshea)
 
