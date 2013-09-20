@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 import authconfig, autopart, autostep, bootloader, btrfs, clearpart, cdrom, device
-import deviceprobe, displaymode, dmraid, driverdisk, fcoe, firewall, firstboot
+import deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot
 import group, harddrive, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
 import langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor
 import mouse, multipath, network, nfs, partition, raid, realm, reboot, repo, rescue
