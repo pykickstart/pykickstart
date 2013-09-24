@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.39
+Version: 1.99.40
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -48,6 +48,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 24 2013 Chris Lumens <clumens@redhat.com> - 1.99.40-1
+- Don't error out if volgroup --useexisting is given with no members. (clumens)
+
 * Tue Sep 10 2013 Chris Lumens <clumens@redhat.com> - 1.99.39-1
 - Call the right attribute method (#1004889) (bcl)
 - Reset method seen attrs when switching method (#1004889) (bcl)
