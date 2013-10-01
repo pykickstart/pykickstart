@@ -193,6 +193,31 @@ class F19_NetworkData(F16_NetworkData):
 
         return retval
 
+class F20_NetworkData(F19_NetworkData):
+    removedKeywords = F19_NetworkData.removedKeywords
+    removedAttrs = F19_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F19_NetworkData.__init__(self, *args, **kwargs)
+        self.teamslaves = kwargs.get("teamslaves", [])
+        self.teamconfig = kwargs.get("teamconfig", "")
+
+    def _getArgsAsStr(self):
+        retval = F19_NetworkData._getArgsAsStr(self)
+
+        # see the tests for format description
+        if self.teamslaves:
+            slavecfgs = []
+            for slave, config in self.teamslaves:
+                if config:
+                    config = "'" + config + "'"
+                slavecfgs.append(slave+config)
+            slavecfgs = ",".join(slavecfgs).replace('"', r'\"')
+            retval += ' --teamslaves="%s"' % slavecfgs
+        if self.teamconfig:
+            retval += ' --teamconfig="%s"' % self.teamconfig.replace('"', r'\"')
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -381,6 +406,55 @@ class F19_Network(F18_Network):
                 default="")
         op.add_option("--vlanid", dest="vlanid")
         op.add_option("--ipv6gateway", dest="ipv6gateway", action="store",
+                default="")
+        return op
+
+class F20_Network(F19_Network):
+
+    def _getParser(self):
+        # see the tests for teamslaves option
+        def teamslaves_cb(option, opt_str, value, parser):
+            # value is of: "<DEV1>['<JSON_CONFIG1>'],<DEV2>['<JSON_CONFIG2>'],..."
+            # for example: "eth1,eth2'{"prio": 100}',eth3"
+            teamslaves = []
+            if value:
+                # Although slaves, having optional config, are separated by ","
+                # first extract json configs because they can contain the ","
+                parts = value.split("'")
+                # parts == ['eth1,eth2', '{"prio": 100}', ',eth3']
+                # ensure the list has even number of items for further zipping,
+                # for odd number of items
+                if len(parts) % 2 == 1:
+                    # if the list ends with an empty string which must be a leftover
+                    # from splitting string not ending with device eg
+                    # "eth1,eth2'{"prio":100"}'"
+                    if not parts[-1]:
+                        # just remove it
+                        parts = parts[:-1]
+                    # if not (our example), add empty config for the last device
+                    else:
+                        parts.append('')
+                        # parts == ['eth1,eth2', '{"prio": 100}', ',eth3', '']
+                # zip devices with their configs
+                it = iter(parts)
+                for devs, cfg in zip(it,it):
+                    # first loop:
+                    # devs == "eth1,eth2", cfg == '{"prio": 100}'
+                    devs = devs.strip(',').split(',')
+                    # devs == ["eth1", "eth2"]
+                    # initialize config of all devs but the last one to empty
+                    for d in devs[:-1]:
+                        teamslaves.append((d, ''))
+                    # teamslaves == [("eth1", '')]
+                    # and set config of the last device
+                    teamslaves.append((devs[-1], cfg))
+                    # teamslaves == [('eth1', ''), ('eth2', '{"prio": 100}']
+            parser.values.teamslaves = teamslaves
+
+        op = F19_Network._getParser(self)
+        op.add_option("--teamslaves", dest="teamslaves", action="callback",
+                callback=teamslaves_cb, nargs=1, type="string")
+        op.add_option("--teamconfig", dest="teamconfig", action="store",
                 default="")
         return op
 
