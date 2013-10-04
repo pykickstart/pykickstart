@@ -1040,7 +1040,7 @@ commandMap = {
         "driverdisk": driverdisk.F14_DriverDisk,
         "eula": eula.F20_Eula,
         "fcoe": fcoe.F13_Fcoe,
-        "firewall": firewall.F14_Firewall,
+        "firewall": firewall.F20_Firewall,
         "firstboot": firstboot.FC3_Firstboot,
         "graphical": displaymode.FC3_DisplayMode,
         "group": group.F12_Group,
