@@ -203,7 +203,6 @@ class F20_Firewall(F14_Firewall):
             # python2.4 does not support action="append_const" that we were
             # using for these options.  Instead, we have to fake it by
             # appending whatever the option string is to the service list.
-            # XXX: is this still relevant ?
             if not value:
                 parser.values.ensure_value(option.dest, []).append(opt_str[2:])
                 return
