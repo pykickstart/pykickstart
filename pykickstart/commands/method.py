@@ -36,30 +36,21 @@ class FC3_Method(KickstartCommand):
             setattr(getattr(self.handler, method), "seen", False)
 
     def __getattr__(self, name):
-        if self.handler.cdrom.seen:
+        if name in self.internals:
             if name == "method":
-                return "cdrom"
+                for method in self._methods:
+                    if getattr(self.handler, method).seen:
+                        return method
+                return None
             else:
-                return getattr(self.handler.cdrom, name)
-        elif self.handler.harddrive.seen:
-            if name == "method":
-                return "harddrive"
-            else:
-                return getattr(self.handler.harddrive, name)
-        elif self.handler.nfs.seen:
-            if name == "method":
-                return "nfs"
-            else:
-                return getattr(self.handler.nfs, name)
-        elif self.handler.url.seen:
-            if name == "method":
-                return "url"
-            else:
-                return getattr(self.handler.url, name)
-        elif name == "method":
-            return None
-        else:
-            return object.__getattribute__(self, name)
+                return object.__getattribute__(self, name)
+
+        # Return name from first seen handler, or url
+        for method in self._methods:
+            if getattr(self.handler, method).seen:
+                return getattr(getattr(self.handler, method), name)
+
+        return getattr(self.handler.url, name)
 
     def __setattr__(self, name, value):
         if name in self.internals:
