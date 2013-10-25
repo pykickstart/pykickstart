@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43
+Version: 1.99.44
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -50,6 +50,10 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.44-1
+- method getattr should default to handler.url (bcl)
+  Related: rhbz#1016801
+
 * Wed Oct 16 2013 Chris Lumens <clumens@redhat.com> - 1.99.43-1
 - Use F20_Raid for RHEL7. (#997146) (dlehman)
 
