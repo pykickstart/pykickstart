@@ -32,7 +32,7 @@ class FC3_Bootloader(KickstartCommand):
         self.appendLine = kwargs.get("appendLine", "")
         self.forceLBA = kwargs.get("forceLBA", False)
         self.linear = kwargs.get("linear", True)
-        self.location = kwargs.get("location", "")
+        self.location = kwargs.get("location", "none")
         self.md5pass = kwargs.get("md5pass", "")
         self.password = kwargs.get("password", "")
         self.upgrade = kwargs.get("upgrade", False)
