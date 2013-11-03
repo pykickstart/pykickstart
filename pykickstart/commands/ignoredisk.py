@@ -80,7 +80,7 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
 
         if errorCheck:
             if (len(self.ignoredisk) == 0 and len(self.onlyuse) == 0) or (len(self.ignoredisk) > 0 and (len(self.onlyuse) > 0)):
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command."))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command.")))
 
         return retval
 
@@ -126,7 +126,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         if self.interactive:
             howmany += 1
         if howmany != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command."))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command.")))
 
         return retval
 

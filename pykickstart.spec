@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.35.4
+Version: 1.99.43
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -15,6 +15,9 @@ Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext, python-setuptools-devel
+%if ! 0%{?rhel}
+BuildRequires: transifex-client
+%endif
 Requires: python, python-urlgrabber
 
 %description
@@ -47,11 +50,46 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Wed Oct 16 2013 Chris Lumens <clumens@redhat.com> - 1.99.43-1
+- Use F20_Raid for RHEL7. (#997146) (dlehman)
+
+* Tue Oct 08 2013 Chris Lumens <clumens@redhat.com> - 1.99.42-1
+- Remove a triple-X message that is no longer needed (mkolman)
+- Add --remove-service option for the firewall command (#1016008) (mkolman)
+
+* Wed Sep 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.41-1
+- New 'eula' command (#1000409) (vpodzime)
+
+* Tue Sep 24 2013 Chris Lumens <clumens@redhat.com> 1.99.40-2
+- Only BuildRequire transifex on OSes that include it.
+
+* Tue Sep 24 2013 Chris Lumens <clumens@redhat.com> - 1.99.40-1
+- Don't error out if volgroup --useexisting is given with no members. (clumens)
+
 * Wed Sep 18 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.4-1
 - Return None for attributes if no method has been set (#1002371) (dshea)
 
+* Tue Sep 10 2013 Chris Lumens <clumens@redhat.com> - 1.99.39-1
+- Call the right attribute method (#1004889) (bcl)
+- Reset method seen attrs when switching method (#1004889) (bcl)
+
+* Tue Sep 03 2013 Brian C. Lane <bcl@redhat.com> - 1.99.38-1
+- Return None for attributes if no method has been set (#1001081) (dshea)
+- Fix up a couple pylint errors in the tools. (clumens)
+
+* Wed Aug 21 2013 Chris Lumens <clumens@redhat.com> - 1.99.37-1
+- Correct exception raising style. (clumens)
+- Fix up how we call pylint for 1.0.0. (clumens)
+- Set method.method when attempted. (dshea)
+
 * Wed Aug 21 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.3-1
 - Set method.method when attempted. (#999173) (dshea)
+
+* Mon Aug 19 2013 Chris Lumens <clumens@redhat.com> - 1.99.36-1
+- When method.method is set, also set the right seen attribute (#994553). (clumens)
+- Add tests for incorrect command usage detection (mkolman)
+- Add class for independent multi-line command sequence tests (mkolman)
+- Raise an error if autopart is combined with partitioning commands (#886010) (mkolman)
 
 * Thu Aug 15 2013 Chris Lumens <clumens@redhat.com> - 1.99.35.2-1
 - Remove the BuildRequires on transifex-client. (clumens)

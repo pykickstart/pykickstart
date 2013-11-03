@@ -83,7 +83,7 @@ class KickstartCommand(KickstartObject):
 
         # We don't want people using this class by itself.
         if self.__class__ is KickstartCommand:
-            raise TypeError, "KickstartCommand is an abstract class."
+            raise TypeError("KickstartCommand is an abstract class.")
 
         KickstartObject.__init__(self, *args, **kwargs)
 
@@ -129,7 +129,7 @@ class KickstartCommand(KickstartObject):
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.
         """
-        raise TypeError, "parse() not implemented for KickstartCommand"
+        raise TypeError("parse() not implemented for KickstartCommand")
 
     def apply(self, instroot="/"):
         """Write out the configuration related to the KickstartCommand object.
@@ -178,7 +178,7 @@ class DeprecatedCommand(KickstartCommand):
     def __init__(self, writePriority=None, *args, **kwargs):
         # We don't want people using this class by itself.
         if self.__class__ is KickstartCommand:
-            raise TypeError, "DeprecatedCommand is an abstract class."
+            raise TypeError("DeprecatedCommand is an abstract class.")
 
         # Create a new DeprecatedCommand instance.
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
@@ -252,7 +252,7 @@ class BaseHandler(KickstartObject):
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseHandler:
-            raise TypeError, "BaseHandler is an abstract class."
+            raise TypeError("BaseHandler is an abstract class.")
 
         KickstartObject.__init__(self, *args, **kwargs)
 
@@ -420,7 +420,7 @@ class BaseHandler(KickstartObject):
         cmd = args[0]
 
         if not self.commands.has_key(cmd):
-            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd))
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd)))
         elif self.commands[cmd] != None:
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
@@ -468,7 +468,7 @@ class BaseData(KickstartObject):
 
         # We don't want people using this class by itself.
         if self.__class__ is BaseData:
-            raise TypeError, "BaseData is an abstract class."
+            raise TypeError("BaseData is an abstract class.")
 
         KickstartObject.__init__(self, *args, **kwargs)
         self.lineno = 0

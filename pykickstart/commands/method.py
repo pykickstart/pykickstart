@@ -28,6 +28,13 @@ class FC3_Method(KickstartCommand):
     internals = ["method",
                  "writePriority", "currentCmd", "currentLine", "handler", "lineno", "seen"]
 
+    _methods = ["cdrom", "harddrive", "nfs", "url"]
+
+    def _clear_seen(self):
+        """ Reset all the method's seen attrs to False"""
+        for method in self._methods:
+            setattr(getattr(self.handler, method), "seen", False)
+
     def __getattr__(self, name):
         if self.handler.cdrom.seen:
             if name == "method":
@@ -49,11 +56,15 @@ class FC3_Method(KickstartCommand):
                 return "url"
             else:
                 return getattr(self.handler.url, name)
-        else:
+        elif name == "method":
             return None
+        else:
+            return object.__getattribute__(self, name)
 
     def __setattr__(self, name, value):
         if name in self.internals:
+            if name == "method":
+                self._clear_seen()
             if name == "method" and value == "cdrom":
                 setattr(self.handler.cdrom, "seen", True)
             elif name == "method" and value == "harddrive":
@@ -88,6 +99,8 @@ class F19_Method(FC3_Method):
     removedKeywords = FC3_Method.removedKeywords
     removedAttrs = FC3_Method.removedAttrs
 
+    _methods = FC3_Method._methods + ["liveimg"]
+
     def __getattr__(self, name):
         if self.handler.liveimg.seen:
             if name == "method":
@@ -99,6 +112,8 @@ class F19_Method(FC3_Method):
 
     def __setattr__(self, name, value):
         if name in self.internals:
+            if name == "method":
+                self._clear_seen()
             if name == "method" and value == "liveimg":
                 setattr(self.handler.liveimg, "seen", True)
             else:

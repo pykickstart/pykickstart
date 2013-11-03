@@ -50,21 +50,21 @@ def main():
     ksparser = pykickstart.parser.KickstartParser(ksversion)
     try:
         ksparser.readKickstart(opts.kscfg)
-    except IOError, msg:
+    except IOError as msg:
         print >> sys.stderr, "Failed to read kickstart file '%s' : %s" % (opts.kscfg, msg)
         sys.exit(1)
-    except pykickstart.errors.KickstartError, e:
+    except pykickstart.errors.KickstartError as e:
         print >> sys.stderr, "Failed to parse kickstart file '%s' : %s" % (opts.kscfg, e)
 
     if opts.output:
         try:
             f = open(opts.output, 'w')
-        except IOError, msg:
+        except IOError as msg:
             print >> sys.stderr, "Failed to open output file '%s' : %s" %(opts.output, msg)
     else:
         f = sys.stdout
 
-    f.write("%s" %(ksparser.handler,))
+    f.write("%s" % ksparser.handler)
     f.close()
 
 if __name__ == "__main__":

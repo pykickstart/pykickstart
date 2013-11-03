@@ -112,11 +112,11 @@ class FC3_Firewall(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        
+
         if len(extra) != 0:
             mapping = {"command": "firewall", "options": extra}
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping)
-            
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+
         self._setToSelf(self.op, opts)
         return self
 
@@ -191,3 +191,46 @@ class F14_Firewall(F10_Firewall):
         op = F10_Firewall._getParser(self)
         op.remove_option("--telnet")
         return op
+
+class F20_Firewall(F14_Firewall):
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F14_Firewall.__init__(self, writePriority, *args, **kwargs)
+        self.remove_services = kwargs.get("remove_services", [])
+
+    def _getParser(self):
+        def remove_service_cb(option, opt_str, value, parser):
+            # python2.4 does not support action="append_const" that we were
+            # using for these options.  Instead, we have to fake it by
+            # appending whatever the option string is to the service list.
+            if not value:
+                parser.values.ensure_value(option.dest, []).append(opt_str[2:])
+                return
+
+            for p in value.split(","):
+                p = p.strip()
+                parser.values.ensure_value(option.dest, []).append(p)
+
+        op = F14_Firewall._getParser(self)
+        op.add_option("--remove-service", dest="remove_services",
+                      action="callback", callback=remove_service_cb,
+                      nargs=1, type="string")
+        return op
+
+    def __str__(self):
+        if self.enabled is None:
+            return ""
+
+        retval = F10_Firewall.__str__(self)
+        if self.enabled:
+            retval = retval.strip()
+
+            svcstr = ",".join(self.remove_services)
+            if len(svcstr) > 0:
+                svcstr = " --remove-service=" + svcstr
+            else:
+                svcstr = ""
+
+            return retval + "%s\n" % svcstr
+        else:
+            return retval

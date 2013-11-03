@@ -60,7 +60,7 @@ class RHEL3_Mouse(KickstartCommand):
         self._setToSelf(self.op, opts)
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse"))
 
         self.mouse = extra[0]
         return self

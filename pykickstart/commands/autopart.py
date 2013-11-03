@@ -44,7 +44,7 @@ class FC3_AutoPart(KickstartCommand):
 
     def parse(self, args):
         if len(args) > 0:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart"))
 
         self.autopart = True
         return self
@@ -150,6 +150,38 @@ class RHEL6_AutoPart(F12_AutoPart):
         op = F12_AutoPart._getParser(self)
         op.add_option("--cipher")
         return op
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F12_AutoPart.parse(self, args)
+
+        # Using autopart together with other partitioning command such as
+        # part/partition, raid, logvol or volgroup can lead to hard to debug
+        # behavior that might among other result into an unbootable system.
+        #
+        # Therefore if any of those commands is detected in the same kickstart
+        # together with autopart, an error is raised and installation is
+        # aborted.
+        conflicting_command = ""
+
+        # seen indicates that the corresponding
+        # command has been seen in kickstart
+        if self.handler.partition.seen:
+            conflicting_command = "part/partition"
+        elif self.handler.raid.seen:
+            conflicting_command = "raid"
+        elif self.handler.volgroup.seen:
+            conflicting_command = "volgroup"
+        elif self.handler.logvol.seen:
+            conflicting_command = "logvol"
+
+        if conflicting_command:
+            # allow for translation of the error message
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % \
+                         conflicting_command
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        return retval
+
 
 class F16_AutoPart(F12_AutoPart):
     removedKeywords = F12_AutoPart.removedKeywords
@@ -263,7 +295,39 @@ class F18_AutoPart(F17_AutoPart):
         op.add_option("--cipher")
         return op
 
+
 class F20_AutoPart(F18_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
         F18_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F18_AutoPart.parse(self, args)
+
+        # Using autopart together with other partitioning command such as
+        # part/partition, raid, logvol or volgroup can lead to hard to debug
+        # behavior that might among other result into an unbootable system.
+        #
+        # Therefore if any of those commands is detected in the same kickstart
+        # together with autopart, an error is raised and installation is
+        # aborted.
+        conflicting_command = ""
+
+        # seen indicates that the corresponding
+        # command has been seen in kickstart
+        if self.handler.partition.seen:
+            conflicting_command = "part/partition"
+        elif self.handler.raid.seen:
+            conflicting_command = "raid"
+        elif self.handler.volgroup.seen:
+            conflicting_command = "volgroup"
+        elif self.handler.logvol.seen:
+            conflicting_command = "logvol"
+
+        if conflicting_command:
+            # allow for translation of the error message
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % \
+                         conflicting_command
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        return retval

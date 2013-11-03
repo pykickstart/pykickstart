@@ -51,7 +51,7 @@ class F7_Updates(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates"))
         elif len(extra) == 0:
             self.url = "floppy"
         else:

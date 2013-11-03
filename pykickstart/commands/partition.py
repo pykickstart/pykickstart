@@ -297,7 +297,7 @@ class FC3_Partition(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
 
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
@@ -405,6 +405,16 @@ class RHEL6_Partition(F12_Partition):
                         default=False)
         return op
 
+    def parse(self, args):
+        # first call the overriden command
+        retval = F12_Partition.parse(self, args)
+        # the part command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The part/partition and autopart commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        return retval
+
 class F14_Partition(F12_Partition):
     removedKeywords = F12_Partition.removedKeywords
     removedAttrs = F12_Partition.removedAttrs
@@ -440,3 +450,14 @@ class F18_Partition(F17_Partition):
         op.add_option("--cipher")
 
         return op
+
+class F20_Partition(F18_Partition):
+    def parse(self, args):
+        # first call the overriden command
+        retval = F18_Partition.parse(self, args)
+        # the part command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The part/partition and autopart commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        return retval

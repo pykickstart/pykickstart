@@ -57,7 +57,7 @@ class RHEL5_Key(KickstartCommand):
         if self.skip:
             self.key = KS_INSTKEY_SKIP
         elif len(extra) != 1:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key"))
         else:
             self.key = extra[0]
 

@@ -66,6 +66,6 @@ class FC6_Services(KickstartCommand):
         self._setToSelf(self.op, opts)
 
         if len(self.disabled) == 0 and len(self.enabled) == 0:
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided."))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided.")))
 
         return self

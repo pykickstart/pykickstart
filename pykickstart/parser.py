@@ -85,20 +85,20 @@ def _preprocessStateMachine (lineIter):
         try:
             ksurl = ll.split(' ')[1]
         except:
-            raise KickstartParseError, formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll)
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll))
 
         try:
             url = grabber.urlopen(ksurl)
         except grabber.URLGrabError, e:
-            raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror)
+            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror))
         else:
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
             try:
                 if url.size < 1:
-                    raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
+                    raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file")))
             except:
-                raise KickstartError, formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file"))
+                raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file")))
 
         # If that worked, write the remote file to the output kickstart
         # file in one burst.  Then close everything up to get ready to
@@ -131,7 +131,7 @@ def preprocessKickstart (f):
     try:
         fh = urlopen(f)
     except grabber.URLGrabError, e:
-        raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
+        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
 
     rc = _preprocessStateMachine (iter(fh.readlines()))
     fh.close()
@@ -355,7 +355,7 @@ class Packages(KickstartObject):
         (opts, extra) = op.parse_args(args=line.split())
 
         if opts.nodefaults and opts.optional:
-            raise KickstartValueError, _("Group cannot specify both --nodefaults and --optional")
+            raise KickstartValueError(_("Group cannot specify both --nodefaults and --optional"))
 
         # If the group name has spaces in it, we have to put it back together
         # now.
@@ -491,10 +491,10 @@ class KickstartParser:
            handle it.
         """
         if not obj.sectionOpen:
-            raise TypeError, "no sectionOpen given for section %s" % obj
+            raise TypeError("no sectionOpen given for section %s" % obj)
 
         if not obj.sectionOpen.startswith("%"):
-            raise TypeError, "section %s tag does not start with a %%" % obj.sectionOpen
+            raise TypeError("section %s tag does not start with a %%" % obj.sectionOpen)
 
         self._sections[obj.sectionOpen] = obj
 
@@ -524,7 +524,7 @@ class KickstartParser:
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen)
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen))
 
                     self._finalize(obj)
             except StopIteration:
@@ -556,7 +556,7 @@ class KickstartParser:
                     break
                 elif args and args[0] == "%include":
                     if len(args) == 1 or not args[1]:
-                        raise KickstartParseError, formatErrorMsg(lineno)
+                        raise KickstartParseError(formatErrorMsg(lineno))
 
                     self._handleInclude(args[1])
                     continue
@@ -565,7 +565,7 @@ class KickstartParser:
                 elif args and self._validState(args[0]):
                     # This is an unterminated section.
                     if self.version >= version.F8:
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen)
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen))
 
                     # Finish up.  We do not process the header here because
                     # kicking back out to STATE_COMMANDS will ensure that happens.
@@ -643,7 +643,7 @@ class KickstartParser:
 
             if args[0] == "%include":
                 if len(args) == 1 or not args[1]:
-                    raise KickstartParseError, formatErrorMsg(lineno)
+                    raise KickstartParseError(formatErrorMsg(lineno))
 
                 self._handleInclude(args[1])
                 continue
@@ -658,7 +658,7 @@ class KickstartParser:
                     # here.
                     newSection = args[0]
                     if not self._validState(newSection):
-                        raise KickstartParseError, formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s" % newSection))
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s" % newSection)))
 
                     self._state = newSection
                     obj = self._sections[self._state]
@@ -712,7 +712,7 @@ class KickstartParser:
         try:
             s = urlread(f)
         except grabber.URLGrabError, e:
-            raise KickstartError, formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror)
+            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
 
         self.readKickstartFromString(s, reset=False)
 
