@@ -460,4 +460,11 @@ class F20_Partition(F18_Partition):
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
+        # when using tmpfs, grow is not suported
+        if retval.fstype == "tmpfs":
+            if retval.grow or retval.maxSizeMB != 0:
+                errorMsg = _("The --fstype=tmpfs option can't be used together with --grow or --maxsize")
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg)) 
+
         return retval
