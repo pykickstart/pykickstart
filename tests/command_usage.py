@@ -52,3 +52,19 @@ logvol / --vgname=foo --size=2000 --name=bar
 volgroup foo pv.01
 """
         self.assert_parse_error(long_incorrect_sequence)
+
+
+class TmpfsUsage_TestCase(CommandSequenceTest):
+    """Test tmpfs usage with the partition command"""
+
+    def runTest(self):
+        # the tmpfs filesystem supports the size and fsopt options
+        self.assert_parse('part /foo --size=100 --fstype=tmpfs --fsoptions="noexec"')
+        self.assert_parse('part /ham --fstype=tmpfs --fsoptions="size=250%"')
+        self.assert_parse('part /tmp --size=20000 --fstype=tmpfs')
+
+        # the tmpfs filesystem dos not support the --grow and --maxsize
+        # options
+        self.assert_parse_error("part --fstype=tmpfs /tmp --grow")
+        self.assert_parse_error("part --fstype=tmpfs /tmp --grow --maxsize=1000")
+        self.assert_parse_error("part --fstype=tmpfs /tmp --maxsize=1000")
