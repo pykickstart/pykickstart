@@ -115,6 +115,8 @@ class F17_TestCase(F16_TestCase):
         # pass
         self.assert_parse("autopart --type=plain",
                           "autopart --type=plain\n")
+        self.assert_parse("autopart --type=partition",
+                          "autopart --type=plain\n")
         self.assert_parse("autopart --type=lvm",
                           "autopart --type=lvm\n")
         self.assert_parse("autopart --type=btrfs",
