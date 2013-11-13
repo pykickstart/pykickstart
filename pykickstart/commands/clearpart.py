@@ -41,25 +41,25 @@ class FC3_ClearPart(KickstartCommand):
             return retval
 
         if self.type == CLEARPART_TYPE_NONE:
-            clearstr = "--none"
+            clearstr = " --none"
         elif self.type == CLEARPART_TYPE_LINUX:
-            clearstr = "--linux"
+            clearstr = " --linux"
         elif self.type == CLEARPART_TYPE_ALL:
-            clearstr = "--all"
+            clearstr = " --all"
         else:
             clearstr = ""
 
         if self.initAll:
-            initstr = "--initlabel"
+            initstr = " --initlabel"
         else:
             initstr = ""
 
         if len(self.drives) > 0:
-            drivestr = "--drives=" + ",".join(self.drives)
+            drivestr = " --drives=" + ",".join(self.drives)
         else:
             drivestr = ""
 
-        retval += "# Partition clearing information\nclearpart %s %s %s\n" % (clearstr, initstr, drivestr)
+        retval += "# Partition clearing information\nclearpart%s%s%s\n" % (clearstr, initstr, drivestr)
         return retval
 
     def _getParser(self):

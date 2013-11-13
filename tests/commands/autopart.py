@@ -27,7 +27,7 @@ class FC3_TestCase(CommandTest):
 
     def runTest(self):
         # pass
-        self.assert_parse("autopart")
+        self.assert_parse("autopart", "autopart\n")
 
         # fail - on FC3, autopart  took no options so this raises a different
         # exception than later releases.

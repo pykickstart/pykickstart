@@ -26,5 +26,9 @@ class FC3_TestCase(CommandTest):
         # pass
         self.assert_parse("cdrom", "cdrom\n")
 
+        # fail
+        self.assert_parse_error("cdrom --some-arg")
+        self.assert_parse_error("cdrom somextracrud")
+
 if __name__ == "__main__":
     unittest.main()

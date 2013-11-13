@@ -50,6 +50,7 @@ class F11_TestCase(FC3_TestCase):
         # fail
         # --root-device requires argument
         self.assert_parse_error("upgrade --root-device", KickstartParseError)
+        self.assert_parse_error("upgrade --root-device=\"\"", KickstartValueError)
         # unknown option
         self.assert_parse_error("upgrade --bad-flag", KickstartParseError)
 

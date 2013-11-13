@@ -32,6 +32,9 @@ class StringToVersion_TestCase(CommandTest):
         self.assertRaises(KickstartVersionError, stringToVersion, "F1111")
         self.assertRaises(KickstartVersionError, stringToVersion, "F 11")
 
+        # fail - doesn't exist
+        self.assertRaises(KickstartVersionError, stringToVersion, "Red hat Enterprise Linux 1")
+
         # pass - FC3
         self.assertEqual(stringToVersion("Fedora Core 3"), FC3)
         self.assertEqual(stringToVersion("FC3"), FC3)
@@ -180,6 +183,9 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(RHEL5), "RHEL5")
         self.assertEqual(versionToString(RHEL6), "RHEL6")
         self.assertEqual(versionToString(RHEL7), "RHEL7")
+
+        # fail
+        self.assertRaises(KickstartVersionError, versionToString, 47)
 
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):

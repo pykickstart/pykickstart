@@ -23,9 +23,12 @@ class F19_TestCase(FC3_TestCase):
 
         # pass
         self.assert_parse("lang en_US")
-        self.assert_parse("lang en_US --addsupport=cs_CZ")
-        self.assert_parse("lang en_US --addsupport=sr_RS.UTF-8@latin")
-        self.assert_parse("lang en_US --addsupport=cs_CZ,fr_FR")
+        self.assert_parse("lang en_US --addsupport=cs_CZ",
+                          "lang en_US --addsupport=cs_CZ\n")
+        self.assert_parse("lang en_US --addsupport=sr_RS.UTF-8@latin",
+                          "lang en_US --addsupport=sr_RS.UTF-8@latin\n")
+        self.assert_parse("lang en_US --addsupport=cs_CZ,fr_FR",
+                          "lang en_US --addsupport=cs_CZ,fr_FR\n")
 
         # fail
         # Fail if less than or more than one argument is specified

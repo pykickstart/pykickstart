@@ -40,18 +40,25 @@ class F18_TestCase(FC3_TestCase):
 
     def runTest(self):
         # pass
-        self.assert_parse("keyboard us")
-        self.assert_parse("keyboard --vckeymap=us")
-        self.assert_parse("keyboard --vckeymap=us sk")
-        self.assert_parse("keyboard --xlayouts='cz (qwerty)'")
-        self.assert_parse("keyboard --xlayouts=cz,'cz (qwerty)'")
+        self.assert_parse("keyboard us",
+                          "keyboard 'us'\n")
+        self.assert_parse("keyboard --vckeymap=us",
+                          "keyboard --vckeymap=us\n")
+        # This is tedious - I'm only going to check it once.
+        self.assert_parse("keyboard --vckeymap=us sk",
+                          "# old format: keyboard sk\n# new format:\nkeyboard --vckeymap=us\n")
+        self.assert_parse("keyboard --xlayouts='cz (qwerty)'",
+                          "keyboard --xlayouts='cz (qwerty)'\n")
+        self.assert_parse("keyboard --xlayouts=cz,'cz (qwerty)'",
+                          "keyboard --xlayouts='cz','cz (qwerty)'\n")
         self.assert_parse("keyboard --xlayouts=cz sk")
-        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz",
+                          "keyboard --vckeymap=us --xlayouts='cz'\n")
         self.assert_parse("keyboard --vckeymap=us --xlayouts=cz,'cz (qwerty)' sk")
-        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz "
-                          "--switch=grp:alt_shift_toggle")
-        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz "
-                          "--switch=grp:alt_shift_toggle,grp:switch")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz --switch=grp:alt_shift_toggle",
+                          "keyboard --vckeymap=us --xlayouts='cz' --switch='grp:alt_shift_toggle'\n")
+        self.assert_parse("keyboard --vckeymap=us --xlayouts=cz --switch=grp:alt_shift_toggle,grp:switch",
+                          "keyboard --vckeymap=us --xlayouts='cz' --switch='grp:alt_shift_toggle','grp:switch'\n")
 
         # fail
         self.assert_parse_error("keyboard", KickstartValueError)

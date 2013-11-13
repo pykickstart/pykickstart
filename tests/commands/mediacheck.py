@@ -33,7 +33,7 @@ class FC4_TestCase(CommandTest):
         # fail
         self.assert_parse_error("mediacheck --cheese", KickstartParseError)
         self.assert_parse_error("mediacheck --crackers=CRUNCHY", KickstartParseError)
-
+        self.assert_parse_error("mediacheck cheese crackers", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()

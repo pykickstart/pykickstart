@@ -58,10 +58,12 @@ class F18_TestCase(FC6_TestCase):
         self.assert_parse("timezone --isUtc Europe/Prague\n")
         self.assert_parse("timezone --isUtc Eastern", "timezone Eastern --isUtc\n")
         self.assert_parse("timezone Europe/Prague")
-        self.assert_parse("timezone Europe/Prague --nontp")
+        self.assert_parse("timezone Europe/Prague --nontp",
+                          "timezone Europe/Prague --nontp\n")
         self.assert_parse("timezone Europe/Prague "\
                           "--ntpservers=ntp.cesnet.cz,tik.nic.cz")
-        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz,")
+        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz,",
+                          "timezone Europe/Prague --ntpservers=ntp.cesnet.cz\n")
 
         # fail
         self.assert_parse_error("timezone", KickstartValueError)

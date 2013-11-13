@@ -93,7 +93,7 @@ class F11_Upgrade(FC3_Upgrade):
         if len(extra) > 0:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade"))
 
-        if (opts.root_device is not None) and (opts.root_device == ""):
+        if opts.root_device == "":
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not accept empty parameter %s") % ("upgrade", "--root-device")))
         else:
             self.root_device = opts.root_device

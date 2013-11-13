@@ -55,6 +55,7 @@ class FC3_TestCase(CommandTest):
 
         if "--useLilo" in self.optionList:
             self.assert_parse("bootloader --useLilo", "bootloader %s--location=mbr --useLilo\n" % linear)
+            self.assert_parse("lilo")
 
         # fail
         self.assert_parse_error("bootloader --append", KickstartParseError)
@@ -116,9 +117,12 @@ class F17_TestCase(F15_TestCase):
         # run parent tests
         F15_TestCase.runTest(self, iscrypted=iscrypted)
 
-        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/sda")
-        self.assert_parse("bootloader --location=mbr --boot-drive=sda")
-        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0")
+        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/sda",
+                          "bootloader --location=mbr --boot-drive=/dev/sda\n")
+        self.assert_parse("bootloader --location=mbr --boot-drive=sda",
+                          "bootloader --location=mbr --boot-drive=sda\n")
+        self.assert_parse("bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0",
+                          "bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0\n")
 
 class F18_TestCase(F17_TestCase):
     def runTest(self, iscrypted=False):
@@ -126,7 +130,8 @@ class F18_TestCase(F17_TestCase):
         F17_TestCase.runTest(self, iscrypted=iscrypted)
 
         self.assert_parse("bootloader --location=mbr --timeout=5 --append=\"rhgb quiet\"")
-        self.assert_parse("bootloader --location=mbr --timeout=5 --leavebootorder --append=\"rhgb quiet\"")
+        self.assert_parse("bootloader --location=mbr --timeout=5 --leavebootorder --append=\"rhgb quiet\"",
+                          "bootloader --append=\"rhgb quiet\" --location=mbr --timeout=5 --leavebootorder\n")
 
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self, iscrypted=False):
@@ -153,7 +158,8 @@ class F19_TestCase(F18_TestCase):
         F18_TestCase.runTest(self, iscrypted=iscrypted)
 
         self.assert_parse("bootloader --location=mbr --timeout=5 --append=\"rhgb quiet\"")
-        self.assert_parse("bootloader --location=mbr --timeout=5 --extlinux --append=\"rhgb quiet\"")
+        self.assert_parse("bootloader --location=mbr --timeout=5 --extlinux --append=\"rhgb quiet\"",
+                          "bootloader --append=\"rhgb quiet\" --location=mbr --timeout=5 --extlinux\n")
 
 
 if __name__ == "__main__":

@@ -71,7 +71,7 @@ class F18_Keyboard(FC3_Keyboard):
 
         retval = "# Keyboard layouts\n"
         if not self.vc_keymap and not self.x_layouts:
-            retval += "keyboard '%s'" % self._keyboard
+            retval += "keyboard '%s'\n" % self._keyboard
             return retval
 
         if self._keyboard:
