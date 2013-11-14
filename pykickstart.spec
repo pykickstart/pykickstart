@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.45
+Version: 1.99.46
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -50,6 +50,13 @@ rm -rf %{buildroot}
 %{_mandir}/man1/*
 
 %changelog
+* Thu Nov 14 2013 Chris Lumens <clumens@redhat.com> - 1.99.46-1
+- Add support for network team devices (#1003591) (rvykydal)
+- Work on test coverage a little bit. (clumens)
+- Don't use OrderedDict. (clumens)
+- Add tests for tmpfs usage (mkolman)
+- Add tmpfs support (#918621) (mkolman)
+
 * Fri Nov 01 2013 Chris Lumens <clumens@redhat.com> - 1.99.45-1
 - Set bootloader location constructor default value to "none" (#916529) (amulhern)
 
