@@ -124,6 +124,8 @@ class F17_TestCase(F15_TestCase):
         self.assert_parse("bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0",
                           "bootloader --location=mbr --boot-drive=/dev/disk/by-path/pci-0000:00:0e.0-scsi-0:0:0:0\n")
 
+        self.assert_parse_error("bootloader --location=mbr --boot-drive=sda,sdb", KickstartValueError)
+
 class F18_TestCase(F17_TestCase):
     def runTest(self, iscrypted=False):
         # run parent tests

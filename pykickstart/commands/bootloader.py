@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007-2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -18,7 +18,11 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import *
+from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class FC3_Bootloader(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -236,6 +240,15 @@ class F17_Bootloader(F15_Bootloader):
         op = F15_Bootloader._getParser(self)
         op.add_option("--boot-drive", dest="bootDrive", default="")
         return op
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+
+        if "," in opts.bootDrive:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))
+
+        self._setToSelf(self.op, opts)
+        return self
 
 class F18_Bootloader(F17_Bootloader):
     removedKeywords = F17_Bootloader.removedKeywords
