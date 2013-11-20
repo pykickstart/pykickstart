@@ -69,9 +69,14 @@ class FC3_RaidData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "raid %s%s %s\n" % (self.mountpoint, self._getArgsAsStr(),
-                                      " ".join(self.members))
-        return retval
+        retval += "raid %s%s" % (self.mountpoint, self._getArgsAsStr())
+
+        # Do not output the members list if --preexist was passed in.
+        # This would be invalid input according to the parse method.
+        if not self.preexist:
+            retval += " " + " ".join(self.members)
+
+        return retval.strip() + "\n"
 
 class FC4_RaidData(FC3_RaidData):
     removedKeywords = FC3_RaidData.removedKeywords

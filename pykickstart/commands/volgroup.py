@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007, 2012 Red Hat, Inc.
+# Copyright 2005, 2006, 2007, 2012, 2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -61,7 +61,11 @@ class FC3_VolGroupData(BaseData):
         retval = BaseData.__str__(self)
         retval += "volgroup %s" % self.vgname
         retval += self._getArgsAsStr()
-        retval += " " + " ".join(self.physvols)
+
+        # Do not output the physical volumes list if --preexist was passed in.
+        # This would be invalid input according to the parse method.
+        if not self.preexist:
+            retval += " " + " ".join(self.physvols)
 
         return retval.strip() + "\n"
 
@@ -161,28 +165,28 @@ class FC16_VolGroup(FC3_VolGroup):
                       dest="reserved_percent", type="int", nargs=1, default=0)
         return op
 
-
 class RHEL6_VolGroup(FC3_VolGroup):
-
     def parse(self, args):
         # first call the overriden method
         retval = FC3_VolGroup.parse(self, args)
+
         # the volgroup command can't be used together with the autopart command
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
         return retval
 
-
 class F20_VolGroup(FC16_VolGroup):
-
     def parse(self, args):
         # first call the overriden method
         retval = FC16_VolGroup.parse(self, args)
+
         # the volgroup command can't be used together with the autopart command
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
         return retval
