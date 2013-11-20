@@ -38,6 +38,9 @@ make DESTDIR=%{buildroot} install
 %clean
 rm -rf %{buildroot}
 
+%check
+make test
+
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc README ChangeLog COPYING docs/programmers-guide
