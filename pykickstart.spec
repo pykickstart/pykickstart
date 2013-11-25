@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.46
+Version: 1.99.47
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -53,6 +53,14 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.47-1
+- Add missing version bumps for RHEL7 command control map (#1032738) (mkolman)
+- Run "make test" as part of the RPM build process (#1025226). (clumens)
+- Include test cases in the source distribution. (clumens)
+- With the previous patch, RAID test formatting needs to change. (clumens)
+- Do not add a list of PVs or RAID members when writing out --useexisting (#1021274). (clumens)
+- Raise an error if bootloader --boot-drive gets more than one argument. (clumens)
+
 * Thu Nov 14 2013 Chris Lumens <clumens@redhat.com> - 1.99.46-1
 - Add support for network team devices (#1003591) (rvykydal)
 - Work on test coverage a little bit. (clumens)
