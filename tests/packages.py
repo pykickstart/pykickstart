@@ -4,8 +4,14 @@ from tests.baseclass import *
 
 from pykickstart.errors import *
 from pykickstart.parser import Packages
+from pykickstart.version import DEVEL, returnClassForVersion
 
-class AddGlobs_TestCase(CommandTest):
+class DevelPackagesBase(CommandTest):
+    @property
+    def handler(self):
+        return returnClassForVersion(DEVEL)
+
+class AddGlobs_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["vim-*"])
@@ -17,7 +23,7 @@ vim-*
 
 %end""", strip(str(pkgs)))
 
-class AddGroups_TestCase(CommandTest):
+class AddGroups_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["@GroupA"])
@@ -48,7 +54,7 @@ class AddGroups_TestCase(CommandTest):
 
         self.assertRaises(KickstartValueError, pkgs.add, ["@group-b --optional --nodefaults"])
 
-class AddPackages_TestCase(CommandTest):
+class AddPackages_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["packageA"])
@@ -62,7 +68,7 @@ packageC
 
 %end""", strip(str(pkgs)))
 
-class ExcludeGlobs_TestCase(CommandTest):
+class ExcludeGlobs_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["-kde*"])
@@ -76,7 +82,7 @@ class ExcludeGlobs_TestCase(CommandTest):
 
 %end""", strip(str(pkgs)))
 
-class ExcludeGroups_TestCase(CommandTest):
+class ExcludeGroups_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["-@Conflicts"])
@@ -88,7 +94,7 @@ class ExcludeGroups_TestCase(CommandTest):
 
 %end""", strip(str(pkgs)))
 
-class ExcludePackage_TestCase(CommandTest):
+class ExcludePackage_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["-enlightenment"])
@@ -102,7 +108,7 @@ class ExcludePackage_TestCase(CommandTest):
 
 %end""", strip(str(pkgs)))
 
-class Mixed1_TestCase(CommandTest):
+class Mixed1_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["@group-a"])
@@ -115,7 +121,7 @@ class Mixed1_TestCase(CommandTest):
 
 %end""", strip(str(pkgs)))
 
-class Mixed2_TestCase(CommandTest):
+class Mixed2_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["vim-enhanced"])
@@ -128,7 +134,7 @@ package-b
 
 %end""", strip(str(pkgs)))
 
-class Mixed3_TestCase(CommandTest):
+class Mixed3_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.add(["vim-enhanced"])
@@ -142,7 +148,7 @@ vim-enhanced
 
 %end""", strip(str(pkgs)))
 
-class MultiLib_TestCase(CommandTest):
+class MultiLib_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
         pkgs.default = True
