@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.47
+Version: 1.99.48
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.48-1
+- Specify a kickstart version when running package-related tests. (clumens)
+- We need python-urlgrabber to do builds now. (clumens)
+
 * Mon Nov 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.47-1
 - Add missing version bumps for RHEL7 command control map (#1032738) (mkolman)
 - Run "make test" as part of the RPM build process (#1025226). (clumens)
