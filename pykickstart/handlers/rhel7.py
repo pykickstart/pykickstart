@@ -84,7 +84,7 @@ class RHEL7Handler(BaseHandler):
         "upgrade": commands.upgrade.F20_Upgrade,
         "url": commands.url.F18_Url,
         "user": commands.user.F19_User,
-        "vnc": commands.vnc.F9_Vnc,
+        "vnc": commands.vnc.RHEL7_Vnc,
         "volgroup": commands.volgroup.RHEL7_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
