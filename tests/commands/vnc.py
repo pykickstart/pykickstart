@@ -57,5 +57,12 @@ class F9_TestCase(FC6_TestCase):
         self.assert_parse_error("vnc --connect")
         self.assert_parse_error("vnc --password")
 
+class RHEL7_TestCase(F9_TestCase):
+    def runTest(self):
+        F9_TestCase.runTest(self)
+        # should fail with passwords not from 6 to 8 characters long
+        self.assert_parse_error("vnc --password=12345", KickstartValueError)
+        self.assert_parse_error("vnc --password=123456789", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

@@ -21,6 +21,9 @@ from pykickstart.base import *
 from pykickstart.errors import *
 from pykickstart.options import *
 
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 class FC3_Vnc(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -112,3 +115,13 @@ class F9_Vnc(FC6_Vnc):
         op = FC6_Vnc._getParser(self)
         op.remove_option("--connect")
         return op
+
+class RHEL7_Vnc(F9_Vnc):
+    def parse(self, args):
+        F9_Vnc.parse(self, args)
+
+        if self.password and not 5 < len(self.password) < 9:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                                                     msg=_("VNC password must be six to eight characters long")))
+
+        return self

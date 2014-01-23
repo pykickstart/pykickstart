@@ -1370,7 +1370,7 @@ commandMap = {
         "upgrade": upgrade.F20_Upgrade,
         "url": url.F18_Url,
         "user": user.F19_User,
-        "vnc": vnc.F9_Vnc,
+        "vnc": vnc.RHEL7_Vnc,
         "volgroup": volgroup.F20_VolGroup,
         "xconfig": xconfig.F14_XConfig,
         "zerombr": zerombr.F9_ZeroMbr,
