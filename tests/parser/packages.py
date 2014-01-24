@@ -34,7 +34,7 @@ bash
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 1)
-            self.assertIn("deprecated", str(w[-1].message))
+            self.assertIsInstance(w[-1].message, DeprecationWarning)
 
 class Packages_Contains_Nobase_2_TestCase(ParserTest):
     version = RHEL6
