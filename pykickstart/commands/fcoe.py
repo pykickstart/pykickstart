@@ -70,6 +70,22 @@ class F13_FcoeData(F12_FcoeData):
 
         return retval
 
+class RHEL7_FcoeData(F13_FcoeData):
+    removedKeywords = F13_FcoeData.removedKeywords
+    removedAttrs = F13_FcoeData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_FcoeData.__init__(self, *args, **kwargs)
+        self.autovlan = kwargs.get("autovlan", False)
+
+    def _getArgsAsStr(self):
+        retval = F13_FcoeData._getArgsAsStr(self)
+
+        if self.autovlan:
+            retval += " --autovlan"
+
+        return retval
+
 class F12_Fcoe(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -117,4 +133,13 @@ class F13_Fcoe(F12_Fcoe):
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
         op.add_option("--dcb", dest="dcb", action="store_true", default=False)
+        return op
+
+class RHEL7_Fcoe(F13_Fcoe):
+    removedKeywords = F13_Fcoe.removedKeywords
+    removedAttrs = F13_Fcoe.removedAttrs
+
+    def _getParser(self):
+        op = F13_Fcoe._getParser(self)
+        op.add_option("--autovlan", dest="autovlan", action="store_true", default=False)
         return op
