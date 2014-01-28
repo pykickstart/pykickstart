@@ -1722,7 +1722,7 @@ dataMap = {
         "FcoeData": fcoe.F13_FcoeData,
         "GroupData": group.F12_GroupData,
         "IscsiData": iscsi.F17_IscsiData,
-        "LogVolData": logvol.F18_LogVolData,
+        "LogVolData": logvol.F20_LogVolData,
         "MultiPathData": multipath.FC6_MultiPathData,
         "NetworkData": network.F20_NetworkData,
         "PartData": partition.F18_PartData,
