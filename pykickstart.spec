@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43.5
+Version: 1.99.43.6
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -53,6 +53,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 29 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.6-1
+- Run "make test" as part of the RPM build process (#1025226). (clumens)
+- Use the correct LogVolData object (#1058520). (clumens)
+
 * Mon Jan 27 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.5-1
 - Check VNC password length (#1056939) (vpodzime)
 - Don't do string comparisons in "make test" (#1057573). (clumens)
