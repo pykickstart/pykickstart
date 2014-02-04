@@ -51,5 +51,61 @@ bash
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
 
+class Packages_Contains_Environment_1_TestCase(ParserTest):
+    ks = """
+%packages
+@^whatever-environment
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(self.handler.packages.environment, "whatever-environment")
+
+class Packages_Contains_Environment_2_TestCase(ParserTest):
+    ks = """
+%packages
+@^whatever-environment
+@^another-environment
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(self.handler.packages.environment, "another-environment")
+
+class Packages_Contains_Environment_3_TestCase(ParserTest):
+    ks = """
+%packages
+@^whatever-environment
+-@^another-environment
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(self.handler.packages.environment, "whatever-environment")
+
+class Packages_Contains_Environment_4_TestCase(ParserTest):
+    ks = """
+%packages
+@^whatever-environment
+-@^whatever-environment
+@^another-environment
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(self.handler.packages.environment, "another-environment")
+
 if __name__ == "__main__":
     unittest.main()

@@ -263,6 +263,8 @@ class Packages(KickstartObject):
            addBase       -- Should the Base group be installed even if it is
                             not specified?
            default       -- Should the default package set be selected?
+           environment   -- What base environment should be selected?  Only one
+                            may be chosen at a time.
            excludedList  -- A list of all the packages marked for exclusion in
                             the %packages section, without the leading minus
                             symbol.
@@ -289,6 +291,7 @@ class Packages(KickstartObject):
 
         self.addBase = True
         self.default = False
+        self.environment = None
         self.excludedList = []
         self.excludedGroupList = []
         self.excludeDocs = False
@@ -304,6 +307,9 @@ class Packages(KickstartObject):
         pkgs = ""
 
         if not self.default:
+            if self.environment:
+                pkgs += "@^%s" % self.environment
+
             grps = self.groupList
             grps.sort()
             for grp in grps:
@@ -382,10 +388,14 @@ class Packages(KickstartObject):
         for pkg in pkgList:
             stripped = pkg.strip()
 
-            if stripped[0] == "@":
+            if stripped[0:2] == "@^":
+                self.environment = stripped[2:]
+            elif stripped[0] == "@":
                 self._processGroup(stripped[1:])
             elif stripped[0] == "-":
-                if stripped[1] == "@":
+                if stripped[1:3] == "@^" and self.environment == stripped[3:]:
+                    self.environment = None
+                elif stripped[1] == "@":
                     excludedGroupList.append(Group(name=stripped[2:]))
                 else:
                     newExcludedSet.add(stripped[1:])
