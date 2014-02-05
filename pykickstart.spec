@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.48
+Version: 1.99.49
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,11 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 05 2014 Chris Lumens <clumens@redhat.com> - 1.99.49-1
+- Provide syntax for specifying environments (#1061296). (clumens)
+- Use the correct LogVolData object (#1058520). (clumens)
+- Don't do string comparisons in "make test" (#1057573). (clumens)
+
 * Mon Nov 25 2013 Chris Lumens <clumens@redhat.com> - 1.99.48-1
 - Specify a kickstart version when running package-related tests. (clumens)
 - We need python-urlgrabber to do builds now. (clumens)
