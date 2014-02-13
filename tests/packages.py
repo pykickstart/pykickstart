@@ -54,6 +54,20 @@ class AddGroups_TestCase(DevelPackagesBase):
 
         self.assertRaises(KickstartValueError, pkgs.add, ["@group-b --optional --nodefaults"])
 
+class AddGroupsAndEnvironment_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.add(["@^EnvironmentA"])
+        pkgs.add(["@GroupB"])
+        pkgs.add(["packageC"])
+
+        self.assertEqual("""%packages
+@^EnvironmentA
+@GroupB
+packageC
+
+%end""", strip(str(pkgs)))
+
 class AddPackages_TestCase(DevelPackagesBase):
     def runTest(self):
         pkgs = Packages()
