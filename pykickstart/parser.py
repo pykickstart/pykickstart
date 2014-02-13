@@ -308,7 +308,7 @@ class Packages(KickstartObject):
 
         if not self.default:
             if self.environment:
-                pkgs += "@^%s" % self.environment
+                pkgs += "@^%s\n" % self.environment
 
             grps = self.groupList
             grps.sort()
