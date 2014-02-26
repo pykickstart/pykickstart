@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43.9
+Version: 1.99.43.10
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 26 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.10-1
+- Add network --interfacename option for vlans (#1061646) (rvykydal)
+
 * Thu Feb 13 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.9-1
 - Fix an error on the printing side of handling environments. (clumens)
 
