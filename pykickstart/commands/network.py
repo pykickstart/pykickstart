@@ -272,11 +272,11 @@ class RHEL7_NetworkData(F20_NetworkData):
         self.interfacename = kwargs.get("interfacename", "")
 
     def _getArgsAsStr(self):
-       retval = F20_NetworkData._getArgsAsStr(self)
-       if self.interfacename:
-           retval += " --interfacename=%s" % self.interfacename
+        retval = F20_NetworkData._getArgsAsStr(self)
+        if self.interfacename:
+            retval += " --interfacename=%s" % self.interfacename
 
-       return retval
+        return retval
 
 class FC3_Network(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
