@@ -62,6 +62,7 @@ class F21Handler(BaseHandler):
         "multipath": commands.multipath.FC6_MultiPath,
         "network": commands.network.F21_Network,
         "nfs": commands.nfs.FC6_NFS,
+        "ostreesetup": commands.ostreesetup.F21_OSTreeSetup,
         "part": commands.partition.F20_Partition,
         "partition": commands.partition.F20_Partition,
         "poweroff": commands.reboot.F18_Reboot,
