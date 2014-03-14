@@ -364,3 +364,24 @@ class F21_Bootloader(F19_Bootloader):
         op.add_option("--disabled", dest="disabled", action="store_true",
                       default=False)
         return op
+
+class RHEL7_Bootloader(F19_Bootloader):
+    removedKeywords = F19_Bootloader.removedKeywords
+    removedAttrs = F19_Bootloader.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F19_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.disabled = kwargs.get("disabled", False)
+
+    def _getArgsAsStr(self):
+        if self.disabled:
+            return " --disabled"
+        else:
+            return F19_Bootloader._getArgsAsStr(self)
+
+    def _getParser(self):
+        op = F19_Bootloader._getParser(self)
+        op.add_option("--disabled", dest="disabled", action="store_true",
+                      default=False)
+        return op

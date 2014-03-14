@@ -31,7 +31,7 @@ class RHEL7Handler(BaseHandler):
         "authconfig": commands.authconfig.FC3_Authconfig,
         "autopart": commands.autopart.F20_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
-        "bootloader": commands.bootloader.F19_Bootloader,
+        "bootloader": commands.bootloader.RHEL7_Bootloader,
         "btrfs": commands.btrfs.F17_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
         "clearpart": commands.clearpart.F17_ClearPart,
