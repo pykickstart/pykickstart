@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2009 Red Hat, Inc.
+# Copyright 2009-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -154,6 +154,14 @@ class F19_TestCase(F18_TestCase):
 
         self.assert_parse("bootloader --location=mbr --timeout=5 --append=\"rhgb quiet\"")
         self.assert_parse("bootloader --location=mbr --timeout=5 --extlinux --append=\"rhgb quiet\"")
+
+class RHEL7_TestCase(F19_TestCase):
+    def runTest(self, iscrypted=False):
+        # run parent tests
+        F19_TestCase.runTest(self, iscrypted=iscrypted)
+
+        self.assert_parse("bootloader --disabled", "bootloader --disabled\n")
+        self.assert_parse("bootloader --location=mbr --disabled", "bootloader --disabled\n")
 
 
 if __name__ == "__main__":

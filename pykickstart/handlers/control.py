@@ -1029,7 +1029,7 @@ commandMap = {
         "authconfig": authconfig.FC3_Authconfig,
         "autopart": autopart.F20_AutoPart,
         "autostep": autostep.FC3_AutoStep,
-        "bootloader": bootloader.F19_Bootloader,
+        "bootloader": bootloader.RHEL7_Bootloader,
         "btrfs": btrfs.F17_BTRFS,
         "cdrom": cdrom.FC3_Cdrom,
         "clearpart": clearpart.F17_ClearPart,
