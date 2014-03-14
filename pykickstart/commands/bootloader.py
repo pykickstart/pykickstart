@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007-2013 Red Hat, Inc.
+# Copyright 2007-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -341,5 +341,26 @@ class F19_Bootloader(F18_Bootloader):
     def _getParser(self):
         op = F18_Bootloader._getParser(self)
         op.add_option("--extlinux", dest="extlinux", action="store_true",
+                      default=False)
+        return op
+
+class F21_Bootloader(F19_Bootloader):
+    removedKeywords = F19_Bootloader.removedKeywords
+    removedAttrs = F19_Bootloader.removedAttrs
+
+    def __init__(self, writePriority=10, *args, **kwargs):
+        F19_Bootloader.__init__(self, writePriority, *args, **kwargs)
+
+        self.disabled = kwargs.get("disabled", False)
+
+    def _getArgsAsStr(self):
+        if self.disabled:
+            return " --disabled"
+        else:
+            return F19_Bootloader._getArgsAsStr(self)
+
+    def _getParser(self):
+        op = F19_Bootloader._getParser(self)
+        op.add_option("--disabled", dest="disabled", action="store_true",
                       default=False)
         return op
