@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.49
+Version: 1.99.50
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,12 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Mar 17 2014 Chris Lumens <clumens@redhat.com> - 1.99.50-1
+- Add a new bootloader --disabled option (#1074522). (clumens)
+- Add support for F21. (clumens)
+- Fix an error on the printing side of handling environments. (clumens)
+- Add support for fcoe --autovlan option (#1055779) (rvykydal)
+
 * Wed Feb 05 2014 Chris Lumens <clumens@redhat.com> - 1.99.49-1
 - Provide syntax for specifying environments (#1061296). (clumens)
 - Use the correct LogVolData object (#1058520). (clumens)
