@@ -218,6 +218,21 @@ class F20_NetworkData(F19_NetworkData):
             retval += ' --teamconfig="%s"' % self.teamconfig.replace('"', r'\"')
         return retval
 
+class F21_NetworkData(F20_NetworkData):
+    removedKeywords = F20_NetworkData.removedKeywords
+    removedAttrs = F20_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F20_NetworkData.__init__(self, *args, **kwargs)
+        self.interfacename = kwargs.get("interfacename", "")
+
+    def _getArgsAsStr(self):
+       retval = F20_NetworkData._getArgsAsStr(self)
+       if self.interfacename:
+           retval += " --interfacename=%s" % self.interfacename
+
+       return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -262,6 +277,21 @@ class RHEL6_NetworkData(F8_NetworkData):
 
 
         return retval
+
+class RHEL7_NetworkData(F20_NetworkData):
+    removedKeywords = F20_NetworkData.removedKeywords
+    removedAttrs = F20_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F20_NetworkData.__init__(self, *args, **kwargs)
+        self.interfacename = kwargs.get("interfacename", "")
+
+    def _getArgsAsStr(self):
+       retval = F20_NetworkData._getArgsAsStr(self)
+       if self.interfacename:
+           retval += " --interfacename=%s" % self.interfacename
+
+       return retval
 
 class FC3_Network(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -458,6 +488,13 @@ class F20_Network(F19_Network):
                 default="")
         return op
 
+class F21_Network(F20_Network):
+    def _getParser(self):
+        op = F20_Network._getParser(self)
+        op.add_option("--interfacename", dest="interfacename", action="store",
+                default="")
+        return op
+
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
@@ -500,4 +537,11 @@ class RHEL6_Network(F9_Network):
         op.add_option("--vlanid", dest="vlanid")
         op.add_option("--bondslaves", dest="bondslaves")
         op.add_option("--bondopts", dest="bondopts")
+        return op
+
+class RHEL7_Network(F20_Network):
+    def _getParser(self):
+        op = F20_Network._getParser(self)
+        op.add_option("--interfacename", dest="interfacename", action="store",
+                default="")
         return op
