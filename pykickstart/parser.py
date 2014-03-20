@@ -34,9 +34,7 @@ This module exports several important classes:
 from collections import Iterator
 import os
 import shlex
-import sys
 import tempfile
-from copy import copy
 from optparse import OptionParser
 from urlgrabber import urlread
 import urlgrabber.grabber as grabber
