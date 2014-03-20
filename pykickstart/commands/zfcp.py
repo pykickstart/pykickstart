@@ -102,7 +102,7 @@ class FC3_ZFCP(KickstartCommand):
 
     def parse(self, args):
         zd = self.handler.ZFCPData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, zd)
         zd.lineno = self.lineno
 

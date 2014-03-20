@@ -78,7 +78,7 @@ class F12_Group(KickstartCommand):
 
     def parse(self, args):
         gd = self.handler.GroupData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, gd)
         gd.lineno = self.lineno
 

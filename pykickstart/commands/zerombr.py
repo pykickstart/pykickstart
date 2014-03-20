@@ -48,7 +48,7 @@ class FC3_ZeroMbr(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
             warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, DeprecationWarning)
@@ -61,7 +61,7 @@ class F9_ZeroMbr(FC3_ZeroMbr):
     removedAttrs = FC3_ZeroMbr.removedAttrs
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "zerombr"))

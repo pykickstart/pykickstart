@@ -70,7 +70,7 @@ class F19_Liveimg(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
 
         return self

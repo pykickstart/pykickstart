@@ -46,7 +46,7 @@ class FC3_Lang(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) != 1:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "lang"))
 
@@ -83,6 +83,6 @@ class F19_Lang(FC3_Lang):
 
     def parse(self, args):
         FC3_Lang.parse(self, args)
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self

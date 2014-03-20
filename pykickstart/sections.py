@@ -169,7 +169,7 @@ class ScriptSection(Section):
         Section.handleHeader(self, lineno, args)
         op = self._getParser()
 
-        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        (opts, _extra) = op.parse_args(args=args[1:], lineno=lineno)
 
         self._script["interp"] = opts.interpreter
         self._script["lineno"] = lineno
@@ -213,7 +213,7 @@ class PackageSection(Section):
         if not self.handler:
             return
 
-        (h, s, t) = line.partition('#')
+        h = line.partition('#')[0]
         line = h.rstrip()
 
         self.handler.packages.add([line])
@@ -244,7 +244,7 @@ class PackageSection(Section):
         op.add_option("--multilib", dest="multiLib", action="store_true",
                       default=False, introduced=F18)
 
-        (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+        (opts, _extra) = op.parse_args(args=args[1:], lineno=lineno)
 
         if opts.defaultPackages and opts.nobase:
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")))

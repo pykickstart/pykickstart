@@ -81,7 +81,7 @@ class FC6_DmRaid(KickstartCommand):
 
     def parse(self, args):
         dm = FC6_DmRaidData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dm.name = dm.name.split('/')[-1]
         self._setToObj(self.op, opts, dm)
         dm.lineno = self.lineno

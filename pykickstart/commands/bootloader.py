@@ -103,7 +103,7 @@ class FC3_Bootloader(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
 
         if self.currentCmd == "lilo":
@@ -144,7 +144,7 @@ class FC4_Bootloader(FC3_Bootloader):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
 
@@ -242,7 +242,7 @@ class F17_Bootloader(F15_Bootloader):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if "," in opts.bootDrive:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))

@@ -339,7 +339,7 @@ class FC3_Network(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         nd = self.handler.NetworkData()
         self._setToObj(self.op, opts, nd)
         nd.lineno = self.lineno

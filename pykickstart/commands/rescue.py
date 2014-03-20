@@ -58,7 +58,7 @@ class F10_Rescue(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if opts.nomount and opts.romount:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --nomount and --romount may be specified for rescue command.")))

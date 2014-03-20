@@ -161,7 +161,7 @@ class FC6_User(KickstartCommand):
 
     def parse(self, args):
         ud = self.handler.UserData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToObj(self.op, opts, ud)
         ud.lineno = self.lineno
 

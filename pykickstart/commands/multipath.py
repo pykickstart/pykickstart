@@ -83,7 +83,7 @@ class FC6_MultiPath(KickstartCommand):
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dd = FC6_MpPathData()
         self._setToObj(self.op, opts, dd)
         dd.lineno = self.lineno

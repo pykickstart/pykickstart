@@ -371,7 +371,7 @@ class BaseHandler(KickstartObject):
             # these two code blocks in sync.
             cmdObj = None
 
-            for (key, val) in self.commands.iteritems():
+            for (_key, val) in self.commands.iteritems():
                 if val.__class__.__name__ == cmdClass.__name__:
                     cmdObj = val
                     break
@@ -443,7 +443,7 @@ class BaseHandler(KickstartObject):
         """
         self._writeOrder = {}
 
-        for (key, val) in self.commands.iteritems():
+        for (key, _val) in self.commands.iteritems():
             if not key in lst:
                 self.commands[key] = None
 
