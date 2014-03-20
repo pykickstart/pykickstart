@@ -51,6 +51,28 @@ bash
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
 
+class Packages_Contains_Nobase_Default_TestCase(ParserTest):
+    ks = """
+%packages --nobase --default
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
+
+class Packages_Contains_Nocore_Default_TestCase(ParserTest):
+    ks = """
+%packages --nocore --default
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
+
 class Packages_Contains_Environment_1_TestCase(ParserTest):
     ks = """
 %packages
