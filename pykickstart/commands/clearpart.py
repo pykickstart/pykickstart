@@ -17,10 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.constants import *
-from pykickstart.errors import *
-from pykickstart.options import *
+from pykickstart.base import KickstartCommand
+from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_LIST, CLEARPART_TYPE_NONE
+from pykickstart.options import KSOptionParser
 
 class FC3_ClearPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

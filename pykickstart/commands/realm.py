@@ -18,14 +18,15 @@
 # with the express permission of Red Hat, Inc.
 #
 
-from pykickstart.base import *
+from pykickstart.base import KickstartCommand
+from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
 
 import getopt
 import pipes
 import shlex
 
+import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
-
 
 class F19_Realm(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

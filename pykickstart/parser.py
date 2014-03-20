@@ -37,14 +37,14 @@ import shlex
 import sys
 import tempfile
 from copy import copy
-from optparse import *
+from optparse import OptionParser
 from urlgrabber import urlread
 import urlgrabber.grabber as grabber
 
 import constants
 from errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from ko import KickstartObject
-from sections import *
+from sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 import version
 
 import gettext
@@ -129,7 +129,7 @@ def preprocessKickstart (f):
         run.  Returns the location of the complete kickstart file.
     """
     try:
-        fh = urlopen(f)
+        fh = grabber.urlopen(f)
     except grabber.URLGrabError, e:
         raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
 

@@ -17,9 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.constants import *
-from pykickstart.options import *
+from pykickstart.base import KickstartCommand
+from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG
+from pykickstart.options import KSOptionParser
 
 class FC3_Firstboot(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

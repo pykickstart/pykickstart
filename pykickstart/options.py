@@ -29,11 +29,10 @@ This module exports two classes:
 """
 import warnings
 from copy import copy
-from optparse import *
+from optparse import Option, OptionError, OptionParser, OptionValueError
 
-from constants import *
-from errors import *
-from version import *
+from errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from version import versionToString
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

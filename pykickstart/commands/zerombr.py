@@ -19,8 +19,9 @@
 #
 import warnings
 
-from pykickstart.base import *
-from pykickstart.options import *
+from pykickstart.base import KickstartCommand
+from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

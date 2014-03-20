@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.version import *
+from pykickstart.base import BaseHandler
+from pykickstart.version import F8
 
 class F8Handler(BaseHandler):
     version = F8

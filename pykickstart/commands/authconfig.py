@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
+from pykickstart.base import KickstartCommand
 
 class FC3_Authconfig(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

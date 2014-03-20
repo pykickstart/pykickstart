@@ -17,10 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.constants import *
-from pykickstart.errors import *
-from pykickstart.options import *
+from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.errors import KickstartError, KickstartValueError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 import gettext
 import warnings

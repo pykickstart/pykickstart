@@ -44,8 +44,8 @@ _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 import types
 import warnings
-from pykickstart.errors import *
-from pykickstart.ko import *
+from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.ko import KickstartObject
 from pykickstart.parser import Packages
 from pykickstart.version import versionToString
 

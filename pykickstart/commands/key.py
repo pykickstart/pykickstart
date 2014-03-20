@@ -17,10 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import *
-from pykickstart.constants import *
-from pykickstart.errors import *
-from pykickstart.options import *
+from pykickstart.base import KickstartCommand
+from pykickstart.constants import KS_INSTKEY_SKIP
+from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

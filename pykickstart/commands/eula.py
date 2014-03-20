@@ -18,9 +18,9 @@
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from pykickstart.base import *
-from pykickstart.errors import *
-from pykickstart.options import *
+from pykickstart.base import KickstartCommand
+from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
