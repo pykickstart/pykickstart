@@ -31,8 +31,8 @@ import warnings
 from copy import copy
 from optparse import Option, OptionError, OptionParser, OptionValueError
 
-from errors import KickstartParseError, KickstartValueError, formatErrorMsg
-from version import versionToString
+from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.version import versionToString
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

@@ -41,11 +41,10 @@ from optparse import OptionParser
 from urlgrabber import urlread
 import urlgrabber.grabber as grabber
 
-import constants
-from errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
-from ko import KickstartObject
-from sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
-import version
+from pykickstart import constants, version
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.ko import KickstartObject
+from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

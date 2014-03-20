@@ -29,11 +29,11 @@ treated just the same as a predefined one by the kickstart parser.  All that
 is necessary is to create a new subclass of Section and call
 parser.registerSection with an instance of your new class.
 """
-from constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
-                      KS_MISSING_IGNORE, KS_MISSING_PROMPT
-from errors import KickstartParseError, formatErrorMsg
-from options import KSOptionParser
-from version import FC4, F7, F9, F18, F21
+from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
+                                  KS_MISSING_IGNORE, KS_MISSING_PROMPT
+from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.options import KSOptionParser
+from pykickstart.version import FC4, F7, F9, F18, F21
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
