@@ -102,7 +102,7 @@ class F18_Keyboard(FC3_Keyboard):
         return retval
 
     def _getParser(self):
-        def csv_parse_callback(option, opt_str, value, parser):
+        def csv_parse_callback(option, _opt_str, value, parser):
             for item in value.split(","):
                 if item:
                     parser.values.ensure_value(option.dest, []).append(item)

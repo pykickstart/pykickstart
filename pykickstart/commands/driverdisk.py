@@ -29,7 +29,7 @@ class FC3_DriverDiskData(BaseData):
     removedAttrs = BaseData.removedAttrs
 
     def __init__(self, writePriority=0, *args, **kwargs):
-        BaseData.__init__(self, *args, **kwargs)
+        BaseData.__init__(self, writePriority, *args, **kwargs)
 
         self.partition = kwargs.get("partition", "")
         self.source = kwargs.get("source", "")

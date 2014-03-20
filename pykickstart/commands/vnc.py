@@ -63,7 +63,7 @@ class FC6_Vnc(FC3_Vnc):
     removedKeywords = FC3_Vnc.removedKeywords + ["connect"]
     removedAttrs = FC3_Vnc.removedAttrs + ["connect"]
 
-    def __init__(self, writePriority=0, host="", port="", *args, **kwargs):
+    def __init__(self, writePriority=0, *args, **kwargs):
         FC3_Vnc.__init__(self, writePriority, *args, **kwargs)
         self.deleteRemovedAttrs()
 

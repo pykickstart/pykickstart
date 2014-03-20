@@ -65,26 +65,26 @@ class KSOptionParser(OptionParser):
         self.option_seen = {}
 
     def check_values (self, values, args):
-        def seen(self, option):
+        def seen(option):
             return self.option_seen.has_key(option)
 
-        def usedTooNew(self, option):
+        def usedTooNew(option):
             return option.introduced and option.introduced > self.version
 
-        def usedDeprecated(self, option):
+        def usedDeprecated(option):
             return option.deprecated
 
-        def usedRemoved(self, option):
+        def usedRemoved(option):
             return option.removed and option.removed <= self.version
 
         for option in filter(lambda o: isinstance(o, Option), self.option_list):
-            if option.required and not seen(self, option):
+            if option.required and not seen(option):
                 raise KickstartValueError(formatErrorMsg(self.lineno, _("Option %s is required") % option))
-            elif seen(self, option) and usedTooNew(self, option):
+            elif seen(option) and usedTooNew(option):
                 mapping = {"option": option, "intro": versionToString(option.introduced),
                            "version": versionToString(self.version)}
                 self.error(_("The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s.") % mapping)
-            elif seen(self, option) and usedRemoved(self, option):
+            elif seen(option) and usedRemoved(option):
                 mapping = {"option": option, "removed": versionToString(option.removed),
                            "version": versionToString(self.version)}
 
@@ -92,7 +92,7 @@ class KSOptionParser(OptionParser):
                     self.error(_("The %(option)s option is no longer supported.") % mapping)
                 else:
                     self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-            elif seen(self, option) and usedDeprecated(self, option) and self.version >= option.deprecated:
+            elif seen(option) and usedDeprecated(option) and self.version >= option.deprecated:
                 mapping = {"lineno": self.lineno, "option": option}
                 warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
 
@@ -126,7 +126,7 @@ class KSOptionParser(OptionParser):
         self.option_seen = {}
         self.version = version
 
-def _check_ksboolean(option, opt, value):
+def _check_ksboolean(_option, opt, value):
     if value.lower() in ("on", "yes", "true", "1"):
         return True
     elif value.lower() in ("off", "no", "false", "0"):
@@ -135,7 +135,7 @@ def _check_ksboolean(option, opt, value):
         mapping = {"opt": opt, "value": value}
         raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
 
-def _check_string(option, opt, value):
+def _check_string(_option, opt, value):
     if len(value) > 2 and value.startswith("--"):
         mapping = {"opt": opt, "value": value}
         raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)

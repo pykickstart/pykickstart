@@ -125,18 +125,12 @@ class KickstartCommand(KickstartObject):
         """
         return KickstartObject.__str__(self)
 
+    # pylint: disable-msg=W0613
     def parse(self, args):
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.
         """
         raise TypeError("parse() not implemented for KickstartCommand")
-
-    def apply(self, instroot="/"):
-        """Write out the configuration related to the KickstartCommand object.
-           Subclasses which do not provide this method will not have their
-           configuration written out.
-        """
-        return
 
     def dataList(self):
         """For commands that can occur multiple times in a single kickstart
