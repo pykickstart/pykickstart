@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2011 Red Hat, Inc.
+# Copyright 2011-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -30,8 +30,12 @@ is necessary is to create a new subclass of Section and call
 parser.registerSection with an instance of your new class.
 """
 from constants import *
+from errors import KickstartParseError, formatErrorMsg
 from options import KSOptionParser
 from version import *
+
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class Section(object):
     """The base class for defining kickstart sections.  You are free to
@@ -226,6 +230,8 @@ class PackageSection(Section):
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
                       default=False, deprecated=F18)
+        op.add_option("--nocore", dest="nocore", action="store_true",
+                      default=False, introduced=RHEL7)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
                       deprecated=FC4, removed=F9)
         op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
@@ -238,6 +244,11 @@ class PackageSection(Section):
                       default=False, introduced=F18)
 
         (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
+
+        if opts.defaultPackages and opts.nobase:
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")))
+        elif opts.defaultPackages and opts.nocore:
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")))
 
         self.handler.packages.excludeDocs = opts.excludedocs
         self.handler.packages.addBase = not opts.nobase
@@ -252,5 +263,6 @@ class PackageSection(Section):
         if opts.instLangs:
             self.handler.packages.instLangs = opts.instLangs
 
+        self.handler.packages.nocore = opts.nocore
         self.handler.packages.multiLib = opts.multiLib
         self.handler.packages.seen = True

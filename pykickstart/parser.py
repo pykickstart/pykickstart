@@ -262,6 +262,9 @@ class Packages(KickstartObject):
 
            addBase       -- Should the Base group be installed even if it is
                             not specified?
+           nocore        -- Should the Core group be skipped?  This results in
+                            a %packages section that basically only installs the
+                            packages you list, and may not be a usable system.
            default       -- Should the default package set be selected?
            environment   -- What base environment should be selected?  Only one
                             may be chosen at a time.
@@ -290,6 +293,7 @@ class Packages(KickstartObject):
         KickstartObject.__init__(self, *args, **kwargs)
 
         self.addBase = True
+        self.nocore = False
         self.default = False
         self.environment = None
         self.excludedList = []
@@ -341,6 +345,8 @@ class Packages(KickstartObject):
             retval += " --excludedocs"
         if not self.addBase:
             retval += " --nobase"
+        if self.nocore:
+            retval += " --nocore"
         if self.handleMissing == constants.KS_MISSING_IGNORE:
             retval += " --ignoremissing"
         if self.instLangs:
