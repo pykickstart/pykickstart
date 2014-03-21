@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.51
+Version: 1.99.52
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,14 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Mar 21 2014 Chris Lumens <clumens@redhat.com> - 1.99.52-1
+- Take care of all the unused argument warnings. (clumens)
+- Take care of all the unused variable warnings. (clumens)
+- Remove unused imports. (clumens)
+- Don't do relative import any more, either. (clumens)
+- Stop doing wildcard imports. (clumens)
+- Add an option to disable even installing the core group. (clumens)
+
 * Tue Mar 18 2014 Chris Lumens <clumens@redhat.com> - 1.99.51-1
 - Use the correct indentation for the new network stuff. (clumens)
 - Add network --interfacename option for vlans (#1061646) (rvykydal)

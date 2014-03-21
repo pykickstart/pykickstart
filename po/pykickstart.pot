@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-17 14:28-0400\n"
+"POT-Creation-Date: 2014-03-21 10:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/base.py:193
+#: ../pykickstart/sections.py:251
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:253
+msgid "--default and --nocore cannot be used together"
+msgstr ""
+
+#: ../pykickstart/base.py:187
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -26,41 +34,41 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:423
+#: ../pykickstart/base.py:417
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:88
+#: ../pykickstart/parser.py:85
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:93
+#: ../pykickstart/parser.py:90
 #, python-format
 msgid "Unable to open %%ksappend file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:99 ../pykickstart/parser.py:101
+#: ../pykickstart/parser.py:96 ../pykickstart/parser.py:98
 #, python-format
 msgid "Unable to open %%ksappend file"
 msgstr ""
 
-#: ../pykickstart/parser.py:134 ../pykickstart/parser.py:725
+#: ../pykickstart/parser.py:131 ../pykickstart/parser.py:728
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:364
+#: ../pykickstart/parser.py:367
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:537 ../pykickstart/parser.py:578
+#: ../pykickstart/parser.py:540 ../pykickstart/parser.py:581
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:671
+#: ../pykickstart/parser.py:674
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
@@ -73,31 +81,31 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
-#: ../pykickstart/options.py:83
+#: ../pykickstart/options.py:82
 #, python-format
 msgid "Option %s is required"
 msgstr ""
 
-#: ../pykickstart/options.py:87
+#: ../pykickstart/options.py:86
 #, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 
-#: ../pykickstart/options.py:93
+#: ../pykickstart/options.py:92
 #, python-format
 msgid "The %(option)s option is no longer supported."
 msgstr ""
 
-#: ../pykickstart/options.py:95
+#: ../pykickstart/options.py:94
 #, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 
-#: ../pykickstart/options.py:98
+#: ../pykickstart/options.py:97
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -106,17 +114,17 @@ msgid ""
 "your kickstart file to remove this option."
 msgstr ""
 
-#: ../pykickstart/options.py:137
+#: ../pykickstart/options.py:136
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:142
+#: ../pykickstart/options.py:141
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:179
+#: ../pykickstart/options.py:178
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
