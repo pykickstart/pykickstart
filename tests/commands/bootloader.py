@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2009 Red Hat, Inc.
+# Copyright 2009, 2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -119,6 +119,9 @@ class RHEL6_TestCase(F12_TestCase):
         # pass
         self.assert_parse("bootloader --password=blahblah --iscrypted", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
         self.assert_parse("bootloader --md5pass=blahblah", "bootloader --location=mbr --password=\"blahblah\" --iscrypted\n")
+
+        self.assert_parse("bootloader --disabled", "bootloader --disabled\n")
+        self.assert_parse("bootloader --location=mbr --disabled", "bootloader --disabled\n")
 
 if __name__ == "__main__":
     unittest.main()

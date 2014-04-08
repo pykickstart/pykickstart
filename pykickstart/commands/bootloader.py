@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2007 Red Hat, Inc.
+# Copyright 2007, 2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -189,12 +189,16 @@ class RHEL6_Bootloader(F12_Bootloader):
         F12_Bootloader.__init__(self, writePriority, *args, **kwargs)
 
         self.isCrypted = kwargs.get("isCrypted", False)
+        self.disabled = kwargs.get("disabled", False)
 
     def _getArgsAsStr(self):
-        ret = F12_Bootloader._getArgsAsStr(self)
+        if self.disabled:
+            ret = " --disabled"
+        else:
+            ret = F12_Bootloader._getArgsAsStr(self)
 
-        if self.isCrypted:
-            ret += " --iscrypted"
+            if self.isCrypted:
+                ret += " --iscrypted"
 
         return ret
 
@@ -206,6 +210,7 @@ class RHEL6_Bootloader(F12_Bootloader):
         op = F12_Bootloader._getParser(self)
         op.add_option("--iscrypted", dest="isCrypted", action="store_true", default=False)
         op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
+        op.add_option("--disabled", dest="disabled", action="store_true", default=False)
         return op
 
 class RHEL5_Bootloader(FC4_Bootloader):
