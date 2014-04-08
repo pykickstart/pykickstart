@@ -249,6 +249,9 @@ class Packages(KickstartObject):
 
            addBase       -- Should the Base group be installed even if it is
                             not specified?
+           nocore        -- Should the Core group be skipped?  This results in
+                            a %packages section that basically only installs the
+                            packages you list, and may not be a usable system.
            default       -- Should the default package set be selected?
            excludedList  -- A list of all the packages marked for exclusion in
                             the %packages section, without the leading minus
@@ -271,6 +274,7 @@ class Packages(KickstartObject):
         KickstartObject.__init__(self, *args, **kwargs)
 
         self.addBase = True
+        self.nocore = False
         self.default = False
         self.excludedList = []
         self.excludedGroupList = []
@@ -316,6 +320,8 @@ class Packages(KickstartObject):
             retval += " --excludedocs"
         if not self.addBase:
             retval += " --nobase"
+        if self.nocore:
+            retval += " --nocore"
         if self.handleMissing == KS_MISSING_IGNORE:
             retval += " --ignoremissing"
         if self.instLangs:
@@ -494,6 +500,8 @@ class KickstartParser:
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
                       default=False)
+        op.add_option("--nocore", dest="nocore", action="store_true",
+                      default=False, introduced=RHEL6)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
                       deprecated=FC4, removed=F9)
         op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
@@ -505,8 +513,15 @@ class KickstartParser:
 
         (opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
 
+        if opts.defaultPackages and opts.nobase:
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")))
+        elif opts.defaultPackages and opts.nocore:
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")))
+
         self.handler.packages.excludeDocs = opts.excludedocs
         self.handler.packages.addBase = not opts.nobase
+        self.handler.packages.nocore = opts.nocore
+
         if opts.ignoremissing:
             self.handler.packages.handleMissing = KS_MISSING_IGNORE
         else:
