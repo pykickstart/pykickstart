@@ -23,7 +23,7 @@ from optparse import OptionParser
 import sys
 from pykickstart.base import DeprecatedCommand
 from pykickstart.errors import KickstartVersionError
-from pykickstart.version import makeVersion
+from pykickstart.version import makeVersion, versionMap
 
 import gettext
 gettext.textdomain("pykickstart")
@@ -44,8 +44,17 @@ def printList(lst):
 op = OptionParser(usage="usage: %prog [options]")
 op.add_option("-f", "--from", dest="f")
 op.add_option("-t", "--to", dest="t")
+op.add_option("-l", "--listversions", dest="listversions", action="store_true",
+              default=False,
+              help=_("list the available versions of kickstart syntax"))
 
 (opts, extra) = op.parse_args(sys.argv[1:])
+
+if opts.listversions:
+    for key in sorted(versionMap.keys()):
+        print key
+
+    sys.exit(1)
 
 if not opts.f or not opts.t:
     print(_("You must specify two syntax versions."))
