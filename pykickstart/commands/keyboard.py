@@ -55,9 +55,9 @@ class FC3_Keyboard(KickstartCommand):
         return self
 
 class F18_Keyboard(FC3_Keyboard):
-    # pylint: disable-msg=W0231
+    # pylint: disable=W0231
     def __init__(self, writePriority=0, *args, **kwargs):
-        # pylint: disable-msg=W0233
+        # pylint: disable=W0233
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
         self._keyboard = kwargs.get("_keyboard", "")
@@ -136,7 +136,7 @@ class F18_Keyboard(FC3_Keyboard):
         return self
 
     # property for backwards compatibility
-    # pylint: disable-msg=E0202
+    # pylint: disable=E0202
     @property
     def keyboard(self):
         if self.x_layouts:
@@ -144,7 +144,7 @@ class F18_Keyboard(FC3_Keyboard):
         else:
             return self._keyboard or self.vc_keymap or ""
 
-    # pylint: disable-msg=E0102,E1101
+    # pylint: disable=E0102,E1101
     @keyboard.setter
     def keyboard(self, value):
         self._keyboard = value

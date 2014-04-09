@@ -125,7 +125,7 @@ class KickstartCommand(KickstartObject):
         """
         return KickstartObject.__str__(self)
 
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     def parse(self, args):
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.

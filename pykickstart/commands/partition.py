@@ -320,7 +320,7 @@ class FC4_Partition(FC3_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC3_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable-msg=W0612
+        # pylint: disable=W0612
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
@@ -342,7 +342,7 @@ class RHEL5_Partition(FC4_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable-msg=W0612
+        # pylint: disable=W0612
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
@@ -362,7 +362,7 @@ class F9_Partition(FC4_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable-msg=W0612
+        # pylint: disable=W0612
         def part_cb (option, opt_str, value, parser):
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])

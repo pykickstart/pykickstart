@@ -88,7 +88,7 @@ class Section(object):
         """
         pass
 
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     def handleHeader(self, lineno, args):
         """This method is called when the opening tag for a section is seen.
            Not all sections will need this method, though all provided with
