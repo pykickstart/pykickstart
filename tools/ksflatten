@@ -19,21 +19,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
+from __future__ import print_function
+
 import sys
 import optparse
 import pykickstart
 import pykickstart.parser
 from pykickstart.version import DEVEL, makeVersion
 
+import gettext
+gettext.textdomain("pykickstart")
+_ = lambda x: gettext.ldgettext("pykickstart", x)
+
 def parse_args():
     parser = optparse.OptionParser()
 
     parser.add_option("-c", "--config", type="string", dest="kscfg",
-                      help="Path to kickstart config file")
+                      help=_("Path to kickstart config file"))
     parser.add_option("-v", "--version", dest="version", default=DEVEL,
-                      help="Kickstart version to use for interpreting config")
+                      help=_("Kickstart version to use for interpreting config"))
     parser.add_option("-o", "--output", type="string", dest="output",
-                      help="Write flattened config to OUTPUT")
+                      help=_("Write flattened config to OUTPUT"))
 
     (options, args) = parser.parse_args()
     return options, args
@@ -43,7 +49,7 @@ def main():
     if not opts.kscfg and len(args) >= 1:
         opts.kscfg = args[0]
     elif not opts.kscfg:
-        print >> sys.stderr, "Need to specify a config to flatten"
+        print(_("Need to specify a config to flatten"), file=sys.stderr)
         sys.exit(1)
 
     ksversion = makeVersion(opts.version)
@@ -51,16 +57,16 @@ def main():
     try:
         ksparser.readKickstart(opts.kscfg)
     except IOError as msg:
-        print >> sys.stderr, "Failed to read kickstart file '%s' : %s" % (opts.kscfg, msg)
+        print(_("Failed to read kickstart file '%s' : %s") % (opts.kscfg, msg), file=sys.stderr)
         sys.exit(1)
     except pykickstart.errors.KickstartError as e:
-        print >> sys.stderr, "Failed to parse kickstart file '%s' : %s" % (opts.kscfg, e)
+        print(_("Failed to parse kickstart file '%s' : %s") % (opts.kscfg, e), file=sys.stderr)
 
     if opts.output:
         try:
             f = open(opts.output, 'w')
         except IOError as msg:
-            print >> sys.stderr, "Failed to open output file '%s' : %s" %(opts.output, msg)
+            print(_("Failed to open output file '%s' : %s") % (opts.output, msg), file=sys.stderr)
     else:
         f = sys.stdout
 

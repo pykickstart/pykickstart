@@ -71,13 +71,13 @@ fromCmdSet = getCommandSet(fromHandler)
 toCmdSet = getCommandSet(toHandler)
 bothSet = fromCmdSet & toCmdSet
 
-print(_("The following commands were removed in %s:")) % opts.t
+print(_("The following commands were removed in %s:") % opts.t)
 printList(list(fromCmdSet - toCmdSet))
 
-print(_("The following commands were deprecated in %s:")) % opts.t
+print(_("The following commands were deprecated in %s:") % opts.t)
 printList(filter(lambda c: isinstance(toHandler.commands[c], DeprecatedCommand), list(bothSet)))
 
-print(_("The following commands were added in %s:")) % opts.t
+print(_("The following commands were added in %s:") % opts.t)
 printList(list(toCmdSet - fromCmdSet))
 
 print
@@ -103,17 +103,17 @@ for cmd in bothSet:
     deprecatedOptList = getOptSet(filter(lambda cmd: cmd.deprecated == 1, toOpt))
 
     if len(newOptList) > 0:
-        print(_("The following options were added to the %s command in %s:")) % (cmd, opts.t)
+        print(_("The following options were added to the %s command in %s:") % (cmd, opts.t))
         printList(list(newOptList))
         printed = True
 
     if len(deprecatedOptList) > 0:
-        print(_("The following options were deprecated from the %s command in %s:")) % (cmd, opts.t)
+        print(_("The following options were deprecated from the %s command in %s:") % (cmd, opts.t))
         printList(list(deprecatedOptList))
         printed = True
 
     if len(removedOptList) > 0:
-        print(_("The following options were removed from the %s command in %s:")) % (cmd, opts.t)
+        print(_("The following options were removed from the %s command in %s:") % (cmd, opts.t))
         printList(list(removedOptList))
         printed = True
 
