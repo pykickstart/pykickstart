@@ -1,8 +1,8 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -19,29 +19,30 @@
 # with the express permission of Red Hat, Inc. 
 #
 
-import optparse
+from optparse import OptionParser
 import os
 import sys
 import warnings
 import tempfile
 import urlgrabber
 import shutil
-from pykickstart.errors import *
-from pykickstart.parser import *
-from pykickstart.version import *
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
+from pykickstart.parser import KickstartParser, preprocessKickstart
+from pykickstart.version import DEVEL, makeVersion, versionMap
 
 import gettext
 gettext.install("pykickstart", unicode=True)
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
-def cleanup(destdir, file=None, exitval=1):
-    shutil.rmtree(destdir)
+def cleanup(dest, fn=None, exitval=1):
+    shutil.rmtree(dest)
 
     # Don't care if this file doesn't exist.
-    if file is not None:
-       try:
-           os.remove(file)
-       except:
-           pass
+    if fn is not None:
+        try:
+            os.remove(fn)
+        except Exception:
+            pass
 
     sys.exit(exitval)
 

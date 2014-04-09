@@ -2,7 +2,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2013 Red Hat, Inc.
+# Copyright 2013-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -75,7 +75,7 @@ class ShowCommand(InternalCommand):
 ##
 
 class KickstartCompleter(object):
-    def __init__(self, handler, internalCommands):
+    def __init__(self, handler, internal):
         # Build up a dict of kickstart commands and their valid options:
         # { command_name: [options] }
         self.commands = {}
@@ -83,7 +83,7 @@ class KickstartCompleter(object):
         for (cStr, cObj) in handler.commands.iteritems():
             self._add_command(cStr, cObj)
 
-        for (cStr, cObj) in internalCommands.iteritems():
+        for (cStr, cObj) in internal.iteritems():
             self._add_command(cStr, cObj)
 
         self.currentCandidates = []
@@ -98,7 +98,7 @@ class KickstartCompleter(object):
         for opt in cObj.op.option_list:
             self.commands[cStr] += opt._short_opts + opt._long_opts
 
-    def complete(self, text, state):
+    def complete(self, _text, state):
         response = None
 
         # This is the first time Tab has been pressed, so build up a list of matches.
@@ -108,9 +108,9 @@ class KickstartCompleter(object):
             end = readline.get_endidx()
 
             beingCompleted = origline[begin:end]
-            words = origline.split()
+            parts = origline.split()
 
-            if not words:
+            if not parts:
                 # Everything's a match for an empty string.
                 self.currentCandidates = sorted(self.commands.keys())
             else:
@@ -122,13 +122,13 @@ class KickstartCompleter(object):
                         candidates = self.commands.keys()
                     else:
                         # later word
-                        candidates = self.commands[words[0]]
+                        candidates = self.commands[parts[0]]
 
                     if beingCompleted:
                         self.currentCandidates = [w for w in candidates if w.startswith(beingCompleted)]
                     else:
                         self.currentCandidates = candidates
-                except (KeyError, IndexError) as e:
+                except (KeyError, IndexError):
                     self.currentCandidates = []
 
         try:
@@ -160,12 +160,12 @@ if extra:
 ##
 
 try:
-    handler = makeVersion(opts.version)
+    kshandler = makeVersion(opts.version)
 except KickstartVersionError:
     print(_("The version %s is not supported by pykickstart") % opts.version)
     sys.exit(1)
 
-ksparser = KickstartParser(handler, followIncludes=True, errorsAreFatal=False)
+ksparser = KickstartParser(kshandler, followIncludes=True, errorsAreFatal=False)
 
 if opts.input:
     try:
@@ -185,7 +185,7 @@ internalCommands = {".clear": ClearCommand(),
 ##
 
 readline.parse_and_bind("tab: complete")
-readline.set_completer(KickstartCompleter(handler, internalCommands).complete)
+readline.set_completer(KickstartCompleter(kshandler, internalCommands).complete)
 
 # Since everything in kickstart looks like a command line arg, we need to
 # remove '-' from the delimiter string.

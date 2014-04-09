@@ -1,8 +1,8 @@
-#!/usr/bin/python2
+#!/usr/bin/python
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2009 Red Hat, Inc.
+# Copyright 2009-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -19,14 +19,11 @@
 # with the express permission of Red Hat, Inc. 
 #
 
-import optparse
-import os
+from optparse import OptionParser
 import sys
-import warnings
-from pykickstart.base import *
-from pykickstart.errors import *
-from pykickstart.parser import *
-from pykickstart.version import *
+from pykickstart.base import DeprecatedCommand
+from pykickstart.errors import KickstartVersionError
+from pykickstart.version import makeVersion
 
 import gettext
 gettext.textdomain("pykickstart")
@@ -52,14 +49,14 @@ op.add_option("-t", "--to", dest="t")
 
 if not opts.f or not opts.t:
     print(_("You must specify two syntax versions."))
-    os._exit(1)
+    sys.exit(1)
 
 try:
     fromHandler = makeVersion(opts.f)
     toHandler = makeVersion(opts.t)
-except KickstartVersionError as e:
-    print(_("The version %s is not supported by pykickstart")) % e
-    os._exit(1)
+except KickstartVersionError as exn:
+    print(_("The version %s is not supported by pykickstart") % exn)
+    sys.exit(1)
 
 fromCmdSet = getCommandSet(fromHandler)
 toCmdSet = getCommandSet(toHandler)
