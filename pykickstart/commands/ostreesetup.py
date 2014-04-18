@@ -33,7 +33,7 @@ class F21_OSTreeSetup(KickstartCommand):
         self.remote = kwargs.get("remote", self.osname)
         self.url = kwargs.get('url', None)
         self.ref = kwargs.get('ref', None)
-        self.noGpg = kwargs.get('noGpg', False)
+        self.nogpg = kwargs.get('nogpg', False)
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
@@ -54,7 +54,7 @@ class F21_OSTreeSetup(KickstartCommand):
             retcmd.append('--url="%s"' % self.url)
         if self.ref:
             retcmd.append('--ref="%s"' % self.ref)
-        if self.noGpg:
+        if self.nogpg:
             retcmd.append('--nogpg')
         return ' '.join(retcmd)
 
