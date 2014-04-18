@@ -25,7 +25,7 @@ class RHEL7_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core")
-        cmdstr = "ostreesetup --osname=\"fedora-atomic\" --remote=\"fedora-atomic\" --url=\"http://example.com/repo\" --ref=\"fedora-atomic/sometest/base/core\""
+        cmdstr = "ostreesetup --osname=\"fedora-atomic\" --remote=\"fedora-atomic\" --url=\"http://example.com/repo\" --ref=\"fedora-atomic/sometest/base/core\" --nogpg"
         self.assert_parse(cmdstr, cmdstr + '\n')
 
         # fail - we have required arguments
