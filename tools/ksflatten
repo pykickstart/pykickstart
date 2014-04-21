@@ -22,7 +22,7 @@
 from __future__ import print_function
 
 import sys
-import optparse
+import argparse
 import pykickstart
 import pykickstart.parser
 from pykickstart.version import DEVEL, makeVersion
@@ -32,23 +32,19 @@ gettext.textdomain("pykickstart")
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 def parse_args():
-    parser = optparse.OptionParser()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-c", "--config", dest="kscfg", required=True,
+                        help=_("Path to kickstart config file"))
+    parser.add_argument("-v", "--version", dest="version", default=DEVEL,
+                        help=_("Kickstart version to use for interpreting config"))
+    parser.add_argument("-o", "--output", dest="output",
+                        help=_("Write flattened config to OUTPUT"))
 
-    parser.add_option("-c", "--config", type="string", dest="kscfg",
-                      help=_("Path to kickstart config file"))
-    parser.add_option("-v", "--version", dest="version", default=DEVEL,
-                      help=_("Kickstart version to use for interpreting config"))
-    parser.add_option("-o", "--output", type="string", dest="output",
-                      help=_("Write flattened config to OUTPUT"))
-
-    (options, args) = parser.parse_args()
-    return options, args
+    return parser.parse_args()
 
 def main():
-    (opts, args) = parse_args()
-    if not opts.kscfg and len(args) >= 1:
-        opts.kscfg = args[0]
-    elif not opts.kscfg:
+    opts = parse_args()
+    if not opts.kscfg:
         print(_("Need to specify a config to flatten"), file=sys.stderr)
         sys.exit(1)
 

@@ -19,7 +19,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 
-from optparse import OptionParser
+import argparse
 import sys
 from pykickstart.base import DeprecatedCommand
 from pykickstart.errors import KickstartVersionError
@@ -41,14 +41,14 @@ def printList(lst):
 
     print
 
-op = OptionParser(usage="usage: %prog [options]")
-op.add_option("-f", "--from", dest="f")
-op.add_option("-t", "--to", dest="t")
-op.add_option("-l", "--listversions", dest="listversions", action="store_true",
-              default=False,
-              help=_("list the available versions of kickstart syntax"))
+op = argparse.ArgumentParser()
+op.add_argument("-f", "--from", dest="f")
+op.add_argument("-t", "--to", dest="t")
+op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
+                default=False,
+                help=_("list the available versions of kickstart syntax"))
 
-(opts, extra) = op.parse_args(sys.argv[1:])
+opts = op.parse_args(sys.argv[1:])
 
 if opts.listversions:
     for key in sorted(versionMap.keys()):

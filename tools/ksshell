@@ -33,7 +33,7 @@
 #   - .save
 
 import readline
-from optparse import OptionParser
+import argparse
 import os, sys
 
 from pykickstart.errors import KickstartError, KickstartVersionError
@@ -52,7 +52,7 @@ _ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class InternalCommand(object):
     def __init__(self):
-        self.op = OptionParser()
+        self.op = argparse.ArgumentParser()
 
     def execute(self, parser):
         pass
@@ -91,8 +91,8 @@ class KickstartCompleter(object):
     def _add_command(self, cStr, cObj):
         self.commands[cStr] = []
 
-        # Simple commands do not have any optparse crud.
-        if not hasattr(cObj, "op"):
+        # Internal and simple commands don't have any optparse crud.
+        if cStr.startswith(".") or not hasattr(cObj, "op"):
             return
 
         for opt in cObj.op.option_list:
@@ -142,18 +142,15 @@ class KickstartCompleter(object):
 ## OPTION PROCESSING
 ##
 
-op = OptionParser(usage="usage: %prog [options]")
-op.add_option("-i", "--input", dest="input",
-              help=_("a basis file to use for seeding the kickstart data (optional)"))
-op.add_option("-o", "--output", dest="output",
-              help=_("the location to write the finished kickstart file, or stdout if not given"))
-op.add_option("-v", "--version", dest="version", default=DEVEL,
-              help=_("version of kickstart syntax to validate against"))
+op = argparse.ArgumentParser()
+op.add_argument("-i", "--input", dest="input",
+                help=_("a basis file to use for seeding the kickstart data (optional)"))
+op.add_argument("-o", "--output", dest="output",
+                help=_("the location to write the finished kickstart file, or stdout if not given"))
+op.add_argument("-v", "--version", dest="version", default=DEVEL,
+                help=_("version of kickstart syntax to validate against"))
 
-(opts, extra) = op.parse_args(sys.argv[1:])
-if extra:
-    op.print_help()
-    sys.exit(1)
+opts = op.parse_args(sys.argv[1:])
 
 ##
 ## SETTING UP PYKICKSTART

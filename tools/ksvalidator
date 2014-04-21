@@ -19,7 +19,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 
-from optparse import OptionParser
+import argparse
 import os
 import sys
 import warnings
@@ -46,19 +46,21 @@ def cleanup(dest, fn=None, exitval=1):
 
     sys.exit(exitval)
 
-op = OptionParser(usage="usage: %prog [options] ksfile|url")
-op.add_option("-e", "--firsterror", dest="firsterror", action="store_true",
-              default=False, help=_("halt after the first error or warning"))
-op.add_option("-i", "--followincludes", dest="followincludes",
-              action="store_true", default=False,
-              help=_("parse include files when %include is seen"))
-op.add_option("-l", "--listversions", dest="listversions", action="store_true",
-              default=False,
-              help=_("list the available versions of kickstart syntax"))
-op.add_option("-v", "--version", dest="version", default=DEVEL,
-              help=_("version of kickstart syntax to validate against"))
+op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile")
+op.add_argument("ksfile",
+                help=_("filename or URL to read from"))
+op.add_argument("-e", "--firsterror", dest="firsterror", action="store_true",
+                default=False, help=_("halt after the first error or warning"))
+op.add_argument("-i", "--followincludes", dest="followincludes",
+                action="store_true", default=False,
+                help=_("parse include files when %%include is seen"))
+op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
+                default=False,
+                help=_("list the available versions of kickstart syntax"))
+op.add_argument("-v", "--version", dest="version", default=DEVEL,
+                help=_("version of kickstart syntax to validate against"))
 
-(opts, extra) = op.parse_args(sys.argv[1:])
+opts = op.parse_args(sys.argv[1:])
 
 if opts.listversions:
     for key in sorted(versionMap.keys()):
@@ -66,16 +68,12 @@ if opts.listversions:
 
     sys.exit(1)
 
-if len(extra) != 1:
-    op.print_help()
-    sys.exit(1)
-else:
-    destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
-    try:
-        f = urlgrabber.urlgrab(extra[0], filename="%s/ks.cfg" % destdir)
-    except urlgrabber.grabber.URLGrabError, e:
-        print _("Error reading %s:\n%s") % (extra[0],e)
-        cleanup(destdir)
+destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
+try:
+    f = urlgrabber.urlgrab(opts.ksfile, filename="%s/ks.cfg" % destdir)
+except urlgrabber.grabber.URLGrabError, e:
+    print _("Error reading %s:\n%s") % (opts.ksfile, e)
+    cleanup(destdir)
 
 try:
     handler = makeVersion(opts.version)
