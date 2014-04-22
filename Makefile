@@ -36,7 +36,7 @@ coverage:
 	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.txt docs/programmers-guide ChangeLog
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.txt docs/programmers-guide
 	$(MAKE) -C po clean
 	python setup.py -q clean --all
 
@@ -44,23 +44,17 @@ install:
 	python setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
-ChangeLog:
-	(GIT_DIR=.git git log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
-
 tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
 archive: check test tag docs
-	@rm -f ChangeLog
-	@make ChangeLog
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
 	mkdir -p $(PKGNAME)-$(VERSION)
 	cp -r po $(PKGNAME)-$(VERSION)/po/
 	mkdir -p $(PKGNAME)-$(VERSION)/docs/
 	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
-	cp ChangeLog $(PKGNAME)-$(VERSION)/
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
 	rm -rf $(PKGNAME)-$(VERSION)
@@ -68,8 +62,6 @@ archive: check test tag docs
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 local: docs po-pull
-	@rm -f ChangeLog
-	@make ChangeLog
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
 	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
 	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
