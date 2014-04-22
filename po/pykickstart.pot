@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-31 16:02-0400\n"
+"POT-Creation-Date: 2014-04-22 11:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,6 +141,37 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
+#: ../tools/ksflatten:37
+msgid "Path to kickstart config file"
+msgstr ""
+
+#: ../tools/ksflatten:39
+msgid "Kickstart version to use for interpreting config"
+msgstr ""
+
+#: ../tools/ksflatten:41
+msgid "Write flattened config to OUTPUT"
+msgstr ""
+
+#: ../tools/ksflatten:48
+msgid "Need to specify a config to flatten"
+msgstr ""
+
+#: ../tools/ksflatten:56
+#, python-format
+msgid "Failed to read kickstart file '%s' : %s"
+msgstr ""
+
+#: ../tools/ksflatten:59
+#, python-format
+msgid "Failed to parse kickstart file '%s' : %s"
+msgstr ""
+
+#: ../tools/ksflatten:65
+#, python-format
+msgid "Failed to open output file '%s' : %s"
+msgstr ""
+
 #: ../tools/ksshell:147
 msgid "a basis file to use for seeding the kickstart data (optional)"
 msgstr ""
@@ -150,94 +181,98 @@ msgid ""
 "the location to write the finished kickstart file, or stdout if not given"
 msgstr ""
 
-#: ../tools/ksshell:151 ../tools/ksvalidator:58
+#: ../tools/ksshell:151 ../tools/ksvalidator:61
 msgid "version of kickstart syntax to validate against"
 msgstr ""
 
-#: ../tools/ksshell:165 ../tools/ksverdiff:61 ../tools/ksvalidator:82
+#: ../tools/ksshell:162 ../tools/ksverdiff:67 ../tools/ksvalidator:81
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr ""
 
 #. Errors should just dump you to the prompt anyway.
-#: ../tools/ksshell:177
+#: ../tools/ksshell:174
 #, python-format
 msgid ""
 "Warning:  The following error occurred when processing the input file:\n"
 "%s\n"
 msgstr ""
 
-#: ../tools/ksshell:222
+#: ../tools/ksshell:219
 #, python-format
 msgid "Internal command %s not recognized."
 msgstr ""
 
-#: ../tools/ksverdiff:54
+#: ../tools/ksverdiff:49 ../tools/ksvalidator:59
+msgid "list the available versions of kickstart syntax"
+msgstr ""
+
+#: ../tools/ksverdiff:60
 msgid "You must specify two syntax versions."
-msgstr ""
-
-#: ../tools/ksverdiff:68
-#, python-format
-msgid "The following commands were removed in %s:"
-msgstr ""
-
-#: ../tools/ksverdiff:71
-#, python-format
-msgid "The following commands were deprecated in %s:"
 msgstr ""
 
 #: ../tools/ksverdiff:74
 #, python-format
+msgid "The following commands were removed in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:77
+#, python-format
+msgid "The following commands were deprecated in %s:"
+msgstr ""
+
+#: ../tools/ksverdiff:80
+#, python-format
 msgid "The following commands were added in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:100
+#: ../tools/ksverdiff:106
 #, python-format
 msgid "The following options were added to the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:105
+#: ../tools/ksverdiff:111
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:110
+#: ../tools/ksverdiff:116
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksvalidator:50
-msgid "halt after the first error or warning"
+#: ../tools/ksvalidator:51
+msgid "filename or URL to read from"
 msgstr ""
 
 #: ../tools/ksvalidator:53
-#, python-format
-msgid "parse include files when %include is seen"
+msgid "halt after the first error or warning"
 msgstr ""
 
 #: ../tools/ksvalidator:56
-msgid "list the available versions of kickstart syntax"
+#, python-format
+msgid "parse include files when %%include is seen"
 msgstr ""
 
-#: ../tools/ksvalidator:76
+#: ../tools/ksvalidator:75
 #, python-format
 msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:98
+#: ../tools/ksvalidator:97
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:104
+#: ../tools/ksvalidator:103
 msgid "General kickstart error in input file"
 msgstr ""
 
-#: ../tools/ksvalidator:107
+#: ../tools/ksvalidator:106
 #, python-format
 msgid "General error in input file:  %s"
 msgstr ""

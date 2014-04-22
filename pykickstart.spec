@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.53
+Version: 1.99.54
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,14 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 22 2014 Chris Lumens <clumens@redhat.com> - 1.99.54-1
+- Move ks tools from optparse to argparse (#1083913). (clumens)
+- Use descriptive pylint messages instead of numbers. (clumens)
+- Fix up some printing problems in some of the tools. (clumens)
+- Add support for the --listversions option to ksverdiff too. (clumens)
+- Run pylint on tools/, and fix up all the errors. (clumens)
+- disable-msg -> disable for pylint. (clumens)
+
 * Mon Mar 31 2014 Chris Lumens <clumens@redhat.com> - 1.99.53-1
 - ostreesetup: New command (walters)
 - Move commandMap and dataMap setting into the individual handler classes. (clumens)
