@@ -928,7 +928,7 @@ make test
 - Support --mtu for the network command (#191328).
 - Accept --isUtc for backwards compatibility.
 
-* Wed May 04 2006 Chris Lumens <clumens@redhat.com> 0.27-1
+* Thu May 04 2006 Chris Lumens <clumens@redhat.com> 0.27-1
 - Output formatting fixes.
 - Added commands for managing users and services.
 
