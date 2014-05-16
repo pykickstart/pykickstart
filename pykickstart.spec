@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.54
+Version: 1.99.55
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,13 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri May 16 2014 Chris Lumens <clumens@redhat.com> - 1.99.55-1
+- Do not set any magic default PE size in pykickstart (vpodzime)
+- ostreesetup: Fix noGpg attribute (walters)
+- Fix bogus changelog in pykickstart.spec (sagarun)
+- Stop shipping a ChangeLog file. (clumens)
+- We can use descriptive pylint message names on the command line, too. (clumens)
+
 * Tue Apr 22 2014 Chris Lumens <clumens@redhat.com> - 1.99.54-1
 - Move ks tools from optparse to argparse (#1083913). (clumens)
 - Use descriptive pylint messages instead of numbers. (clumens)
