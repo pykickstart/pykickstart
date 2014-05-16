@@ -1372,7 +1372,7 @@ commandMap = {
         "url": url.F18_Url,
         "user": user.F19_User,
         "vnc": vnc.RHEL7_Vnc,
-        "volgroup": volgroup.F20_VolGroup,
+        "volgroup": volgroup.RHEL7_VolGroup,
         "xconfig": xconfig.F14_XConfig,
         "zerombr": zerombr.F9_ZeroMbr,
         "zfcp": zfcp.F14_ZFCP,

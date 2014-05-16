@@ -10,12 +10,17 @@ class FC3_TestCase(CommandTest):
     command = "volgroup"
 
     def runTest(self):
+        if self.__class__ in (FC3_TestCase, F16_TestCase):
+            def_pesize_str = " --pesize=32768"
+        else:
+            def_pesize_str = ""
+
         # --noformat
         self.assert_parse("volgroup vg.01 --noformat",
-                          "volgroup vg.01 --noformat --pesize=32768 --useexisting\n")
+                          "volgroup vg.01 --noformat%s --useexisting\n" % def_pesize_str)
         # --useexisting
         self.assert_parse("volgroup vg.01 --useexisting",
-                          "volgroup vg.01 --pesize=32768 --useexisting\n")
+                          "volgroup vg.01%s --useexisting\n" % def_pesize_str)
 
         # --pesize
         self.assert_parse("volgroup vg.01 pv.01 --pesize=70000",
@@ -42,11 +47,16 @@ class F16_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)
 
+        if self.__class__ in (FC3_TestCase, F16_TestCase):
+            def_pesize_str = " --pesize=32768"
+        else:
+            def_pesize_str = ""
+
         # Pass - correct usage.
         self.assert_parse("volgroup vg.01 pv.01 --reserved-space=1000",
-                          "volgroup vg.01 --pesize=32768 --reserved-space=1000 pv.01\n")
+                          "volgroup vg.01%s --reserved-space=1000 pv.01\n" % def_pesize_str)
         self.assert_parse("volgroup vg.01 pv.01 --reserved-percent=50",
-                          "volgroup vg.01 --pesize=32768 --reserved-percent=50 pv.01\n")
+                          "volgroup vg.01%s --reserved-percent=50 pv.01\n" % def_pesize_str)
 
         # Fail - missing required argument.
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space", KickstartParseError)
@@ -56,6 +66,12 @@ class F16_TestCase(FC3_TestCase):
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1", KickstartValueError)
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0", KickstartValueError)
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100", KickstartValueError)
+
+class RHEL7_TestCase(F16_TestCase):
+    def runTest(self):
+        # just run all the old tests with the new class (different PE size
+        # default)
+        F16_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

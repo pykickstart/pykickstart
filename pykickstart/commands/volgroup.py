@@ -80,6 +80,11 @@ class FC16_VolGroupData(FC3_VolGroupData):
 
         return retval
 
+class RHEL7_VolGroupData(FC16_VolGroupData):
+    def __init__(self, *args, **kwargs):
+        FC16_VolGroupData.__init__(self, *args, **kwargs)
+        self.pesize = kwargs.get("pesize", 0)
+
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -186,3 +191,12 @@ class F20_VolGroup(FC16_VolGroup):
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
+
+class RHEL7_VolGroup(F20_VolGroup):
+
+    def _getParser(self):
+        op = F20_VolGroup._getParser(self)
+        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
+                      default=0)
+
+        return op
