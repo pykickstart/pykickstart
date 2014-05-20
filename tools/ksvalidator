@@ -64,7 +64,7 @@ opts = op.parse_args(sys.argv[1:])
 
 if opts.listversions:
     for key in sorted(versionMap.keys()):
-        print key
+        print(key)
 
     sys.exit(1)
 
@@ -72,13 +72,13 @@ destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
 try:
     f = urlgrabber.urlgrab(opts.ksfile, filename="%s/ks.cfg" % destdir)
 except urlgrabber.grabber.URLGrabError, e:
-    print _("Error reading %s:\n%s") % (opts.ksfile, e)
+    print(_("Error reading %s:\n%s") % (opts.ksfile, e))
     cleanup(destdir)
 
 try:
     handler = makeVersion(opts.version)
 except KickstartVersionError:
-    print _("The version %s is not supported by pykickstart") % opts.version
+    print(_("The version %s is not supported by pykickstart") % opts.version)
     cleanup(destdir)
 
 ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
@@ -94,14 +94,14 @@ try:
     ksparser.readKickstart(processedFile)
     cleanup(destdir, processedFile, exitval=0)
 except DeprecationWarning as msg:
-    print _("File uses a deprecated option or command.\n%s") % msg
+    print(_("File uses a deprecated option or command.\n%s") % msg)
     cleanup(destdir, processedFile)
 except (KickstartParseError, KickstartValueError) as msg:
-    print msg
+    print(msg)
     cleanup(destdir, processedFile)
 except KickstartError:
-    print _("General kickstart error in input file")
+    print(_("General kickstart error in input file"))
     cleanup(destdir, processedFile)
 except Exception as e:
-    print _("General error in input file:  %s") % e
+    print(_("General error in input file:  %s") % e)
     cleanup(destdir, processedFile)

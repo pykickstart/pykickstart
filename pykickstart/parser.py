@@ -608,7 +608,7 @@ class KickstartParser:
             if self.errorsAreFatal:
                 raise
             else:
-                print msg
+                print(msg)
 
     def _isBlankOrComment(self, line):
         return line.isspace() or line == "" or line.lstrip()[0] == '#'

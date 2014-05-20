@@ -52,7 +52,7 @@ opts = op.parse_args(sys.argv[1:])
 
 if opts.listversions:
     for key in sorted(versionMap.keys()):
-        print key
+        print(key)
 
     sys.exit(1)
 
