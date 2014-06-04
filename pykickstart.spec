@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.14
+Version: 1.74.15
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,9 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Jun 04 2014 Chris Lumens <clumens@redhat.com> - 1.74.15-1
+- network: add network --domain (ifcfg DOMAIN) option (#1039051) (rvykydal)
+
 * Tue Aug 13 2013 Chris Lumens <clumens@redhat.com> - 1.74.14-1
 - Add tests for incorrect command usage detection (mkolman)
 - Add class for multi-line command sequence tests (mkolman)
