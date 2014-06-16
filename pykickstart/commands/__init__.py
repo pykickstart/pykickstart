@@ -21,6 +21,6 @@ import authconfig, autopart, autostep, bootloader, btrfs, clearpart, cdrom, devi
 import deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot
 import group, harddrive, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang
 import langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor
-import mouse, multipath, network, nfs, partition, raid, realm, reboot, repo, rescue
+import mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, rescue
 import rootpw, selinux, services, skipx, sshpw, timezone, updates, upgrade, url, user
 import unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp

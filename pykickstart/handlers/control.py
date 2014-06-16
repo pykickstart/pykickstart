@@ -1349,6 +1349,7 @@ commandMap = {
         "multipath": multipath.FC6_MultiPath,
         "network": network.RHEL7_Network,
         "nfs": nfs.FC6_NFS,
+        "ostreesetup": ostreesetup.RHEL7_OSTreeSetup,
         "part": partition.F20_Partition,
         "partition": partition.F20_Partition,
         "poweroff": reboot.F18_Reboot,
