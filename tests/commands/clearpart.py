@@ -36,5 +36,12 @@ class F17_TestCase(FC3_TestCase):
         self.assert_parse("clearpart --list=sda2,sda3,disk/by-label/foo",
                           "clearpart --list=sda2,sda3,disk/by-label/foo\n")
 
+class F21_TestCase(F17_TestCase):
+    def runTest(self):
+        F17_TestCase.runTest(self)
+        self.assert_parse("clearpart --all --initlabel --disklabel=gpt",
+                          "clearpart --all --initlabel --disklabel=gpt\n")
+        self.assert_parse_error("clearpart --all --disklabel")
+
 if __name__ == "__main__":
     unittest.main()

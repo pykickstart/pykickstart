@@ -34,7 +34,7 @@ class F21Handler(BaseHandler):
         "bootloader": commands.bootloader.F21_Bootloader,
         "btrfs": commands.btrfs.F17_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
-        "clearpart": commands.clearpart.F17_ClearPart,
+        "clearpart": commands.clearpart.F21_ClearPart,
         "cmdline": commands.displaymode.FC3_DisplayMode,
         "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,

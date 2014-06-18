@@ -108,3 +108,21 @@ class F17_ClearPart(FC3_ClearPart):
         op.add_option("--list", dest="devices", action="callback",
                       callback=list_cb, nargs=1, type="string")
         return op
+
+class F21_ClearPart(F17_ClearPart):
+    def __init__(self, *args, **kwargs):
+        super(F21_ClearPart, self).__init__(*args, **kwargs)
+        self.disklabel = kwargs.get("disklabel", "")
+
+    def __str__(self):
+        s = super(F21_ClearPart, self).__str__()
+        if s and self.disklabel:
+            s = s.rstrip()
+            s += " --disklabel=%s\n" % self.disklabel
+        return s
+
+    def _getParser(self):
+        op = F17_ClearPart._getParser(self)
+
+        op.add_option("--disklabel", dest="disklabel", default="")
+        return op
