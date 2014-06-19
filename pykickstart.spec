@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.55
+Version: 1.99.56
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 19 2014 Chris Lumens <clumens@redhat.com> - 1.99.56-1
+- Add support for --disklabel to clearpart (#1078537) (bcl)
+- Make print statements Python 3 compatible (mkolman)
+
 * Fri May 16 2014 Chris Lumens <clumens@redhat.com> - 1.99.55-1
 - Do not set any magic default PE size in pykickstart (vpodzime)
 - ostreesetup: Fix noGpg attribute (walters)
