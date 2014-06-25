@@ -43,15 +43,20 @@ class F17_TestCase(CommandTest):
                 self.assert_parse("%s --metadata=%s %s" % (pre, meta, post))
 
         # no mountpoint or options ... just partitions
-        self.assert_parse("btrfs none part.01 part.01")
+        self.assert_parse("btrfs none part.01 part.01",
+                          "btrfs none part.01 part.01\n")
 
         # useexisting
-        self.assert_parse("btrfs /foo --data=1 --useexisting LABEL=foo")
-        self.assert_parse("btrfs /foo --data=RAID1 --useexisting LABEL=foo")
+        self.assert_parse("btrfs /foo --data=1 --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
+        self.assert_parse("btrfs /foo --data=RAID1 --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
 
         # noformat
-        self.assert_parse("btrfs /foo --data=1 --noformat --useexisting LABEL=foo")
-        self.assert_parse("btrfs /foo --data=RAID1 --noformat --useexisting LABEL=foo")
+        self.assert_parse("btrfs /foo --data=1 --noformat --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
+        self.assert_parse("btrfs /foo --data=RAID1 --noformat --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
 
         # fail
         # no mountpoint or options
@@ -69,19 +74,32 @@ class F17_TestCase(CommandTest):
         # subvol with no parent
         self.assert_parse_error("btrfs / --subvol --name=root", KickstartValueError)
 
-        self.assert_parse("btrfs / --subvol --name=root LABEL=test")
-        self.assert_parse("btrfs / --subvol --name=root test")
+        self.assert_parse("btrfs / --subvol --name=root LABEL=test",
+                          "btrfs / --subvol --name=root LABEL=test\n")
+        self.assert_parse("btrfs / --subvol --name=root test",
+                          "btrfs / --subvol --name=root test\n")
 
         # preexisting
-        self.assert_parse("btrfs / --useexisting btrfs.01 btrfs.02")
-        self.assert_parse("btrfs / --useexisting LABEL=test")
+        self.assert_parse("btrfs / --useexisting btrfs.01 btrfs.02",
+                          "btrfs / --noformat --useexisting btrfs.01 btrfs.02\n")
+        self.assert_parse("btrfs / --useexisting LABEL=test",
+                          "btrfs / --noformat --useexisting LABEL=test\n")
 
         # preexisting subvol with parent specified by label
-        self.assert_parse("btrfs /home --subvol --name=home --useexisting LABEL=test")
+        self.assert_parse("btrfs /home --subvol --name=home --useexisting LABEL=test",
+                          "btrfs /home --noformat --useexisting --subvol --name=home LABEL=test\n")
 
         # pass
-        self.assert_parse("btrfs / --label=ROOT --data=1 part.01 part.02")
-        self.assert_parse("btrfs / --data=RAID1 --label=ROOT part.01 part.02")
+        self.assert_parse("btrfs / --label=ROOT --data=1 part.01 part.02",
+                          "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
+        self.assert_parse("btrfs / --data=RAID1 --label=ROOT part.01 part.02",
+                          "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
+
+        # equality
+        self.assertNotEqual(self.assert_parse("btrfs / part.01"), None)
+        self.assertEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs / part.01"))
+        self.assertEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs / part.02"))
+        self.assertNotEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs /home part.01"))
 
 if __name__ == "__main__":
     unittest.main()

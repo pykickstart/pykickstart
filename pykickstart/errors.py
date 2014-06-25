@@ -65,7 +65,7 @@ class KickstartParseError(KickstartError):
     """
     def __init__(self, msg):
         """Create a new KickstartParseError exception instance with the
-           descriptive message val.  val should be the return value of
+           descriptive message msg.  msg should be the return value of
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)
@@ -80,7 +80,7 @@ class KickstartValueError(KickstartError):
     """
     def __init__(self, msg):
         """Create a new KickstartValueError exception instance with the
-           descriptive message val.  val should be the return value of
+           descriptive message msg.  msg should be the return value of
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)
@@ -94,7 +94,7 @@ class KickstartVersionError(KickstartError):
     """
     def __init__(self, msg):
         """Create a new KickstartVersionError exception instance with the
-           descriptive message val.  val should be the return value of
+           descriptive message msg.  msg should be the return value of
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)

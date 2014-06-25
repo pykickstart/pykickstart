@@ -31,6 +31,12 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("repo --name=blah --mirrorlist=http://www.domain.com",
                           "repo --name=\"blah\" --mirrorlist=http://www.domain.com\n")
 
+        # equality
+        self.assertEqual(self.assert_parse("repo --name=left --baseurl=http://wherever"), self.assert_parse("repo --name=left --baseurl=http://wherever"))
+        self.assertEqual(self.assert_parse("repo --name=left --baseurl=http://wherever"), self.assert_parse("repo --name=left --baseurl=http://somewhere"))
+        self.assertNotEqual(self.assert_parse("repo --name=left --baseurl=http://wherever"), None)
+        self.assertNotEqual(self.assert_parse("repo --name=left --baseurl=http://wherever"), self.assert_parse("repo --name=right --baseurl=http://wherever"))
+
         # fail
         # missing required option --name
         self.assert_parse_error("repo --baseurl=www.domain.com", KickstartValueError)

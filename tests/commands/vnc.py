@@ -8,8 +8,11 @@ class FC3_TestCase(CommandTest):
     command = "vnc"
 
     def runTest(self):
+        obj = self.assert_parse("vnc", "vnc\n")
+        obj.enabled = False
+        self.assertEqual(str(obj), "")
+
         # pass
-        self.assert_parse("vnc", "vnc\n")
         self.assert_parse("vnc --connect=HOSTNAME", "vnc --connect=HOSTNAME\n")
         self.assert_parse("vnc --connect=HOSTNAME:PORT", "vnc --connect=HOSTNAME:PORT\n")
         self.assert_parse("vnc --password=PASSWORD", "vnc --password=PASSWORD\n")

@@ -171,7 +171,7 @@ class DeprecatedCommand(KickstartCommand):
     """
     def __init__(self, writePriority=None, *args, **kwargs):
         # We don't want people using this class by itself.
-        if self.__class__ is KickstartCommand:
+        if self.__class__ is DeprecatedCommand:
             raise TypeError("DeprecatedCommand is an abstract class.")
 
         # Create a new DeprecatedCommand instance.

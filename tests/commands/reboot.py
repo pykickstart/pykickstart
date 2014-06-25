@@ -30,8 +30,10 @@ class FC3_TestCase(CommandTest):
         # pass
         cmd = self.assert_parse("reboot")
         self.assertEqual(cmd.action, KS_REBOOT)
+        self.assertEqual(str(cmd), "# Reboot after installation\nreboot\n")
         cmd = self.assert_parse("shutdown")
         self.assertEqual(cmd.action, KS_SHUTDOWN)
+        self.assertEqual(str(cmd), "# Shutdown after installation\nshutdown\n")
 
         cmd = self.assert_parse("halt")
         # halt changed in F18
@@ -49,6 +51,7 @@ class FC6_TestCase(FC3_TestCase):
         cmd = self.assert_parse("reboot --eject")
         self.assertEqual(cmd.action, KS_REBOOT)
         self.assertEqual(cmd.eject, True)
+        self.assertEqual(str(cmd), "# Reboot after installation\nreboot --eject\n")
 
 class F18_TestCase(FC6_TestCase):
     def runTest(self):
@@ -57,8 +60,10 @@ class F18_TestCase(FC6_TestCase):
         # pass
         cmd = self.assert_parse("halt")
         self.assertEqual(cmd.action, KS_WAIT)
+        self.assertEqual(str(cmd), "# Halt after installation\nhalt\n")
         cmd = self.assert_parse("halt --eject")
         self.assertEqual(cmd.eject, True)
+        self.assertEqual(str(cmd), "# Halt after installation\nhalt --eject\n")
 
 if __name__ == "__main__":
     unittest.main()

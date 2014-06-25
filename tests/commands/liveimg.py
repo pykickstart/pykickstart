@@ -37,6 +37,19 @@ class F19_TestCase(CommandTest):
         self.assert_parse("liveimg --url=http://someplace/somewhere",
                           "liveimg --url=\"http://someplace/somewhere\"\n")
 
+        # equality
+        self.assertEqual(self.assert_parse("liveimg --url=http://one"), self.assert_parse("liveimg --url=http://one"))
+        self.assertEqual(self.assert_parse("liveimg --url=http://one --proxy=http://wherever"), self.assert_parse("liveimg --url=http://one --proxy=http://wherever"))
+        self.assertEqual(self.assert_parse("liveimg --url=http://one --noverifyssl"), self.assert_parse("liveimg --url=http://one --noverifyssl"))
+        self.assertEqual(self.assert_parse("liveimg --url=http://one --checksum=deadbeef"), self.assert_parse("liveimg --url=http://one --checksum=deadbeef"))
+
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one"), self.assert_parse("liveimg --url=http://two"))
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one --proxy=http://wherever"), self.assert_parse("liveimg --url=http://two"))
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one --proxy=http://wherever"), self.assert_parse("liveimg --url=http://one, --proxy=http://somewhere"))
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one --noverifyssl"), self.assert_parse("liveimg --url=http://one"))
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one --checksum=deadbeef"), self.assert_parse("liveimg --url=http://one"))
+        self.assertNotEqual(self.assert_parse("liveimg --url=http://one --checksum=deadbeef"), self.assert_parse("liveimg --url=http://one --checksum=abababab"))
+
         # fail
         self.assert_parse_error("liveimg", KickstartValueError)
         self.assert_parse_error("liveimg --url", KickstartParseError)

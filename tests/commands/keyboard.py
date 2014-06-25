@@ -67,5 +67,15 @@ class F18_TestCase(FC3_TestCase):
                                 "'cz (qwerty)' cz sk", KickstartValueError)
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
+        # keyboard property
+        obj = self.assert_parse("keyboard us")
+        self.assertEqual(obj.keyboard, "us")
+
+        obj = self.assert_parse("keyboard --xlayouts=us,cz")
+        self.assertEqual(obj.keyboard, "us")
+
+        obj.keyboard = "cz"
+        self.assertEqual(obj.keyboard, "cz")
+
 if __name__ == "__main__":
     unittest.main()
