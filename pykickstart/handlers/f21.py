@@ -29,7 +29,7 @@ class F21Handler(BaseHandler):
     commandMap = {
         "auth": commands.authconfig.FC3_Authconfig,
         "authconfig": commands.authconfig.FC3_Authconfig,
-        "autopart": commands.autopart.F20_AutoPart,
+        "autopart": commands.autopart.F21_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
         "bootloader": commands.bootloader.F21_Bootloader,
         "btrfs": commands.btrfs.F17_BTRFS,
