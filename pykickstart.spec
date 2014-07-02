@@ -14,7 +14,7 @@ License: GPLv2
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: python-devel, gettext, python-setuptools-devel
+BuildRequires: python-devel, gettext, python-setuptools
 BuildRequires: python-urlgrabber
 %if ! 0%{?rhel}
 BuildRequires: transifex-client
