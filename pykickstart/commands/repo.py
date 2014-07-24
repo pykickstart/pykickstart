@@ -133,6 +133,22 @@ RHEL6_RepoData = F14_RepoData
 
 F15_RepoData = F14_RepoData
 
+class RHEL7_RepoData(F14_RepoData):
+    removedKeywords = F14_RepoData.removedKeywords
+    removedAttrs = F14_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F14_RepoData.__init__(self, *args, **kwargs)
+        self.install = kwargs.get("install", False)
+
+    def _getArgsAsStr(self):
+        retval = F14_RepoData._getArgsAsStr(self)
+
+        if self.install:
+            retval += " --install"
+
+        return retval
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -253,3 +269,12 @@ class F15_Repo(F14_Repo):
     removedAttrs = F14_Repo.removedAttrs
 
     urlRequired = False
+
+class RHEL7_Repo(F15_Repo):
+    removedKeywords = F15_Repo.removedKeywords
+    removedAttrs = F15_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F15_Repo._getParser(self)
+        op.add_option("--install", action="store_true", default=False)
+        return op
