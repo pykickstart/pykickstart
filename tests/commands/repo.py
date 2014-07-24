@@ -118,5 +118,15 @@ class F15_TestCase(F14_TestCase):
     def runTest(self, urlRequired=False):
         F14_TestCase.runTest(self, urlRequired=urlRequired)
 
+class F21_TestCase(F15_TestCase):
+    def runTest(self, urlRequired=False):
+        F15_TestCase.runTest(self, urlRequired=urlRequired)
+        #pass
+        self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --install",
+                          "repo --name=\"blah\" --baseurl=https://www.domain.com --install\n")
+        #fail
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah", KickstartParseError)
+
+
 if __name__ == "__main__":
     unittest.main()
