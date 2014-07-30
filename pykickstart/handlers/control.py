@@ -1316,7 +1316,7 @@ commandMap = {
     RHEL7: {
         "auth": authconfig.FC3_Authconfig,
         "authconfig": authconfig.FC3_Authconfig,
-        "autopart": autopart.F20_AutoPart,
+        "autopart": autopart.RHEL7_AutoPart,
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.F19_Bootloader,
         "btrfs": btrfs.F17_BTRFS,
