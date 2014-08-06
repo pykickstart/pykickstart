@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.15
+Version: 1.74.16
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Wed Aug 06 2014 Chris Lumens <clumens@redhat.com> - 1.74.16-1
+- Add an option to disable even installing the core group. (clumens)
+- Add a new bootloader --disabled option. (clumens)
+
 * Wed Jun 04 2014 Chris Lumens <clumens@redhat.com> - 1.74.15-1
 - network: add network --domain (ifcfg DOMAIN) option (#1039051) (rvykydal)
 
