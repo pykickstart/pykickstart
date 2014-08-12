@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.57
+Version: 1.99.58
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Aug 12 2014 Chris Lumens <clumens@redhat.com> - 1.99.58-1
+- Add --install flag to repo command (#1119867) (bcl)
+
 * Wed Jul 02 2014 Chris Lumens <clumens@redhat.com> - 1.99.57-1
 - Replace python-setuptools-devel BR with python-setuptools (toshio). (clumens)
 - Add autopart --fstype support (#1112697) (bcl)
