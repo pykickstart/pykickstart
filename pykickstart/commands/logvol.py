@@ -542,4 +542,12 @@ class RHEL7_LogVol(F20_LogVol):
                                        "specified for the same logvol"))
             raise KickstartParseError(err)
 
+        if not retval.preexist and not retval.percent and not retval.size:
+            errorMsg = _("Size required")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
+        if retval.percent is not None and (retval.percent < 0 or retval.percent > 100):
+            errorMsg = _("Percentage must be between 0 and 100")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=errorMsg))
+
         return retval

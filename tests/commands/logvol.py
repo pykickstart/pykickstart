@@ -287,7 +287,7 @@ class F20_TestCase(F18_TestCase):
 
         # logvol w/out specified size
         self.assert_parse_error("logvol none --name=pool1 --vgname=vg --thinpool",
-                                regex="No size given for logical volume")
+                                regex="Size required")
 
         # use existing logvol, which must have a size
         self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --useexisting")
