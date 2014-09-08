@@ -25,6 +25,9 @@ import gettext
 import warnings
 _ = lambda x: gettext.ldgettext("pykickstart", x)
 
+MIN_VLAN_ID = 0
+MAX_VLAN_ID = 4095
+
 class FC3_NetworkData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -538,9 +541,63 @@ class RHEL6_Network(F9_Network):
         op.add_option("--bondopts", dest="bondopts")
         return op
 
+def validate_network_interface_name(name):
+    """Check if the given network interface name is valid, return an error message
+    if an error is found or None if no errors are found
+
+    :param str name: name to validate
+    :returns: error message or None if no error is found
+    :rtype: str or NoneType
+    """
+    # (for reference see the NetworkManager source code:
+    #  NetworkManager/src/settings/plugins/ifcfg-rh/reader.c
+    #  and the make_vlan_setting function)
+
+    vlan_id = None
+
+    # if it contains '.', vlan id should follow (eg 'ens7.171', 'mydev.171')
+    (vlan, dot, id_candidate) = name.partition(".")
+    if dot:
+        # 'vlan' can't be followed by a '.'
+        if vlan == "vlan":
+            return _("When using the <prefix>.<vlan id> interface name notation, <prefix> can't be equal to 'vlan'.")
+        try:
+            vlan_id = int(id_candidate)
+        except ValueError:
+            return _("If network --interfacename contains a '.', valid vlan id should follow.")
+
+    # if it starts with 'vlan', vlan id should follow ('vlan171')
+    (empty, sep, id_candidate) = name.partition("vlan")
+    if sep and empty == "":
+        # if we checked only for empty == "", we would evaluate missing interface name as an error
+        try:
+            vlan_id = int(id_candidate)
+        except ValueError:
+            return _("If network --interfacename starts with 'vlan', valid vlan id should follow.")
+
+    # check if the vlan id is in range
+    if vlan_id is not None:
+        if not(MIN_VLAN_ID <= vlan_id <= MAX_VLAN_ID):
+            return _("The vlan id out of the %d-%d vlan id range.") % (MIN_VLAN_ID, MAX_VLAN_ID)
+
+    # network interface name seems to be valid (no error found)
+    return None
+
 class RHEL7_Network(F20_Network):
     def _getParser(self):
         op = F20_Network._getParser(self)
         op.add_option("--interfacename", dest="interfacename", action="store",
                 default="")
         return op
+
+    def parse(self, args):
+        # call the overridden command to do it's job first
+        retval = F20_Network.parse(self, args)
+
+        # validate the network interface name
+        error_message = validate_network_interface_name(retval.interfacename)
+        # something is wrong with the interface name
+        if error_message is not None:
+            raise KickstartValueError(formatErrorMsg(self.lineno,msg=error_message))
+
+        return retval
