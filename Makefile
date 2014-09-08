@@ -3,7 +3,7 @@ VERSION=$(shell awk '/Version:/ { print $$2 }' $(PKGNAME).spec)
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(PKGNAME).spec | sed -e 's|%.*$$||g')
 TAG=r$(VERSION)-$(RELEASE)
 
-TX_PULL_ARGS = -a --disable-overwrite
+TX_PULL_ARGS = -a
 TX_PUSH_ARGS = -s
 
 MANDIR=/usr/share/man
