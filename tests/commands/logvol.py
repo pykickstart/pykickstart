@@ -285,6 +285,17 @@ class F20_TestCase(F18_TestCase):
                                 "--chunksize=512",
                                 regex="--chunksize and --metadatasize are for thin pools only")
 
+        # logvol w/out specified size
+        self.assert_parse_error("logvol none --name=pool1 --vgname=vg --thinpool",
+                                regex="No size given for logical volume")
+
+        # use existing logvol, which must have a size
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --useexisting")
+
+        # logvol with a disallowed percent value
+        self.assert_parse_error("logvol / --percent=1000 --name=NAME --vgname=VGNAME",
+                                KickstartValueError,
+                                "Percentage must be between 0 and 100.")
 
 if __name__ == "__main__":
     unittest.main()
