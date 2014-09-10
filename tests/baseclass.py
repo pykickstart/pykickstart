@@ -50,14 +50,15 @@ class ParserTest(unittest.TestCase):
             self._handler = makeVersion(self.version)
         return self._handler
 
-    def assert_parse_error(self, ks_string, exception=KickstartParseError):
+    def assert_parse_error(self, ks_string, exception=KickstartParseError, regex=r".*"):
         """Parsing of this command sequence is expected to raise an exception,
         exception type can be set by the exception keyword argument.
 
         By default the KickstartParseError is expected.
         """
 
-        self.assertRaises(exception, self.parser.readKickstartFromString, ks_string)
+        with self.assertRaisesRegexp(exception, regex):
+            self.parser.readKickstartFromString(ks_string)
 
     def assert_parse(self, ks_string):
         """Parsing of his command sequence is expected to finish without
@@ -161,13 +162,14 @@ class CommandTest(unittest.TestCase):
                 self.fail("Failed while parsing: %s" % e)
         return obj
 
-    def assert_parse_error(self, inputStr, exception=KickstartParseError):
+    def assert_parse_error(self, inputStr, exception=KickstartParseError, regex=r".*"):
         '''Assert that parsing the supplied string raises a
         KickstartParseError'''
         parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
 
-        self.assertRaises(exception, parser.parse, args[1:])
+        with self.assertRaisesRegexp(exception, regex):
+            parser.parse(args[1:])
 
     def assert_deprecated(self, cmd, opt):
         '''Ensure that the provided option is listed as deprecated'''
