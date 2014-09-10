@@ -69,5 +69,37 @@ class F20_TestCase(CommandTest):
             nd2 = self.assert_parse(s)
             self.assertEquals(value, nd2.teamslaves)
 
+class RHEL7_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
+        # there needs to be a vlan id after a dot & only one dot is allowed
+        self.assert_parse_error("network --interfacename=abc.", KickstartValueError)
+        self.assert_parse_error("network --interfacename=abc.def", KickstartValueError)
+        self.assert_parse_error("network --interfacename=abc..", KickstartValueError)
+        self.assert_parse_error("network --interfacename=abc.123.456", KickstartValueError)
+        # 'vlan' can't be followed by a '.'
+        self.assert_parse_error("network --interfacename=vlan.123", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan.", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan..", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan.abc", KickstartValueError)
+        self.assert_parse("network --interfacename=abc.123")
+
+        # if the device name begins with 'vlan', vlan id needs to follow
+        self.assert_parse_error("network --interfacename=vlan", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlanabcd", KickstartValueError)
+        # a valid vlan id needs to directly follow the 'vlan' prefix
+        self.assert_parse_error("network --interfacename=vlanabcd123", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlanabcd123zxy", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan123zxy", KickstartValueError)
+        self.assert_parse("network --interfacename=vlan123")
+
+        # vlan ids go from 0 to 4095
+        self.assert_parse("network --interfacename=vlan0")
+        self.assert_parse("network --interfacename=vlan4095")
+        self.assert_parse("network --interfacename=abc.0")
+        self.assert_parse("network --interfacename=abc.4095")
+        self.assert_parse_error("network --interfacename=vlan9001", KickstartValueError)
+        self.assert_parse_error("network --interfacename=abc.9001", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()
