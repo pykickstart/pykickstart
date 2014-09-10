@@ -16,14 +16,14 @@ class FC3_TestCase(CommandTest):
             self.bytesPerInode = ""
 
         # --name and --vgname
-        self.assert_parse("logvol / --name=NAME --vgname=VGNAME",
-                          "logvol /  %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        self.assert_parse("logvol / --size=10240 --name=NAME --vgname=VGNAME",
+                          "logvol /  --size=10240 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --fstype
-        self.assert_parse("logvol / --fstype=\"BLAFS\" --name=NAME --vgname=VGNAME",
-                          "logvol /  --fstype=\"BLAFS\" %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        self.assert_parse("logvol / --fstype=\"BLAFS\" --size=10240 --name=NAME --vgname=VGNAME",
+                          "logvol /  --fstype=\"BLAFS\" --size=10240 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --grow
-        self.assert_parse("logvol / --grow --name=NAME --vgname=VGNAME",
-                          "logvol /  --grow %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        self.assert_parse("logvol / --grow --size=10240 --name=NAME --vgname=VGNAME",
+                          "logvol /  --grow --size=10240 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --size
         self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME",
                           "logvol /  --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
@@ -31,8 +31,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("logvol / --maxsize=2048 --size=1024 --name=NAME --vgname=VGNAME",
                           "logvol /  --maxsize=2048 --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --recommended
-        self.assert_parse("logvol / --maxsize=2048 --recommended --name=NAME --vgname=VGNAME",
-                          "logvol /  --maxsize=2048 --recommended %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        self.assert_parse("logvol / --maxsize=2048 --recommended --size=1024 --name=NAME --vgname=VGNAME",
+                          "logvol /  --maxsize=2048 --recommended --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --percent
         self.assert_parse("logvol / --percent=10 --name=NAME --vgname=VGNAME",
                           "logvol /  --percent=10 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
@@ -78,8 +78,8 @@ class FC4_TestCase(FC3_TestCase):
 
         # --fsoptions
         if "--fsoptions" in self.optionList:
-            self.assert_parse("logvol / --fstype=\"BLAFS\" --fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME",
-                              "logvol /  --fstype=\"BLAFS\" %s--fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --fstype=\"BLAFS\" --size=1024 --fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME",
+                              "logvol /  --fstype=\"BLAFS\" --size=1024 %s--fsoptions=\"ABC 123\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
         if "--bytes-per-inode" in self.optionList:
             # --bytes-per-inode explicit
@@ -98,24 +98,24 @@ class FC4_TestCase(FC3_TestCase):
 
         if "--encrypted" in self.optionList:
             # Just --encrypted
-            self.assert_parse("logvol / --encrypted --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --encrypted --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # Both --encrypted and --passphrase
-            self.assert_parse("logvol / --encrypted --passphrase PASSPHRASE --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--encrypted --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --encrypted --passphrase PASSPHRASE --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--encrypted --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # Using --encrypted with --passphrase=<empty>
-            self.assert_parse("logvol / --encrypted --passphrase= --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-            self.assert_parse("logvol / --encrypted --passphrase=\"\" --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-            self.assert_parse("logvol / --encrypted --passphrase \"\" --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --encrypted --passphrase= --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --encrypted --passphrase=\"\" --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --encrypted --passphrase \"\" --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--encrypted --name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # Just --passphrase without --encrypted
-            self.assert_parse("logvol / --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME",
-                              "logvol /  %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+            self.assert_parse("logvol / --size=1024 --passphrase=\"PASSPHRASE\" --name=NAME --vgname=VGNAME",
+                              "logvol /  --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # fail - missing value
             self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "--passphrase option requires an argument")
@@ -137,8 +137,8 @@ class F9_TestCase(FC4_TestCase):
         self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "--fsprofile option requires an argument")
 
         # Using --fsprofile
-        self.assert_parse("logvol / --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
-                          "logvol /  --fsprofile=\"FS_PROFILE\" --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
+                          "logvol /  --size=1024 --fsprofile=\"FS_PROFILE\" --name=NAME --vgname=VGNAME\n")
 
         # Ensure --bytes-per-inode has been deprecated
         self.assert_deprecated("logvol", "bytes-per-inode")
@@ -149,23 +149,23 @@ class F12_TestCase(F9_TestCase):
         F9_TestCase.runTest(self)
 
         # pass
-        self.assert_parse("logvol / --name=NAME --vgname=VGNAME "
+        self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME "
                           "--escrowcert=\"http://x/y\"",
-                          "logvol /  --name=NAME --vgname=VGNAME\n")
-        self.assert_parse("logvol / --encrypted --backuppassphrase --name=NAME "
+                          "logvol /  --size=1024 --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --encrypted --backuppassphrase --name=NAME "
                           "--vgname=VGNAME",
-                          "logvol /  --encrypted --name=NAME --vgname=VGNAME\n")
-        self.assert_parse("logvol / --encrypted --escrowcert=\"http://x/y\" "
+                          "logvol /  --size=1024 --encrypted --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --encrypted --escrowcert=\"http://x/y\" "
                           "--name=NAME --vgname=VGNAME",
-                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "logvol /  --size=1024 --encrypted --escrowcert=\"http://x/y\" "
                           "--name=NAME --vgname=VGNAME\n")
-        self.assert_parse("logvol / --encrypted --escrowcert=\"http://x/y\" "
+        self.assert_parse("logvol / --size=1024 --encrypted --escrowcert=\"http://x/y\" "
                           "--backuppassphrase --name=NAME --vgname=VGNAME",
-                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "logvol /  --size=1024 --encrypted --escrowcert=\"http://x/y\" "
                           "--backuppassphrase --name=NAME --vgname=VGNAME\n")
-        self.assert_parse("logvol / --encrypted --escrowcert=http://x/y "
+        self.assert_parse("logvol / --size=1024 --encrypted --escrowcert=http://x/y "
                           "--name=NAME --vgname=VGNAME",
-                          "logvol /  --encrypted --escrowcert=\"http://x/y\" "
+                          "logvol /  --size=1024 --encrypted --escrowcert=\"http://x/y\" "
                           "--name=NAME --vgname=VGNAME\n")
 
         # fail
@@ -212,8 +212,8 @@ class F14_TestCase(F12_TestCase):
 class F15_TestCase(F14_TestCase):
     def runTest(self):
         F14_TestCase.runTest(self)
-        self.assert_parse("logvol / --name=NAME --vgname=VGNAME --label=ROOT",
-                          "logvol /  --label=\"ROOT\" --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME --label=ROOT",
+                          "logvol /  --size=1024 --label=\"ROOT\" --name=NAME --vgname=VGNAME\n")
 
 class F17_TestCase(F15_TestCase):
     def runTest(self):
@@ -235,16 +235,16 @@ class F18_TestCase(F17_TestCase):
         F17_TestCase.runTest(self)
 
         self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
-                          "--hibernation")
+                          "--hibernation --size=1024")
         self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
-                          "--recommended --hibernation")
+                          "--recommended --hibernation --size=1024")
 
-        self.assert_parse("logvol / --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
-                          "logvol /  --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --size=1024 --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
         # Allowed here, but anaconda should complain.  Note how we throw out
         # cipher from the output if there's no --encrypted.
-        self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
-                          "logvol /  --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol / --size=1024 --cipher=3-rot13 --name=NAME --vgname=VGNAME",
+                          "logvol /  --size=1024 --name=NAME --vgname=VGNAME\n")
 
         self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
 
@@ -252,19 +252,20 @@ class F20_TestCase(F18_TestCase):
     def runTest(self):
         F18_TestCase.runTest(self)
 
-        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool",
-                          "logvol none  --thinpool --name=pool1 --vgname=vg\n")
-        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool "
-                          "--chunksize=512",
-                          "logvol none  --thinpool --chunksize=512 "
+        self.assert_parse("logvol none --size=1024 --name=pool1 --vgname=vg --thinpool",
+                          "logvol none  --size=1024 --thinpool --name=pool1 --vgname=vg\n")
+        self.assert_parse("logvol none --size=1024 --name=pool1 --vgname=vg "
+                          "--thinpool --chunksize=512",
+                          "logvol none  --size=1024 --thinpool --chunksize=512 "
                           "--name=pool1 --vgname=vg\n")
-        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool "
-                          "--metadatasize=4 --chunksize=1024",
-                          "logvol none  --thinpool --metadatasize=4 "
-                          "--chunksize=1024 --name=pool1 --vgname=vg\n")
-        self.assert_parse("logvol /home --name=home --vgname=vg "
+        self.assert_parse("logvol none --size=1024 --name=pool1 --vgname=vg "
+                          "--thinpool --metadatasize=4 --chunksize=1024",
+                          "logvol none  --size=1024 --thinpool "
+                          "--metadatasize=4 --chunksize=1024 --name=pool1 "
+                          "--vgname=vg\n")
+        self.assert_parse("logvol /home --size=1024 --name=home --vgname=vg "
                           "--thin --poolname=pool1",
-                          "logvol /home  --thin --poolname=pool1 "
+                          "logvol /home  --size=1024 --thin --poolname=pool1 "
                           "--name=home --vgname=vg\n")
 
         # missing pool name
