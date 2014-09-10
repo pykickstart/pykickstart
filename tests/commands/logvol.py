@@ -52,22 +52,22 @@ class FC3_TestCase(CommandTest):
         self.assert_type("logvol", "percent", "int")
 
         # fail - incorrect type
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --size=SIZE", KickstartParseError)
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --maxsize=MAXSIZE", KickstartParseError)
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --percent=PCT", KickstartParseError)
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --size=SIZE", KickstartParseError, "option --size: invalid integer value: 'SIZE'")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --maxsize=MAXSIZE", KickstartParseError, "option --maxsize: invalid integer value: 'MAXSIZE'")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --percent=PCT", KickstartParseError, "option --percent: invalid integer value: 'PCT'")
 
         # assert required options
         self.assert_required("logvol", "name")
         self.assert_required("logvol", "vgname")
 
         # fail - missing required
-        self.assert_parse_error("logvol / --name=NAME", KickstartValueError)
-        self.assert_parse_error("logvol / --vgname=NAME", KickstartValueError)
+        self.assert_parse_error("logvol / --name=NAME", KickstartValueError, "Option --vgname is required")
+        self.assert_parse_error("logvol / --vgname=NAME", KickstartValueError, "Option --name is required")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", KickstartValueError)
-        self.assert_parse_error("logvol --name=NAME", KickstartValueError)
-        self.assert_parse_error("logvol --vgname=NAME", KickstartValueError)
+        self.assert_parse_error("logvol", KickstartValueError, "Option --name is required")
+        self.assert_parse_error("logvol --name=NAME", KickstartValueError, "Option --vgname is required")
+        self.assert_parse_error("logvol --vgname=NAME", KickstartValueError, "Option --name is required")
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -90,11 +90,11 @@ class FC4_TestCase(FC3_TestCase):
             self.assert_type("logvol", "bytes-per-inode", "int")
 
             # fail - incorrect type
-            self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError)
+            self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError, "option --bytes-per-inode: invalid integer value: 'B'")
 
             # fail - missing value
-            self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError)
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError)
+            self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError, "option --bytes-per-inode: invalid integer value: '--name=NAME'")
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError, "--bytes-per-inode option requires an argument")
 
         if "--encrypted" in self.optionList:
             # Just --encrypted
@@ -118,10 +118,10 @@ class FC4_TestCase(FC3_TestCase):
                               "logvol /  %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # fail - missing value
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError)
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "--passphrase option requires an argument")
 
             # fail - --encrypted does not take a value
-            self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError)
+            self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError, "--encrypted option does not take a value")
 
 RHEL5_TestCase = FC4_TestCase
 
@@ -134,7 +134,7 @@ class F9_TestCase(FC4_TestCase):
         self.assert_type("logvol", "fsprofile", "string")
 
         # fail - missing value
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError)
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "--fsprofile option requires an argument")
 
         # Using --fsprofile
         self.assert_parse("logvol / --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
@@ -170,16 +170,21 @@ class F12_TestCase(F9_TestCase):
 
         # fail
         self.assert_parse_error("logvol / --escrowcert --name=NAME "
-                                "--vgname=VGNAME")
+                                "--vgname=VGNAME",
+                                regex="Option --escrowcert: invalid string value: '--name=NAME'")
         self.assert_parse_error("logvol / --escrowcert --backuppassphrase "
-                                "--name=NAME --vgname=VGNAME")
+                                "--name=NAME --vgname=VGNAME",
+                                regex="Option --escrowcert: invalid string value: '--backuppassphrase'")
         self.assert_parse_error("logvol / --encrypted --escrowcert "
                                 "--backuppassphrase --name=NAME "
-                                "--vgname=VGNAME")
+                                "--vgname=VGNAME",
+                                regex="Option --escrowcert: invalid string value: '--backuppassphrase'")
         self.assert_parse_error("logvol / --backuppassphrase=False --name=NAME "
-                                "--vgname=VGNAME")
+                                "--vgname=VGNAME",
+                                regex="--backuppassphrase option does not take a value")
         self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
-                                "--vgname=VGNAME")
+                                "--vgname=VGNAME",
+                                regex="--backuppassphrase option does not take a value")
 
 class RHEL6_TestCase(F12_TestCase):
     def runTest(self):
@@ -192,7 +197,7 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --name=NAME --vgname=VGNAME\n")
 
-        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME")
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
 
         self.assert_parse("logvol swap --hibernation "
                             "--name=NAME --vgname=VGNAME")
@@ -217,13 +222,13 @@ class F17_TestCase(F15_TestCase):
                           "--useexisting --resize",
                           "logvol /x  --size=1000 --useexisting --resize "
                           "--name=NAME --vgname=VGNAME\n")
-        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize")
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize", regex="--resize can only be used in conjunction with --useexisting")
 
         # no useexisting
-        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --size=500")
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --size=500", regex="--resize can only be used in conjunction with --useexisting")
 
         # no size
-        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --useexisting")
+        self.assert_parse_error("logvol /x --name=NAME --vgname=VGNAME --resize --useexisting", regex="--resize requires --size to indicate new size")
 
 class F18_TestCase(F17_TestCase):
     def runTest(self):
@@ -241,7 +246,7 @@ class F18_TestCase(F17_TestCase):
         self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --name=NAME --vgname=VGNAME\n")
 
-        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME")
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
 
 class F20_TestCase(F18_TestCase):
     def runTest(self):
@@ -263,18 +268,21 @@ class F20_TestCase(F18_TestCase):
                           "--name=home --vgname=vg\n")
 
         # missing pool name
-        self.assert_parse_error("logvol /home --name=home --vgname=vg --thin")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --thin",
+                                regex="--thin requires --poolname to specify pool name")
 
         # chunksize is an int
         self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
-                                "--thinpool --chunksize=foo")
+                                "--thinpool --chunksize=foo",
+                                regex="option --chunksize: invalid integer value: 'foo'")
 
         # both --thin and --thinpool
-        self.assert_parse_error("logvol /home --name=home --thin --thinpool --vgname=vg --size=10000")
+        self.assert_parse_error("logvol /home --name=home --thin --thinpool --vgname=vg --size=10000", regex="--thin and --thinpool cannot both be specified for the same logvol")
 
         # chunksize and/or metadata size and not thinpool
         self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
-                                "--chunksize=512")
+                                "--chunksize=512",
+                                regex="--chunksize and --metadatasize are for thin pools only")
 
 
 if __name__ == "__main__":
