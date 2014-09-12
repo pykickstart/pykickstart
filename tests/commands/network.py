@@ -72,6 +72,7 @@ class F20_TestCase(CommandTest):
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
+
         # there needs to be a vlan id after a dot & only one dot is allowed
         self.assert_parse_error("network --interfacename=abc.", KickstartValueError)
         self.assert_parse_error("network --interfacename=abc.def", KickstartValueError)
@@ -100,6 +101,30 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse("network --interfacename=abc.4095")
         self.assert_parse_error("network --interfacename=vlan9001", KickstartValueError)
         self.assert_parse_error("network --interfacename=abc.9001", KickstartValueError)
+
+        # bridge options
+        # pass
+        self.assert_parse("network --device bridge0 --bootproto dhcp "\
+                          "--bridgeslaves=ens3,ens7 "\
+                          "--bridgeopts=priority=40000")
+        self.assert_parse("network --device bridge0 --bootproto dhcp "\
+                          "--bridgeslaves=ens3,ens7 "\
+                          "--bridgeopts=priority=40000,hello-time=3")
+
+        # fail
+        # slaves missing
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeopts=priority=40000", KickstartValueError)
+        # bad options format
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeslaves=ens3,ens7 "\
+                                '--bridgeopts="priority=40000 hello-time=3"',
+                                KickstartValueError)
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeslaves=ens3,ens7 "\
+                                "--bridgeopts=priority",
+                                KickstartValueError)
+
 
 if __name__ == "__main__":
     unittest.main()
