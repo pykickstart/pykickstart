@@ -273,11 +273,17 @@ class RHEL7_NetworkData(F20_NetworkData):
     def __init__(self, *args, **kwargs):
         F20_NetworkData.__init__(self, *args, **kwargs)
         self.interfacename = kwargs.get("interfacename", "")
+        self.bridgeslaves = kwargs.get("bridgeslaves", "")
+        self.bridgeopts = kwargs.get("bridgeopts", "")
 
     def _getArgsAsStr(self):
         retval = F20_NetworkData._getArgsAsStr(self)
         if self.interfacename:
             retval += " --interfacename=%s" % self.interfacename
+        if self.bridgeslaves != "":
+            retval += " --bridgeslaves=%s" % self.bridgeslaves
+        if self.bridgeopts != "":
+            retval += " --bridgeopts=%s" % self.bridgeopts
 
         return retval
 
@@ -567,6 +573,10 @@ class RHEL7_Network(F20_Network):
         op = F20_Network._getParser(self)
         op.add_option("--interfacename", dest="interfacename", action="store",
                 default="")
+        op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
+                default="")
+        op.add_option("--bridgeopts", dest="bridgeopts", action="store",
+                default="")
         return op
 
     def parse(self, args):
@@ -578,5 +588,17 @@ class RHEL7_Network(F20_Network):
         # something is wrong with the interface name
         if error_message is not None:
             raise KickstartValueError(formatErrorMsg(self.lineno,msg=error_message))
+
+        if retval.bridgeopts:
+            if not retval.bridgeslaves:
+                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires"\
+                                        "--bridgeslaves to be specified"))
+                raise KickstartValueError(msg)
+            opts = retval.bridgeopts.split(",")
+            for opt in opts:
+                key, _sep, value = opt.partition("=")
+                if not value or "=" in value:
+                    msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
+                    raise KickstartValueError(msg)
 
         return retval
