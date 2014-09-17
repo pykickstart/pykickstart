@@ -352,16 +352,22 @@ class F21_Bootloader(F19_Bootloader):
         F19_Bootloader.__init__(self, writePriority, *args, **kwargs)
 
         self.disabled = kwargs.get("disabled", False)
+        self.nombr = kwargs.get("nombr", False)
 
     def _getArgsAsStr(self):
         if self.disabled:
             return " --disabled"
-        else:
-            return F19_Bootloader._getArgsAsStr(self)
+
+        ret = F19_Bootloader._getArgsAsStr(self)
+        if self.nombr:
+            ret += " --nombr"
+        return ret
 
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
         op.add_option("--disabled", dest="disabled", action="store_true",
+                      default=False)
+        op.add_option("--nombr", dest="nombr", action="store_true",
                       default=False)
         return op
 
