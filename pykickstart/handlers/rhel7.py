@@ -56,7 +56,7 @@ class RHEL7Handler(BaseHandler):
         "lang": commands.lang.F19_Lang,
         "liveimg": commands.liveimg.F19_Liveimg,
         "logging": commands.logging.FC6_Logging,
-        "logvol": commands.logvol.F20_LogVol,
+        "logvol": commands.logvol.RHEL7_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F19_Method,
         "multipath": commands.multipath.FC6_MultiPath,
