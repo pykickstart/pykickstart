@@ -1723,7 +1723,7 @@ dataMap = {
         "FcoeData": fcoe.F13_FcoeData,
         "GroupData": group.F12_GroupData,
         "IscsiData": iscsi.F17_IscsiData,
-        "LogVolData": logvol.F20_LogVolData,
+        "LogVolData": logvol.RHEL7_LogVolData,
         "MultiPathData": multipath.FC6_MultiPathData,
         "NetworkData": network.RHEL7_NetworkData,
         "PartData": partition.F18_PartData,
