@@ -181,6 +181,7 @@ class RHEL6_LogVolData(F12_LogVolData):
         self.pool_name = kwargs.get("pool_name", "")
         self.chunk_size = kwargs.get("chunk_size", None)        # kilobytes
         self.metadata_size = kwargs.get("metadata_size", None)  # megabytes
+        self.profile = kwargs.get("profile", "")
 
     def _getArgsAsStr(self):
         retval = F12_LogVolData._getArgsAsStr(self)
@@ -202,6 +203,9 @@ class RHEL6_LogVolData(F12_LogVolData):
 
         if self.thin_volume:
             retval += " --thin --poolname=%s" % self.pool_name
+
+        if self.profile:
+            retval += "--profile=%s" % self.profile
 
         return retval
 
@@ -430,6 +434,7 @@ class RHEL6_LogVol(F12_LogVol):
         op.add_option("--poolname", dest="pool_name")
         op.add_option("--chunksize", type="int", dest="chunk_size")
         op.add_option("--metadatasize", type="int", dest="metadata_size")
+        op.add_option("--profile")
         return op
 
     def parse(self, args):
