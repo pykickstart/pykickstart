@@ -481,3 +481,15 @@ class F20_LogVol(F18_LogVol):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
+
+class RHEL7_LogVol(F20_LogVol):
+    def parse(self, args):
+        retval = F20_LogVol.parse(self, args)
+
+        if retval.size and retval.percent:
+            err = formatErrorMsg(self.lineno,
+                                 msg=_("--size and --percent cannot both be "
+                                       "specified for the same logvol"))
+            raise KickstartParseError(err)
+
+        return retval

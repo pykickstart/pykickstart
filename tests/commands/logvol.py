@@ -297,5 +297,11 @@ class F20_TestCase(F18_TestCase):
                                 KickstartValueError,
                                 "Percentage must be between 0 and 100")
 
+class RHEL7_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
+
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=2 --percent=30")
+
 if __name__ == "__main__":
     unittest.main()

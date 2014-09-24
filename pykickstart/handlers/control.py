@@ -1343,7 +1343,7 @@ commandMap = {
         "lang": lang.F19_Lang,
         "liveimg": liveimg.F19_Liveimg,
         "logging": logging.FC6_Logging,
-        "logvol": logvol.F20_LogVol,
+        "logvol": logvol.RHEL7_LogVol,
         "mediacheck": mediacheck.FC4_MediaCheck,
         "method": method.F19_Method,
         "multipath": multipath.FC6_MultiPath,
