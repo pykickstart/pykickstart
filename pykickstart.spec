@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43.13
+Version: 1.99.43.14
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,16 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Sep 24 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.14-1
+- Make --size and --percent mutually exclusive in logvol (RHEL7). (dlehman)
+- Some tests for --size and --percent (#1117908) (amulhern)
+- Update tests where necessary with --size flag (#1117908) (amulhern)
+- Supply regex values for assert_parse_error calls in logvol.py (#1117908) (amulhern)
+- Check the regular expression when asserting a parse error (#1117908) (amulhern)
+- Add tests for --interfacename validation (mkolman)
+- Validate network interface name when parsing the kickstart (#1081982) (mkolman)
+- Move some statically detectable kickstart errors out of anaconda (#1117908) (amulhern)
+
 * Thu Aug 28 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.13-1
 - Use the right bootloader command version for RHEL7 and F19. (clumens)
 - Do not set any magic default PE size in pykickstart (vpodzime)
