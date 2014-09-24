@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.59
+Version: 1.99.60
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Sep 24 2014 Chris Lumens <clumens@redhat.com> - 1.99.60-1
+- Make --size and --percent mutually exclusive in logvol. (dlehman)
+- Add support for F22. (clumens)
+
 * Wed Sep 17 2014 Chris Lumens <clumens@redhat.com> - 1.99.59-1
 - Some tests for --size and --percent (#1117908) (amulhern)
 - Update tests where necessary with --size flag (#1117908) (amulhern)
