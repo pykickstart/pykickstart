@@ -20,6 +20,7 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
 from pykickstart.options import KSOptionParser
+from pykickstart.errors import KickstartValueError, formatErrorMsg
 
 import gettext
 import warnings
