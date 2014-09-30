@@ -591,7 +591,7 @@ class RHEL7_Network(F20_Network):
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
-                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires"\
+                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
                                         "--bridgeslaves to be specified"))
                 raise KickstartValueError(msg)
             opts = retval.bridgeopts.split(",")

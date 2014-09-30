@@ -113,15 +113,17 @@ class RHEL7_TestCase(F20_TestCase):
 
         # fail
         # slaves missing
-        self.assert-parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeopts=priority=40000")
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeopts=priority=40000", KickstartValueError)
         # bad options format
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                '--bridgeopts="priority=40000 hello-time=3"')
+                                '--bridgeopts="priority=40000 hello-time=3"',
+                                KickstartValueError)
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                "--bridgeopts=priority")
+                                "--bridgeopts=priority",
+                                KickstartValueError)
 
 
 if __name__ == "__main__":
