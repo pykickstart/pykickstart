@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43.15
+Version: 1.99.43.16
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Oct 02 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.16-1
+- Add support for specifying thin pool profile (vpodzime)
+
 * Tue Sep 30 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.15-1
 - network: add support for bridge (#1075195) (rvykydal)
 
