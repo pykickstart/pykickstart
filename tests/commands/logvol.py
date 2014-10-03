@@ -301,6 +301,11 @@ class F21_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
 
+        # --profile should work for all logvol commands even though it may be
+        # implemented only for some types (thin pool,...)
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --profile=performance --size=500")
+        self.assert_parse("logvol /home --name=homelv --vgname=vg --profile=performance --size=500")
+
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=2 --percent=30")
 
 class RHEL7_TestCase(F20_TestCase):

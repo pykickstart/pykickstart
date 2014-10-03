@@ -98,7 +98,7 @@ class F21Handler(BaseHandler):
         "FcoeData": commands.fcoe.F13_FcoeData,
         "GroupData": commands.group.F12_GroupData,
         "IscsiData": commands.iscsi.F17_IscsiData,
-        "LogVolData": commands.logvol.F20_LogVolData,
+        "LogVolData": commands.logvol.F21_LogVolData,
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.F21_NetworkData,
         "PartData": commands.partition.F18_PartData,

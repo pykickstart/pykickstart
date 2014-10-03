@@ -261,6 +261,19 @@ class F20_LogVolData(F18_LogVolData):
 
         return retval
 
+class F21_LogVolData(F20_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F20_LogVolData.__init__(self, *args, **kwargs)
+        self.profile = kwargs.get("profile", "")
+
+    def _getArgsAsStr(self):
+        retval = F20_LogVolData._getArgsAsStr(self)
+
+        if self.profile:
+            retval += "--profile=%s" % self.profile
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -483,6 +496,12 @@ class F20_LogVol(F18_LogVol):
         return retval
 
 class F21_LogVol(F20_LogVol):
+    def _getParser(self):
+        op = F20_LogVol._getParser(self)
+        op.add_option("--profile")
+
+        return op
+
     def parse(self, args):
         retval = F20_LogVol.parse(self, args)
 
