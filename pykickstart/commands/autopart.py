@@ -222,7 +222,7 @@ class F17_AutoPart(F16_AutoPart):
     def _typeAsStr(self):
         retval = None
 
-        for (key, value) in self.typeMap.items():
+        for (key, value) in list(self.typeMap.items()):
             if value == self.type:
                 retval = key
                 break
@@ -247,7 +247,7 @@ class F17_AutoPart(F16_AutoPart):
 
     def _getParser(self):
         def type_cb(option, opt_str, value, parser):
-            if self.typeMap.has_key(value.lower()):
+            if value.lower() in self.typeMap:
                 parser.values.ensure_value(option.dest,
                                            self.typeMap[value.lower()])
 

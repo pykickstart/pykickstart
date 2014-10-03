@@ -118,7 +118,7 @@ class CommandTest(unittest.TestCase):
 
         parser = self.getParser(self.command)._getParser()
 
-        for opt in filter(lambda o: not o.deprecated, parser.option_list):
+        for opt in [o for o in parser.option_list if not o.deprecated]:
             self._options.append(opt.get_opt_string())
 
         return self._options
@@ -216,8 +216,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
     # Get a list of all *.py files in moduleDir
     moduleList = []
-    lst = map(lambda x: os.path.splitext(os.path.basename(x))[0],
-              glob.glob(moduleDir + "/*.py"))
+    lst = [os.path.splitext(os.path.basename(x))[0] for x in glob.glob(moduleDir + "/*.py")]
 
     # Inspect each .py file found
     for module in lst:
@@ -234,7 +233,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
         # Find class names that match the supplied pattern (default: "_TestCase")
         beforeCount = len(tstList)
-        for obj in loaded.__dict__.keys():
+        for obj in list(loaded.__dict__.keys()):
             if obj.endswith(cls_pattern):
                 tstList.append(loaded.__dict__[obj])
         afterCount = len(tstList)

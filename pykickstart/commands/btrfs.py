@@ -108,7 +108,7 @@ class F17_BTRFS(KickstartCommand):
             parser.values.preexist = True
 
         def level_cb (option, opt_str, value, parser):
-            if self.levelMap.has_key(value):
+            if value in self.levelMap:
                 parser.values.ensure_value(option.dest, self.levelMap[value])
 
         op = KSOptionParser()

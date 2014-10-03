@@ -25,7 +25,7 @@ commandMap = {}
 dataMap = {}
 
 if not commandMap:
-    for (name, obj) in handlers.__dict__.items():
+    for (name, obj) in list(handlers.__dict__.items()):
         if not (name.startswith("fc") or name.startswith("f") or name.startswith("rhel")):
             continue
 

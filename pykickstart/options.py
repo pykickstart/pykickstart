@@ -66,7 +66,7 @@ class KSOptionParser(OptionParser):
 
     def check_values (self, values, args):
         def seen(option):
-            return self.option_seen.has_key(option)
+            return option in self.option_seen
 
         def usedTooNew(option):
             return option.introduced and option.introduced > self.version
@@ -77,7 +77,7 @@ class KSOptionParser(OptionParser):
         def usedRemoved(option):
             return option.removed and option.removed <= self.version
 
-        for option in filter(lambda o: isinstance(o, Option), self.option_list):
+        for option in [o for o in self.option_list if isinstance(o, Option)]:
             if option.required and not seen(option):
                 raise KickstartValueError(formatErrorMsg(self.lineno, _("Option %s is required") % option))
             elif seen(option) and usedTooNew(option):
@@ -99,7 +99,7 @@ class KSOptionParser(OptionParser):
         return (values, args)
 
     def parse_args(self, *args, **kwargs):
-        if kwargs.has_key("lineno"):
+        if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 
         return OptionParser.parse_args(self, **kwargs)

@@ -407,12 +407,12 @@ class Packages(KickstartObject):
 
         # Groups have to be excluded in two different ways (note: can't use
         # sets here because we have to store objects):
-        excludedGroupNames = map(lambda g: g.name, excludedGroupList)
+        excludedGroupNames = [g.name for g in excludedGroupList]
 
         # First, an excluded group may be cancelling out a previously given
         # one.  This is often the case when using %include.  So there we should
         # just remove the group from the list.
-        self.groupList = filter(lambda g: g.name not in excludedGroupNames, self.groupList)
+        self.groupList = [g for g in self.groupList if g.name not in excludedGroupNames]
 
         # Second, the package list could have included globs which are not
         # processed by pykickstart.  In that case we need to preserve a list of
@@ -595,7 +595,7 @@ class KickstartParser:
 
     def _validState(self, st):
         """Is the given section tag one that has been registered with the parser?"""
-        return st in self._sections.keys()
+        return st in list(self._sections.keys())
 
     def _tryFunc(self, fn):
         """Call the provided function (which doesn't take any arguments) and
@@ -713,7 +713,7 @@ class KickstartParser:
         # the reading "smart" by keeping track of what the path is at each
         # include depth.
         if not os.path.exists(f):
-            if self.currentdir.has_key(self._includeDepth - 1):
+            if self._includeDepth - 1 in self.currentdir:
                 if os.path.exists(os.path.join(self.currentdir[self._includeDepth - 1], f)):
                     f = os.path.join(self.currentdir[self._includeDepth - 1], f)
 
