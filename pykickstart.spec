@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.60
+Version: 1.99.61
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,12 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 03 2014 Chris Lumens <clumens@redhat.com> - 1.99.61-1
+- Add support for specifying thin pool profile (vpodzime)
+- Add missing import (mkolman)
+- Add tests for --interfacename validation (mkolman)
+- Validate network interface name when parsing the kickstart (#1081982) (mkolman)
+
 * Wed Sep 24 2014 Chris Lumens <clumens@redhat.com> - 1.99.60-1
 - Make --size and --percent mutually exclusive in logvol. (dlehman)
 - Add support for F22. (clumens)
