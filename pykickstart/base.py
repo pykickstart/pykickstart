@@ -350,13 +350,13 @@ class BaseHandler(KickstartObject):
         else:
             dMap = dataMapping
 
-        if type(commandUpdates) == types.DictType:
+        if type(commandUpdates) == dict:
             cMap.update(commandUpdates)
 
-        if type(dataUpdates) == types.DictType:
+        if type(dataUpdates) == dict:
             dMap.update(dataUpdates)
 
-        for (cmdName, cmdClass) in cMap.items():
+        for (cmdName, cmdClass) in list(cMap.items()):
             # First make sure we haven't instantiated this command handler
             # already.  If we have, we just need to make another mapping to
             # it in self.commands.
@@ -365,7 +365,7 @@ class BaseHandler(KickstartObject):
             # these two code blocks in sync.
             cmdObj = None
 
-            for (_key, val) in self.commands.items():
+            for (_key, val) in list(self.commands.items()):
                 if val.__class__.__name__ == cmdClass.__name__:
                     cmdObj = val
                     break
@@ -382,7 +382,7 @@ class BaseHandler(KickstartObject):
         # We also need to create attributes for the various data objects.
         # No checks here because dMap is a bijection.  At least, that's what
         # the comment says.  Hope no one screws that up.
-        for (dataName, dataClass) in dMap.items():
+        for (dataName, dataClass) in list(dMap.items()):
             setattr(self, dataName, dataClass)
 
     def resetCommand(self, cmdName):
@@ -437,7 +437,7 @@ class BaseHandler(KickstartObject):
         """
         self._writeOrder = {}
 
-        for (key, _val) in self.commands.items():
+        for (key, _val) in list(self.commands.items()):
             if not key in lst:
                 self.commands[key] = None
 

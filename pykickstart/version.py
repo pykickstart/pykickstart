@@ -133,7 +133,7 @@ def versionToString(version, skipDevel=False):
     if not skipDevel and version == versionMap["DEVEL"]:
         return "DEVEL"
 
-    for (key, val) in versionMap.items():
+    for (key, val) in list(versionMap.items()):
         if key == "DEVEL":
             continue
         elif val == version:
@@ -189,7 +189,7 @@ def returnClassForVersion(version=DEVEL):
         found = imputil.imp.find_module(module)
         loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
 
-        for (k, v) in loaded.__dict__.items():
+        for (k, v) in list(loaded.__dict__.items()):
             if k.lower().endswith("%shandler" % module):
                 return v
     except:

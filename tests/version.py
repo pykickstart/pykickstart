@@ -200,7 +200,7 @@ class returnClassForVersion_TestCase(CommandTest):
 
         # Test that everything in version.versionMap has a handler, except
         # for DEVEL.
-        for (name, vers) in versionMap.items():
+        for (name, vers) in list(versionMap.items()):
             if name == "DEVEL":
                 continue
 
