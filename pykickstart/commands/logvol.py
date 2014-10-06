@@ -485,7 +485,7 @@ class F20_LogVol(F18_LogVol):
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
-        if not retval.preexist and not retval.percent and not retval.size:
+        if not retval.preexist and not retval.percent and not retval.size and not retval.recommended:
             errorMsg = _("No size given for logical volume. Use one of --useexisting, --noformat, --size, or --percent.")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
