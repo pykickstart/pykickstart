@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.62
+Version: 1.99.63
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Oct 10 2014 Chris Lumens <clumens@redhat.com> - 1.99.63-1
+- Move the test for --nombr option to the right class (vpodzime)
+- Add the --nombr bootloader option in pykickstart (gczarcinski)
+
 * Tue Oct 07 2014 Chris Lumens <clumens@redhat.com> - 1.99.62-1
 - Allow recommended flag for non-prexisting logical volumes (#1149718) (amulhern)
 - Apply a couple more 2to3 fixes, still avoiding the hard ones.(#985310). (clumens)
