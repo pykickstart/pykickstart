@@ -73,3 +73,6 @@ class F21_OSTreeSetup(KickstartCommand):
         if self.remote is None:
             self.remote = self.osname
         return self
+
+class RHEL7_OSTreeSetup(F21_OSTreeSetup):
+    pass
