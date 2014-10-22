@@ -67,6 +67,12 @@ class F16_TestCase(FC3_TestCase):
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0", KickstartValueError)
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100", KickstartValueError)
 
+class RHEL7_TestCase(F16_TestCase):
+    def runTest(self):
+        # just run all the old tests with the new class (different PE size
+        # default)
+        F16_TestCase.runTest(self)
+
 class F21_TestCase(F16_TestCase):
     def runTest(self):
         # just run all the old tests with the new class (different PE size

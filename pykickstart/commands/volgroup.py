@@ -84,6 +84,11 @@ class FC16_VolGroupData(FC3_VolGroupData):
 
         return retval
 
+class RHEL7_VolGroupData(FC16_VolGroupData):
+    def __init__(self, *args, **kwargs):
+        FC16_VolGroupData.__init__(self, *args, **kwargs)
+        self.pesize = kwargs.get("pesize", 0)
+
 class F21_VolGroupData(FC16_VolGroupData):
     def __init__(self, *args, **kwargs):
         FC16_VolGroupData.__init__(self, *args, **kwargs)
@@ -195,6 +200,14 @@ class F20_VolGroup(FC16_VolGroup):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
+
+class RHEL7_VolGroup(F20_VolGroup):
+    def _getParser(self):
+        op = F20_VolGroup._getParser(self)
+        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
+                      default=0)
+
+        return op
 
 class F21_VolGroup(F20_VolGroup):
     def _getParser(self):

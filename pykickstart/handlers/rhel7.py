@@ -85,7 +85,7 @@ class RHEL7Handler(BaseHandler):
         "url": commands.url.F18_Url,
         "user": commands.user.F19_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.F20_VolGroup,
+        "volgroup": commands.volgroup.RHEL7_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F14_ZFCP,
@@ -107,6 +107,6 @@ class RHEL7Handler(BaseHandler):
         "RepoData": commands.repo.RHEL7_RepoData,
         "SshPwData": commands.sshpw.F13_SshPwData,
         "UserData": commands.user.F19_UserData,
-        "VolGroupData": commands.volgroup.FC16_VolGroupData,
+        "VolGroupData": commands.volgroup.RHEL7_VolGroupData,
         "ZFCPData": commands.zfcp.F14_ZFCPData,
     }
