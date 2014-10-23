@@ -618,7 +618,7 @@ class RHEL7_Network(F20_Network):
                 raise KickstartValueError(msg)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
-                key, _sep, value = opt.partition("=")
+                _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
                     raise KickstartValueError(msg)
