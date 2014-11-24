@@ -5,6 +5,7 @@
 #
 # Copyright 2007-2014, Red Hat, Inc.
 # Jeremy Katz <katzj@redhat.com>
+# Chris Lumens <clumens@redhat.com>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -57,12 +58,14 @@ def main():
         sys.exit(1)
     except pykickstart.errors.KickstartError as e:
         print(_("Failed to parse kickstart file '%s' : %s") % (opts.kscfg, e), file=sys.stderr)
+        sys.exit(1)
 
     if opts.output:
         try:
             f = open(opts.output, 'w')
         except IOError as msg:
             print(_("Failed to open output file '%s' : %s") % (opts.output, msg), file=sys.stderr)
+            sys.exit(1)
     else:
         f = sys.stdout
 
