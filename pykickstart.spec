@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.63
+Version: 1.99.64
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,13 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Nov 24 2014 Chris Lumens <clumens@redhat.com> - 1.99.64-1
+- Get rid of an unused variable. (clumens)
+- network: add support for bridge to RHEL7 (#1075195) (rvykydal)
+- Add new RHEL7 logvol objects to master (vpodzime)
+- Add new RHEL7 volgroup objects to master (vpodzime)
+- RHEL7 supports the ostreesetup command. (clumens)
+
 * Fri Oct 10 2014 Chris Lumens <clumens@redhat.com> - 1.99.63-1
 - Move the test for --nombr option to the right class (vpodzime)
 - Add the --nombr bootloader option in pykickstart (gczarcinski)
