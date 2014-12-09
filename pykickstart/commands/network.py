@@ -190,9 +190,9 @@ class F19_NetworkData(F16_NetworkData):
         if self.bondopts != "":
             retval += " --bondopts=%s" % self.bondopts
         if self.vlanid:
-            retval += " --vlanid %s" % self.vlanid
+            retval += " --vlanid=%s" % self.vlanid
         if self.ipv6gateway:
-            retval += " --ipv6gateway %s" % self.ipv6gateway
+            retval += " --ipv6gateway=%s" % self.ipv6gateway
 
         return retval
 
@@ -272,11 +272,11 @@ class RHEL6_NetworkData(F8_NetworkData):
         if self.nodefroute:
             retval += " --nodefroute"
         if self.vlanid:
-            retval += " --vlanid %s" % self.vlanid
+            retval += " --vlanid=%s" % self.vlanid
         if self.bondslaves:
-            retval += " --bondslaves %s" % self.bondslaves
+            retval += " --bondslaves=%s" % self.bondslaves
         if self.bondopts:
-            retval += " --bondopts %s" % self.bondopts
+            retval += " --bondopts=%s" % self.bondopts
 
 
         return retval
