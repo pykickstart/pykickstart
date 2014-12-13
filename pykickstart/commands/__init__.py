@@ -23,5 +23,5 @@ from pykickstart.commands import \
      group, harddrive, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang, \
      langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
      mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, \
-     rescue, rootpw, selinux, services, skipx, sshpw, timezone, updates, upgrade, url, \
-     user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
+     rescue, rootpw, selinux, services, skipx, sshpw, sshkey, timezone, updates, upgrade, \
+     url, user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
