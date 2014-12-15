@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.64
+Version: 1.99.65
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,11 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Dec 15 2014 Chris Lumens <clumens@redhat.com> - 1.99.65-1
+- Add support for setting user account ssh key (bcl)
+- Add = to the output for various network options (#1171926). (clumens)
+- When ksflatten fails, return a failure code (#1162881). (clumens)
+
 * Mon Nov 24 2014 Chris Lumens <clumens@redhat.com> - 1.99.64-1
 - Get rid of an unused variable. (clumens)
 - network: add support for bridge to RHEL7 (#1075195) (rvykydal)

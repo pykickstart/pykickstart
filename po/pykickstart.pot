@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-24 10:36-0500\n"
+"POT-Creation-Date: 2014-12-15 14:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../pykickstart/sections.py:251
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:253
+msgid "--default and --nocore cannot be used together"
+msgstr ""
 
 #: ../pykickstart/base.py:187
 #, python-format
@@ -120,14 +128,6 @@ msgstr ""
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/sections.py:251
-msgid "--default and --nobase cannot be used together"
-msgstr ""
-
-#: ../pykickstart/sections.py:253
-msgid "--default and --nocore cannot be used together"
-msgstr ""
-
 #: ../pykickstart/errors.py:46
 #, python-format
 msgid ""
@@ -141,33 +141,33 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../tools/ksflatten:37
+#: ../tools/ksflatten:38
 msgid "Path to kickstart config file"
 msgstr ""
 
-#: ../tools/ksflatten:39
+#: ../tools/ksflatten:40
 msgid "Kickstart version to use for interpreting config"
 msgstr ""
 
-#: ../tools/ksflatten:41
+#: ../tools/ksflatten:42
 msgid "Write flattened config to OUTPUT"
 msgstr ""
 
-#: ../tools/ksflatten:48
+#: ../tools/ksflatten:49
 msgid "Need to specify a config to flatten"
 msgstr ""
 
-#: ../tools/ksflatten:56
+#: ../tools/ksflatten:57
 #, python-format
 msgid "Failed to read kickstart file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksflatten:59
+#: ../tools/ksflatten:60
 #, python-format
 msgid "Failed to parse kickstart file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksflatten:65
+#: ../tools/ksflatten:67
 #, python-format
 msgid "Failed to open output file '%s' : %s"
 msgstr ""
