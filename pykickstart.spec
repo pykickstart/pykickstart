@@ -10,7 +10,7 @@ Release: 1%{?dist}
 # within this srpm.
 Source0: %{name}-%{version}.tar.gz
 
-License: GPLv2
+License: GPLv2 and MIT
 Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)

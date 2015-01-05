@@ -41,6 +41,7 @@ from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
+from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
 from pykickstart.i18n import _
@@ -373,10 +374,10 @@ class Packages(KickstartObject):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = set(self.excludedList)
-        existingPackageSet = set(self.packageList)
-        newExcludedSet = set()
-        newPackageSet = set()
+        existingExcludedSet = OrderedSet(self.excludedList)
+        existingPackageSet = OrderedSet(self.packageList)
+        newExcludedSet = OrderedSet()
+        newPackageSet = OrderedSet()
 
         excludedGroupList = []
 
