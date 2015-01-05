@@ -43,6 +43,7 @@ from six.moves.urllib.error import URLError
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
+from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
 import gettext
@@ -391,10 +392,10 @@ class Packages(KickstartObject):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = set(self.excludedList)
-        existingPackageSet = set(self.packageList)
-        newExcludedSet = set()
-        newPackageSet = set()
+        existingExcludedSet = OrderedSet(self.excludedList)
+        existingPackageSet = OrderedSet(self.packageList)
+        newExcludedSet = OrderedSet()
+        newPackageSet = OrderedSet()
 
         excludedGroupList = []
 

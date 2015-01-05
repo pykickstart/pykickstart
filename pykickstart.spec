@@ -3,7 +3,7 @@
 Name:           pykickstart
 Version:        1.99.66
 Release:        1%{?dist}
-License:        GPLv2
+License:        GPLv2 and MIT
 Group:          System Environment/Libraries
 Summary:        Python utilities for manipulating kickstart files.
 Url:            http://fedoraproject.org/wiki/%{name}
