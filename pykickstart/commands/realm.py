@@ -62,7 +62,7 @@ class F19_Realm(KickstartCommand):
                                                        "one-time-password=",
                                                        "no-password",
                                                        "computer-ou="))
-        except getopt.GetoptError, ex:
+        except getopt.GetoptError as ex:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
                 "Invalid realm arguments: %s") % ex))
 

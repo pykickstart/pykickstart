@@ -61,7 +61,7 @@ def _preprocessStateMachine (lineIter):
 
     while True:
         try:
-            l = lineIter.next()
+            l = next(lineIter)
         except StopIteration:
             break
 
@@ -106,7 +106,7 @@ def preprocessFromString (s):
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (i.next)
+    rc = _preprocessStateMachine (i)
     return rc
 
 def preprocessKickstart (f):
@@ -139,8 +139,10 @@ class PutBackIterator(Iterator):
             self._buf = None
             return retval
         else:
-            return self._iterable.next()
+            return next(self._iterable)
 
+    def __next__(self):
+        return self.next()
 ###
 ### SCRIPT HANDLING
 ###
@@ -524,7 +526,7 @@ class KickstartParser:
 
         while True:
             try:
-                line = lineIter.next()
+                line = next(lineIter)
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
@@ -595,7 +597,7 @@ class KickstartParser:
         """
         try:
             fn()
-        except Exception, msg:
+        except Exception as msg:
             if self.errorsAreFatal:
                 raise
             else:
@@ -629,7 +631,7 @@ class KickstartParser:
         while True:
             # Get the next line out of the file, quitting if this is the last line.
             try:
-                self._line = lineIter.next()
+                self._line = next(lineIter)
                 if self._line == "":
                     break
             except StopIteration:

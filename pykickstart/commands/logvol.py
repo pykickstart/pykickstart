@@ -67,7 +67,7 @@ class FC3_LogVolData(BaseData):
             retval += " --percent=%d" % self.percent
         if self.recommended:
             retval += " --recommended"
-        if self.size > 0:
+        if self.size is not None and self.size > 0:
             retval += " --size=%d" % self.size
         if self.preexist:
             retval += " --useexisting"
@@ -444,21 +444,21 @@ class RHEL6_LogVol(F12_LogVol):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         if retval.thin_volume and retval.thin_pool:
             errorMsg = _("--thin and --thinpool cannot both be specified for "
                          "the same logvol")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         if retval.thin_volume and not retval.pool_name:
             errorMsg = _("--thin requires --poolname to specify pool name")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         if (retval.chunk_size or retval.metadata_size) and \
            not retval.thin_pool:
             errorMsg = _("--chunksize and --metadatasize are for thin pools only")
-            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
 
