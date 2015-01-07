@@ -1,4 +1,8 @@
-from string import strip
+try:
+    from string import strip
+except ImportError: # Python 3
+    strip = str.strip
+
 import unittest
 from tests.baseclass import *
 
