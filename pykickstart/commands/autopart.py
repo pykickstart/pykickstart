@@ -22,8 +22,7 @@ from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPA
 from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 class FC3_AutoPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

@@ -21,10 +21,8 @@ import requests
 import shutil
 
 from pykickstart.errors import KickstartError
+from pykickstart.i18n import _
 from requests.exceptions import SSLError, RequestException
-
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 _is_url = lambda location: '://' in location # RFC 3986
 

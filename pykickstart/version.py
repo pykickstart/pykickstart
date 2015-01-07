@@ -50,8 +50,7 @@ try:
 except ImportError: # Python 3
     import imp
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 from pykickstart.errors import KickstartVersionError
 from pykickstart.load import load_to_str

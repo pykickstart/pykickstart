@@ -22,8 +22,7 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 class FC6_IscsiData(BaseData):
     removedKeywords = BaseData.removedKeywords
