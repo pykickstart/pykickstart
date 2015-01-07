@@ -188,6 +188,9 @@ def returnClassForVersion(version=DEVEL):
                 return v
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
+    finally: # Closing opened files in imp.load_module
+        if found and len(found) > 0:
+            found[0].close()
 
 def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be
