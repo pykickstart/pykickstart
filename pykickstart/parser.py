@@ -35,9 +35,10 @@ from collections import Iterator
 import os
 import shlex
 import tempfile
+from io import StringIO
 from optparse import OptionParser
-from urlgrabber import urlread
-import urlgrabber.grabber as grabber
+from six.moves.urllib.request import urlopen
+from six.moves.urllib.error import URLError
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
@@ -62,7 +63,7 @@ def _preprocessStateMachine (lineIter):
 
     while True:
         try:
-            l = lineIter.next()
+            l = next(lineIter)
         except StopIteration:
             break
 
@@ -85,9 +86,12 @@ def _preprocessStateMachine (lineIter):
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll))
 
         try:
-            url = grabber.urlopen(ksurl)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror))
+            if '://' in ksurl:
+                url = urlopen(ksurl)
+            else:
+                url = open(ksurl, 'r')
+        except (URLError, IOError) as e:
+            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % str(e)))
         else:
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
@@ -116,7 +120,7 @@ def preprocessFromString (s):
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (i.next)
+    rc = _preprocessStateMachine (i.__next__)
     return rc
 
 def preprocessKickstart (f):
@@ -126,9 +130,12 @@ def preprocessKickstart (f):
         run.  Returns the location of the complete kickstart file.
     """
     try:
-        fh = grabber.urlopen(f)
-    except grabber.URLGrabError, e:
-        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+        if '://' in f:
+            fh = urlopen(f)
+        else:
+            fh = open(f, 'r')
+    except (URLError, IOError) as e:
+        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
     rc = _preprocessStateMachine (iter(fh.readlines()))
     fh.close()
@@ -151,7 +158,10 @@ class PutBackIterator(Iterator):
             self._buf = None
             return retval
         else:
-            return self._iterable.next()
+            return next(self._iterable)
+
+    def __next__(self):
+        return self.next()
 
 ###
 ### SCRIPT HANDLING
@@ -533,7 +543,7 @@ class KickstartParser:
 
         while True:
             try:
-                line = lineIter.next()
+                line = next(lineIter)
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
@@ -604,7 +614,7 @@ class KickstartParser:
         """
         try:
             fn()
-        except Exception, msg:
+        except Exception as msg:
             if self.errorsAreFatal:
                 raise
             else:
@@ -638,7 +648,7 @@ class KickstartParser:
         while True:
             # Get the next line out of the file, quitting if this is the last line.
             try:
-                self._line = lineIter.next()
+                self._line = next(lineIter)
                 if self._line == "":
                     break
             except StopIteration:
@@ -723,9 +733,9 @@ class KickstartParser:
         self.currentdir[self._includeDepth] = cd
 
         try:
-            s = urlread(f)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+            s = open(f, 'r').read()
+        except IOError as e:
+            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
         self.readKickstartFromString(s, reset=False)
 

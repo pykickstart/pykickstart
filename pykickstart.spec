@@ -15,11 +15,10 @@ Group: System Environment/Libraries
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: python-devel, gettext, python-setuptools
-BuildRequires: python-urlgrabber
 %if ! 0%{?rhel}
 BuildRequires: transifex-client
 %endif
-Requires: python, python-urlgrabber
+Requires: python
 
 %description
 The pykickstart package is a python library for manipulating kickstart

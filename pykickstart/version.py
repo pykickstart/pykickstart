@@ -44,7 +44,7 @@ This module also exports several functions:
                       have a version= comment in it.
 """
 import imputil, re, sys
-from urlgrabber import urlopen
+from six.moves.urllib.request import urlopen
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -147,26 +147,19 @@ def versionFromFile(f):
     """
     v = DEVEL
 
-    fh = urlopen(f)
+    if '://' in f: # Necessary in an URL according to RFC 3986
+        fh = urlopen(f)
+    else:
+        fh = open(f, 'r')
 
-    while True:
-        try:
-            l = fh.readline()
-        except StopIteration:
-            break
+    with fh:
+        for l in fh.readlines():
+            if l.isspace() or l.strip() == "":
+                continue
 
-        # At the end of the file?
-        if l == "":
-            break
-
-        if l.isspace() or l.strip() == "":
-            continue
-
-        if l[:9] == "#version=":
-            v = stringToVersion(l[9:].rstrip())
-            break
-
-    fh.close()
+            if l[:9] == "#version=":
+                v = stringToVersion(l[9:].rstrip())
+                break
     return v
 
 def returnClassForVersion(version=DEVEL):
