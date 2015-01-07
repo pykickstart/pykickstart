@@ -232,23 +232,27 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
         # Attempt to load the found module.
         try:
-            found = imp.find_module(module)
-            loaded = imp.load_module(module, found[0], found[1], found[2])
-        except ImportError, e:
-            print(_("Error loading module %s: %s") % (module, e))
-            continue
+            try:
+                found = imp.find_module(module)
+                loaded = imp.load_module(module, found[0], found[1], found[2])
+            except ImportError as e:
+                print(_("Error loading module %s: %s") % (module, e))
+                continue
 
-        # Find class names that match the supplied pattern (default: "_TestCase")
-        beforeCount = len(tstList)
-        for obj in list(loaded.__dict__.keys()):
-            if obj.endswith(cls_pattern):
-                tstList.append(loaded.__dict__[obj])
-        afterCount = len(tstList)
+            # Find class names that match the supplied pattern (default: "_TestCase")
+            beforeCount = len(tstList)
+            for obj in list(loaded.__dict__.keys()):
+                if obj.endswith(cls_pattern):
+                    tstList.append(loaded.__dict__[obj])
+            afterCount = len(tstList)
 
-        # Warn if no tests found
-        if beforeCount == afterCount:
-            print(_("Module %s does not contain any test cases; skipping.") % module)
-            continue
+            # Warn if no tests found
+            if beforeCount == afterCount:
+                print(_("Module %s does not contain any test cases; skipping.") % module)
+                continue
+        finally: # Closing opened files in imp.load_module
+            if found and len(found) > 0:
+                found[0].close()
 
     return tstList
 

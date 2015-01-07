@@ -737,7 +737,8 @@ class KickstartParser:
         self.currentdir[self._includeDepth] = cd
 
         try:
-            s = open(f, 'r').read()
+            with open(f, 'r') as fh:
+                s = fh.read()
         except IOError as e:
             raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
