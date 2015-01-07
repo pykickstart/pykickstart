@@ -24,7 +24,7 @@ from pykickstart.options import KSOptionParser
 
 import gettext
 import warnings
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class F17_BTRFSData(BaseData):
     removedKeywords = BaseData.removedKeywords

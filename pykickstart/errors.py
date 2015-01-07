@@ -37,7 +37,7 @@ It also exports several exception classes:
                             syntax versions.
 """
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 def formatErrorMsg(lineno, msg=""):
     """Properly format the error message msg for inclusion in an exception."""

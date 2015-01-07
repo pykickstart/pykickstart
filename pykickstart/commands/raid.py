@@ -23,7 +23,7 @@ from pykickstart.options import KSOptionParser
 
 import gettext
 import warnings
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class FC3_RaidData(BaseData):
     removedKeywords = BaseData.removedKeywords

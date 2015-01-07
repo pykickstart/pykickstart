@@ -19,7 +19,7 @@ from pykickstart.parser import preprocessFromString, KickstartParser
 from pykickstart.version import *
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class ParserTest(unittest.TestCase):
     version = DEVEL

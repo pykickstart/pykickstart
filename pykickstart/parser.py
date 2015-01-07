@@ -46,7 +46,7 @@ from pykickstart.ko import KickstartObject
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 STATE_END = "end"
 STATE_COMMANDS = "commands"

@@ -22,7 +22,7 @@ from pykickstart.errors import KickstartParseError, KickstartValueError, formatE
 from pykickstart.options import KSOptionParser
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class FC3_Timezone(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

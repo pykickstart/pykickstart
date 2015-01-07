@@ -52,7 +52,7 @@ except ImportError: # Python 3
     import imp
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 from pykickstart.errors import KickstartVersionError
 

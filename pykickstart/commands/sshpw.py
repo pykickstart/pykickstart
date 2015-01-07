@@ -23,7 +23,7 @@ from pykickstart.options import KSOptionParser
 import warnings
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class F13_SshPwData(BaseData):
     removedKeywords = BaseData.removedKeywords

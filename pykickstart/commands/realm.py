@@ -26,7 +26,7 @@ import pipes
 import shlex
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class F19_Realm(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

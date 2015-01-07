@@ -40,7 +40,7 @@ This module exports several important base classes:
 """
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 import six
 import types
