@@ -263,6 +263,9 @@ class Group:
             return 1
         return 0
 
+    def __lt__(self, other):
+        return bool(self.name < other.name)
+
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
     def __init__(self, *args, **kwargs):
