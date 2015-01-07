@@ -43,8 +43,13 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import imputil, re, sys
+import re, sys
 from six.moves.urllib.request import urlopen
+
+try:
+    from imputil import imp
+except ImportError: # Python 3
+    import imp
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)

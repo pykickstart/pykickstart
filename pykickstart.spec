@@ -1,58 +1,130 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
-Summary:  A python library for manipulating kickstart files
-Name: pykickstart
-Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.65
-Release: 1%{?dist}
+Name:           pykickstart
+Version:        1.99.66
+Release:        1%{?dist}
+License:        GPLv2
+Group:          System Environment/Libraries
+Summary:        Python utilities for manipulating kickstart files.
+Url:            http://fedoraproject.org/wiki/%{name}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
 # within this srpm.
-Source0: %{name}-%{version}.tar.gz
+Source0:        %{name}-%{version}.tar.gz
 
-License: GPLv2
-Group: System Environment/Libraries
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: python-devel, gettext, python-setuptools
+BuildArch:      noarch
+
+BuildRequires:  gettext
+BuildRequires:  python-devel
+BuildRequires:  python-setuptools
+BuildRequires:  python-six
+
 %if ! 0%{?rhel}
-BuildRequires: transifex-client
+BuildRequires:  transifex-client
 %endif
-Requires: python
+
+# Deps for python3-pykickstart
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-six
 
 %description
-The pykickstart package is a python library for manipulating kickstart
-files.
+Python utilities for manipulating kickstart files. The Python 2 and 3 libraries
+can be found in the packages python-pykickstart and python3-pykickstart,
+respectively.
+
+
+# Python 2 library
+%package -n python-pykickstart
+Summary:        Python 2 library for manipulating kickstart files.
+Requires:       pykickstart-translations
+Requires:       python-six
+
+%description -n python-pykickstart
+Python 2 library for manipulating kickstart files. The binaries are found in
+the pykickstart package.
+
+
+# Python 3 library
+%package -n python3-pykickstart
+Summary:        Python 3 library for manipulating kickstart files.
+Requires:       pykickstart-translations
+Requires:       python3-pykickstart
+Requires:       python3-six
+
+%description -n python3-pykickstart
+Python 3 library for manipulating kickstart files. The binaries are found in
+the pykickstart package.
+
+
+# Translations
+%package translations
+Summary:        Python 3 library for manipulating kickstart files.
+
+%description translations
+Translations for the pykickstart library (both Python 2 and 3 versions).
+
 
 %prep
 %setup -q
 
+rm -rf %{py3dir}
+mkdir %{py3dir}
+cp -a . %{py3dir}
+
+
 %build
 make
+
+pushd %{py3dir}
+PYTHON=%{__python3} make
+popd
+
 
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 %find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
+pushd %{py3dir}
+PYTHON=%{__python3} make DESTDIR=%{buildroot} install
+popd
+
 
 %check
 make test
 
-%files -f %{name}.lang
-%defattr(-,root,root,-)
-%doc README COPYING docs/programmers-guide
-%doc docs/kickstart-docs.txt
-%{python_sitelib}/*
+pushd %{py3dir}
+PYTHON=%{__python3} make test
+popd
+
+
+%files
+%doc README COPYING
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
 %{_bindir}/ksverdiff
 %{_bindir}/ksshell
 %{_mandir}/man1/*
 
+%files -n python-pykickstart
+%doc README COPYING docs/programmers-guide
+%doc docs/kickstart-docs.txt
+%{python_sitelib}/*
+
+%files -n python3-pykickstart
+%doc README COPYING docs/programmers-guide
+%doc docs/kickstart-docs.txt
+%{python3_sitelib}/*
+
+%files translations -f %{name}.lang
+
+
 %changelog
+* Thu Jan 15 2015 Tomas Radej <tradej@redhat.com> - 1.99.66-1
+- Ported to Python 3
+- Split to subpackages - binaries, Python 2 and 3 libraries, translations
+
 * Mon Dec 15 2014 Chris Lumens <clumens@redhat.com> - 1.99.65-1
 - Add support for setting user account ssh key (bcl)
 - Add = to the output for various network options (#1171926). (clumens)

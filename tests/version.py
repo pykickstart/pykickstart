@@ -1,3 +1,4 @@
+import six
 import unittest
 import tempfile
 from tests.baseclass import *
@@ -220,8 +221,8 @@ class versionFromFile_TestCase(CommandTest):
     def runTest(self):
 
         def write_ks_cfg(buf):
-            (fd, name) = tempfile.mkstemp(prefix="ks-", suffix=".cfg", dir="/tmp")
-            os.write(fd, buf)
+            (fd, name) = tempfile.mkstemp(prefix="ks-", suffix=".cfg", dir="/tmp", text=True)
+            os.write(fd, buf if not six.PY3 else buf.encode('utf-8'))
             os.close(fd)
             return name
 

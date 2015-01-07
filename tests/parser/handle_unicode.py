@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import six
 import unittest
 from tests.baseclass import *
 
@@ -28,22 +29,23 @@ echo áááááá
         # original non-ascii strings as utf-8 encoded byte strings and
         # str(self.handler) should not fail -- i.e. self.handler.__str__()
         # should return byte string not unicode string
-        self.assertIn(encoded_str1, str(self.handler))
-        self.assertIn(encoded_str2, str(self.handler))
+        self.assertIn(encoded_str1 if not six.PY3 else unicode_str1, str(self.handler))
+        self.assertIn(encoded_str2 if not six.PY3 else unicode_str1, str(self.handler))
 
         # set root password to unicode string
         self.handler.rootpw.password = unicode_str1
 
         # str(handler) should not cause traceback and should contain the
         # original unicode string as utf-8 encoded byte string
-        self.assertIn(encoded_str1, str(self.handler))
+        self.assertIn(encoded_str1 if not six.PY3 else unicode_str1, str(self.handler))
 
         # set root password to encoded string
         self.handler.rootpw.password = encoded_str1
 
         # str(handler) should not cause traceback and should contain the
         # original unicode string as utf-8 encoded byte string
-        self.assertIn(encoded_str1, str(self.handler))
+        self.assertIn(encoded_str1 if not six.PY3 else str(encoded_str1), str(self.handler))
 
 if __name__ == "__main__":
-    unittest.main()
+    if not six.PY3:
+        unittest.main()

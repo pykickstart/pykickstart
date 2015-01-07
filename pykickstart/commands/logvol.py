@@ -67,7 +67,7 @@ class FC3_LogVolData(BaseData):
             retval += " --percent=%d" % self.percent
         if self.recommended:
             retval += " --recommended"
-        if self.size > 0:
+        if self.size is not None and self.size > 0:
             retval += " --size=%d" % self.size
         if self.preexist:
             retval += " --useexisting"

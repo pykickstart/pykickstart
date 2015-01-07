@@ -1,4 +1,5 @@
 import os
+import six
 import unittest
 import tempfile
 from tests.baseclass import *
@@ -11,8 +12,8 @@ class Base_Include(ParserTest):
     def setUp(self):
         ParserTest.setUp(self)
 
-        (handle, self._path) = tempfile.mkstemp(prefix="include-")
-        os.write(handle, self.includeKS)
+        (handle, self._path) = tempfile.mkstemp(prefix="include-", text=True)
+        os.write(handle, self.includeKS if not six.PY3 else self.includeKS.encode('utf-8'))
         os.close(handle)
 
     def tearDown(self):

@@ -2,12 +2,16 @@ import os
 import sys
 import unittest
 import shlex
-import imputil
 import glob
 import warnings
 import re
 import tempfile
 import shutil
+
+try:
+    from imputil import imp
+except ImportError: # Python 3
+    import imp
 
 from pykickstart.errors import *
 from pykickstart.parser import preprocessFromString, KickstartParser
@@ -66,7 +70,7 @@ class ParserTest(unittest.TestCase):
         """
         try:
             self.parser.readKickstartFromString(ks_string)
-        except Exception, e:
+        except Exception as e:
             self.fail("Failed while parsing commands %s: %s" % (ks_string, e))
 
 
@@ -158,7 +162,7 @@ class CommandTest(unittest.TestCase):
         else:
             try:
                 obj = parser.parse(args[1:])
-            except Exception, e:
+            except Exception as e:
                 self.fail("Failed while parsing: %s" % e)
         return obj
 
@@ -225,8 +229,8 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
         # Attempt to load the found module.
         try:
-            found = imputil.imp.find_module(module)
-            loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
+            found = imp.find_module(module)
+            loaded = imp.load_module(module, found[0], found[1], found[2])
         except ImportError, e:
             print(_("Error loading module %s: %s") % (module, e))
             continue
