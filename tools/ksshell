@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 # Chris Lumens <clumens@redhat.com>
 #
@@ -34,15 +34,15 @@
 
 import readline
 import argparse
-import os, sys
+import os, six, sys
 
+from pykickstart import _
 from pykickstart.errors import KickstartError, KickstartVersionError
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion
 
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 ##
 ## INTERNAL COMMANDS
@@ -80,10 +80,10 @@ class KickstartCompleter(object):
         # { command_name: [options] }
         self.commands = {}
 
-        for (cStr, cObj) in handler.commands.iteritems():
+        for (cStr, cObj) in handler.commands.items():
             self._add_command(cStr, cObj)
 
-        for (cStr, cObj) in internal.iteritems():
+        for (cStr, cObj) in internal.items():
             self._add_command(cStr, cObj)
 
         self.currentCandidates = []
@@ -127,7 +127,7 @@ class KickstartCompleter(object):
                     if beingCompleted:
                         self.currentCandidates = [w for w in candidates if w.startswith(beingCompleted)]
                     else:
-                        self.currentCandidates = candidates
+                        self.currentCandidates = list(candidates)
                 except (KeyError, IndexError):
                     self.currentCandidates = []
 
@@ -197,7 +197,7 @@ print("Press ^D to exit.")
 
 while True:
     try:
-        line = raw_input("ks> ")
+        line = six.moves.input("ks> ")
     except EOFError:
         # ^D was hit, time to quit.
         break
