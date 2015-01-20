@@ -372,6 +372,9 @@ clearpart (optional)
 
         * --none (default) - Do not remove any partitions.
 
+        * --cdl - Automatically format any LDL DASDs to CDL. This option
+          is only really applicable to s390x.
+
 cmdline (optional)
       Perform the installation in a completely non-interactive command
       line mode. Any prompts for interaction halts the install. This mode

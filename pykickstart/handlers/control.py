@@ -817,7 +817,7 @@ commandMap = {
         "autostep": autostep.FC3_AutoStep,
         "bootloader": bootloader.RHEL6_Bootloader,
         "cdrom": method.RHEL6_Method,
-        "clearpart": clearpart.FC3_ClearPart,
+        "clearpart": clearpart.RHEL6_ClearPart,
         "cmdline": displaymode.FC3_DisplayMode,
         "device": device.F8_Device,
         "deviceprobe": deviceprobe.FC3_DeviceProbe,

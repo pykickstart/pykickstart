@@ -86,3 +86,21 @@ class FC3_ClearPart(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
         return self
+
+class RHEL6_ClearPart(FC3_ClearPart):
+    def __init__(self, *args, **kwargs):
+        FC3_ClearPart.__init__(self, *args, **kwargs)
+        self.cdl = kwargs.get("cdl", False)
+
+    def __str__(self):
+        retval = FC3_ClearPart.__str__(self)
+        if self.cdl:
+            retval += " --cdl \n"
+
+        return retval
+
+    def _getParser(self):
+        op = FC3_ClearPart._getParser(self)
+
+        op.add_option("--cdl", dest="cdl", action="store_true", default=False)
+        return op
