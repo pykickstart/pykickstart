@@ -2,13 +2,15 @@
 import gettext
 import six
 
-if six.PY3:
-    import sys
-    def _(x):
-        result = gettext.ldgettext('pykickstart', x)
+def _(x):
+    if not x: # Workaround for gettext behaviour on empty strings
+        return ''
+
+    result = gettext.ldgettext('pykickstart', x)
+
+    if six.PY3: # In Python 3, gettext returns bytes sometimes
+        import sys
         if isinstance(result, bytes):
-            return result.decode(sys.getdefaultencoding())
-        else:
-            return result
-else:
-    _ = lambda x: gettext.ldgettext("pykickstart", x)
+            result = result.decode(sys.getdefaultencoding())
+
+    return result
