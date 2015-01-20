@@ -370,6 +370,9 @@ class Packages(KickstartObject):
         # now.
         grp = " ".join(extra)
 
+        if grp in [g.name for g in self.groupList]:
+            return
+
         if opts.nodefaults:
             self.groupList.append(Group(name=grp, include=constants.GROUP_REQUIRED))
         elif opts.optional:
