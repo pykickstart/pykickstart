@@ -1,7 +1,3 @@
-try:
-    from string import strip
-except ImportError: # Python 3
-    strip = str.strip
 
 import unittest
 from tests.baseclass import *
@@ -25,7 +21,7 @@ class AddGlobs_TestCase(DevelPackagesBase):
 kde*
 vim-*
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class AddGroups_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -40,21 +36,21 @@ class AddGroups_TestCase(DevelPackagesBase):
 @GroupC
 @group-b
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
         pkgs = Packages()
         pkgs.add(["@group-a --nodefaults"])
         self.assertEqual("""%packages
 @group-a --nodefaults
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
         pkgs = Packages()
         pkgs.add(["@group-a --optional"])
         self.assertEqual("""%packages
 @group-a --optional
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
         self.assertRaises(KickstartValueError, pkgs.add, ["@group-b --optional --nodefaults"])
 
@@ -70,7 +66,7 @@ class AddGroupsAndEnvironment_TestCase(DevelPackagesBase):
 @GroupB
 packageC
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class AddPackages_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -84,7 +80,7 @@ packageA
 packageB
 packageC
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class ExcludeGlobs_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -98,7 +94,7 @@ class ExcludeGlobs_TestCase(DevelPackagesBase):
 -kde*
 -perl*
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class ExcludeGroups_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -110,7 +106,7 @@ class ExcludeGroups_TestCase(DevelPackagesBase):
 -@Clustering
 -@Conflicts
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class ExcludePackage_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -124,7 +120,7 @@ class ExcludePackage_TestCase(DevelPackagesBase):
 -enlightenment
 -libass
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class Mixed1_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -137,7 +133,7 @@ class Mixed1_TestCase(DevelPackagesBase):
 @group-b
 -@group-a
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class Mixed2_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -150,7 +146,7 @@ class Mixed2_TestCase(DevelPackagesBase):
 package-b
 -vim-enhanced
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class Mixed3_TestCase(DevelPackagesBase):
     def runTest(self):
@@ -164,7 +160,7 @@ package-b
 vim-enhanced
 -vim*
 
-%end""", strip(str(pkgs)))
+%end""", str(pkgs).strip())
 
 class MultiLib_TestCase(DevelPackagesBase):
     def runTest(self):
