@@ -13,7 +13,11 @@ class Base_Include(ParserTest):
         ParserTest.setUp(self)
 
         (handle, self._path) = tempfile.mkstemp(prefix="include-", text=True)
-        os.write(handle, self.includeKS if not six.PY3 else self.includeKS.encode('utf-8'))
+        ks = self.includeKS
+        if six.PY3:
+            ks = ks.encode('utf-8')
+
+        os.write(handle, ks)
         os.close(handle)
 
     def tearDown(self):

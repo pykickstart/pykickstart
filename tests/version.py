@@ -222,7 +222,9 @@ class versionFromFile_TestCase(CommandTest):
 
         def write_ks_cfg(buf):
             (fd, name) = tempfile.mkstemp(prefix="ks-", suffix=".cfg", dir="/tmp", text=True)
-            os.write(fd, buf if not six.PY3 else buf.encode('utf-8'))
+            if six.PY3:
+                buf = buf.encode(sys.getdefaultencoding())
+            os.write(fd, buf)
             os.close(fd)
             return name
 

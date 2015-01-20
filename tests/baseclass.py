@@ -62,7 +62,10 @@ class ParserTest(unittest.TestCase):
         By default the KickstartParseError is expected.
         """
 
-        assert_function = 'assertRaisesRegexp' if not six.PY3 else 'assertRaisesRegex'
+        if not six.PY3:
+            assert_function = 'assertRaisesRegexp'
+        else:
+            assert_function = 'assertRaisesRegex'
         with getattr(self, assert_function)(exception, regex):
             self.parser.readKickstartFromString(ks_string)
 
@@ -174,7 +177,11 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
 
-        assert_function = 'assertRaisesRegexp' if not six.PY3 else 'assertRaisesRegex'
+        if not six.PY3:
+            assert_function = 'assertRaisesRegexp'
+        else:
+            assert_function = 'assertRaisesRegex'
+
         with getattr(self, assert_function)(exception, regex):
             parser.parse(args[1:])
 

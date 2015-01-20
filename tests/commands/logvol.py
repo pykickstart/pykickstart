@@ -6,7 +6,10 @@ from pykickstart.errors import *
 from pykickstart.version import *
 from pykickstart.commands.logvol import *
 
-ARG_STR = 'an' if not six.PY3 else '1' # Optparse changed outputs in Python 3
+if not six.PY3:
+    ARG_STR = 'an'
+else:
+    ARG_STR = '1' # Optparse changed outputs in Python 3
 
 class FC3_TestCase(CommandTest):
     command = "logvol"
