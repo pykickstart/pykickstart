@@ -36,7 +36,6 @@ It also exports several exception classes:
     KickstartVersionError - An exception for errors relating to unsupported
                             syntax versions.
 """
-import gettext
 from pykickstart import _
 
 def formatErrorMsg(lineno, msg=""):

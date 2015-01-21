@@ -25,7 +25,6 @@ import getopt
 import pipes
 import shlex
 
-import gettext
 from pykickstart import _
 
 class F19_Realm(KickstartCommand):

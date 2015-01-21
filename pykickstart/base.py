@@ -43,7 +43,6 @@ gettext.textdomain("pykickstart")
 from pykickstart import _
 
 import six
-import types
 import warnings
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.ko import KickstartObject

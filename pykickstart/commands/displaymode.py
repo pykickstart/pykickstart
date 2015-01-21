@@ -22,7 +22,6 @@ from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, 
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
 from pykickstart import _
 
 class FC3_DisplayMode(KickstartCommand):

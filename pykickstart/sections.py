@@ -35,7 +35,6 @@ from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 from pykickstart.version import FC4, F7, F9, F18, F21
 
-import gettext
 from pykickstart import _
 
 class Section(object):

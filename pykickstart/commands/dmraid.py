@@ -21,7 +21,6 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
-import gettext
 import warnings
 from pykickstart import _
 

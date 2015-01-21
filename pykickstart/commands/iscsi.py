@@ -22,7 +22,6 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
 from pykickstart import _
 
 class FC6_IscsiData(BaseData):

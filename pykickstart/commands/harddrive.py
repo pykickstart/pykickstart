@@ -21,7 +21,6 @@ from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
 from pykickstart import _
 
 class FC3_HardDrive(KickstartCommand):

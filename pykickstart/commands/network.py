@@ -22,7 +22,6 @@ from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBF
 from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 
-import gettext
 import warnings
 from pykickstart import _
 

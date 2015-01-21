@@ -22,7 +22,6 @@ from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 import warnings
 
-import gettext
 from pykickstart import _
 
 class F13_SshPwData(BaseData):

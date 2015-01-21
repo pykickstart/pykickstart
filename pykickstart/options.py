@@ -34,7 +34,6 @@ from optparse import Option, OptionError, OptionParser, OptionValueError
 from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.version import versionToString
 
-import gettext
 from pykickstart import _
 
 class KSOptionParser(OptionParser):

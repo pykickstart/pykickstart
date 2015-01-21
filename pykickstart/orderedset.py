@@ -27,7 +27,7 @@ class OrderedSet(collections.MutableSet):
 
     def discard(self, key):
         if key in self.map:
-            key, prev, next = self.map.pop(key)
+            key, prev, next = self.map.pop(key) # pylint: disable=redefined-builtin
             prev[2] = next
             next[1] = prev
 
@@ -45,7 +45,7 @@ class OrderedSet(collections.MutableSet):
             yield curr[0]
             curr = curr[1]
 
-    def pop(self, last=True):
+    def pop(self, last=True): # pylint: disable=arguments-differ
         if not self:
             raise KeyError('set is empty')
         key = self.end[1][0] if last else self.end[2][0]

@@ -36,7 +36,6 @@ import os
 import six
 import shlex
 import tempfile
-from io import StringIO
 from optparse import OptionParser
 from six.moves.urllib.request import urlopen # pylint: disable=no-name-in-module,import-error
 from six.moves.urllib.error import URLError # pylint: disable=no-name-in-module,import-error
@@ -47,7 +46,6 @@ from pykickstart.ko import KickstartObject
 from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
-import gettext
 from pykickstart import _
 
 STATE_END = "end"

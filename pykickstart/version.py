@@ -51,7 +51,6 @@ try:
 except ImportError: # Python 3
     import imp
 
-import gettext
 from pykickstart import _
 
 from pykickstart.errors import KickstartVersionError
