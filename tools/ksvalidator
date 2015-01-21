@@ -30,8 +30,8 @@ from pykickstart import _
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
-from six.moves.urllib.request import urlretrieve
-from six.moves.urllib.error import URLError
+from six.moves.urllib.request import urlretrieve # pylint: disable=no-name-in-module,import-error
+from six.moves.urllib.error import URLError # pylint: disable=no-name-in-module,import-error
 
 import gettext
 if six.PY3:

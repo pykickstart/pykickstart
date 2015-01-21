@@ -38,8 +38,8 @@ import shlex
 import tempfile
 from io import StringIO
 from optparse import OptionParser
-from six.moves.urllib.request import urlopen
-from six.moves.urllib.error import URLError
+from six.moves.urllib.request import urlopen # pylint: disable=no-name-in-module,import-error
+from six.moves.urllib.error import URLError # pylint: disable=no-name-in-module,import-error
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg

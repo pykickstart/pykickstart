@@ -197,7 +197,7 @@ print("Press ^D to exit.")
 
 while True:
     try:
-        line = six.moves.input("ks> ")
+        line = six.moves.input("ks> ") # pylint: disable=no-member
     except EOFError:
         # ^D was hit, time to quit.
         break

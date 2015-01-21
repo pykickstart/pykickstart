@@ -44,7 +44,7 @@ This module also exports several functions:
                       have a version= comment in it.
 """
 import re, sys
-from six.moves.urllib.request import urlopen
+from six.moves.urllib.request import urlopen # pylint: disable=no-name-in-module,import-error
 
 try:
     from imputil import imp
