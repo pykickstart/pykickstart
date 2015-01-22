@@ -259,22 +259,22 @@ class Group:
             return "@%s" % self.name
 
     def __lt__(self, other):
-        return bool(self.name < other.name)
+        return self.name < other.name
 
     def __le__(self, other):
-        return bool(self.name <= other.name)
+        return self.name <= other.name
 
     def __eq__(self, other):
-        return bool(self.name == other.name)
+        return self.name == other.name
 
     def __ne__(self, other):
-        return bool(self.name != other.name)
+        return self.name != other.name
 
     def __gt__(self, other):
-        return bool(self.name > other.name)
+        return self.name > other.name
 
     def __ge__(self, other):
-        return bool(self.name >= other.name)
+        return self.name >= other.name
 
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
