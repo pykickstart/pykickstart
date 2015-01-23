@@ -3,7 +3,7 @@ import gettext
 import six
 
 def _(x):
-    if not x: # Workaround for gettext behaviour on empty strings
+    if x == '': # Workaround for gettext behaviour on empty strings
         return ''
 
     result = gettext.ldgettext('pykickstart', x)
