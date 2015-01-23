@@ -22,9 +22,8 @@ from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBF
 from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 
-import gettext
 import warnings
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 MIN_VLAN_ID = 0
 MAX_VLAN_ID = 4095

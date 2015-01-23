@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 # Chris Lumens <clumens@redhat.com>
 #
@@ -21,13 +21,13 @@
 
 import argparse
 import sys
+from pykickstart import _
 from pykickstart.base import DeprecatedCommand
 from pykickstart.errors import KickstartVersionError
 from pykickstart.version import makeVersion, versionMap
 
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 def getCommandSet(handler):
     return set(handler.commands.keys())
@@ -36,10 +36,7 @@ def getOptSet(lst):
     return set(map(lambda o: o.get_opt_string(), lst))
 
 def printList(lst):
-    for e in lst:
-        sys.stdout.write("%s " % e)
-
-    print
+    print(' '.join(lst))
 
 op = argparse.ArgumentParser()
 op.add_argument("-f", "--from", dest="f")
@@ -72,17 +69,17 @@ toCmdSet = getCommandSet(toHandler)
 bothSet = fromCmdSet & toCmdSet
 
 print(_("The following commands were removed in %s:") % opts.t)
-printList(list(fromCmdSet - toCmdSet))
+printList(sorted(list(fromCmdSet - toCmdSet)))
 
 print(_("The following commands were deprecated in %s:") % opts.t)
-printList(filter(lambda c: isinstance(toHandler.commands[c], DeprecatedCommand), list(bothSet)))
+printList(sorted(filter(lambda c: isinstance(toHandler.commands[c], DeprecatedCommand), list(bothSet))))
 
 print(_("The following commands were added in %s:") % opts.t)
-printList(list(toCmdSet - fromCmdSet))
+printList(sorted(list(toCmdSet - fromCmdSet)))
 
-print
+print('')
 
-for cmd in bothSet:
+for cmd in sorted(list(bothSet)):
     printed = False
 
     newOptList = []
@@ -104,18 +101,18 @@ for cmd in bothSet:
 
     if len(newOptList) > 0:
         print(_("The following options were added to the %s command in %s:") % (cmd, opts.t))
-        printList(list(newOptList))
+        printList(sorted(list(newOptList)))
         printed = True
 
     if len(deprecatedOptList) > 0:
         print(_("The following options were deprecated from the %s command in %s:") % (cmd, opts.t))
-        printList(list(deprecatedOptList))
+        printList(sorted(list(deprecatedOptList)))
         printed = True
 
     if len(removedOptList) > 0:
         print(_("The following options were removed from the %s command in %s:") % (cmd, opts.t))
-        printList(list(removedOptList))
+        printList(sorted(list(removedOptList)))
         printed = True
 
     if printed:
-        print
+        print('')

@@ -21,18 +21,23 @@
 
 import argparse
 import os
+import six
 import sys
 import warnings
 import tempfile
-import urlgrabber
 import shutil
+from pykickstart import _
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
+from six.moves.urllib.request import urlretrieve # pylint: disable=no-name-in-module,import-error
+from six.moves.urllib.error import URLError # pylint: disable=no-name-in-module,import-error
 
 import gettext
-gettext.install("pykickstart", unicode=True)
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+if six.PY3:
+    gettext.install("pykickstart")
+else:
+    gettext.install("pykickstart", unicode=True)
 
 def cleanup(dest, fn=None, exitval=1):
     shutil.rmtree(dest)
@@ -70,8 +75,13 @@ if opts.listversions:
 
 destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
 try:
-    f = urlgrabber.urlgrab(opts.ksfile, filename="%s/ks.cfg" % destdir)
-except urlgrabber.grabber.URLGrabError, e:
+    filename = "%s/ks.cfg" % destdir
+    if '://' in opts.ksfile:
+        f = urlretrieve(opts.ksfile, filename=filename)[0]
+    else:
+        shutil.copyfile(opts.ksfile, filename)
+        f = filename
+except (URLError, IOError) as e:
     print(_("Error reading %s:\n%s") % (opts.ksfile, e))
     cleanup(destdir)
 

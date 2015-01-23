@@ -29,19 +29,19 @@ class FC6_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("logging", "logging --level=info\n")
-	self.assert_parse("logging --level=debug", "logging --level=debug\n")
-	self.assert_parse("logging --level=info", "logging --level=info\n")
-	self.assert_parse("logging --level=warning", "logging --level=warning\n")
-	self.assert_parse("logging --level=error", "logging --level=error\n")
-	self.assert_parse("logging --level=critical", "logging --level=critical\n")
+        self.assert_parse("logging --level=debug", "logging --level=debug\n")
+        self.assert_parse("logging --level=info", "logging --level=info\n")
+        self.assert_parse("logging --level=warning", "logging --level=warning\n")
+        self.assert_parse("logging --level=error", "logging --level=error\n")
+        self.assert_parse("logging --level=critical", "logging --level=critical\n")
         self.assert_parse("logging --host=HOSTNAME", "logging --level=info --host=HOSTNAME\n")
         self.assert_parse("logging --host=HOSTNAME --port=PORT", "logging --level=info --host=HOSTNAME --port=PORT\n")
 
         # fail
         self.assert_parse_error("logging --level=theprincessisinanothercastle", KickstartParseError)
         self.assert_parse_error("logging --host", KickstartParseError)
-	self.assert_parse_error("logging --port", KickstartParseError)
-	self.assert_parse_error("logging --port=PORT", KickstartParseError)
+        self.assert_parse_error("logging --port", KickstartParseError)
+        self.assert_parse_error("logging --port=PORT", KickstartParseError)
 
 
 if __name__ == "__main__":

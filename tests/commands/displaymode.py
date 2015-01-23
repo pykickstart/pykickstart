@@ -28,23 +28,23 @@ class FC3_TestCase(CommandTest):
 
     def runTest(self):
         # pass
-	self.assert_parse("graphical", "graphical\n")
-	self.assert_parse("text", "text\n")
-	self.assert_parse("cmdline", "cmdline\n")
+        self.assert_parse("graphical", "graphical\n")
+        self.assert_parse("text", "text\n")
+        self.assert_parse("cmdline", "cmdline\n")
 
         # fail
         self.assert_parse_error("graphical --glitter=YES", KickstartParseError)
-	self.assert_parse_error("graphical --shiny", KickstartParseError)
-	self.assert_parse_error("graphical text", KickstartParseError)
-	self.assert_parse_error("graphical cmdline", KickstartParseError)
+        self.assert_parse_error("graphical --shiny", KickstartParseError)
+        self.assert_parse_error("graphical text", KickstartParseError)
+        self.assert_parse_error("graphical cmdline", KickstartParseError)
         self.assert_parse_error("text --glitter=YES", KickstartParseError)
-	self.assert_parse_error("text --shiny", KickstartParseError)
-	self.assert_parse_error("text graphical", KickstartParseError)
-	self.assert_parse_error("text cmdline", KickstartParseError)
-	self.assert_parse_error("cmdline --glitter=YES", KickstartParseError)
-	self.assert_parse_error("cmdline --shiny", KickstartParseError)
-	self.assert_parse_error("cmdline graphical", KickstartParseError)
-	self.assert_parse_error("cmdline text", KickstartParseError)
+        self.assert_parse_error("text --shiny", KickstartParseError)
+        self.assert_parse_error("text graphical", KickstartParseError)
+        self.assert_parse_error("text cmdline", KickstartParseError)
+        self.assert_parse_error("cmdline --glitter=YES", KickstartParseError)
+        self.assert_parse_error("cmdline --shiny", KickstartParseError)
+        self.assert_parse_error("cmdline graphical", KickstartParseError)
+        self.assert_parse_error("cmdline text", KickstartParseError)
 
 
 if __name__ == "__main__":

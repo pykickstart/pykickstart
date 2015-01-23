@@ -33,19 +33,20 @@ This module exports several important classes:
 
 from collections import Iterator
 import os
+import six
 import shlex
 import tempfile
 from optparse import OptionParser
-from urlgrabber import urlread
-import urlgrabber.grabber as grabber
+from six.moves.urllib.request import urlopen # pylint: disable=no-name-in-module,import-error
+from six.moves.urllib.error import URLError # pylint: disable=no-name-in-module,import-error
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
+from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 STATE_END = "end"
 STATE_COMMANDS = "commands"
@@ -62,7 +63,7 @@ def _preprocessStateMachine (lineIter):
 
     while True:
         try:
-            l = lineIter.next()
+            l = next(lineIter)
         except StopIteration:
             break
 
@@ -75,6 +76,9 @@ def _preprocessStateMachine (lineIter):
 
         ll = l.strip()
         if not ll.startswith("%ksappend"):
+            if six.PY3:
+                import sys
+                l = l.encode(sys.getdefaultencoding())
             os.write(outF, l)
             continue
 
@@ -85,9 +89,12 @@ def _preprocessStateMachine (lineIter):
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll))
 
         try:
-            url = grabber.urlopen(ksurl)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror))
+            if '://' in ksurl:
+                url = urlopen(ksurl)
+            else:
+                url = open(ksurl, 'r')
+        except (URLError, IOError) as e:
+            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % str(e)))
         else:
             # Sanity check result.  Sometimes FTP doesn't catch a file
             # is missing.
@@ -116,7 +123,7 @@ def preprocessFromString (s):
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (i.next)
+    rc = _preprocessStateMachine (i.__next__)
     return rc
 
 def preprocessKickstart (f):
@@ -126,9 +133,12 @@ def preprocessKickstart (f):
         run.  Returns the location of the complete kickstart file.
     """
     try:
-        fh = grabber.urlopen(f)
-    except grabber.URLGrabError, e:
-        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+        if '://' in f:
+            fh = urlopen(f)
+        else:
+            fh = open(f, 'r')
+    except (URLError, IOError) as e:
+        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
     rc = _preprocessStateMachine (iter(fh.readlines()))
     fh.close()
@@ -151,7 +161,10 @@ class PutBackIterator(Iterator):
             self._buf = None
             return retval
         else:
-            return self._iterable.next()
+            return next(self._iterable)
+
+    def __next__(self):
+        return self.next()
 
 ###
 ### SCRIPT HANDLING
@@ -245,12 +258,23 @@ class Group:
         else:
             return "@%s" % self.name
 
-    def __cmp__(self, other):
-        if self.name < other.name:
-            return -1
-        elif self.name > other.name:
-            return 1
-        return 0
+    def __lt__(self, other):
+        return self.name < other.name
+
+    def __le__(self, other):
+        return self.name <= other.name
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __ne__(self, other):
+        return self.name != other.name
+
+    def __gt__(self, other):
+        return self.name > other.name
+
+    def __ge__(self, other):
+        return self.name >= other.name
 
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
@@ -384,10 +408,10 @@ class Packages(KickstartObject):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = set(self.excludedList)
-        existingPackageSet = set(self.packageList)
-        newExcludedSet = set()
-        newPackageSet = set()
+        existingExcludedSet = OrderedSet(self.excludedList)
+        existingPackageSet = OrderedSet(self.packageList)
+        newExcludedSet = OrderedSet()
+        newPackageSet = OrderedSet()
 
         excludedGroupList = []
 
@@ -536,7 +560,7 @@ class KickstartParser:
 
         while True:
             try:
-                line = lineIter.next()
+                line = next(lineIter)
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
@@ -607,7 +631,7 @@ class KickstartParser:
         """
         try:
             fn()
-        except Exception, msg:
+        except Exception as msg:
             if self.errorsAreFatal:
                 raise
             else:
@@ -641,7 +665,7 @@ class KickstartParser:
         while True:
             # Get the next line out of the file, quitting if this is the last line.
             try:
-                self._line = lineIter.next()
+                self._line = next(lineIter)
                 if self._line == "":
                     break
             except StopIteration:
@@ -726,9 +750,10 @@ class KickstartParser:
         self.currentdir[self._includeDepth] = cd
 
         try:
-            s = urlread(f)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+            with open(f, 'r') as fh:
+                s = fh.read()
+        except IOError as e:
+            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
         self.readKickstartFromString(s, reset=False)
 

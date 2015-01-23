@@ -21,9 +21,8 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
 import warnings
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class FC3_LogVolData(BaseData):
     removedKeywords = BaseData.removedKeywords
@@ -67,7 +66,7 @@ class FC3_LogVolData(BaseData):
             retval += " --percent=%d" % self.percent
         if self.recommended:
             retval += " --recommended"
-        if self.size > 0:
+        if self.size is not None and self.size > 0:
             retval += " --size=%d" % self.size
         if self.preexist:
             retval += " --useexisting"

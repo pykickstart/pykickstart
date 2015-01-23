@@ -19,9 +19,6 @@
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
-
 class F21_OSTreeSetup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs

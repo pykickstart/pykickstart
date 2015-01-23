@@ -43,11 +43,15 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import imputil, re, sys
-from urlgrabber import urlopen
+import re, sys
+from six.moves.urllib.request import urlopen # pylint: disable=no-name-in-module,import-error
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+try:
+    from imputil import imp
+except ImportError: # Python 3
+    import imp
+
+from pykickstart import _
 
 from pykickstart.errors import KickstartVersionError
 
@@ -147,26 +151,19 @@ def versionFromFile(f):
     """
     v = DEVEL
 
-    fh = urlopen(f)
+    if '://' in f: # Necessary in an URL according to RFC 3986
+        fh = urlopen(f)
+    else:
+        fh = open(f, 'r')
 
-    while True:
-        try:
-            l = fh.readline()
-        except StopIteration:
-            break
+    with fh:
+        for l in fh.readlines():
+            if l.isspace() or l.strip() == "":
+                continue
 
-        # At the end of the file?
-        if l == "":
-            break
-
-        if l.isspace() or l.strip() == "":
-            continue
-
-        if l[:9] == "#version=":
-            v = stringToVersion(l[9:].rstrip())
-            break
-
-    fh.close()
+            if l[:9] == "#version=":
+                v = stringToVersion(l[9:].rstrip())
+                break
     return v
 
 def returnClassForVersion(version=DEVEL):
@@ -186,14 +183,17 @@ def returnClassForVersion(version=DEVEL):
     try:
         import pykickstart.handlers
         sys.path.extend(pykickstart.handlers.__path__)
-        found = imputil.imp.find_module(module)
-        loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
+        found = imp.find_module(module)
+        loaded = imp.load_module(module, found[0], found[1], found[2])
 
         for (k, v) in list(loaded.__dict__.items()):
             if k.lower().endswith("%shandler" % module):
                 return v
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
+    finally: # Closing opened files in imp.load_module
+        if found and len(found) > 0:
+            found[0].close()
 
 def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be

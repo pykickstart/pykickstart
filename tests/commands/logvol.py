@@ -6,6 +6,11 @@ from pykickstart.errors import *
 from pykickstart.version import *
 from pykickstart.commands.logvol import *
 
+if not six.PY3:
+    ARG_STR = 'an'
+else:
+    ARG_STR = '1' # Optparse changed outputs in Python 3
+
 class FC3_TestCase(CommandTest):
     command = "logvol"
 
@@ -94,7 +99,7 @@ class FC4_TestCase(FC3_TestCase):
 
             # fail - missing value
             self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError, "option --bytes-per-inode: invalid integer value: '--name=NAME'")
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError, "--bytes-per-inode option requires an argument")
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError, "--bytes-per-inode option requires %s argument" % ARG_STR)
 
         if "--encrypted" in self.optionList:
             # Just --encrypted
@@ -118,7 +123,7 @@ class FC4_TestCase(FC3_TestCase):
                               "logvol /  --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # fail - missing value
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "--passphrase option requires an argument")
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "--passphrase option requires %s argument" % ARG_STR)
 
             # fail - --encrypted does not take a value
             self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError, "--encrypted option does not take a value")
@@ -134,7 +139,7 @@ class F9_TestCase(FC4_TestCase):
         self.assert_type("logvol", "fsprofile", "string")
 
         # fail - missing value
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "--fsprofile option requires an argument")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "--fsprofile option requires %s argument" % ARG_STR)
 
         # Using --fsprofile
         self.assert_parse("logvol / --size=1024 --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",

@@ -22,8 +22,7 @@ from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, 
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class FC3_DisplayMode(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

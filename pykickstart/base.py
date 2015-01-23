@@ -40,9 +40,9 @@ This module exports several important base classes:
 """
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
-import types
+import six
 import warnings
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.ko import KickstartObject
@@ -100,7 +100,7 @@ class KickstartCommand(KickstartObject):
         # members from the kwargs list before we start processing it.  This
         # ensures that subclasses don't continue to recognize arguments that
         # were removed.
-        for arg in filter(kwargs.has_key, self.removedKeywords):
+        for arg in (kw for kw in self.removedKeywords if kw in kwargs):
             kwargs.pop(arg)
 
     def __call__(self, *args, **kwargs):
@@ -283,13 +283,13 @@ class BaseHandler(KickstartObject):
         for prio in lst:
             for obj in self._writeOrder[prio]:
                 obj_str = obj.__str__()
-                if type(obj_str) == types.UnicodeType:
+                if type(obj_str) is six.text_type and not six.PY3:
                     obj_str = obj_str.encode("utf-8")
                 retval += obj_str
 
         for script in self.scripts:
             script_str = script.__str__()
-            if type(script_str) == types.UnicodeType:
+            if type(script_str) is six.text_type and not six.PY3:
                 script_str = script_str.encode("utf-8")
             retval += script_str
 
@@ -323,9 +323,13 @@ class BaseHandler(KickstartObject):
         # way for clients to access the command objects.  We also need to strip
         # off the version part from the front of the name.
         if cmdObj.__class__.__name__.find("_") != -1:
-            name = unicode(cmdObj.__class__.__name__.split("_", 1)[1])
+            name = cmdObj.__class__.__name__.split("_", 1)[1]
+            if not six.PY3:
+                name = unicode(name)
         else:
-            name = unicode(cmdObj.__class__.__name__).lower()
+            name = cmdObj.__class__.__name__.lower()
+            if not six.PY3:
+                name = unicode(name)
 
         setattr(self, name.lower(), cmdObj)
 

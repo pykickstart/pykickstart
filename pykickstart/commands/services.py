@@ -21,8 +21,7 @@ from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart import _
 
 class FC6_Services(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
