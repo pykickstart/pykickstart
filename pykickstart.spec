@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.43.17
+Version: 1.99.43.18
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jan 27 2015 Chris Lumens <clumens@redhat.com> - 1.99.43.18-1
+- Update the transifex config file to point at the right branch (#1151749).
+
 * Tue Oct 07 2014 Chris Lumens <clumens@redhat.com> - 1.99.43.17-1
 - Allow recommended flag for non-prexisting logical volumes (#1149718) (amulhern)
 
