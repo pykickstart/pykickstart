@@ -95,7 +95,8 @@ class RHEL6_ClearPart(FC3_ClearPart):
     def __str__(self):
         retval = FC3_ClearPart.__str__(self)
         if self.cdl:
-            retval += " --cdl \n"
+            retval = retval.strip()
+            retval += " --cdl\n"
 
         return retval
 
