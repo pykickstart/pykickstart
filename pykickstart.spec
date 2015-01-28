@@ -44,7 +44,8 @@ make test
 
 %files -f %{name}.lang
 %defattr(-,root,root,-)
-%doc README COPYING docs/programmers-guide
+%license COPYING
+%doc README docs/programmers-guide
 %doc docs/kickstart-docs.txt
 %{python_sitelib}/*
 %{_bindir}/ksvalidator
