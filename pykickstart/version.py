@@ -79,7 +79,7 @@ F21 = 19000
 F22 = 20000
 
 # This always points at the latest version and is the default.
-DEVEL = F22
+DEVEL = RHEL7
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
