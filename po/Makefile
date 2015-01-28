@@ -1,10 +1,3 @@
-#
-# Makefile for the PO files (translation) catalog
-#
-# $Id$
-
-TOP	 = ../..
-
 # What is this package?
 NLSPACKAGE	= pykickstart
 POTFILE		= $(NLSPACKAGE).pot
@@ -13,7 +6,8 @@ INSTALL_DATA	= $(INSTALL) -m 644
 INSTALL_DIR	= /usr/bin/install -d
 
 # destination directory
-INSTALL_NLS_DIR = $(RPM_BUILD_ROOT)/usr/share/locale
+DESTDIR ?= $(RPM_BUILD_ROOT)
+INSTALL_NLS_DIR = $(DESTDIR)/`python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`/$(NLSPACKAGE)/locale
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
