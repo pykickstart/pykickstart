@@ -69,6 +69,33 @@ class F20_TestCase(CommandTest):
             nd2 = self.assert_parse(s)
             self.assertEquals(value, nd2.teamslaves)
 
+class F22_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
+
+        # bridge options
+        # pass
+        self.assert_parse("network --device bridge0 --bootproto dhcp "\
+                          "--bridgeslaves=ens3,ens7 "\
+                          "--bridgeopts=priority=40000")
+        self.assert_parse("network --device bridge0 --bootproto dhcp "\
+                          "--bridgeslaves=ens3,ens7 "\
+                          "--bridgeopts=priority=40000,hello-time=3")
+        # fail
+        # slaves missing
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeopts=priority=40000", KickstartValueError)
+        # bad options format
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeslaves=ens3,ens7 "\
+                                '--bridgeopts="priority=40000 hello-time=3"',
+                                KickstartValueError)
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+                                "--bridgeslaves=ens3,ens7 "\
+                                "--bridgeopts=priority",
+                                KickstartValueError)
+
+
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)

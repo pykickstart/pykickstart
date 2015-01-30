@@ -236,6 +236,24 @@ class F21_NetworkData(F20_NetworkData):
 
         return retval
 
+class F22_NetworkData(F21_NetworkData):
+    removedKeywords = F21_NetworkData.removedKeywords
+    removedAttrs = F21_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_NetworkData.__init__(self, *args, **kwargs)
+        self.bridgeslaves = kwargs.get("bridgeslaves", "")
+        self.bridgeopts = kwargs.get("bridgeopts", "")
+
+    def _getArgsAsStr(self):
+        retval = F21_NetworkData._getArgsAsStr(self)
+        if self.bridgeslaves != "":
+            retval += " --bridgeslaves=%s" % self.bridgeslaves
+        if self.bridgeopts != "":
+            retval += " --bridgeopts=%s" % self.bridgeopts
+
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -503,6 +521,33 @@ class F21_Network(F20_Network):
         op.add_option("--interfacename", dest="interfacename", action="store",
                 default="")
         return op
+
+class F22_Network(F21_Network):
+    def _getParser(self):
+        op = F21_Network._getParser(self)
+        op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
+                default="")
+        op.add_option("--bridgeopts", dest="bridgeopts", action="store",
+                default="")
+        return op
+
+    def parse(self, args):
+        # call the overridden command to do it's job first
+        retval = F21_Network.parse(self, args)
+
+        if retval.bridgeopts:
+            if not retval.bridgeslaves:
+                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
+                                        "--bridgeslaves to be specified"))
+                raise KickstartValueError(msg)
+            opts = retval.bridgeopts.split(",")
+            for opt in opts:
+                _key, _sep, value = opt.partition("=")
+                if not value or "=" in value:
+                    msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
+                    raise KickstartValueError(msg)
+
+        return retval
 
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
