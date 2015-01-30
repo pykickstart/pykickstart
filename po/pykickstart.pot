@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-15 14:02-0500\n"
+"POT-Creation-Date: 2015-01-30 11:14-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,7 +54,7 @@ msgstr ""
 msgid "Unable to open %%ksappend file"
 msgstr ""
 
-#: ../pykickstart/parser.py:131 ../pykickstart/parser.py:728
+#: ../pykickstart/parser.py:131 ../pykickstart/parser.py:731
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
@@ -63,12 +63,12 @@ msgstr ""
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:540 ../pykickstart/parser.py:581
+#: ../pykickstart/parser.py:543 ../pykickstart/parser.py:584
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:674
+#: ../pykickstart/parser.py:677
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
