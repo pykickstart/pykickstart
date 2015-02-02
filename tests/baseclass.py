@@ -7,6 +7,7 @@ import warnings
 import re
 import tempfile
 import shutil
+import six
 
 try:
     from imputil import imp
@@ -61,7 +62,11 @@ class ParserTest(unittest.TestCase):
         By default the KickstartParseError is expected.
         """
 
-        with self.assertRaisesRegexp(exception, regex):
+        if not six.PY3:
+            assert_function = 'assertRaisesRegexp'
+        else:
+            assert_function = 'assertRaisesRegex'
+        with getattr(self, assert_function)(exception, regex):
             self.parser.readKickstartFromString(ks_string)
 
     def assert_parse(self, ks_string):
