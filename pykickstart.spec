@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.16
+Version: 1.74.17
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Mon Feb 02 2015 Chris Lumens <clumens@redhat.com> - 1.74.17-1
+- Fix small issues with output formatting of the new --cdl option. (clumens)
+- Add clearpart --cdl option. (#1182624) (sbueno+anaconda)
+
 * Wed Aug 06 2014 Chris Lumens <clumens@redhat.com> - 1.74.16-1
 - Add an option to disable even installing the core group. (clumens)
 - Add a new bootloader --disabled option. (clumens)
