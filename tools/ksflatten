@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 #
 # Simple script to take a kickstart config, read it in, parse any %includes,
 # etc to write out a flattened config that is stand-alone
@@ -26,11 +26,11 @@ import sys
 import argparse
 import pykickstart
 import pykickstart.parser
+from pykickstart.i18n import _
 from pykickstart.version import DEVEL, makeVersion
 
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 def parse_args():
     parser = argparse.ArgumentParser()

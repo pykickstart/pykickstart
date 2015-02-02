@@ -33,6 +33,7 @@ This module exports several important classes:
 
 from collections import Iterator
 import os
+import six
 import shlex
 import tempfile
 from optparse import OptionParser
@@ -74,6 +75,9 @@ def _preprocessStateMachine (lineIter):
 
         ll = l.strip()
         if not ll.startswith("%ksappend"):
+            if six.PY3:
+                import sys
+                l = l.encode(sys.getdefaultencoding())
             os.write(outF, l)
             continue
 
