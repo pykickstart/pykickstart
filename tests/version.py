@@ -139,17 +139,6 @@ class StringToVersion_TestCase(CommandTest):
 
 class VersionToString_TestCase(CommandTest):
     def runTest(self):
-
-        # Make sure DEVEL is the highest version, but RHEL versions aren't
-        # counted as devel.
-        highest = 0
-        for (ver_str,ver_num) in versionMap.items():
-            if ver_str.startswith("RHEL"):
-                continue
-
-            highest = max(ver_num, highest)
-        self.assertEqual(highest, DEVEL)
-
         # FC series
         self.assertEqual(versionToString(FC3), "FC3")
         self.assertEqual(versionToString(FC4), "FC4")
@@ -173,13 +162,12 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(F18, skipDevel=True), "F18")
         self.assertEqual(versionToString(F19, skipDevel=True), "F19")
         self.assertEqual(versionToString(F20, skipDevel=True), "F20")
-        self.assertEqual(versionToString(F20, skipDevel=False), "DEVEL")
         # RHEL series
         self.assertEqual(versionToString(RHEL3), "RHEL3")
         self.assertEqual(versionToString(RHEL4), "RHEL4")
         self.assertEqual(versionToString(RHEL5), "RHEL5")
         self.assertEqual(versionToString(RHEL6), "RHEL6")
-        self.assertEqual(versionToString(RHEL7), "RHEL7")
+        self.assertEqual(versionToString(RHEL7, skipDevel=True), "RHEL7")
 
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):
