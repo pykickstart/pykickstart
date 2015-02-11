@@ -36,12 +36,11 @@ import os
 import shlex
 import tempfile
 from optparse import OptionParser
-from urlgrabber import urlread
-import urlgrabber.grabber as grabber
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
+from pykickstart.load import load_to_str
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
 import gettext
@@ -85,25 +84,16 @@ def _preprocessStateMachine (lineIter):
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll))
 
         try:
-            url = grabber.urlopen(ksurl)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % e.strerror))
-        else:
-            # Sanity check result.  Sometimes FTP doesn't catch a file
-            # is missing.
-            try:
-                if url.size < 1:
-                    raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file")))
-            except:
-                raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file")))
+            contents = load_to_str(ksurl)
+        except KickstartError as e:
+            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % str(e)))
 
         # If that worked, write the remote file to the output kickstart
         # file in one burst.  Then close everything up to get ready to
         # read ahead in the input file.  This allows multiple %ksappend
         # lines to exist.
-        if url is not None:
-            os.write(outF, url.read())
-            url.close()
+        if contents is not None:
+            os.write(outF, contents)
 
     # All done - close the temp file and return its location.
     os.close(outF)
@@ -126,13 +116,11 @@ def preprocessKickstart (f):
         run.  Returns the location of the complete kickstart file.
     """
     try:
-        fh = grabber.urlopen(f)
-    except grabber.URLGrabError, e:
-        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+        contents = load_to_str(f)
+    except KickstartError as e:
+        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
-    rc = _preprocessStateMachine (iter(fh.readlines()))
-    fh.close()
-    return rc
+    return _preprocessStateMachine (iter(contents.splitlines(True)))
 
 class PutBackIterator(Iterator):
     def __init__(self, iterable):
@@ -726,9 +714,9 @@ class KickstartParser:
         self.currentdir[self._includeDepth] = cd
 
         try:
-            s = urlread(f)
-        except grabber.URLGrabError, e:
-            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % e.strerror))
+            s = load_to_str(f)
+        except KickstartError as e:
+            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
         self.readKickstartFromString(s, reset=False)
 

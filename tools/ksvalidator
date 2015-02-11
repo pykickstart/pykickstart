@@ -24,9 +24,9 @@ import os
 import sys
 import warnings
 import tempfile
-import urlgrabber
 import shutil
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
+from pykickstart.load import load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
 
@@ -70,8 +70,8 @@ if opts.listversions:
 
 destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
 try:
-    f = urlgrabber.urlgrab(opts.ksfile, filename="%s/ks.cfg" % destdir)
-except urlgrabber.grabber.URLGrabError, e:
+    f = load_to_file(opts.ksfile, "%s/ks.cfg" % destdir)
+except KickstartError as e:
     print(_("Error reading %s:\n%s") % (opts.ksfile, e))
     cleanup(destdir)
 
