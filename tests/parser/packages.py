@@ -3,7 +3,7 @@ from tests.baseclass import *
 
 from pykickstart import constants
 from pykickstart.errors import KickstartParseError
-from pykickstart.version import RHEL6
+from pykickstart.version import F21, RHEL6
 
 class Packages_Contains_Comments_TestCase(ParserTest):
     ks = """
@@ -23,6 +23,8 @@ packageB
         self.assertEqual(self.handler.packages.packageList[1], "packageB")
 
 class Packages_Contains_Nobase_1_TestCase(ParserTest):
+    version = F21
+
     ks = """
 %packages --nobase
 bash
@@ -51,7 +53,21 @@ bash
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
 
+class Packages_Contains_Nobase_3_TestCase(ParserTest):
+    ks = """
+%packages --nobase
+bash
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
+
 class Packages_Contains_Nobase_Default_TestCase(ParserTest):
+    version = F21
+
     ks = """
 %packages --nobase --default
 %end

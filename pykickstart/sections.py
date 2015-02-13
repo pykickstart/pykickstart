@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2011-2014 Red Hat, Inc.
+# Copyright 2011-2015 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -33,7 +33,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21
+from pykickstart.version import FC4, F7, F9, F18, F21, F22
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -231,7 +231,7 @@ class PackageSection(Section):
         op.add_option("--ignoremissing", dest="ignoremissing",
                       action="store_true", default=False)
         op.add_option("--nobase", dest="nobase", action="store_true",
-                      default=False, deprecated=F18)
+                      default=False, deprecated=F18, removed=F22)
         op.add_option("--nocore", dest="nocore", action="store_true",
                       default=False, introduced=F21)
         op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
