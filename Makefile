@@ -11,6 +11,8 @@ PREFIX=/usr
 
 TESTSUITE:=tests/baseclass.py
 
+PYTHON?=python
+
 all:
 	$(MAKE) -C po
 
@@ -27,7 +29,7 @@ check:
 
 test:
 	@echo "*** Running unittests ***"
-	PYTHONPATH=. python $(TESTSUITE) -v
+	PYTHONPATH=. $(PYTHON) $(TESTSUITE) -v
 
 coverage:
 	@which coverage || (echo "*** Please install python-coverage ***"; exit 2)
@@ -38,10 +40,10 @@ coverage:
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.txt docs/programmers-guide
 	$(MAKE) -C po clean
-	python setup.py -q clean --all
+	$(PYTHON) setup.py -q clean --all
 
 install:
-	python setup.py install --root=$(DESTDIR)
+	$(PYTHON) setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
 tag:
@@ -65,7 +67,7 @@ local: docs po-pull
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
 	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
 	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
-	@cd /tmp/$(PKGNAME)-$(VERSION) ; python setup.py -q sdist
+	@cd /tmp/$(PKGNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
 	@cp /tmp/$(PKGNAME)-$(VERSION)/dist/$(PKGNAME)-$(VERSION).tar.gz .
 	@rm -rf /tmp/$(PKGNAME)-$(VERSION)
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
