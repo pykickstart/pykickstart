@@ -20,8 +20,6 @@
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
-from pykickstart.i18n import _
-
 class FC3_NFS(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
