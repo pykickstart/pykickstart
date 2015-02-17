@@ -70,7 +70,7 @@ def _preprocessStateMachine (lineIter):
             break
 
         lineno += 1
-        url = None
+        ksurl = None
 
         ll = l.strip()
         if not ll.startswith("%ksappend"):
