@@ -26,9 +26,6 @@ from pykickstart.base import DeprecatedCommand
 from pykickstart.errors import KickstartVersionError
 from pykickstart.version import makeVersion, versionMap
 
-import gettext
-gettext.textdomain("pykickstart")
-
 def getCommandSet(handler):
     return set(handler.commands.keys())
 

@@ -21,7 +21,6 @@
 
 import argparse
 import os
-import six
 import sys
 import warnings
 import tempfile
@@ -31,12 +30,6 @@ from pykickstart.errors import KickstartError, KickstartParseError, KickstartVal
 from pykickstart.load import load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
-
-import gettext
-if six.PY3:
-    gettext.install("pykickstart")
-else:
-    gettext.install("pykickstart", unicode=True)
 
 def cleanup(dest, fn=None, exitval=1):
     shutil.rmtree(dest)

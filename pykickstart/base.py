@@ -38,8 +38,6 @@ This module exports several important base classes:
                        Command objects are contained within a BaseHandler
                        object.
 """
-import gettext
-gettext.textdomain("pykickstart")
 from pykickstart.i18n import _
 
 import six

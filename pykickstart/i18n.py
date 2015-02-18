@@ -18,18 +18,31 @@
 # with the express permission of Red Hat, Inc.
 #
 import gettext
+import os
 import six
+
+def _find_locale_files():
+    module_path = os.path.abspath(__file__)
+    locale_path = os.path.join(os.path.dirname(module_path), 'locale')
+
+    gettext.bindtextdomain("pykickstart", locale_path)
+    gettext.textdomain("pykickstart")
 
 if six.PY3:
     import sys
+
+    _find_locale_files()
+
     def _(x):
         if x == '': # Workaround for gettext's behaviour on empty strings
             return ''
 
-        result = gettext.ldgettext('pykickstart', x)
+        result = gettext.lgettext(x)
         if isinstance(result, bytes):
             return result.decode(sys.getdefaultencoding())
         else:
             return result
 else:
-    _ = lambda x: gettext.ldgettext("pykickstart", x) if x != '' else ''
+    _find_locale_files()
+
+    _ = lambda x: gettext.lgettext(x) if x != '' else ''

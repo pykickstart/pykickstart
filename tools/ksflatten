@@ -29,9 +29,6 @@ import pykickstart.parser
 from pykickstart.i18n import _
 from pykickstart.version import DEVEL, makeVersion
 
-import gettext
-gettext.textdomain("pykickstart")
-
 def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="kscfg", required=True,

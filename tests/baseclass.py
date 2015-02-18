@@ -17,8 +17,6 @@ except ImportError: # Python 3
 from pykickstart.errors import *
 from pykickstart.parser import preprocessFromString, KickstartParser
 from pykickstart.version import *
-import gettext
-gettext.textdomain("pykickstart")
 from pykickstart.i18n import _
 
 class ParserTest(unittest.TestCase):
