@@ -2,19 +2,24 @@ import os
 import sys
 import unittest
 import shlex
-import imputil
 import glob
 import warnings
 import re
 import tempfile
 import shutil
+import six
+
+try:
+    from imputil import imp
+except ImportError: # Python 3
+    import imp
 
 from pykickstart.errors import *
 from pykickstart.parser import preprocessFromString, KickstartParser
 from pykickstart.version import *
 import gettext
 gettext.textdomain("pykickstart")
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 class ParserTest(unittest.TestCase):
     version = DEVEL
@@ -57,7 +62,11 @@ class ParserTest(unittest.TestCase):
         By default the KickstartParseError is expected.
         """
 
-        with self.assertRaisesRegexp(exception, regex):
+        if not six.PY3:
+            assert_function = 'assertRaisesRegexp'
+        else:
+            assert_function = 'assertRaisesRegex'
+        with getattr(self, assert_function)(exception, regex):
             self.parser.readKickstartFromString(ks_string)
 
     def assert_parse(self, ks_string):
@@ -66,7 +75,7 @@ class ParserTest(unittest.TestCase):
         """
         try:
             self.parser.readKickstartFromString(ks_string)
-        except Exception, e:
+        except Exception as e:
             self.fail("Failed while parsing commands %s: %s" % (ks_string, e))
 
 
@@ -158,7 +167,7 @@ class CommandTest(unittest.TestCase):
         else:
             try:
                 obj = parser.parse(args[1:])
-            except Exception, e:
+            except Exception as e:
                 self.fail("Failed while parsing: %s" % e)
         return obj
 
@@ -225,23 +234,27 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
 
         # Attempt to load the found module.
         try:
-            found = imputil.imp.find_module(module)
-            loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
-        except ImportError, e:
-            print(_("Error loading module %s: %s") % (module, e))
-            continue
+            try:
+                found = imp.find_module(module)
+                loaded = imp.load_module(module, found[0], found[1], found[2])
+            except ImportError as e:
+                print(_("Error loading module %s: %s") % (module, e))
+                continue
 
-        # Find class names that match the supplied pattern (default: "_TestCase")
-        beforeCount = len(tstList)
-        for obj in list(loaded.__dict__.keys()):
-            if obj.endswith(cls_pattern):
-                tstList.append(loaded.__dict__[obj])
-        afterCount = len(tstList)
+            # Find class names that match the supplied pattern (default: "_TestCase")
+            beforeCount = len(tstList)
+            for obj in list(loaded.__dict__.keys()):
+                if obj.endswith(cls_pattern):
+                    tstList.append(loaded.__dict__[obj])
+            afterCount = len(tstList)
 
-        # Warn if no tests found
-        if beforeCount == afterCount:
-            print(_("Module %s does not contain any test cases; skipping.") % module)
-            continue
+            # Warn if no tests found
+            if beforeCount == afterCount:
+                print(_("Module %s does not contain any test cases; skipping.") % module)
+                continue
+        finally: # Closing opened files in imp.load_module
+            if found and len(found) > 0:
+                found[0].close()
 
     return tstList
 

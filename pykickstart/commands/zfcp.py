@@ -20,9 +20,8 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
-import gettext
 import warnings
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 class FC3_ZFCPData(BaseData):
     removedKeywords = BaseData.removedKeywords

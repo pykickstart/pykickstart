@@ -29,19 +29,19 @@ class FC6_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("dmraid --name=onamai --dev=debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
-	self.assert_parse("dmraid --name onamai --dev debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
-	self.assert_parse("dmraid --dev=deb1,deb2 --name onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
-	self.assert_parse("dmraid --dev \"deb1,deb2\" --name=onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
+        self.assert_parse("dmraid --name onamai --dev debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
+        self.assert_parse("dmraid --dev=deb1,deb2 --name onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
+        self.assert_parse("dmraid --dev \"deb1,deb2\" --name=onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
 
         # fail
         self.assert_parse_error("dmraid", KickstartValueError)
         self.assert_parse_error("dmraid --name", KickstartParseError)
-	self.assert_parse_error("dmraid --dev", KickstartParseError)
+        self.assert_parse_error("dmraid --dev", KickstartParseError)
         self.assert_parse_error("dmraid --name=onamai", KickstartValueError)
-	self.assert_parse_error("dmraid --name onamai", KickstartValueError)
-	self.assert_parse_error("dmraid --dev debaisi", KickstartValueError)
-	self.assert_parse_error("dmraid --dev=deb1,deb2", KickstartValueError)
-	self.assert_parse_error("dmraid --magic", KickstartParseError)
+        self.assert_parse_error("dmraid --name onamai", KickstartValueError)
+        self.assert_parse_error("dmraid --dev debaisi", KickstartValueError)
+        self.assert_parse_error("dmraid --dev=deb1,deb2", KickstartValueError)
+        self.assert_parse_error("dmraid --magic", KickstartParseError)
 
 if __name__ == "__main__":
     unittest.main()

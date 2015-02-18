@@ -43,10 +43,14 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import imputil, re, sys
+import re, sys
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+try:
+    from imputil import imp
+except ImportError: # Python 3
+    import imp
+
+from pykickstart.i18n import _
 
 from pykickstart.errors import KickstartVersionError
 from pykickstart.load import load_to_str
@@ -176,14 +180,17 @@ def returnClassForVersion(version=DEVEL):
     try:
         import pykickstart.handlers
         sys.path.extend(pykickstart.handlers.__path__)
-        found = imputil.imp.find_module(module)
-        loaded = imputil.imp.load_module(module, found[0], found[1], found[2])
+        found = imp.find_module(module)
+        loaded = imp.load_module(module, found[0], found[1], found[2])
 
         for (k, v) in list(loaded.__dict__.items()):
             if k.lower().endswith("%shandler" % module):
                 return v
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
+    finally: # Closing opened files in imp.load_module
+        if found and len(found) > 0:
+            found[0].close()
 
 def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be

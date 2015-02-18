@@ -33,6 +33,7 @@ This module exports several important classes:
 
 from collections import Iterator
 import os
+import six
 import shlex
 import tempfile
 from optparse import OptionParser
@@ -41,10 +42,10 @@ from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
+from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 STATE_END = "end"
 STATE_COMMANDS = "commands"
@@ -61,7 +62,7 @@ def _preprocessStateMachine (lineIter):
 
     while True:
         try:
-            l = lineIter.next()
+            l = next(lineIter)
         except StopIteration:
             break
 
@@ -74,6 +75,9 @@ def _preprocessStateMachine (lineIter):
 
         ll = l.strip()
         if not ll.startswith("%ksappend"):
+            if six.PY3:
+                import sys
+                l = l.encode(sys.getdefaultencoding())
             os.write(outF, l)
             continue
 
@@ -106,7 +110,7 @@ def preprocessFromString (s):
         run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (i.next)
+    rc = _preprocessStateMachine (i)
     return rc
 
 def preprocessKickstart (f):
@@ -139,8 +143,10 @@ class PutBackIterator(Iterator):
             self._buf = None
             return retval
         else:
-            return self._iterable.next()
+            return next(self._iterable)
 
+    def __next__(self):
+        return self.next()
 ###
 ### SCRIPT HANDLING
 ###
@@ -233,12 +239,23 @@ class Group:
         else:
             return "@%s" % self.name
 
-    def __cmp__(self, other):
-        if self.name < other.name:
-            return -1
-        elif self.name > other.name:
-            return 1
-        return 0
+    def __lt__(self, other):
+        return self.name < other.name
+
+    def __le__(self, other):
+        return self.name <= other.name
+
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __ne__(self, other):
+        return self.name != other.name
+
+    def __gt__(self, other):
+        return self.name > other.name
+
+    def __ge__(self, other):
+        return self.name >= other.name
 
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
@@ -372,10 +389,10 @@ class Packages(KickstartObject):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = set(self.excludedList)
-        existingPackageSet = set(self.packageList)
-        newExcludedSet = set()
-        newPackageSet = set()
+        existingExcludedSet = OrderedSet(self.excludedList)
+        existingPackageSet = OrderedSet(self.packageList)
+        newExcludedSet = OrderedSet()
+        newPackageSet = OrderedSet()
 
         excludedGroupList = []
 
@@ -524,7 +541,7 @@ class KickstartParser:
 
         while True:
             try:
-                line = lineIter.next()
+                line = next(lineIter)
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
@@ -595,7 +612,7 @@ class KickstartParser:
         """
         try:
             fn()
-        except Exception, msg:
+        except Exception as msg:
             if self.errorsAreFatal:
                 raise
             else:
@@ -629,7 +646,7 @@ class KickstartParser:
         while True:
             # Get the next line out of the file, quitting if this is the last line.
             try:
-                self._line = lineIter.next()
+                self._line = next(lineIter)
                 if self._line == "":
                     break
             except StopIteration:

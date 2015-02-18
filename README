@@ -1,3 +1,3 @@
-pykickstart is a python library consisting of a data representation of
-kickstart files, a parser to read file into that representation, and a
-writer to generate kickstart files.
+Pykickstart is a Python 2 and Python 3 library consisting of a data
+representation of kickstart files, a parser to read file into that
+representation, and a writer to generate kickstart files.

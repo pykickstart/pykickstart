@@ -25,8 +25,7 @@ import getopt
 import pipes
 import shlex
 
-import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+from pykickstart.i18n import _
 
 class F19_Realm(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -62,7 +61,7 @@ class F19_Realm(KickstartCommand):
                                                        "one-time-password=",
                                                        "no-password",
                                                        "computer-ou="))
-        except getopt.GetoptError, ex:
+        except getopt.GetoptError as ex:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
                 "Invalid realm arguments: %s") % ex))
 
