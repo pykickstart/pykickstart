@@ -25,6 +25,8 @@ BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
 
+Requires: python3-kickstart
+
 %description
 Python utilities for manipulating kickstart files.  The Python 2 and 3 libraries
 can be found in the packages python-kickstart and python3-kickstart
@@ -42,7 +44,6 @@ the pykickstart package.
 # Python 3 library
 %package -n python3-kickstart
 Summary:  Python 3 library for manipulating kickstart files.
-Requires: python3-kickstart
 Requires: python-six
 
 %description -n python3-kickstart
