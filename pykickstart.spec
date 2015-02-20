@@ -21,8 +21,10 @@ BuildRequires: python-requests
 %if ! 0%{?rhel}
 BuildRequires: transifex-client
 %endif
+
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
+BuildRequires: python3-requests
 BuildRequires: python3-six
 
 Requires: python3-kickstart
@@ -109,6 +111,31 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Fri Feb 20 2015 Chris Lumens <clumens@redhat.com> - 1.99.67-1
+- Make sure pykickstart requires some version of the library. (clumens)
+- Split into python2 and python3 specific packages. (clumens)
+- Look for translations in their new location. (clumens)
+- Install .mo files into the python site-packages directory. (clumens)
+- Merge pull request #3 from tradej/python3 (clumens)
+- Fixed pylint warnings (tradej)
+- Fixed executables in tools + related parts of pykickstart.parser. (tradej)
+- Explicitly closing files. Python 3 tests work now. (tradej)
+- Implemented rich comparison for parser.Group. (tradej)
+- Error parsing in test.commands.logvol matches Python 3's optparse. (tradej)
+- Keeping order of contents in the %packages section with OrderedSet (under MIT license). (tradej)
+- Redefined _ in pykickstart.i18n, importing. (tradej)
+- Fixed assertRaisesRegexp function in Python3. (tradej)
+- Replaced string.strip(pkgs) with str(pkgs).strip(). (tradej)
+- Adapted Makefile to allow running tests under Python 3. (tradej)
+- Converted syntax to Python 3-compatible (rhbz#985310) (tradej)
+- Fix a problem pylint caught with the last patch merge. (clumens)
+- Make sure pykickstart/*/*py messages get included in pykickstart.pot. (clumens)
+- Merge pull request #2 from tradej/urlgrabber (clumens)
+- Replaced URLGrabber with requests (rhbz#1141245) (tradej)
+- Remove --nobase as an option. (clumens)
+- Add support to rhel6 for specifying thin pool profile (vpodzime)
+- Add support to rhel6 for custom layouts using lvm thin provisioning. (dlehman)
+
 * Fri Jan 30 2015 Chris Lumens <clumens@redhat.com> - 1.99.66-1
 - network: add support for bridge to F22 (#1075195) (rvykydal)
 - Use %license in pykickstart.spec (bcl)
