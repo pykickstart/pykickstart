@@ -35,8 +35,6 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
 class F18_TestCase(FC3_TestCase):
-    command = "keyboard"
-
     def runTest(self):
         # pass
         self.assert_parse("keyboard us",

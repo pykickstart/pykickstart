@@ -33,8 +33,6 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("zerombr arg", "zerombr\n")
 
 class F9_TestCase(FC3_TestCase):
-    command = "zerombr"
-
     def runTest(self):
         # pass
         self.assert_parse("zerombr", "zerombr\n")

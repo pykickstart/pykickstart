@@ -16,8 +16,6 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("lang en_US en_CA", KickstartValueError)
 
 class F19_TestCase(FC3_TestCase):
-    command = "lang"
-
     def runTest(self):
 
         # pass
