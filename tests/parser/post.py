@@ -16,7 +16,7 @@ echo "# Added by kickstart
 
     def runTest(self):
         self.parser.readKickstartFromString(self.ks)
-        self.assertEqual(lan(self.handler.scripts), 1)
+        self.assertEqual(len(self.handler.scripts), 1)
 
 class Simple_Terminated_TestCase(ParserTest):
     ks = """
