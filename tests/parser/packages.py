@@ -63,7 +63,7 @@ bash
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
@@ -76,7 +76,7 @@ class Packages_Contains_Nobase_Default_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
@@ -87,7 +87,7 @@ class Packages_Contains_Nocore_Default_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
@@ -99,7 +99,7 @@ class Packages_Contains_Environment_1_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(self.handler.packages.environment, "whatever-environment")
@@ -113,7 +113,7 @@ class Packages_Contains_Environment_2_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(self.handler.packages.environment, "another-environment")
@@ -127,7 +127,7 @@ class Packages_Contains_Environment_3_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(self.handler.packages.environment, "whatever-environment")
@@ -142,7 +142,7 @@ class Packages_Contains_Environment_4_TestCase(ParserTest):
 """
 
     def runTest(self):
-        with warnings.catch_warnings(record=True) as w:
+        with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(self.handler.packages.environment, "another-environment")

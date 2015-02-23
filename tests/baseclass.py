@@ -222,7 +222,6 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
         sys.path.insert(0, moduleDir)
 
     # Get a list of all *.py files in moduleDir
-    moduleList = []
     lst = [os.path.splitext(os.path.basename(x))[0] for x in glob.glob(moduleDir + "/*.py")]
 
     # Inspect each .py file found
