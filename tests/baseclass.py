@@ -71,6 +71,7 @@ class ParserTest(unittest.TestCase):
         """
         try:
             self.parser.readKickstartFromString(ks_string)
+        # pylint: disable=broad-except
         except Exception as e:
             self.fail("Failed while parsing commands %s: %s" % (ks_string, e))
 
@@ -163,6 +164,7 @@ class CommandTest(unittest.TestCase):
         else:
             try:
                 obj = parser.parse(args[1:])
+            # pylint: disable=broad-except
             except Exception as e:
                 self.fail("Failed while parsing: %s" % e)
         return obj

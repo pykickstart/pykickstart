@@ -612,6 +612,7 @@ class KickstartParser:
         """
         try:
             fn()
+        # pylint: disable=broad-except
         except Exception as msg:
             if self.errorsAreFatal:
                 raise
