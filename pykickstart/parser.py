@@ -679,7 +679,7 @@ class KickstartParser:
                     # here.
                     newSection = args[0]
                     if not self._validState(newSection):
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s" % newSection)))
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection))
 
                     self._state = newSection
                     obj = self._sections[self._state]

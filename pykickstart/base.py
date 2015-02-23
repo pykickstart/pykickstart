@@ -416,7 +416,7 @@ class BaseHandler(KickstartObject):
         cmd = args[0]
 
         if cmd not in self.commands:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown command: %s" % cmd)))
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown command: %s") % cmd))
         elif self.commands[cmd] != None:
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine

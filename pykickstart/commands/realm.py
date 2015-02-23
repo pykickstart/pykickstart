@@ -50,7 +50,7 @@ class F19_Realm(KickstartCommand):
             self._parseJoin(args)
         else:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
-                "Unsupported realm '%s' command" % command)))
+                "Unsupported realm '%s' command") % command))
 
     def _parseJoin(self, args):
         try:
