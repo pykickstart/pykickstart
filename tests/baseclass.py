@@ -206,8 +206,11 @@ class CommandTest(unittest.TestCase):
                 self.assertEqual(op.type, opt_type)
 
 
-def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "baseclass"]):
+def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=None):
     '''taken from firstboot/loader.py'''
+
+    if skip_list is None:
+        skip_list = ["__init__", "baseclass"]
 
     # Guaruntee that __init__ is skipped
     if skip_list.count("__init__") == 0:
