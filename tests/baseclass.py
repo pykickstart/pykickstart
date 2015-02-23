@@ -213,7 +213,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
     if skip_list.count("__init__") == 0:
         skip_list.append("__init__")
 
-    tstList = list()
+    tests = list()
 
     # Make sure moduleDir is in the system path so imputil works.
     if not moduleDir in sys.path:
@@ -237,11 +237,11 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
                 continue
 
             # Find class names that match the supplied pattern (default: "_TestCase")
-            beforeCount = len(tstList)
+            beforeCount = len(tests)
             for obj in list(loaded.__dict__.keys()):
                 if obj.endswith(cls_pattern):
-                    tstList.append(loaded.__dict__[obj])
-            afterCount = len(tstList)
+                    tests.append(loaded.__dict__[obj])
+            afterCount = len(tests)
 
             # Warn if no tests found
             if beforeCount == afterCount:
@@ -251,7 +251,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=["__init__", "base
             if found and len(found) > 0:
                 found[0].close()
 
-    return tstList
+    return tests
 
 # Run the tests
 if __name__ == "__main__":
