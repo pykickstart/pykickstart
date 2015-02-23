@@ -1,11 +1,7 @@
 # -*- coding: utf-8 -*-
 import six
 import unittest
-from tests.baseclass import *
-
-from pykickstart import constants
-from pykickstart.errors import KickstartParseError
-from pykickstart import version
+from tests.baseclass import ParserTest
 
 class HandleUnicode_TestCase(ParserTest):
     ks = """

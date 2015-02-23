@@ -1,10 +1,7 @@
-import unittest, shlex
-from tests.baseclass import *
+import unittest
+from tests.baseclass import CommandTest
 
-from pykickstart.base import *
-from pykickstart.errors import *
-from pykickstart.version import *
-from pykickstart.commands.volgroup import *
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC3_TestCase(CommandTest):
     command = "volgroup"

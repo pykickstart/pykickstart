@@ -19,7 +19,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
+
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class RHEL3_TestCase(CommandTest):
     command = "mouse"

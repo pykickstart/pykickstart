@@ -18,10 +18,9 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.network import *
+from pykickstart.errors import KickstartValueError
 
 class F20_TestCase(CommandTest):
     command = "network"

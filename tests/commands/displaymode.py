@@ -18,10 +18,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.displaymode import *
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "displaymode"

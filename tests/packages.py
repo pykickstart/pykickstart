@@ -1,7 +1,7 @@
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
+from pykickstart.errors import KickstartValueError
 from pykickstart.parser import Packages
 from pykickstart.version import DEVEL, returnClassForVersion
 

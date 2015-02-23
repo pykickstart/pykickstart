@@ -17,10 +17,10 @@
 # with the express permission of Red Hat, Inc. 
 #
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.interactive import *
+from pykickstart.base import DeprecatedCommand
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC3_TestCase(CommandTest):
     command = "interactive"

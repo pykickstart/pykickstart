@@ -2,11 +2,9 @@ import os
 import six
 import unittest
 import tempfile
-from tests.baseclass import *
+from tests.baseclass import ParserTest
 
 from pykickstart import constants
-from pykickstart.errors import KickstartParseError
-from pykickstart import version
 
 class Base_Include(ParserTest):
     def setUp(self):

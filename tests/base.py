@@ -1,8 +1,8 @@
 import unittest
 from tests.baseclass import ParserTest
 
-from pykickstart.base import *
-from pykickstart.version import *
+from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand
+from pykickstart.errors import KickstartParseError
 
 class BaseClasses_TestCase(ParserTest):
     def runTest(self):

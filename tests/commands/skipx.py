@@ -17,9 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from tests.baseclass import *
-from pykickstart.errors import *
-from pykickstart.commands.skipx import *
+import unittest
+from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC3_TestCase(CommandTest):
     command = "skipx"

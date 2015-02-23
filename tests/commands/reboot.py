@@ -18,10 +18,9 @@
 # with the express permission of Red Hat, Inc. 
 #
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.constants import *
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN, KS_WAIT
 
 class FC3_TestCase(CommandTest):
     command = "reboot"

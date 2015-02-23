@@ -17,11 +17,8 @@
 # with the express permission of Red Hat, Inc. 
 #
 
-import unittest, shlex
-from tests.baseclass import *
-
-from pykickstart.errors import *
-from pykickstart.commands.deviceprobe import *
+import unittest
+from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
     command = "deviceprobe"

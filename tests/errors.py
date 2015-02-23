@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import ParserTest
 
-from pykickstart.errors import *
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
 
 class NoErrorMessage_TestCase(ParserTest):
     def runTest(self):

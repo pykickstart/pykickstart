@@ -1,11 +1,13 @@
 import six
 import unittest
 import tempfile
-from tests.baseclass import *
+import os
 
+from tests.baseclass import CommandTest, loadModules
+
+# pylint: disable=wildcard-import
 from pykickstart.version import *
-from pykickstart.errors import *
-from pykickstart.commands.vnc import *
+from pykickstart.errors import KickstartVersionError
 
 def getClassName(cls):
     return cls().__class__.__name__

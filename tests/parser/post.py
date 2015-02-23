@@ -1,8 +1,9 @@
 import unittest
-from tests.baseclass import *
+from tests.baseclass import ParserTest
 
 from pykickstart import constants
 from pykickstart.errors import KickstartParseError
+# pylint: disable=unused-import
 from pykickstart import version
 
 class Script_Includes_Percent_Sign(ParserTest):

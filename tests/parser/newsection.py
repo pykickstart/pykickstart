@@ -1,9 +1,7 @@
 import unittest
-from tests.baseclass import *
+from tests.baseclass import ParserTest
 
-from pykickstart import constants
 from pykickstart import sections
-from pykickstart import version
 
 class RawSection(sections.Section):
     sectionOpen = "%raw"

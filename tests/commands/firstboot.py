@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-from tests.baseclass import *
-
-from pykickstart.errors import *
-from pykickstart.commands.firstboot import *
+from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
     command = "firstboot"

@@ -5,8 +5,6 @@ import shlex
 import glob
 import warnings
 import re
-import tempfile
-import shutil
 import six
 
 try:
@@ -14,9 +12,9 @@ try:
 except ImportError: # Python 3
     import imp
 
-from pykickstart.errors import *
-from pykickstart.parser import preprocessFromString, KickstartParser
-from pykickstart.version import *
+from pykickstart.errors import KickstartParseError
+from pykickstart.parser import KickstartParser
+from pykickstart.version import DEVEL, makeVersion, returnClassForVersion
 from pykickstart.i18n import _
 
 class ParserTest(unittest.TestCase):

@@ -1,10 +1,7 @@
-import unittest, shlex
-from tests.baseclass import *
+import unittest, six
+from tests.baseclass import CommandTest
 
-from pykickstart.base import *
-from pykickstart.errors import *
-from pykickstart.version import *
-from pykickstart.commands.logvol import *
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 if not six.PY3:
     ARG_STR = 'an'

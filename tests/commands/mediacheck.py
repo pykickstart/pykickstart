@@ -18,10 +18,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.mediacheck import *
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC4_TestCase(CommandTest):
     command = "mediacheck"

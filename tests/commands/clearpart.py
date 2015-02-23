@@ -1,4 +1,5 @@
-from tests.baseclass import *
+import unittest
+from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
     command = "clearpart"

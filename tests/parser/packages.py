@@ -1,7 +1,7 @@
 import unittest
-from tests.baseclass import *
+import warnings
+from tests.baseclass import ParserTest
 
-from pykickstart import constants
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import F21, RHEL6
 

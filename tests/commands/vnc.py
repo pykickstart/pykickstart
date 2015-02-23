@@ -1,8 +1,5 @@
 import unittest
-from tests.baseclass import *
-
-from pykickstart.errors import *
-from pykickstart.commands.vnc import *
+from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
     command = "vnc"

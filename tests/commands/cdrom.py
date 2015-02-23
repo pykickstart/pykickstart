@@ -19,7 +19,7 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
     def runTest(self):

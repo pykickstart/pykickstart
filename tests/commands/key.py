@@ -18,10 +18,9 @@
 # with the express permission of Red Hat, Inc. 
 #
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.key import *
+from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class RHEL5_TestCase(CommandTest):
     command = "key"

@@ -18,10 +18,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.logging import *
+from pykickstart.errors import KickstartParseError
 
 class FC6_TestCase(CommandTest):
     command = "logging"

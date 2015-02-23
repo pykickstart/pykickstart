@@ -19,7 +19,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
+
+from pykickstart.errors import KickstartValueError
 
 class F21_TestCase(CommandTest):
     def runTest(self):

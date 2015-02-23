@@ -1,8 +1,5 @@
 import unittest
-from tests.baseclass import *
-
-from pykickstart.errors import *
-from pykickstart.commands.unsupported_hardware import *
+from tests.baseclass import CommandTest
 
 class RHEL6_TestCase(CommandTest):
     command = "unsupported_hardware"

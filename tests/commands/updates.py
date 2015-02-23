@@ -1,8 +1,7 @@
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.updates import *
+from pykickstart.errors import KickstartValueError
 
 class F7_TestCase(CommandTest):
     command = "updates"

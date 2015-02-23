@@ -19,10 +19,9 @@
 #
 
 import unittest
-from tests.baseclass import *
+from tests.baseclass import CommandTest
 
-from pykickstart.errors import *
-from pykickstart.commands.dmraid import *
+from pykickstart.errors import KickstartValueError
 
 class F17_TestCase(CommandTest):
     command = "btrfs"
