@@ -26,11 +26,13 @@ from pykickstart.errors import KickstartParseError, KickstartValueError
 class FC3_TestCase(CommandTest):
     command = "partition"
 
+    def __init__(self, *kargs, **kwargs):
+        CommandTest.__init__(self, *kargs, **kwargs)
+        self.bytesPerInode = ""
+
     def runTest(self):
         if "--bytes-per-inode" in self.optionList:
             self.bytesPerInode = " --bytes-per-inode=4096"
-        else:
-            self.bytesPerInode = ""
 
         # pass
         self.assert_parse("part /home", "part /home%s\n" % self.bytesPerInode)

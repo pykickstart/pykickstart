@@ -11,11 +11,13 @@ else: # Optparse changed outputs in Python 3
 class FC3_TestCase(CommandTest):
     command = "logvol"
 
+    def __init__(self, *kargs, **kwargs):
+        CommandTest.__init__(self, *kargs, **kwargs)
+        self.bytesPerInode = ""
+
     def runTest(self):
         if "--bytes-per-inode" in self.optionList:
             self.bytesPerInode = "--bytes-per-inode=4096 "
-        else:
-            self.bytesPerInode = ""
 
         # --name and --vgname
         self.assert_parse("logvol / --size=10240 --name=NAME --vgname=VGNAME",

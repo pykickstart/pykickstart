@@ -30,12 +30,11 @@ class FC3_TestCase(CommandTest):
         CommandTest.__init__(self, *kargs, **kwargs)
         self.validLevels = ["RAID0", "RAID1", "RAID5", "RAID6"]
         self.minorBasedDevice = True
+        self.bytesPerInode = ""
 
     def runTest(self):
         if "--bytes-per-inode" in self.optionList:
             self.bytesPerInode = " --bytes-per-inode=4096"
-        else:
-            self.bytesPerInode = ""
 
         # pass
         # valid levels
