@@ -42,9 +42,10 @@ class FC3_TestCase(CommandTest):
         # --recommended
         self.assert_parse("logvol / --maxsize=2048 --recommended --name=NAME --vgname=VGNAME",
                           "logvol /  --maxsize=2048 --recommended %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
-        # --percent
-        self.assert_parse("logvol / --percent=10 --name=NAME --vgname=VGNAME",
-                          "logvol /  --percent=10 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
+        # --percent - this behavior changed in RHEL6, see below
+        if not isinstance(self, RHEL6_TestCase):
+            self.assert_parse("logvol / --percent=10 --name=NAME --vgname=VGNAME",
+                              "logvol /  --percent=10 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --noformat
         # FIXME - should --noformat also be adding --useexisting (seems counter
         # to posted documentation 
@@ -267,6 +268,9 @@ class RHEL6_TestCase(F12_TestCase):
                           "--thin --poolname=pool1",
                           "logvol /home  --thin --poolname=pool1 "
                           "--name=home --vgname=vg\n")
+
+        # missing --size and --grow
+        self.assert_parse_error("logvol / --percent=10 --name=NAME --vgname=VGNAME", KickstartParseError)
 
         # missing pool name
         self.assert_parse_error("logvol /home --name=home --vgname=vg --thin")

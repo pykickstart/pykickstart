@@ -353,5 +353,8 @@ class RHEL6_LogVol(F12_LogVol):
             errorMsg = _("--chunksize and --metadatasize are for thin pools only")
             raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
 
-        return retval
+        if retval.percent != 0 and (not retval.size or not retval.grow):
+            errorMsg = _("--percent must be used with --size and --grow")
+            raise KickstartParseError, formatErrorMsg(self.lineno, msg=errorMsg)
 
+        return retval
