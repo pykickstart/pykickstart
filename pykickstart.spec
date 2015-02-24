@@ -46,7 +46,7 @@ the pykickstart package.
 # Python 3 library
 %package -n python3-kickstart
 Summary:  Python 3 library for manipulating kickstart files.
-Requires: python-six
+Requires: python3-six
 
 %description -n python3-kickstart
 Python 3 library for manipulating kickstart files.  The binaries are found in
