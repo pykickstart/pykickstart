@@ -323,10 +323,12 @@ class BaseHandler(KickstartObject):
         if cmdObj.__class__.__name__.find("_") != -1:
             name = cmdObj.__class__.__name__.split("_", 1)[1]
             if not six.PY3:
+                # pylint: disable=undefined-variable
                 name = unicode(name)
         else:
             name = cmdObj.__class__.__name__.lower()
             if not six.PY3:
+                # pylint: disable=undefined-variable
                 name = unicode(name)
 
         setattr(self, name.lower(), cmdObj)

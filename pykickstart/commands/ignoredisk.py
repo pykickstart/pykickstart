@@ -75,10 +75,10 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
 
         return retval
 
-    def parse(self, args, errorCheck=True):
+    def parse(self, args):
         retval = FC3_IgnoreDisk.parse(self, args)
 
-        if errorCheck:
+        if not isinstance(self, RHEL6_IgnoreDisk):
             if (len(self.ignoredisk) == 0 and len(self.onlyuse) == 0) or (len(self.ignoredisk) > 0 and (len(self.onlyuse) > 0)):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command.")))
 
@@ -116,7 +116,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         return retval
 
     def parse(self, args):
-        retval = F8_IgnoreDisk.parse(self, args, errorCheck=False)
+        retval = F8_IgnoreDisk.parse(self, args)
 
         howmany = 0
         if len(self.ignoredisk) > 0:

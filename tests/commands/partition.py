@@ -112,7 +112,7 @@ class RHEL5_TestCase(FC4_TestCase):
         self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
 
 class F9_TestCase(FC3_TestCase):
-    def runTest(self, start_end=True):
+    def runTest(self):
         # run FC3 test case
         FC3_TestCase.runTest(self)
 
