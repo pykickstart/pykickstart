@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-17 10:30-0500\n"
+"POT-Creation-Date: 2015-02-26 16:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,115 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../pykickstart/sections.py:251
-msgid "--default and --nobase cannot be used together"
-msgstr ""
-
-#: ../pykickstart/sections.py:253
-msgid "--default and --nocore cannot be used together"
-msgstr ""
-
-#: ../pykickstart/base.py:187
-#, python-format
-msgid ""
-"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
-"been deprecated and no longer has any effect.  It may be removed from future "
-"releases, which will result in a fatal error from kickstart.  Please modify "
-"your kickstart file to remove this command."
-msgstr ""
-
-#: ../pykickstart/base.py:417
-#, python-format
-msgid "Unknown command: %s"
-msgstr ""
-
-#: ../pykickstart/load.py:68
-#, python-format
-msgid "Error writing file \"%s\":"
-msgstr ""
-
-#: ../pykickstart/load.py:83
-#, python-format
-msgid "Error securely accessing URL \"%s\""
-msgstr ""
-
-#: ../pykickstart/load.py:85
-#, python-format
-msgid "Error accessing URL \"%s\""
-msgstr ""
-
-#: ../pykickstart/load.py:97
-#, python-format
-msgid "Error opening file: %s"
-msgstr ""
-
-#: ../pykickstart/load.py:107
-#, python-format
-msgid "Error copying file: %s"
-msgstr ""
-
-#: ../pykickstart/parser.py:84
-#, python-format
-msgid "Illegal url for %%ksappend: %s"
-msgstr ""
-
-#: ../pykickstart/parser.py:89
-#, python-format
-msgid "Unable to open %%ksappend file: %s"
-msgstr ""
-
-#: ../pykickstart/parser.py:121 ../pykickstart/parser.py:719
-#, python-format
-msgid "Unable to open input kickstart file: %s"
-msgstr ""
-
-#: ../pykickstart/parser.py:355
-msgid "Group cannot specify both --nodefaults and --optional"
-msgstr ""
-
-#: ../pykickstart/parser.py:531 ../pykickstart/parser.py:572
-#, python-format
-msgid "Section %s does not end with %%end."
-msgstr ""
-
-#: ../pykickstart/parser.py:665
-#, python-format
-msgid "Unknown kickstart section: %s"
-msgstr ""
-
-#. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:114 ../pykickstart/version.py:123
-#: ../pykickstart/version.py:126 ../pykickstart/version.py:142
-#: ../pykickstart/version.py:186
-#, python-format
-msgid "Unsupported version specified: %s"
-msgstr ""
-
-#: ../pykickstart/options.py:82
+#: ../pykickstart/options.py:81
 #, python-format
 msgid "Option %s is required"
 msgstr ""
 
-#: ../pykickstart/options.py:86
+#: ../pykickstart/options.py:85
 #, python-format
 msgid ""
 "The %(option)s option was introduced in version %(intro)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 
-#: ../pykickstart/options.py:92
+#: ../pykickstart/options.py:91
 #, python-format
 msgid "The %(option)s option is no longer supported."
 msgstr ""
 
-#: ../pykickstart/options.py:94
+#: ../pykickstart/options.py:93
 #, python-format
 msgid ""
 "The %(option)s option was removed in version %(removed)s, but you are using "
 "kickstart syntax version %(version)s."
 msgstr ""
 
-#: ../pykickstart/options.py:97
+#: ../pykickstart/options.py:96
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %(lineno)s:  The %(option)s option has "
@@ -134,21 +50,68 @@ msgid ""
 "your kickstart file to remove this option."
 msgstr ""
 
-#: ../pykickstart/options.py:136
+#: ../pykickstart/options.py:135
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:141
+#: ../pykickstart/options.py:140
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:178
+#: ../pykickstart/options.py:177
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/errors.py:46
+#: ../pykickstart/base.py:185
+#, python-format
+msgid ""
+"Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
+"been deprecated and no longer has any effect.  It may be removed from future "
+"releases, which will result in a fatal error from kickstart.  Please modify "
+"your kickstart file to remove this command."
+msgstr ""
+
+#: ../pykickstart/base.py:419
+#, python-format
+msgid "Unknown command: %s"
+msgstr ""
+
+#: ../pykickstart/load.py:66
+#, python-format
+msgid "Error writing file \"%s\":"
+msgstr ""
+
+#: ../pykickstart/load.py:81
+#, python-format
+msgid "Error securely accessing URL \"%s\""
+msgstr ""
+
+#: ../pykickstart/load.py:83
+#, python-format
+msgid "Error accessing URL \"%s\""
+msgstr ""
+
+#: ../pykickstart/load.py:95
+#, python-format
+msgid "Error opening file: %s"
+msgstr ""
+
+#: ../pykickstart/load.py:105
+#, python-format
+msgid "Error copying file: %s"
+msgstr ""
+
+#: ../pykickstart/sections.py:250
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:252
+msgid "--default and --nocore cannot be used together"
+msgstr ""
+
+#: ../pykickstart/errors.py:45
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -156,201 +119,187 @@ msgid ""
 "%(msg)s\n"
 msgstr ""
 
-#: ../pykickstart/errors.py:48
+#: ../pykickstart/errors.py:47
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../pykickstart/commands/firewall.py:118 ../pykickstart/commands/repo.py:184
-#: ../pykickstart/commands/xconfig.py:99 ../pykickstart/commands/fcoe.py:116
-#: ../pykickstart/commands/iscsi.py:145
+#: ../pykickstart/parser.py:88
+#, python-format
+msgid "Illegal url for %%ksappend: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:93
+#, python-format
+msgid "Unable to open %%ksappend file: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:736
+#, python-format
+msgid "Unable to open input kickstart file: %s"
+msgstr ""
+
+#: ../pykickstart/parser.py:372
+msgid "Group cannot specify both --nodefaults and --optional"
+msgstr ""
+
+#: ../pykickstart/parser.py:548 ../pykickstart/parser.py:589
+#, python-format
+msgid "Section %s does not end with %%end."
+msgstr ""
+
+#: ../pykickstart/parser.py:682
+#, python-format
+msgid "Unknown kickstart section: %s"
+msgstr ""
+
+#. If nothing else worked, we're out of options.
+#: ../pykickstart/version.py:118 ../pykickstart/version.py:127
+#: ../pykickstart/version.py:130 ../pykickstart/version.py:146
+#: ../pykickstart/version.py:190
+#, python-format
+msgid "Unsupported version specified: %s"
+msgstr ""
+
+#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
+#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/xconfig.py:98
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:44
+#: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:48
+#: ../pykickstart/commands/realm.py:47
 msgid "Missing realm command arguments"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:54
+#: ../pykickstart/commands/realm.py:53
 #, python-format
 msgid "Unsupported realm '%s' command"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:67
+#: ../pykickstart/commands/realm.py:66
 #, python-format
 msgid "Invalid realm arguments: %s"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:71
+#: ../pykickstart/commands/realm.py:70
 msgid "Specify only one realm to join"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:360 ../pykickstart/commands/raid.py:303
-#: ../pykickstart/commands/partition.py:300
+#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/timezone.py:60
+#: ../pykickstart/commands/keyboard.py:123
+#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
 #, python-format
-msgid "Mount point required for %s"
+msgid "A single argument is expected for the %s command"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:369
+#: ../pykickstart/commands/sshpw.py:106 ../pykickstart/commands/sshkey.py:93
 #, python-format
-msgid ""
-"A logical volume with the name %s has already been defined in volume group "
-"%s."
+msgid "An ssh user with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:446 ../pykickstart/commands/logvol.py:544
-msgid "The logvol and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:450 ../pykickstart/commands/logvol.py:524
-msgid "--thin and --thinpool cannot both be specified for the same logvol"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:455 ../pykickstart/commands/logvol.py:530
-msgid "--thin requires --poolname to specify pool name"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:460 ../pykickstart/commands/logvol.py:537
-msgid "--chunksize and --metadatasize are for thin pools only"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:493
-msgid "--resize can only be used in conjunction with --useexisting"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:496
-msgid "--resize requires --size to indicate new size"
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:548
-msgid ""
-"No size given for logical volume. Use one of --useexisting, --noformat, --"
-"size, or --percent."
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:552
-msgid "Percentage must be between 0 and 100."
-msgstr ""
-
-#: ../pykickstart/commands/logvol.py:569 ../pykickstart/commands/logvol.py:587
-msgid "--size and --percent cannot both be specified for the same logvol"
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:189
+#: ../pykickstart/commands/repo.py:188
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
 msgstr ""
 
-#: ../pykickstart/commands/repo.py:192
+#: ../pykickstart/commands/repo.py:191
 msgid "One of --baseurl or --mirrorlist must be specified for repo command."
 msgstr ""
 
-#: ../pykickstart/commands/repo.py:200
+#: ../pykickstart/commands/repo.py:199
 #, python-format
 msgid "A repo with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/repo.py:233
+#: ../pykickstart/commands/repo.py:232
 msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
-#: ../pykickstart/commands/lilocheck.py:51 ../pykickstart/commands/skipx.py:51
-#: ../pykickstart/commands/upgrade.py:57 ../pykickstart/commands/upgrade.py:94
-#: ../pykickstart/commands/eula.py:64 ../pykickstart/commands/zerombr.py:67
-#: ../pykickstart/commands/unsupported_hardware.py:52
-#: ../pykickstart/commands/autopart.py:46
-#: ../pykickstart/commands/displaymode.py:60
-#: ../pykickstart/commands/mediacheck.py:50
-#: ../pykickstart/commands/interactive.py:51
-#: ../pykickstart/commands/cdrom.py:51
+#: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
+#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/upgrade.py:56
+#: ../pykickstart/commands/upgrade.py:93 ../pykickstart/commands/eula.py:63
+#: ../pykickstart/commands/zerombr.py:66
+#: ../pykickstart/commands/unsupported_hardware.py:51
+#: ../pykickstart/commands/autopart.py:45
+#: ../pykickstart/commands/displaymode.py:59
+#: ../pykickstart/commands/mediacheck.py:49
+#: ../pykickstart/commands/interactive.py:50
 #, python-format
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/commands/iscsiname.py:52
-#: ../pykickstart/commands/keyboard.py:52 ../pykickstart/commands/mouse.py:63
-#: ../pykickstart/commands/lang.py:51 ../pykickstart/commands/key.py:60
+#: ../pykickstart/commands/iscsiname.py:51
+#: ../pykickstart/commands/keyboard.py:51 ../pykickstart/commands/mouse.py:62
+#: ../pykickstart/commands/lang.py:50 ../pykickstart/commands/key.py:59
 #, python-format
 msgid "Kickstart command %s requires one argument"
 msgstr ""
 
-#: ../pykickstart/commands/group.py:87
-#, python-format
-msgid "A group with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/logging.py:69
-msgid "Can't specify --port without --host."
-msgstr ""
-
-#: ../pykickstart/commands/harddrive.py:76
+#: ../pykickstart/commands/harddrive.py:75
 msgid "One of biospart or partition options must be specified."
 msgstr ""
 
-#: ../pykickstart/commands/ignoredisk.py:84
+#: ../pykickstart/commands/ignoredisk.py:83
 msgid "One of --drives or --only-use must be specified for ignoredisk command."
 msgstr ""
 
-#: ../pykickstart/commands/ignoredisk.py:130
+#: ../pykickstart/commands/ignoredisk.py:129
 msgid ""
 "One of --drives , --only-use , or --interactive must be specified for "
 "ignoredisk command."
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:136
+#: ../pykickstart/commands/volgroup.py:135
 msgid "volgroup must be given a VG name"
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:139
+#: ../pykickstart/commands/volgroup.py:138
 msgid "volgroup must be given a list of partitions"
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:141
+#: ../pykickstart/commands/volgroup.py:140
 msgid "Members may not be specified for preexisting volgroup"
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:150
+#: ../pykickstart/commands/volgroup.py:149
 #, python-format
 msgid "A volgroup with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:186
-#: ../pykickstart/commands/volgroup.py:199
+#: ../pykickstart/commands/volgroup.py:185
+#: ../pykickstart/commands/volgroup.py:198
 msgid "The volgroup and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/timezone.py:61
-#: ../pykickstart/commands/keyboard.py:124
-#: ../pykickstart/commands/sshpw.py:103 ../pykickstart/commands/sshkey.py:90
-#: ../pykickstart/commands/rootpw.py:65 ../pykickstart/commands/rootpw.py:112
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:136
+#: ../pykickstart/commands/timezone.py:135
 msgid "Options --nontp and --ntpservers are mutually exclusive"
 msgstr ""
 
-#: ../pykickstart/commands/upgrade.py:97
+#: ../pykickstart/commands/upgrade.py:96
 #, python-format
 msgid "Kickstart command %s does not accept empty parameter %s"
 msgstr ""
 
-#: ../pykickstart/commands/eula.py:67
+#: ../pykickstart/commands/eula.py:66
 msgid "Kickstart command eula expects the --agreed option"
 msgstr ""
 
-#: ../pykickstart/commands/monitor.py:67
+#: ../pykickstart/commands/logging.py:68
+msgid "Can't specify --port without --host."
+msgstr ""
+
+#: ../pykickstart/commands/monitor.py:66
 #, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr ""
 
-#: ../pykickstart/commands/zerombr.py:54
+#: ../pykickstart/commands/zerombr.py:53
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
@@ -358,358 +307,409 @@ msgid ""
 "kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
 
-#: ../pykickstart/commands/bootloader.py:248
+#: ../pykickstart/commands/bootloader.py:247
 msgid "--boot-drive accepts only one argument"
 msgstr ""
 
-#: ../pykickstart/commands/user.py:170
+#: ../pykickstart/commands/user.py:169
 #, python-format
 msgid "A user with the name %s has already been defined."
 msgstr ""
 
 #. allow for translation of the error message
-#: ../pykickstart/commands/autopart.py:179
-#: ../pykickstart/commands/autopart.py:335
+#: ../pykickstart/commands/autopart.py:178
+#: ../pykickstart/commands/autopart.py:334
 #, python-format
 msgid "The %s and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:373
+#: ../pykickstart/commands/autopart.py:372
 msgid "autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:377
+#: ../pykickstart/commands/autopart.py:376
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
-#: ../pykickstart/commands/services.py:69
+#: ../pykickstart/commands/services.py:68
 msgid "One of --disabled or --enabled must be provided."
 msgstr ""
 
-#: ../pykickstart/commands/dmraid.py:91
+#: ../pykickstart/commands/dmraid.py:90
 #, python-format
 msgid ""
 "A DM RAID device with the name %s and devices %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/keyboard.py:129
-msgid ""
-"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
-"for the keyboard command"
-msgstr ""
-
-#: ../pykickstart/commands/sshpw.py:107 ../pykickstart/commands/sshkey.py:94
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:117
-#: ../pykickstart/commands/driverdisk.py:149
-msgid "Only one partition may be specified for driverdisk command."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:120
-#: ../pykickstart/commands/driverdisk.py:152
-msgid ""
-"Only one of --source and partition may be specified for driverdisk command."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:123
-msgid "One of --source or partition must be specified for driverdisk command."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:154
-msgid ""
-"Only one of --biospart and partition may be specified for driverdisk command."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:156
-msgid ""
-"Only one of --biospart and --source may be specified for driverdisk command."
-msgstr ""
-
-#: ../pykickstart/commands/driverdisk.py:159
-msgid ""
-"One of --source, --biospart, or partition must be specified for driverdisk "
-"command."
-msgstr ""
-
-#: ../pykickstart/commands/zfcp.py:111
-msgid "A zfcp with this information has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/url.py:170
-msgid "Only one of --url and --mirrorlist may be specified for url command."
-msgstr ""
-
-#: ../pykickstart/commands/url.py:173
-msgid "One of --url or --mirrorlist must be specified for url command."
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:306
-#, python-format
-msgid "Partitions required for %s"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:308
-msgid "Members may not be specified for preexisting RAID device"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:326
-#, python-format
-msgid "A RAID device with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:428 ../pykickstart/commands/raid.py:470
-msgid "The raid and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/device.py:98
-msgid "device command requires two arguments: module type and name"
-msgstr ""
-
-#: ../pykickstart/commands/device.py:124
-#, python-format
-msgid "%s command requires a single argument: %s"
-msgstr ""
-
-#: ../pykickstart/commands/device.py:133
-#, python-format
-msgid "A module with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/fcoe.py:123
-#, python-format
-msgid "A FCOE device with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:309
-#, python-format
-msgid "A partition with the mountpoint %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:417
-#: ../pykickstart/commands/partition.py:464
-msgid "The part/partition and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:442
-msgid "--resize can only be used in conjunction with --onpart"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:445
-msgid "--resize requires --size to specify new size"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:470
-msgid ""
-"The --fstype=tmpfs option can't be used together with --grow or --maxsize"
-msgstr ""
-
-#: ../pykickstart/commands/rescue.py:64
-msgid ""
-"Only one of --nomount and --romount may be specified for rescue command."
-msgstr ""
-
-#: ../pykickstart/commands/updates.py:54
-#, python-format
-msgid "Kickstart command %s only takes one argument"
-msgstr ""
-
-#: ../pykickstart/commands/network.py:377
+#: ../pykickstart/commands/network.py:376
 #, python-format
 msgid "A network device with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:540
-#: ../pykickstart/commands/network.py:661
+#: ../pykickstart/commands/network.py:539
+#: ../pykickstart/commands/network.py:660
 msgid "Option --bridgeopts requires --bridgeslaves to be specified"
 msgstr ""
 
-#: ../pykickstart/commands/network.py:547
-#: ../pykickstart/commands/network.py:668
+#: ../pykickstart/commands/network.py:546
+#: ../pykickstart/commands/network.py:667
 msgid ""
 "Bad format of --bridgeopts, expecting key=value options separated by ','"
 msgstr ""
 
-#: ../pykickstart/commands/network.py:615
+#: ../pykickstart/commands/network.py:614
 msgid ""
 "When using the <prefix>.<vlan id> interface name notation, <prefix> can't be "
 "equal to 'vlan'."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:619
+#: ../pykickstart/commands/network.py:618
 msgid "If network --interfacename contains a '.', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:628
+#: ../pykickstart/commands/network.py:627
 msgid ""
 "If network --interfacename starts with 'vlan', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:633
+#: ../pykickstart/commands/network.py:632
 #, python-format
 msgid "The vlan id out of the %d-%d vlan id range."
 msgstr ""
 
-#: ../pykickstart/commands/multipath.py:98
+#: ../pykickstart/commands/keyboard.py:128
+msgid ""
+"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
+"for the keyboard command"
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:116
+#: ../pykickstart/commands/driverdisk.py:148
+msgid "Only one partition may be specified for driverdisk command."
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:119
+#: ../pykickstart/commands/driverdisk.py:151
+msgid ""
+"Only one of --source and partition may be specified for driverdisk command."
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:122
+msgid "One of --source or partition must be specified for driverdisk command."
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:153
+msgid ""
+"Only one of --biospart and partition may be specified for driverdisk command."
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:155
+msgid ""
+"Only one of --biospart and --source may be specified for driverdisk command."
+msgstr ""
+
+#: ../pykickstart/commands/driverdisk.py:158
+msgid ""
+"One of --source, --biospart, or partition must be specified for driverdisk "
+"command."
+msgstr ""
+
+#: ../pykickstart/commands/zfcp.py:110
+msgid "A zfcp with this information has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/url.py:169
+msgid "Only one of --url and --mirrorlist may be specified for url command."
+msgstr ""
+
+#: ../pykickstart/commands/url.py:172
+msgid "One of --url or --mirrorlist must be specified for url command."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:302 ../pykickstart/commands/logvol.py:359
+#: ../pykickstart/commands/partition.py:299
+#, python-format
+msgid "Mount point required for %s"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:305
+#, python-format
+msgid "Partitions required for %s"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:307
+msgid "Members may not be specified for preexisting RAID device"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:325
+#, python-format
+msgid "A RAID device with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:427 ../pykickstart/commands/raid.py:469
+msgid "The raid and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/device.py:97
+msgid "device command requires two arguments: module type and name"
+msgstr ""
+
+#: ../pykickstart/commands/device.py:123
+#, python-format
+msgid "%s command requires a single argument: %s"
+msgstr ""
+
+#: ../pykickstart/commands/device.py:132
+#, python-format
+msgid "A module with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:368
+#, python-format
+msgid ""
+"A logical volume with the name %s has already been defined in volume group "
+"%s."
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:445 ../pykickstart/commands/logvol.py:543
+msgid "The logvol and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:449 ../pykickstart/commands/logvol.py:523
+msgid "--thin and --thinpool cannot both be specified for the same logvol"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:454 ../pykickstart/commands/logvol.py:529
+msgid "--thin requires --poolname to specify pool name"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:459 ../pykickstart/commands/logvol.py:536
+msgid "--chunksize and --metadatasize are for thin pools only"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:492
+msgid "--resize can only be used in conjunction with --useexisting"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:495
+msgid "--resize requires --size to indicate new size"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:547
+msgid ""
+"No size given for logical volume. Use one of --useexisting, --noformat, --"
+"size, or --percent."
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:551
+msgid "Percentage must be between 0 and 100."
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:568 ../pykickstart/commands/logvol.py:586
+msgid "--size and --percent cannot both be specified for the same logvol"
+msgstr ""
+
+#: ../pykickstart/commands/fcoe.py:122
+#, python-format
+msgid "A FCOE device with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:308
+#, python-format
+msgid "A partition with the mountpoint %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:416
+#: ../pykickstart/commands/partition.py:463
+msgid "The part/partition and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:441
+msgid "--resize can only be used in conjunction with --onpart"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:444
+msgid "--resize requires --size to specify new size"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:469
+msgid ""
+"The --fstype=tmpfs option can't be used together with --grow or --maxsize"
+msgstr ""
+
+#: ../pykickstart/commands/rescue.py:63
+msgid ""
+"Only one of --nomount and --romount may be specified for rescue command."
+msgstr ""
+
+#: ../pykickstart/commands/updates.py:53
+#, python-format
+msgid "Kickstart command %s only takes one argument"
+msgstr ""
+
+#: ../pykickstart/commands/group.py:86
+#, python-format
+msgid "A group with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/multipath.py:97
 #, python-format
 msgid "Device '%(device)s' is already used in multipath '%(multipathdev)s'"
 msgstr ""
 
-#: ../pykickstart/commands/btrfs.py:146
+#: ../pykickstart/commands/btrfs.py:145
 msgid "btrfs must be given a mountpoint"
 msgstr ""
 
-#: ../pykickstart/commands/btrfs.py:149
+#: ../pykickstart/commands/btrfs.py:148
 msgid "btrfs must be given a list of partitions"
 msgstr ""
 
-#: ../pykickstart/commands/btrfs.py:151
+#: ../pykickstart/commands/btrfs.py:150
 msgid "btrfs subvol requires specification of parent volume"
 msgstr ""
 
-#: ../pykickstart/commands/btrfs.py:154
+#: ../pykickstart/commands/btrfs.py:153
 msgid "btrfs subvolume requires a name"
 msgstr ""
 
-#: ../pykickstart/commands/btrfs.py:161
+#: ../pykickstart/commands/btrfs.py:160
 #, python-format
 msgid "A btrfs volume with the mountpoint %s has already been defined."
 msgstr ""
 
-#: ../tools/ksflatten:38
+#: ../tools/ksflatten:35
 msgid "Path to kickstart config file"
 msgstr ""
 
-#: ../tools/ksflatten:40
+#: ../tools/ksflatten:37
 msgid "Kickstart version to use for interpreting config"
 msgstr ""
 
-#: ../tools/ksflatten:42
+#: ../tools/ksflatten:39
 msgid "Write flattened config to OUTPUT"
 msgstr ""
 
-#: ../tools/ksflatten:49
+#: ../tools/ksflatten:46
 msgid "Need to specify a config to flatten"
 msgstr ""
 
-#: ../tools/ksflatten:57
+#: ../tools/ksflatten:54
 #, python-format
 msgid "Failed to read kickstart file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksflatten:60
+#: ../tools/ksflatten:57
 #, python-format
 msgid "Failed to parse kickstart file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksflatten:67
+#: ../tools/ksflatten:64
 #, python-format
 msgid "Failed to open output file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksshell:147
+#: ../tools/ksshell:144
 msgid "a basis file to use for seeding the kickstart data (optional)"
 msgstr ""
 
-#: ../tools/ksshell:149
+#: ../tools/ksshell:146
 msgid ""
 "the location to write the finished kickstart file, or stdout if not given"
 msgstr ""
 
-#: ../tools/ksshell:151 ../tools/ksvalidator:61
+#: ../tools/ksshell:148 ../tools/ksvalidator:58
 msgid "version of kickstart syntax to validate against"
 msgstr ""
 
-#: ../tools/ksshell:162 ../tools/ksverdiff:67 ../tools/ksvalidator:81
+#: ../tools/ksshell:159 ../tools/ksverdiff:61 ../tools/ksvalidator:78
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr ""
 
 #. Errors should just dump you to the prompt anyway.
-#: ../tools/ksshell:174
+#: ../tools/ksshell:171
 #, python-format
 msgid ""
 "Warning:  The following error occurred when processing the input file:\n"
 "%s\n"
 msgstr ""
 
-#: ../tools/ksshell:219
+#: ../tools/ksshell:216
 #, python-format
 msgid "Internal command %s not recognized."
 msgstr ""
 
-#: ../tools/ksverdiff:49 ../tools/ksvalidator:59
+#: ../tools/ksverdiff:43 ../tools/ksvalidator:56
 msgid "list the available versions of kickstart syntax"
 msgstr ""
 
-#: ../tools/ksverdiff:60
+#: ../tools/ksverdiff:54
 msgid "You must specify two syntax versions."
 msgstr ""
 
-#: ../tools/ksverdiff:74
+#: ../tools/ksverdiff:68
 #, python-format
 msgid "The following commands were removed in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:77
+#: ../tools/ksverdiff:71
 #, python-format
 msgid "The following commands were deprecated in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:80
+#: ../tools/ksverdiff:74
 #, python-format
 msgid "The following commands were added in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:106
+#: ../tools/ksverdiff:100
 #, python-format
 msgid "The following options were added to the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:111
+#: ../tools/ksverdiff:105
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:116
+#: ../tools/ksverdiff:110
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksvalidator:51
+#: ../tools/ksvalidator:48
 msgid "filename or URL to read from"
 msgstr ""
 
-#: ../tools/ksvalidator:53
+#: ../tools/ksvalidator:50
 msgid "halt after the first error or warning"
 msgstr ""
 
-#: ../tools/ksvalidator:56
+#: ../tools/ksvalidator:53
 #, python-format
 msgid "parse include files when %%include is seen"
 msgstr ""
 
-#: ../tools/ksvalidator:75
+#: ../tools/ksvalidator:72
 #, python-format
 msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:97
+#: ../tools/ksvalidator:94
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:103
+#: ../tools/ksvalidator:100
 msgid "General kickstart error in input file"
 msgstr ""
 
-#: ../tools/ksvalidator:106
+#: ../tools/ksvalidator:103
 #, python-format
 msgid "General error in input file:  %s"
 msgstr ""

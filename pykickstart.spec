@@ -1,7 +1,7 @@
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
 
 Name:      pykickstart
-Version:   2.0
+Version:   2.1
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -113,7 +113,11 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
-* Fri Feb 20 2015 Chris Lumens <clumens@redhat.com> - 1.99.67-1
+* Thu Feb 26 2015 Chris Lumens <clumens@redhat.com> - 2.1-1
+- Both library packages need to require python-six of some variety (#1195715). (clumens)
+- Fix the python-six requirement for python3-kickstart (#1195719). (clumens)
+
+* Fri Feb 20 2015 Chris Lumens <clumens@redhat.com> - 2.0-1
 - Make sure pykickstart requires some version of the library. (clumens)
 - Split into python2 and python3 specific packages. (clumens)
 - Look for translations in their new location. (clumens)
