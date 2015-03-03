@@ -158,7 +158,7 @@ class RHEL6_AutoPart(F12_AutoPart):
         # currentCmd != "" indicates that the corresponding
         # command has been seen in kickstart
         if self.handler.partition.currentCmd:
-            conflicting_command = "part/partition)"
+            conflicting_command = "part/partition"
         elif self.handler.raid.currentCmd:
             conflicting_command = "raid"
         elif self.handler.volgroup.currentCmd:
