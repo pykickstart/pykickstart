@@ -1,5 +1,3 @@
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-
 Name:      pykickstart
 Version:   2.1
 Release:   1%{?dist}
@@ -23,8 +21,9 @@ BuildRequires: transifex-client
 %endif
 
 BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: python3-pocketlint
 BuildRequires: python3-requests
+BuildRequires: python3-setuptools
 BuildRequires: python3-six
 
 Requires: python3-kickstart
@@ -98,10 +97,10 @@ popd
 %defattr(-,root,root,-)
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.txt
-%{python_sitelib}/pykickstart*egg*
-%{python_sitelib}/pykickstart/*py*
-%{python_sitelib}/pykickstart/commands/*py*
-%{python_sitelib}/pykickstart/handlers/*py*
+%{python2_sitelib}/pykickstart*egg*
+%{python2_sitelib}/pykickstart/*py*
+%{python2_sitelib}/pykickstart/commands/*py*
+%{python2_sitelib}/pykickstart/handlers/*py*
 
 %files -n python3-kickstart -f %{name}.lang
 %defattr(-,root,root,-)
