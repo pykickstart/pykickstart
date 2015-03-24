@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-26 16:02-0500\n"
+"POT-Creation-Date: 2015-03-24 12:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:419
+#: ../pykickstart/base.py:421
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Unable to open %%ksappend file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:736
+#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:737
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
@@ -148,7 +148,7 @@ msgstr ""
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:682
+#: ../pykickstart/parser.py:683
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""

@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.1
+Version:   2.2
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -112,6 +112,20 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Mar 24 2015 Chris Lumens <clumens@redhat.com> - 2.2-1
+- And then BuildRequires pocketlint. (clumens)
+- Fix the couple last pylint warnings. (clumens)
+- Tell pylint to ignore a couple places where we catch all exceptions. (clumens)
+- Don't use [] as a default argument to loadModules. (clumens)
+- Define bytesPerInode in __init__ methods. (clumens)
+- Don't pointlessly redefine the command attr in some tests. (clumens)
+- tstList -> tests (clumens)
+- lan -> len (clumens)
+- Fix wildcard imports and other import-related pylint problems. (clumens)
+- Remove some unused variables. (clumens)
+- Fix string substitutions into translatable strings. (clumens)
+- Start using pocketlint to run pylint. (clumens)
+
 * Thu Feb 26 2015 Chris Lumens <clumens@redhat.com> - 2.1-1
 - Both library packages need to require python-six of some variety (#1195715). (clumens)
 - Fix the python-six requirement for python3-kickstart (#1195719). (clumens)
