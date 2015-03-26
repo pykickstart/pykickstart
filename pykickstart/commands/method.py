@@ -93,6 +93,9 @@ class F19_Method(FC3_Method):
     _methods = FC3_Method._methods + ["liveimg"]
 
     def __getattr__(self, name):
+        if name == "handler":
+            raise AttributeError()
+
         if self.handler.liveimg.seen:
             if name == "method":
                 return "liveimg"
