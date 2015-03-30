@@ -3,8 +3,8 @@ VERSION=$(shell awk '/Version:/ { print $$2 }' $(PKGNAME).spec)
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(PKGNAME).spec | sed -e 's|%.*$$||g')
 TAG=r$(VERSION)-$(RELEASE)
 
-TX_PULL_ARGS = -a
-TX_PUSH_ARGS = -s
+ZANATA_PULL_ARGS = --transdir ./po/
+ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 
 MANDIR=/usr/share/man
 PREFIX=/usr
@@ -15,7 +15,8 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	tx pull $(TX_PULL_ARGS)
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	zanata pull $(ZANATA_PULL_ARGS)
 
 docs:
 	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "https://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
@@ -85,6 +86,6 @@ bumpver: po-pull
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot ; \
-	tx push $(TX_PUSH_ARGS)
+	zanata push $(TX_PUSH_ARGS)
 
 .PHONY: check clean install tag archive local docs
