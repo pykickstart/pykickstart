@@ -96,7 +96,7 @@ popd
 %files -n python-kickstart -f %{name}.lang
 %defattr(-,root,root,-)
 %doc docs/programmers-guide
-%doc docs/kickstart-docs.txt
+%doc docs/kickstart-docs.rst
 %{python2_sitelib}/pykickstart*egg*
 %{python2_sitelib}/pykickstart/*py*
 %{python2_sitelib}/pykickstart/commands/*py*
@@ -105,7 +105,7 @@ popd
 %files -n python3-kickstart -f %{name}.lang
 %defattr(-,root,root,-)
 %doc docs/programmers-guide
-%doc docs/kickstart-docs.txt
+%doc docs/kickstart-docs.rst
 %{python3_sitelib}/pykickstart*egg*
 %{python3_sitelib}/pykickstart/*py*
 %{python3_sitelib}/pykickstart/commands/*py*

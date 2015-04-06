@@ -21,7 +21,6 @@ po-pull:
 	zanata pull $(ZANATA_PULL_ARGS)
 
 docs:
-	curl -A "pykickstart-build" -o docs/kickstart-docs.txt "https://fedoraproject.org/w/index.php?title=Anaconda/Kickstart&action=raw"
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
@@ -39,7 +38,7 @@ coverage:
 	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.txt docs/programmers-guide
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.rst docs/programmers-guide
 	$(MAKE) -C po clean
 	$(PYTHON) setup.py -q clean --all
 
@@ -56,7 +55,7 @@ archive: check test tag docs
 	mkdir -p $(PKGNAME)-$(VERSION)
 	cp -r po $(PKGNAME)-$(VERSION)/po/
 	mkdir -p $(PKGNAME)-$(VERSION)/docs/
-	cp docs/kickstart-docs.txt $(PKGNAME)-$(VERSION)/docs/
+	cp docs/kickstart-docs.rst $(PKGNAME)-$(VERSION)/docs/
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
