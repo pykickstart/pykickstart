@@ -57,7 +57,7 @@ class FC3_RaidData(BaseData):
         if self.fstype != "":
             retval += " --fstype=\"%s\"" % self.fstype
         if self.level != "":
-            retval += " --level=%s" % self.level
+            retval += " --level=%s" % self.level.upper()
         if not self.format:
             retval += " --noformat"
         if self.spares != 0:
@@ -272,8 +272,8 @@ class FC3_Raid(KickstartCommand):
                 parser.values.ensure_value(option.dest, value)
 
         def level_cb (option, opt_str, value, parser):
-            if value in self.levelMap:
-                parser.values.ensure_value(option.dest, self.levelMap[value])
+            if value.upper() in self.levelMap:
+                parser.values.ensure_value(option.dest, self.levelMap[value.upper()])
 
         op = KSOptionParser()
         op.add_option("--device", action="callback", callback=device_cb,
