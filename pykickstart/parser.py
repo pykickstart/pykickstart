@@ -558,7 +558,7 @@ class KickstartParser:
             if self._isBlankOrComment(line) and not obj.allLines:
                 continue
 
-            if line.startswith("%"):
+            if line.lstrip().startswith("%"):
                 # If we're in a script, the line may begin with "%something"
                 # that's not the start of any section we recognize, but still
                 # valid for that script.  So, don't do the split below unless
