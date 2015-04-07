@@ -152,23 +152,6 @@ class F20_TestCase(F18_TestCase):
         self.assert_parse("autopart --type=thinp",
                           "autopart --type=thinp\n")
 
-class RHEL7_TestCase(F20_TestCase):
-    def runTest(self):
-        F20_TestCase.runTest(self)
-
-        # pass
-        self.assert_parse("autopart --fstype=ext4",
-                          'autopart --fstype=ext4\n')
-        self.assert_parse("autopart --encrypted --fstype=ext4",
-                          'autopart --encrypted --fstype=ext4\n')
-        self.assert_parse("autopart --type=lvm --fstype=xfs",
-                          "autopart --type=lvm --fstype=xfs\n")
-
-        # fail
-        self.assert_parse_error("autopart --fstype")
-        self.assert_parse_error("autopart --fstype=btrfs")
-        self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
-
 class F21_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
@@ -185,6 +168,8 @@ class F21_TestCase(F20_TestCase):
         self.assert_parse_error("autopart --fstype")
         self.assert_parse_error("autopart --fstype=btrfs")
         self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
+
+RHEL7_TestCase = F21_TestCase
 
 if __name__ == "__main__":
     unittest.main()

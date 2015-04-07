@@ -84,15 +84,12 @@ class FC16_VolGroupData(FC3_VolGroupData):
 
         return retval
 
-class RHEL7_VolGroupData(FC16_VolGroupData):
-    def __init__(self, *args, **kwargs):
-        FC16_VolGroupData.__init__(self, *args, **kwargs)
-        self.pesize = kwargs.get("pesize", 0)
-
 class F21_VolGroupData(FC16_VolGroupData):
     def __init__(self, *args, **kwargs):
         FC16_VolGroupData.__init__(self, *args, **kwargs)
         self.pesize = kwargs.get("pesize", 0)
+
+RHEL7_VolGroupData = F21_VolGroupData
 
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -201,14 +198,6 @@ class F20_VolGroup(FC16_VolGroup):
 
         return retval
 
-class RHEL7_VolGroup(F20_VolGroup):
-    def _getParser(self):
-        op = F20_VolGroup._getParser(self)
-        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
-                      default=0)
-
-        return op
-
 class F21_VolGroup(F20_VolGroup):
     def _getParser(self):
         op = F20_VolGroup._getParser(self)
@@ -216,3 +205,5 @@ class F21_VolGroup(F20_VolGroup):
                       default=0)
 
         return op
+
+RHEL7_VolGroup = F21_VolGroup

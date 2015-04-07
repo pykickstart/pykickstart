@@ -337,47 +337,6 @@ class F20_AutoPart(F18_AutoPart):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
-class RHEL7_AutoPart(F20_AutoPart):
-    removedKeywords = F20_AutoPart.removedKeywords
-    removedAttrs = F20_AutoPart.removedAttrs
-
-    def __init__(self, writePriority=100, *args, **kwargs):
-        F20_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
-        self.fstype = kwargs.get("fstype", "")
-
-    def __str__(self):
-        retval = F20_AutoPart.__str__(self)
-        if not self.autopart:
-            return retval
-
-        if self.fstype:
-            # remove any trailing newline
-            retval = retval.strip()
-            retval += " --fstype=%s" % self.fstype
-            retval += "\n"
-
-        return retval
-
-    def _getParser(self):
-        op = F20_AutoPart._getParser(self)
-        op.add_option("--fstype")
-        return op
-
-    def parse(self, args):
-        # call the overriden command to do it's job first
-        retval = F20_AutoPart.parse(self, args)
-
-        # btrfs is not a valid filesystem type
-        if self.fstype == "btrfs":
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead")))
-
-        if self.type == AUTOPART_TYPE_BTRFS and self.fstype:
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("autopart --fstype cannot be used with --type=btrfs")))
-
-        return retval
-
 class F21_AutoPart(F20_AutoPart):
     removedKeywords = F20_AutoPart.removedKeywords
     removedAttrs = F20_AutoPart.removedAttrs
@@ -418,3 +377,5 @@ class F21_AutoPart(F20_AutoPart):
                     msg=_("autopart --fstype cannot be used with --type=btrfs")))
 
         return retval
+
+RHEL7_AutoPart = F21_AutoPart

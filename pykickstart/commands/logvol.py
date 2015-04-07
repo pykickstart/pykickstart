@@ -261,19 +261,6 @@ class F20_LogVolData(F18_LogVolData):
 
         return retval
 
-class RHEL7_LogVolData(F20_LogVolData):
-    def __init__(self, *args, **kwargs):
-        F20_LogVolData.__init__(self, *args, **kwargs)
-        self.profile = kwargs.get("profile", "")
-
-    def _getArgsAsStr(self):
-        retval = F20_LogVolData._getArgsAsStr(self)
-
-        if self.profile:
-            retval += "--profile=%s" % self.profile
-
-        return retval
-
 class F21_LogVolData(F20_LogVolData):
     def __init__(self, *args, **kwargs):
         F20_LogVolData.__init__(self, *args, **kwargs)
@@ -286,6 +273,8 @@ class F21_LogVolData(F20_LogVolData):
             retval += "--profile=%s" % self.profile
 
         return retval
+
+RHEL7_LogVolData = F21_LogVolData
 
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -526,28 +515,4 @@ class F21_LogVol(F20_LogVol):
 
         return retval
 
-class RHEL7_LogVol(F20_LogVol):
-    def _getParser(self):
-        op = F20_LogVol._getParser(self)
-        op.add_option("--profile")
-
-        return op
-
-    def parse(self, args):
-        retval = F20_LogVol.parse(self, args)
-
-        if retval.size and retval.percent:
-            err = formatErrorMsg(self.lineno,
-                                 msg=_("--size and --percent cannot both be "
-                                       "specified for the same logvol"))
-            raise KickstartParseError(err)
-
-        if not retval.preexist and not retval.percent and not retval.size:
-            errorMsg = _("Size required")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
-
-        if retval.percent is not None and (retval.percent < 0 or retval.percent > 100):
-            errorMsg = _("Percentage must be between 0 and 100")
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=errorMsg))
-
-        return retval
+RHEL7_LogVol = F21_LogVol
