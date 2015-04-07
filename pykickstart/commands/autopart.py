@@ -376,3 +376,5 @@ class F21_AutoPart(F20_AutoPart):
                     msg=_("autopart --fstype cannot be used with --type=btrfs")))
 
         return retval
+
+RHEL7_AutoPart = F21_AutoPart

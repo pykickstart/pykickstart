@@ -169,5 +169,7 @@ class F21_TestCase(F20_TestCase):
         self.assert_parse_error("autopart --fstype=btrfs")
         self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
 
+RHEL7_TestCase = F21_TestCase
+
 if __name__ == "__main__":
     unittest.main()

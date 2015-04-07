@@ -71,5 +71,4 @@ class F21_OSTreeSetup(KickstartCommand):
             self.remote = self.osname
         return self
 
-class RHEL7_OSTreeSetup(F21_OSTreeSetup):
-    pass
+RHEL7_OSTreeSetup = F21_OSTreeSetup

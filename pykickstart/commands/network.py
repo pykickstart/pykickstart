@@ -298,20 +298,17 @@ class RHEL6_NetworkData(F8_NetworkData):
 
         return retval
 
-class RHEL7_NetworkData(F20_NetworkData):
-    removedKeywords = F20_NetworkData.removedKeywords
-    removedAttrs = F20_NetworkData.removedAttrs
+class RHEL7_NetworkData(F21_NetworkData):
+    removedKeywords = F21_NetworkData.removedKeywords
+    removedAttrs = F21_NetworkData.removedAttrs
 
     def __init__(self, *args, **kwargs):
-        F20_NetworkData.__init__(self, *args, **kwargs)
-        self.interfacename = kwargs.get("interfacename", "")
+        F21_NetworkData.__init__(self, *args, **kwargs)
         self.bridgeslaves = kwargs.get("bridgeslaves", "")
         self.bridgeopts = kwargs.get("bridgeopts", "")
 
     def _getArgsAsStr(self):
-        retval = F20_NetworkData._getArgsAsStr(self)
-        if self.interfacename:
-            retval += " --interfacename=%s" % self.interfacename
+        retval = F21_NetworkData._getArgsAsStr(self)
         if self.bridgeslaves != "":
             retval += " --bridgeslaves=%s" % self.bridgeslaves
         if self.bridgeopts != "":
@@ -634,11 +631,9 @@ def validate_network_interface_name(name):
     # network interface name seems to be valid (no error found)
     return None
 
-class RHEL7_Network(F20_Network):
+class RHEL7_Network(F21_Network):
     def _getParser(self):
-        op = F20_Network._getParser(self)
-        op.add_option("--interfacename", dest="interfacename", action="store",
-                default="")
+        op = F21_Network._getParser(self)
         op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
                 default="")
         op.add_option("--bridgeopts", dest="bridgeopts", action="store",
@@ -647,7 +642,7 @@ class RHEL7_Network(F20_Network):
 
     def parse(self, args):
         # call the overridden command to do it's job first
-        retval = F20_Network.parse(self, args)
+        retval = F21_Network.parse(self, args)
 
         # validate the network interface name
         error_message = validate_network_interface_name(retval.interfacename)

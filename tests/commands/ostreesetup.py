@@ -36,8 +36,7 @@ class F21_TestCase(CommandTest):
         self.assert_parse_error("ostreesetup --os=fedora-atomic --url=http://example.com/repo", KickstartValueError)
         self.assert_parse_error("ostreesetup --bacon=tasty")
 
-class RHEL7_TestCase(F21_TestCase):
-    pass
+RHEL7_TestCase = F21_TestCase
 
 if __name__ == "__main__":
     unittest.main()

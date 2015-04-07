@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2012 Red Hat, Inc.
+# Copyright 2012, 2015 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -34,7 +34,7 @@ class RHEL7Handler(BaseHandler):
         "bootloader": commands.bootloader.RHEL7_Bootloader,
         "btrfs": commands.btrfs.F17_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
-        "clearpart": commands.clearpart.F17_ClearPart,
+        "clearpart": commands.clearpart.F21_ClearPart,
         "cmdline": commands.displaymode.FC3_DisplayMode,
         "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
