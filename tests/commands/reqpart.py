@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2009, 2013 Red Hat, Inc.
+# Copyright 2015 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -17,11 +17,25 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.commands import \
-     authconfig, autopart, autostep, bootloader, btrfs, clearpart, cdrom, device, \
-     deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot, \
-     group, harddrive, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang, \
-     langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
-     mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, \
-     reqpart, rescue, rootpw, selinux, services, skipx, sshpw, sshkey, timezone, updates, \
-     upgrade, url, user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
+import unittest
+from tests.baseclass import CommandTest
+
+class RHEL7_TestCase(CommandTest):
+    command = "reqpart"
+
+    def runTest(self):
+        # pass
+        self.assert_parse("reqpart", "reqpart\n")
+
+        # pass
+        self.assert_parse("reqpart --add-boot", "reqpart --add-boot\n")
+
+        # fail
+        self.assert_parse_error("autopart --passphrase")
+        self.assert_parse_error("autopart --encrypted --passphrase")
+        self.assert_parse_error("autopart --encrypted=False")
+        self.assert_parse_error("autopart --encrypted=True")
+
+
+if __name__ == "__main__":
+    unittest.main()
