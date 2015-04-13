@@ -70,6 +70,7 @@ class F23Handler(BaseHandler):
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F18_Reboot,
         "repo": commands.repo.F21_Repo,
+        "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
         "rootpw": commands.rootpw.F18_RootPw,
         "selinux": commands.selinux.FC3_SELinux,
