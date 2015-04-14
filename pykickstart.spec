@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.2
+Version:   2.3
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -112,6 +112,17 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Apr 14 2015 Chris Lumens <clumens@redhat.com> - 2.3-1
+- Merge pull request #5 from vpodzime/master-python3 (clumens)
+- RHEL7 now uses the F21 versions of commands, typically. (clumens)
+- Handle a %include line that starts with whitespace in a section. (clumens)
+- Treat "RAID" as uppercased at all times. (clumens)
+- Add support for Fedora 23. (clumens)
+- Merge pull request #6 from vpodzime/master-docs (clumens)
+- Switch from transifex to zanata. (clumens)
+- Let's have the docs in the repository (vpodzime)
+- Prevent recursion in hasattr and __getattr__ (vpodzime)
+
 * Tue Mar 24 2015 Chris Lumens <clumens@redhat.com> - 2.2-1
 - And then BuildRequires pocketlint. (clumens)
 - Fix the couple last pylint warnings. (clumens)
