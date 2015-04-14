@@ -112,6 +112,10 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Apr 14 2015 Chris Lumens <clumens@redhat.com> - 2.4-1
+- Move docs to the correct file name. (clumens)
+- Handle two-digit version numbers on this branch. (clumens)
+
 * Tue Apr 14 2015 Chris Lumens <clumens@redhat.com> - 2.3-1
 - Merge pull request #5 from vpodzime/master-python3 (clumens)
 - RHEL7 now uses the F21 versions of commands, typically. (clumens)
