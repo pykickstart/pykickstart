@@ -77,8 +77,8 @@ rpmlog:
 	@echo
 
 bumpver: po-pull
-	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
-	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog pykickstart.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) pykickstart.spec > speclog ; \
