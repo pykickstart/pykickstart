@@ -51,6 +51,10 @@ class F17_TestCase(CommandTest):
                           "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
         self.assert_parse("btrfs /foo --data=RAID1 --useexisting LABEL=foo",
                           "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
+        self.assert_parse("btrfs /foo --data=raid1 --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
+        self.assert_parse("btrfs /foo --data=1 --useexisting LABEL=foo",
+                          "btrfs /foo --noformat --useexisting --data=raid1 LABEL=foo\n")
 
         # noformat
         self.assert_parse("btrfs /foo --data=1 --noformat --useexisting LABEL=foo",

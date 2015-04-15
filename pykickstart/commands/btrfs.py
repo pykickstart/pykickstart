@@ -62,9 +62,9 @@ class F17_BTRFSData(BaseData):
         if self.label:
             retval += " --label=%s" % self.label
         if self.dataLevel:
-            retval += " --data=%s" % self.dataLevel
+            retval += " --data=%s" % self.dataLevel.lower()
         if self.metaDataLevel:
-            retval += " --metadata=%s" % self.metaDataLevel
+            retval += " --metadata=%s" % self.metaDataLevel.lower()
         if self.subvol:
             retval += " --subvol --name=%s" % self.name
 
@@ -87,9 +87,9 @@ class F17_BTRFS(KickstartCommand):
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
-        self.levelMap = { "RAID0": "raid0", "0": "raid0",
-                          "RAID1": "raid1", "1": "raid1",
-                          "RAID10": "raid10", "10": "raid10",
+        self.levelMap = { "raid0": "raid0", "0": "raid0",
+                          "raid1": "raid1", "1": "raid1",
+                          "raid10": "raid10", "10": "raid10",
                           "single": "single" }
 
         self.btrfsList = kwargs.get("btrfsList", [])
@@ -108,8 +108,8 @@ class F17_BTRFS(KickstartCommand):
             parser.values.preexist = True
 
         def level_cb (option, opt_str, value, parser):
-            if value in self.levelMap:
-                parser.values.ensure_value(option.dest, self.levelMap[value])
+            if value.lower() in self.levelMap:
+                parser.values.ensure_value(option.dest, self.levelMap[value.lower()])
 
         op = KSOptionParser()
         op.add_option("--noformat", action="callback", callback=btrfs_cb,
