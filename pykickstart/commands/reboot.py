@@ -102,3 +102,26 @@ class F18_Reboot(FC6_Reboot):
             self.action = KS_WAIT
         return self
 
+class F23_Reboot(F18_Reboot):
+    removedKeywords = F18_Reboot.removedKeywords
+    removedAttrs = F18_Reboot.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F18_Reboot.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+
+        self.kexec = kwargs.get("kexec", False)
+
+    def __str__(self):
+        retval = F18_Reboot.__str__(self).rstrip()
+
+        if self.kexec:
+            retval += " --kexec"
+
+        return retval + "\n"
+
+    def _getParser(self):
+        op = F18_Reboot._getParser(self)
+        op.add_option("--kexec", dest="kexec", action="store_true",
+                      default=False)
+        return op

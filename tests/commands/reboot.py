@@ -64,5 +64,19 @@ class F18_TestCase(FC6_TestCase):
         self.assertEqual(cmd.eject, True)
         self.assertEqual(str(cmd), "# Halt after installation\nhalt --eject\n")
 
+class F23_TestCase(F18_TestCase):
+    def runTest(self):
+        F18_TestCase.runTest(self)
+
+        # pass
+        cmd = self.assert_parse("reboot --kexec")
+        self.assertEqual(cmd.kexec, True)
+        self.assertEqual(str(cmd), "# Reboot after installation\nreboot --kexec\n")
+        cmd = self.assert_parse("reboot --eject --kexec")
+        self.assertEqual(cmd.kexec, True)
+        self.assertEqual(cmd.eject, True)
+        self.assertEqual(str(cmd), "# Reboot after installation\nreboot --eject --kexec\n")
+
+
 if __name__ == "__main__":
     unittest.main()
