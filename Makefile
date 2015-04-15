@@ -38,7 +38,7 @@ coverage:
 	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/kickstart-docs.rst docs/programmers-guide
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
 	$(MAKE) -C po clean
 	$(PYTHON) setup.py -q clean --all
 
