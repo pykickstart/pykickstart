@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.4
+Version:   2.5
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -112,6 +112,12 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Fri Apr 17 2015 Chris Lumens <clumens@redhat.com> - 2.5-1
+- Add a new command to only make those partitions required by the platform. (clumens)
+- btrfs levels should be handled the same way as RAID levels. (clumens)
+- Include test cases for lower-cased and just numeric versions of RAID levels. (clumens)
+- Two more docs fixes. (clumens)
+
 * Tue Apr 14 2015 Chris Lumens <clumens@redhat.com> - 2.4-1
 - Move docs to the correct file name. (clumens)
 - Handle two-digit version numbers on this branch. (clumens)
