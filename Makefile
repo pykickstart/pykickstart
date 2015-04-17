@@ -84,7 +84,7 @@ bumpver: po-pull
 	tail --lines=+$$(($$cl + 1)) pykickstart.spec > speclog ; \
 	(head -n $$cl pykickstart.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > pykickstart.spec.new ; \
 	mv pykickstart.spec.new pykickstart.spec ; rm -f speclog ; \
-	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
+	sed -i "s/Version:   $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot ; \
 	zanata push $(TX_PUSH_ARGS)
