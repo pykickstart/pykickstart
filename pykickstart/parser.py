@@ -24,7 +24,7 @@ Main kickstart file processing module.
 
 This module exports several important classes:
 
-    Script - Representation of a single %pre, %post, or %traceback script.
+    Script - Representation of a single %pre, %pre-install, %post, or %traceback script.
 
     Packages - Representation of the %packages section.
 
@@ -43,7 +43,7 @@ from pykickstart.errors import KickstartError, KickstartParseError, KickstartVal
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.orderedset import OrderedSet
-from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
+from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection
 
 from pykickstart.i18n import _
 
@@ -193,6 +193,8 @@ class Script(KickstartObject):
             retval += '\n%post'
         elif self.type == constants.KS_SCRIPT_TRACEBACK:
             retval += '\n%traceback'
+        elif self.type == constants.KS_SCRIPT_PREINSTALL:
+            retval += '\n%pre-install'
 
         if self.interp != "/bin/sh" and self.interp != "":
             retval += " --interpreter=%s" % self.interp
@@ -747,6 +749,7 @@ class KickstartParser:
 
         # Install the sections all kickstart files support.
         self.registerSection(PreScriptSection(self.handler, dataObj=Script))
+        self.registerSection(PreInstallScriptSection(self.handler, dataObj=Script))
         self.registerSection(PostScriptSection(self.handler, dataObj=Script))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=Script))
         self.registerSection(PackageSection(self.handler))

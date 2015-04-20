@@ -71,12 +71,12 @@ kickstart file:
    #. Command section -- Refer to Chapter 2 for a list of kickstart
       options. You must include the required options.
    #. The %packages section -- Refer to Chapter 3 for details.
-   #. The %pre, %post, and %traceback sections -- These sections can be
-      in any order and are not required. Refer to Chapter 4 and Chapter
-      5 for details.
+   #. The %pre, %pre-install, %post, and %traceback sections -- These
+      sections can be in any order and are not required. Refer to Chapter
+      4 and Chapter 5 for details.
 
--  The %packages, %pre, %post and %traceback sections are all required
-   to be closed with %end
+-  The %packages, %pre, %pre-install, %post and %traceback sections are all
+   required to be closed with %end
 -  Items that are not required can be omitted.
 -  Omitting any required item will result in the installation program
    prompting the user for an answer to the related item, just as the
@@ -2391,6 +2391,16 @@ partitioning commands in the kickstart file, include the line:
 ``%include /tmp/part-include``
 
 The partitioning commands selected in the script will be used.
+
+
+%pre-install script
+-------------------
+
+You can use the %pre-install section to run commands after the system has been
+partitioned, filesystems created, and everything is mounted under /mnt/sysimage
+Like %pre these scripts do not run in the chrooted environment.
+
+Each %pre-install section is required to be closed with a corresponding %end.
 
 
 Chapter 5. Post-installation Script
