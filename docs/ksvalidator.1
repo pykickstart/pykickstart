@@ -11,7 +11,7 @@ includes checking basics like proper quoting and making sure required options ha
 the file does not include deprecated or removed kickstart commands.  Mutually exclusive options can also be caught, as can certain
 classes of partitioning errors (like using the same device name multiple times).
 .PP
-\fBksvalidator\fR does have its limitations.  It cannot run validate the syntax of %pre and %post scripts, nor does it attempt to
+\fBksvalidator\fR does have its limitations.  It cannot run validate the syntax of %pre, %pre-install, and %post scripts, nor does it attempt to
 run them.  It cannot check that the %packages section is valid.  Most importantly, it cannot guarantee that an input kickstart
 file will install properly, because it does not understand the complexities of partitioning and what potentially already exists
 on disk.

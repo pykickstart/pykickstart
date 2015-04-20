@@ -30,7 +30,7 @@ is necessary is to create a new subclass of Section and call
 parser.registerSection with an instance of your new class.
 """
 from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
-                                  KS_MISSING_IGNORE, KS_MISSING_PROMPT
+                                  KS_SCRIPT_PREINSTALL, KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 from pykickstart.version import FC4, F7, F9, F18, F21
@@ -185,6 +185,13 @@ class PreScriptSection(ScriptSection):
     def _resetScript(self):
         ScriptSection._resetScript(self)
         self._script["type"] = KS_SCRIPT_PRE
+
+class PreInstallScriptSection(ScriptSection):
+    sectionOpen = "%pre-install"
+
+    def _resetScript(self):
+        ScriptSection._resetScript(self)
+        self._script["type"] = KS_SCRIPT_PREINSTALL
 
 class PostScriptSection(ScriptSection):
     sectionOpen = "%post"
