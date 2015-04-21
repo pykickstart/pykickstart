@@ -1634,6 +1634,10 @@ a message and waits for the user to press a key before rebooting.
 
     Attempt to eject CD or DVD media before rebooting.
 
+``--kexec``
+
+    Use kexec to reboot into the new system, bypassing BIOS/Firmware and bootloader.
+
 
 repo
 ----
