@@ -107,8 +107,8 @@ scratch-bumpver: po-empty
 	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
 	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
-	sed -i "s/Version:   $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
-	sed -i "s/Release:   $(RELEASE)/Release: $(RC_RELEASE)/" $(SPECFILE) ; \
+	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
+	sed -i "s/Release:   $(RELEASE)/Release:   $(RC_RELEASE)/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot
 
