@@ -68,3 +68,15 @@ class TmpfsUsage_TestCase(CommandSequenceTest):
         self.assert_parse_error("part --fstype=tmpfs /tmp --grow")
         self.assert_parse_error("part --fstype=tmpfs /tmp --grow --maxsize=1000")
         self.assert_parse_error("part --fstype=tmpfs /tmp --maxsize=1000")
+
+class PartitionDupes_TestCase(CommandSequenceTest):
+    def runTest(self):
+        # Two swap partitions is alright.
+        self.assert_parse("""
+part swap --size=1024 --fstype=swap
+part swap --size=2048 --fstype=swap""")
+
+        # Two root partitions is not.
+        self.assert_parse_error("""
+part / --size=1024 --fstype=ext4
+part / --size=2048 --fstype=ext4""", exception=UserWarning)

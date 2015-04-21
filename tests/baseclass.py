@@ -84,6 +84,20 @@ class CommandSequenceTest(ParserTest):
     a parsing exception.
     """
 
+    def setUp(self):
+        '''Perform any command setup'''
+        ParserTest.setUp(self)
+
+        # turn warnings into errors so we can catch them
+        warnings.simplefilter("error", category=UserWarning)
+
+    def tearDown(self):
+        '''Undo anything performed by setUp(self)'''
+        # reset warnings
+        warnings.resetwarnings()
+
+        unittest.TestCase.tearDown(self)
+
     def get_parser(self):
         """Command sequence tests need a fresh parser
         for each test"""
@@ -97,8 +111,10 @@ class CommandTest(unittest.TestCase):
         '''Perform any command setup'''
         unittest.TestCase.setUp(self)
 
-        # ignore DeprecationWarning
+        # turn warnings into errors so we can catch them
         warnings.simplefilter("error", category=UserWarning)
+
+        # ignore DeprecationWarning
         warnings.simplefilter("ignore", category=DeprecationWarning, append=0)
 
     def tearDown(self):
