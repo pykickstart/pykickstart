@@ -14,6 +14,7 @@ BuildArch: noarch
 
 BuildRequires: gettext
 BuildRequires: python-devel
+BuildRequires: python-nose
 BuildRequires: python-setuptools
 BuildRequires: python-requests
 %if ! 0%{?rhel}

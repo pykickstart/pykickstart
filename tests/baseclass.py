@@ -273,21 +273,3 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=None):
                 found[0].close()
 
     return tests
-
-# Run the tests
-if __name__ == "__main__":
-    # Make sure PWD is in the path before the eggs, system paths, etc.
-    sys.path.insert(0, os.environ.get("PWD"))
-
-    # Create a test suite
-    PyKickstartTestSuite = unittest.TestSuite()
-
-    # Find tests to add
-    tstList = loadModules(os.path.join(os.environ.get("PWD"), "tests/"))
-    tstList.extend(loadModules(os.path.join(os.environ.get("PWD"), "tests/commands")))
-    tstList.extend(loadModules(os.path.join(os.environ.get("PWD"), "tests/parser")))
-    for tst in tstList:
-        PyKickstartTestSuite.addTest(tst())
-
-    # Run tests
-    unittest.main(defaultTest="PyKickstartTestSuite")

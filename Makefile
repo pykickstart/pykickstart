@@ -11,7 +11,7 @@ ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 MANDIR=/usr/share/man
 PREFIX=/usr
 
-TESTSUITE:=tests/baseclass.py
+NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests/parser/*py
 
 PYTHON?=python
 
@@ -40,13 +40,12 @@ check:
 
 test:
 	@echo "*** Running unittests ***"
-	PYTHONPATH=. $(PYTHON) $(TESTSUITE) -v
+	PYTHONPATH=. nosetests --processes=-1 $(NOSEARGS)
 
 coverage:
 	@which coverage || (echo "*** Please install python-coverage ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. coverage run $(TESTSUITE) -v
-	PYTHONPATH=. coverage report --show-missing --include='pykickstart/*'
+	PYTHONPATH=. nosetests --with-coverage --cover-erase --cover-package=pykickstart $(NOSEARGS)
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
