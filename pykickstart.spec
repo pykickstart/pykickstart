@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.5
+Version:   2.6
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -113,6 +113,17 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Apr 21 2015 Chris Lumens <clumens@redhat.com> - 2.6-1
+- Merge pull request #8 from bcl/master-kexec (clumens)
+- Merge pull request #10 from bcl/master-pre-install (clumens)
+- Switch to using nosetests. (clumens)
+- Allow multiple partitions with the "swap" mountpoint. (clumens)
+- Add %pre-install section to be used after mounting filesystems (bcl)
+- Convert reboot to use _getArgsAsStr (bcl)
+- Merge pull request #9 from bcl/master-rc-release (clumens)
+- Add rc-release Makefile target (bcl)
+- Add --kexec flag to reboot (bcl)
+
 * Fri Apr 17 2015 Chris Lumens <clumens@redhat.com> - 2.5-1
 - Add a new command to only make those partitions required by the platform. (clumens)
 - btrfs levels should be handled the same way as RAID levels. (clumens)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-17 14:24-0400\n"
+"POT-Creation-Date: 2015-04-21 15:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:421
+#: ../pykickstart/base.py:422
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -103,11 +103,11 @@ msgstr ""
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../pykickstart/sections.py:250
+#: ../pykickstart/sections.py:257
 msgid "--default and --nobase cannot be used together"
 msgstr ""
 
-#: ../pykickstart/sections.py:252
+#: ../pykickstart/sections.py:259
 msgid "--default and --nocore cannot be used together"
 msgstr ""
 
@@ -134,21 +134,21 @@ msgstr ""
 msgid "Unable to open %%ksappend file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:737
+#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:739
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:372
+#: ../pykickstart/parser.py:374
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:548 ../pykickstart/parser.py:589
+#: ../pykickstart/parser.py:550 ../pykickstart/parser.py:591
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:683
+#: ../pykickstart/parser.py:685
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
