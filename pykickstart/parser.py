@@ -44,6 +44,7 @@ from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PostScriptSection, TracebackScriptSection
+from pykickstart.sections import NullSection
 
 from pykickstart.i18n import _
 
@@ -750,3 +751,6 @@ class KickstartParser:
         self.registerSection(PostScriptSection(self.handler, dataObj=Script))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=Script))
         self.registerSection(PackageSection(self.handler))
+
+        # Accept but ignore %addon sections
+        self.registerSection(NullSection(self.handler, sectionOpen='%addon'))
