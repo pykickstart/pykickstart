@@ -29,13 +29,18 @@ class FC3_Reboot(KickstartCommand):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.action = kwargs.get("action", None)
 
+    def _getArgsAsStr(self):
+        return ""
+
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
         if self.action == KS_REBOOT:
-            retval += "# Reboot after installation\nreboot\n"
+            retval += "# Reboot after installation\nreboot"
+            retval += self._getArgsAsStr() + "\n"
         elif self.action == KS_SHUTDOWN:
-            retval += "# Shutdown after installation\nshutdown\n"
+            retval += "# Shutdown after installation\nshutdown"
+            retval += self._getArgsAsStr() + "\n"
 
         return retval
 
@@ -57,13 +62,13 @@ class FC6_Reboot(FC3_Reboot):
 
         self.eject = kwargs.get("eject", False)
 
-    def __str__(self):
-        retval = FC3_Reboot.__str__(self).rstrip()
+    def _getArgsAsStr(self):
+        retval = FC3_Reboot._getArgsAsStr(self)
 
         if self.eject:
             retval += " --eject"
 
-        return retval + "\n"
+        return retval
 
     def _getParser(self):
         op = KSOptionParser()
@@ -86,15 +91,13 @@ class F18_Reboot(FC6_Reboot):
         self.op = self._getParser()
 
     def __str__(self):
-        retval = FC6_Reboot.__str__(self).rstrip()
+        retval = FC6_Reboot.__str__(self)
 
         if self.action == KS_WAIT:
             retval = "# Halt after installation\nhalt"
+            retval += self._getArgsAsStr() + "\n"
 
-            if self.eject:
-                retval += " --eject"
-
-        return retval + "\n"
+        return retval
 
     def parse(self, args):
         FC6_Reboot.parse(self, args)
@@ -112,13 +115,13 @@ class F23_Reboot(F18_Reboot):
 
         self.kexec = kwargs.get("kexec", False)
 
-    def __str__(self):
-        retval = F18_Reboot.__str__(self).rstrip()
+    def _getArgsAsStr(self):
+        retval = F18_Reboot._getArgsAsStr(self)
 
         if self.kexec:
             retval += " --kexec"
 
-        return retval + "\n"
+        return retval
 
     def _getParser(self):
         op = F18_Reboot._getParser(self)
