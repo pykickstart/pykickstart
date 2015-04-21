@@ -1,6 +1,8 @@
 PKGNAME=pykickstart
-VERSION=$(shell awk '/Version:/ { print $$2 }' $(PKGNAME).spec)
-RELEASE=$(shell awk '/Release:/ { print $$2 }' $(PKGNAME).spec | sed -e 's|%.*$$||g')
+SPECFILE=$(PKGNAME).spec
+VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
+RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
+RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG=r$(VERSION)-$(RELEASE)
 
 ZANATA_PULL_ARGS = --transdir ./po/
@@ -13,12 +15,21 @@ TESTSUITE:=tests/baseclass.py
 
 PYTHON?=python
 
+MOCKCHROOT ?= fedora-rawhide-x86_64
+
 all:
 	$(MAKE) -C po
 
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
+
+po-empty:
+	for lingua in $$(gawk 'match($$0, /locale>(.*)<\/locale/, ary) {print ary[1]}' ./zanata.xml) ; do \
+		[ -f ./po/$$lingua.po ] || \
+		msginit -i ./po/$(PKGNAME).pot -o ./po/$$lingua.po --no-translator || \
+		exit 1 ; \
+	done
 
 docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
@@ -80,13 +91,40 @@ bumpver: po-pull
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
-	cl=`grep -n %changelog pykickstart.spec |cut -d : -f 1` ; \
-	tail --lines=+$$(($$cl + 1)) pykickstart.spec > speclog ; \
-	(head -n $$cl pykickstart.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > pykickstart.spec.new ; \
-	mv pykickstart.spec.new pykickstart.spec ; rm -f speclog ; \
-	sed -i "s/Version:   $(VERSION)/Version: $$NEWVERSION/" pykickstart.spec ; \
+	cl=`grep -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
+	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
+	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
+	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
+	sed -i "s/Version:   $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot ; \
 	zanata push $(TX_PUSH_ARGS)
+
+scratch-bumpver: po-empty
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
+	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-$(RC_RELEASE)"  ; \
+	cl=`grep -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
+	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
+	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
+	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
+	sed -i "s/Version:   $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
+	sed -i "s/Release:   $(RELEASE)/Release: $(RC_RELEASE)/" $(SPECFILE) ; \
+	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	make -C po $(PKGNAME).pot
+
+scratch: docs po-empty
+	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
+	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
+	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
+	@cd /tmp/$(PKGNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
+	@cp /tmp/$(PKGNAME)-$(VERSION)/dist/$(PKGNAME)-$(VERSION).tar.gz .
+	@rm -rf /tmp/$(PKGNAME)-$(VERSION)
+	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
+
+rc-release: scratch-bumpver scratch
+	mock -r $(MOCKCHROOT) --scrub all || exit 1
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(SPECFILE) --sources . --resultdir $(PWD) || exit 1
+	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD)  || exit 1
 
 .PHONY: check clean install tag archive local docs
