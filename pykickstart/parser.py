@@ -37,13 +37,14 @@ import six
 import shlex
 import tempfile
 from optparse import OptionParser
+import warnings
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.orderedset import OrderedSet
-from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection
+from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection
 
 from pykickstart.i18n import _
 
@@ -448,7 +449,7 @@ class KickstartParser:
        overridden.
     """
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True):
+                  missingIncludeIsFatal=True, unknownSectionIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
            errorsAreFatal        -- Should errors cause processing to halt, or
@@ -464,12 +465,17 @@ class KickstartParser:
                                     will be executed.
            missingIncludeIsFatal -- Should missing include files be fatal, even
                                     if errorsAreFatal is False?
+           unknownSectionIsFatal -- Should an unknown %section be fatal?  Not all
+                                    sections are handled by pykickstart.  Some are
+                                    user-defined, so there should be a way to have
+                                    pykickstart ignore them.
         """
         self.errorsAreFatal = errorsAreFatal
         self.followIncludes = followIncludes
         self.handler = handler
         self.currentdir = {}
         self.missingIncludeIsFatal = missingIncludeIsFatal
+        self.unknownSectionIsFatal = unknownSectionIsFatal
 
         self._state = STATE_COMMANDS
         self._includeDepth = 0
@@ -682,7 +688,15 @@ class KickstartParser:
                     # here.
                     newSection = args[0]
                     if not self._validState(newSection):
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection))
+                        if self.unknownSectionIsFatal:
+                            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection))
+                        else:
+                            # If we are ignoring unknown section errors, just create a new
+                            # NullSection for the header we just saw.  Then nothing else
+                            # needs to change.  You can turn this warning into an error via
+                            # ksvalidator, or the warnings module.
+                            warnings.warn(_("Potentially unknown section seen at line %(lineno)s: %(sectionName)s") % {"lineno": lineno, "sectionName": newSection})
+                            self.registerSection(NullSection(self.handler, sectionOpen=newSection))
 
                     self._state = newSection
                     obj = self._sections[self._state]
@@ -753,3 +767,8 @@ class KickstartParser:
         self.registerSection(PostScriptSection(self.handler, dataObj=Script))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=Script))
         self.registerSection(PackageSection(self.handler))
+
+        # Whitelist well-known sections that pykickstart does not understand,
+        # but shouldn't error on.
+        self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
+        self.registerSection(NullSection(self.handler, sectionOpen="%anaconda"))
