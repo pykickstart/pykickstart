@@ -319,8 +319,7 @@ class FC4_Partition(FC3_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC3_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable=unused-variable
-        def part_cb (option, opt_str, value, parser):
+        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
             else:
@@ -341,8 +340,7 @@ class RHEL5_Partition(FC4_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable=unused-variable
-        def part_cb (option, opt_str, value, parser):
+        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
             else:
@@ -361,8 +359,7 @@ class F9_Partition(FC4_Partition):
     def __init__(self, writePriority=130, *args, **kwargs):
         FC4_Partition.__init__(self, writePriority, *args, **kwargs)
 
-        # pylint: disable=unused-variable
-        def part_cb (option, opt_str, value, parser):
+        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
             if value.startswith("/dev/"):
                 parser.values.ensure_value(option.dest, value[5:])
             else:

@@ -54,10 +54,8 @@ class FC3_Keyboard(KickstartCommand):
         return self
 
 class F18_Keyboard(FC3_Keyboard):
-    # pylint: disable=super-init-not-called
-    def __init__(self, writePriority=0, *args, **kwargs):
-        # pylint: disable=non-parent-init-called
-        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+    def __init__(self, writePriority=0, *args, **kwargs):               # pylint: disable=super-init-not-called
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs) # pylint: disable=non-parent-init-called
         self.op = self._getParser()
         self._keyboard = kwargs.get("_keyboard", "")
         self.vc_keymap = kwargs.get("vc_keymap", "")

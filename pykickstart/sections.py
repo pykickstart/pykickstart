@@ -87,8 +87,7 @@ class Section(object):
         """
         pass
 
-    # pylint: disable=unused-argument
-    def handleHeader(self, lineno, args):
+    def handleHeader(self, lineno, args):       # pylint: disable=unused-argument
         """This method is called when the opening tag for a section is seen.
            Not all sections will need this method, though all provided with
            kickstart include one.

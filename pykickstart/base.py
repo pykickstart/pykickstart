@@ -123,8 +123,7 @@ class KickstartCommand(KickstartObject):
         """
         return KickstartObject.__str__(self)
 
-    # pylint: disable=unused-argument
-    def parse(self, args):
+    def parse(self, args):      # pylint: disable=unused-argument
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.
         """
@@ -324,13 +323,11 @@ class BaseHandler(KickstartObject):
         if cmdObj.__class__.__name__.find("_") != -1:
             name = cmdObj.__class__.__name__.split("_", 1)[1]
             if not six.PY3:
-                # pylint: disable=undefined-variable
-                name = unicode(name)
+                name = unicode(name)    # pylint: disable=undefined-variable
         else:
             name = cmdObj.__class__.__name__.lower()
             if not six.PY3:
-                # pylint: disable=undefined-variable
-                name = unicode(name)
+                name = unicode(name)    # pylint: disable=undefined-variable
 
         setattr(self, name.lower(), cmdObj)
 

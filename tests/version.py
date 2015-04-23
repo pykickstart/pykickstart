@@ -5,8 +5,7 @@ import os
 
 from tests.baseclass import CommandTest, loadModules
 
-# pylint: disable=wildcard-import
-from pykickstart.version import *
+from pykickstart.version import *           # pylint: disable=wildcard-import
 from pykickstart.errors import KickstartVersionError
 
 def getClassName(cls):

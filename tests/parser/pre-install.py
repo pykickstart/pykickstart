@@ -3,8 +3,7 @@ from tests.baseclass import ParserTest
 
 from pykickstart import constants
 from pykickstart.errors import KickstartParseError
-# pylint: disable=unused-import
-from pykickstart import version
+from pykickstart import version         # pylint: disable=unused-import
 
 class Simple_Terminated_TestCase(ParserTest):
     ks = """
