@@ -19,6 +19,8 @@
 # with the express permission of Red Hat, Inc. 
 #
 
+# pylint: disable=broad-except,found-_-in-module-class
+
 import argparse
 import os
 import sys
