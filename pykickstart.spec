@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66
+Version: 1.99.66.1
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Apr 28 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.1-1
+- Rebuild for RHEL7.
+
 * Fri Jan 30 2015 Chris Lumens <clumens@redhat.com> - 1.99.66-1
 - network: add support for bridge to F22 (#1075195) (rvykydal)
 - Use %license in pykickstart.spec (bcl)
