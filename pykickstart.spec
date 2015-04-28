@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.6
+Version: 2.7
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -113,6 +113,11 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Apr 28 2015 Chris Lumens <clumens@redhat.com> - 2.7-1
+- Ignore some pylint warnings in the tools/ directory. (clumens)
+- Move most pylint disable pragmas onto the line they apply to. (clumens)
+- Allow skipping the errors on unknown sections. (clumens)
+
 * Tue Apr 21 2015 Chris Lumens <clumens@redhat.com> - 2.6-1
 - Merge pull request #8 from bcl/master-kexec (clumens)
 - Merge pull request #10 from bcl/master-pre-install (clumens)

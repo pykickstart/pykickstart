@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-21 15:18-0400\n"
+"POT-Creation-Date: 2015-04-28 15:33-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/base.py:185
+#: ../pykickstart/base.py:184
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -73,7 +73,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:422
+#: ../pykickstart/base.py:419
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -103,11 +103,11 @@ msgstr ""
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../pykickstart/sections.py:257
+#: ../pykickstart/sections.py:256
 msgid "--default and --nobase cannot be used together"
 msgstr ""
 
-#: ../pykickstart/sections.py:259
+#: ../pykickstart/sections.py:258
 msgid "--default and --nocore cannot be used together"
 msgstr ""
 
@@ -124,33 +124,42 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../pykickstart/parser.py:88
+#: ../pykickstart/parser.py:89
 #, python-format
 msgid "Illegal url for %%ksappend: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:93
+#: ../pykickstart/parser.py:94
 #, python-format
 msgid "Unable to open %%ksappend file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:125 ../pykickstart/parser.py:739
+#: ../pykickstart/parser.py:126 ../pykickstart/parser.py:752
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:374
+#: ../pykickstart/parser.py:375
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:550 ../pykickstart/parser.py:591
+#: ../pykickstart/parser.py:556 ../pykickstart/parser.py:597
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:685
+#: ../pykickstart/parser.py:691
 #, python-format
 msgid "Unknown kickstart section: %s"
+msgstr ""
+
+#. If we are ignoring unknown section errors, just create a new
+#. NullSection for the header we just saw.  Then nothing else
+#. needs to change.  You can turn this warning into an error via
+#. ksvalidator, or the warnings module.
+#: ../pykickstart/parser.py:697
+#, python-format
+msgid "Potentially unknown section seen at line %(lineno)s: %(sectionName)s"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
@@ -192,7 +201,7 @@ msgstr ""
 
 #: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/sshkey.py:89
 #: ../pykickstart/commands/timezone.py:60
-#: ../pykickstart/commands/keyboard.py:123
+#: ../pykickstart/commands/keyboard.py:121
 #: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
 #, python-format
 msgid "A single argument is expected for the %s command"
@@ -377,7 +386,7 @@ msgstr ""
 msgid "The vlan id out of the %d-%d vlan id range."
 msgstr ""
 
-#: ../pykickstart/commands/keyboard.py:128
+#: ../pykickstart/commands/keyboard.py:126
 msgid ""
 "One of --xlayouts, --vckeymap options with value(s) or argument is expected "
 "for the keyboard command"
@@ -524,20 +533,20 @@ msgstr ""
 msgid "A partition with the mountpoint %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:416
-#: ../pykickstart/commands/partition.py:463
+#: ../pykickstart/commands/partition.py:413
+#: ../pykickstart/commands/partition.py:460
 msgid "The part/partition and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:441
+#: ../pykickstart/commands/partition.py:438
 msgid "--resize can only be used in conjunction with --onpart"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:444
+#: ../pykickstart/commands/partition.py:441
 msgid "--resize requires --size to specify new size"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:469
+#: ../pykickstart/commands/partition.py:466
 msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
@@ -614,107 +623,107 @@ msgstr ""
 msgid "Failed to open output file '%s' : %s"
 msgstr ""
 
-#: ../tools/ksshell:144
+#: ../tools/ksshell:146
 msgid "a basis file to use for seeding the kickstart data (optional)"
 msgstr ""
 
-#: ../tools/ksshell:146
+#: ../tools/ksshell:148
 msgid ""
 "the location to write the finished kickstart file, or stdout if not given"
 msgstr ""
 
-#: ../tools/ksshell:148 ../tools/ksvalidator:58
+#: ../tools/ksshell:150 ../tools/ksvalidator:60
 msgid "version of kickstart syntax to validate against"
 msgstr ""
 
-#: ../tools/ksshell:159 ../tools/ksverdiff:61 ../tools/ksvalidator:78
+#: ../tools/ksshell:161 ../tools/ksverdiff:63 ../tools/ksvalidator:80
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr ""
 
 #. Errors should just dump you to the prompt anyway.
-#: ../tools/ksshell:171
+#: ../tools/ksshell:173
 #, python-format
 msgid ""
 "Warning:  The following error occurred when processing the input file:\n"
 "%s\n"
 msgstr ""
 
-#: ../tools/ksshell:216
+#: ../tools/ksshell:218
 #, python-format
 msgid "Internal command %s not recognized."
 msgstr ""
 
-#: ../tools/ksverdiff:43 ../tools/ksvalidator:56
+#: ../tools/ksverdiff:45 ../tools/ksvalidator:58
 msgid "list the available versions of kickstart syntax"
 msgstr ""
 
-#: ../tools/ksverdiff:54
+#: ../tools/ksverdiff:56
 msgid "You must specify two syntax versions."
 msgstr ""
 
-#: ../tools/ksverdiff:68
+#: ../tools/ksverdiff:70
 #, python-format
 msgid "The following commands were removed in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:71
+#: ../tools/ksverdiff:73
 #, python-format
 msgid "The following commands were deprecated in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:74
+#: ../tools/ksverdiff:76
 #, python-format
 msgid "The following commands were added in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:100
+#: ../tools/ksverdiff:102
 #, python-format
 msgid "The following options were added to the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:105
+#: ../tools/ksverdiff:107
 #, python-format
 msgid "The following options were deprecated from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff:110
+#: ../tools/ksverdiff:112
 #, python-format
 msgid "The following options were removed from the %s command in %s:"
 msgstr ""
 
-#: ../tools/ksvalidator:48
+#: ../tools/ksvalidator:50
 msgid "filename or URL to read from"
 msgstr ""
 
-#: ../tools/ksvalidator:50
+#: ../tools/ksvalidator:52
 msgid "halt after the first error or warning"
 msgstr ""
 
-#: ../tools/ksvalidator:53
+#: ../tools/ksvalidator:55
 #, python-format
 msgid "parse include files when %%include is seen"
 msgstr ""
 
-#: ../tools/ksvalidator:72
+#: ../tools/ksvalidator:74
 #, python-format
 msgid ""
 "Error reading %s:\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:94
+#: ../tools/ksvalidator:96
 #, python-format
 msgid ""
 "File uses a deprecated option or command.\n"
 "%s"
 msgstr ""
 
-#: ../tools/ksvalidator:100
+#: ../tools/ksvalidator:102
 msgid "General kickstart error in input file"
 msgstr ""
 
-#: ../tools/ksvalidator:103
+#: ../tools/ksvalidator:105
 #, python-format
 msgid "General error in input file:  %s"
 msgstr ""
