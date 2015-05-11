@@ -304,7 +304,7 @@ class F21_LogVolData(F20_LogVolData):
         retval = F20_LogVolData._getArgsAsStr(self)
 
         if self.profile:
-            retval += "--profile=%s" % self.profile
+            retval += " --profile=%s" % self.profile
 
         return retval
 
