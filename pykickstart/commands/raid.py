@@ -456,10 +456,16 @@ class F18_Raid(F15_Raid):
         return op
 
 class F19_Raid(F18_Raid):
+    removedKeywords = F18_Raid.removedKeywords
+    removedAttrs = F18_Raid.removedAttrs
+
     def _getDevice(self, s):
         return s
 
 class F20_Raid(F19_Raid):
+    removedKeywords = F19_Raid.removedKeywords
+    removedAttrs = F19_Raid.removedAttrs
+
     def parse(self, args):
         # first call the overriden method
         retval = F19_Raid.parse(self, args)

@@ -208,6 +208,9 @@ class RHEL6_PartData(F12_PartData):
 F14_PartData = F12_PartData
 
 class F17_PartData(F14_PartData):
+    removedKeywords = F14_PartData.removedKeywords
+    removedAttrs = F14_PartData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F14_PartData.__init__(self, *args, **kwargs)
 
@@ -222,6 +225,9 @@ class F17_PartData(F14_PartData):
         return retval
 
 class F18_PartData(F17_PartData):
+    removedKeywords = F17_PartData.removedKeywords
+    removedAttrs = F17_PartData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F17_PartData.__init__(self, *args, **kwargs)
 
@@ -426,6 +432,9 @@ class F14_Partition(F12_Partition):
         return op
 
 class F17_Partition(F14_Partition):
+    removedKeywords = F14_Partition.removedKeywords
+    removedAttrs = F14_Partition.removedAttrs
+
     def _getParser(self):
         op = F14_Partition._getParser(self)
         op.add_option("--resize", action="store_true", default=False)
@@ -443,6 +452,9 @@ class F17_Partition(F14_Partition):
         return retval
 
 class F18_Partition(F17_Partition):
+    removedKeywords = F17_Partition.removedKeywords
+    removedAttrs = F17_Partition.removedAttrs
+
     def _getParser(self):
         op = F17_Partition._getParser(self)
         op.add_option("--hibernation", dest="hibernation", action="store_true", default=False)
@@ -451,6 +463,9 @@ class F18_Partition(F17_Partition):
         return op
 
 class F20_Partition(F18_Partition):
+    removedKeywords = F18_Partition.removedKeywords
+    removedAttrs = F18_Partition.removedAttrs
+
     def parse(self, args):
         # first call the overriden command
         retval = F18_Partition.parse(self, args)

@@ -227,6 +227,9 @@ class F15_LogVolData(F14_LogVolData):
         return retval
 
 class F17_LogVolData(F15_LogVolData):
+    removedKeywords = F15_LogVolData.removedKeywords
+    removedAttrs = F15_LogVolData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F15_LogVolData.__init__(self, *args, **kwargs)
         self.resize = kwargs.get("resize", False)
@@ -239,6 +242,9 @@ class F17_LogVolData(F15_LogVolData):
         return retval
 
 class F18_LogVolData(F17_LogVolData):
+    removedKeywords = F17_LogVolData.removedKeywords
+    removedAttrs = F17_LogVolData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F17_LogVolData.__init__(self, *args, **kwargs)
         self.hibernation = kwargs.get("hibernation", False)
@@ -256,6 +262,9 @@ class F18_LogVolData(F17_LogVolData):
         return retval
 
 class F20_LogVolData(F18_LogVolData):
+    removedKeywords = F18_LogVolData.removedKeywords
+    removedAttrs = F18_LogVolData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F18_LogVolData.__init__(self, *args, **kwargs)
         self.thin_pool = kwargs.get("thin_pool", False)
@@ -284,6 +293,9 @@ class F20_LogVolData(F18_LogVolData):
         return retval
 
 class F21_LogVolData(F20_LogVolData):
+    removedKeywords = F20_LogVolData.removedKeywords
+    removedAttrs = F20_LogVolData.removedAttrs
+
     def __init__(self, *args, **kwargs):
         F20_LogVolData.__init__(self, *args, **kwargs)
         self.profile = kwargs.get("profile", "")
@@ -469,6 +481,9 @@ class F15_LogVol(F14_LogVol):
         return op
 
 class F17_LogVol(F15_LogVol):
+    removedKeywords = F15_LogVol.removedKeywords
+    removedAttrs = F15_LogVol.removedAttrs
+
     def _getParser(self):
         op = F15_LogVol._getParser(self)
         op.add_option("--resize", action="store_true", default=False)
@@ -486,6 +501,9 @@ class F17_LogVol(F15_LogVol):
         return retval
 
 class F18_LogVol(F17_LogVol):
+    removedKeywords = F17_LogVol.removedKeywords
+    removedAttrs = F17_LogVol.removedAttrs
+
     def _getParser(self):
         op = F17_LogVol._getParser(self)
         op.add_option("--hibernation", action="store_true", default=False)
@@ -493,6 +511,9 @@ class F18_LogVol(F17_LogVol):
         return op
 
 class F20_LogVol(F18_LogVol):
+    removedKeywords = F18_LogVol.removedKeywords
+    removedAttrs = F18_LogVol.removedAttrs
+
     def _getParser(self):
         op = F18_LogVol._getParser(self)
         op.add_option("--thinpool", action="store_true", dest="thin_pool",
@@ -543,6 +564,9 @@ class F20_LogVol(F18_LogVol):
         return retval
 
 class F21_LogVol(F20_LogVol):
+    removedKeywords = F20_LogVol.removedKeywords
+    removedAttrs = F20_LogVol.removedAttrs
+
     def _getParser(self):
         op = F20_LogVol._getParser(self)
         op.add_option("--profile")
