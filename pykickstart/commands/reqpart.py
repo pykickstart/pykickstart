@@ -64,3 +64,5 @@ class F23_ReqPart(KickstartCommand):
         self._setToSelf(self.op, opts)
         self.reqpart = True
         return self
+
+RHEL7_ReqPart = F23_ReqPart

@@ -36,6 +36,7 @@ class F23_TestCase(CommandTest):
         self.assert_parse_error("autopart --encrypted=False")
         self.assert_parse_error("autopart --encrypted=True")
 
+RHEL7_TestCase = F23_TestCase
 
 if __name__ == "__main__":
     unittest.main()
