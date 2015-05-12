@@ -281,13 +281,13 @@ class BaseHandler(KickstartObject):
         for prio in lst:
             for obj in self._writeOrder[prio]:
                 obj_str = obj.__str__()
-                if type(obj_str) is six.text_type and not six.PY3:
+                if isinstance(obj_str, six.text_type) and not six.PY3:
                     obj_str = obj_str.encode("utf-8")
                 retval += obj_str
 
         for script in self.scripts:
             script_str = script.__str__()
-            if type(script_str) is six.text_type and not six.PY3:
+            if isinstance(script_str, six.text_type) and not six.PY3:
                 script_str = script_str.encode("utf-8")
             retval += script_str
 
@@ -352,10 +352,10 @@ class BaseHandler(KickstartObject):
         else:
             dMap = dataMapping
 
-        if type(commandUpdates) == dict:
+        if isinstance(commandUpdates, dict):
             cMap.update(commandUpdates)
 
-        if type(dataUpdates) == dict:
+        if isinstance(dataUpdates, dict):
             dMap.update(dataUpdates)
 
         for (cmdName, cmdClass) in list(cMap.items()):
