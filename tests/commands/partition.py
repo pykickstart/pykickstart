@@ -206,5 +206,16 @@ class F18_TestCase(F17_TestCase):
 
         self.assert_parse_error("part / --cipher")
 
+class RHEL7_TestCase(F18_TestCase):
+    def runTest(self):
+        F18_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("part / --size=4096 --mkfsoptions=some,thing",
+                          "part / --size=4096 --mkfsoptions=\"some,thing\"\n")
+
+        # can't use --mkfsoptions if you're not formatting
+        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --noformat", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

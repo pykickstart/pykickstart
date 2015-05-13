@@ -76,6 +76,22 @@ class F17_BTRFSData(BaseData):
         retval += self._getArgsAsStr()
         return retval + " " + " ".join(self.devices) + "\n"
 
+class RHEL7_BTRFSData(F17_BTRFSData):
+    removedKeywords = F17_BTRFSData.removedKeywords
+    removedAttrs = F17_BTRFSData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F17_BTRFSData.__init__(self, *args, **kwargs)
+        self.mkfsopts = kwargs.get("mkfsoptions", "")
+
+    def _getArgsAsStr(self):
+        retval = F17_BTRFSData._getArgsAsStr(self)
+
+        if self.mkfsopts != "":
+            retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
+
+        return retval
+
 class F17_BTRFS(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -164,3 +180,21 @@ class F17_BTRFS(KickstartCommand):
 
     def dataList(self):
         return self.btrfsList
+
+class RHEL7_BTRFS(F17_BTRFS):
+    removedKeywords = F17_BTRFS.removedKeywords
+    removedAttrs = F17_BTRFS.removedAttrs
+
+    def _getParser(self):
+        op = F17_BTRFS._getParser(self)
+        op.add_option("--mkfsoptions", dest="mkfsopts")
+
+        return op
+
+    def parse(self, args):
+        data = F17_BTRFS.parse(self, args)
+
+        if (data.preexist or not data.format) and data.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
+
+        return data

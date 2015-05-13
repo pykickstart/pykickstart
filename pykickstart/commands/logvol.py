@@ -274,7 +274,21 @@ class F21_LogVolData(F20_LogVolData):
 
         return retval
 
-RHEL7_LogVolData = F21_LogVolData
+class RHEL7_LogVolData(F21_LogVolData):
+    removedKeywords = F21_LogVolData.removedKeywords
+    removedAttrs = F21_LogVolData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_LogVolData.__init__(self, *args, **kwargs)
+        self.mkfsopts = kwargs.get("mkfsoptions", "")
+
+    def _getArgsAsStr(self):
+        retval = F21_LogVolData._getArgsAsStr(self)
+
+        if self.mkfsopts:
+            retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
+
+        return retval
 
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -515,4 +529,20 @@ class F21_LogVol(F20_LogVol):
 
         return retval
 
-RHEL7_LogVol = F21_LogVol
+class RHEL7_LogVol(F21_LogVol):
+    removedKeywords = F21_LogVol.removedKeywords
+    removedAttrs = F21_LogVol.removedAttrs
+
+    def _getParser(self):
+        op = F21_LogVol._getParser(self)
+        op.add_option("--mkfsoptions", dest="mkfsopts")
+
+        return op
+
+    def parse(self, args):
+        retval = F21_LogVol.parse(self, args)
+
+        if not retval.format and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+
+        return retval
