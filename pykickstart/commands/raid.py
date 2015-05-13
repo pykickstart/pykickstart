@@ -233,6 +233,22 @@ class F18_RaidData(F15_RaidData):
 
         return retval
 
+class RHEL7_RaidData(F18_RaidData):
+    removedKeywords = F18_RaidData.removedKeywords
+    removedAttrs = F18_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F18_RaidData.__init__(self, *args, **kwargs)
+        self.mkfsopts = kwargs.get("mkfsoptions", "")
+
+    def _getArgsAsStr(self):
+        retval = F18_RaidData._getArgsAsStr(self)
+
+        if self.mkfsopts:
+            retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
+
+        return retval
+
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -474,4 +490,21 @@ class F20_Raid(F19_Raid):
         if self.handler.autopart.seen:
             errorMsg = _("The raid and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        return retval
+
+class RHEL7_Raid(F20_Raid):
+    removedKeywords = F20_Raid.removedKeywords
+    removedAttrs = F20_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F20_Raid._getParser(self)
+        op.add_option("--mkfsoptions", dest="mkfsopts")
+        return op
+
+    def parse(self, args):
+        retval = F20_Raid.parse(self, args)
+
+        if not retval.format and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+
         return retval

@@ -342,7 +342,17 @@ class F21_TestCase(F20_TestCase):
 
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=2 --percent=30")
 
-RHEL7_TestCase = F21_TestCase
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing",
+                          "logvol /  --size=4096 --mkfsoptions=\"some,thing\" --name=LVNAME --vgname=VGNAME\n")
+
+        # can't use --mkfsoptions if you're not formatting
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat",
+                                KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()

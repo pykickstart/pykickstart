@@ -245,6 +245,20 @@ class F18_PartData(F17_PartData):
 
         return retval
 
+class RHEL7_PartData(F18_PartData):
+    def __init__(self, *args, **kwargs):
+        F18_PartData.__init__(self, *args, **kwargs)
+
+        self.mkfsopts = kwargs.get("mkfsoptions", "")
+
+    def _getArgsAsStr(self):
+        retval = F18_PartData._getArgsAsStr(self)
+
+        if self.mkfsopts != "":
+            retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
+
+        return retval
+
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -453,5 +467,23 @@ class F20_Partition(F18_Partition):
             if retval.grow or retval.maxSizeMB != 0:
                 errorMsg = _("The --fstype=tmpfs option can't be used together with --grow or --maxsize")
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg)) 
+
+        return retval
+
+class RHEL7_Partition(F20_Partition):
+    removedKeywords = F20_Partition.removedKeywords
+    removedAttrs = F20_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F20_Partition._getParser(self)
+        op.add_option("--mkfsoptions", dest="mkfsopts")
+
+        return op
+
+    def parse(self, args):
+        retval = F20_Partition.parse(self, args)
+
+        if not retval.format and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         return retval
