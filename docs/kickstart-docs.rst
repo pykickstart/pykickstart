@@ -1178,7 +1178,7 @@ activated in installer using ``--activate`` option (since F16).
 
     Specifies device to be configured and/or activated with the network
     command. The device can be specified in the same ways as
-    `ksdevice <Anaconda_Boot_Options#ksdevice>`__ boot option. For
+    `ksdevice <https://github.com/rhinstaller/anaconda/blob/master/docs/boot-options.rst#ksdevice>`__ boot option. For
     example:
 
     ``network --bootproto=dhcp --device=eth0``
