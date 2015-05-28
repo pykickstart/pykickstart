@@ -78,5 +78,13 @@ class F18_TestCase(FC6_TestCase):
                                 "ntp.cesnet.cz, tik.nic.cz",
                                 KickstartValueError)
 
+class F23_TestCase(F18_TestCase):
+    def runTest(self):
+        # should keep multiple instances of the same URL
+        self.assert_parse("timezone --utc Europe/Prague --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org,"+
+                          "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org",
+                          "timezone Europe/Prague --isUtc --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org,"+
+                          "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org\n")
+
 if __name__ == "__main__":
     unittest.main()
