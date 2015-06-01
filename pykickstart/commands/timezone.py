@@ -137,3 +137,22 @@ class F18_Timezone(FC6_Timezone):
             raise KickstartParseError(msg)
 
         return self
+
+class F23_Timezone(F18_Timezone):
+    def __init__(self, *args, **kwargs):
+        F18_Timezone.__init__(self, *args, **kwargs)
+        self.ntpservers = kwargs.get("ntpservers", list())
+
+    def _getParser(self):
+        def servers_cb(option, opt_str, value, parser):
+            for server in value.split(","):
+                if server:
+                    parser.values.ensure_value(option.dest, list()).append(server)
+
+
+        op = FC6_Timezone._getParser(self)
+        op.add_option("--nontp", dest="nontp", action="store_true", default=False)
+        op.add_option("--ntpservers", dest="ntpservers", action="callback",
+                      callback=servers_cb, nargs=1, type="string")
+
+        return op
