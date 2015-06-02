@@ -39,6 +39,7 @@ check:
 	tests/pylint/runpylint.py
 
 test:
+	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
 	@echo "*** Running unittests ***"
 	PYTHONPATH=. nosetests --processes=-1 $(NOSEARGS)
 
