@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.1
+Version: 1.99.66.2
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -55,6 +55,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 02 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.2-1
+- Add rc-release Makefile target (bcl)
+- Add a new command to only make those partitions required by the platform. (clumens)
+
 * Tue Apr 28 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.1-1
 - Rebuild for RHEL7.
 
