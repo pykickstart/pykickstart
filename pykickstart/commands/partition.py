@@ -322,15 +322,6 @@ class FC4_Partition(FC3_Partition):
     removedKeywords = FC3_Partition.removedKeywords
     removedAttrs = FC3_Partition.removedAttrs
 
-    def __init__(self, writePriority=130, *args, **kwargs):
-        FC3_Partition.__init__(self, writePriority, *args, **kwargs)
-
-        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
-            if value.startswith("/dev/"):
-                parser.values.ensure_value(option.dest, value[5:])
-            else:
-                parser.values.ensure_value(option.dest, value)
-
     def _getParser(self):
         op = FC3_Partition._getParser(self)
         op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
@@ -343,15 +334,6 @@ class RHEL5_Partition(FC4_Partition):
     removedKeywords = FC4_Partition.removedKeywords
     removedAttrs = FC4_Partition.removedAttrs
 
-    def __init__(self, writePriority=130, *args, **kwargs):
-        FC4_Partition.__init__(self, writePriority, *args, **kwargs)
-
-        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
-            if value.startswith("/dev/"):
-                parser.values.ensure_value(option.dest, value[5:])
-            else:
-                parser.values.ensure_value(option.dest, value)
-
     def _getParser(self):
         op = FC4_Partition._getParser(self)
         op.add_option("--encrypted", action="store_true", default=False)
@@ -361,15 +343,6 @@ class RHEL5_Partition(FC4_Partition):
 class F9_Partition(FC4_Partition):
     removedKeywords = FC4_Partition.removedKeywords
     removedAttrs = FC4_Partition.removedAttrs
-
-    def __init__(self, writePriority=130, *args, **kwargs):
-        FC4_Partition.__init__(self, writePriority, *args, **kwargs)
-
-        def part_cb (option, opt_str, value, parser):       # pylint: disable=unused-variable
-            if value.startswith("/dev/"):
-                parser.values.ensure_value(option.dest, value[5:])
-            else:
-                parser.values.ensure_value(option.dest, value)
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
