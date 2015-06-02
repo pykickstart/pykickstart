@@ -36,10 +36,13 @@ class FC3_TestCase(CommandTest):
 
         # pass
         self.assert_parse("part /home", "part /home%s\n" % self.bytesPerInode)
+        self.assert_parse("part /home --onpart=/dev/sda1", "part /home --onpart=sda1%s\n" % self.bytesPerInode)
 
         if "--start" in self.optionList:
             self.assert_parse("partition raid.1 --active --asprimary --start=0 --end=10 --fstype=ext3 --noformat",
                               "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
+            self.assert_parse("partition raid.1 --start=1 --end=10",
+                              "part raid.1 --end=10 --start=1%s\n" % self.bytesPerInode)
         else:
             self.assert_parse("partition raid.1 --active --asprimary --fstype=ext3 --noformat",
                               "part raid.1 --active --asprimary --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
@@ -77,6 +80,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("part / /home /usr", KickstartValueError)
         # unknown option
         self.assert_parse_error("part /home --unknown=value", KickstartParseError)
+
+        parser = self.handler().commands["part"]
+        pd = parser.parse(["/home"])
+        self.assertFalse(pd == "")
+        self.assertTrue(pd != "")
+
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -169,8 +178,13 @@ class RHEL6_TestCase(F12_TestCase):
 
         self.assert_parse_error("part / --cipher")
 
-        self.assert_parse("part swap --hibernation")
+        self.assert_parse("part swap --hibernation", "part swap --hibernation\n")
         self.assert_parse("part swap --recommended --hibernation")
+
+        with self.assertRaises(KickstartParseError):
+            parser = self.handler().commands["part"]
+            parser.handler.autopart.seen = True
+            parser.parse(["autopart"])
 
 class F14_TestCase(F12_TestCase):
     def runTest(self):
@@ -197,7 +211,7 @@ class F17_TestCase(F14_TestCase):
 class F18_TestCase(F17_TestCase):
     def runTest(self):
         F17_TestCase.runTest(self)
-        self.assert_parse("part swap --hibernation")
+        self.assert_parse("part swap --hibernation", "part swap --hibernation\n")
         self.assert_parse("part swap --recommended")
         self.assert_parse("part swap --recommended --hibernation")
 
