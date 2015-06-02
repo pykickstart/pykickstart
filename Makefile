@@ -21,7 +21,7 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	@which zanata || (echo "*** Please install zanata (zanata-python-client) ***"; exit 2)
 	zanata pull $(ZANATA_PULL_ARGS)
 
 po-empty:
@@ -39,11 +39,12 @@ check:
 	tests/pylint/runpylint.py
 
 test:
+	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
 	@echo "*** Running unittests ***"
 	PYTHONPATH=. nosetests --processes=-1 $(NOSEARGS)
 
 coverage:
-	@which coverage || (echo "*** Please install python-coverage ***"; exit 2)
+	@which coverage || (echo "*** Please install coverage (python-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
 	PYTHONPATH=. nosetests --with-coverage --cover-erase --cover-package=pykickstart $(NOSEARGS)
 
