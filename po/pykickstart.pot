@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-28 15:33-0400\n"
+"POT-Creation-Date: 2015-06-02 10:24-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -435,8 +435,8 @@ msgstr ""
 msgid "One of --url or --mirrorlist must be specified for url command."
 msgstr ""
 
-#: ../pykickstart/commands/raid.py:302 ../pykickstart/commands/logvol.py:348
-#: ../pykickstart/commands/partition.py:299
+#: ../pykickstart/commands/raid.py:302 ../pykickstart/commands/logvol.py:360
+#: ../pykickstart/commands/partition.py:305
 #, python-format
 msgid "Mount point required for %s"
 msgstr ""
@@ -455,7 +455,7 @@ msgstr ""
 msgid "A RAID device with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/raid.py:427 ../pykickstart/commands/raid.py:469
+#: ../pykickstart/commands/raid.py:427 ../pykickstart/commands/raid.py:475
 msgid "The raid and autopart commands can't be used at the same time"
 msgstr ""
 
@@ -473,48 +473,48 @@ msgstr ""
 msgid "A module with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:357
+#: ../pykickstart/commands/logvol.py:369
 #, python-format
 msgid ""
 "A logical volume with the name %s has already been defined in volume group "
 "%s."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:434 ../pykickstart/commands/logvol.py:532
+#: ../pykickstart/commands/logvol.py:446 ../pykickstart/commands/logvol.py:553
 msgid "The logvol and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:438 ../pykickstart/commands/logvol.py:512
+#: ../pykickstart/commands/logvol.py:450 ../pykickstart/commands/logvol.py:533
 msgid "--thin and --thinpool cannot both be specified for the same logvol"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:443 ../pykickstart/commands/logvol.py:518
+#: ../pykickstart/commands/logvol.py:455 ../pykickstart/commands/logvol.py:539
 msgid "--thin requires --poolname to specify pool name"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:448 ../pykickstart/commands/logvol.py:525
+#: ../pykickstart/commands/logvol.py:460 ../pykickstart/commands/logvol.py:546
 msgid "--chunksize and --metadatasize are for thin pools only"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:481
+#: ../pykickstart/commands/logvol.py:496
 msgid "--resize can only be used in conjunction with --useexisting"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:484
+#: ../pykickstart/commands/logvol.py:499
 msgid "--resize requires --size to indicate new size"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:536
+#: ../pykickstart/commands/logvol.py:557
 msgid ""
 "No size given for logical volume. Use one of --useexisting, --noformat, --"
 "size, or --percent."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:540
+#: ../pykickstart/commands/logvol.py:561
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:557
+#: ../pykickstart/commands/logvol.py:581
 msgid "--size and --percent cannot both be specified for the same logvol"
 msgstr ""
 
@@ -528,25 +528,25 @@ msgstr ""
 msgid "The %s and reqpart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:308
+#: ../pykickstart/commands/partition.py:314
 #, python-format
 msgid "A partition with the mountpoint %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:413
-#: ../pykickstart/commands/partition.py:460
+#: ../pykickstart/commands/partition.py:392
+#: ../pykickstart/commands/partition.py:448
 msgid "The part/partition and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:438
+#: ../pykickstart/commands/partition.py:420
 msgid "--resize can only be used in conjunction with --onpart"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:441
+#: ../pykickstart/commands/partition.py:423
 msgid "--resize requires --size to specify new size"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:466
+#: ../pykickstart/commands/partition.py:454
 msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""

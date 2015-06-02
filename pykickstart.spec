@@ -113,6 +113,23 @@ popd
 %{python3_sitelib}/pykickstart/handlers/*py*
 
 %changelog
+* Tue Jun 02 2015 Chris Lumens <clumens@redhat.com> - 2.8-1
+- Merge pull request #16 from atodorov/commands_partition_updates (clumens)
+- Merge pull request #15 from atodorov/fix_zanata_warning (clumens)
+- cover some corner cases in the current partitioning test revealed by python-coverage (atodorov)
+- Merge pull request #14 from atodorov/check_if_nosetests_is_installed (clumens)
+- Remove unnecessary part_cb() and related __init__() methods (atodorov)
+- fix: Warning, the url https://fedora.zanata.org/, contains / at end,please check your URL in zanata.xml (atodorov)
+- if zanata and coverage are not installed make the error messages more platform independent (atodorov)
+- check if nosetest is installed and abort with error if not (atodorov)
+- Merge pull request #13 from vpodzime/master-ntp_pools (clumens)
+- Adapt the Timezone class to support NTP pools (vpodzime)
+- Update kickstart-docs.rst (jkonecny)
+- RHEL7 now supports the reqpart command, too. (clumens)
+- Use isinstance instead of type. (clumens)
+- Add a missing space before --profile= on the logvol command. (clumens)
+- Add some missing removedKeywords/removedAttrs setting. (clumens)
+
 * Tue Apr 28 2015 Chris Lumens <clumens@redhat.com> - 2.7-1
 - Ignore some pylint warnings in the tools/ directory. (clumens)
 - Move most pylint disable pragmas onto the line they apply to. (clumens)
