@@ -37,5 +37,10 @@ class F20_TestCase(CommandTest):
         self.assert_parse_error("eula", KickstartValueError)
         self.assert_parse_error("eula arg1", KickstartValueError)
 
+        # extra
+        eula = self.handler().commands["eula"]
+        eula.agreed = False
+        self.assertTrue(eula._getArgsAsStr() == "")
+
 if __name__ == "__main__":
     unittest.main()
