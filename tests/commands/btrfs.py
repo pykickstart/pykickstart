@@ -97,6 +97,19 @@ class F17_TestCase(CommandTest):
                           "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
         self.assert_parse("btrfs / --data=RAID1 --label=ROOT part.01 part.02",
                           "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
+        self.assert_parse("btrfs / --label=ROOT --metadata=1 part.01 part.02",
+                          "btrfs / --label=ROOT --metadata=raid1 part.01 part.02\n")
+
+        # extra test coverage
+        btrfs = self.handler().commands["btrfs"]
+        btrfs.btrfsList.append(btrfs.parse("btrfs /home --subvol --name=home".split(" ")))
+
+        # excercise F17_BTRFS.__str__() with non-empty btrfsList
+        self.assertEqual(btrfs.__str__(), "btrfs btrfs --subvol --name=home /home\n")
+
+        # check for duplicates in the btrfslist when parsing
+        with self.assertRaises(UserWarning):
+            btrfs.parse("btrfs /home --subvol --name=home".split(" "))
 
         # equality
         self.assertNotEqual(self.assert_parse("btrfs / part.01"), None)
