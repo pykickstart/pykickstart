@@ -2,8 +2,26 @@ import unittest
 import warnings
 from tests.baseclass import ParserTest
 
+from pykickstart.constants import KS_MISSING_IGNORE
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import F21, RHEL6
+
+class Packages_Options_TestCase(ParserTest):
+    ks = """
+%packages --ignoremissing --default --instLangs="bg_BG"
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+
+        # Verify that the options are parsed as expected
+        self.assertTrue(self.handler.packages.default)
+        self.assertEqual(self.handler.packages.handleMissing, KS_MISSING_IGNORE)
+        self.assertEqual(self.handler.packages.instLangs, "bg_BG")
+
+        # extra test coverage
+        self.assertTrue(self.parser._sections['%packages'].seen)
 
 class Packages_Contains_Comments_TestCase(ParserTest):
     ks = """
