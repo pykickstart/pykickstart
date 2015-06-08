@@ -44,6 +44,13 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("device --opts=foo", KickstartValueError)
         self.assert_parse_error("device --opts=\"foo\"", KickstartValueError)
 
+        # extra test coverage
+        device = self.handler().commands["device"]
+        device = device.parse(["TYPE", "MODNAME"])
+        self.assertFalse(device == "")
+        self.assertTrue(device == device)
+        self.assertTrue(device != "")
+
 class F8_TestCase(CommandTest):
     command = "device"
 
@@ -68,6 +75,22 @@ class F8_TestCase(CommandTest):
         self.assert_parse_error("device MODNAME GARBAGE", KickstartValueError)
         self.assert_parse_error("device --opts=foo", KickstartValueError)
         self.assert_parse_error("device --opts=\"foo\"", KickstartValueError)
+
+        # extra test coverage
+        device = self.handler().commands["device"]
+        pd = device.parse(["MODNAME"])
+        self.assertFalse(pd == "")
+        self.assertTrue(pd == pd)
+        self.assertTrue(pd != "")
+
+        # test if string representation is as expected
+        device.deviceList.append(pd)
+        self.assertEqual(device.__str__(), "device MODNAME\n")
+
+        # test if trying to define the same module again will raise
+        # a warning
+        with self.assertRaises(UserWarning):
+            device.parse(["MODNAME"])
 
 if __name__ == "__main__":
     unittest.main()
