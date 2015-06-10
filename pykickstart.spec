@@ -71,7 +71,6 @@ popd
 %install
 rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
-%find_lang %{name}
 
 pushd %{py3dir}
 PYTHON=%{__python3} make DESTDIR=%{buildroot} install
@@ -94,7 +93,7 @@ popd
 %{_bindir}/ksshell
 %{_mandir}/man1/*
 
-%files -n python-kickstart -f %{name}.lang
+%files -n python-kickstart
 %defattr(-,root,root,-)
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.rst
@@ -102,8 +101,9 @@ popd
 %{python2_sitelib}/pykickstart/*py*
 %{python2_sitelib}/pykickstart/commands/*py*
 %{python2_sitelib}/pykickstart/handlers/*py*
+%{python2_sitelib}/pykickstart/locale/
 
-%files -n python3-kickstart -f %{name}.lang
+%files -n python3-kickstart
 %defattr(-,root,root,-)
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.rst
@@ -111,6 +111,7 @@ popd
 %{python3_sitelib}/pykickstart/*py*
 %{python3_sitelib}/pykickstart/commands/*py*
 %{python3_sitelib}/pykickstart/handlers/*py*
+%{python3_sitelib}/pykickstart/locale/
 
 %changelog
 * Tue Jun 02 2015 Chris Lumens <clumens@redhat.com> - 2.8-1
