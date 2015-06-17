@@ -188,6 +188,7 @@ def returnClassForVersion(version=DEVEL):
             if k.lower().endswith("%shandler" % module):
                 return v
     except:
+        found = None
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
     finally: # Closing opened files in imp.load_module
         if found and len(found) > 0:
