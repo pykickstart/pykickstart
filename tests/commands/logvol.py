@@ -344,5 +344,21 @@ class F21_TestCase(F20_TestCase):
 
 RHEL7_TestCase = F21_TestCase
 
+class F23_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
+        # accept cache specifications
+        self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback")
+        # cache mode is not required
+        self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02")
+
+        # both cache size and cache PVs are required
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachepvs=pv.01,pv.02")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachemode=writeback")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback --useexisting")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback --noformat")
+
 if __name__ == "__main__":
     unittest.main()
