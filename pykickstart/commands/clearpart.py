@@ -113,16 +113,21 @@ class F21_ClearPart(F17_ClearPart):
     def __init__(self, *args, **kwargs):
         super(F21_ClearPart, self).__init__(*args, **kwargs)
         self.disklabel = kwargs.get("disklabel", "")
+        self.cdl = kwargs.get("cdl", False)
 
     def __str__(self):
         s = super(F21_ClearPart, self).__str__()
         if s and self.disklabel:
             s = s.rstrip()
             s += " --disklabel=%s\n" % self.disklabel
+        if s and self.cdl:
+            s = s.rstrip()
+            s += " --cdl\n"
         return s
 
     def _getParser(self):
         op = F17_ClearPart._getParser(self)
 
         op.add_option("--disklabel", dest="disklabel", default="")
+        op.add_option("--cdl", dest="cdl", action="store_true", default=False)
         return op
