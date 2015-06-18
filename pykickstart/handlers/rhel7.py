@@ -34,7 +34,7 @@ class RHEL7Handler(BaseHandler):
         "bootloader": commands.bootloader.RHEL7_Bootloader,
         "btrfs": commands.btrfs.RHEL7_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
-        "clearpart": commands.clearpart.F21_ClearPart,
+        "clearpart": commands.clearpart.RHEL7_ClearPart,
         "cmdline": commands.displaymode.FC3_DisplayMode,
         "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,
