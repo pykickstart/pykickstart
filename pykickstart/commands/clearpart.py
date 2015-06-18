@@ -126,3 +126,22 @@ class F21_ClearPart(F17_ClearPart):
 
         op.add_option("--disklabel", dest="disklabel", default="")
         return op
+
+class F28_ClearPart(F21_ClearPart):
+    def __init__(self, *args, **kwargs):
+        super(F28_ClearPart, self).__init__(*args, **kwargs)
+        self.cdl = kwargs.get("cdl", False)
+
+    def __str__(self):
+        s = super(F28_ClearPart, self).__str__()
+        if s and self.cdl:
+            s = s.rstrip()
+            s += " --cdl\n"
+        return s
+
+    def _getParser(self):
+        op = super(F28_ClearPart, self)._getParser()
+        op.add_option("--cdl", dest="cdl", action="store_true", default=False)
+        return op
+
+RHEL7_ClearPart = F28_ClearPart
