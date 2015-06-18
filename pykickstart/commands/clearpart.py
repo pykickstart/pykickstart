@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F17, F21
+from pykickstart.version import FC3, F17, F21, F28
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_LIST, CLEARPART_TYPE_NONE
 from pykickstart.options import KSOptionParser, commaSplit
@@ -150,3 +150,25 @@ class F21_ClearPart(F17_ClearPart):
                         supported for the platform will be accepted. eg. msdos
                         and gpt for x86_64 but not dasd.""")
         return op
+
+class F28_ClearPart(F21_ClearPart):
+    def __init__(self, *args, **kwargs):
+        super(F28_ClearPart, self).__init__(*args, **kwargs)
+        self.cdl = kwargs.get("cdl", False)
+
+    def __str__(self):
+        s = super(F28_ClearPart, self).__str__()
+        if s and self.cdl:
+            s = s.rstrip()
+            s += " --cdl\n"
+        return s
+
+    def _getParser(self):
+        op = super(F28_ClearPart, self)._getParser()
+        op.add_argument("--cdl", dest="cdl", default=False, version=F28,
+                        action="store_true", help="""
+                        Reformat any LDL DASDs to CDL format.""")
+        return op
+
+class RHEL7_ClearPart(F28_ClearPart):
+    pass
