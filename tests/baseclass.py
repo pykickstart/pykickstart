@@ -253,6 +253,7 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=None):
                 loaded = imp.load_module(module, found[0], found[1], found[2])
             except ImportError as e:
                 print(_("Error loading module %s: %s") % (module, e))
+                found = None
                 continue
 
             # Find class names that match the supplied pattern (default: "_TestCase")
