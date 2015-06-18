@@ -36,7 +36,7 @@ docs:
 
 check:
 	@echo "*** Running pylint to verify source ***"
-	tests/pylint/runpylint.py
+	PYTHONPATH=. tests/pylint/runpylint.py
 
 test:
 	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
