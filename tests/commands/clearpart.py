@@ -44,5 +44,19 @@ class F21_TestCase(F17_TestCase):
                           "clearpart --all --initlabel --disklabel=gpt\n")
         self.assert_parse_error("clearpart --all --disklabel")
 
+class F28_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+        self.assert_parse("clearpart --all --cdl",
+                          "clearpart --all --cdl\n")
+
+        self.assert_parse("clearpart --all --drives=dasda,dasdb,dasdc --cdl",
+                          "clearpart --all --drives=dasda,dasdb,dasdc --cdl\n")
+
+        # cdl should not take a value
+        self.assert_parse_error("clearpart --cdl=foo")
+
+RHEL7_TestCase = F28_TestCase
+
 if __name__ == "__main__":
     unittest.main()

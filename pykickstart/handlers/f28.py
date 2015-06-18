@@ -34,7 +34,7 @@ class F28Handler(BaseHandler):
         "bootloader": commands.bootloader.F21_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
-        "clearpart": commands.clearpart.F21_ClearPart,
+        "clearpart": commands.clearpart.F28_ClearPart,
         "cmdline": commands.displaymode.F26_DisplayMode,
         "device": commands.device.F8_Device,
         "deviceprobe": commands.deviceprobe.FC3_DeviceProbe,

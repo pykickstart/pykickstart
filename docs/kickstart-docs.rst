@@ -463,6 +463,9 @@ By default, no partitions are removed.
     platform will be accepted. eg. msdos and gpt for x86\_64 but not
     dasd. Added in anaconda-21.43-1
 
+``--cdl``
+
+    Reformat any LDL DASDs to CDL format.
 
 cmdline
 -------
