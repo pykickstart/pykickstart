@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.2
+Version: 1.99.66.3
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -55,6 +55,12 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 18 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.3-1
+- Add --mkfsoptions to btrfs, logvol, partition, and raid commands. (clumens)
+- Merge pull request #25 from bcl/rhel7-1207747 (clumens)
+- Allow skipping the errors on unknown sections. (#1180255) (sbueno+anaconda)
+- Add --kexec flag to reboot (#1207747) (bcl)
+
 * Tue Jun 02 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.2-1
 - Add rc-release Makefile target (bcl)
 - Add a new command to only make those partitions required by the platform. (clumens)
