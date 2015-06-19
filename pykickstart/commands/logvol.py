@@ -324,6 +324,25 @@ class RHEL7_LogVolData(F21_LogVolData):
 
         return retval
 
+class F23_LogVolData(F21_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F21_LogVolData.__init__(self, *args, **kwargs)
+        self.cache_size = kwargs.get("cache_size", 0)
+        self.cache_mode = kwargs.get("cache_mode", "")
+        self.cache_pvs = kwargs.get("cache_pvs", [])
+
+    def _getArgsAsStr(self):
+        retval = F21_LogVolData._getArgsAsStr(self)
+
+        if self.cache_size:
+            retval += " --cachesize=%d" % self.cache_size
+        if self.cache_pvs:
+            retval += " --cachepvs=%s" % ",".join(self.cache_pvs)
+        if self.cache_mode:
+            retval += " --cachemode=%s" % self.cache_mode
+
+        return retval
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -613,5 +632,46 @@ class RHEL7_LogVol(F21_LogVol):
 
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+
+        return retval
+
+class F23_LogVol(F21_LogVol):
+    def _getParser(self):
+        def pvs_cb(option, opt_str, value, parser):
+            for pv in value.split(","):
+                if pv:
+                    parser.values.ensure_value(option.dest, list()).append(pv)
+
+        op = F21_LogVol._getParser(self)
+        op.add_option("--cachesize", type="int", dest="cache_size")
+        op.add_option("--cachemode", type="string", action="store", nargs=1, dest="cache_mode")
+        op.add_option("--cachepvs", dest="cache_pvs", action="callback",
+                      callback=pvs_cb, nargs=1, type="string")
+
+        return op
+
+    def parse(self, args):
+        retval = F21_LogVol.parse(self, args)
+
+        if retval.cache_size or retval.cache_mode or retval.cache_pvs:
+            if retval.preexist:
+                err = formatErrorMsg(self.lineno, msg=_("Adding a cache to an existing logical volume is not supported"))
+                raise KickstartParseError(err)
+
+            if retval.thin_volume:
+                err = formatErrorMsg(self.lineno, msg=_("Thin volumes cannot be cached"))
+                raise KickstartParseError(err)
+
+            if not retval.cache_pvs:
+                err = formatErrorMsg(self.lineno, msg=_("Cache needs to have a list of (fast) PVs specified"))
+                raise KickstartParseError(err)
+
+            if not retval.cache_size:
+                err = formatErrorMsg(self.lineno, msg=_("Cache needs to have size specified"))
+                raise KickstartParseError(err)
+
+            if retval.cache_mode and retval.cache_mode not in ("writeback", "writethrough"):
+                err = formatErrorMsg(self.lineno, msg=_("Invalid cache mode given: %s") % retval.cache_mode)
+                raise KickstartParseError(err)
 
         return retval

@@ -1047,6 +1047,19 @@ Create a logical volume for Logical Volume Management (LVM).
     ``--size=``. This option must be used with
     ``--useexisting --size=``, or an error will be raised.
 
+``--cachesize``
+
+    Requested size of cache attached to the logical volume. (Requires --cachepvs)
+
+``--cachepvs``
+
+    Comma-separated list of (fast) physical volumes that should be used for the
+    cache.
+
+``--cachemode``
+
+    Mode that should be used for the cache. Either ``writeback`` or ``writethrough``.
+
 Create the partition first, create the logical volume group, and then
 create the logical volume. For example:
 
