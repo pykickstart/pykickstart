@@ -1049,7 +1049,8 @@ Create a logical volume for Logical Volume Management (LVM).
 
 ``--cachesize``
 
-    Requested size of cache attached to the logical volume. (Requires --cachepvs)
+    Requested size (in MiB) of cache attached to the logical volume. (Requires
+    --cachepvs)
 
 ``--cachepvs``
 
