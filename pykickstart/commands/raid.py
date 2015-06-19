@@ -233,7 +233,7 @@ class F18_RaidData(F15_RaidData):
 
         return retval
 
-class RHEL7_RaidData(F18_RaidData):
+class F23_RaidData(F18_RaidData):
     removedKeywords = F18_RaidData.removedKeywords
     removedAttrs = F18_RaidData.removedAttrs
 
@@ -248,6 +248,8 @@ class RHEL7_RaidData(F18_RaidData):
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval
+
+RHEL7_RaidData = F23_RaidData
 
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -492,7 +494,7 @@ class F20_Raid(F19_Raid):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
-class RHEL7_Raid(F20_Raid):
+class F23_Raid(F20_Raid):
     removedKeywords = F20_Raid.removedKeywords
     removedAttrs = F20_Raid.removedAttrs
 
@@ -508,3 +510,5 @@ class RHEL7_Raid(F20_Raid):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         return retval
+
+RHEL7_Raid = F23_Raid

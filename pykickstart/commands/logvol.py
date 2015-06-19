@@ -330,6 +330,7 @@ class F23_LogVolData(F21_LogVolData):
         self.cache_size = kwargs.get("cache_size", 0)
         self.cache_mode = kwargs.get("cache_mode", "")
         self.cache_pvs = kwargs.get("cache_pvs", [])
+        self.mkfsopts = kwargs.get("mkfsoptions", "")
 
     def _getArgsAsStr(self):
         retval = F21_LogVolData._getArgsAsStr(self)
@@ -340,6 +341,8 @@ class F23_LogVolData(F21_LogVolData):
             retval += " --cachepvs=%s" % ",".join(self.cache_pvs)
         if self.cache_mode:
             retval += " --cachemode=%s" % self.cache_mode
+        if self.mkfsopts:
+            retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval
 
@@ -647,6 +650,7 @@ class F23_LogVol(F21_LogVol):
         op.add_option("--cachemode", type="string", action="store", nargs=1, dest="cache_mode")
         op.add_option("--cachepvs", dest="cache_pvs", action="callback",
                       callback=pvs_cb, nargs=1, type="string")
+        op.add_option("--mkfsoptions", dest="mkfsopts")
 
         return op
 
@@ -673,5 +677,8 @@ class F23_LogVol(F21_LogVol):
             if retval.cache_mode and retval.cache_mode not in ("writeback", "writethrough"):
                 err = formatErrorMsg(self.lineno, msg=_("Invalid cache mode given: %s") % retval.cache_mode)
                 raise KickstartParseError(err)
+
+        if not retval.format and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         return retval

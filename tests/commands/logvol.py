@@ -370,5 +370,13 @@ class F23_TestCase(F21_TestCase):
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback --useexisting")
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback --noformat")
 
+        # pass
+        self.assert_parse("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing",
+                          "logvol /  --size=4096 --mkfsoptions=\"some,thing\" --name=LVNAME --vgname=VGNAME\n")
+
+        # can't use --mkfsoptions if you're not formatting
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat",
+                                KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

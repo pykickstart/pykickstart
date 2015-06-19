@@ -255,7 +255,7 @@ class F19_TestCase(F18_TestCase):
         F18_TestCase.__init__(self, *kargs, **kwargs)
         self.minorBasedDevice = False
 
-class RHEL7_TestCase(F19_TestCase):
+class F23_TestCase(F19_TestCase):
     def runTest(self):
         F19_TestCase.runTest(self)
 
@@ -266,6 +266,8 @@ class RHEL7_TestCase(F19_TestCase):
         # can't use --mkfsoptions if you're not formatting
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat raid.01 raid.02",
                                 KickstartValueError)
+
+RHEL7_TestCase = F23_TestCase
 
 if __name__ == "__main__":
     unittest.main()

@@ -117,7 +117,7 @@ class F17_TestCase(CommandTest):
         self.assertEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs / part.02"))
         self.assertNotEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs /home part.01"))
 
-class RHEL7_TestCase(F17_TestCase):
+class F23_TestCase(F17_TestCase):
     def runTest(self):
         F17_TestCase.runTest(self)
 
@@ -128,6 +128,8 @@ class RHEL7_TestCase(F17_TestCase):
         # can't use --mkfsoptions if you're not formatting
         self.assert_parse_error("btrfs / --useexisting --mkfsoptions=whatever", KickstartValueError)
         self.assert_parse_error("btrfs / --noformat --mkfsoptions=whatever", KickstartValueError)
+
+RHEL7_TestCase = F23_TestCase
 
 if __name__ == "__main__":
     unittest.main()

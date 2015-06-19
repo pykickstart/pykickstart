@@ -75,7 +75,7 @@ class F17_BTRFSData(BaseData):
         retval += self._getArgsAsStr()
         return retval + " " + " ".join(self.devices) + "\n"
 
-class RHEL7_BTRFSData(F17_BTRFSData):
+class F23_BTRFSData(F17_BTRFSData):
     removedKeywords = F17_BTRFSData.removedKeywords
     removedAttrs = F17_BTRFSData.removedAttrs
 
@@ -90,6 +90,8 @@ class RHEL7_BTRFSData(F17_BTRFSData):
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval
+
+RHEL7_BTRFSData = F23_BTRFSData
 
 class F17_BTRFS(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -180,7 +182,7 @@ class F17_BTRFS(KickstartCommand):
     def dataList(self):
         return self.btrfsList
 
-class RHEL7_BTRFS(F17_BTRFS):
+class F23_BTRFS(F17_BTRFS):
     removedKeywords = F17_BTRFS.removedKeywords
     removedAttrs = F17_BTRFS.removedAttrs
 
@@ -197,3 +199,5 @@ class RHEL7_BTRFS(F17_BTRFS):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
 
         return data
+
+RHEL7_BTRFS = F23_BTRFS

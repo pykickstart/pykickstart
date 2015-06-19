@@ -245,7 +245,7 @@ class F18_PartData(F17_PartData):
 
         return retval
 
-class RHEL7_PartData(F18_PartData):
+class F23_PartData(F18_PartData):
     def __init__(self, *args, **kwargs):
         F18_PartData.__init__(self, *args, **kwargs)
 
@@ -258,6 +258,8 @@ class RHEL7_PartData(F18_PartData):
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval
+
+RHEL7_PartData = F23_PartData
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -470,7 +472,7 @@ class F20_Partition(F18_Partition):
 
         return retval
 
-class RHEL7_Partition(F20_Partition):
+class F23_Partition(F20_Partition):
     removedKeywords = F20_Partition.removedKeywords
     removedAttrs = F20_Partition.removedAttrs
 
@@ -487,3 +489,5 @@ class RHEL7_Partition(F20_Partition):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         return retval
+
+RHEL7_Partition = F23_Partition

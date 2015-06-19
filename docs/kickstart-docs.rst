@@ -370,6 +370,14 @@ subvolumes, should be the identifier of the subvolume's parent volume.
 
     Same as --noformat, above.
 
+``--mkfsoptions=``
+
+    Specifies additional parameters to be passed to the program that makes
+    a filesystem on this partition. No processing is done on the list of arguments,
+    so they must be supplied in a format that can be passed directly to the mkfs
+    program.  This means multiple options should be comma-separated or surrounded
+    by double quotes, depending on the filesystem.
+
 The following example shows how to create a BTRFS volume from member
 partitions on three disks with subvolumes for root and home. The main
 volume is not mounted or used directly in this example -- only the root
@@ -965,6 +973,14 @@ Create a logical volume for Logical Volume Management (LVM).
     filesystem. This string will be copied into the /etc/fstab file of
     the installed system and should be enclosed in quotes.
 
+``--mkfsoptions=``
+
+    Specifies additional parameters to be passed to the program that makes
+    a filesystem on this partition. No processing is done on the list of arguments,
+    so they must be supplied in a format that can be passed directly to the mkfs
+    program.  This means multiple options should be comma-separated or surrounded
+    by double quotes, depending on the filesystem.
+
 ``--grow``
 
     Tells the logical volume to grow to fill available space (if any),
@@ -1412,6 +1428,16 @@ one of the following forms:
     types and there must be a configuration file that lists valid types.
     For ext2/3/4, this configuration file is ``/etc/mke2fs.conf``.
 
+``--mkfsoptions=``
+
+    Specifies additional parameters to be passed to the program that makes
+    a filesystem on this partition. This is similar to ``--fsprofile`` but
+    works for all filesystems, not just the ones that support the profile
+    concept. No processing is done on the list of arguments, so they must
+    be supplied in a format that can be passed directly to the mkfs program.
+    This means multiple options should be comma-separated or surrounded by
+    double quotes, depending on the filesystem.
+
 ``--fstype=``
 
     Sets the file system type for the partition. Valid values include
@@ -1528,6 +1554,14 @@ Assembles a software RAID device. This command is of the form:
     Specifies a free form string of options to be used when mounting the
     filesystem. This string will be copied into the /etc/fstab file of
     the installed system and should be enclosed in quotes.
+
+``--mkfsoptions=``
+
+    Specifies additional parameters to be passed to the program that makes
+    a filesystem on this partition. No processing is done on the list of arguments,
+    so they must be supplied in a format that can be passed directly to the mkfs
+    program.  This means multiple options should be comma-separated or surrounded
+    by double quotes, depending on the filesystem.
 
 ``--label=``
 
