@@ -84,8 +84,7 @@ local: docs po-pull
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/'
-	@echo
+	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
 
 bumpver: po-pull
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
