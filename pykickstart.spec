@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.8
+Version:   2.9
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,20 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jun 22 2015 Chris Lumens <clumens@redhat.com> - 2.9-1
+- Add --mkfsoptions to btrfs, logvol, partition, and raid commands. (clumens)
+- Document the unit used for the --cachesize option (vpodzime)
+- Add options for LVM cache specs to the 'logvol' command (vpodzime) (clumens)
+- Set PYTHONPATH when running "make check". (clumens)
+- Add --mkfsoptions to btrfs, logvol, partition, and raid commands. (clumens)
+- Avoid traceback in module loading failure paths. (dlehman)
+- Install the python3 .mo files to python3_sitelib (dshea)
+- add extra test coverage for commands/btrfs.py (atodorov)
+- additional test coverage for commands/device.py (atodorov)
+- additional test coverage for parser/sections.py (atodorov)
+- add test documentation (atodorov)
+- cover corner case in commands/eula.py test (atodorov)
+
 * Tue Jun 02 2015 Chris Lumens <clumens@redhat.com> - 2.8-1
 - Merge pull request #16 from atodorov/commands_partition_updates (clumens)
 - Merge pull request #15 from atodorov/fix_zanata_warning (clumens)
