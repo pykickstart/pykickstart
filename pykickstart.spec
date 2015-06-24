@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.3
+Version: 1.99.66.4
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,11 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jun 24 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.4-1
+- transifex-client is no longer needed to build. (clumens)
+- Add kickstart docs to the source tree (clumens)
+- Add options for LVM cache specs to the 'logvol' command (vpodzime)
+
 * Thu Jun 18 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.3-1
 - Add --mkfsoptions to btrfs, logvol, partition, and raid commands. (clumens)
 - Merge pull request #25 from bcl/rhel7-1207747 (clumens)
