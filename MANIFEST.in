@@ -1,4 +1,4 @@
 include COPYING Makefile pykickstart.spec
 recursive-include po *.po *.pot Makefile
-recursive-include docs programmers-guide kickstart-docs.txt *.1
+recursive-include docs programmers-guide kickstart-docs.rst *.1
 recursive-include tests *.py

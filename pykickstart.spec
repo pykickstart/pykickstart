@@ -46,7 +46,7 @@ make test
 %defattr(-,root,root,-)
 %license COPYING
 %doc README docs/programmers-guide
-%doc docs/kickstart-docs.txt
+%doc docs/kickstart-docs.rst
 %{python_sitelib}/*
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
