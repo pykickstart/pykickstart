@@ -227,6 +227,13 @@ large enough drives, this will also create a /home partition.
     scheme and a filesystem. eg. --fstype=ext4. Added in
     anaconda-21.46-1
 
+``--snapshot``
+
+    Create a snapshot of the root device immediately after installation
+    and reconfigure the system so that it uses the snapshot as its root
+    device. Only applicable when --type=thinp or --type=btrfs is also
+    specified.
+
 
 autostep
 --------

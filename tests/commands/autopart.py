@@ -169,7 +169,22 @@ class F21_TestCase(F20_TestCase):
         self.assert_parse_error("autopart --fstype=btrfs")
         self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
 
-RHEL7_TestCase = F21_TestCase
+class F23_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --type=thinp --snapshot",
+                          'autopart --type=thinp --snapshot\n')
+        self.assert_parse("autopart --type=btrfs --snapshot",
+                          'autopart --type=btrfs --snapshot\n')
+
+        # fail
+        self.assert_parse_error("autopart --snapshot")
+        self.assert_parse_error("autopart --type=lvm --snapshot")
+        self.assert_parse_error("autopart --type=partition --snapshot")
+
+RHEL7_TestCase = F23_TestCase
 
 if __name__ == "__main__":
     unittest.main()

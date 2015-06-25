@@ -381,4 +381,38 @@ class F21_AutoPart(F20_AutoPart):
 
         return retval
 
-RHEL7_AutoPart = F21_AutoPart
+class F23_AutoPart(F21_AutoPart):
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F21_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.snapshot = kwargs.get("snapshot", False)
+
+    def __str__(self):
+        retval = F21_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
+        if self.snapshot:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --snapshot"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F21_AutoPart._getParser(self)
+        op.add_option("--snapshot", action="store_true", default=False)
+        return op
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F21_AutoPart.parse(self, args)
+
+        snapshot_autopart_types = (AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_BTRFS)
+        if self.snapshot and self.type not in snapshot_autopart_types:
+            raise KickstartParseError(formatErrorMsg(self.lineno,
+                    msg=_("autopart --snapshot is only valid for types thinp,btrfs")))
+
+        return retval
+
+RHEL7_AutoPart = F23_AutoPart
