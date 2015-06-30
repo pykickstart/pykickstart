@@ -269,5 +269,9 @@ class RHEL7_TestCase(F19_TestCase):
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat raid.01 raid.02",
                                 KickstartValueError)
 
+        # can't use --mkfsoptions with --fsprofile
+        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02",
+                                KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()

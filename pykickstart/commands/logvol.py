@@ -564,6 +564,9 @@ class RHEL7_LogVol(F21_LogVol):
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
+        if retval.fsprofile and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+
         if retval.cache_size or retval.cache_mode or retval.cache_pvs:
             if retval.preexist:
                 err = formatErrorMsg(self.lineno, msg=_("Adding a cache to an existing logical volume is not supported"))

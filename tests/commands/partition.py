@@ -217,5 +217,8 @@ class RHEL7_TestCase(F18_TestCase):
         # can't use --mkfsoptions if you're not formatting
         self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --noformat", KickstartValueError)
 
+        # can't use --mkfsoptions with --fsprofile
+        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --fsprofile=PROFILE", KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()
