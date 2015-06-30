@@ -488,6 +488,9 @@ class F23_Partition(F20_Partition):
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
+        if retval.fsprofile and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+
         return retval
 
 RHEL7_Partition = F23_Partition

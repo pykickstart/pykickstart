@@ -509,6 +509,9 @@ class F23_Raid(F20_Raid):
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
+        if retval.fsprofile and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+
         return retval
 
 RHEL7_Raid = F23_Raid

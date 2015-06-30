@@ -636,6 +636,9 @@ class RHEL7_LogVol(F21_LogVol):
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
+        if retval.fsprofile and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+
         return retval
 
 class F23_LogVol(F21_LogVol):
@@ -680,5 +683,8 @@ class F23_LogVol(F21_LogVol):
 
         if not retval.format and retval.mkfsopts:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+
+        if retval.fsprofile and retval.mkfsopts:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval

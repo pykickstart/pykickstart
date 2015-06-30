@@ -354,9 +354,17 @@ class RHEL7_TestCase(F21_TestCase):
         self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat",
                                 KickstartValueError)
 
+        # can't use --mkfsoptions with --fsprofile
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE",
+                                KickstartValueError)
+
 class F23_TestCase(F21_TestCase):
     def runTest(self):
         F21_TestCase.runTest(self)
+
+        # can't use --mkfsoptions with --fsprofile
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE",
+                                KickstartValueError)
 
         # accept cache specifications
         self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback")
