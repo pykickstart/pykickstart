@@ -45,7 +45,8 @@ class F23_ReqPart(KickstartCommand):
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
-        retval += "reqpart%s\n" % self._getArgsAsStr()
+        if self.reqpart:
+            retval += "reqpart%s\n" % self._getArgsAsStr()
         return retval
 
     def _getParser(self):
