@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.9
+Version:   2.10
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jul 06 2015 Chris Lumens <clumens@redhat.com> - 2.10-1
+- Don't forget to call the superclass's __init__ in Group now. (clumens)
+- Group objects need to be hashable. (clumens)
+- Ignore some more files. (clumens)
+- Don't allow using --fsprofile and --mkfsopts at the same time. (clumens)
+
 * Mon Jun 22 2015 Chris Lumens <clumens@redhat.com> - 2.9-1
 - Add --mkfsoptions to btrfs, logvol, partition, and raid commands. (clumens)
 - Document the unit used for the --cachesize option (vpodzime)
