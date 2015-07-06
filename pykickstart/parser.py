@@ -230,6 +230,7 @@ class Group(KickstartObject):
            include -- The level of how much of the group should be included.
                       Values can be GROUP_* from pykickstart.constants.
         """
+        KickstartObject.__init__(self)
         self.name = name
         self.include = include
 
