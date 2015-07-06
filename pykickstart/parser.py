@@ -221,7 +221,7 @@ class Script(KickstartObject):
 ##
 ## PACKAGE HANDLING
 ##
-class Group:
+class Group(KickstartObject):
     """A class representing a single group in the %packages section."""
     def __init__(self, name="", include=constants.GROUP_DEFAULT):
         """Create a new Group instance.  Instance attributes:
@@ -441,7 +441,7 @@ class Packages(KickstartObject):
 ###
 ### PARSER
 ###
-class KickstartParser:
+class KickstartParser(object):
     """The kickstart file parser class as represented by a basic state
        machine.  To create a specialized parser, make a subclass and override
        any of the methods you care about.  Methods that don't need to do

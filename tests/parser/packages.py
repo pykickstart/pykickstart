@@ -5,6 +5,11 @@ from tests.baseclass import ParserTest
 from pykickstart.constants import KS_MISSING_IGNORE
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import F21, RHEL6
+from pykickstart.parser import Group
+
+class GroupsAreHashable_TestCase(ParserTest):
+    def runTest(self):
+        self.assertEqual(hash(Group(name="groupA")), hash(Group(name="groupA")))
 
 class Packages_Options_TestCase(ParserTest):
     ks = """
