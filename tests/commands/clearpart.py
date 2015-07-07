@@ -44,7 +44,7 @@ class F21_TestCase(F17_TestCase):
         self.assert_parse_error("clearpart --all --disklabel")
 
         self.assert_parse("clearpart --all --cdl", "clearpart --all --cdl\n")
-        self.assert_parse("clearpart --all --cdl --drives=dasda,dasdb,dasdc", "clearpart --all --cdl --drives=dasda,dasdb,dasdc\n")
+        self.assert_parse("clearpart --all --cdl --drives=dasda,dasdb,dasdc", "clearpart --all --drives=dasda,dasdb,dasdc --cdl\n")
 
         # cdl should not take a value
         self.assert_parse_error("clearpart --cdl=foo")
