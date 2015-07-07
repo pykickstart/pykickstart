@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.4
+Version: 1.99.66.5
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,13 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jul 07 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.5-1
+- Reorder the expected output in the clearpart CDL test. (clumens)
+- Fix whitespace error in clearpart --cdl test (#1232849) (sbueno+anaconda)
+- Add clearpart --cdl option. (#1232849) (sbueno+anaconda)
+- Avoid polluting generated kickstarts by unexpected reqpart commands (#1164660) (mkolman)
+- Don't allow using --fsprofile and --mkfsopts at the same time. (clumens)
+
 * Wed Jun 24 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.4-1
 - transifex-client is no longer needed to build. (clumens)
 - Add kickstart docs to the source tree (clumens)
