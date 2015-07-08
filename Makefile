@@ -41,12 +41,12 @@ check:
 test:
 	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
 	@echo "*** Running unittests ***"
-	PYTHONPATH=. nosetests --processes=-1 $(NOSEARGS)
+	PYTHONPATH=. $(PYTHON) -m nose --processes=-1 $(NOSEARGS)
 
 coverage:
 	@which coverage || (echo "*** Please install coverage (python-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. nosetests --with-coverage --cover-erase --cover-package=pykickstart $(NOSEARGS)
+	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-package=pykickstart $(NOSEARGS)
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
