@@ -261,6 +261,8 @@ class Group(KickstartObject):
     def __ge__(self, other):
         return self.name >= other.name
 
+    __hash__ = KickstartObject.__hash__
+
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
     def __init__(self, *args, **kwargs):

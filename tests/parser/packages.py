@@ -9,7 +9,7 @@ from pykickstart.parser import Group
 
 class GroupsAreHashable_TestCase(ParserTest):
     def runTest(self):
-        self.assertEqual(hash(Group(name="groupA")), hash(Group(name="groupA")))
+        hash(Group(name="groupA"))
 
 class Packages_Options_TestCase(ParserTest):
     ks = """
