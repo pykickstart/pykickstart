@@ -22,6 +22,7 @@ BuildRequires: transifex-client
 %endif
 
 BuildRequires: python3-devel
+BuildRequires: python3-nose
 BuildRequires: python3-pocketlint
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
