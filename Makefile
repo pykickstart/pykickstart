@@ -126,4 +126,7 @@ rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(SPECFILE) --sources . --resultdir $(PWD) || exit 1
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD)  || exit 1
 
+ci:
+	$(MAKE) PYTHON=python3 check coverage
+
 .PHONY: check clean install tag archive local docs
