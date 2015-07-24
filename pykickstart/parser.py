@@ -161,18 +161,24 @@ class Script(KickstartObject):
     def __init__(self, script, *args , **kwargs):
         """Create a new Script instance.  Instance attributes:
 
-           errorOnFail -- If execution of the script fails, should anaconda
-                          stop, display an error, and then reboot without
-                          running any other scripts?
-           inChroot    -- Does the script execute in anaconda's chroot
-                          environment or not?
-           interp      -- The program that should be used to interpret this
-                          script.
-           lineno      -- The line number this script starts on.
-           logfile     -- Where all messages from the script should be logged.
-           script      -- A string containing all the lines of the script.
-           type        -- The type of the script, which can be KS_SCRIPT_* from
-                          pykickstart.constants.
+           :keyword errorOnFail: If execution of the script fails, should anaconda
+                                 stop, display an error, and then reboot without
+                                 running any other scripts?
+
+           :keyword inChroot: Does the script execute in anaconda's chroot
+                              environment or not?
+
+           :keyword interp: The program that should be used to interpret this
+                            script.
+
+           :keyword lineno: The line number this script starts on.
+
+           :keyword logfile: Where all messages from the script should be logged.
+
+           :keyword script: A string containing all the lines of the script.
+
+           :keyword type: The type of the script, which can be KS_SCRIPT_* from
+                          :mod:`pykickstart.constants`.
         """
         KickstartObject.__init__(self, *args, **kwargs)
         self.script = "".join(script)
