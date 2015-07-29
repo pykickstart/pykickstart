@@ -15,7 +15,7 @@ NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests
 
 PYTHON?=python
 
-MOCKCHROOT ?= fedora-rawhide-x86_64
+MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 all:
 	$(MAKE) -C po
