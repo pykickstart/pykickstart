@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.11
+Version:   2.12
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,13 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Jul 30 2015 Chris Lumens <clumens@redhat.com> - 2.12-1
+- Avoid polluting generated kickstarts by unexpected reqpart commands (#1164660) (mkolman)
+- Don't always assume the mock chroot is on x86_64. (clumens)
+- Remove documentation compilation warnings (jkonecny)
+- Use sys.exit instead of os._exit. (clumens)
+- Add a new makefile target that does everything needed for jenkins. (clumens)
+
 * Thu Jul 09 2015 Chris Lumens <clumens@redhat.com> - 2.11-1
 - Run nosetests with the same python as was passed to make. (clumens)
 - Looks like Group still needs to define __hash__ to be hashable. (clumens)

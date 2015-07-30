@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-09 10:40-0400\n"
+"POT-Creation-Date: 2015-07-30 10:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,21 +134,21 @@ msgstr ""
 msgid "Unable to open %%ksappend file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:126 ../pykickstart/parser.py:755
+#: ../pykickstart/parser.py:126 ../pykickstart/parser.py:761
 #, python-format
 msgid "Unable to open input kickstart file: %s"
 msgstr ""
 
-#: ../pykickstart/parser.py:378
+#: ../pykickstart/parser.py:384
 msgid "Group cannot specify both --nodefaults and --optional"
 msgstr ""
 
-#: ../pykickstart/parser.py:559 ../pykickstart/parser.py:600
+#: ../pykickstart/parser.py:565 ../pykickstart/parser.py:606
 #, python-format
 msgid "Section %s does not end with %%end."
 msgstr ""
 
-#: ../pykickstart/parser.py:694
+#: ../pykickstart/parser.py:700
 #, python-format
 msgid "Unknown kickstart section: %s"
 msgstr ""
@@ -157,7 +157,7 @@ msgstr ""
 #. NullSection for the header we just saw.  Then nothing else
 #. needs to change.  You can turn this warning into an error via
 #. ksvalidator, or the warnings module.
-#: ../pykickstart/parser.py:700
+#: ../pykickstart/parser.py:706
 #, python-format
 msgid "Potentially unknown section seen at line %(lineno)s: %(sectionName)s"
 msgstr ""
@@ -520,7 +520,7 @@ msgstr ""
 msgid "A FCOE device with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/reqpart.py:59
+#: ../pykickstart/commands/reqpart.py:60
 #, python-format
 msgid "The %s and reqpart commands can't be used at the same time"
 msgstr ""
