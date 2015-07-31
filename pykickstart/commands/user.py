@@ -119,7 +119,7 @@ class F19_UserData(F12_UserData):
         retval = F12_UserData._getArgsAsStr(self)
 
         if self.gid:
-            retval += " --gid=%d" % (self.gid,)
+            retval += " --gid=%s" % (self.gid)
 
         return retval
 
