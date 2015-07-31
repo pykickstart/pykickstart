@@ -1,4 +1,5 @@
 import six
+import sys
 import unittest
 import tempfile
 import os
@@ -212,6 +213,17 @@ class returnClassForVersion_TestCase(CommandTest):
 
             self.assertEqual(returnClassForVersion(vers).version, vers)
 
+        # test that unknown version will raise an exception
+        import pykickstart.version as ver
+        orig_versionToString = ver.versionToString
+        with self.assertRaises(KickstartVersionError):
+            def fake_versionToString(version, skipDevel = False):
+                return "-1"
+
+            ver.versionToString = fake_versionToString
+            ver.returnClassForVersion(-1)
+        ver.versionToString = orig_versionToString
+
         # Load the handlers
         import pykickstart.handlers
         for module in loadModules(pykickstart.handlers.__path__[0], cls_pattern="Handler", skip_list=["control"]):
@@ -286,6 +298,30 @@ cdrom
         ks_cfg = write_ks_cfg(ks_cfg)
         self.assertRaises(KickstartVersionError, versionFromFile, ks_cfg)
         os.unlink(ks_cfg)
+
+class FailedImpImport_TestCase(CommandTest):
+    def runTest(self):
+        try:
+            # will force another import
+            del sys.modules['pykickstart.version']
+            del sys.modules['imp']
+
+            # will cause ImportError
+            sys.modules['imputil'] = None
+
+            import pykickstart.version as ver
+            from pykickstart.handlers.f23 import F23Handler
+
+            cls = ver.returnClassForVersion(ver.F23)
+
+            # assert the names; b/c of how the imp.load_module() works
+            # asserting both classes being equal fails
+            self.assertEqual(cls.__name__, F23Handler.__name__)
+        finally:
+            # force import to reload these modules
+            del sys.modules['pykickstart.version']
+            del sys.modules['imp']
+            del sys.modules['imputil']
 
 if __name__ == "__main__":
     unittest.main()
