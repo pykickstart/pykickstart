@@ -34,6 +34,9 @@ class F19_Liveimg(KickstartCommand):
         self.op = self._getParser()
 
     def __eq__(self, other):
+        if not other:
+            return False
+
         return self.url == other.url and self.proxy == other.proxy and \
                self.noverifyssl == other.noverifyssl and \
                self.checksum == other.checksum
