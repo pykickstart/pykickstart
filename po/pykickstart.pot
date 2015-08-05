@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-30 10:34-0400\n"
+"POT-Creation-Date: 2015-08-05 17:03-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,13 +170,6 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
-#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
-#: ../pykickstart/commands/xconfig.py:98 ../pykickstart/commands/fcoe.py:115
-#: ../pykickstart/commands/iscsi.py:144
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr ""
-
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -212,6 +205,13 @@ msgstr ""
 msgid "An ssh user with the name %s has already been defined."
 msgstr ""
 
+#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/firewall.py:117
+#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/xconfig.py:98
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr ""
+
 #: ../pykickstart/commands/repo.py:188
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
@@ -230,15 +230,14 @@ msgstr ""
 msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
-#: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/skipx.py:50
-#: ../pykickstart/commands/zerombr.py:66 ../pykickstart/commands/upgrade.py:56
-#: ../pykickstart/commands/upgrade.py:93 ../pykickstart/commands/eula.py:63
-#: ../pykickstart/commands/autopart.py:45
+#: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
+#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/zerombr.py:66
+#: ../pykickstart/commands/upgrade.py:56 ../pykickstart/commands/upgrade.py:93
+#: ../pykickstart/commands/eula.py:63 ../pykickstart/commands/autopart.py:45
 #: ../pykickstart/commands/unsupported_hardware.py:51
 #: ../pykickstart/commands/displaymode.py:59
 #: ../pykickstart/commands/mediacheck.py:49
 #: ../pykickstart/commands/interactive.py:50
-#: ../pykickstart/commands/cdrom.py:50
 #, python-format
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
@@ -248,10 +247,6 @@ msgstr ""
 #: ../pykickstart/commands/lang.py:50 ../pykickstart/commands/key.py:59
 #, python-format
 msgid "Kickstart command %s requires one argument"
-msgstr ""
-
-#: ../pykickstart/commands/logging.py:68
-msgid "Can't specify --port without --host."
 msgstr ""
 
 #: ../pykickstart/commands/harddrive.py:75
@@ -298,6 +293,11 @@ msgid ""
 "ignoredisk command."
 msgstr ""
 
+#: ../pykickstart/commands/rescue.py:63
+msgid ""
+"Only one of --nomount and --romount may be specified for rescue command."
+msgstr ""
+
 #: ../pykickstart/commands/upgrade.py:96
 #, python-format
 msgid "Kickstart command %s does not accept empty parameter %s"
@@ -329,42 +329,6 @@ msgstr ""
 #: ../pykickstart/commands/monitor.py:66
 #, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:320 ../pykickstart/commands/logvol.py:396
-#: ../pykickstart/commands/partition.py:321
-#, python-format
-msgid "Mount point required for %s"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:323
-#, python-format
-msgid "Partitions required for %s"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:325
-msgid "Members may not be specified for preexisting RAID device"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:343
-#, python-format
-msgid "A RAID device with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:445 ../pykickstart/commands/raid.py:493
-msgid "The raid and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:510 ../pykickstart/commands/logvol.py:637
-#: ../pykickstart/commands/logvol.py:685
-#: ../pykickstart/commands/partition.py:489
-msgid "--mkfsoptions with --noformat has no effect."
-msgstr ""
-
-#: ../pykickstart/commands/raid.py:513 ../pykickstart/commands/logvol.py:640
-#: ../pykickstart/commands/logvol.py:688
-#: ../pykickstart/commands/partition.py:492
-msgid "--mkfsoptions and --fsprofile cannot be used together."
 msgstr ""
 
 #: ../pykickstart/commands/bootloader.py:247
@@ -433,6 +397,42 @@ msgstr ""
 
 #: ../pykickstart/commands/url.py:172
 msgid "One of --url or --mirrorlist must be specified for url command."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:320 ../pykickstart/commands/logvol.py:396
+#: ../pykickstart/commands/partition.py:321
+#, python-format
+msgid "Mount point required for %s"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:323
+#, python-format
+msgid "Partitions required for %s"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:325
+msgid "Members may not be specified for preexisting RAID device"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:343
+#, python-format
+msgid "A RAID device with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:445 ../pykickstart/commands/raid.py:493
+msgid "The raid and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:510 ../pykickstart/commands/logvol.py:637
+#: ../pykickstart/commands/logvol.py:685
+#: ../pykickstart/commands/partition.py:489
+msgid "--mkfsoptions with --noformat has no effect."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:513 ../pykickstart/commands/logvol.py:640
+#: ../pykickstart/commands/logvol.py:688
+#: ../pykickstart/commands/partition.py:492
+msgid "--mkfsoptions and --fsprofile cannot be used together."
 msgstr ""
 
 #: ../pykickstart/commands/device.py:97
@@ -548,9 +548,8 @@ msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
 
-#: ../pykickstart/commands/rescue.py:63
-msgid ""
-"Only one of --nomount and --romount may be specified for rescue command."
+#: ../pykickstart/commands/logging.py:68
+msgid "Can't specify --port without --host."
 msgstr ""
 
 #: ../pykickstart/commands/updates.py:53

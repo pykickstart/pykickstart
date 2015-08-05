@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.12
+Version:   2.13
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Wed Aug 05 2015 Chris Lumens <clumens@redhat.com> - 2.13-1
+- Fix liveimg equality check (bcl)
+- improve test coverage for version.py (atodorov)
+
 * Thu Jul 30 2015 Chris Lumens <clumens@redhat.com> - 2.12-1
 - Avoid polluting generated kickstarts by unexpected reqpart commands (#1164660) (mkolman)
 - Don't always assume the mock chroot is on x86_64. (clumens)
