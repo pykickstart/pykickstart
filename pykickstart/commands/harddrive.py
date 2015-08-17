@@ -39,7 +39,7 @@ class FC3_HardDrive(KickstartCommand):
         if not other:
             return False
 
-        return self.biospart == other.biospart and self.partition == other.partition
+        return self.biospart == other.biospart and self.partition == other.partition and self.dir == other.dir
 
     def __ne__(self, other):
         return not self == other
