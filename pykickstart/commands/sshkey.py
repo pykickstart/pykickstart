@@ -90,7 +90,7 @@ class F22_SshKey(KickstartCommand):
         ud.key = extra[0]
 
         if ud in self.dataList():
-            warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.name)
+            warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username)
 
         return ud
 
