@@ -204,7 +204,7 @@ class RHEL6_LogVolData(F12_LogVolData):
             retval += " --thin --poolname=%s" % self.pool_name
 
         if self.profile:
-            retval += "--profile=%s" % self.profile
+            retval += " --profile=%s" % self.profile
 
         return retval
 
