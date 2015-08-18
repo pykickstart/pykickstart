@@ -1,5 +1,5 @@
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartValueError
 
@@ -43,6 +43,12 @@ class F19_TestCase(CommandTest):
         # Bad arguments, unsupported argument
         self.assert_parse_error("realm join --user=blah one.example.com", KickstartValueError)
 
+class F19_MultipleJoin_TestCase(CommandSequenceTest):
+    def runTest(self):
+        # fail - can't use join more than once
+        self.assert_parse_error("""
+realm join blah1
+realm join blah2""")
 
 if __name__ == "__main__":
     unittest.main()

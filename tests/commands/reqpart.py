@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 class F23_TestCase(CommandTest):
     command = "reqpart"
@@ -30,11 +30,12 @@ class F23_TestCase(CommandTest):
         # pass
         self.assert_parse("reqpart --add-boot", "reqpart --add-boot\n")
 
-        # fail
-        self.assert_parse_error("autopart --passphrase")
-        self.assert_parse_error("autopart --encrypted --passphrase")
-        self.assert_parse_error("autopart --encrypted=False")
-        self.assert_parse_error("autopart --encrypted=True")
+class F23_AutopartReqpart_TestCase(CommandSequenceTest):
+    def runTest(self):
+        # fail - can't use both autopart and reqpart
+        self.assert_parse_error("""
+autopart
+reqpart""")
 
 RHEL7_TestCase = F23_TestCase
 

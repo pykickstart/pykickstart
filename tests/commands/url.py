@@ -28,6 +28,12 @@ class FC3_TestCase(CommandTest):
         # pass
         self.assert_parse("url --url=http://domain.com", "url --url=\"http://domain.com\"\n")
 
+        self.assertFalse(self.assert_parse("url --url=http://domain.com") == None)
+        self.assertTrue(self.assert_parse("url --url=http://domainA.com") != \
+                        self.assert_parse("url --url=http://domainB.com"))
+        self.assertFalse(self.assert_parse("url --url=http://domainA.com") == \
+                         self.assert_parse("url --url=http://domainB.com"))
+
         # fail
         # missing required option --url
         self.assert_parse_error("url", KickstartValueError)
@@ -41,6 +47,11 @@ class F13_TestCase(FC3_TestCase):
         # pass
         self.assert_parse("url --url=http://someplace/somewhere --proxy=http://wherever/other",
                           "url --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\"\n")
+
+        self.assertTrue(self.assert_parse("url --url=http://domain.com --proxy=http://proxy.com") == \
+                        self.assert_parse("url --url=http://domain.com --proxy=http://proxy.com"))
+        self.assertFalse(self.assert_parse("url --url=http://domain.com --proxy=http://proxyA.com") == \
+                         self.assert_parse("url --url=http://domain.com --proxy=http://proxyB.com"))
 
         # fail
         self.assert_parse_error("cdrom --proxy=http://someplace/somewhere", KickstartParseError)
@@ -56,6 +67,11 @@ class F14_TestCase(F13_TestCase):
         self.assert_parse("url --url=https://someplace/somewhere --noverifyssl",
                           "url --url=\"https://someplace/somewhere\" --noverifyssl\n")
 
+        self.assertTrue(self.assert_parse("url --url=https://domain.com --noverifyssl") == \
+                        self.assert_parse("url --url=https://domain.com --noverifyssl"))
+        self.assertFalse(self.assert_parse("url --url=https://domain.com") == \
+                         self.assert_parse("url --url=https://domain.com --noverifyssl"))
+
         # fail
         self.assert_parse_error("cdrom --noverifyssl", KickstartParseError)
 
@@ -67,6 +83,11 @@ class F18_TestCase(F14_TestCase):
         # pass
         self.assert_parse("url --mirrorlist=http://www.wherever.com/mirror",
                           "url --mirrorlist=\"http://www.wherever.com/mirror\"\n")
+
+        self.assertTrue(self.assert_parse("url --mirrorlist=https://domain.com") == \
+                        self.assert_parse("url --mirrorlist=https://domain.com"))
+        self.assertFalse(self.assert_parse("url --url=https://domain.com") == \
+                         self.assert_parse("url --mirrorlist=https://domain.com"))
 
         # fail
         # missing one of required options --url or --mirrorlist

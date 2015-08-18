@@ -19,7 +19,7 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -55,6 +55,16 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --unknown", KickstartParseError)
         # not expected argument
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah", KickstartValueError)
+
+class FC6_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+repo --name=repoA --baseurl=http://www.domain.com
+repo --name=repoB --baseurl=http://www.domain.com""")
+
+        self.assert_parse_error("""
+repo --name=repoA --baseurl=http://www.domain.com
+repo --name=repoA --baseurl=http://www.domain.com""", UserWarning)
 
 class F8_TestCase(FC6_TestCase):
     def runTest(self, urlRequired=True):

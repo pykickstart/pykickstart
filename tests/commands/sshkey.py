@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -30,11 +30,27 @@ class F22_TestCase(CommandTest):
         # pass
         self.assert_parse('sshkey --username=root "%s"' % self.key, 'sshkey --username=root "%s"\n' % self.key)
 
+        self.assertFalse(self.assert_parse("sshkey --username=root '%s'" % self.key) == None)
+        self.assertTrue(self.assert_parse("sshkey --username=A '%s'" % self.key) != \
+                        self.assert_parse("sshkey --username=B '%s'" % self.key))
+        self.assertFalse(self.assert_parse("sshkey --username=A '%s'" % self.key) == \
+                         self.assert_parse("sshkey --username=B '%s'" % self.key))
+
         # fail
         self.assert_parse_error("sshkey", KickstartValueError)
         self.assert_parse_error("sshkey --foo", KickstartParseError)
         self.assert_parse_error("sshkey --username", KickstartParseError)
         self.assert_parse_error("sshkey --username=root", KickstartValueError)
+
+class F22_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+sshkey --username=someguy 'this is the key'
+sshkey --username=otherguy 'this is the key'""")
+
+        self.assert_parse_error("""
+sshkey --username=someguy 'this is the key'
+sshkey --username=someguy 'this is the key'""", UserWarning)
 
 if __name__ == "__main__":
     unittest.main()

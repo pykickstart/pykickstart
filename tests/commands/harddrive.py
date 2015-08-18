@@ -29,6 +29,14 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=/install --biospart=part\n")
         self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
 
+        self.assertFalse(self.assert_parse("harddrive --dir=/install --partition=sda1") == None)
+        self.assertTrue(self.assert_parse("harddrive --dir=/install --partition=sda1") != \
+                        self.assert_parse("harddrive --dir=/install --partition=sda2"))
+        self.assertFalse(self.assert_parse("harddrive --dir=/install --biospart=80p1") == \
+                         self.assert_parse("harddrive --dir=/install --biospart=80p2"))
+        self.assertFalse(self.assert_parse("harddrive --dir=/install --biospart=sda1") == \
+                         self.assert_parse("harddrive --dir=/other-install --biospart=sda1"))
+
         # fail
         # required option --dir missing
         self.assert_parse_error("harddrive", KickstartValueError)

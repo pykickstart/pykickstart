@@ -19,7 +19,7 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -35,6 +35,12 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("user --name=user --homedir=/home/user --shell=/bin/bash", "user --homedir=/home/user --name=user --shell=/bin/bash\n")
         self.assert_parse("user --name=user --password=secret", "user --name=user --password=secret\n")
         self.assert_parse("user --name=user --uid=1000", "user --name=user --uid=1000\n")
+
+        self.assertFalse(self.assert_parse("user --name=user") == None)
+        self.assertTrue(self.assert_parse("user --name=userA") != \
+                        self.assert_parse("user --name=userB"))
+        self.assertFalse(self.assert_parse("user --name=userA") == \
+                         self.assert_parse("user --name=userB"))
 
         # fail
         # missing required option --name
@@ -52,6 +58,17 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("user --name=user --uid", KickstartParseError)
         self.assert_parse_error("user --name=user --password", KickstartParseError)
 
+class FC6_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        # pass - can use the command twice, as long as they have different names
+        self.assert_parse("""
+user --name=userA
+user --name=userB""")
+
+        # fail - can't have two users with the same name
+        self.assert_parse_error("""
+user --name=userA
+user --name=userA""", UserWarning)
 
 class F8_TestCase(FC6_TestCase):
     def runTest(self):

@@ -52,6 +52,8 @@ class F19_TestCase(CommandTest):
         self.assertNotEqual(self.assert_parse("liveimg --url=http://one --checksum=deadbeef"), self.assert_parse("liveimg --url=http://one"))
         self.assertNotEqual(self.assert_parse("liveimg --url=http://one --checksum=deadbeef"), self.assert_parse("liveimg --url=http://one --checksum=abababab"))
 
+        self.assertFalse(self.assert_parse("liveimg --url=http://one") == None)
+
         # fail
         self.assert_parse_error("liveimg", KickstartValueError)
         self.assert_parse_error("liveimg --url", KickstartParseError)

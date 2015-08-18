@@ -31,6 +31,14 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5",
                           "zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5\n")
 
+        self.assertFalse(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5") == None)
+        self.assertTrue(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5") != \
+                        self.assert_parse("zfcp --devnum=6 --wwpn=7 --fcplun=8 --scsiid=9 --scsilun=10"))
+        self.assertFalse(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5") == \
+                         self.assert_parse("zfcp --devnum=6 --wwpn=7 --fcplun=8 --scsiid=9 --scsilun=10"))
+        self.assertTrue(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5") == \
+                        self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5"))
+
         # fail
         self.assert_parse_error("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4",
                                 KickstartValueError)

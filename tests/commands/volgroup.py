@@ -1,5 +1,5 @@
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -28,6 +28,12 @@ class FC3_TestCase(CommandTest):
         self.assert_type("volgroup", "format", "boolean")
         self.assert_type("volgroup", "preexist", "boolean")
 
+        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") == None)
+        self.assertTrue(self.assert_parse("volgroup vg.01 pv.01") != \
+                        self.assert_parse("volgroup vg.02 pv.01"))
+        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") == \
+                         self.assert_parse("volgroup vg.02 pv.01"))
+
         # fail - incorrect type
         self.assert_parse_error("volgroup vg.01 pv.01 --pesize=SIZE", KickstartParseError)
 
@@ -39,6 +45,16 @@ class FC3_TestCase(CommandTest):
 
         # fail - both members and useexisting specified
         self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02", KickstartValueError)
+
+class FC3_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+volgroup vg.01 pv.01
+volgroup vg.02 pv.01""")
+
+        self.assert_parse_error("""
+volgroup vg.01 pv.01
+volgroup vg.01 pv.02""", UserWarning)
 
 class F16_TestCase(FC3_TestCase):
     def runTest(self):

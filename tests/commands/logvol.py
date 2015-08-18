@@ -1,5 +1,5 @@
 import unittest, six
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -18,6 +18,14 @@ class FC3_TestCase(CommandTest):
     def runTest(self):
         if "--bytes-per-inode" in self.optionList:
             self.bytesPerInode = "--bytes-per-inode=4096 "
+
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == None)
+        self.assertTrue(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") != \
+                        self.assert_parse("logvol / --size=1024 --name=OTHER --vgname=VGNAME"))
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == \
+                         self.assert_parse("logvol / --size=1024 --name=OTHER --vgname=VGNAME"))
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == \
+                         self.assert_parse("logvol / --size=1024 --name=NAME --vgname=OTHERVG"))
 
         # --name and --vgname
         self.assert_parse("logvol / --size=10240 --name=NAME --vgname=VGNAME",
@@ -72,6 +80,21 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol", KickstartValueError, "Option --name is required")
         self.assert_parse_error("logvol --name=NAME", KickstartValueError, "Option --vgname is required")
         self.assert_parse_error("logvol --vgname=NAME", KickstartValueError, "Option --name is required")
+        self.assert_parse_error("logvol --name=NAME --vgname=NAME", KickstartValueError, "Mount point required for logvol")
+
+class FC3_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+logvol / --size=1024 --name=nameA --vgname=vgA
+logvol /home --size=1024 --name=nameB --vgname=vgA""")
+
+        self.assert_parse("""
+logvol / --size=1024 --name=nameA --vgname=vgA
+logvol /home --size=1024 --name=nameA --vgname=vgB""")
+
+        self.assert_parse_error("""
+logvol / --size=1024 --name=nameA --vgname=vgA
+logvol /home --size=1024 --name=nameA --vgname=vgA""", UserWarning)
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -194,6 +217,9 @@ class RHEL6_TestCase(F12_TestCase):
     def runTest(self):
         F12_TestCase.runTest(self)
 
+        self.assert_parse("logvol / --size=1024 --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
+                          "logvol /  --size=1024 --fsprofile=\"FS_PROFILE\" --name=NAME --vgname=VGNAME\n")
+
         self.assert_parse("logvol / --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
         # Allowed here, but anaconda should complain.  Note how we throw out
@@ -203,10 +229,10 @@ class RHEL6_TestCase(F12_TestCase):
 
         self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
 
-        self.assert_parse("logvol swap --hibernation "
-                            "--name=NAME --vgname=VGNAME")
-        self.assert_parse("logvol swap --recommended --hibernation "
-                            "--name=NAME --vgname=VGNAME")
+        self.assert_parse("logvol swap --hibernation --name=NAME --vgname=VGNAME",
+                          "logvol swap  --hibernation --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol swap --recommended --hibernation --name=NAME --vgname=VGNAME",
+                          "logvol swap  --recommended --hibernation --name=NAME --vgname=VGNAME\n")
 
         # thinp
         self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool",
@@ -223,6 +249,8 @@ class RHEL6_TestCase(F12_TestCase):
                           "--thin --poolname=pool1",
                           "logvol /home  --thin --poolname=pool1 "
                           "--name=home --vgname=vg\n")
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --profile=performance --size=500",
+                          "logvol none  --size=500 --thinpool --profile=performance --name=pool1 --vgname=vg\n")
 
         # missing pool name
         self.assert_parse_error("logvol /home --name=home --vgname=vg --thin")
@@ -237,6 +265,13 @@ class RHEL6_TestCase(F12_TestCase):
         # chunksize and/or metadata size and not thinpool
         self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
                                 "--chunksize=512")
+
+class RHEL6_AutopartLogVol_TestCase(CommandSequenceTest):
+    def runTest(self):
+        # fail - can't use both autopart and logvol
+        self.assert_parse_error("""
+autopart
+logvol / --size=1024 --name=lv --vgname=vg""", KickstartParseError)
 
 class F14_TestCase(F12_TestCase):
     def runTest(self):
@@ -268,10 +303,10 @@ class F18_TestCase(F17_TestCase):
     def runTest(self):
         F17_TestCase.runTest(self)
 
-        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
-                          "--hibernation --size=1024")
-        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME "\
-                          "--recommended --hibernation --size=1024")
+        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME --hibernation --size=1024",
+                          "logvol swap  --size=1024 --hibernation --name=NAME --vgname=VGNAME\n")
+        self.assert_parse("logvol swap --name=NAME --vgname=VGNAME --recommended --hibernation --size=1024",
+                          "logvol swap  --recommended --size=1024 --hibernation --name=NAME --vgname=VGNAME\n")
 
         self.assert_parse("logvol / --size=1024 --encrypted --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --size=1024 --encrypted --cipher=\"3-rot13\" --name=NAME --vgname=VGNAME\n")
@@ -337,7 +372,8 @@ class F21_TestCase(F20_TestCase):
 
         # --profile should work for all logvol commands even though it may be
         # implemented only for some types (thin pool,...)
-        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --profile=performance --size=500")
+        self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --profile=performance --size=500",
+                          "logvol none  --size=500 --thinpool --profile=performance --name=pool1 --vgname=vg\n")
         self.assert_parse("logvol /home --name=homelv --vgname=vg --profile=performance --size=500")
 
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=2 --percent=30")
@@ -367,7 +403,8 @@ class F23_TestCase(F21_TestCase):
                                 KickstartValueError)
 
         # accept cache specifications
-        self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback")
+        self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback",
+                          "logvol /home  --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback --name=home --vgname=vg\n")
         # cache mode is not required
         self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02")
 

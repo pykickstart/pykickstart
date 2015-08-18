@@ -19,7 +19,7 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -31,6 +31,12 @@ class F12_TestCase(CommandTest):
         self.assert_parse("group --name=test", "group --name=test\n")
         self.assert_parse("group --name=test --gid=1000", "group --name=test --gid=1000\n")
 
+        self.assertFalse(self.assert_parse("group --name=test") == None)
+        self.assertTrue(self.assert_parse("group --name=testA") != \
+                        self.assert_parse("group --name=testB"))
+        self.assertFalse(self.assert_parse("group --name=testA") == \
+                         self.assert_parse("group --name=testB"))
+
         # fail
         # missing required option --name
         self.assert_parse_error("group", KickstartValueError)
@@ -40,6 +46,16 @@ class F12_TestCase(CommandTest):
         self.assert_parse_error("group --name=test --uid=id", KickstartParseError)
         # unknown option
         self.assert_parse_error("group --name=test --unknown=value", KickstartParseError)
+
+class F12_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+group --name=test
+group --name=othertest""")
+
+        self.assert_parse_error("""
+group --name=test --gid=1000
+group --name=test --gid=1010""", UserWarning)
 
 if __name__ == "__main__":
     unittest.main()
