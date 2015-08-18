@@ -122,6 +122,13 @@ class F12_ZFCP(FC3_ZFCP):
         FC3_ZFCP.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
+    def __eq__(self, y):
+        if not y:
+            return False
+
+        return self.devnum == y.devnum and self.wwpn == y.wwpn and \
+               self.fcplun == y.fcplun
+
     def _getParser(self):
         op = FC3_ZFCP._getParser(self)
         op.add_option("--scsiid", deprecated=1)
