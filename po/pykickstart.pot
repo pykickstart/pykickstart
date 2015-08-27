@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-05 17:03-0400\n"
+"POT-Creation-Date: 2015-08-27 11:53-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -170,6 +170,13 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
+#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
+#: ../pykickstart/commands/xconfig.py:98 ../pykickstart/commands/fcoe.py:115
+#: ../pykickstart/commands/iscsi.py:144
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr ""
+
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -190,26 +197,6 @@ msgstr ""
 
 #: ../pykickstart/commands/realm.py:70
 msgid "Specify only one realm to join"
-msgstr ""
-
-#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/timezone.py:60
-#: ../pykickstart/commands/sshkey.py:89
-#: ../pykickstart/commands/keyboard.py:121
-#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/sshpw.py:106 ../pykickstart/commands/sshkey.py:93
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/firewall.py:117
-#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
-#: ../pykickstart/commands/xconfig.py:98
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/repo.py:188
@@ -242,15 +229,39 @@ msgstr ""
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/commands/iscsiname.py:51
+#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/key.py:59
 #: ../pykickstart/commands/keyboard.py:51 ../pykickstart/commands/mouse.py:62
-#: ../pykickstart/commands/lang.py:50 ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/lang.py:50
 #, python-format
 msgid "Kickstart command %s requires one argument"
 msgstr ""
 
+#: ../pykickstart/commands/group.py:86
+#, python-format
+msgid "A group with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/logging.py:68
+msgid "Can't specify --port without --host."
+msgstr ""
+
 #: ../pykickstart/commands/harddrive.py:75
 msgid "One of biospart or partition options must be specified."
+msgstr ""
+
+#: ../pykickstart/commands/updates.py:53
+#, python-format
+msgid "Kickstart command %s only takes one argument"
+msgstr ""
+
+#: ../pykickstart/commands/ignoredisk.py:83
+msgid "One of --drives or --only-use must be specified for ignoredisk command."
+msgstr ""
+
+#: ../pykickstart/commands/ignoredisk.py:129
+msgid ""
+"One of --drives , --only-use , or --interactive must be specified for "
+"ignoredisk command."
 msgstr ""
 
 #: ../pykickstart/commands/zerombr.py:53
@@ -283,21 +294,6 @@ msgstr ""
 msgid "The volgroup and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/ignoredisk.py:83
-msgid "One of --drives or --only-use must be specified for ignoredisk command."
-msgstr ""
-
-#: ../pykickstart/commands/ignoredisk.py:129
-msgid ""
-"One of --drives , --only-use , or --interactive must be specified for "
-"ignoredisk command."
-msgstr ""
-
-#: ../pykickstart/commands/rescue.py:63
-msgid ""
-"Only one of --nomount and --romount may be specified for rescue command."
-msgstr ""
-
 #: ../pykickstart/commands/upgrade.py:96
 #, python-format
 msgid "Kickstart command %s does not accept empty parameter %s"
@@ -322,10 +318,6 @@ msgstr ""
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
-#: ../pykickstart/commands/timezone.py:135
-msgid "Options --nontp and --ntpservers are mutually exclusive"
-msgstr ""
-
 #: ../pykickstart/commands/monitor.py:66
 #, python-format
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
@@ -342,6 +334,20 @@ msgstr ""
 
 #: ../pykickstart/commands/services.py:68
 msgid "One of --disabled or --enabled must be provided."
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/keyboard.py:121
+#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/rootpw.py:64
+#: ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/timezone.py:60
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:93 ../pykickstart/commands/sshpw.py:106
+#, python-format
+msgid "An ssh user with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/dmraid.py:90
@@ -548,18 +554,9 @@ msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
 
-#: ../pykickstart/commands/logging.py:68
-msgid "Can't specify --port without --host."
-msgstr ""
-
-#: ../pykickstart/commands/updates.py:53
-#, python-format
-msgid "Kickstart command %s only takes one argument"
-msgstr ""
-
-#: ../pykickstart/commands/group.py:86
-#, python-format
-msgid "A group with the name %s has already been defined."
+#: ../pykickstart/commands/rescue.py:63
+msgid ""
+"Only one of --nomount and --romount may be specified for rescue command."
 msgstr ""
 
 #: ../pykickstart/commands/network.py:373
@@ -626,6 +623,10 @@ msgstr ""
 
 #: ../pykickstart/commands/btrfs.py:199
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:135
+msgid "Options --nontp and --ntpservers are mutually exclusive"
 msgstr ""
 
 #: ../tools/ksflatten:35

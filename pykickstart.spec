@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.13
+Version:   2.14
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,14 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Aug 27 2015 Chris Lumens <clumens@redhat.com> - 2.14-1
+- Fix writing out an empty %packages section when using ksflatten. (clumens)
+- Fix a typo in output from the RHEL6 logvol command. (clumens)
+- Increase test coverage by a couple percent. (clumens)
+- Fix zfcp equality testing for F12 and later. (clumens)
+- Fix warning on adding a second user with the same name. (clumens)
+- Directories have to be the same in harddrive equality testing. (clumens)
+
 * Wed Aug 05 2015 Chris Lumens <clumens@redhat.com> - 2.13-1
 - Fix liveimg equality check (bcl)
 - improve test coverage for version.py (atodorov)
