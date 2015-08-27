@@ -348,7 +348,7 @@ class Packages(KickstartObject):
             for pkg in p:
                 pkgs += "-%s\n" % pkg
 
-            if pkgs == "":
+            if pkgs == "" and not self.seen:
                 return ""
 
         retval = "\n%packages"

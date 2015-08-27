@@ -170,5 +170,22 @@ class Packages_Contains_Environment_4_TestCase(ParserTest):
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(self.handler.packages.environment, "another-environment")
 
+# An empty %packages section is allowed, and means something different from %packages --default.
+# An empty section means to install the minimum amount of stuff, while --default means to install
+# whatever would have been installed had this been a graphical installation and the user just
+# accepted whatever was offered.
+class Packages_Empty_TestCase(ParserTest):
+    ks = """
+%packages
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True):
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertTrue(self.handler.packages.seen)
+            self.assertEqual(str(self.handler.packages).strip(), "%packages\n\n%end")
+
 if __name__ == "__main__":
     unittest.main()
