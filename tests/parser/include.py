@@ -5,6 +5,7 @@ import tempfile
 from tests.baseclass import ParserTest
 
 from pykickstart import constants
+from pykickstart.errors import KickstartError
 
 class Base_Include(ParserTest):
     def setUp(self):
@@ -139,6 +140,49 @@ ls /tmp
 
         # Also verify the body, which is the most important part.
         self.assertEqual(script.script.rstrip(), "ls /tmp")
+
+class Include_URL_TestCase(Base_Include):
+    ks = """
+%%include %s
+"""
+
+    includeKS = """
+%pre
+ls /tmp
+%end
+"""
+
+    def setUp(self):
+        super(Include_URL_TestCase, self).setUp()
+
+        server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler)
+        httpd_port = server.server_port
+        self._httpd_pid = os.fork()
+        if self._httpd_pid == 0:
+            os.chdir(os.path.dirname(self._path))
+            server.serve_forever()
+
+        self._url = 'http://127.0.0.1:%d/%s' % (httpd_port, os.path.basename(self._path))
+
+    def tearDown(self):
+        super(Include_URL_TestCase, self).tearDown()
+
+        import signal
+        os.kill(self._httpd_pid, signal.SIGTERM)
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks % self._url)
+        self.assertEqual(len(self.handler.scripts), 1)
+
+        # Verify that the script body came through
+        script = self.handler.scripts[0]
+        self.assertEqual(script.script.rstrip(), "ls /tmp")
+
+class Include_Bad_URL_TestCase(Include_URL_TestCase):
+    def runTest(self):
+        # Add some garbage to the end of the URL and ensure it breaks
+        self.assertRaisesRegexp(KickstartError, "Error accessing URL",
+                self.parser.readKickstartFromString, self.ks % (self._url + "-garbage"))
 
 if __name__ == "__main__":
     unittest.main()
