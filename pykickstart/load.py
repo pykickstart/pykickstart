@@ -82,7 +82,7 @@ def _load_url(location):
     except RequestException as e:
         raise KickstartError(_('Error accessing URL "%s"') % location + ': {e}'.format(e=str(e)))
 
-    return request.content
+    return request.text
 
 
 def _load_file(filename):
