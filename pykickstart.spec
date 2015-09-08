@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.14
+Version:   2.15
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Sep 08 2015 Chris Lumens <clumens@redhat.com> - 2.15-1
+- Fix a typo in the README. (clumens)
+- Check whether requests actually fetched the URL (dshea)
+- Return URL loads as str instead of bytes (dshea)
+- Add test cases for including kickstart data via URL. (dshea)
+
 * Thu Aug 27 2015 Chris Lumens <clumens@redhat.com> - 2.14-1
 - Fix writing out an empty %packages section when using ksflatten. (clumens)
 - Fix a typo in output from the RHEL6 logvol command. (clumens)
