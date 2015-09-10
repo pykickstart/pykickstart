@@ -246,7 +246,7 @@ class PackageSection(Section):
         op.add_option("--default", dest="defaultPackages", action="store_true",
                       default=False, introduced=F7)
         op.add_option("--instLangs", dest="instLangs", type="string",
-                      default="", introduced=F9)
+                      default=None, introduced=F9)
         op.add_option("--multilib", dest="multiLib", action="store_true",
                       default=False, introduced=F18)
 
@@ -267,7 +267,7 @@ class PackageSection(Section):
         if opts.defaultPackages:
             self.handler.packages.default = True
 
-        if opts.instLangs:
+        if opts.instLangs is not None:
             self.handler.packages.instLangs = opts.instLangs
 
         self.handler.packages.nocore = opts.nocore
