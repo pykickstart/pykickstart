@@ -28,6 +28,36 @@ class Packages_Options_TestCase(ParserTest):
         # extra test coverage
         self.assertTrue(self.parser._sections['%packages'].seen)
 
+class Packages_Options_Empty_InstLangs_TestCase(ParserTest):
+    ks = """
+%packages --instLangs=
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+
+        # Verify that instLangs is an empty string
+        self.assertEqual(self.handler.packages.instLangs, "")
+
+        # Verify that the empty instLangs comes back out
+        self.assertEqual(str(self.handler.packages).strip(), "%packages --instLangs=\n\n%end")
+
+class Packages_Options_No_InstLangs_TestCase(ParserTest):
+    ks = """
+%packages
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+
+        # Verify that instLangs is None
+        self.assertIsNone(self.handler.packages.instLangs)
+
+        # Verify that --instLangs is not displayed
+        self.assertEqual(str(self.handler.packages).strip(), "%packages\n\n%end")
+
 class Packages_Contains_Comments_TestCase(ParserTest):
     ks = """
 %packages
