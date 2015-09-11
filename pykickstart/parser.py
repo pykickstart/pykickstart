@@ -363,7 +363,7 @@ class Packages(KickstartObject):
             retval += " --nocore"
         if self.handleMissing == constants.KS_MISSING_IGNORE:
             retval += " --ignoremissing"
-        if self.instLangs:
+        if self.instLangs is not None:
             retval += " --instLangs=%s" % self.instLangs
         if self.multiLib:
             retval += " --multilib"
