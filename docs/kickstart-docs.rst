@@ -1208,7 +1208,7 @@ activated in installer using ``--activate`` option (since F16).
 
     Specifies device to be configured and/or activated with the network
     command. The device can be specified in the same ways as
-    `ksdevice <https://github.com/rhinstaller/anaconda/blob/master/docs/boot-options.rst#ksdevice>`__ boot option. For
+    `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__ boot option. For
     example:
 
     ``network --bootproto=dhcp --device=eth0``
@@ -2183,7 +2183,7 @@ zfcp
 %include
 --------
 
-Use the ``%include /path/to/file`` or ``%include &lt;url&gt;`` command
+Use the ``%include /path/to/file`` or ``%include <url>`` command
 to include the contents of another file in the kickstart file as though
 the contents were at the location of the %include command in the
 kickstart file.
@@ -2658,9 +2658,9 @@ installed.
 
 There are also 2 optional headers, controlled by the kernel command line
 options
-`kssendmac <http://fedoraproject.org/wiki/Anaconda/Options#kssendmac>`__
+`kssendmac <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendmac>`__
 and
-`kssendsn <http://fedoraproject.org/wiki/Anaconda/Options#kssendsn>`__
+`kssendsn <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendsn>`__
 
 
 Chapter 7. Making the Installation Tree Available
@@ -2830,7 +2830,7 @@ Other kickstart options
     through the eth1 device, use the command
     ``ks=nfs:<server>:/<path> ksdevice=eth1`` at the boot: prompt. For
     more information, see
-    `Anaconda\_Boot\_Options <Anaconda_Boot_Options>`__.
+    `anaconda boot options <https://rhinstaller.github.io/anaconda/boot-options.html>`__.
 
 
 Example Kickstart Script
