@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.5
+Version: 1.99.66.6
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 22 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.6-1
+- Update the RHEL7 version constant. (clumens)
+
 * Tue Jul 07 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.5-1
 - Reorder the expected output in the clearpart CDL test. (clumens)
 - Fix whitespace error in clearpart --cdl test (#1232849) (sbueno+anaconda)
