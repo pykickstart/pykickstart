@@ -73,9 +73,9 @@ F16 = 14000
 F17 = 15000
 F18 = 16000
 F19 = 17000
-RHEL7 = 17100
 F20 = 18000
 F21 = 19000
+RHEL7 = 19100
 F22 = 20000
 
 # This always points at the latest version and is the default.
