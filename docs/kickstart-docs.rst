@@ -1783,6 +1783,19 @@ cause a conflicting repo error.
     after reboot. Added in anaconda-22.3-1
 
 
+reqpart
+-------
+
+Automatically create partitions required by your hardware platform. These include a ``/boot/efi`` for x86_64 and Aarch64 systems with UEFI firmware, ``biosboot`` for x86_64 systems with BIOS firmware and GPT, and ``PRePBoot`` for IBM Power Systems.
+
+Note: This command can not be used together with ``autopart``, because ``autopart`` does the same and creates other partitions or logical volumes such as ``/`` and ``swap`` on top. In contrast with ``autopart``, this command only creates platform-specific partitions and leaves the rest of the drive empty, allowing you to create a custom layout.
+
+``reqpart [--add-boot]``
+
+``--add-boot``
+
+   Create a separate ``/boot`` partition in addition to the platform-specific partition created by the base command.
+
 rescue
 ------
 
