@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.15
+Version:   2.16
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Sep 25 2015 Chris Lumens <clumens@redhat.com> - 2.16-1
+- Add reqpart to docs (pbokoc)
+- link to github docs instead of fedora wiki (mmckinst)
+- Differentiate between empty and missing instLangs (dshea)
+- Add tests for empty and missing --instLangs values. (dshea)
+
 * Tue Sep 08 2015 Chris Lumens <clumens@redhat.com> - 2.15-1
 - Fix a typo in the README. (clumens)
 - Check whether requests actually fetched the URL (dshea)

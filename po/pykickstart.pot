@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-08 15:47-0400\n"
+"POT-Creation-Date: 2015-09-25 10:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,14 +103,6 @@ msgstr ""
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../pykickstart/sections.py:256
-msgid "--default and --nobase cannot be used together"
-msgstr ""
-
-#: ../pykickstart/sections.py:258
-msgid "--default and --nocore cannot be used together"
-msgstr ""
-
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid ""
@@ -170,6 +162,14 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
+#: ../pykickstart/sections.py:256
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:258
+msgid "--default and --nocore cannot be used together"
+msgstr ""
+
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -192,21 +192,8 @@ msgstr ""
 msgid "Specify only one realm to join"
 msgstr ""
 
-#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/sshkey.py:89
-#: ../pykickstart/commands/keyboard.py:121
-#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
-#: ../pykickstart/commands/timezone.py:60
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/sshpw.py:106 ../pykickstart/commands/sshkey.py:93
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/xconfig.py:98
-#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/fcoe.py:115
+#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/firewall.py:117
+#: ../pykickstart/commands/xconfig.py:98 ../pykickstart/commands/fcoe.py:115
 #: ../pykickstart/commands/iscsi.py:144
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
@@ -235,10 +222,11 @@ msgstr ""
 #: ../pykickstart/commands/eula.py:63 ../pykickstart/commands/autopart.py:45
 #: ../pykickstart/commands/zerombr.py:66
 #: ../pykickstart/commands/unsupported_hardware.py:51
+#: ../pykickstart/commands/skipx.py:50
 #: ../pykickstart/commands/displaymode.py:59
 #: ../pykickstart/commands/mediacheck.py:49
 #: ../pykickstart/commands/interactive.py:50
-#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/cdrom.py:50
+#: ../pykickstart/commands/cdrom.py:50
 #, python-format
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
@@ -266,6 +254,20 @@ msgstr ""
 msgid ""
 "One of --drives , --only-use , or --interactive must be specified for "
 "ignoredisk command."
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/keyboard.py:121
+#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/rootpw.py:64
+#: ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/timezone.py:60
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:93 ../pykickstart/commands/sshpw.py:106
+#, python-format
+msgid "An ssh user with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/volgroup.py:132
