@@ -1786,6 +1786,11 @@ cause a conflicting repo error.
     Install this repository to the target system so that it can be used
     after reboot. Added in anaconda-22.3-1
 
+``--gpgkey``
+
+    Specify GPG key used to verify packages downloaded from this repo. Setting
+    a key here enables package verification, for this repository.
+
 
 reqpart
 -------
