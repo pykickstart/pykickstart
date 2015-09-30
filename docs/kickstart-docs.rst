@@ -1171,8 +1171,12 @@ In F15, the device of first network command is activated also in case of
 non-network installs, and device is not re-activated using kickstart
 configuration.
 
-Additional devices configured in kickstart with network command can be
-activated in installer using ``--activate`` option (since F16).
+``--activate``
+
+    As noted above, using this option ensures any matching devices
+    beyond the first will also be activated.
+
+    Since F16.
 
 ``--bootproto=[dhcp|bootp|static|ibft]``
 
