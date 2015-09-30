@@ -2035,7 +2035,11 @@ Creates a new user on the system.
 ``--groups=``
 
     In addition to the default group, a comma separated list of group
-    names the user should belong to.
+    names the user should belong to. Any groups that do not already
+    exist will be created.
+    As for Fedora 24, the group name can optionally be followed by a GID in
+    parenthesis, for example, ``newgroup(5002)``. If the group already exists
+    with a different GID, an error will be raised.
 
 ``--homedir=``
 
