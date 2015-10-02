@@ -34,6 +34,9 @@ class F21_TestCase(CommandTest):
         self.assert_parse_error("ostreesetup --os=fedora-atomic --url=http://example.com/repo", KickstartValueError)
         self.assert_parse_error("ostreesetup --bacon=tasty")
 
+        # fail - wrong protocol for repo
+        self.assert_parse_error("ostreesetup --osname=fedora-atomic --url=ftp://example.com/repo --ref=fedora-atomic/sometest/base/core", KickstartValueError)
+
 RHEL7_TestCase = F21_TestCase
 
 if __name__ == "__main__":
