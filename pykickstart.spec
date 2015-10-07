@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.16
+Version:   2.17
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,13 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Wed Oct 07 2015 Chris Lumens <clumens@redhat.com> - 2.17-1
+- Add Fedora 24 support. (clumens)
+- Update the RHEL7 version constant. (clumens)
+- ostree repos can only be HTTP or HTTPS. (clumens)
+- Allow GIDs to be specified in the user --groups list. (dshea)
+- docs: Add `--activate` as an explicit network option to the list (walters)
+
 * Fri Sep 25 2015 Chris Lumens <clumens@redhat.com> - 2.16-1
 - Add reqpart to docs (pbokoc)
 - link to github docs instead of fedora wiki (mmckinst)
