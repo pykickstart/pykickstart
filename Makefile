@@ -14,6 +14,10 @@ PREFIX=/usr
 NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests/parser/*py
 
 PYTHON?=python
+COVERAGE?=coverage
+ifeq ($(PYTHON),python3)
+  COVERAGE=coverage3
+endif
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
@@ -44,9 +48,10 @@ test:
 	PYTHONPATH=. $(PYTHON) -m nose --processes=-1 $(NOSEARGS)
 
 coverage:
-	@which coverage || (echo "*** Please install coverage (python-coverage) ***"; exit 2)
+	@which $(COVERAGE) || (echo "*** Please install coverage (python-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-package=pykickstart $(NOSEARGS)
+	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart $(NOSEARGS)
+	$(COVERAGE) report > coverage-report.log
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
