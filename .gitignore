@@ -5,4 +5,5 @@ pykickstart*.tar.gz
 pykickstart*.tar.bz2
 pylint-log
 tests/pylint/.pylint.d/
-/.coverage
+.coverage
+coverage-report.log
