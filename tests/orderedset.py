@@ -21,6 +21,15 @@ class OrderedSet_TestCase(unittest.TestCase):
         os.discard("four")
         self.assertEqual(len(os), 3)
 
+        # add
+        self.assertEqual(len(OrderedSet(["one", "two", "three"])), 3)
+        os = OrderedSet(["one", "two", "three"])
+        os.add("two")
+        self.assertEqual(len(os), 3)
+        os = OrderedSet(["one", "two", "three"])
+        os.add("four")
+        self.assertEqual(len(os), 4)
+
         # pop
         self.assertRaises(KeyError, OrderedSet().pop)
         self.assertEqual(OrderedSet(["one", "two", "three"]).pop(), "three")

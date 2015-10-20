@@ -24,7 +24,7 @@ from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class F12_TestCase(CommandTest):
-    command = "user"
+    command = "group"
 
     def runTest(self):
         # pass
@@ -46,6 +46,16 @@ class F12_TestCase(CommandTest):
         self.assert_parse_error("group --name=test --uid=id", KickstartParseError)
         # unknown option
         self.assert_parse_error("group --name=test --unknown=value", KickstartParseError)
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.groupList = ["test"]
+        self.assertEqual(cmd.__str__(), "test")
+
+        gd = self.handler().GroupData()
+        gd.name = ""
+        self.assertEqual(gd.__str__(), "group\n")
+
 
 class F12_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):

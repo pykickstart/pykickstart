@@ -24,6 +24,8 @@ from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC3_TestCase(CommandTest):
+    command = "url"
+
     def runTest(self):
         # pass
         self.assert_parse("url --url=http://domain.com", "url --url=\"http://domain.com\"\n")
@@ -38,6 +40,11 @@ class FC3_TestCase(CommandTest):
         # missing required option --url
         self.assert_parse_error("url", KickstartValueError)
         self.assert_parse_error("url --url", KickstartParseError)
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.seen = False
+        self.assertEqual(cmd.__str__(), "")
 
 class F13_TestCase(FC3_TestCase):
     def runTest(self):
@@ -100,6 +107,13 @@ class F18_TestCase(F14_TestCase):
         # only one of --url or --mirrorlist may be specified
         self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com",
                                 KickstartValueError)
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.seen = True
+        cmd.url = None
+        cmd.mirrorlist = None
+        self.assertEqual(cmd.__str__(), "# Use network installation\n\n")
 
 if __name__ == "__main__":
     unittest.main()

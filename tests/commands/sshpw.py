@@ -59,6 +59,12 @@ class F13_TestCase(CommandTest):
         self.assert_parse_error("sshpw --username=someguy --plaintext", KickstartValueError)
         self.assert_parse_error("sshpw --username=someguy --lock", KickstartValueError)
 
+        # extra test coverage
+        sshpw = self.handler().commands[self.command]
+        sshpw.sshUserList.append("someguy")
+        self.assertEqual(sshpw.__str__(), "someguy")
+
+
 class F13_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
         self.assert_parse("""

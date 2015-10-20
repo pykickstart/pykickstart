@@ -35,6 +35,12 @@ class RHEL5_TestCase(CommandTest):
         # fail - invalid option w/argument
         self.assert_parse_error("key --badflag foobar", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.key = ""
+        self.assertEqual(cmd.__str__(), "")
+
+
 if __name__ == "__main__":
     unittest.main()
 

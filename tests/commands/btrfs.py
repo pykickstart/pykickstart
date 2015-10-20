@@ -129,6 +129,12 @@ class F23_TestCase(F17_TestCase):
         self.assert_parse_error("btrfs / --useexisting --mkfsoptions=whatever", KickstartValueError)
         self.assert_parse_error("btrfs / --noformat --mkfsoptions=whatever", KickstartValueError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        with self.assertRaises(KickstartValueError):
+            cmd.parse(["btrfs", "/", "--noformat", "--useexisting", "--mkfsoptions=whatever"])
+
+
 RHEL7_TestCase = F23_TestCase
 
 if __name__ == "__main__":

@@ -39,5 +39,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("firstboot --disabled=FOO")
         self.assert_parse_error("firstboot --reconfig=FOO")
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.firstboot = 999
+        self.assertEqual(cmd.__str__(), "")
+
 if __name__ == "__main__":
     unittest.main()

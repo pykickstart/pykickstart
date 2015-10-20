@@ -50,6 +50,8 @@ class FC3_TestCase(CommandTest):
         self.assertFalse(device == "")
         self.assertTrue(device == device)
         self.assertTrue(device != "")
+        device.moduleName = ""
+        self.assertEqual(device.__str__(), "\n")
 
 class F8_TestCase(CommandTest):
     command = "device"
@@ -91,6 +93,10 @@ class F8_TestCase(CommandTest):
         # a warning
         with self.assertRaises(UserWarning):
             device.parse(["MODNAME"])
+
+        dd = self.handler().DeviceData()
+        dd.moduleName = ""
+        self.assertEqual(dd.__str__(), "\n")
 
 if __name__ == "__main__":
     unittest.main()

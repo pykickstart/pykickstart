@@ -15,5 +15,11 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("selinux --cheese")
         self.assert_parse_error("selinux --crackers=CRUNCHY")
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.selinux = 999
+        self.assertEqual(cmd.__str__(), "# SELinux configuration\n")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -34,5 +34,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("lilocheck foo", KickstartValueError)
         self.assert_parse_error("lilocheck --whatever")
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.check = False
+        self.assertEqual(cmd.__str__(), "")
+
 if __name__ == "__main__":
     unittest.main()

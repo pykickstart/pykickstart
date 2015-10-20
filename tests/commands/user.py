@@ -58,6 +58,18 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("user --name=user --uid", KickstartParseError)
         self.assert_parse_error("user --name=user --password", KickstartParseError)
 
+        # extra test coverage
+        ud = self.handler().UserData()
+        ud.uid = ""
+        ud.name = ""
+        self.assertEqual(ud.__str__(), "")
+        self.assertEqual(ud._getArgsAsStr(), "")
+
+        cmd = self.handler().commands[self.command]
+        cmd.userList = [ud]
+        self.assertEqual(cmd.__str__(), "")
+
+
 class FC6_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
         # pass - can use the command twice, as long as they have different names

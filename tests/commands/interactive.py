@@ -34,6 +34,11 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("interactive --cheese", KickstartParseError)
         self.assert_parse_error("interactive --crackers=CRUNCHY", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.interactive = False
+        self.assertEqual(cmd.__str__(), "")
+
 
 class F14_TestCase(FC3_TestCase):
     def runTest(self):

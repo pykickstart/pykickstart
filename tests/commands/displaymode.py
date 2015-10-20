@@ -45,6 +45,13 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("cmdline graphical", KickstartParseError)
         self.assert_parse_error("cmdline text", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands["text"]
+        cmd.displayMode = 999
+        self.assertEqual(cmd.__str__(), "")
+        cmd.currentCmd = None
+        cmd.parse([])
+
 
 if __name__ == "__main__":
     unittest.main()
