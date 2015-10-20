@@ -42,6 +42,11 @@ class F22_TestCase(CommandTest):
         self.assert_parse_error("sshkey --username", KickstartParseError)
         self.assert_parse_error("sshkey --username=root", KickstartValueError)
 
+        # extra test coverage
+        sshkey = self.handler().commands[self.command]
+        sshkey.sshUserList.append("someguy")
+        self.assertEqual(sshkey.__str__(), "someguy")
+
 class F22_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
         self.assert_parse("""

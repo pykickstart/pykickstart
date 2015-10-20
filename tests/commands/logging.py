@@ -42,6 +42,11 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("logging --port", KickstartParseError)
         self.assert_parse_error("logging --port=PORT", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.level = ""
+        cmd.parse(["logging"])
+        self.assertEqual(cmd.__str__(), "\n")
 
 if __name__ == "__main__":
     unittest.main()

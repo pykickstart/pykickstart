@@ -41,5 +41,10 @@ class RHEL3_TestCase(CommandTest):
         # --device requires argument
         self.assert_parse_error("mouse jerry --device", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.mouse = False
+        self.assertEqual(cmd.__str__(), "")
+
 if __name__ == "__main__":
     unittest.main()

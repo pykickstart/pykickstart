@@ -64,6 +64,13 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("bootloader --md5pass", KickstartParseError)
         self.assert_parse_error("bootloader --driveorder", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.location = ""
+        cmd.linear = False
+        self.assertEqual(cmd.__str__(), "")
+        self.assertEqual(cmd._getArgsAsStr(), "")
+
 class FC4_TestCase(FC3_TestCase):
     def runTest(self, iscrypted=False):
         # Run parent tests

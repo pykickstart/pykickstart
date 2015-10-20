@@ -41,6 +41,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("timezone --blah Eastern")
         self.assert_parse_error("timezone --utc", KickstartValueError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.timezone = None
+        self.assertEqual(cmd.__str__(), "")
+
+
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)
@@ -85,6 +91,7 @@ class F23_TestCase(F18_TestCase):
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org",
                           "timezone Europe/Prague --isUtc --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org,"+
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org\n")
+        self.assert_parse("timezone --utc Europe/Sofia --ntpservers=,0.fedora.pool.ntp.org,")
 
 if __name__ == "__main__":
     unittest.main()

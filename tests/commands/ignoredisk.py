@@ -39,6 +39,12 @@ class FC3_TestCase(CommandTest):
         # empty
         self.assert_parse_error("ignoredisk", KickstartValueError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.ignoredisk = []
+        self.assertEqual(cmd.__str__(), "")
+
+
 class F8_TestCase(FC3_TestCase):
     def runTest(self):
         # Run parents class tests

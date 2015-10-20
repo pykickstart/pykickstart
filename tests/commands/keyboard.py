@@ -34,6 +34,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("keyboard us uk", KickstartValueError)
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.keyboard = ""
+        self.assertEqual(cmd.__str__(), "")
+
+
 class F18_TestCase(FC3_TestCase):
     def runTest(self):
         # pass
@@ -70,6 +76,9 @@ class F18_TestCase(FC3_TestCase):
 
         obj = self.assert_parse("keyboard --xlayouts=us,cz")
         self.assertEqual(obj.keyboard, "us")
+
+        obj = self.assert_parse("keyboard --xlayouts=,bg")
+        self.assertEqual(obj.x_layouts, ["bg"])
 
         obj.keyboard = "cz"
         self.assertEqual(obj.keyboard, "cz")

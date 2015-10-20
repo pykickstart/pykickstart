@@ -32,6 +32,7 @@ class F19_TestCase(FC3_TestCase):
         self.assert_parse_error("lang", KickstartValueError)
         self.assert_parse_error("lang en_US en_CA", KickstartValueError)
         self.assert_parse_error("lang --addsupport=en_US", KickstartValueError)
+        self.assert_parse_error("lang --addsupport=,bg_BG", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()

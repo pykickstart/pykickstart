@@ -39,5 +39,10 @@ class FC3_TestCase(CommandTest):
         # missing --default argument
         self.assert_parse_error("langsupport --default", KickstartParseError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.deflang = None
+        self.assertEqual(cmd.__str__(), "\n")
+
 if __name__ == "__main__":
     unittest.main()

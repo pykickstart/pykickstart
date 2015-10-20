@@ -46,6 +46,24 @@ class FC3_TestCase(CommandTest):
         # fail - both members and useexisting specified
         self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02", KickstartValueError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.vgList = ["vg.01"]
+        self.assertEqual(cmd.__str__(), "vg.01")
+
+
+class RHEL6_TestCase(FC3_TestCase):
+    def runTest(self):
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.parse(["volgroup", "vg.02", "pv.01"])
+        self.assertEqual(cmd.__str__(), "")
+        cmd.handler.autopart.seen = True
+        with self.assertRaises(KickstartParseError):
+            cmd.parse(["volgroup", "vg.02", "pv.01"])
+        cmd.handler.autopart.seen = False
+
+
 class FC3_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
         self.assert_parse("""
