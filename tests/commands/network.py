@@ -94,6 +94,20 @@ class F22_TestCase(F20_TestCase):
                                 "--bridgeopts=priority",
                                 KickstartValueError)
 
+class F24_TestCase(F22_TestCase):
+    def runTest(self):
+        F22_TestCase.runTest(self)
+
+        # Test ipv4 only settings
+        cmd = "network --noipv4 --activate --hostname=blah.test.com --ipv6=1:2:3:4:5:6:7:8 --device eth0 --nameserver=1:1:1:1::,2:2:2:2::"
+        nd = self.assert_parse(cmd)
+        self.assertEquals(nd.bootProto, "")
+        self.assertEquals(nd.hostname, "blah.test.com")
+        self.assertTrue(nd.noipv4)
+        self.assertEquals(nd.ipv6, "1:2:3:4:5:6:7:8")
+        self.assertIn("1:1:1:1::", nd.nameserver)
+        self.assertIn("2:2:2:2::", nd.nameserver)
+        self.assertEquals(nd.device, "eth0")
 
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):

@@ -60,7 +60,7 @@ class F24Handler(BaseHandler):
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F19_Method,
         "multipath": commands.multipath.FC6_MultiPath,
-        "network": commands.network.F22_Network,
+        "network": commands.network.F24_Network,
         "nfs": commands.nfs.FC6_NFS,
         "ostreesetup": commands.ostreesetup.F21_OSTreeSetup,
         "part": commands.partition.F23_Partition,

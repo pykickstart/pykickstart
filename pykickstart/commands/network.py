@@ -545,6 +545,19 @@ class F22_Network(F21_Network):
 
         return retval
 
+class F24_Network(F22_Network):
+    removedKeywords = F22_Network.removedKeywords
+    removedAttrs = F22_Network.removedAttrs
+
+    def parse(self, args):
+        retval = F22_Network.parse(self, args)
+
+        # If we specify noipv4 then we need to make sure bootproto is zero'ed
+        # out
+        if retval.noipv4:
+            retval.bootProto = ""
+        return retval
+
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
