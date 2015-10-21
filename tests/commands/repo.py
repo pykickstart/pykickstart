@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError
 
 class FC6_TestCase(CommandTest):
     command = "repo"
@@ -56,6 +56,16 @@ class FC6_TestCase(CommandTest):
         # not expected argument
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah", KickstartValueError)
 
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.repoList = "--name=blah"
+        self.assertEquals(cmd.__str__(), "--name=blah")
+
+        data = self.handler().RepoData()
+        data.baseurl = ""
+        data.mirrorlist = ""
+        self.assertEquals(data._getArgsAsStr(), "")
+
 class FC6_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
         self.assert_parse("""
@@ -83,6 +93,17 @@ class F8_TestCase(FC6_TestCase):
             self.assert_parse_error("repo --name=blah --baseurl=www.domain.com %s" % opt, KickstartParseError)
         # --cost argument not integer
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --cost=high", KickstartParseError)
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.handler.method.url = "http://example.com"
+        rd = cmd.methodToRepo()
+        self.assertEquals(rd.name, "ks-method-url")
+        self.assertEquals(rd.baseurl, "http://example.com")
+
+        cmd.handler.method.url = ""
+        with self.assertRaises(KickstartError):
+            cmd.methodToRepo()
 
 class F11_TestCase(F8_TestCase):
     def runTest(self, urlRequired=True):

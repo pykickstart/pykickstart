@@ -24,6 +24,8 @@ from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartValueError
 
 class F21_TestCase(CommandTest):
+    command = "ostreesetup"
+
     def runTest(self):
         # pass
         self.assert_parse("ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core")
@@ -38,6 +40,15 @@ class F21_TestCase(CommandTest):
 
         # fail - wrong protocol for repo
         self.assert_parse_error("ostreesetup --osname=fedora-atomic --url=ftp://example.com/repo --ref=fedora-atomic/sometest/base/core", KickstartValueError)
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.osname = ""
+        cmd.remote = ""
+        cmd.url = ""
+        cmd.ref = ""
+        cmd.nogpg = False
+        self.assertEquals(cmd._getArgsAsStr(), "")
 
 RHEL7_TestCase = F21_TestCase
 

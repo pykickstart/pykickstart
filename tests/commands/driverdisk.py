@@ -45,6 +45,17 @@ class FC3_TestCase(CommandTest):
         # fail - specifying both partition and source
         self.assert_parse_error("driverdisk /dev/sdb2 --source=http://10.0.0.1/disk.img", KickstartValueError)
 
+        # extra test coverage
+        ddd = self.handler().DriverDiskData()
+        ddd.source = None
+        self.assertEquals(ddd._getArgsAsStr(), "")
+
+        cmd = self.handler().commands[self.command]
+        self.assertEquals(cmd.__str__(), "")
+        cmd.driverdiskList = [ddd]
+        self.assertEquals(cmd.__str__(), "driverdisk \n")
+        self.assertEquals(cmd.dataList(), [ddd])
+
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)
