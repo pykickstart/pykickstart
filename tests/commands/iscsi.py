@@ -52,6 +52,15 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --password", KickstartParseError)
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --port", KickstartParseError)
 
+        # extra test coverage
+        data = self.handler().IscsiData()
+        data.ipaddr = ""
+        self.assertEquals(data._getArgsAsStr(), "")
+
+        cmd = self.handler().commands[self.command]
+        cmd.iscsi= [data]
+        self.assertEquals(cmd.__str__(), "iscsi\n")
+        self.assertEquals(cmd.dataList(), [data])
 
 class F10_TestCase(FC6_TestCase):
     def runTest(self):
@@ -74,6 +83,22 @@ class RHEL6_TestCase(F10_TestCase):
         F10_TestCase.runTest(self)
 
         self.assert_parse("iscsi --ipaddr=1.1.1.1 --iface=eth0\n")
+
+        # extra test coverage
+        data = self.handler().IscsiData()
+        data.iface = "eth0"
+        self.assertEquals(data._getArgsAsStr(), " --iface=eth0")
+
+class F17_TestCase(F10_TestCase):
+    def runTest(self):
+        F10_TestCase.runTest(self)
+
+        self.assert_parse("iscsi --ipaddr=1.1.1.1 --iface=eth0\n")
+
+        # extra test coverage
+        data = self.handler().IscsiData()
+        data.iface = "eth0"
+        self.assertEquals(data._getArgsAsStr(), " --iface=eth0")
 
 if __name__ == "__main__":
     unittest.main()

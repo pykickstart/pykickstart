@@ -19,7 +19,7 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -95,11 +95,13 @@ class FC3_TestCase(CommandTest):
         # no device
         self.assert_parse_error("raid / --level=0", KickstartValueError)
         # no level
-        self.assert_parse_error("raid / --device=md0", KickstartValueError)
+        self.assert_parse_error("raid / --device=md0 raid.01 raid.02", KickstartValueError)
         # No raid members defined
         self.assert_parse_error("raid / --level=0 --device=md0", KickstartValueError)
         # Both raid members and useexisting given
         self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02", KickstartValueError)
+        # no pre-existing device defined
+        self.assert_parse_error("raid / --level=0 --useexisting", KickstartValueError)
 
         if self.minorBasedDevice:
             # Invalid device string - device=asdf0 (--device=(md)?<minor>)
@@ -108,6 +110,33 @@ class FC3_TestCase(CommandTest):
             # --device=<name>
             self.assert_parse("raid / --device=root --level=RAID1 raid.01 raid.02 raid.03",
                               "raid / --device=root --level=RAID1 raid.01 raid.02 raid.03\n")
+        # extra test coverage
+        rd = self.handler().RaidData()
+        self.assertTrue(rd == rd)
+        self.assertFalse(rd == None)
+        self.assertFalse(rd != rd)
+        rd.device = ""
+        rd.level = ""
+        cmd = self.handler().commands[self.command]
+        cmd.raidList = [rd]
+        if "--bytes-per-inode" in self.optionList:
+            self.assertEquals(rd._getArgsAsStr(), " --bytes-per-inode=4096")
+            self.assertEquals(cmd.__str__(), "raid  --bytes-per-inode=4096\n")
+        else:
+            self.assertEquals(rd._getArgsAsStr(), "")
+            self.assertEquals(cmd.__str__(), "raid\n")
+
+class FC3_Duplicate_TestCase(CommandSequenceTest):
+    def runTest(self):
+        self.assert_parse("""
+raid / --device=md0 --level=0 raid.01 raid.02
+raid /usr --device=md1 --level=0 raid.01 raid.02
+""")
+
+        self.assert_parse_error("""
+raid / --device=md0 --level=0 raid.01 raid.02
+raid / --device=md0 --level=0 raid.01 raid.02
+""", UserWarning)
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -224,6 +253,12 @@ class RHEL6_TestCase(F13_TestCase):
 
         self.assert_parse_error("raid / --cipher --device=md0 --level=1 raid.01 raid.02")
 
+        cmd = self.handler().commands[self.command]
+        cmd.handler.autopart.seen = True
+        with self.assertRaises(KickstartParseError):
+            cmd.parse(["raid", "/", "--device=md0", "--level=0", "raid.01", "raid.02"])
+        cmd.handler.autopart.seen = False
+
 class F14_TestCase(F13_TestCase):
     def runTest(self):
         F13_TestCase.runTest(self)
@@ -265,6 +300,9 @@ class F23_TestCase(F19_TestCase):
 
         # can't use --mkfsoptions if you're not formatting
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat raid.01 raid.02",
+                                KickstartValueError)
+
+        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat --useexisting",
                                 KickstartValueError)
 
         # can't use --mkfsoptions with --fsprofile

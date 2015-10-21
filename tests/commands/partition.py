@@ -86,6 +86,13 @@ class FC3_TestCase(CommandTest):
         self.assertFalse(pd == "")
         self.assertTrue(pd != "")
 
+        # extra test coverage
+        parser.partitions = [pd]
+        if "--bytes-per-inode" in self.optionList:
+            self.assertEquals(parser.__str__(), "# Disk partitioning information\npart /home --bytes-per-inode=4096\n")
+        else:
+            self.assertEquals(parser.__str__(), "# Disk partitioning information\npart /home\n")
+
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
@@ -119,6 +126,12 @@ class RHEL5_TestCase(FC4_TestCase):
         # fail
         # missing required --passphrase argument
         self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
+
+        # extra test coverage
+        data = self.handler().PartData()
+        data.encrypted = True
+        data.passphrase = ""
+        self.assertEquals(data._getArgsAsStr(), " --bytes-per-inode=4096 --encrypted")
 
 class F9_TestCase(FC3_TestCase):
     def runTest(self):
