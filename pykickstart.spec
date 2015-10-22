@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.17
+Version:   2.18
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -115,6 +115,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Oct 22 2015 Chris Lumens <clumens@redhat.com> - 2.18-1
+- More tests for driverdisk, iscsi, ostreesetup, partition, raid and repo commands (atodorov)
+- Add more unit tests (atodorov)
+- pykickstart: don't set bootProto if --noipv4 (jbacik)
+- Produce coverage-report.log for CI (atodorov)
+
 * Wed Oct 07 2015 Chris Lumens <clumens@redhat.com> - 2.17-1
 - Add Fedora 24 support. (clumens)
 - Update the RHEL7 version constant. (clumens)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-07 15:34-0400\n"
+"POT-Creation-Date: 2015-10-22 10:45-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -103,14 +103,6 @@ msgstr ""
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../pykickstart/sections.py:256
-msgid "--default and --nobase cannot be used together"
-msgstr ""
-
-#: ../pykickstart/sections.py:258
-msgid "--default and --nocore cannot be used together"
-msgstr ""
-
 #: ../pykickstart/errors.py:45
 #, python-format
 msgid ""
@@ -170,6 +162,14 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
+#: ../pykickstart/sections.py:256
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:258
+msgid "--default and --nocore cannot be used together"
+msgstr ""
+
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -193,9 +193,9 @@ msgid "Specify only one realm to join"
 msgstr ""
 
 #: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/sshkey.py:89
-#: ../pykickstart/commands/timezone.py:60
 #: ../pykickstart/commands/keyboard.py:121
 #: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/timezone.py:60
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr ""
@@ -243,9 +243,9 @@ msgstr ""
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/commands/iscsiname.py:51
+#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/key.py:59
 #: ../pykickstart/commands/keyboard.py:51 ../pykickstart/commands/mouse.py:62
-#: ../pykickstart/commands/lang.py:50 ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/lang.py:50
 #, python-format
 msgid "Kickstart command %s requires one argument"
 msgstr ""
@@ -288,10 +288,6 @@ msgstr ""
 #: ../pykickstart/commands/volgroup.py:182
 #: ../pykickstart/commands/volgroup.py:195
 msgid "The volgroup and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:135
-msgid "Options --nontp and --ntpservers are mutually exclusive"
 msgstr ""
 
 #: ../pykickstart/commands/upgrade.py:96
@@ -337,6 +333,11 @@ msgstr ""
 
 #: ../pykickstart/commands/services.py:68
 msgid "One of --disabled or --enabled must be provided."
+msgstr ""
+
+#: ../pykickstart/commands/monitor.py:66
+#, python-format
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/dmraid.py:90
@@ -564,39 +565,34 @@ msgid "A network device with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/network.py:536
-#: ../pykickstart/commands/network.py:655
+#: ../pykickstart/commands/network.py:668
 msgid "Option --bridgeopts requires --bridgeslaves to be specified"
 msgstr ""
 
 #: ../pykickstart/commands/network.py:543
-#: ../pykickstart/commands/network.py:662
+#: ../pykickstart/commands/network.py:675
 msgid ""
 "Bad format of --bridgeopts, expecting key=value options separated by ','"
 msgstr ""
 
-#: ../pykickstart/commands/network.py:611
+#: ../pykickstart/commands/network.py:624
 msgid ""
 "When using the <prefix>.<vlan id> interface name notation, <prefix> can't be "
 "equal to 'vlan'."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:615
+#: ../pykickstart/commands/network.py:628
 msgid "If network --interfacename contains a '.', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:624
+#: ../pykickstart/commands/network.py:637
 msgid ""
 "If network --interfacename starts with 'vlan', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:629
+#: ../pykickstart/commands/network.py:642
 #, python-format
 msgid "The vlan id out of the %d-%d vlan id range."
-msgstr ""
-
-#: ../pykickstart/commands/monitor.py:66
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/multipath.py:97
@@ -627,6 +623,10 @@ msgstr ""
 
 #: ../pykickstart/commands/btrfs.py:199
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:135
+msgid "Options --nontp and --ntpservers are mutually exclusive"
 msgstr ""
 
 #: ../tools/ksflatten:35
