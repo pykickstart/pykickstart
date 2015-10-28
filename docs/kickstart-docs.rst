@@ -298,7 +298,7 @@ This required command specifies how the boot loader should be installed.
     used to restrict access to the GRUB shell, where arbitrary kernel
     options can be passed.
 
-``--iscrypted=``
+``--iscrypted``
 
     If given, the password specified by ``--password=`` is already
     encrypted and should be passed to the bootloader configuration
