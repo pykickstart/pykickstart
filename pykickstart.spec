@@ -1,3 +1,5 @@
+%global with_lint 0
+
 Name:      pykickstart
 Version:   2.18
 Release:   1%{?dist}
@@ -23,7 +25,9 @@ BuildRequires: transifex-client
 
 BuildRequires: python3-devel
 BuildRequires: python3-nose
+%if %{?with_lint}
 BuildRequires: python3-pocketlint
+%endif
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
