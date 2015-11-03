@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.18
+Version:   2.19
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Nov 03 2015 Chris Lumens <clumens@redhat.com> - 2.19-1
+- We don't actually need to BuildRequires python-pocketlint. (clumens)
+- docs/kickstart-docs.rst: iscrypted has no argument (sol)
+
 * Thu Oct 22 2015 Chris Lumens <clumens@redhat.com> - 2.18-1
 - More tests for driverdisk, iscsi, ostreesetup, partition, raid and repo commands (atodorov)
 - Add more unit tests (atodorov)
