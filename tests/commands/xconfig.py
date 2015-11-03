@@ -49,7 +49,6 @@ class FC3_TestCase(CommandTest):
         # fail
         # incorrect parameters
         self.assert_parse_error("xconfig --startxonboot=yes")
-        self.assert_parse_error("xconfig --resolution")
 
         # extra arguments
         self.assert_parse_error("xconfig --extra --arguments --here")
