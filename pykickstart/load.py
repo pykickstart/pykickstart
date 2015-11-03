@@ -92,8 +92,8 @@ def _load_file(filename):
     '''Load a file's contents and return them as a string'''
 
     try:
-        with open(filename, 'r') as fh:
-            contents = fh.read()
+        with open(filename, 'rb') as fh:
+            contents = fh.read().decode("utf-8")
     except IOError as e:
         raise KickstartError(_('Error opening file: %s') % str(e))
 
