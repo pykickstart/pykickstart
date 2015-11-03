@@ -101,8 +101,8 @@ class FC3_XConfig(KickstartCommand):
         return self
 
 class FC6_XConfig(FC3_XConfig):
-    removedKeywords = FC3_XConfig.removedKeywords + ["card", "hsync", "monitor", "noProbe", "vsync"]
-    removedAttrs = FC3_XConfig.removedAttrs + ["card", "hsync", "monitor", "noProbe", "vsync"]
+    removedKeywords = FC3_XConfig.removedKeywords + ["card", "hsync", "monitor", "noProbe", "server", "vsync"]
+    removedAttrs = FC3_XConfig.removedAttrs + ["card", "hsync", "monitor", "noProbe", "server", "vsync"]
 
     def __init__(self, writePriority=0, *args, **kwargs):
         FC3_XConfig.__init__(self, writePriority, *args, **kwargs)
@@ -139,6 +139,7 @@ class FC6_XConfig(FC3_XConfig):
         op.add_option("--monitor", deprecated=1)
         op.add_option("--noprobe", deprecated=1)
         op.add_option("--vsync", deprecated=1)
+        op.remove_option("--server")
         return op
 
 class F9_XConfig(FC6_XConfig):

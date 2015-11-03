@@ -36,8 +36,12 @@ class FC3_TestCase(CommandTest):
             self.assert_parse("xconfig --depth=16 --resolution=1280x1024 --videoram=32000",
                               "xconfig  --depth=16 --resolution=1280x1024 --videoram=32000\n")
 
-        self.assert_parse("xconfig --defaultdesktop=xfce --server=Xvfb --startxonboot",
-                          "xconfig  --defaultdesktop=xfce --server=Xvfb --startxonboot\n")
+        self.assert_parse("xconfig --defaultdesktop=xfce --startxonboot",
+                          "xconfig  --defaultdesktop=xfce --startxonboot\n")
+
+        if "--server" in self.optionList:
+            self.assert_parse("xconfig --server=Xvfb",
+                              "xconfig  --server=Xvfb\n")
 
         # no arguments means don't print anything out
         self.assert_parse("xconfig", "")
@@ -66,6 +70,9 @@ class FC6_TestCase(FC3_TestCase):
         self.assert_deprecated("xconfig", "--monitor")
         self.assert_deprecated("xconfig", "--noprobe")
         self.assert_deprecated("xconfig", "--vsync")
+
+        # removed
+        self.assert_removed("xconfig", "--server")
 
 class F9_TestCase(FC6_TestCase):
     def runTest(self):
