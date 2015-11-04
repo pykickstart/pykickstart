@@ -160,6 +160,16 @@ class F21_TestCase(F15_TestCase):
         #fail
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah", KickstartParseError)
 
+class F24_TestCase(F21_TestCase):
+    def runTest(self, urlRequired=False):
+        F21_TestCase.runTest(self, urlRequired=urlRequired)
+        #pass
+        self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --gpgkey=file:///etc/pki/rpm-gpg/some-key",
+                          "repo --name=\"blah\" --baseurl=https://www.domain.com --gpgkey=\"file:///etc/pki/rpm-gpg/some-key\"\n")
+        #fail
+        # missing argument
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --gpgkey", KickstartParseError)
+
 
 if __name__ == "__main__":
     unittest.main()

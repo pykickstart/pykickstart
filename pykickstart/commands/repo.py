@@ -149,6 +149,22 @@ class F21_RepoData(F14_RepoData):
 
 RHEL7_RepoData = F21_RepoData
 
+class F24_RepoData(F21_RepoData):
+    removedKeywords = F21_RepoData.removedKeywords
+    removedAttrs = F21_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_RepoData.__init__(self, *args, **kwargs)
+        self.gpgkey = kwargs.get("gpgkey", None)
+
+    def _getArgsAsStr(self):
+        retval = F21_RepoData._getArgsAsStr(self)
+
+        if self.gpgkey:
+            retval += " --gpgkey=\"%s\"" % self.gpgkey
+
+        return retval
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -280,3 +296,13 @@ class F21_Repo(F15_Repo):
         return op
 
 RHEL7_Repo = F21_Repo
+
+class F24_Repo(F21_Repo):
+    removedKeywords = F21_Repo.removedKeywords
+    removedAttrs = F21_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F21_Repo._getParser(self)
+        op.add_option("--gpgkey", action="store", type="string")
+        return op
+
