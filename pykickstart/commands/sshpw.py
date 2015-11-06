@@ -66,6 +66,31 @@ class F13_SshPwData(BaseData):
         retval += " %s" % self.password
         return retval
 
+class F24_SshPwData(F13_SshPwData):
+    removedKeywords = F13_SshPwData.removedKeywords
+    removedAttrs = F13_SshPwData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_SshPwData.__init__(self, *args, **kwargs)
+        self.key = kwargs.get("sshkey", False)
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        retval += " --username=%s" % self.username
+        if self.sshkey:
+            retval += ' --sshkey'
+        else:
+            if self.lock:
+                retval += " --lock"
+            if self.isCrypted:
+                retval += " --iscrypted"
+            else:
+                retval += " --plaintext"
+
+        retval += " %s" % self.password
+        return retval
+
 class F13_SshPw(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -98,9 +123,10 @@ class F13_SshPw(KickstartCommand):
         self._setToObj(self.op, opts, ud)
         ud.lineno = self.lineno
 
-        if len(extra) != 1:
+        if len(extra) == 0:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
-        ud.password = extra[0]
+
+        ud.password = " ".join(extra)
 
         if ud in self.dataList():
             warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username)
@@ -109,3 +135,12 @@ class F13_SshPw(KickstartCommand):
 
     def dataList(self):
         return self.sshUserList
+
+class F24_SshPw(F13_SshPw):
+    removedKeywords = F13_SshPw.removedKeywords
+    removedAttrs = F13_SshPw.removedAttrs
+
+    def _getParser(self):
+        op = F13_SshPw._getParser(self)
+        op.add_option("--sshkey", action="store_true", default=False)
+        return op
