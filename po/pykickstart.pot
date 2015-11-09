@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-22 10:45-0400\n"
+"POT-Creation-Date: 2015-11-09 14:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,29 +78,37 @@ msgstr ""
 msgid "Unknown command: %s"
 msgstr ""
 
-#: ../pykickstart/load.py:66
+#: ../pykickstart/load.py:67
 #, python-format
 msgid "Error writing file \"%s\":"
 msgstr ""
 
-#: ../pykickstart/load.py:81
+#: ../pykickstart/load.py:82
 #, python-format
 msgid "Error securely accessing URL \"%s\""
 msgstr ""
 
-#: ../pykickstart/load.py:83 ../pykickstart/load.py:86
+#: ../pykickstart/load.py:84 ../pykickstart/load.py:87
 #, python-format
 msgid "Error accessing URL \"%s\""
 msgstr ""
 
-#: ../pykickstart/load.py:98
+#: ../pykickstart/load.py:103
 #, python-format
 msgid "Error opening file: %s"
 msgstr ""
 
-#: ../pykickstart/load.py:108
+#: ../pykickstart/load.py:113
 #, python-format
 msgid "Error copying file: %s"
+msgstr ""
+
+#: ../pykickstart/sections.py:256
+msgid "--default and --nobase cannot be used together"
+msgstr ""
+
+#: ../pykickstart/sections.py:258
+msgid "--default and --nocore cannot be used together"
 msgstr ""
 
 #: ../pykickstart/errors.py:45
@@ -162,12 +170,11 @@ msgstr ""
 msgid "Unsupported version specified: %s"
 msgstr ""
 
-#: ../pykickstart/sections.py:256
-msgid "--default and --nobase cannot be used together"
-msgstr ""
-
-#: ../pykickstart/sections.py:258
-msgid "--default and --nocore cannot be used together"
+#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
+#: ../pykickstart/commands/xconfig.py:98 ../pykickstart/commands/fcoe.py:115
+#: ../pykickstart/commands/iscsi.py:144
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/realm.py:43
@@ -192,7 +199,7 @@ msgstr ""
 msgid "Specify only one realm to join"
 msgstr ""
 
-#: ../pykickstart/commands/sshpw.py:102 ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/sshpw.py:127 ../pykickstart/commands/sshkey.py:89
 #: ../pykickstart/commands/keyboard.py:121
 #: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
 #: ../pykickstart/commands/timezone.py:60
@@ -200,16 +207,9 @@ msgstr ""
 msgid "A single argument is expected for the %s command"
 msgstr ""
 
-#: ../pykickstart/commands/sshpw.py:106 ../pykickstart/commands/sshkey.py:93
+#: ../pykickstart/commands/sshpw.py:132 ../pykickstart/commands/sshkey.py:93
 #, python-format
 msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/xconfig.py:98
-#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/fcoe.py:115
-#: ../pykickstart/commands/iscsi.py:144
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/repo.py:188

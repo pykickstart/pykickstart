@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.19
+Version:   2.20
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,14 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Nov 09 2015 Chris Lumens <clumens@redhat.com> - 2.20-1
+- Only decode as utf-8 when using py3 (bcl)
+- Add --sshkey to sshpw command (#1274104) (bcl)
+- Fix an xconfig test case. (clumens)
+- The xconfig --server option was apparently removed by FC6. (clumens)
+- Add a test for the xconfig command. (clumens)
+- Read kickstart files in binary, decode to utf-8 (bcl)
+
 * Tue Nov 03 2015 Chris Lumens <clumens@redhat.com> - 2.19-1
 - We don't actually need to BuildRequires python-pocketlint. (clumens)
 - docs/kickstart-docs.rst: iscrypted has no argument (sol)
