@@ -75,5 +75,10 @@ sshpw --username=otherguy --iscrypted passwordA""")
 sshpw --username=someguy --iscrypted passwordA
 sshpw --username=someguy --iscrypted passwordB""", UserWarning)
 
+class F24_TestCase(F13_TestCase):
+    def runTest(self):
+        self.assert_parse("sshpw --username=someguy --sshkey a ssh key with spaces", "sshpw --username=someguy --sshkey a ssh key with spaces\n")
+        self.assert_parse("sshpw --username=someguy a password with spaces", "sshpw --username=someguy --plaintext a password with spaces\n")
+
 if __name__ == "__main__":
     unittest.main()
