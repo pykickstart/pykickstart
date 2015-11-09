@@ -19,6 +19,7 @@
 #
 import requests
 import shutil
+import six
 
 from pykickstart.errors import KickstartError
 from pykickstart.i18n import _
@@ -92,8 +93,12 @@ def _load_file(filename):
     '''Load a file's contents and return them as a string'''
 
     try:
-        with open(filename, 'rb') as fh:
-            contents = fh.read().decode("utf-8")
+        if six.PY3:
+            with open(filename, 'rb') as fh:
+                contents = fh.read().decode("utf-8")
+        else:
+            with open(filename, 'r') as fh:
+                contents = fh.read()
     except IOError as e:
         raise KickstartError(_('Error opening file: %s') % str(e))
 

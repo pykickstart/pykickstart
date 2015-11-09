@@ -26,6 +26,11 @@ echo áááááá
         unicode_str1 = u"ááááááááá"
         unicode_str2 = u"áááááá"
 
+        # pylint: disable=environment-modify
+        # Make sure the locale is reset so that the traceback could happen
+        del os.environ["LANG"]
+        locale.resetlocale()
+
         # parser should parse string including non-ascii characters
         self.parser.readKickstartFromString(self.ks)
 
@@ -50,10 +55,6 @@ echo áááááá
         # original unicode string as utf-8 encoded byte string
         self.assertIn(str(self.get_encoded_str(unicode_str1, force_encode=True)), str(self.handler))
 
-        # pylint: disable=environment-modify
-        # Make sure the locale is reset so that the traceback could happen
-        del os.environ["LANG"]
-        locale.resetlocale()
         (fd, name) = tempfile.mkstemp(prefix="ks-", suffix=".cfg", dir="/tmp", text=True)
         if six.PY3:
             buf = self.ks.encode("utf-8")
