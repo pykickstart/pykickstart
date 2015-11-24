@@ -35,6 +35,7 @@ from collections import Iterator
 import os
 import six
 import shlex
+import sys
 from optparse import OptionParser
 import warnings
 
@@ -55,11 +56,10 @@ ver = version.DEVEL
 def _preprocessStateMachine (lineIter):
     l = None
     lineno = 0
+    retval = ""
 
-    # Now open an output kickstart file that we are going to write to one
-    # line at a time.
-    import tempfile
-    (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+    if six.PY3:
+        retval = retval.encode(sys.getdefaultencoding())
 
     while True:
         try:
@@ -77,9 +77,8 @@ def _preprocessStateMachine (lineIter):
         ll = l.strip()
         if not ll.startswith("%ksappend"):
             if six.PY3:
-                import sys
                 l = l.encode(sys.getdefaultencoding())
-            os.write(outF, l)
+            retval += l
             continue
 
         # Try to pull down the remote file.
@@ -94,38 +93,55 @@ def _preprocessStateMachine (lineIter):
             raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % str(e)))
 
         # If that worked, write the remote file to the output kickstart
-        # file in one burst.  Then close everything up to get ready to
-        # read ahead in the input file.  This allows multiple %ksappend
-        # lines to exist.
+        # file in one burst.  This allows multiple %ksappend lines to
+        # exist.
         if contents is not None:
-            os.write(outF, contents)
+            retval += contents.encode(sys.getdefaultencoding())
 
-    # All done - close the temp file and return its location.
-    os.close(outF)
-    return outName
+    return retval
 
 def preprocessFromString (s):
     """Preprocess the kickstart file, provided as the string str.  This
-        method is currently only useful for handling %ksappend lines,
-        which need to be fetched before the real kickstart parser can be
-        run.  Returns the location of the complete kickstart file.
+       method is currently only useful for handling %ksappend lines,
+       which need to be fetched before the real kickstart parser can be
+       run.  Returns the location of the complete kickstart file.
     """
     i = iter(s.splitlines(True) + [""])
-    rc = _preprocessStateMachine (i)
-    return rc
+    s = _preprocessStateMachine (i)
+
+    # Now open an output kicsktart file that we are going to write the
+    # results of preprocessing to.
+    if s:
+        import tempfile
+        (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+
+        os.write(outF, s)
+        os.close(outF)
+        return outName
+
+    return None
 
 def preprocessKickstart (f):
     """Preprocess the kickstart file, given by the filename file.  This
-        method is currently only useful for handling %ksappend lines,
-        which need to be fetched before the real kickstart parser can be
-        run.  Returns the location of the complete kickstart file.
+       method is currently only useful for handling %ksappend lines,
+       which need to be fetched before the real kickstart parser can be
+       run.  Returns the location of the complete kickstart file.
     """
     try:
         contents = load_to_str(f)
     except KickstartError as e:
         raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
 
-    return _preprocessStateMachine (iter(contents.splitlines(True)))
+    s = _preprocessStateMachine (iter(contents.splitlines(True)))
+    if s:
+        import tempfile
+        (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+
+        os.write(outF, s)
+        os.close(outF)
+        return outName
+
+    return None
 
 class PutBackIterator(Iterator):
     def __init__(self, iterable):
