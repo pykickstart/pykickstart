@@ -100,6 +100,28 @@ def _preprocessStateMachine (lineIter):
 
     return retval
 
+def preprocessFromStringToString (s):
+    """Preprocess the kickstart file, provided as the string s.  This
+       method is currently only useful for handling %ksappend lines, which
+       need to be fetched before the real kickstart parser can be run.
+       Returns the complete kickstart file as a string.
+    """
+    i = iter(s.splitlines(True) + [""])
+    return _preprocessStateMachine(i)
+
+def preprocessKickstartToString (f):
+    """Preprocess the kickstart file, given by the filename f.  This
+       method is currently only useful for handling %ksappend lines,
+       which need to be fetched before the real kickstart parser can be
+       run.  Returns the complete kickstart file as a string.
+    """
+    try:
+        contents = load_to_str(f)
+    except KickstartError as e:
+        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
+
+    return _preprocessStateMachine(iter(contents.splitlines(True)))
+
 def preprocessFromString (s):
     """Preprocess the kickstart file, provided as the string str.  This
        method is currently only useful for handling %ksappend lines,
