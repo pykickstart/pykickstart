@@ -123,16 +123,12 @@ def preprocessKickstartToString (f):
     return _preprocessStateMachine(iter(contents.splitlines(True)))
 
 def preprocessFromString (s):
-    """Preprocess the kickstart file, provided as the string str.  This
+    """Preprocess the kickstart file, provided as the string s.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
        run.  Returns the location of the complete kickstart file.
     """
-    i = iter(s.splitlines(True) + [""])
-    s = _preprocessStateMachine (i)
-
-    # Now open an output kicsktart file that we are going to write the
-    # results of preprocessing to.
+    s = preprocessFromStringToString(s)
     if s:
         import tempfile
         (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
@@ -144,17 +140,12 @@ def preprocessFromString (s):
     return None
 
 def preprocessKickstart (f):
-    """Preprocess the kickstart file, given by the filename file.  This
+    """Preprocess the kickstart file, given by the filename f.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
        run.  Returns the location of the complete kickstart file.
     """
-    try:
-        contents = load_to_str(f)
-    except KickstartError as e:
-        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
-
-    s = _preprocessStateMachine (iter(contents.splitlines(True)))
+    s = preprocessKickstartToString(f)
     if s:
         import tempfile
         (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
