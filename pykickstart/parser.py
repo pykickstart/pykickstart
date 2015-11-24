@@ -35,7 +35,6 @@ from collections import Iterator
 import os
 import six
 import shlex
-import tempfile
 from optparse import OptionParser
 import warnings
 
@@ -59,6 +58,7 @@ def _preprocessStateMachine (lineIter):
 
     # Now open an output kickstart file that we are going to write to one
     # line at a time.
+    import tempfile
     (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
 
     while True:
