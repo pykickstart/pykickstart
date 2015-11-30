@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.20
+Version:   2.21
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,13 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Nov 30 2015 Chris Lumens <clumens@redhat.com> - 2.21-1
+- Add tests for all the preprocess functions. (clumens)
+- Reimplement the existing preprocess functions. (clumens)
+- Add new preprocess functions that return a string. (clumens)
+- _preprocessStateMachine shouldn't do any writing to disk. (clumens)
+- Import tempfile when it's needed, not globally. (clumens)
+
 * Mon Nov 09 2015 Chris Lumens <clumens@redhat.com> - 2.20-1
 - Only decode as utf-8 when using py3 (bcl)
 - Add --sshkey to sshpw command (#1274104) (bcl)
