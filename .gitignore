@@ -1,6 +1,7 @@
 *.pyc
 .*.swp
 po/*.po
+po/*.mo
 pykickstart*.tar.gz
 pykickstart*.tar.bz2
 pylint-log
