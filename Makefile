@@ -41,6 +41,10 @@ docs:
 check:
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
+	@echo "*** Running tests on translatable strings ***"
+	PYTHONPATH=translation-canary python3 -m translation_canary.translatable po/$(PKGNAME).pot
+	@echo "*** Running tests on translated strings ***"
+	PYTHONPATH=translation-canary python3 -m translation_canary.translated .
 
 test:
 	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
