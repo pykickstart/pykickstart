@@ -80,6 +80,7 @@ archive: check test tag docs
 	cp -r po/*.po $(PKGNAME)-$(VERSION)/po/
 	$(MAKE) -C $(PKGNAME)-$(VERSION)/po
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
+	PYTHONPATH=translation-canary python3 -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
 	( cd $(PKGNAME)-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf $(PKGNAME)-$(VERSION)
 	git checkout -- po/$(PKGNAME).pot
