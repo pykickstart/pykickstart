@@ -639,7 +639,7 @@ def validate_network_interface_name(name):
     # check if the vlan id is in range
     if vlan_id is not None:
         if not(MIN_VLAN_ID <= vlan_id <= MAX_VLAN_ID):
-            return _("The vlan id out of the %d-%d vlan id range.") % (MIN_VLAN_ID, MAX_VLAN_ID)
+            return _("The vlan id is out of the %(minimum)d-%(maximum)d vlan id range.") % {"minimum": MIN_VLAN_ID, "maximum": MAX_VLAN_ID}
 
     # network interface name seems to be valid (no error found)
     return None
