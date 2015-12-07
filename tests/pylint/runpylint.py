@@ -11,6 +11,10 @@ class PykickstartLintConfig(PocketLintConfig):
         retval.remove("pocketlint.checkers.eintr")
         return retval
 
+    @property
+    def ignoreNames(self):
+        return {"translation-canary"}
+
 if __name__ == "__main__":
     conf = PykickstartLintConfig()
     linter = PocketLinter(conf)
