@@ -103,6 +103,6 @@ class RHEL6Handler(BaseHandler):
         "RepoData": commands.repo.RHEL6_RepoData,
         "SshPwData": commands.sshpw.F13_SshPwData,
         "UserData": commands.user.F12_UserData,
-        "VolGroupData": commands.volgroup.FC3_VolGroupData,
+        "VolGroupData": commands.volgroup.FC16_VolGroupData,
         "ZFCPData": commands.zfcp.F12_ZFCPData,
     }
