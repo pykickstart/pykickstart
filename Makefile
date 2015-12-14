@@ -41,6 +41,10 @@ docs:
 check:
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
+	@echo "*** Running tests on translatable strings ***"
+	PYTHONPATH=translation-canary python3 -m translation_canary.translatable po/$(PKGNAME).pot
+	@echo "*** Running tests on translated strings ***"
+	PYTHONPATH=translation-canary python3 -m translation_canary.translated .
 
 test:
 	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
@@ -66,26 +70,24 @@ tag:
 	git tag -a -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
+# Order matters, so run make twice instead of declaring them as dependencies
+release:
+	$(MAKE) bumpver && $(MAKE) archive
+
 archive: check test tag docs
-	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) > $(PKGNAME)-$(VERSION).tar
 	mkdir -p $(PKGNAME)-$(VERSION)
-	cp -r po $(PKGNAME)-$(VERSION)/po/
-	mkdir -p $(PKGNAME)-$(VERSION)/docs/
-	cp docs/kickstart-docs.rst $(PKGNAME)-$(VERSION)/docs/
+	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | tar -xf -
+	cp -r po/*.po $(PKGNAME)-$(VERSION)/po/
+	$(MAKE) -C $(PKGNAME)-$(VERSION)/po
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
-	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
-	gzip -9 $(PKGNAME)-$(VERSION).tar
+	PYTHONPATH=translation-canary python3 -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
+	( cd $(PKGNAME)-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf $(PKGNAME)-$(VERSION)
 	git checkout -- po/$(PKGNAME).pot
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 local: docs po-pull
-	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
-	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
-	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
-	@cd /tmp/$(PKGNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
-	@cp /tmp/$(PKGNAME)-$(VERSION)/dist/$(PKGNAME)-$(VERSION).tar.gz .
-	@rm -rf /tmp/$(PKGNAME)-$(VERSION)
+	@$(PYTHON) setup.py -q sdist --dist-dir .
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 rpmlog:
@@ -134,4 +136,4 @@ rc-release: scratch-bumpver scratch
 ci:
 	$(MAKE) PYTHON=python3 check coverage
 
-.PHONY: check clean install tag archive local docs
+.PHONY: check clean install tag archive local docs release

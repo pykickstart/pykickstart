@@ -99,17 +99,17 @@ for cmd in sorted(bothSet):
     deprecatedOptList = getOptSet([cmd for cmd in toOpt if cmd.deprecated == 1])
 
     if len(newOptList) > 0:
-        print(_("The following options were added to the %s command in %s:") % (cmd, opts.t))
+        print(_("The following options were added to the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
         printList(sorted(newOptList))
         printed = True
 
     if len(deprecatedOptList) > 0:
-        print(_("The following options were deprecated from the %s command in %s:") % (cmd, opts.t))
+        print(_("The following options were deprecated from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
         printList(sorted(deprecatedOptList))
         printed = True
 
     if len(removedOptList) > 0:
-        print(_("The following options were removed from the %s command in %s:") % (cmd, opts.t))
+        print(_("The following options were removed from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
         printList(sorted(removedOptList))
         printed = True
 

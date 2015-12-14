@@ -402,7 +402,7 @@ class FC3_LogVol(KickstartCommand):
 
         # Check for duplicates in the data list.
         if lvd in self.dataList():
-            warnings.warn(_("A logical volume with the name %s has already been defined in volume group %s.") % (lvd.name, lvd.vgname))
+            warnings.warn(_("A logical volume with the name %(logical_volume_name)s has already been defined in volume group %(volume_group)s.") % {"logical_volume_name": lvd.name, "volume_group": lvd.vgname})
 
         return lvd
 

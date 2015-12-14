@@ -87,7 +87,7 @@ class FC6_DmRaid(KickstartCommand):
 
         # Check for duplicates in the data list.
         if dm in self.dataList():
-            warnings.warn(_("A DM RAID device with the name %s and devices %s has already been defined.") % (dm.name, dm.devices))
+            warnings.warn(_("A DM RAID device with the name %(name)s and devices %(devices)s has already been defined.") % {"name": dm.name, "devices": dm.devices})
 
         return dm
 

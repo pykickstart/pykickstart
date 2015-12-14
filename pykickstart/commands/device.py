@@ -120,7 +120,7 @@ class F8_Device(FC3_Device):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("%s command requires a single argument: %s") % ("device", "module name")))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}))
 
         dd = F8_DeviceData()
         self._setToObj(self.op, opts, dd)

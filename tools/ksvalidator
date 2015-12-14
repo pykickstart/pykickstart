@@ -71,7 +71,7 @@ destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
 try:
     f = load_to_file(opts.ksfile, "%s/ks.cfg" % destdir)
 except KickstartError as e:
-    print(_("Error reading %s:\n%s") % (opts.ksfile, e))
+    print(_("Error reading %(filename)s:\n%(version)s") % {"filename": opts.ksfile, "version": e})
     cleanup(destdir)
 
 try:
