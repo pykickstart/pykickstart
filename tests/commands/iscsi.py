@@ -55,12 +55,12 @@ class FC6_TestCase(CommandTest):
         # extra test coverage
         data = self.handler().IscsiData()
         data.ipaddr = ""
-        self.assertEquals(data._getArgsAsStr(), "")
+        self.assertEqual(data._getArgsAsStr(), "")
 
         cmd = self.handler().commands[self.command]
         cmd.iscsi= [data]
-        self.assertEquals(cmd.__str__(), "iscsi\n")
-        self.assertEquals(cmd.dataList(), [data])
+        self.assertEqual(cmd.__str__(), "iscsi\n")
+        self.assertEqual(cmd.dataList(), [data])
 
 class F10_TestCase(FC6_TestCase):
     def runTest(self):
@@ -87,7 +87,7 @@ class RHEL6_TestCase(F10_TestCase):
         # extra test coverage
         data = self.handler().IscsiData()
         data.iface = "eth0"
-        self.assertEquals(data._getArgsAsStr(), " --iface=eth0")
+        self.assertEqual(data._getArgsAsStr(), " --iface=eth0")
 
 class F17_TestCase(F10_TestCase):
     def runTest(self):
@@ -98,7 +98,7 @@ class F17_TestCase(F10_TestCase):
         # extra test coverage
         data = self.handler().IscsiData()
         data.iface = "eth0"
-        self.assertEquals(data._getArgsAsStr(), " --iface=eth0")
+        self.assertEqual(data._getArgsAsStr(), " --iface=eth0")
 
 if __name__ == "__main__":
     unittest.main()

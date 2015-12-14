@@ -89,9 +89,9 @@ class FC3_TestCase(CommandTest):
         # extra test coverage
         parser.partitions = [pd]
         if "--bytes-per-inode" in self.optionList:
-            self.assertEquals(parser.__str__(), "# Disk partitioning information\npart /home --bytes-per-inode=4096\n")
+            self.assertEqual(parser.__str__(), "# Disk partitioning information\npart /home --bytes-per-inode=4096\n")
         else:
-            self.assertEquals(parser.__str__(), "# Disk partitioning information\npart /home\n")
+            self.assertEqual(parser.__str__(), "# Disk partitioning information\npart /home\n")
 
 
 class FC4_TestCase(FC3_TestCase):
@@ -131,7 +131,7 @@ class RHEL5_TestCase(FC4_TestCase):
         data = self.handler().PartData()
         data.encrypted = True
         data.passphrase = ""
-        self.assertEquals(data._getArgsAsStr(), " --bytes-per-inode=4096 --encrypted")
+        self.assertEqual(data._getArgsAsStr(), " --bytes-per-inode=4096 --encrypted")
 
 class F9_TestCase(FC3_TestCase):
     def runTest(self):

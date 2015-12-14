@@ -16,17 +16,17 @@ class F19_TestCase(CommandTest):
 
         # pass for join
         realm = self.assert_parse("realm join blah")
-        self.assertEquals(realm.join_realm, "blah")
-        self.assertEquals(realm.join_args, ["blah"])
-        self.assertEquals(realm.discover_options, [])
-        self.assertEquals(str(realm), "# Realm or domain membership\nrealm join blah\n")
+        self.assertEqual(realm.join_realm, "blah")
+        self.assertEqual(realm.join_args, ["blah"])
+        self.assertEqual(realm.discover_options, [])
+        self.assertEqual(str(realm), "# Realm or domain membership\nrealm join blah\n")
 
         # pass for join with client-software
         realm = self.assert_parse("realm join --client-software=sssd --computer-ou=OU=blah domain.example.com")
-        self.assertEquals(realm.join_realm, "domain.example.com")
-        self.assertEquals(realm.join_args, ["--client-software=sssd", "--computer-ou=OU=blah", "domain.example.com"])
-        self.assertEquals(realm.discover_options, ["--client-software=sssd"])
-        self.assertEquals(str(realm), "# Realm or domain membership\nrealm join --client-software=sssd --computer-ou=OU=blah domain.example.com\n")
+        self.assertEqual(realm.join_realm, "domain.example.com")
+        self.assertEqual(realm.join_args, ["--client-software=sssd", "--computer-ou=OU=blah", "domain.example.com"])
+        self.assertEqual(realm.discover_options, ["--client-software=sssd"])
+        self.assertEqual(str(realm), "# Realm or domain membership\nrealm join --client-software=sssd --computer-ou=OU=blah domain.example.com\n")
 
         # pass for join with one-time password
         realm = self.assert_parse("realm join --one-time-password=12345 domain.example.com")

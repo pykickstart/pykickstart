@@ -120,11 +120,11 @@ class FC3_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.raidList = [rd]
         if "--bytes-per-inode" in self.optionList:
-            self.assertEquals(rd._getArgsAsStr(), " --bytes-per-inode=4096")
-            self.assertEquals(cmd.__str__(), "raid  --bytes-per-inode=4096\n")
+            self.assertEqual(rd._getArgsAsStr(), " --bytes-per-inode=4096")
+            self.assertEqual(cmd.__str__(), "raid  --bytes-per-inode=4096\n")
         else:
-            self.assertEquals(rd._getArgsAsStr(), "")
-            self.assertEquals(cmd.__str__(), "raid\n")
+            self.assertEqual(rd._getArgsAsStr(), "")
+            self.assertEqual(cmd.__str__(), "raid\n")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):

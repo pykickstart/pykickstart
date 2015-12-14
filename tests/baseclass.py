@@ -189,7 +189,7 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
 
-        with self.assertRaisesRegexp(exception, regex):
+        with self.assertRaisesRegex(exception, regex):
             parser.parse(args[1:])
 
     def assert_deprecated(self, cmd, opt):
@@ -198,7 +198,7 @@ class CommandTest(unittest.TestCase):
 
         for op in parser.op.option_list:
             if op.get_opt_string() == opt:
-                self.assert_(op.deprecated)
+                self.assertTrue(op.deprecated)
 
     def assert_removed(self, cmd, opt):
         '''Ensure that the provided option is not present in option_list'''
@@ -212,7 +212,7 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(cmd)
         for op in parser.op.option_list:
             if op.get_opt_string() == opt:
-                self.assert_(op.required)
+                self.assertTrue(op.required)
 
     def assert_type(self, cmd, opt, opt_type):
         '''Ensure that the provided option is of the requested type'''

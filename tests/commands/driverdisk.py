@@ -48,13 +48,13 @@ class FC3_TestCase(CommandTest):
         # extra test coverage
         ddd = self.handler().DriverDiskData()
         ddd.source = None
-        self.assertEquals(ddd._getArgsAsStr(), "")
+        self.assertEqual(ddd._getArgsAsStr(), "")
 
         cmd = self.handler().commands[self.command]
-        self.assertEquals(cmd.__str__(), "")
+        self.assertEqual(cmd.__str__(), "")
         cmd.driverdiskList = [ddd]
-        self.assertEquals(cmd.__str__(), "driverdisk \n")
-        self.assertEquals(cmd.dataList(), [ddd])
+        self.assertEqual(cmd.__str__(), "driverdisk \n")
+        self.assertEqual(cmd.dataList(), [ddd])
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):

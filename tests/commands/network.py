@@ -59,14 +59,14 @@ class F20_TestCase(CommandTest):
 
         for string, value in zip(teamslaves_strings, teamslaves_values):
             network_data = self.assert_parse("network --device team0 --bootproto=dhcp --teamslaves=\"%s\"" % string)
-            self.assertEquals(network_data.teamslaves, value)
+            self.assertEqual(network_data.teamslaves, value)
 
         for value in teamslaves_values:
             nd = self.assert_parse("network --device team0 --bootproto=dhcp")
             nd.teamslaves = value
             s = "%s" % nd
             nd2 = self.assert_parse(s)
-            self.assertEquals(value, nd2.teamslaves)
+            self.assertEqual(value, nd2.teamslaves)
 
 class F22_TestCase(F20_TestCase):
     def runTest(self):
@@ -101,13 +101,13 @@ class F24_TestCase(F22_TestCase):
         # Test ipv4 only settings
         cmd = "network --noipv4 --activate --hostname=blah.test.com --ipv6=1:2:3:4:5:6:7:8 --device eth0 --nameserver=1:1:1:1::,2:2:2:2::"
         nd = self.assert_parse(cmd)
-        self.assertEquals(nd.bootProto, "")
-        self.assertEquals(nd.hostname, "blah.test.com")
+        self.assertEqual(nd.bootProto, "")
+        self.assertEqual(nd.hostname, "blah.test.com")
         self.assertTrue(nd.noipv4)
-        self.assertEquals(nd.ipv6, "1:2:3:4:5:6:7:8")
+        self.assertEqual(nd.ipv6, "1:2:3:4:5:6:7:8")
         self.assertIn("1:1:1:1::", nd.nameserver)
         self.assertIn("2:2:2:2::", nd.nameserver)
-        self.assertEquals(nd.device, "eth0")
+        self.assertEqual(nd.device, "eth0")
 
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):

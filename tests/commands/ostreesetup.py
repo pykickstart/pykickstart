@@ -48,7 +48,7 @@ class F21_TestCase(CommandTest):
         cmd.url = ""
         cmd.ref = ""
         cmd.nogpg = False
-        self.assertEquals(cmd._getArgsAsStr(), "")
+        self.assertEqual(cmd._getArgsAsStr(), "")
 
 RHEL7_TestCase = F21_TestCase
 

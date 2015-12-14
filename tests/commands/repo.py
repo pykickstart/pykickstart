@@ -59,12 +59,12 @@ class FC6_TestCase(CommandTest):
         # extra test coverage
         cmd = self.handler().commands[self.command]
         cmd.repoList = "--name=blah"
-        self.assertEquals(cmd.__str__(), "--name=blah")
+        self.assertEqual(cmd.__str__(), "--name=blah")
 
         data = self.handler().RepoData()
         data.baseurl = ""
         data.mirrorlist = ""
-        self.assertEquals(data._getArgsAsStr(), "")
+        self.assertEqual(data._getArgsAsStr(), "")
 
 class FC6_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
@@ -98,8 +98,8 @@ class F8_TestCase(FC6_TestCase):
         cmd = self.handler().commands[self.command]
         cmd.handler.method.url = "http://example.com"
         rd = cmd.methodToRepo()
-        self.assertEquals(rd.name, "ks-method-url")
-        self.assertEquals(rd.baseurl, "http://example.com")
+        self.assertEqual(rd.name, "ks-method-url")
+        self.assertEqual(rd.baseurl, "http://example.com")
 
         cmd.handler.method.url = ""
         with self.assertRaises(KickstartError):

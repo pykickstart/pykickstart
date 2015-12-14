@@ -181,7 +181,7 @@ ls /tmp
 class Include_Bad_URL_TestCase(Include_URL_TestCase):
     def runTest(self):
         # Add some garbage to the end of the URL and ensure it breaks
-        self.assertRaisesRegexp(KickstartError, "Error accessing URL",
+        self.assertRaisesRegex(KickstartError, "Error accessing URL",
                 self.parser.readKickstartFromString, self.ks % (self._url + "-garbage"))
 
 if __name__ == "__main__":
