@@ -58,11 +58,7 @@ class ParserTest(unittest.TestCase):
         By default the KickstartParseError is expected.
         """
 
-        if not six.PY3:
-            assert_function = 'assertRaisesRegexp'
-        else:
-            assert_function = 'assertRaisesRegex'
-        with getattr(self, assert_function)(exception, regex):
+        with six.assertRaisesRegex(self, exception, regex):
             self.parser.readKickstartFromString(ks_string)
 
     def assert_parse(self, ks_string):
@@ -189,7 +185,7 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(inputStr)
         args = shlex.split(inputStr)
 
-        with self.assertRaisesRegex(exception, regex):
+        with six.assertRaisesRegex(self, exception, regex):
             parser.parse(args[1:])
 
     def assert_deprecated(self, cmd, opt):
