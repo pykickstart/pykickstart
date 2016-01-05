@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.21
+Version:   2.22
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,18 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Jan 05 2016 Chris Lumens <clumens@redhat.com> - 2.22-1
+- Use six.assertRaisesRegex to keep the tests working in python2. (dshea)
+- Rename deprecated assert methods to whatever we're supposed to be using. (clumens)
+- Fix class inheritance in RHEL6_VolGroup (ccoyle)
+- Run the translation-canary tests during make archive (dshea)
+- Run translation-canary tests from make check (dshea)
+- Ignore translation-canary when running pylint. (dshea)
+- Correct problems in translatable format strings. (dshea)
+- Use the xgettext_werror to generate pykickstart.pot (dshea)
+- Use setup.py's sdist to create the release tarball. (dshea)
+- Squashed 'translation-canary/' content from commit 5a45c19 (dshea)
+
 * Mon Nov 30 2015 Chris Lumens <clumens@redhat.com> - 2.21-1
 - Add tests for all the preprocess functions. (clumens)
 - Reimplement the existing preprocess functions. (clumens)
