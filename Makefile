@@ -25,7 +25,7 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	@which zanata || (echo "*** Please install zanata (zanata-python-client) ***"; exit 2)
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
 po-empty:
@@ -104,7 +104,7 @@ bumpver: po-pull
 	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot ; \
-	zanata push $(TX_PUSH_ARGS)
+	zanata push $(ZANATA_PUSH_ARGS)
 
 scratch-bumpver: po-empty
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
