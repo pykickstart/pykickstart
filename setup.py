@@ -1,5 +1,3 @@
-#!/usr/bin/python2
-
 from distutils.core import setup
 
 setup(name='pykickstart', version='2.22',
