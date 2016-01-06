@@ -62,25 +62,25 @@ mkdir %{py3dir}
 cp -a . %{py3dir}
 
 %build
-make
+make PYTHON=%{__python2}
 
 pushd %{py3dir}
-PYTHON=%{__python3} make
+make PYTHON=%{__python3}
 popd
 
 %install
 rm -rf %{buildroot}
-make DESTDIR=%{buildroot} install
+make PYTHON=%{__python2} DESTDIR=%{buildroot} install
 
 pushd %{py3dir}
-PYTHON=%{__python3} make DESTDIR=%{buildroot} install
+make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 popd
 
 %check
-make test
+make PYTHON=%{__python2} test
 
 pushd %{py3dir}
-PYTHON=%{__python3} make DESTDIR=%{buildroot} test
+make PYTHON=%{__python3} test
 popd
 
 %files
