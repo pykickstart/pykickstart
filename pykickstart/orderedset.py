@@ -4,7 +4,8 @@
 
 import collections
 
-class OrderedSet(collections.MutableSet):
+# Mypy can't find the class so just skip it
+class OrderedSet(collections.MutableSet):   # type: ignore
 
     def __init__(self, iterable=None):
         self.end = end = []

@@ -50,6 +50,9 @@ test:
 	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
 	@echo "*** Running unittests ***"
 	PYTHONPATH=. $(PYTHON) -m nose --processes=-1 $(NOSEARGS)
+	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
+	@echo "*** Running type checks ***"
+	PYTHONPATH=. mypy --use-python-path pykickstart
 
 coverage:
 	@which $(COVERAGE) || (echo "*** Please install coverage (python-coverage) ***"; exit 2)

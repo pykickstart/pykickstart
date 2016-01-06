@@ -23,6 +23,12 @@ from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
+# import static typing information if available
+try:
+    from typing import Any  # pylint: disable=unused-import
+except ImportError:
+    pass
+
 class FC3_Keyboard(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -134,7 +140,7 @@ class F18_Keyboard(FC3_Keyboard):
 
     # property for backwards compatibility
     # pylint: disable=method-hidden
-    @property
+    @property   # type: ignore
     def keyboard(self):
         if self.x_layouts:
             return self._keyboard or self.vc_keymap or self.x_layouts[0]

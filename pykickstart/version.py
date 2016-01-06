@@ -45,10 +45,18 @@ This module also exports several functions:
 """
 import re, sys
 
+# import static typing information if available
 try:
-    from imputil import imp
+    from typing import Callable, Union, cast    # pylint: disable=unused-import
+    from pykickstart.base import BaseHandler    # pylint: disable=unused-import
+except ImportError:
+    cast = lambda ty, val: val
+
+# mypy doesn't handle conditional imports, so just skip this part
+try:
+    from imputil import imp # type: ignore
 except ImportError: # Python 3
-    import imp
+    import imp              # type: ignore
 
 from pykickstart.i18n import _
 
@@ -99,7 +107,7 @@ versionMap = {
         "RHEL7": RHEL7
 }
 
-def stringToVersion(s):
+def stringToVersion(s): # type: (str) -> int
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
@@ -132,7 +140,7 @@ def stringToVersion(s):
     # If nothing else worked, we're out of options.
     raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
-def versionToString(version, skipDevel=False):
+def versionToString(version, skipDevel=False):  # type: (int, bool) -> str
     """Convert version into a string representation of the version number.
        This is the reverse operation of stringToVersion.  Raises
        KickstartVersionError if version does not match anything.
@@ -148,7 +156,7 @@ def versionToString(version, skipDevel=False):
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def versionFromFile(f):
+def versionFromFile(f): # type: (str) -> int
     """Given a file or URL, look for a line starting with #version= and
        return the version number.  If no version is found, return DEVEL.
     """
@@ -166,23 +174,24 @@ def versionFromFile(f):
 
     return v
 
-def returnClassForVersion(version=DEVEL):
+def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callable[[], BaseHandler]
     """Return the class of the syntax handler for version.  version can be
        either a string or the matching constant.  Raises KickstartValueError
        if version does not match anything.
     """
     try:
         version = int(version)
-        module = "%s" % versionToString(version, skipDevel=True)
+        module = "%s" % versionToString(cast(int, version), skipDevel=True)
     except ValueError:
         module = "%s" % version
-        version = stringToVersion(version)
+        version = stringToVersion(cast(str, version))
 
     module = module.lower()
 
     try:
         import pykickstart.handlers
-        sys.path.extend(pykickstart.handlers.__path__)
+        # mypy does not understand module.__path__, skip
+        sys.path.extend(pykickstart.handlers.__path__)  # type: ignore
         found = imp.find_module(module)
         loaded = imp.load_module(module, found[0], found[1], found[2])
 
@@ -196,7 +205,7 @@ def returnClassForVersion(version=DEVEL):
         if found and len(found) > 0:
             found[0].close()
 
-def makeVersion(version=DEVEL):
+def makeVersion(version=DEVEL): # type: (int) -> BaseHandler
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of
