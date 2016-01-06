@@ -17,6 +17,10 @@ PYTHON?=python3
 COVERAGE?=coverage3
 ifeq ($(PYTHON),python)
   COVERAGE=coverage
+else
+  # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
+  # We default to python3 now so everyone else can just deal with the slowness.
+  NOSEARGS+=--processes=-1
 endif
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
@@ -46,19 +50,18 @@ check:
 	@echo "*** Running tests on translated strings ***"
 	PYTHONPATH=translation-canary python3 -m translation_canary.translated .
 
-test:
-	@which nosetests || (echo "*** Please install nosetest (python-nose) ***"; exit 2)
-	@echo "*** Running unittests ***"
-	PYTHONPATH=. $(PYTHON) -m nose --processes=-1 $(NOSEARGS)
+# Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
+test: coverage
+
+coverage:
+	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
+	@echo "*** Running unittests with coverage ***"
+	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart $(NOSEARGS)
+	$(COVERAGE) combine
+	$(COVERAGE) report -m > coverage-report.log
 	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
 	@echo "*** Running type checks ***"
 	PYTHONPATH=. mypy --use-python-path pykickstart
-
-coverage:
-	@which $(COVERAGE) || (echo "*** Please install coverage (python-coverage) ***"; exit 2)
-	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart $(NOSEARGS)
-	$(COVERAGE) report > coverage-report.log
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
