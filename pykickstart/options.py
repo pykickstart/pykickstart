@@ -29,7 +29,9 @@ This module exports two classes:
 """
 import warnings
 from copy import copy
-from optparse import Option, OptionError, OptionParser, OptionValueError
+# There are no type stubs written for optparse since it's deprecated, and mypy
+# complains about the actual module
+from optparse import Option, OptionError, OptionParser, OptionValueError    # type: ignore
 
 from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.version import versionToString

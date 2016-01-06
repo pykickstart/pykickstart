@@ -36,7 +36,9 @@ import os
 import six
 import shlex
 import sys
-from optparse import OptionParser
+# there are no type stubs for optparse, since argparse is the new hotness, and
+# mypy complains while parsing the actual module.
+from optparse import OptionParser   # type: ignore
 import warnings
 
 from pykickstart import constants, version

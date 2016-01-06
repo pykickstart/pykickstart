@@ -21,8 +21,15 @@ __all__ = ["commandMap", "dataMap"]
 
 from pykickstart import handlers
 
-commandMap = {}
-dataMap = {}
+# Import static typing information if available
+try:
+    from typing import Dict # pylint: disable=unused-import
+    from pykickstart.base import KickstartCommand, BaseData # pylint: disable=unused-import
+except ImportError:
+    pass
+
+commandMap = {} # type: Dict[int, Dict[str, KickstartCommand]]
+dataMap = {}    # type: Dict[int, Dict[str, BaseData]]
 
 if not commandMap:
     for (name, obj) in list(handlers.__dict__.items()):

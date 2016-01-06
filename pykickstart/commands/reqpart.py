@@ -22,7 +22,8 @@ from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import gettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)
+# typeshed is missing the stub for ldgettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)   # type: ignore
 
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
