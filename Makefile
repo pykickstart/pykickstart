@@ -65,7 +65,7 @@ coverage:
 	PYTHONPATH=. mypy --use-python-path pykickstart
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage
 	$(MAKE) -C po clean
 	$(PYTHON) setup.py -q clean --all
 
