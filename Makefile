@@ -14,13 +14,14 @@ PREFIX=/usr
 NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests/parser/*py
 
 PYTHON?=python3
-COVERAGE?=coverage3
-ifeq ($(PYTHON),python)
-  COVERAGE=coverage
-else
+
+ifeq ($(PYTHON),python3)
+  COVERAGE=coverage3
   # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
   # We default to python3 now so everyone else can just deal with the slowness.
   NOSEARGS+=--processes=-1
+else
+  COVERAGE?=coverage
 endif
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
