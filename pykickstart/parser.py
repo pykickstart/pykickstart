@@ -40,12 +40,12 @@ import sys
 # mypy complains while parsing the actual module.
 from optparse import OptionParser   # type: ignore
 import warnings
+from ordered_set import OrderedSet  # type: ignore
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
-from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection
 
 from pykickstart.i18n import _
