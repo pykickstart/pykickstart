@@ -37,13 +37,13 @@ import six
 import shlex
 import sys
 import warnings
+from ordered_set import OrderedSet  # type: ignore
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.options import KSOptionParser
-from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection
 
 from pykickstart.i18n import _
