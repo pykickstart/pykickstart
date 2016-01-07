@@ -547,10 +547,8 @@ class KickstartParser(object):
            overridden in a subclass if necessary.
         """
         if self.handler:
-            self.handler.currentCmd = args[0]
             self.handler.currentLine = self._line
             retval = self.handler.dispatcher(args, lineno)
-
             return retval
 
     def registerSection(self, obj):
