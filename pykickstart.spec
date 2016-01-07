@@ -17,9 +17,6 @@ BuildRequires: python-devel
 BuildRequires: python-nose
 BuildRequires: python-setuptools
 BuildRequires: python-requests
-%if ! 0%{?rhel}
-BuildRequires: transifex-client
-%endif
 
 BuildRequires: python3-devel
 BuildRequires: python3-nose
