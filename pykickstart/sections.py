@@ -3,7 +3,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2011-2015 Red Hat, Inc.
+# Copyright 2011-2016 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -37,6 +37,16 @@ from pykickstart.version import FC4, F7, F9, F18, F21, F22
 
 from pykickstart.i18n import _
 
+# import static typing information if avaialble
+# pylint: disable=unused-import
+try:
+    from typing import Any, Dict, List, Union
+    from pykickstart.base import BaseHandler
+    from pykickstart.parser import Script
+except ImportError:
+    pass
+# pylint: enable=unused-import
+
 class Section(object):
     """The base class for defining kickstart sections.  You are free to
        subclass this as appropriate.
@@ -56,27 +66,29 @@ class Section(object):
     sectionOpen = ""
     timesSeen = 0
 
-    def __init__(self, handler, **kwargs):
+    def __init__(self, handler, **kwargs):  # type: (Section, BaseHandler, **Any) -> None
         """Create a new Script instance.  At the least, you must pass in an
            instance of a baseHandler subclass.
 
            Valid kwargs:
 
-           dataObj --
+           dataObj -- A class that should be populated by this Section.  It almost
+                      always should be Script, or some subclass of it.
         """
         self.handler = handler
-
         self.version = self.handler.version
 
-        self.dataObj = kwargs.get("dataObj", None)
+        # FIXME: The type should be some sort of Callable but mypy doesn't give a way to
+        # annotate a callable with optional or keyword args.
+        self.dataObj = kwargs.get("dataObj", None)  # type: ignore
 
-    def finalize(self):
+    def finalize(self): # type: (Section) -> None
         """This method is called when the %end tag for a section is seen.  It
            is not required to be provided.
         """
         pass
 
-    def handleLine(self, line):
+    def handleLine(self, line): # type: (Section, str) -> None
         """This method is called for every line of a section.  Take whatever
            action is appropriate.  While this method is not required to be
            provided, not providing it does not make a whole lot of sense.
@@ -87,7 +99,8 @@ class Section(object):
         """
         pass
 
-    def handleHeader(self, lineno, args):       # pylint: disable=unused-argument
+    # pylint: disable=unused-argument
+    def handleHeader(self, lineno, args):   # type: (Section, int, List[str]) -> None
         """This method is called when the opening tag for a section is seen.
            Not all sections will need this method, though all provided with
            kickstart include one.
@@ -98,6 +111,7 @@ class Section(object):
                    opening tag.
         """
         self.timesSeen += 1
+    # pylint: enable=unused-argument
 
     @property
     def seen(self):
@@ -112,23 +126,23 @@ class NullSection(Section):
        it will raise an error.  Sometimes, you may want to simply ignore those
        sections instead.  This class is useful for that purpose.
     """
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):    # type: (NullSection, *Any, **Any) -> None
         """Create a new NullSection instance.  You must pass a sectionOpen
            parameter (including a leading '%') for the section you wish to
            ignore.
         """
         Section.__init__(self, *args, **kwargs)
-        self.sectionOpen = kwargs.get("sectionOpen")
+        self.sectionOpen = kwargs.get("sectionOpen")    # type: str
 
 class ScriptSection(Section):
     allLines = True
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs):    # type: (ScriptSection, *Any, **Any) -> None
         Section.__init__(self, *args, **kwargs)
-        self._script = {}
+        self._script = {}   # type: Dict[str, Any]
         self._resetScript()
 
-    def _getParser(self):
+    def _getParser(self):   # type: (ScriptSection) -> KSOptionParser
         op = KSOptionParser(self.version)
         op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
                       default=False)
@@ -136,14 +150,14 @@ class ScriptSection(Section):
         op.add_option("--log", "--logfile", dest="log")
         return op
 
-    def _resetScript(self):
+    def _resetScript(self): # type: (ScriptSection) -> None
         self._script = {"interp": "/bin/sh", "log": None, "errorOnFail": False,
                         "lineno": None, "chroot": False, "body": []}
 
-    def handleLine(self, line):
+    def handleLine(self, line): # type: (ScriptSection, str) -> None
         self._script["body"].append(line)
 
-    def finalize(self):
+    def finalize(self): # type: (ScriptSection) -> None
         if " ".join(self._script["body"]).strip() == "":
             return
 
@@ -154,13 +168,12 @@ class ScriptSection(Section):
                   "errorOnFail": self._script["errorOnFail"],
                   "type": self._script["type"]}
 
-        s = self.dataObj (self._script["body"], **kwargs)
-        self._resetScript()
-
-        if self.handler:
+        if self.dataObj is not None:
+            s = self.dataObj (self._script["body"], **kwargs)
+            self._resetScript()
             self.handler.scripts.append(s)
 
-    def handleHeader(self, lineno, args):
+    def handleHeader(self, lineno, args):   # type: (ScriptSection, int, List[str]) -> None
         """Process the arguments to a %pre/%post/%traceback header for later
            setting on a Script instance once the end of the script is found.
            This method may be overridden in a subclass if necessary.
@@ -180,27 +193,27 @@ class ScriptSection(Section):
 class PreScriptSection(ScriptSection):
     sectionOpen = "%pre"
 
-    def _resetScript(self):
+    def _resetScript(self): # type: (PreScriptSection) -> None
         ScriptSection._resetScript(self)
         self._script["type"] = KS_SCRIPT_PRE
 
 class PreInstallScriptSection(ScriptSection):
     sectionOpen = "%pre-install"
 
-    def _resetScript(self):
+    def _resetScript(self): # type: (PreInstallScriptSection) -> None
         ScriptSection._resetScript(self)
         self._script["type"] = KS_SCRIPT_PREINSTALL
 
 class PostScriptSection(ScriptSection):
     sectionOpen = "%post"
 
-    def _getParser(self):
+    def _getParser(self):   # type: (PostScriptSection) -> KSOptionParser
         op = ScriptSection._getParser(self)
         op.add_option("--nochroot", dest="nochroot", action="store_true",
                       default=False)
         return op
 
-    def _resetScript(self):
+    def _resetScript(self): # type: (PostScriptSection) -> None
         ScriptSection._resetScript(self)
         self._script["chroot"] = True
         self._script["type"] = KS_SCRIPT_POST
@@ -208,23 +221,19 @@ class PostScriptSection(ScriptSection):
 class TracebackScriptSection(ScriptSection):
     sectionOpen = "%traceback"
 
-    def _resetScript(self):
+    def _resetScript(self): # type: (TracebackScriptSection) -> None
         ScriptSection._resetScript(self)
         self._script["type"] = KS_SCRIPT_TRACEBACK
 
 class PackageSection(Section):
     sectionOpen = "%packages"
 
-    def handleLine(self, line):
-        if not self.handler:
-            return
-
+    def handleLine(self, line): # type: (PackageSection, str) -> None
         h = line.partition('#')[0]
         line = h.rstrip()
-
         self.handler.packages.add([line])
 
-    def handleHeader(self, lineno, args):
+    def handleHeader(self, lineno, args):   # type: (PackageSection, int, List[str]) -> None
         """Process the arguments to the %packages header and set attributes
            on the Version's Packages instance appropriate.  This method may be
            overridden in a subclass if necessary.
