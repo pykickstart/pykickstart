@@ -131,7 +131,7 @@ class KickstartCommand(KickstartObject):
         return KickstartObject.__str__(self)
 
     # pylint: disable=unused-argument
-    def parse(self, args):  # type: (KickstartCommand, List[str]) -> Union[None, BaseData]
+    def parse(self, args):  # type: (KickstartCommand, List[str]) -> Union[None, BaseData, KickstartCommand]
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.
         """
@@ -187,7 +187,7 @@ class DeprecatedCommand(KickstartCommand):
         """Placeholder since DeprecatedCommands don't work anymore."""
         return ""
 
-    def parse(self, args):      # type: (DeprecatedCommand, List[str]) -> Union[None, BaseData]
+    def parse(self, args):      # type: (DeprecatedCommand, List[str]) -> Union[None, BaseData, KickstartCommand]
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
@@ -260,7 +260,7 @@ class BaseHandler(KickstartObject):
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
         self.scripts = []   # type: List[Script]
-        self.packages = Packages()
+        self.packages = Packages()  # type: Packages
         self.platform = ""
 
         # These will be set by the dispatcher.
@@ -414,7 +414,7 @@ class BaseHandler(KickstartObject):
         self.commands[cmdName] = cmdObj
         self.commands[cmdName].handler = self
 
-    def dispatcher(self, args, lineno): # type: (BaseHandler, List[str], int) -> BaseData
+    def dispatcher(self, args, lineno): # type: (BaseHandler, List[str], int) -> Union[BaseData, KickstartCommand]
         """Call the appropriate KickstartCommand handler for the current line
            in the kickstart file.  A handler for the current command should
            be registered, though a handler of None is not an error.  Returns
@@ -433,12 +433,17 @@ class BaseHandler(KickstartObject):
             self.commands[cmd].lineno = lineno
             self.commands[cmd].seen = True
 
-            # The parser returns the data object that was modified.  This could
-            # be a BaseData subclass that should be put into a list, or it
-            # could be the command handler object itself.
+            # The parser returns the data object that was modified.  This is either
+            # the command handler object itself (a KickstartCommand object), or it's
+            # a BaseData subclass instance that should be put into the command's
+            # dataList.  The latter is done via side effects.
+            #
+            # Regardless, return the object that was given to us by the parser.
             obj = self.commands[cmd].parse(args[1:])
+
+            # Here's the side effect part - don't worry about lst not being returned.
             lst = self.commands[cmd].dataList()
-            if lst is not None:
+            if isinstance(obj, BaseData) and lst is not None:
                 lst.append(obj)
 
             return obj
