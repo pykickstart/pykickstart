@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.23
+Version:   2.24
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -114,6 +114,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jan 11 2016 Chris Lumens <clumens@redhat.com> - 2.24-1
+- Add build requires on python-coverage and python3-mypy. (clumens)
+
 * Mon Jan 11 2016 Chris Lumens <clumens@redhat.com> - 2.23-1
 - Add type information to parser.py and sections.py. (clumens)
 - Fix some of the types in base.py. (clumens)
