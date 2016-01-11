@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.22
+Version:   2.23
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -111,6 +111,20 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jan 11 2016 Chris Lumens <clumens@redhat.com> - 2.23-1
+- Add type information to parser.py and sections.py. (clumens)
+- Fix some of the types in base.py. (clumens)
+- Don't set currentCmd on the handler object. (clumens)
+- Remove logs and coverage files from the "clean" target. (clumens)
+- Fix the if block in the Makefile to be much more clear. (clumens)
+- Get rid of the BuildRequires: transifex. (clumens)
+- Get rid of the "test" makefile target.  Use "coverage" for everything. (clumens)
+- Use python3 by default in the spec file and Makefile. (clumens)
+- Remove the #! line from setup.py. (clumens)
+- Remove spec file history from before version 1.99. (clumens)
+- Add some initial static typing information to pykickstart. (dshea)
+- Fix a bug in how arguments were being passed to zanata. (clumens)
+
 * Tue Jan 05 2016 Chris Lumens <clumens@redhat.com> - 2.22-1
 - Use six.assertRaisesRegex to keep the tests working in python2. (dshea)
 - Rename deprecated assert methods to whatever we're supposed to be using. (clumens)
