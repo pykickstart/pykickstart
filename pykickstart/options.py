@@ -105,24 +105,18 @@ class KSOptionParser(OptionParser):
 
         return OptionParser.parse_args(self, **kwargs)
 
-    def __init__(self, mapping=None, version=None):
+    def __init__(self, version=None, *args, **kwargs):
         """Create a new KSOptionParser instance.  Each KickstartCommand
            subclass should create one instance of KSOptionParser, providing
-           at least the lineno attribute.  mapping and version are not required.
+           at least the lineno attribute.  version is not required.
            Instance attributes:
 
-           mapping -- A mapping from option strings to different values.
            version -- The version of the kickstart syntax we are checking
                       against.
         """
         OptionParser.__init__(self, option_class=KSOption,
                               add_help_option=False,
                               conflict_handler="resolve")
-        if mapping is None:
-            self.map = {}
-        else:
-            self.map = mapping
-
         self.lineno = None
         self.option_seen = {}
         self.version = version
@@ -159,15 +153,8 @@ def _check_string(_option, opt, value):
 #             syntax version is greated than the value of this attribute
 # Also creates a new type:
 # - ksboolean:  support various kinds of boolean values on an option
-# And two new actions:
-# - map :  allows you to define an opt -> val mapping such that dest gets val
-#          when opt is seen
-# - map_extend:  allows you to define an opt -> [val1, ... valn] mapping such
-#                that dest gets a list of vals built up when opt is seen
 class KSOption (Option):
     ATTRS = Option.ATTRS + ['introduced', 'deprecated', 'removed', 'required']
-    ACTIONS = Option.ACTIONS + ("map", "map_extend",)
-    STORE_ACTIONS = Option.STORE_ACTIONS + ("map", "map_extend",)
 
     TYPES = Option.TYPES + ("ksboolean", "string")
     TYPE_CHECKER = copy(Option.TYPE_CHECKER)
@@ -184,15 +171,6 @@ class KSOption (Option):
     def process (self, opt, value, values, parser):
         Option.process(self, opt, value, values, parser)
         parser.option_seen[self] = 1
-
-    # Override default take_action method to handle our custom actions.
-    def take_action(self, action, dest, opt, value, values, parser):
-        if action == "map":
-            values.ensure_value(dest, parser.map[opt.lstrip('-')])
-        elif action == "map_extend":
-            values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
-        else:
-            Option.take_action(self, action, dest, opt, value, values, parser)
 
     def takes_value(self):
         # Deprecated options don't take a value.

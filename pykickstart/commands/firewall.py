@@ -92,16 +92,19 @@ class FC3_Firewall(KickstartCommand):
                     p = "%s:tcp" % p
                 parser.values.ensure_value(option.dest, []).append(p)
 
-        op = KSOptionParser(mapping={"ssh":["22:tcp"], "telnet":["23:tcp"],
-                             "smtp":["25:tcp"], "http":["80:tcp", "443:tcp"],
-                             "ftp":["21:tcp"]})
+        def http_port_cb(option, opt_str, value, parser):
+            parser.values.ensure_value(option.dest, []).extend(["80:tcp", "443:tcp"])
 
+        op = KSOptionParser()
         op.add_option("--disable", "--disabled", dest="enabled",
                       action="store_false")
         op.add_option("--enable", "--enabled", dest="enabled",
                       action="store_true", default=True)
-        op.add_option("--ftp", "--http", "--smtp", "--ssh", "--telnet",
-                      dest="ports", action="map_extend")
+        op.add_option("--ftp", dest="ports", action="append_const", const="21:tcp")
+        op.add_option("--http", dest="ports", action="callback", callback=http_port_cb)
+        op.add_option("--smtp", dest="ports", action="append_const", const="25:tcp")
+        op.add_option("--ssh", dest="ports", action="append_const", const="22:tcp")
+        op.add_option("--telnet", dest="ports", action="append_const", const="23:tcp")
         op.add_option("--high", deprecated=1)
         op.add_option("--medium", deprecated=1)
         op.add_option("--port", dest="ports", action="callback",
