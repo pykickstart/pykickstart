@@ -20,23 +20,39 @@
 """
 Specialized option handling.
 
-This module exports one class:
+This module exports three classes:
 
-    KSOptionParser - A specialized subclass of OptionParser to be used
+    ExtendAction - A subclass of Action that appends a list of values to an
+                   already existing list.  In this way, it's like the existing
+                   "append" action except for lists instead of single values.
+
+    ExtendConstAction - A subclass of Action that appends a list of constants
+                        to an already existing list.  In this way, it's like the
+                        existing "append_const" action except for lists instead
+                        of single values.
+
+    KSOptionParser - A specialized subclass of ArgumentParser to be used
                      in BaseHandler subclasses.
 
-And it exports one function:
+And it exports two functions:
+
+    commaSplit - A function to be used as the type= argument to any arguments
+                 that take a single string that may be split on commas, resulting
+                 in a list of strings.
 
     ksboolean - A function to be used as the type= argument to any arguments
                 that can take a boolean.
 """
 import warnings
-from argparse import ArgumentParser, ArgumentTypeError
+from argparse import Action, ArgumentParser, ArgumentTypeError
 
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.version import versionToString
 
 from pykickstart.i18n import _
+
+def commaSplit(value):
+    return list(filter(None, [v.strip() for v in value.split(',')]))
 
 def ksboolean(value):
     if value.lower() in ("on", "yes", "true", "1"):
@@ -45,6 +61,20 @@ def ksboolean(value):
         return False
     else:
         raise ArgumentTypeError(_("invalid boolean value: %r") % value)
+
+class ExtendAction(Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if getattr(namespace, self.dest, None) is not None:
+            setattr(namespace, self.dest, getattr(namespace, self.dest) + values)
+        else:
+            setattr(namespace, self.dest, values)
+
+class ExtendConstAction(Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        if getattr(namespace, self.dest, None) is not None:
+            setattr(namespace, self.dest, self.const + values)
+        else:
+            setattr(namespace, self.dest, self.const)
 
 class KSOptionParser(ArgumentParser):
     """A specialized subclass of argparse.ArgumentParser to handle extra option
