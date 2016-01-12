@@ -153,21 +153,22 @@ class KickstartCommand(KickstartObject):
         for attr in [k for k in self.removedAttrs if hasattr(self, k)]:
             delattr(self, attr)
 
-    # Set the contents of the opts object (an instance of optparse.Values
-    # returned by parse_args) as attributes on the KickstartCommand object.
+    # Set the contents of the namespace object (an instance of argparse.Namespace
+    # returned by parse_arguments) as attributes on the KickstartCommand object.
     # It's useful to call this from KickstartCommand subclasses after parsing
     # the arguments.
-    def _setToSelf(self, optParser, opts):
-        self._setToObj(optParser, opts, self)
+    def _setToSelf(self, namespace):
+        self._setToObj(namespace, self)
 
-    # Sets the contents of the opts object (an instance of optparse.Values
-    # returned by parse_args) as attributes on the provided object obj.  It's
+    # Sets the contents of the namespace object (an instance of argparse.Namespace
+    # returned by parse_arguments) as attributes on the provided object obj.  It's
     # useful to call this from KickstartCommand subclasses that handle lists
     # of objects (like partitions, network devices, etc.) and need to populate
     # a Data object.
-    def _setToObj(self, optParser, opts, obj):
-        for key in [k for k in list(optParser.keys()) if getattr(opts, k) != None]:
-            setattr(obj, key, getattr(opts, key))
+    def _setToObj(self, namespace, obj):
+        for (key, val) in vars(namespace).items():
+            if val != None:
+                setattr(obj, key, val)
 
 class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.
