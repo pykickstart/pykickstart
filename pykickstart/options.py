@@ -1,7 +1,7 @@
 #
 # Chris Lumens <clumens@redhat.com>
 #
-# Copyright 2005, 2006, 2007 Red Hat, Inc.
+# Copyright 2005-2016 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -20,163 +20,132 @@
 """
 Specialized option handling.
 
-This module exports two classes:
+This module exports one class:
 
     KSOptionParser - A specialized subclass of OptionParser to be used
                      in BaseHandler subclasses.
 
-    KSOption - A specialized subclass of Option.
+And it exports one function:
+
+    ksboolean - A function to be used as the type= argument to any arguments
+                that can take a boolean.
 """
 import warnings
-from copy import copy
-# There are no type stubs written for optparse since it's deprecated, and mypy
-# complains about the actual module
-from optparse import Option, OptionError, OptionParser, OptionValueError    # type: ignore
+from argparse import ArgumentParser, ArgumentTypeError
 
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.version import versionToString
 
 from pykickstart.i18n import _
 
-class KSOptionParser(OptionParser):
-    """A specialized subclass of optparse.OptionParser to handle extra option
-       attribute checking, work error reporting into the KickstartParseError
-       framework, and to turn off the default help.
-    """
-    def exit(self, status=0, msg=None):
-        pass
-
-    def error(self, msg):
-        if self.lineno != None:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
-        else:
-            raise KickstartParseError(msg)
-
-    def keys(self):
-        retval = []
-
-        for opt in self.option_list:
-            if opt not in retval:
-                retval.append(opt.dest)
-
-        return retval
-
-    def _init_parsing_state (self):
-        OptionParser._init_parsing_state(self)
-        self.option_seen = {}
-
-    def check_values (self, values, args):
-        def seen(option):
-            return option in self.option_seen
-
-        def usedTooNew(option):
-            return option.introduced and option.introduced > self.version
-
-        def usedDeprecated(option):
-            return option.deprecated
-
-        def usedRemoved(option):
-            return option.removed and option.removed <= self.version
-
-        for option in [o for o in self.option_list if isinstance(o, Option)]:
-            if option.required and not seen(option):
-                raise KickstartValueError(formatErrorMsg(self.lineno, _("Option %s is required") % option))
-            elif seen(option) and usedTooNew(option):
-                mapping = {"option": option, "intro": versionToString(option.introduced),
-                           "version": versionToString(self.version)}
-                self.error(_("The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s.") % mapping)
-            elif seen(option) and usedRemoved(option):
-                mapping = {"option": option, "removed": versionToString(option.removed),
-                           "version": versionToString(self.version)}
-
-                if option.removed == self.version:
-                    self.error(_("The %(option)s option is no longer supported.") % mapping)
-                else:
-                    self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-            elif seen(option) and usedDeprecated(option) and self.version >= option.deprecated:
-                mapping = {"lineno": self.lineno, "option": option}
-                warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
-
-        return (values, args)
-
-    def parse_args(self, *args, **kwargs):
-        if "lineno" in kwargs:
-            self.lineno = kwargs.pop("lineno")
-
-        return OptionParser.parse_args(self, **kwargs)
-
-    def __init__(self, version=None, *args, **kwargs):
-        """Create a new KSOptionParser instance.  Each KickstartCommand
-           subclass should create one instance of KSOptionParser, providing
-           at least the lineno attribute.  version is not required.
-           Instance attributes:
-
-           version -- The version of the kickstart syntax we are checking
-                      against.
-        """
-        OptionParser.__init__(self, option_class=KSOption,
-                              add_help_option=False,
-                              conflict_handler="resolve")
-        self.lineno = None
-        self.option_seen = {}
-        self.version = version
-
-def _check_ksboolean(_option, opt, value):
+def ksboolean(value):
     if value.lower() in ("on", "yes", "true", "1"):
         return True
     elif value.lower() in ("off", "no", "false", "0"):
         return False
     else:
-        mapping = {"opt": opt, "value": value}
-        raise OptionValueError(_("Option %(opt)s: invalid boolean value: %(value)r") % mapping)
+        raise ArgumentTypeError(_("invalid boolean value: %r") % value)
 
-def _check_string(_option, opt, value):
-    if len(value) > 2 and value.startswith("--"):
-        mapping = {"opt": opt, "value": value}
-        raise OptionValueError(_("Option %(opt)s: invalid string value: %(value)r") % mapping)
-    else:
-        return value
-
-# Creates a new Option class that supports several new attributes:
-# - required:  any option with this attribute must be supplied or an exception
-#              is thrown
-# - introduced:  the kickstart syntax version that this option first appeared
-#                in - an exception will be raised if the option is used and
-#                the specified syntax version is less than the value of this
-#                attribute
-# - deprecated:  the kickstart syntax version that this option was deprecated
-#                in - a DeprecationWarning will be thrown if the option is
-#                used and the specified syntax version is greater than the
-#                value of this attribute
-# - removed:  the kickstart syntax version that this option was removed in - an
-#             exception will be raised if the option is used and the specified
-#             syntax version is greated than the value of this attribute
-# Also creates a new type:
-# - ksboolean:  support various kinds of boolean values on an option
-class KSOption (Option):
-    ATTRS = Option.ATTRS + ['introduced', 'deprecated', 'removed', 'required']
-
-    TYPES = Option.TYPES + ("ksboolean", "string")
-    TYPE_CHECKER = copy(Option.TYPE_CHECKER)
-    TYPE_CHECKER["ksboolean"] = _check_ksboolean
-    TYPE_CHECKER["string"] = _check_string
-
-    def _check_required(self):
-        if self.required and not self.takes_value():
-            raise OptionError(_("Required flag set for option that doesn't take a value"), self)
-
-    # Make sure _check_required() is called from the constructor!
-    CHECK_METHODS = Option.CHECK_METHODS + [_check_required]
-
-    def process (self, opt, value, values, parser):
-        Option.process(self, opt, value, values, parser)
-        parser.option_seen[self] = 1
-
-    def takes_value(self):
-        # Deprecated options don't take a value.
-        return Option.takes_value(self) and not self.deprecated
-
+class KSOptionParser(ArgumentParser):
+    """A specialized subclass of argparse.ArgumentParser to handle extra option
+       attribute checking, work error reporting into the KickstartParseError
+       framework, and to turn off the default help.
+    """
     def __init__(self, *args, **kwargs):
-        self.deprecated = False
-        self.required = False
-        Option.__init__(self, *args, **kwargs)
+        """Create a new KSOptionParser instance.  Each KickstartCommand
+           subclass should create one instance of KSOptionParser, providing
+           at least the lineno attribute.  version is not required.
+
+           Instance attributes:
+
+           version -- The version of the kickstart syntax we are checking
+                      against.
+        """
+        # Overridden to allow for the version kwargs, to skip help option generation,
+        # and to resolve conflicts instead of override earlier options.
+        version = kwargs.pop("version", None)
+
+        ArgumentParser.__init__(self, add_help=False, conflict_handler="resolve", *args, **kwargs)
+        self.lineno = None
+        self.version = version
+
+    def _parse_optional(self, arg_string):
+        def usedTooNew(action):
+            return action.introduced and action.introduced > self.version
+
+        def usedDeprecated(action):
+            return action.deprecated
+
+        def usedRemoved(action):
+            return action.removed and action.removed <= self.version
+
+        option_tuple = ArgumentParser._parse_optional(self, arg_string)
+        if option_tuple is None or option_tuple[0] is None:
+            return option_tuple
+
+        action = option_tuple[0]
+
+        if usedTooNew(action):
+            mapping = {"option": action.option_strings[0], "intro": versionToString(action.introduced),
+                       "version": versionToString(self.version)}
+            self.error(_("The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s.") % mapping)
+        elif usedRemoved(action):
+            mapping = {"option": action.option_strings[0], "removed": versionToString(action.removed),
+                       "version": versionToString(self.version)}
+
+            if action.removed == self.version:
+                self.error(_("The %(option)s option is no longer supported.") % mapping)
+            else:
+                self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
+        elif usedDeprecated(action) and self.version >= action.deprecated:
+            mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
+            warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
+
+        return option_tuple
+
+    def add_argument(self, *args, **kwargs):
+        deprecated = kwargs.pop("deprecated", False)
+        introduced = kwargs.pop("introduced", None)
+        removed = kwargs.pop("removed", None)
+
+        action = ArgumentParser.add_argument(self, *args, **kwargs)
+        action.deprecated = deprecated
+        action.introduced = introduced
+        action.removed = removed
+        return action
+
+    def remove_argument(self, arg):
+        candidate = None
+
+        for action in self._actions:
+            if arg in action.option_strings:
+                candidate = action
+                break
+
+        if candidate:
+            self._remove_action(candidate)
+            self._option_string_actions.pop(arg)
+
+    def error(self, message):
+        # Overridden to turn errors into KickstartParseErrors.
+        if self.lineno != None:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
+        else:
+            raise KickstartParseError(message)
+
+    def exit(self, status=0, message=None):
+        # Overridden because this is a library, and libraries shouldn't just
+        # exit.  That's what raising exceptions is for.
+        pass
+
+    def parse_args(self, *args, **kwargs):
+        if "lineno" in kwargs:
+            self.lineno = kwargs.pop("lineno")
+
+        return ArgumentParser.parse_args(self, *args, **kwargs)
+
+    def parse_known_args(self, *args, **kwargs):
+        if "lineno" in kwargs:
+            self.lineno = kwargs.pop("lineno")
+
+        return ArgumentParser.parse_known_args(self, *args, **kwargs)
