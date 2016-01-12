@@ -19,7 +19,7 @@
 #
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, ksboolean
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 
 import warnings
@@ -358,7 +358,7 @@ class FC3_Network(KickstartCommand):
         op.add_option("--nodns", dest="nodns", action="store_true",
                       default=False)
         op.add_option("--onboot", dest="onboot", action="store",
-                      type="ksboolean")
+                      type=ksboolean)
         op.add_option("--wepkey", dest="wepkey")
         return op
 

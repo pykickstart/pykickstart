@@ -19,7 +19,7 @@
 #
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartValueError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, ksboolean
 
 import warnings
 from pykickstart.i18n import _
@@ -241,7 +241,7 @@ class F11_Repo(F8_Repo):
 
     def _getParser(self):
         op = F8_Repo._getParser(self)
-        op.add_option("--ignoregroups", action="store", type="ksboolean")
+        op.add_option("--ignoregroups", action="store", type=ksboolean)
         return op
 
 class F13_Repo(F11_Repo):
