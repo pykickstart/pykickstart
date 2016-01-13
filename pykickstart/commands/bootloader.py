@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -244,7 +244,7 @@ class F17_Bootloader(F15_Bootloader):
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if "," in opts.bootDrive:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))
 
         self._setToSelf(self.op, opts)
         return self

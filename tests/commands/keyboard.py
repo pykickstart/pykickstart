@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "keyboard"
@@ -30,8 +30,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("keyboard us", "keyboard us\n")
 
         # fail
-        self.assert_parse_error("keyboard", KickstartValueError)
-        self.assert_parse_error("keyboard us uk", KickstartValueError)
+        self.assert_parse_error("keyboard")
+        self.assert_parse_error("keyboard us uk")
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
         # extra test coverage
@@ -64,10 +64,10 @@ class F18_TestCase(FC3_TestCase):
                           "keyboard --vckeymap=us --xlayouts='cz' --switch='grp:alt_shift_toggle','grp:switch'\n")
 
         # fail
-        self.assert_parse_error("keyboard", KickstartValueError)
-        self.assert_parse_error("keyboard cz sk", KickstartValueError)
+        self.assert_parse_error("keyboard")
+        self.assert_parse_error("keyboard cz sk")
         self.assert_parse_error("keyboard --vckeymap=us --xlayouts=cz,"
-                                "'cz (qwerty)' cz sk", KickstartValueError)
+                                "'cz (qwerty)' cz sk")
         self.assert_parse_error("keyboard --foo us", KickstartParseError)
 
         # keyboard property

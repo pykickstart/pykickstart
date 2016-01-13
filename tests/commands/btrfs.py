@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class F17_TestCase(CommandTest):
     command = "btrfs"
@@ -63,19 +63,19 @@ class F17_TestCase(CommandTest):
 
         # fail
         # no mountpoint or options
-        self.assert_parse_error("btrfs", KickstartValueError)
+        self.assert_parse_error("btrfs")
 
         # no options
-        self.assert_parse_error("btrfs /", KickstartValueError)
+        self.assert_parse_error("btrfs /")
 
         # No members
-        self.assert_parse_error("btrfs / --data=0 --label=root", KickstartValueError)
+        self.assert_parse_error("btrfs / --data=0 --label=root")
 
         # subvol with no name
-        self.assert_parse_error("btrfs / --subvol LABEL=test", KickstartValueError)
+        self.assert_parse_error("btrfs / --subvol LABEL=test")
 
         # subvol with no parent
-        self.assert_parse_error("btrfs / --subvol --name=root", KickstartValueError)
+        self.assert_parse_error("btrfs / --subvol --name=root")
 
         self.assert_parse("btrfs / --subvol --name=root LABEL=test",
                           "btrfs / --subvol --name=root LABEL=test\n")
@@ -126,12 +126,12 @@ class F23_TestCase(F17_TestCase):
                           "btrfs / --mkfsoptions=\"some,thing\" part.01\n")
 
         # can't use --mkfsoptions if you're not formatting
-        self.assert_parse_error("btrfs / --useexisting --mkfsoptions=whatever", KickstartValueError)
-        self.assert_parse_error("btrfs / --noformat --mkfsoptions=whatever", KickstartValueError)
+        self.assert_parse_error("btrfs / --useexisting --mkfsoptions=whatever")
+        self.assert_parse_error("btrfs / --noformat --mkfsoptions=whatever")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
-        with self.assertRaises(KickstartValueError):
+        with self.assertRaises(KickstartParseError):
             cmd.parse(["btrfs", "/", "--noformat", "--useexisting", "--mkfsoptions=whatever"])
 
 

@@ -42,7 +42,7 @@ from optparse import OptionParser   # type: ignore
 import warnings
 
 from pykickstart import constants, version
-from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.orderedset import OrderedSet
@@ -422,7 +422,7 @@ class Packages(KickstartObject):
         (opts, extra) = op.parse_args(args=line.split())
 
         if opts.nodefaults and opts.optional:
-            raise KickstartValueError(_("Group cannot specify both --nodefaults and --optional"))
+            raise KickstartParseError(_("Group cannot specify both --nodefaults and --optional"))
 
         # If the group name has spaces in it, we have to put it back together
         # now.

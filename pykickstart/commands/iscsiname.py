@@ -19,7 +19,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -48,6 +48,6 @@ class FC6_IscsiName(KickstartCommand):
     def parse(self, args):
         (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname"))
         self.iscsiname = extra[0]
         return self

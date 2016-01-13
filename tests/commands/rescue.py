@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class F10_TestCase(CommandTest):
     command = "rescue"
@@ -34,7 +34,7 @@ class F10_TestCase(CommandTest):
 
         #fail
         self.assert_parse_error("rescue --badflag", KickstartParseError)
-        self.assert_parse_error("rescue --nomount --romount", KickstartValueError)
+        self.assert_parse_error("rescue --nomount --romount")
 
 if __name__ == "__main__":
     unittest.main()

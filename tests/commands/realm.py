@@ -1,18 +1,16 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartValueError
-
 class F19_TestCase(CommandTest):
     command = "realm"
 
     def runTest(self):
 
         # No realm command arguments
-        self.assert_parse_error("realm", KickstartValueError)
+        self.assert_parse_error("realm")
 
         # Unsupported realmcommand
-        self.assert_parse_error("realm unknown --args", KickstartValueError)
+        self.assert_parse_error("realm unknown --args")
 
         # pass for join
         realm = self.assert_parse("realm join blah")
@@ -35,13 +33,13 @@ class F19_TestCase(CommandTest):
         realm = self.assert_parse("realm join --no-password domain.example.com")
 
         # Bad arguments, the --no-password does not support an argument
-        self.assert_parse_error("realm join --no-password=blah one.example.com", KickstartValueError)
+        self.assert_parse_error("realm join --no-password=blah one.example.com")
 
         # Bad arguments, only one domain for join
-        self.assert_parse_error("realm join one two", KickstartValueError)
+        self.assert_parse_error("realm join one two")
 
         # Bad arguments, unsupported argument
-        self.assert_parse_error("realm join --user=blah one.example.com", KickstartValueError)
+        self.assert_parse_error("realm join --user=blah one.example.com")
 
 class F19_MultipleJoin_TestCase(CommandSequenceTest):
     def runTest(self):

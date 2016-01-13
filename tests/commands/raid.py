@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "raid"
@@ -85,23 +85,23 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # no mountpoint or options
-        self.assert_parse_error("raid", KickstartValueError)
+        self.assert_parse_error("raid")
         # no mountpoint or options ... just partitions
-        self.assert_parse_error("raid part.01 part.01", KickstartValueError)
+        self.assert_parse_error("raid part.01 part.01")
         # no mountpoint
-        self.assert_parse_error("raid --level=0 --device=md0", KickstartValueError)
+        self.assert_parse_error("raid --level=0 --device=md0")
         # no options
-        self.assert_parse_error("raid /", KickstartValueError)
+        self.assert_parse_error("raid /")
         # no device
-        self.assert_parse_error("raid / --level=0", KickstartValueError)
+        self.assert_parse_error("raid / --level=0")
         # no level
-        self.assert_parse_error("raid / --device=md0 raid.01 raid.02", KickstartValueError)
+        self.assert_parse_error("raid / --device=md0 raid.01 raid.02")
         # No raid members defined
-        self.assert_parse_error("raid / --level=0 --device=md0", KickstartValueError)
+        self.assert_parse_error("raid / --level=0 --device=md0")
         # Both raid members and useexisting given
-        self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02", KickstartValueError)
+        self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02")
         # no pre-existing device defined
-        self.assert_parse_error("raid / --level=0 --useexisting", KickstartValueError)
+        self.assert_parse_error("raid / --level=0 --useexisting")
 
         if self.minorBasedDevice:
             # Invalid device string - device=asdf0 (--device=(md)?<minor>)
@@ -299,15 +299,12 @@ class F23_TestCase(F19_TestCase):
                           "raid / --device=0 --level=RAID1 --mkfsoptions=\"some,thing\" raid.01 raid.02\n")
 
         # can't use --mkfsoptions if you're not formatting
-        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat raid.01 raid.02",
-                                KickstartValueError)
+        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat raid.01 raid.02")
 
-        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat --useexisting",
-                                KickstartValueError)
+        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --noformat --useexisting")
 
         # can't use --mkfsoptions with --fsprofile
-        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02",
-                                KickstartValueError)
+        self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02")
 
 RHEL7_TestCase = F23_TestCase
 

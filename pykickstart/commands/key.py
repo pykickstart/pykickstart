@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import KS_INSTKEY_SKIP
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -56,7 +56,7 @@ class RHEL5_Key(KickstartCommand):
         if self.skip:
             self.key = KS_INSTKEY_SKIP
         elif len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key"))
         else:
             self.key = extra[0]
 

@@ -1,8 +1,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC3_TestCase(CommandTest):
     command = "lang"
 
@@ -12,8 +10,8 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # Fail if less than or more than one argument is specified
-        self.assert_parse_error("lang", KickstartValueError)
-        self.assert_parse_error("lang en_US en_CA", KickstartValueError)
+        self.assert_parse_error("lang")
+        self.assert_parse_error("lang en_US en_CA")
 
 class F19_TestCase(FC3_TestCase):
     def runTest(self):
@@ -29,10 +27,10 @@ class F19_TestCase(FC3_TestCase):
 
         # fail
         # Fail if less than or more than one argument is specified
-        self.assert_parse_error("lang", KickstartValueError)
-        self.assert_parse_error("lang en_US en_CA", KickstartValueError)
-        self.assert_parse_error("lang --addsupport=en_US", KickstartValueError)
-        self.assert_parse_error("lang --addsupport=,bg_BG", KickstartValueError)
+        self.assert_parse_error("lang")
+        self.assert_parse_error("lang en_US en_CA")
+        self.assert_parse_error("lang --addsupport=en_US")
+        self.assert_parse_error("lang --addsupport=,bg_BG")
 
 if __name__ == "__main__":
     unittest.main()

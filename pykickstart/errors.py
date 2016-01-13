@@ -28,10 +28,10 @@ It also exports several exception classes:
 
     KickstartError - A generic exception class.
 
-    KickstartParseError - An exception for errors relating to parsing.
+    KickstartParseError - An exception for errors occurring during parsing.
 
-    KickstartValueError - An exception for errors relating to option
-                          processing.
+    KickstartValueError - No longer raised by pykickstart, but kept around for
+                          backwards compatibility.
 
     KickstartVersionError - An exception for errors relating to unsupported
                             syntax versions.
@@ -73,15 +73,10 @@ class KickstartParseError(KickstartError):
         return self.value
 
 class KickstartValueError(KickstartError):
-    """An exception class for errors when processing arguments to commands,
-       such as too many arguments, too few arguments, or missing required
-       arguments.
+    """This exception class is no longer raised by pykickstart but is kept
+       for backwards compatibility.
     """
     def __init__(self, msg):
-        """Create a new KickstartValueError exception instance with the
-           descriptive message msg.  msg should be the return value of
-           formatErrorMsg.
-        """
         KickstartError.__init__(self, msg)
 
     def __str__ (self):

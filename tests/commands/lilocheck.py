@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC3_TestCase(CommandTest):
     command = "lilocheck"
 
@@ -31,7 +29,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("lilocheck", "lilocheck\n")
 
         #fail
-        self.assert_parse_error("lilocheck foo", KickstartValueError)
+        self.assert_parse_error("lilocheck foo")
         self.assert_parse_error("lilocheck --whatever")
 
         # extra test coverage

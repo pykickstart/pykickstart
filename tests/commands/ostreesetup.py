@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class F21_TestCase(CommandTest):
     command = "ostreesetup"
 
@@ -33,13 +31,13 @@ class F21_TestCase(CommandTest):
         self.assert_parse(cmdstr, cmdstr + '\n')
 
         # fail - we have required arguments
-        self.assert_parse_error("ostreesetup", KickstartValueError)
-        self.assert_parse_error("ostreesetup --os=fedora-atomic", KickstartValueError)
-        self.assert_parse_error("ostreesetup --os=fedora-atomic --url=http://example.com/repo", KickstartValueError)
+        self.assert_parse_error("ostreesetup")
+        self.assert_parse_error("ostreesetup --os=fedora-atomic")
+        self.assert_parse_error("ostreesetup --os=fedora-atomic --url=http://example.com/repo")
         self.assert_parse_error("ostreesetup --bacon=tasty")
 
         # fail - wrong protocol for repo
-        self.assert_parse_error("ostreesetup --osname=fedora-atomic --url=ftp://example.com/repo --ref=fedora-atomic/sometest/base/core", KickstartValueError)
+        self.assert_parse_error("ostreesetup --osname=fedora-atomic --url=ftp://example.com/repo --ref=fedora-atomic/sometest/base/core")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]

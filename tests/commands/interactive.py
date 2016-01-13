@@ -20,7 +20,7 @@ import unittest
 from tests.baseclass import CommandTest
 
 from pykickstart.base import DeprecatedCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "interactive"
@@ -30,7 +30,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("interactive", "interactive\n")
 
         # fail
-        self.assert_parse_error("interactive giveattentionpls", KickstartValueError)
+        self.assert_parse_error("interactive giveattentionpls")
         self.assert_parse_error("interactive --cheese", KickstartParseError)
         self.assert_parse_error("interactive --crackers=CRUNCHY", KickstartParseError)
 

@@ -20,7 +20,7 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
 from pykickstart.options import KSOptionParser, ksboolean
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 
 import warnings
 from pykickstart.i18n import _
@@ -535,13 +535,13 @@ class F22_Network(F21_Network):
             if not retval.bridgeslaves:
                 msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
                                         "--bridgeslaves to be specified"))
-                raise KickstartValueError(msg)
+                raise KickstartParseError(msg)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
-                    raise KickstartValueError(msg)
+                    raise KickstartParseError(msg)
 
         return retval
 
@@ -661,18 +661,18 @@ class RHEL7_Network(F21_Network):
         error_message = validate_network_interface_name(retval.interfacename)
         # something is wrong with the interface name
         if error_message is not None:
-            raise KickstartValueError(formatErrorMsg(self.lineno,msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno,msg=error_message))
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
                 msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
                                         "--bridgeslaves to be specified"))
-                raise KickstartValueError(msg)
+                raise KickstartParseError(msg)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
-                    raise KickstartValueError(msg)
+                    raise KickstartParseError(msg)
 
         return retval

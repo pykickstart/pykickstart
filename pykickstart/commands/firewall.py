@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -117,7 +117,7 @@ class FC3_Firewall(KickstartCommand):
 
         if len(extra) != 0:
             mapping = {"command": "firewall", "options": extra}
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self._setToSelf(self.op, opts)
         return self

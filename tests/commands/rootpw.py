@@ -19,7 +19,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "rootpw"
@@ -29,9 +29,9 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("rootpw --iscrypted secrethandshake", "rootpw --iscrypted secrethandshake\n")
 
         # fail
-        self.assert_parse_error("rootpw", KickstartValueError)
-        self.assert_parse_error("rootpw --iscrypted=OMGSEKRITZ", KickstartParseError)
-        self.assert_parse_error("rootpw --iscrypted", KickstartValueError)
+        self.assert_parse_error("rootpw")
+        self.assert_parse_error("rootpw --iscrypted=OMGSEKRITZ")
+        self.assert_parse_error("rootpw --iscrypted")
 
 class F8_TestCase(FC3_TestCase):
     def runTest(self):
@@ -52,10 +52,10 @@ class F8_TestCase(FC3_TestCase):
         # fail
         self.assert_parse_error("rootpw --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
         self.assert_parse_error("rootpw --lock=NOKEYSFORYOU secrethandshake", KickstartParseError)
-        self.assert_parse_error("rootpw --plaintext", KickstartValueError)
+        self.assert_parse_error("rootpw --plaintext")
 
         if self.__class__.__name__ == "F8_TestCase":
-            self.assert_parse_error("rootpw --lock", KickstartValueError)
+            self.assert_parse_error("rootpw --lock")
 
 class F18_TestCase(F8_TestCase):
     def runTest(self):

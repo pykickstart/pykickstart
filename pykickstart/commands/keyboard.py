@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -54,7 +54,7 @@ class FC3_Keyboard(KickstartCommand):
         (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno) 
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
 
         self.keyboard = extra[0]
         return self
@@ -126,12 +126,12 @@ class F18_Keyboard(FC3_Keyboard):
         if len(extra) > 1:
             message = _("A single argument is expected for the %s command") % \
                         "keyboard"
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
 
         elif len(extra) == 0 and not self.vc_keymap and not self.x_layouts:
             message = _("One of --xlayouts, --vckeymap options with value(s) "
                         "or argument is expected for the keyboard command")
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
 
         if len(extra) > 0:
             self._keyboard = extra[0]

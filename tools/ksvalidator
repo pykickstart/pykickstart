@@ -28,7 +28,7 @@ import warnings
 import tempfile
 import shutil
 from pykickstart.i18n import _
-from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartVersionError
 from pykickstart.load import load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
@@ -95,7 +95,7 @@ try:
 except DeprecationWarning as msg:
     print(_("File uses a deprecated option or command.\n%s") % msg)
     cleanup(destdir, processedFile)
-except (KickstartParseError, KickstartValueError) as msg:
+except KickstartParseError as msg:
     print(msg)
     cleanup(destdir, processedFile)
 except KickstartError:

@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "volgroup"
@@ -41,10 +41,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("volgroup", KickstartParseError)
 
         # fail - missing list of partitions
-        self.assert_parse_error("volgroup vg01", KickstartValueError)
+        self.assert_parse_error("volgroup vg01")
 
         # fail - both members and useexisting specified
-        self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02", KickstartValueError)
+        self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -82,9 +82,9 @@ class F16_TestCase(FC3_TestCase):
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent", KickstartParseError)
 
         # Fail - incorrect values.
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1", KickstartValueError)
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0", KickstartValueError)
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100", KickstartValueError)
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1")
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0")
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100")
 
 
 class RHEL6_TestCase(F16_TestCase):

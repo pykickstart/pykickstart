@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC6_TestCase(CommandTest):
     command = "user"
@@ -44,7 +44,7 @@ class FC6_TestCase(CommandTest):
 
         # fail
         # missing required option --name
-        self.assert_parse_error("user", KickstartValueError)
+        self.assert_parse_error("user")
         # --name requires an argument
         self.assert_parse_error("user --name", KickstartParseError)
         # --uid requires int argument

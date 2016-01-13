@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -317,12 +317,12 @@ class FC3_Raid(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid"))
 
         if len(extra) == 1 and not opts.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"))
         elif len(extra) > 1 and opts.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
         rd = self.handler.RaidData()
         self._setToObj(self.op, opts, rd)
@@ -343,10 +343,10 @@ class FC3_Raid(KickstartCommand):
             warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device)
 
         if not rd.preexist and not rd.level:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level"))
 
         if rd.preexist and rd.device == "":
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="Device required for preexisting RAID device"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Device required for preexisting RAID device"))
 
         return rd
 
@@ -507,10 +507,10 @@ class F23_Raid(F20_Raid):
         retval = F20_Raid.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval
 

@@ -19,7 +19,7 @@
 #
 
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -60,10 +60,10 @@ class F20_Eula(KickstartCommand):
         self._setToSelf(self.op, opts)
 
         if len(extra) != 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))
 
         if not self.agreed:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command eula expects the --agreed option")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command eula expects the --agreed option")))
 
         return self
 

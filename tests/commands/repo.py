@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartError, KickstartParseError
 
 class FC6_TestCase(CommandTest):
     command = "repo"
@@ -41,20 +41,19 @@ class FC6_TestCase(CommandTest):
 
         # fail
         # missing required option --name
-        self.assert_parse_error("repo --baseurl=www.domain.com", KickstartValueError)
-        self.assert_parse_error("repo --name --baseurl=www.domain.com", KickstartParseError)
+        self.assert_parse_error("repo --baseurl=www.domain.com")
+        self.assert_parse_error("repo --name --baseurl=www.domain.com")
         # missing one of required options --baseurl or --mirrorlist
         if urlRequired:
-            self.assert_parse_error("repo --name=blah", KickstartValueError)
-            self.assert_parse_error("repo --name=blah --baseurl", KickstartParseError)
-            self.assert_parse_error("repo --name=blah --mirrorlist", KickstartParseError)
+            self.assert_parse_error("repo --name=blah")
+            self.assert_parse_error("repo --name=blah --baseurl")
+            self.assert_parse_error("repo --name=blah --mirrorlist")
         # only one of --baseurl or --mirrorlist must be specified
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --mirrorlist=www.domain.com",
-                                KickstartValueError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --mirrorlist=www.domain.com")
         # unknown option
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --unknown", KickstartParseError)
         # not expected argument
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah", KickstartValueError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]

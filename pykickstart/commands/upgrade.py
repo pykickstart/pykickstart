@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -53,7 +53,7 @@ class FC3_Upgrade(KickstartCommand):
         (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade"))
 
         if self.currentCmd == "upgrade":
             self.upgrade = True
@@ -90,10 +90,10 @@ class F11_Upgrade(FC3_Upgrade):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) > 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "upgrade"))
 
         if opts.root_device == "":
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}))
         else:
             self.root_device = opts.root_device
 

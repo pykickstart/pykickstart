@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "timezone"
@@ -36,10 +36,10 @@ class FC3_TestCase(CommandTest):
             self.assert_parse("timezone --utc Eastern", "timezone --isUtc Eastern\n")
 
         # fail
-        self.assert_parse_error("timezone", KickstartValueError)
-        self.assert_parse_error("timezone Eastern Central", KickstartValueError)
+        self.assert_parse_error("timezone")
+        self.assert_parse_error("timezone Eastern Central")
         self.assert_parse_error("timezone --blah Eastern")
-        self.assert_parse_error("timezone --utc", KickstartValueError)
+        self.assert_parse_error("timezone --utc")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -55,7 +55,7 @@ class FC6_TestCase(FC3_TestCase):
         self.assert_parse("timezone --isUtc Eastern", "timezone --isUtc Eastern\n")
 
         # fail
-        self.assert_parse_error("timezone --isUtc", KickstartValueError)
+        self.assert_parse_error("timezone --isUtc")
 
 class F18_TestCase(FC6_TestCase):
     def runTest(self):
@@ -72,17 +72,16 @@ class F18_TestCase(FC6_TestCase):
                           "timezone Europe/Prague --ntpservers=ntp.cesnet.cz\n")
 
         # fail
-        self.assert_parse_error("timezone", KickstartValueError)
-        self.assert_parse_error("timezone Eastern Central", KickstartValueError)
+        self.assert_parse_error("timezone")
+        self.assert_parse_error("timezone Eastern Central")
         self.assert_parse_error("timezone --blah Eastern")
-        self.assert_parse_error("timezone --utc", KickstartValueError)
-        self.assert_parse_error("timezone --isUtc", KickstartValueError)
+        self.assert_parse_error("timezone --utc")
+        self.assert_parse_error("timezone --isUtc")
         self.assert_parse_error("timezone Europe/Prague --nontp "\
                                 "--ntpservers=ntp.cesnet.cz",
                                 KickstartParseError)
         self.assert_parse_error("timezone Europe/Prague --ntpservers="\
-                                "ntp.cesnet.cz, tik.nic.cz",
-                                KickstartValueError)
+                                "ntp.cesnet.cz, tik.nic.cz")
 
 class F23_TestCase(F18_TestCase):
     def runTest(self):

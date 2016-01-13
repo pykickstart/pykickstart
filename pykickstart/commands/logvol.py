@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -393,7 +393,7 @@ class FC3_LogVol(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
 
         lvd = self.handler.LogVolData()
         self._setToObj(self.op, opts, lvd)
@@ -595,7 +595,7 @@ class F20_LogVol(F18_LogVol):
 
         if retval.percent is not None and (retval.percent < 0 or retval.percent > 100):
             errorMsg = _("Percentage must be between 0 and 100.")
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
 
@@ -634,10 +634,10 @@ class RHEL7_LogVol(F21_LogVol):
         retval = F21_LogVol.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval
 
@@ -682,9 +682,9 @@ class F23_LogVol(F21_LogVol):
                 raise KickstartParseError(err)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval

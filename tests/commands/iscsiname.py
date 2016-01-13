@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC6_TestCase(CommandTest):
     command = "iscsiname"
 
@@ -31,9 +29,9 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("iscsiname foo", "iscsiname foo\n")
 
         #fail
-        self.assert_parse_error("iscsiname", KickstartValueError)
+        self.assert_parse_error("iscsiname")
         self.assert_parse_error("iscsiname --whatever")
-        self.assert_parse_error("iscsiname foo bar", KickstartValueError)
+        self.assert_parse_error("iscsiname foo bar")
 
 if __name__ == "__main__":
     unittest.main()

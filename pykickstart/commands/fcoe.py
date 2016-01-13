@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -112,7 +112,7 @@ class F12_Fcoe(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) > 0:
             mapping = {"command": "fcoe", "options": extra}
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self._setToObj(self.op, opts, zd)
         zd.lineno = self.lineno

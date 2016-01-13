@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import ParserTest
 
-from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError, KickstartValueError, KickstartVersionError
+from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError, KickstartVersionError
 
 class NoErrorMessage_TestCase(ParserTest):
     def runTest(self):
@@ -15,7 +15,6 @@ class ExceptionStr_TestCase(ParserTest):
         # Yes, I am aware I'm just checking off boxes now.
         self.assertEqual(str(KickstartError("OH NO!")), "OH NO!")
         self.assertEqual(str(KickstartParseError("OH NO!")), "OH NO!")
-        self.assertEqual(str(KickstartValueError("OH NO!")), "OH NO!")
         self.assertEqual(str(KickstartVersionError("OH NO!")), "OH NO!")
 
 if __name__ == "__main__":

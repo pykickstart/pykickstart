@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -318,7 +318,7 @@ class FC3_Partition(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
 
         pd = self.handler.PartData()
         self._setToObj(self.op, opts, pd)
@@ -486,10 +486,10 @@ class F23_Partition(F20_Partition):
         retval = F20_Partition.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval
 

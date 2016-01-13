@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC6_TestCase(CommandTest):
     command = "iscsi"
@@ -38,12 +38,12 @@ class FC6_TestCase(CommandTest):
 
         # fail
         # missing required option --ipaddr
-        self.assert_parse_error("iscsi", KickstartValueError)
-        self.assert_parse_error("iscsi --target=tar --user=name --password=secret --port=1234", KickstartValueError)
+        self.assert_parse_error("iscsi")
+        self.assert_parse_error("iscsi --target=tar --user=name --password=secret --port=1234")
         # missing --ipaddr argument
         self.assert_parse_error("iscsi --ipaddr", KickstartParseError)
         # unexpected arguments
-        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 not expected", KickstartValueError)
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 not expected")
         # unknown flag
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --unknown=value", KickstartParseError)
         # empty arguments

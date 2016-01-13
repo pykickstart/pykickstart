@@ -176,7 +176,7 @@ def versionFromFile(f): # type: (str) -> int
 
 def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callable[[], BaseHandler]
     """Return the class of the syntax handler for version.  version can be
-       either a string or the matching constant.  Raises KickstartValueError
+       either a string or the matching constant.  Raises KickstartVersionError
        if version does not match anything.
     """
     try:

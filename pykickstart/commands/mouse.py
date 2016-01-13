@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -59,7 +59,7 @@ class RHEL3_Mouse(KickstartCommand):
         self._setToSelf(self.op, opts)
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse"))
 
         self.mouse = extra[0]
         return self

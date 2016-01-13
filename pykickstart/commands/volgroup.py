@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -132,9 +132,9 @@ class FC3_VolGroup(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
 
         if len(extra) == 1 and not opts.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
         elif len(extra) > 1 and opts.preexist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
 
         vg.vgname = extra[0]
 
@@ -154,13 +154,13 @@ class FC16_VolGroup(FC3_VolGroup):
     def _getParser(self):
         def space_cb(option, opt_str, value, parser):
             if value < 0:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
 
             parser.values.reserved_space = value
 
         def percent_cb(option, opt_str, value, parser):
             if not 0 < value < 100:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
 
             parser.values.reserved_percent = value
 

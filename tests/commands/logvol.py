@@ -1,7 +1,7 @@
 import unittest, six
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 if not six.PY3:
     ARG_STR = 'an'
@@ -73,14 +73,14 @@ class FC3_TestCase(CommandTest):
         self.assert_required("logvol", "vgname")
 
         # fail - missing required
-        self.assert_parse_error("logvol / --name=NAME", KickstartValueError, "Option --vgname is required")
-        self.assert_parse_error("logvol / --vgname=NAME", KickstartValueError, "Option --name is required")
+        self.assert_parse_error("logvol / --name=NAME", "Option --vgname is required")
+        self.assert_parse_error("logvol / --vgname=NAME", "Option --name is required")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", KickstartValueError, "Option --name is required")
-        self.assert_parse_error("logvol --name=NAME", KickstartValueError, "Option --vgname is required")
-        self.assert_parse_error("logvol --vgname=NAME", KickstartValueError, "Option --name is required")
-        self.assert_parse_error("logvol --name=NAME --vgname=NAME", KickstartValueError, "Mount point required for logvol")
+        self.assert_parse_error("logvol", "Option --name is required")
+        self.assert_parse_error("logvol --name=NAME", "Option --vgname is required")
+        self.assert_parse_error("logvol --vgname=NAME", "Option --name is required")
+        self.assert_parse_error("logvol --name=NAME --vgname=NAME", "Mount point required for logvol")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
@@ -363,7 +363,6 @@ class F20_TestCase(F18_TestCase):
 
         # logvol with a disallowed percent value
         self.assert_parse_error("logvol / --percent=1000 --name=NAME --vgname=VGNAME",
-                                KickstartValueError,
                                 "Percentage must be between 0 and 100.")
 
 class F21_TestCase(F20_TestCase):
@@ -387,20 +386,17 @@ class RHEL7_TestCase(F21_TestCase):
                           "logvol /  --size=4096 --mkfsoptions=\"some,thing\" --name=LVNAME --vgname=VGNAME\n")
 
         # can't use --mkfsoptions if you're not formatting
-        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat",
-                                KickstartValueError)
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat")
 
         # can't use --mkfsoptions with --fsprofile
-        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE",
-                                KickstartValueError)
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE")
 
 class F23_TestCase(F21_TestCase):
     def runTest(self):
         F21_TestCase.runTest(self)
 
         # can't use --mkfsoptions with --fsprofile
-        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE",
-                                KickstartValueError)
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --fsprofile=PROFILE")
 
         # accept cache specifications
         self.assert_parse("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=writeback",
@@ -420,8 +416,7 @@ class F23_TestCase(F21_TestCase):
                           "logvol /  --size=4096 --mkfsoptions=\"some,thing\" --name=LVNAME --vgname=VGNAME\n")
 
         # can't use --mkfsoptions if you're not formatting
-        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat",
-                                KickstartValueError)
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat")
 
 if __name__ == "__main__":
     unittest.main()

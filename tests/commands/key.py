@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class RHEL5_TestCase(CommandTest):
     command = "key"
@@ -31,7 +31,7 @@ class RHEL5_TestCase(CommandTest):
         self.assert_parse("key --skip", "key --skip\n")
 
         # fail - command needs argument
-        self.assert_parse_error("key", KickstartValueError)
+        self.assert_parse_error("key")
         # fail - invalid option w/argument
         self.assert_parse_error("key --badflag foobar", KickstartParseError)
 

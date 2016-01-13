@@ -1,8 +1,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class F7_TestCase(CommandTest):
     command = "updates"
 
@@ -12,7 +10,7 @@ class F7_TestCase(CommandTest):
         self.assert_parse("updates deliciouscheeses", "updates deliciouscheeses\n")
 
         # fail
-        self.assert_parse_error("updates cheese crackers", KickstartValueError)
+        self.assert_parse_error("updates cheese crackers")
 
 if __name__ == "__main__":
     unittest.main()

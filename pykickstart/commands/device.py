@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -94,7 +94,7 @@ class FC3_Device(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 2:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name")))
 
         self.moduleOpts = opts.moduleOpts
         self.type = extra[0]
@@ -120,7 +120,7 @@ class F8_Device(FC3_Device):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}))
 
         dd = F8_DeviceData()
         self._setToObj(self.op, opts, dd)

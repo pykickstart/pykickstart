@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC3_TestCase(CommandTest):
     command = "xconfig"
 
@@ -52,7 +50,7 @@ class FC3_TestCase(CommandTest):
 
         # extra arguments
         self.assert_parse_error("xconfig --extra --arguments --here")
-        self.assert_parse_error("xconfig extra arguments here", KickstartValueError)
+        self.assert_parse_error("xconfig extra arguments here")
 
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):

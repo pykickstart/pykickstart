@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC4_TestCase(CommandTest):
     command = "mediacheck"
@@ -32,7 +32,7 @@ class FC4_TestCase(CommandTest):
         # fail
         self.assert_parse_error("mediacheck --cheese", KickstartParseError)
         self.assert_parse_error("mediacheck --crackers=CRUNCHY", KickstartParseError)
-        self.assert_parse_error("mediacheck cheese crackers", KickstartValueError)
+        self.assert_parse_error("mediacheck cheese crackers")
 
 if __name__ == "__main__":
     unittest.main()

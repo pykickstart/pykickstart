@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 import warnings
 
@@ -86,7 +86,7 @@ class F22_SshKey(KickstartCommand):
         ud.lineno = self.lineno
 
         if len(extra) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshkey"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshkey"))
         ud.key = extra[0]
 
         if ud in self.dataList():

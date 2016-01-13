@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -47,7 +47,7 @@ class FC3_SkipX(KickstartCommand):
     def parse(self, args):
         (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         if len(extra) > 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "skipx"))
 
         self.skipx = True
         return self

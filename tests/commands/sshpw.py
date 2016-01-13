@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class F13_TestCase(CommandTest):
     command = "sshpw"
@@ -36,10 +36,10 @@ class F13_TestCase(CommandTest):
                          self.assert_parse("sshpw --username=B --iscrypted secrethandshake"))
 
         # fail
-        self.assert_parse_error("sshpw", KickstartValueError)
-        self.assert_parse_error("sshpw --username=someguy", KickstartValueError)
+        self.assert_parse_error("sshpw")
+        self.assert_parse_error("sshpw --username=someguy")
         self.assert_parse_error("sshpw --username=someguy --iscrypted=OMGSEKRITZ", KickstartParseError)
-        self.assert_parse_error("sshpw --username=someguy --iscrypted", KickstartValueError)
+        self.assert_parse_error("sshpw --username=someguy --iscrypted")
 
         # pass
         self.assert_parse("sshpw --username=someguy --lock secrethandshake", "sshpw --username=someguy --lock --plaintext secrethandshake\n")
@@ -56,8 +56,8 @@ class F13_TestCase(CommandTest):
         # fail
         self.assert_parse_error("sshpw --username=someguy --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
         self.assert_parse_error("sshpw --username=someguy --lock=NOKEYSFORYOU secrethandshake", KickstartParseError)
-        self.assert_parse_error("sshpw --username=someguy --plaintext", KickstartValueError)
-        self.assert_parse_error("sshpw --username=someguy --lock", KickstartValueError)
+        self.assert_parse_error("sshpw --username=someguy --plaintext")
+        self.assert_parse_error("sshpw --username=someguy --lock")
 
         # extra test coverage
         sshpw = self.handler().commands[self.command]

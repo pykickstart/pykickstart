@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 import warnings
 
@@ -124,7 +124,7 @@ class F13_SshPw(KickstartCommand):
         ud.lineno = self.lineno
 
         if len(extra) == 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
 
         ud.password = " ".join(extra)
 

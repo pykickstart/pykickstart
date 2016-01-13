@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "url"
@@ -38,7 +38,7 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # missing required option --url
-        self.assert_parse_error("url", KickstartValueError)
+        self.assert_parse_error("url")
         self.assert_parse_error("url --url", KickstartParseError)
 
         # extra test coverage
@@ -63,7 +63,7 @@ class F13_TestCase(FC3_TestCase):
         # fail
         self.assert_parse_error("cdrom --proxy=http://someplace/somewhere", KickstartParseError)
         self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
-        self.assert_parse_error("url --proxy=http://someplace/somewhere", KickstartValueError)
+        self.assert_parse_error("url --proxy=http://someplace/somewhere")
 
 class F14_TestCase(F13_TestCase):
     def runTest(self):
@@ -98,15 +98,14 @@ class F18_TestCase(F14_TestCase):
 
         # fail
         # missing one of required options --url or --mirrorlist
-        self.assert_parse_error("url", KickstartValueError)
+        self.assert_parse_error("url")
         self.assert_parse_error("url --mirrorlist", KickstartParseError)
 
         # It's --url, not --baseurl.
         self.assert_parse_error("url --baseurl=www.wherever.com", KickstartParseError)
 
         # only one of --url or --mirrorlist may be specified
-        self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com",
-                                KickstartValueError)
+        self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]

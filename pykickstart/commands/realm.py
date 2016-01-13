@@ -19,7 +19,7 @@
 #
 
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 
 import getopt
 import pipes
@@ -43,13 +43,13 @@ class F19_Realm(KickstartCommand):
                 "The realm command 'join' should only be specified once")))
         args = shlex.split(string)
         if not args:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_(
                 "Missing realm command arguments")))
         command = args.pop(0)
         if command == "join":
             self._parseJoin(args)
         else:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_(
                 "Unsupported realm '%s' command") % command))
 
     def _parseJoin(self, args):
@@ -62,11 +62,11 @@ class F19_Realm(KickstartCommand):
                                                        "no-password",
                                                        "computer-ou="))
         except getopt.GetoptError as ex:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_(
                 "Invalid realm arguments: %s") % ex))
 
         if len(remaining) != 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_(
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_(
                 "Specify only one realm to join")))
 
         # Parse successful, just use this as the join command

@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC3_TestCase(CommandTest):
     command = "device"
 
@@ -38,11 +36,11 @@ class FC3_TestCase(CommandTest):
                           "device TYPE MODNAME --opts=\"key1=val1 key2=val2\"\n")
 
         # fail
-        self.assert_parse_error("device", KickstartValueError)
-        self.assert_parse_error("device MODNAME", KickstartValueError)
-        self.assert_parse_error("device TYPE MODNAME GARBAGE", KickstartValueError)
-        self.assert_parse_error("device --opts=foo", KickstartValueError)
-        self.assert_parse_error("device --opts=\"foo\"", KickstartValueError)
+        self.assert_parse_error("device")
+        self.assert_parse_error("device MODNAME")
+        self.assert_parse_error("device TYPE MODNAME GARBAGE")
+        self.assert_parse_error("device --opts=foo")
+        self.assert_parse_error("device --opts=\"foo\"")
 
         # extra test coverage
         device = self.handler().commands["device"]
@@ -69,14 +67,14 @@ class F8_TestCase(CommandTest):
                           "device MODNAME --opts=\"key1=val1 key2=val2\"\n")
 
         # fail - TYPE is no longer accepted
-        self.assert_parse_error("device TYPE MODNAME", KickstartValueError)
-        self.assert_parse_error("device TYPE MODNAME --opts=\"foo\"", KickstartValueError)
+        self.assert_parse_error("device TYPE MODNAME")
+        self.assert_parse_error("device TYPE MODNAME --opts=\"foo\"")
 
         # fail
-        self.assert_parse_error("device", KickstartValueError)
-        self.assert_parse_error("device MODNAME GARBAGE", KickstartValueError)
-        self.assert_parse_error("device --opts=foo", KickstartValueError)
-        self.assert_parse_error("device --opts=\"foo\"", KickstartValueError)
+        self.assert_parse_error("device")
+        self.assert_parse_error("device MODNAME GARBAGE")
+        self.assert_parse_error("device --opts=foo")
+        self.assert_parse_error("device --opts=\"foo\"")
 
         # extra test coverage
         device = self.handler().commands["device"]

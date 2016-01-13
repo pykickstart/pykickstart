@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -166,9 +166,9 @@ class F18_Url(F14_Url):
         retval = F14_Url.parse(self, args)
 
         if self.url and self.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --url and --mirrorlist may be specified for url command.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --url and --mirrorlist may be specified for url command.")))
 
         if not self.url and not self.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command.")))
 
         return retval

@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class F20_TestCase(CommandTest):
     command = "network"
 
@@ -83,16 +81,14 @@ class F22_TestCase(F20_TestCase):
         # fail
         # slaves missing
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeopts=priority=40000", KickstartValueError)
+                                "--bridgeopts=priority=40000")
         # bad options format
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                '--bridgeopts="priority=40000 hello-time=3"',
-                                KickstartValueError)
+                                '--bridgeopts="priority=40000 hello-time=3"')
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                "--bridgeopts=priority",
-                                KickstartValueError)
+                                "--bridgeopts=priority")
 
 class F24_TestCase(F22_TestCase):
     def runTest(self):
@@ -114,24 +110,24 @@ class RHEL7_TestCase(F20_TestCase):
         F20_TestCase.runTest(self)
 
         # there needs to be a vlan id after a dot & only one dot is allowed
-        self.assert_parse_error("network --interfacename=abc.", KickstartValueError)
-        self.assert_parse_error("network --interfacename=abc.def", KickstartValueError)
-        self.assert_parse_error("network --interfacename=abc..", KickstartValueError)
-        self.assert_parse_error("network --interfacename=abc.123.456", KickstartValueError)
+        self.assert_parse_error("network --interfacename=abc.")
+        self.assert_parse_error("network --interfacename=abc.def")
+        self.assert_parse_error("network --interfacename=abc..")
+        self.assert_parse_error("network --interfacename=abc.123.456")
         # 'vlan' can't be followed by a '.'
-        self.assert_parse_error("network --interfacename=vlan.123", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlan.", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlan..", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlan.abc", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan.123")
+        self.assert_parse_error("network --interfacename=vlan.")
+        self.assert_parse_error("network --interfacename=vlan..")
+        self.assert_parse_error("network --interfacename=vlan.abc")
         self.assert_parse("network --interfacename=abc.123")
 
         # if the device name begins with 'vlan', vlan id needs to follow
-        self.assert_parse_error("network --interfacename=vlan", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlanabcd", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan")
+        self.assert_parse_error("network --interfacename=vlanabcd")
         # a valid vlan id needs to directly follow the 'vlan' prefix
-        self.assert_parse_error("network --interfacename=vlanabcd123", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlanabcd123zxy", KickstartValueError)
-        self.assert_parse_error("network --interfacename=vlan123zxy", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlanabcd123")
+        self.assert_parse_error("network --interfacename=vlanabcd123zxy")
+        self.assert_parse_error("network --interfacename=vlan123zxy")
         self.assert_parse("network --interfacename=vlan123")
 
         # vlan ids go from 0 to 4095
@@ -139,8 +135,8 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse("network --interfacename=vlan4095")
         self.assert_parse("network --interfacename=abc.0")
         self.assert_parse("network --interfacename=abc.4095")
-        self.assert_parse_error("network --interfacename=vlan9001", KickstartValueError)
-        self.assert_parse_error("network --interfacename=abc.9001", KickstartValueError)
+        self.assert_parse_error("network --interfacename=vlan9001")
+        self.assert_parse_error("network --interfacename=abc.9001")
 
         # bridge options
         # pass
@@ -154,16 +150,14 @@ class RHEL7_TestCase(F20_TestCase):
         # fail
         # slaves missing
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeopts=priority=40000", KickstartValueError)
+                                "--bridgeopts=priority=40000")
         # bad options format
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                '--bridgeopts="priority=40000 hello-time=3"',
-                                KickstartValueError)
+                                '--bridgeopts="priority=40000 hello-time=3"')
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
-                                "--bridgeopts=priority",
-                                KickstartValueError)
+                                "--bridgeopts=priority")
 
 
 if __name__ == "__main__":

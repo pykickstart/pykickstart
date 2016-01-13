@@ -19,7 +19,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -160,15 +160,15 @@ class F17_BTRFS(KickstartCommand):
         data.lineno = self.lineno
 
         if len(extra) == 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
 
         if len(extra) == 1 and not data.subvol:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
         elif len(extra) == 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")))
 
         if data.subvol and not data.name:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")))
 
         data.mountpoint = extra[0]
         data.devices = extra[1:]
@@ -196,7 +196,7 @@ class F23_BTRFS(F17_BTRFS):
         data = F17_BTRFS.parse(self, args)
 
         if (data.preexist or not data.format) and data.mkfsopts:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
 
         return data
 

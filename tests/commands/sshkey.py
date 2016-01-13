@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class F22_TestCase(CommandTest):
     command = "sshkey"
@@ -37,10 +37,10 @@ class F22_TestCase(CommandTest):
                          self.assert_parse("sshkey --username=B '%s'" % self.key))
 
         # fail
-        self.assert_parse_error("sshkey", KickstartValueError)
+        self.assert_parse_error("sshkey")
         self.assert_parse_error("sshkey --foo", KickstartParseError)
         self.assert_parse_error("sshkey --username", KickstartParseError)
-        self.assert_parse_error("sshkey --username=root", KickstartValueError)
+        self.assert_parse_error("sshkey --username=root")
 
         # extra test coverage
         sshkey = self.handler().commands[self.command]

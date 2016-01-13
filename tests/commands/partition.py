@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "partition"
@@ -60,8 +60,8 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # missing mountpoint
-        self.assert_parse_error("part", KickstartValueError)
-        self.assert_parse_error("part --ondisk=sda --size=100", KickstartValueError)
+        self.assert_parse_error("part")
+        self.assert_parse_error("part --ondisk=sda --size=100")
 
         int_params = ["size", "maxsize"]
         if "--start" in self.optionList:
@@ -77,7 +77,7 @@ class FC3_TestCase(CommandTest):
             self.assert_parse_error("part / --%s" % opt, KickstartParseError)
 
         # only one argument allowed
-        self.assert_parse_error("part / /home /usr", KickstartValueError)
+        self.assert_parse_error("part / /home /usr")
         # unknown option
         self.assert_parse_error("part /home --unknown=value", KickstartParseError)
 
@@ -246,10 +246,10 @@ class F23_TestCase(F18_TestCase):
                           "part / --size=4096 --mkfsoptions=\"some,thing\"\n")
 
         # can't use --mkfsoptions if you're not formatting
-        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --noformat", KickstartValueError)
+        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --noformat")
 
         # can't use --mkfsoptions with --fsprofile
-        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --fsprofile=PROFILE", KickstartValueError)
+        self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --fsprofile=PROFILE")
 
 RHEL7_TestCase = F23_TestCase
 

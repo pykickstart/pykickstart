@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class RHEL3_TestCase(CommandTest):
     command = "mouse"
@@ -35,7 +35,7 @@ class RHEL3_TestCase(CommandTest):
 
         # fail
         # empty
-        self.assert_parse_error("mouse", KickstartValueError)
+        self.assert_parse_error("mouse")
         # unknown option
         self.assert_parse_error("mouse jerry --bad-flag", KickstartParseError)
         # --device requires argument

@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
@@ -38,10 +38,10 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # missing required options --server and --dir
-        self.assert_parse_error("nfs", KickstartValueError)
-        self.assert_parse_error("nfs --server=1.2.3.4", KickstartValueError)
+        self.assert_parse_error("nfs")
+        self.assert_parse_error("nfs --server=1.2.3.4")
         self.assert_parse_error("nfs --server", KickstartParseError)
-        self.assert_parse_error("nfs --dir=/install", KickstartValueError)
+        self.assert_parse_error("nfs --dir=/install")
         self.assert_parse_error("nfs --dir", KickstartParseError)
         # unknown option
         self.assert_parse_error("nfs --unknown=value", KickstartParseError)

@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class FC3_TestCase(CommandTest):
     command = "autopart"
 
@@ -32,7 +30,7 @@ class FC3_TestCase(CommandTest):
         # fail - on FC3, autopart  took no options so this raises a different
         # exception than later releases.
         if self.__class__.__name__ == "FC3_TestCase":
-            self.assert_parse_error("autopart --blah", KickstartValueError)
+            self.assert_parse_error("autopart --blah")
 
 class F9_TestCase(FC3_TestCase):
     def runTest(self):
@@ -103,9 +101,9 @@ class F16_TestCase(F12_TestCase):
 
             # fail
             self.assert_parse_error("autopart --nolvm=asdf")
-            self.assert_parse_error("autopart --nolvm True", KickstartValueError)
+            self.assert_parse_error("autopart --nolvm True")
             self.assert_parse_error("autopart --nolvm=1")
-            self.assert_parse_error("autopart --nolvm 0", KickstartValueError)
+            self.assert_parse_error("autopart --nolvm 0")
 
 class F17_TestCase(F16_TestCase):
     def runTest(self):

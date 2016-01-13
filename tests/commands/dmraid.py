@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError 
+from pykickstart.errors import KickstartParseError
 
 class FC6_TestCase(CommandTest):
     command = "dmraid"
@@ -33,13 +33,13 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("dmraid --dev \"deb1,deb2\" --name=onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
 
         # fail
-        self.assert_parse_error("dmraid", KickstartValueError)
+        self.assert_parse_error("dmraid")
         self.assert_parse_error("dmraid --name", KickstartParseError)
         self.assert_parse_error("dmraid --dev", KickstartParseError)
-        self.assert_parse_error("dmraid --name=onamai", KickstartValueError)
-        self.assert_parse_error("dmraid --name onamai", KickstartValueError)
-        self.assert_parse_error("dmraid --dev debaisi", KickstartValueError)
-        self.assert_parse_error("dmraid --dev=deb1,deb2", KickstartValueError)
+        self.assert_parse_error("dmraid --name=onamai")
+        self.assert_parse_error("dmraid --name onamai")
+        self.assert_parse_error("dmraid --dev debaisi")
+        self.assert_parse_error("dmraid --dev=deb1,deb2")
         self.assert_parse_error("dmraid --magic", KickstartParseError)
 
 if __name__ == "__main__":

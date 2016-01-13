@@ -19,7 +19,6 @@
 #
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.errors import KickstartParseError, KickstartValueError
 
 class FC3_TestCase(CommandTest):
     command = "driverdisk"
@@ -39,11 +38,11 @@ class FC3_TestCase(CommandTest):
             self.assert_parse("driverdisk /dev/sdb2", "driverdisk /dev/sdb2\n")
 
         # fail - no arguments
-        self.assert_parse_error("driverdisk", KickstartValueError)
+        self.assert_parse_error("driverdisk")
         # fail - spurious argument or extra partition
-        self.assert_parse_error("driverdisk /dev/sdb2 foobar", KickstartValueError)
+        self.assert_parse_error("driverdisk /dev/sdb2 foobar")
         # fail - specifying both partition and source
-        self.assert_parse_error("driverdisk /dev/sdb2 --source=http://10.0.0.1/disk.img", KickstartValueError)
+        self.assert_parse_error("driverdisk /dev/sdb2 --source=http://10.0.0.1/disk.img")
 
         # extra test coverage
         ddd = self.handler().DriverDiskData()
@@ -65,11 +64,11 @@ class FC4_TestCase(FC3_TestCase):
         self.assert_parse("driverdisk --biospart=0x80p1", "driverdisk --biospart=0x80p1\n")
 
         # fail - no arguments
-        self.assert_parse_error("driverdisk --biospart", KickstartParseError)
+        self.assert_parse_error("driverdisk --biospart")
         # fail - specifying both biospart and partition
-        self.assert_parse_error("driverdisk /dev/sdb2 --biospart=0x82", KickstartValueError)
+        self.assert_parse_error("driverdisk /dev/sdb2 --biospart=0x82")
         # fail - specifying both biospart and source
-        self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biospart=0x82", KickstartValueError)
+        self.assert_parse_error("driverdisk --source=http://10.0.0.1/disk.img --biospart=0x82")
 
 class F12_TestCase(FC4_TestCase):
     def runTest(self):

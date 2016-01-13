@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
@@ -39,13 +39,13 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # required option --dir missing
-        self.assert_parse_error("harddrive", KickstartValueError)
+        self.assert_parse_error("harddrive")
         # required --dir argument missing
         self.assert_parse_error("harddrive --dir", KickstartParseError)
         # missing --biospart or --partition option
-        self.assert_parse_error("harddrive --dir=/install", KickstartValueError)
+        self.assert_parse_error("harddrive --dir=/install")
         # both --biospart and --partition specified
-        self.assert_parse_error("harddrive --dir=/install --biospart=bios --partition=part", KickstartValueError)
+        self.assert_parse_error("harddrive --dir=/install --biospart=bios --partition=part")
         # --biospart and --partition require argument
         self.assert_parse_error("harddrive --dir=/install --biospart", KickstartParseError)
         self.assert_parse_error("harddrive --dir=/install --partition", KickstartParseError)

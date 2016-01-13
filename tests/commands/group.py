@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class F12_TestCase(CommandTest):
     command = "group"
@@ -39,7 +39,7 @@ class F12_TestCase(CommandTest):
 
         # fail
         # missing required option --name
-        self.assert_parse_error("group", KickstartValueError)
+        self.assert_parse_error("group")
         # --name requires an argument
         self.assert_parse_error("group --name", KickstartParseError)
         # --gid requires int argument

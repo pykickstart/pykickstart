@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
+from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Packages
 from pykickstart.version import DEVEL, returnClassForVersion
 
@@ -51,7 +51,7 @@ class AddGroups_TestCase(DevelPackagesBase):
 
 %end""", str(pkgs).strip())
 
-        self.assertRaises(KickstartValueError, pkgs.add, ["@group-b --optional --nodefaults"])
+        self.assertRaises(KickstartParseError, pkgs.add, ["@group-b --optional --nodefaults"])
 
 class AddGroupsAndEnvironment_TestCase(DevelPackagesBase):
     def runTest(self):

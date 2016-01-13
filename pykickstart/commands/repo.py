@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartError, KickstartValueError, formatErrorMsg
+from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, ksboolean
 
 import warnings
@@ -180,15 +180,15 @@ class FC6_Repo(KickstartCommand):
 
         if len(extra) != 0:
             mapping = {"command": "repo", "options": extra}
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         # This is lame, but I can't think of a better way to make sure only
         # one of these two is specified.
         if opts.baseurl and opts.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
 
         if self.urlRequired and not opts.baseurl and not opts.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
 
         rd = self.handler.RepoData()
         self._setToObj(self.op, opts, rd)

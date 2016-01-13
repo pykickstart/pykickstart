@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartValueError
-
 class F20_TestCase(CommandTest):
     command = "eula"
 
@@ -34,8 +32,8 @@ class F20_TestCase(CommandTest):
         self.assert_parse("eula --accept", "eula --agreed\n")
 
         # fail
-        self.assert_parse_error("eula", KickstartValueError)
-        self.assert_parse_error("eula arg1", KickstartValueError)
+        self.assert_parse_error("eula")
+        self.assert_parse_error("eula arg1")
 
         # extra
         eula = self.handler().commands["eula"]

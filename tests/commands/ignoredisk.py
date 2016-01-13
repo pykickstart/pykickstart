@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError, KickstartValueError
+from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "ignoredisk"
@@ -37,7 +37,7 @@ class FC3_TestCase(CommandTest):
         # missing arguments
         self.assert_parse_error("ignoredisk --drives", KickstartParseError)
         # empty
-        self.assert_parse_error("ignoredisk", KickstartValueError)
+        self.assert_parse_error("ignoredisk")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -64,10 +64,10 @@ class F8_TestCase(FC3_TestCase):
         # missing arguments
         self.assert_parse_error("ignoredisk --drives", KickstartParseError)
         # empty
-        self.assert_parse_error("ignoredisk", KickstartValueError)
+        self.assert_parse_error("ignoredisk")
         # both options provided
-        self.assert_parse_error("ignoredisk --drives=sda --only-use=sdb", KickstartValueError)
-        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb", KickstartValueError)
+        self.assert_parse_error("ignoredisk --drives=sda --only-use=sdb")
+        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb")
 
 class RHEL6_TestCase(F8_TestCase):
     def runTest(self):
@@ -79,12 +79,12 @@ class RHEL6_TestCase(F8_TestCase):
 
         # fail
         # both options provided
-        self.assert_parse_error("ignoredisk --drives=sda --interactive", KickstartValueError)
-        self.assert_parse_error("ignoredisk --interactive --drives=sda", KickstartValueError)
-        self.assert_parse_error("ignoredisk --only-use=sda --interactive", KickstartValueError)
-        self.assert_parse_error("ignoredisk --interactive --only-use=sda", KickstartValueError)
-        self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb", KickstartValueError)
-        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive", KickstartValueError)
+        self.assert_parse_error("ignoredisk --drives=sda --interactive")
+        self.assert_parse_error("ignoredisk --interactive --drives=sda")
+        self.assert_parse_error("ignoredisk --only-use=sda --interactive")
+        self.assert_parse_error("ignoredisk --interactive --only-use=sda")
+        self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb")
+        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive")
 
 if __name__ == "__main__":
     unittest.main()
