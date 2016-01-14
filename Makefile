@@ -40,14 +40,20 @@ po-empty:
 		exit 1 ; \
 	done
 
+# Try to fetch the real .po files, but if that fails use the empty ones
+po-fallback:
+	$(MAKE) po-pull || $(MAKE) po-empty
+
 docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
-check:
+check: po-fallback
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
 	@echo "*** Running tests on translatable strings ***"
+	$(MAKE) -C po $(PKGNAME).pot
 	PYTHONPATH=translation-canary python3 -m translation_canary.translatable po/$(PKGNAME).pot
+	git checkout -- po/$(PKGNAME).pot || true
 	@echo "*** Running tests on translated strings ***"
 	PYTHONPATH=translation-canary python3 -m translation_canary.translated .
 
