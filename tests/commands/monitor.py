@@ -21,7 +21,6 @@ import unittest
 
 from tests.baseclass import CommandTest
 from pykickstart.base import DeprecatedCommand
-from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "monitor"
@@ -43,7 +42,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("monitor --monitor=SOMETHING GREAT")
 
         if "--noprobe" not in self.optionList:
-            self.assert_parse_error("monitor --noprobe", KickstartParseError)
+            self.assert_parse_error("monitor --noprobe")
 
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):

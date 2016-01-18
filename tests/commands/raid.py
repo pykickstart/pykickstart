@@ -174,7 +174,7 @@ class FC5_TestCase(FC4_TestCase):
 
             # fail
             # --encrypted=<value>
-            self.assert_parse_error("raid / --device=md0 --level=1 --encrypted=1", KickstartParseError)
+            self.assert_parse_error("raid / --device=md0 --level=1 --encrypted=1")
 
 class RHEL5_TestCase(FC5_TestCase):
     def __init__(self, *kargs, **kwargs):

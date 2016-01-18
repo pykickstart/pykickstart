@@ -68,18 +68,18 @@ class FC3_TestCase(CommandTest):
             int_params += ["start", "end"]
         for opt in int_params:
             # integer argument required
-            self.assert_parse_error("part / --%s=string" % opt, KickstartParseError)
+            self.assert_parse_error("part / --%s=string" % opt)
             # value required
-            self.assert_parse_error("part / --%s" % opt, KickstartParseError)
+            self.assert_parse_error("part / --%s" % opt)
 
         for opt in ("fstype", "onbiosdisk", "ondisk", "ondrive", "onpart", "usepart"):
             # value required
-            self.assert_parse_error("part / --%s" % opt, KickstartParseError)
+            self.assert_parse_error("part / --%s" % opt)
 
         # only one argument allowed
         self.assert_parse_error("part / /home /usr")
         # unknown option
-        self.assert_parse_error("part /home --unknown=value", KickstartParseError)
+        self.assert_parse_error("part /home --unknown=value")
 
         parser = self.handler().commands["part"]
         pd = parser.parse(["/home"])
@@ -106,13 +106,13 @@ class FC4_TestCase(FC3_TestCase):
 
             # fail
             # --bytes-per-inode requires int argument
-            self.assert_parse_error("part /home --bytes-per-inode=string", KickstartParseError)
-            self.assert_parse_error("part /home --bytes-per-inode", KickstartParseError)
+            self.assert_parse_error("part /home --bytes-per-inode=string")
+            self.assert_parse_error("part /home --bytes-per-inode")
 
         # missing required arguments
         for opt in ("--fsoptions", "--label"):
             if opt in self.optionList:
-                self.assert_parse_error("part /home %s" % opt, KickstartParseError)
+                self.assert_parse_error("part /home %s" % opt)
 
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self):
@@ -125,7 +125,7 @@ class RHEL5_TestCase(FC4_TestCase):
 
         # fail
         # missing required --passphrase argument
-        self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
+        self.assert_parse_error("part / --encrypted --passphrase")
 
         # extra test coverage
         data = self.handler().PartData()
@@ -148,9 +148,9 @@ class F9_TestCase(FC3_TestCase):
 
         # fail
         # missing required --passphrase argument
-        self.assert_parse_error("part / --encrypted --passphrase", KickstartParseError)
+        self.assert_parse_error("part / --encrypted --passphrase")
         # missing required --fsprofile argument
-        self.assert_parse_error("part / --fsprofile", KickstartParseError)
+        self.assert_parse_error("part / --fsprofile")
 
 class F12_TestCase(F9_TestCase):
     def runTest(self):

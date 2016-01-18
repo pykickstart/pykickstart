@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "zfcp"
 
@@ -43,8 +41,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4")
         self.assert_parse_error("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsilun=4")
         self.assert_parse_error("zfcp --devnum=1 --wwpn=2 --fcplun=3")
-        self.assert_parse_error("zfcp --devnum --wwpn --fcplun --scsiid --scsilun",
-                                KickstartParseError)
+        self.assert_parse_error("zfcp --devnum --wwpn --fcplun --scsiid --scsilun")
 
 class F12_TestCase(FC3_TestCase):
     def runTest(self):

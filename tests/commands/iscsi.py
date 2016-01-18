@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC6_TestCase(CommandTest):
     command = "iscsi"
 
@@ -41,16 +39,16 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("iscsi")
         self.assert_parse_error("iscsi --target=tar --user=name --password=secret --port=1234")
         # missing --ipaddr argument
-        self.assert_parse_error("iscsi --ipaddr", KickstartParseError)
+        self.assert_parse_error("iscsi --ipaddr")
         # unexpected arguments
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 not expected")
         # unknown flag
-        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --unknown=value", KickstartParseError)
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --unknown=value")
         # empty arguments
-        self.assert_parse_error("iscsi --target --ipaddr=1.2.3.4", KickstartParseError)
-        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --user", KickstartParseError)
-        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --password", KickstartParseError)
-        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --port", KickstartParseError)
+        self.assert_parse_error("iscsi --target --ipaddr=1.2.3.4")
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --user")
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --password")
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --port")
 
         # extra test coverage
         data = self.handler().IscsiData()
@@ -75,8 +73,8 @@ class F10_TestCase(FC6_TestCase):
 
         # fail
         # empty arguments
-        self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-user", KickstartParseError)
-        self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-password", KickstartParseError)
+        self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-user")
+        self.assert_parse_error("iscsi --ipaddr=1.1.1.1 --reverse-password")
 
 class RHEL6_TestCase(F10_TestCase):
     def runTest(self):

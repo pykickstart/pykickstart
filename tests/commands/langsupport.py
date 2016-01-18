@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "langsupport"
 
@@ -35,9 +33,9 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # wrong option name
-        self.assert_parse_error("langsupport --locale=en_US", KickstartParseError)
+        self.assert_parse_error("langsupport --locale=en_US")
         # missing --default argument
-        self.assert_parse_error("langsupport --default", KickstartParseError)
+        self.assert_parse_error("langsupport --default")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]

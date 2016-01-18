@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC6_TestCase(CommandTest):
     command = "user"
 
@@ -46,17 +44,17 @@ class FC6_TestCase(CommandTest):
         # missing required option --name
         self.assert_parse_error("user")
         # --name requires an argument
-        self.assert_parse_error("user --name", KickstartParseError)
+        self.assert_parse_error("user --name")
         # --uid requires int argument
-        self.assert_parse_error("user --name=user --uid=id", KickstartParseError)
+        self.assert_parse_error("user --name=user --uid=id")
         # unknown option
-        self.assert_parse_error("user --name=user --unknown=value", KickstartParseError)
+        self.assert_parse_error("user --name=user --unknown=value")
         # required option arguments
-        self.assert_parse_error("user --name=user --groups", KickstartParseError)
-        self.assert_parse_error("user --name=user --homedir", KickstartParseError)
-        self.assert_parse_error("user --name=user --shell", KickstartParseError)
-        self.assert_parse_error("user --name=user --uid", KickstartParseError)
-        self.assert_parse_error("user --name=user --password", KickstartParseError)
+        self.assert_parse_error("user --name=user --groups")
+        self.assert_parse_error("user --name=user --homedir")
+        self.assert_parse_error("user --name=user --shell")
+        self.assert_parse_error("user --name=user --uid")
+        self.assert_parse_error("user --name=user --password")
 
         # extra test coverage
         ud = self.handler().UserData()

@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError
-
 class F22_TestCase(CommandTest):
     command = "sshkey"
     key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJGDmFSzIWSvnFYhExf+FbzSiZxsoohJdrKlmPKQhdts8nSg5PH7jyG5X+w6RgWhSetlD3WouKoo3zFOR5nCYq4= bcl@notae.us"
@@ -38,8 +36,8 @@ class F22_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("sshkey")
-        self.assert_parse_error("sshkey --foo", KickstartParseError)
-        self.assert_parse_error("sshkey --username", KickstartParseError)
+        self.assert_parse_error("sshkey --foo")
+        self.assert_parse_error("sshkey --username")
         self.assert_parse_error("sshkey --username=root")
 
         # extra test coverage

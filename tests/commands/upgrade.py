@@ -22,7 +22,6 @@ import unittest
 from tests.baseclass import CommandTest
 
 from pykickstart.base import DeprecatedCommand
-from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "upgrade"
@@ -50,10 +49,10 @@ class F11_TestCase(FC3_TestCase):
 
         # fail
         # --root-device requires argument
-        self.assert_parse_error("upgrade --root-device", KickstartParseError)
+        self.assert_parse_error("upgrade --root-device")
         self.assert_parse_error("upgrade --root-device=\"\"")
         # unknown option
-        self.assert_parse_error("upgrade --bad-flag", KickstartParseError)
+        self.assert_parse_error("upgrade --bad-flag")
 
 class F20_TestCase(F11_TestCase):
     def runTest(self):

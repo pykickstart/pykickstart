@@ -19,7 +19,6 @@
 #
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.errors import KickstartParseError
 
 class FC3_TestCase(CommandTest):
     command = "skipx"
@@ -29,7 +28,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("skipx", "skipx\n")
 
         # fail
-        self.assert_parse_error("skipx --do-something-awesome", KickstartParseError)
+        self.assert_parse_error("skipx --do-something-awesome")
         self.assert_parse_error("skipx MAGIC")
 
 if __name__ == "__main__":

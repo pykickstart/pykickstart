@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartError, KickstartParseError
+from pykickstart.errors import KickstartError
 
 class FC6_TestCase(CommandTest):
     command = "repo"
@@ -51,7 +51,7 @@ class FC6_TestCase(CommandTest):
         # only one of --baseurl or --mirrorlist must be specified
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --mirrorlist=www.domain.com")
         # unknown option
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --unknown", KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --unknown")
         # not expected argument
         self.assert_parse_error("repo --name=blah --baseurl=www.domain.com blah")
 
@@ -89,9 +89,9 @@ class F8_TestCase(FC6_TestCase):
         # fail
         # missing required arguments
         for opt in ("--cost", "--includepkgs", "--excludepkgs"):
-            self.assert_parse_error("repo --name=blah --baseurl=www.domain.com %s" % opt, KickstartParseError)
+            self.assert_parse_error("repo --name=blah --baseurl=www.domain.com %s" % opt)
         # --cost argument not integer
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --cost=high", KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --cost=high")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -119,7 +119,7 @@ class F11_TestCase(F8_TestCase):
 
         # fail
         # missing --ignoregroups argument
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --ignoregroups", KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --ignoregroups")
 
 class F13_TestCase(F11_TestCase):
     def runTest(self, urlRequired=True):
@@ -134,8 +134,7 @@ class F13_TestCase(F11_TestCase):
 
         # fail
         # missing --proxy argument
-        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --proxy",
-                                KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --proxy")
 
 class F14_TestCase(F13_TestCase):
     def runTest(self, urlRequired=True):
@@ -144,7 +143,7 @@ class F14_TestCase(F13_TestCase):
         self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --noverifyssl",
                           "repo --name=\"blah\" --baseurl=https://www.domain.com --noverifyssl\n")
         #fail
-        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --noverifyssl=yeeeaah", KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --noverifyssl=yeeeaah")
 
 class F15_TestCase(F14_TestCase):
     def runTest(self, urlRequired=False):
@@ -157,7 +156,7 @@ class F21_TestCase(F15_TestCase):
         self.assert_parse("repo --name=blah --baseurl=https://www.domain.com --install",
                           "repo --name=\"blah\" --baseurl=https://www.domain.com --install\n")
         #fail
-        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah", KickstartParseError)
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah")
 
 
 if __name__ == "__main__":

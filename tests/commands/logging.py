@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC6_TestCase(CommandTest):
     command = "logging"
 
@@ -37,10 +35,10 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("logging --host=HOSTNAME --port=PORT", "logging --level=info --host=HOSTNAME --port=PORT\n")
 
         # fail
-        self.assert_parse_error("logging --level=theprincessisinanothercastle", KickstartParseError)
-        self.assert_parse_error("logging --host", KickstartParseError)
-        self.assert_parse_error("logging --port", KickstartParseError)
-        self.assert_parse_error("logging --port=PORT", KickstartParseError)
+        self.assert_parse_error("logging --level=theprincessisinanothercastle")
+        self.assert_parse_error("logging --host")
+        self.assert_parse_error("logging --port")
+        self.assert_parse_error("logging --port=PORT")
 
 if __name__ == "__main__":
     unittest.main()

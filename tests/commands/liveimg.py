@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class F19_TestCase(CommandTest):
     def runTest(self):
         # pass
@@ -56,8 +54,8 @@ class F19_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("liveimg")
-        self.assert_parse_error("liveimg --url", KickstartParseError)
-        self.assert_parse_error("liveimg --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("liveimg --url")
+        self.assert_parse_error("liveimg --url=http://someplace/somewhere --proxy")
         self.assert_parse_error("liveimg --proxy=http://someplace/somewhere")
         self.assert_parse_error("liveimg --noverifyssl")
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba")

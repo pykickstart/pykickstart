@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "timezone"
 
@@ -78,8 +76,7 @@ class F18_TestCase(FC6_TestCase):
         self.assert_parse_error("timezone --utc")
         self.assert_parse_error("timezone --isUtc")
         self.assert_parse_error("timezone Europe/Prague --nontp "\
-                                "--ntpservers=ntp.cesnet.cz",
-                                KickstartParseError)
+                                "--ntpservers=ntp.cesnet.cz")
         self.assert_parse_error("timezone Europe/Prague --ntpservers="\
                                 "ntp.cesnet.cz, tik.nic.cz")
 

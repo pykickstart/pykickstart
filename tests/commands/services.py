@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC6_TestCase(CommandTest):
     command = "services"
 
@@ -35,9 +33,9 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("services --disabled=\"thing1, thing2\"", "services --disabled=\"thing1,thing2\"\n")
 
         # fail
-        self.assert_parse_error("services", KickstartParseError)
-        self.assert_parse_error("services --enabled", KickstartParseError)
-        self.assert_parse_error("services --disabled", KickstartParseError)
+        self.assert_parse_error("services")
+        self.assert_parse_error("services --enabled")
+        self.assert_parse_error("services --disabled")
 
 
 if __name__ == "__main__":

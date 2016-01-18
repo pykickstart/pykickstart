@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "method"
 
@@ -46,31 +44,31 @@ class FC3_TestCase(CommandTest):
         # required option --dir missing
         self.assert_parse_error("harddrive")
         # required --dir argument missing
-        self.assert_parse_error("harddrive --dir", KickstartParseError)
+        self.assert_parse_error("harddrive --dir")
         # missing --biospart or --partition option
         self.assert_parse_error("harddrive --dir=/install")
         # both --biospart and --partition specified
         self.assert_parse_error("harddrive --dir=/install --biospart=bios --partition=part")
         # --biospart and --partition require argument
-        self.assert_parse_error("harddrive --dir=/install --biospart", KickstartParseError)
-        self.assert_parse_error("harddrive --dir=/install --partition", KickstartParseError)
+        self.assert_parse_error("harddrive --dir=/install --biospart")
+        self.assert_parse_error("harddrive --dir=/install --partition")
         # unknown option
-        self.assert_parse_error("harddrive --unknown=value", KickstartParseError)
+        self.assert_parse_error("harddrive --unknown=value")
 
         # nfs
         # missing required options --server and --dir
         self.assert_parse_error("nfs")
         self.assert_parse_error("nfs --server=1.2.3.4")
-        self.assert_parse_error("nfs --server", KickstartParseError)
+        self.assert_parse_error("nfs --server")
         self.assert_parse_error("nfs --dir=/install")
-        self.assert_parse_error("nfs --dir", KickstartParseError)
+        self.assert_parse_error("nfs --dir")
         # unknown option
-        self.assert_parse_error("nfs --unknown=value", KickstartParseError)
+        self.assert_parse_error("nfs --unknown=value")
 
         # url
         # missing required option --url
         self.assert_parse_error("url")
-        self.assert_parse_error("url --url", KickstartParseError)
+        self.assert_parse_error("url --url")
 
 
 class FC6_TestCase(FC3_TestCase):
@@ -85,7 +83,7 @@ class FC6_TestCase(FC3_TestCase):
         # fail
         # nfs
         # --opts requires argument if specified
-        self.assert_parse_error("nfs --server=1.2.3.4 --dir=/install --opts", KickstartParseError)
+        self.assert_parse_error("nfs --server=1.2.3.4 --dir=/install --opts")
 
 
 class F13_TestCase(FC6_TestCase):
@@ -98,8 +96,8 @@ class F13_TestCase(FC6_TestCase):
                           "url --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\"\n")
 
         # fail
-        self.assert_parse_error("cdrom --proxy=http://someplace/somewhere", KickstartParseError)
-        self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("cdrom --proxy=http://someplace/somewhere")
+        self.assert_parse_error("url --url=http://someplace/somewhere --proxy")
         self.assert_parse_error("url --proxy=http://someplace/somewhere")
 
 class F14_TestCase(F13_TestCase):
@@ -112,7 +110,7 @@ class F14_TestCase(F13_TestCase):
                           "url --url=\"https://someplace/somewhere\" --noverifyssl\n")
 
         # fail
-        self.assert_parse_error("cdrom --noverifyssl", KickstartParseError)
+        self.assert_parse_error("cdrom --noverifyssl")
 
 class F18_TestCase(F14_TestCase):
     def runTest(self):
@@ -126,10 +124,10 @@ class F18_TestCase(F14_TestCase):
         # fail
         # missing one of required options --url or --mirrorlist
         self.assert_parse_error("url")
-        self.assert_parse_error("url --mirrorlist", KickstartParseError)
+        self.assert_parse_error("url --mirrorlist")
 
         # It's --url, not --baseurl.
-        self.assert_parse_error("url --baseurl=www.wherever.com", KickstartParseError)
+        self.assert_parse_error("url --baseurl=www.wherever.com")
 
         # only one of --url or --mirrorlist may be specified
         self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com")
@@ -155,8 +153,8 @@ class F19_TestCase(F18_TestCase):
 
         # liveimg fail
         self.assert_parse_error("liveimg")
-        self.assert_parse_error("liveimg --url", KickstartParseError)
-        self.assert_parse_error("liveimg --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("liveimg --url")
+        self.assert_parse_error("liveimg --url=http://someplace/somewhere --proxy")
         self.assert_parse_error("liveimg --proxy=http://someplace/somewhere")
         self.assert_parse_error("liveimg --noverifyssl")
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba")

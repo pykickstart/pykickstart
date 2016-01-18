@@ -19,8 +19,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "rootpw"
 
@@ -50,8 +48,8 @@ class F8_TestCase(FC3_TestCase):
         self.assert_parse("rootpw --iscrypted --plaintext --lock secrethandshake", "rootpw --lock --plaintext secrethandshake\n")
 
         # fail
-        self.assert_parse_error("rootpw --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
-        self.assert_parse_error("rootpw --lock=NOKEYSFORYOU secrethandshake", KickstartParseError)
+        self.assert_parse_error("rootpw --plaintext=ISEEENGLAND secrethandshake")
+        self.assert_parse_error("rootpw --lock=NOKEYSFORYOU secrethandshake")
         self.assert_parse_error("rootpw --plaintext")
 
         if self.__class__.__name__ == "F8_TestCase":

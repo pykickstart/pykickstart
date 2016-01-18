@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class RHEL3_TestCase(CommandTest):
     command = "mouse"
 
@@ -37,9 +35,9 @@ class RHEL3_TestCase(CommandTest):
         # empty
         self.assert_parse_error("mouse")
         # unknown option
-        self.assert_parse_error("mouse jerry --bad-flag", KickstartParseError)
+        self.assert_parse_error("mouse jerry --bad-flag")
         # --device requires argument
-        self.assert_parse_error("mouse jerry --device", KickstartParseError)
+        self.assert_parse_error("mouse jerry --device")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]

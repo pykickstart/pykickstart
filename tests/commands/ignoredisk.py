@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "ignoredisk"
 
@@ -33,9 +31,9 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # wrong option name
-        self.assert_parse_error("ignoredisk --devices=sda", KickstartParseError)
+        self.assert_parse_error("ignoredisk --devices=sda")
         # missing arguments
-        self.assert_parse_error("ignoredisk --drives", KickstartParseError)
+        self.assert_parse_error("ignoredisk --drives")
         # empty
         self.assert_parse_error("ignoredisk")
 
@@ -58,11 +56,11 @@ class F8_TestCase(FC3_TestCase):
 
         # fail
         # missing arguments
-        self.assert_parse_error("ignoredisk --only-use", KickstartParseError)
+        self.assert_parse_error("ignoredisk --only-use")
         # wrong option name
-        self.assert_parse_error("ignoredisk --devices=sda", KickstartParseError)
+        self.assert_parse_error("ignoredisk --devices=sda")
         # missing arguments
-        self.assert_parse_error("ignoredisk --drives", KickstartParseError)
+        self.assert_parse_error("ignoredisk --drives")
         # empty
         self.assert_parse_error("ignoredisk")
         # both options provided

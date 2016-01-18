@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "bootloader"
 
@@ -58,11 +56,11 @@ class FC3_TestCase(CommandTest):
             self.assert_parse("lilo")
 
         # fail
-        self.assert_parse_error("bootloader --append", KickstartParseError)
-        self.assert_parse_error("bootloader --location=nowhere", KickstartParseError)
-        self.assert_parse_error("bootloader --password", KickstartParseError)
-        self.assert_parse_error("bootloader --md5pass", KickstartParseError)
-        self.assert_parse_error("bootloader --driveorder", KickstartParseError)
+        self.assert_parse_error("bootloader --append")
+        self.assert_parse_error("bootloader --location=nowhere")
+        self.assert_parse_error("bootloader --password")
+        self.assert_parse_error("bootloader --md5pass")
+        self.assert_parse_error("bootloader --driveorder")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -91,8 +89,8 @@ class F8_TestCase(FC4_TestCase):
         self.assert_parse("bootloader --default=this", "bootloader --location=mbr --default=this\n")
 
         # fail
-        self.assert_parse_error("bootloader --timeout", KickstartParseError)
-        self.assert_parse_error("bootloader --default", KickstartParseError)
+        self.assert_parse_error("bootloader --timeout")
+        self.assert_parse_error("bootloader --default")
 
 class F12_TestCase(F8_TestCase):
     def runTest(self, iscrypted=False):
@@ -108,7 +106,7 @@ class F14_TestCase(F12_TestCase):
         F12_TestCase.runTest(self, iscrypted)
 
         # fail
-        self.assert_parse_error("bootloader --lba32", KickstartParseError)
+        self.assert_parse_error("bootloader --lba32")
 
 class F15_TestCase(F14_TestCase):
     def runTest(self, iscrypted=False):
@@ -150,7 +148,7 @@ class RHEL5_TestCase(FC4_TestCase):
                           "bootloader --location=mbr --hvargs=\"bleh\"\n")
         self.assert_parse("bootloader --hvargs=\"bleh bleh\"",
                           "bootloader --location=mbr --hvargs=\"bleh bleh\"\n")
-        self.assert_parse_error("bootloader --hvargs", KickstartParseError)
+        self.assert_parse_error("bootloader --hvargs")
 
 class RHEL6_TestCase(F12_TestCase):
     def runTest(self, iscrypted=False):

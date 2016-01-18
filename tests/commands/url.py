@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "url"
 
@@ -39,7 +37,7 @@ class FC3_TestCase(CommandTest):
         # fail
         # missing required option --url
         self.assert_parse_error("url")
-        self.assert_parse_error("url --url", KickstartParseError)
+        self.assert_parse_error("url --url")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -61,8 +59,8 @@ class F13_TestCase(FC3_TestCase):
                          self.assert_parse("url --url=http://domain.com --proxy=http://proxyB.com"))
 
         # fail
-        self.assert_parse_error("cdrom --proxy=http://someplace/somewhere", KickstartParseError)
-        self.assert_parse_error("url --url=http://someplace/somewhere --proxy", KickstartParseError)
+        self.assert_parse_error("cdrom --proxy=http://someplace/somewhere")
+        self.assert_parse_error("url --url=http://someplace/somewhere --proxy")
         self.assert_parse_error("url --proxy=http://someplace/somewhere")
 
 class F14_TestCase(F13_TestCase):
@@ -80,7 +78,7 @@ class F14_TestCase(F13_TestCase):
                          self.assert_parse("url --url=https://domain.com --noverifyssl"))
 
         # fail
-        self.assert_parse_error("cdrom --noverifyssl", KickstartParseError)
+        self.assert_parse_error("cdrom --noverifyssl")
 
 class F18_TestCase(F14_TestCase):
     def runTest(self):
@@ -99,10 +97,10 @@ class F18_TestCase(F14_TestCase):
         # fail
         # missing one of required options --url or --mirrorlist
         self.assert_parse_error("url")
-        self.assert_parse_error("url --mirrorlist", KickstartParseError)
+        self.assert_parse_error("url --mirrorlist")
 
         # It's --url, not --baseurl.
-        self.assert_parse_error("url --baseurl=www.wherever.com", KickstartParseError)
+        self.assert_parse_error("url --baseurl=www.wherever.com")
 
         # only one of --url or --mirrorlist may be specified
         self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com")

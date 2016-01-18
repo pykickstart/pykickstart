@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "displaymode"
 
@@ -32,18 +30,18 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("cmdline", "cmdline\n")
 
         # fail
-        self.assert_parse_error("graphical --glitter=YES", KickstartParseError)
-        self.assert_parse_error("graphical --shiny", KickstartParseError)
-        self.assert_parse_error("graphical text", KickstartParseError)
-        self.assert_parse_error("graphical cmdline", KickstartParseError)
-        self.assert_parse_error("text --glitter=YES", KickstartParseError)
-        self.assert_parse_error("text --shiny", KickstartParseError)
-        self.assert_parse_error("text graphical", KickstartParseError)
-        self.assert_parse_error("text cmdline", KickstartParseError)
-        self.assert_parse_error("cmdline --glitter=YES", KickstartParseError)
-        self.assert_parse_error("cmdline --shiny", KickstartParseError)
-        self.assert_parse_error("cmdline graphical", KickstartParseError)
-        self.assert_parse_error("cmdline text", KickstartParseError)
+        self.assert_parse_error("graphical --glitter=YES")
+        self.assert_parse_error("graphical --shiny")
+        self.assert_parse_error("graphical text")
+        self.assert_parse_error("graphical cmdline")
+        self.assert_parse_error("text --glitter=YES")
+        self.assert_parse_error("text --shiny")
+        self.assert_parse_error("text graphical")
+        self.assert_parse_error("text cmdline")
+        self.assert_parse_error("cmdline --glitter=YES")
+        self.assert_parse_error("cmdline --shiny")
+        self.assert_parse_error("cmdline graphical")
+        self.assert_parse_error("cmdline text")
 
         # extra test coverage
         cmd = self.handler().commands["text"]

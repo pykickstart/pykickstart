@@ -35,10 +35,10 @@ class FC3_TestCase(CommandTest):
                          self.assert_parse("volgroup vg.02 pv.01"))
 
         # fail - incorrect type
-        self.assert_parse_error("volgroup vg.01 pv.01 --pesize=SIZE", KickstartParseError)
+        self.assert_parse_error("volgroup vg.01 pv.01 --pesize=SIZE")
 
         # fail - missing name
-        self.assert_parse_error("volgroup", KickstartParseError)
+        self.assert_parse_error("volgroup")
 
         # fail - missing list of partitions
         self.assert_parse_error("volgroup vg01")
@@ -78,8 +78,8 @@ class F16_TestCase(FC3_TestCase):
                           "volgroup vg.01%s --reserved-percent=50 pv.01\n" % def_pesize_str)
 
         # Fail - missing required argument.
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space", KickstartParseError)
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent", KickstartParseError)
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space")
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent")
 
         # Fail - incorrect values.
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1")

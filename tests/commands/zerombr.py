@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "zerombr"
 
@@ -39,8 +37,8 @@ class F9_TestCase(FC3_TestCase):
 
         # fail
         # zerombr does not take any arguments
-        self.assert_parse_error("zerombr arg", KickstartParseError)
-        self.assert_parse_error("zerombr --bad-flag", KickstartParseError)
+        self.assert_parse_error("zerombr arg")
+        self.assert_parse_error("zerombr --bad-flag")
 
 
 if __name__ == "__main__":

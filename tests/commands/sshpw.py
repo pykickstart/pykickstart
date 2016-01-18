@@ -20,8 +20,6 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError
-
 class F13_TestCase(CommandTest):
     command = "sshpw"
 
@@ -38,7 +36,7 @@ class F13_TestCase(CommandTest):
         # fail
         self.assert_parse_error("sshpw")
         self.assert_parse_error("sshpw --username=someguy")
-        self.assert_parse_error("sshpw --username=someguy --iscrypted=OMGSEKRITZ", KickstartParseError)
+        self.assert_parse_error("sshpw --username=someguy --iscrypted=OMGSEKRITZ")
         self.assert_parse_error("sshpw --username=someguy --iscrypted")
 
         # pass
@@ -54,8 +52,8 @@ class F13_TestCase(CommandTest):
         self.assert_parse("sshpw --username=someguy --iscrypted --plaintext --lock secrethandshake", "sshpw --username=someguy --lock --plaintext secrethandshake\n")
 
         # fail
-        self.assert_parse_error("sshpw --username=someguy --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
-        self.assert_parse_error("sshpw --username=someguy --lock=NOKEYSFORYOU secrethandshake", KickstartParseError)
+        self.assert_parse_error("sshpw --username=someguy --plaintext=ISEEENGLAND secrethandshake")
+        self.assert_parse_error("sshpw --username=someguy --lock=NOKEYSFORYOU secrethandshake")
         self.assert_parse_error("sshpw --username=someguy --plaintext")
         self.assert_parse_error("sshpw --username=someguy --lock")
 

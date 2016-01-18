@@ -21,8 +21,6 @@
 import unittest
 from tests.baseclass import CommandTest
 
-from pykickstart.errors import KickstartParseError
-
 class FC3_TestCase(CommandTest):
     command = "firewall"
 
@@ -75,7 +73,7 @@ class FC3_TestCase(CommandTest):
 
         # fail
         # unknown option
-        self.assert_parse_error("firewall --bad-flag", KickstartParseError)
+        self.assert_parse_error("firewall --bad-flag")
         # unexpected argument
         self.assert_parse_error("firewall arg")
 
