@@ -87,16 +87,19 @@ class FC3_Device(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--opts", dest="moduleOpts", default="")
+        op.add_argument("--opts", dest="moduleOpts", default="")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 2:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name")))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "device", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self.moduleOpts = opts.moduleOpts
+        self.moduleOpts = ns.moduleOpts
         self.type = extra[0]
         self.moduleName = extra[1]
         return self
@@ -117,13 +120,16 @@ class F8_Device(FC3_Device):
         return retval
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "device", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         dd = F8_DeviceData()
-        self._setToObj(self.op, opts, dd)
+        self._setToObj(ns, dd)
         dd.lineno = self.lineno
         dd.moduleName = extra[0]
 

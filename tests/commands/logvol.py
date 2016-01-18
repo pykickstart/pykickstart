@@ -1,12 +1,6 @@
-import unittest, six
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError
-
-if not six.PY3:
-    ARG_STR = 'an'
-else: # Optparse changed outputs in Python 3
-    ARG_STR = '1'
 
 class FC3_TestCase(CommandTest):
     command = "logvol"
@@ -64,23 +58,23 @@ class FC3_TestCase(CommandTest):
         self.assert_type("logvol", "percent", "int")
 
         # fail - incorrect type
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --size=SIZE", KickstartParseError, "option --size: invalid integer value: 'SIZE'")
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --maxsize=MAXSIZE", KickstartParseError, "option --maxsize: invalid integer value: 'MAXSIZE'")
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --percent=PCT", KickstartParseError, "option --percent: invalid integer value: 'PCT'")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --size=SIZE", KickstartParseError, "argument --size: invalid int value: 'SIZE'")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --maxsize=MAXSIZE", KickstartParseError, "argument --maxsize: invalid int value: 'MAXSIZE'")
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --percent=PCT", KickstartParseError, "argument --percent: invalid int value: 'PCT'")
 
         # assert required options
         self.assert_required("logvol", "name")
         self.assert_required("logvol", "vgname")
 
         # fail - missing required
-        self.assert_parse_error("logvol / --name=NAME", "Option --vgname is required")
-        self.assert_parse_error("logvol / --vgname=NAME", "Option --name is required")
+        self.assert_parse_error("logvol / --name=NAME", KickstartParseError, "arguments are required: --vgname")
+        self.assert_parse_error("logvol / --vgname=NAME", KickstartParseError, "arguments are required: --name")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", "Option --name is required")
-        self.assert_parse_error("logvol --name=NAME", "Option --vgname is required")
-        self.assert_parse_error("logvol --vgname=NAME", "Option --name is required")
-        self.assert_parse_error("logvol --name=NAME --vgname=NAME", "Mount point required for logvol")
+        self.assert_parse_error("logvol", KickstartParseError, "arguments are required: --name")
+        self.assert_parse_error("logvol --name=NAME", KickstartParseError, "arguments are required: --vgname")
+        self.assert_parse_error("logvol --vgname=NAME", KickstartParseError, "arguments are required: --name")
+        self.assert_parse_error("logvol --name=NAME --vgname=NAME", KickstartParseError, "Mount point required for logvol")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
     def runTest(self):
@@ -117,11 +111,11 @@ class FC4_TestCase(FC3_TestCase):
             self.assert_type("logvol", "bytes-per-inode", "int")
 
             # fail - incorrect type
-            self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError, "option --bytes-per-inode: invalid integer value: 'B'")
+            self.assert_parse_error("logvol / --bytes-per-inode B --name=NAME --vgname=VGNAME", KickstartParseError, "argument --bytes-per-inode: invalid int value: 'B'")
 
             # fail - missing value
-            self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError, "option --bytes-per-inode: invalid integer value: '--name=NAME'")
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError, "--bytes-per-inode option requires %s argument" % ARG_STR)
+            self.assert_parse_error("logvol / --bytes-per-inode --name=NAME --vgname=VGNAME", KickstartParseError, "argument --bytes-per-inode: expected one argument")
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bytes-per-inode", KickstartParseError, "argument --bytes-per-inode: expected one argument")
 
         if "--encrypted" in self.optionList:
             # Just --encrypted
@@ -145,10 +139,10 @@ class FC4_TestCase(FC3_TestCase):
                               "logvol /  --size=1024 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
 
             # fail - missing value
-            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "--passphrase option requires %s argument" % ARG_STR)
+            self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --encrypted --passphrase", KickstartParseError, "argument --passphrase: expected one argument")
 
             # fail - --encrypted does not take a value
-            self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError, "--encrypted option does not take a value")
+            self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", KickstartParseError, "argument --encrypted: ignored explicit argument")
 
 RHEL5_TestCase = FC4_TestCase
 
@@ -161,7 +155,7 @@ class F9_TestCase(FC4_TestCase):
         self.assert_type("logvol", "fsprofile", "string")
 
         # fail - missing value
-        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "--fsprofile option requires %s argument" % ARG_STR)
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --fsprofile", KickstartParseError, "argument --fsprofile: expected one argument")
 
         # Using --fsprofile
         self.assert_parse("logvol / --size=1024 --fsprofile \"FS_PROFILE\" --name=NAME --vgname=VGNAME",
@@ -196,22 +190,21 @@ class F12_TestCase(F9_TestCase):
                           "--name=NAME --vgname=VGNAME\n")
 
         # fail
-        self.assert_parse_error("logvol / --escrowcert --name=NAME "
-                                "--vgname=VGNAME",
-                                regex="Option --escrowcert: invalid string value: '--name=NAME'")
-        self.assert_parse_error("logvol / --escrowcert --backuppassphrase "
-                                "--name=NAME --vgname=VGNAME",
-                                regex="Option --escrowcert: invalid string value: '--backuppassphrase'")
-        self.assert_parse_error("logvol / --encrypted --escrowcert "
-                                "--backuppassphrase --name=NAME "
-                                "--vgname=VGNAME",
-                                regex="Option --escrowcert: invalid string value: '--backuppassphrase'")
-        self.assert_parse_error("logvol / --backuppassphrase=False --name=NAME "
-                                "--vgname=VGNAME",
-                                regex="--backuppassphrase option does not take a value")
-        self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME "
-                                "--vgname=VGNAME",
-                                regex="--backuppassphrase option does not take a value")
+        self.assert_parse_error("logvol / --escrowcert --name=NAME --vgname=VGNAME",
+                                KickstartParseError,
+                                "argument --escrowcert: expected one argument")
+        self.assert_parse_error("logvol / --escrowcert --backuppassphrase --name=NAME --vgname=VGNAME",
+                                KickstartParseError,
+                                "argument --escrowcert: expected one argument")
+        self.assert_parse_error("logvol / --encrypted --escrowcert --backuppassphrase --name=NAME --vgname=VGNAME",
+                                KickstartParseError,
+                                "argument --escrowcert: expected one argument")
+        self.assert_parse_error("logvol / --backuppassphrase=False --name=NAME --vgname=VGNAME",
+                                KickstartParseError,
+                                "argument --backuppassphrase: ignored explicit argument")
+        self.assert_parse_error("logvol / --backuppassphrase=True --name=NAME --vgname=VGNAME",
+                                KickstartParseError,
+                                "argument --backuppassphrase: ignored explicit argument")
 
 class RHEL6_TestCase(F12_TestCase):
     def runTest(self):
@@ -227,7 +220,7 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse("logvol / --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --name=NAME --vgname=VGNAME\n")
 
-        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="argument --cipher: expected one argument")
 
         self.assert_parse("logvol swap --hibernation --name=NAME --vgname=VGNAME",
                           "logvol swap  --hibernation --name=NAME --vgname=VGNAME\n")
@@ -315,7 +308,7 @@ class F18_TestCase(F17_TestCase):
         self.assert_parse("logvol / --size=1024 --cipher=3-rot13 --name=NAME --vgname=VGNAME",
                           "logvol /  --size=1024 --name=NAME --vgname=VGNAME\n")
 
-        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="Option --cipher: invalid string value: '--name=NAME'")
+        self.assert_parse_error("logvol / --cipher --name=NAME --vgname=VGNAME", regex="argument --cipher: expected one argument")
 
 class F20_TestCase(F18_TestCase):
     def runTest(self):
@@ -344,7 +337,7 @@ class F20_TestCase(F18_TestCase):
         # chunksize is an int
         self.assert_parse_error("logvol none --name=pool1 --vgname=vg "
                                 "--thinpool --chunksize=foo",
-                                regex="option --chunksize: invalid integer value: 'foo'")
+                                regex="argument --chunksize: invalid int value: 'foo'")
 
         # both --thin and --thinpool
         self.assert_parse_error("logvol /home --name=home --thin --thinpool --vgname=vg --size=10000", regex="--thin and --thinpool cannot both be specified for the same logvol")
@@ -363,7 +356,7 @@ class F20_TestCase(F18_TestCase):
 
         # logvol with a disallowed percent value
         self.assert_parse_error("logvol / --percent=1000 --name=NAME --vgname=VGNAME",
-                                "Percentage must be between 0 and 100.")
+                                regex="Percentage must be between 0 and 100.")
 
 class F21_TestCase(F20_TestCase):
     def runTest(self):

@@ -144,10 +144,9 @@ class ScriptSection(Section):
 
     def _getParser(self):   # type: (ScriptSection) -> KSOptionParser
         op = KSOptionParser(self.version)
-        op.add_option("--erroronfail", dest="errorOnFail", action="store_true",
-                      default=False)
-        op.add_option("--interpreter", dest="interpreter", default="/bin/sh")
-        op.add_option("--log", "--logfile", dest="log")
+        op.add_argument("--erroronfail", dest="errorOnFail", action="store_true", default=False)
+        op.add_argument("--interpreter", dest="interpreter", default="/bin/sh")
+        op.add_argument("--log", "--logfile", dest="log")
         return op
 
     def _resetScript(self): # type: (ScriptSection) -> None
@@ -181,14 +180,14 @@ class ScriptSection(Section):
         Section.handleHeader(self, lineno, args)
         op = self._getParser()
 
-        (opts, _extra) = op.parse_args(args=args[1:], lineno=lineno)
+        ns = op.parse_args(args=args[1:], lineno=lineno)
 
-        self._script["interp"] = opts.interpreter
+        self._script["interp"] = ns.interpreter
         self._script["lineno"] = lineno
-        self._script["log"] = opts.log
-        self._script["errorOnFail"] = opts.errorOnFail
-        if hasattr(opts, "nochroot"):
-            self._script["chroot"] = not opts.nochroot
+        self._script["log"] = ns.log
+        self._script["errorOnFail"] = ns.errorOnFail
+        if hasattr(ns, "nochroot"):
+            self._script["chroot"] = not ns.nochroot
 
 class PreScriptSection(ScriptSection):
     sectionOpen = "%pre"
@@ -209,8 +208,7 @@ class PostScriptSection(ScriptSection):
 
     def _getParser(self):   # type: (PostScriptSection) -> KSOptionParser
         op = ScriptSection._getParser(self)
-        op.add_option("--nochroot", dest="nochroot", action="store_true",
-                      default=False)
+        op.add_argument("--nochroot", dest="nochroot", action="store_true", default=False)
         return op
 
     def _resetScript(self): # type: (PostScriptSection) -> None
@@ -240,45 +238,36 @@ class PackageSection(Section):
         """
         Section.handleHeader(self, lineno, args)
         op = KSOptionParser(version=self.version)
-        op.add_option("--excludedocs", dest="excludedocs", action="store_true",
-                      default=False)
-        op.add_option("--ignoremissing", dest="ignoremissing",
-                      action="store_true", default=False)
-        op.add_option("--nobase", dest="nobase", action="store_true",
-                      default=False, deprecated=F18, removed=F22)
-        op.add_option("--nocore", dest="nocore", action="store_true",
-                      default=False, introduced=F21)
-        op.add_option("--ignoredeps", dest="resolveDeps", action="store_false",
-                      deprecated=FC4, removed=F9)
-        op.add_option("--resolvedeps", dest="resolveDeps", action="store_true",
-                      deprecated=FC4, removed=F9)
-        op.add_option("--default", dest="defaultPackages", action="store_true",
-                      default=False, introduced=F7)
-        op.add_option("--instLangs", dest="instLangs", type="string",
-                      default=None, introduced=F9)
-        op.add_option("--multilib", dest="multiLib", action="store_true",
-                      default=False, introduced=F18)
+        op.add_argument("--excludedocs", dest="excludedocs", action="store_true", default=False)
+        op.add_argument("--ignoremissing", dest="ignoremissing", action="store_true", default=False)
+        op.add_argument("--nobase", dest="nobase", action="store_true", default=False, deprecated=F18, removed=F22)
+        op.add_argument("--nocore", dest="nocore", action="store_true", default=False, introduced=F21)
+        op.add_argument("--ignoredeps", dest="resolveDeps", action="store_false", deprecated=FC4, removed=F9)
+        op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true", deprecated=FC4, removed=F9)
+        op.add_argument("--default", dest="defaultPackages", action="store_true", default=False, introduced=F7)
+        op.add_argument("--instLangs", dest="instLangs", type=str, default=None, introduced=F9)
+        op.add_argument("--multilib", dest="multiLib", action="store_true", default=False, introduced=F18)
 
-        (opts, _extra) = op.parse_args(args=args[1:], lineno=lineno)
+        ns = op.parse_args(args=args[1:], lineno=lineno)
 
-        if opts.defaultPackages and opts.nobase:
+        if ns.defaultPackages and ns.nobase:
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")))
-        elif opts.defaultPackages and opts.nocore:
+        elif ns.defaultPackages and ns.nocore:
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")))
 
-        self.handler.packages.excludeDocs = opts.excludedocs
-        self.handler.packages.addBase = not opts.nobase
-        if opts.ignoremissing:
+        self.handler.packages.excludeDocs = ns.excludedocs
+        self.handler.packages.addBase = not ns.nobase
+        if ns.ignoremissing:
             self.handler.packages.handleMissing = KS_MISSING_IGNORE
         else:
             self.handler.packages.handleMissing = KS_MISSING_PROMPT
 
-        if opts.defaultPackages:
+        if ns.defaultPackages:
             self.handler.packages.default = True
 
-        if opts.instLangs is not None:
-            self.handler.packages.instLangs = opts.instLangs
+        if ns.instLangs is not None:
+            self.handler.packages.instLangs = ns.instLangs
 
-        self.handler.packages.nocore = opts.nocore
-        self.handler.packages.multiLib = opts.multiLib
+        self.handler.packages.nocore = ns.nocore
+        self.handler.packages.multiLib = ns.multiLib
         self.handler.packages.seen = True

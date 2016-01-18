@@ -92,17 +92,17 @@ class FC3_ZFCP(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--devnum", dest="devnum", required=1)
-        op.add_option("--fcplun", dest="fcplun", required=1)
-        op.add_option("--scsiid", dest="scsiid", required=1)
-        op.add_option("--scsilun", dest="scsilun", required=1)
-        op.add_option("--wwpn", dest="wwpn", required=1)
+        op.add_argument("--devnum", dest="devnum", required=1)
+        op.add_argument("--fcplun", dest="fcplun", required=1)
+        op.add_argument("--scsiid", dest="scsiid", required=1)
+        op.add_argument("--scsilun", dest="scsilun", required=1)
+        op.add_argument("--wwpn", dest="wwpn", required=1)
         return op
 
     def parse(self, args):
         zd = self.handler.ZFCPData()
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, zd)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToObj(ns, zd)
         zd.lineno = self.lineno
 
         # Check for duplicates in the data list.
@@ -131,8 +131,8 @@ class F12_ZFCP(FC3_ZFCP):
 
     def _getParser(self):
         op = FC3_ZFCP._getParser(self)
-        op.add_option("--scsiid", deprecated=1)
-        op.add_option("--scsilun", deprecated=1)
+        op.add_argument("--scsiid", deprecated=1)
+        op.add_argument("--scsilun", deprecated=1)
         return op
 
 class F14_ZFCP(F12_ZFCP):
@@ -141,6 +141,6 @@ class F14_ZFCP(F12_ZFCP):
 
     def _getParser(self):
         op = F12_ZFCP._getParser(self)
-        op.remove_option("--scsiid")
-        op.remove_option("--scsilun")
+        op.remove_argument("--scsiid")
+        op.remove_argument("--scsilun")
         return op

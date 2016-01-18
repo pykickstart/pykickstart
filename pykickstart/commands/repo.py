@@ -19,7 +19,7 @@
 #
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser, ksboolean
+from pykickstart.options import KSOptionParser, commaSplit, ksboolean
 
 import warnings
 from pykickstart.i18n import _
@@ -170,28 +170,24 @@ class FC6_Repo(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--name", dest="name", required=1)
-        op.add_option("--baseurl")
-        op.add_option("--mirrorlist")
+        op.add_argument("--name", dest="name", required=1)
+        op.add_argument("--baseurl")
+        op.add_argument("--mirrorlist")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) != 0:
-            mapping = {"command": "repo", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
 
         # This is lame, but I can't think of a better way to make sure only
         # one of these two is specified.
-        if opts.baseurl and opts.mirrorlist:
+        if ns.baseurl and ns.mirrorlist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
 
-        if self.urlRequired and not opts.baseurl and not opts.mirrorlist:
+        if self.urlRequired and not ns.baseurl and not ns.mirrorlist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
 
         rd = self.handler.RepoData()
-        self._setToObj(self.op, opts, rd)
+        self._setToObj(ns, rd)
         rd.lineno = self.lineno
 
         # Check for duplicates in the data list.
@@ -215,16 +211,10 @@ class F8_Repo(FC6_Repo):
         return retval
 
     def _getParser(self):
-        def list_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = FC6_Repo._getParser(self)
-        op.add_option("--cost", action="store", type="int")
-        op.add_option("--excludepkgs", action="callback", callback=list_cb,
-                      nargs=1, type="string")
-        op.add_option("--includepkgs", action="callback", callback=list_cb,
-                      nargs=1, type="string")
+        op.add_argument("--cost", action="store", type=int)
+        op.add_argument("--excludepkgs", type=commaSplit)
+        op.add_argument("--includepkgs", type=commaSplit)
         return op
 
     def methodToRepo(self):
@@ -241,7 +231,7 @@ class F11_Repo(F8_Repo):
 
     def _getParser(self):
         op = F8_Repo._getParser(self)
-        op.add_option("--ignoregroups", action="store", type=ksboolean)
+        op.add_argument("--ignoregroups", action="store", type=ksboolean)
         return op
 
 class F13_Repo(F11_Repo):
@@ -250,7 +240,7 @@ class F13_Repo(F11_Repo):
 
     def _getParser(self):
         op = F11_Repo._getParser(self)
-        op.add_option("--proxy")
+        op.add_argument("--proxy")
         return op
 
 class F14_Repo(F13_Repo):
@@ -259,7 +249,7 @@ class F14_Repo(F13_Repo):
 
     def _getParser(self):
         op = F13_Repo._getParser(self)
-        op.add_option("--noverifyssl", action="store_true", default=False)
+        op.add_argument("--noverifyssl", action="store_true", default=False)
         return op
 
 RHEL6_Repo = F14_Repo
@@ -276,7 +266,7 @@ class F21_Repo(F15_Repo):
 
     def _getParser(self):
         op = F15_Repo._getParser(self)
-        op.add_option("--install", action="store_true", default=False)
+        op.add_argument("--install", action="store_true", default=False)
         return op
 
 RHEL7_Repo = F21_Repo

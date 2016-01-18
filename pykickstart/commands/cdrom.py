@@ -19,17 +19,12 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
 class FC3_Cdrom(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
-
-    def __init__(self, writePriority=0, *args, **kwargs):
-        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-        self.op = self._getParser()
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
@@ -39,14 +34,8 @@ class FC3_Cdrom(KickstartCommand):
         retval += "# Use CDROM installation media\ncdrom\n"
         return retval
 
-    def _getParser(self):
-        op = KSOptionParser()
-        return op
-
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) > 0:
+        if len(args) > 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         return self

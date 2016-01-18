@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -77,33 +77,23 @@ class FC3_Bootloader(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def driveorder_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = KSOptionParser()
-        op.add_option("--append", dest="appendLine")
-        op.add_option("--linear", dest="linear", action="store_true",
-                      default=True)
-        op.add_option("--nolinear", dest="linear", action="store_false")
-        op.add_option("--location", dest="location", type="choice",
-                      default="mbr",
-                      choices=["mbr", "partition", "none", "boot"])
-        op.add_option("--lba32", dest="forceLBA", action="store_true",
-                      default=False)
-        op.add_option("--password", dest="password", default="")
-        op.add_option("--md5pass", dest="md5pass", default="")
-        op.add_option("--upgrade", dest="upgrade", action="store_true",
-                      default=False)
-        op.add_option("--useLilo", dest="useLilo", action="store_true",
-                      default=False)
-        op.add_option("--driveorder", dest="driveorder", action="callback",
-                      callback=driveorder_cb, nargs=1, type="string")
+        op.add_argument("--append", dest="appendLine")
+        op.add_argument("--linear", dest="linear", action="store_true", default=True)
+        op.add_argument("--nolinear", dest="linear", action="store_false")
+        op.add_argument("--location", dest="location", default="mbr",
+                        choices=["mbr", "partition", "none", "boot"])
+        op.add_argument("--lba32", dest="forceLBA", action="store_true", default=False)
+        op.add_argument("--password", dest="password", default="")
+        op.add_argument("--md5pass", dest="md5pass", default="")
+        op.add_argument("--upgrade", dest="upgrade", action="store_true", default=False)
+        op.add_argument("--useLilo", dest="useLilo", action="store_true", default=False)
+        op.add_argument("--driveorder", dest="driveorder", type=commaSplit)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if self.currentCmd == "lilo":
             self.useLilo = True
@@ -137,14 +127,14 @@ class FC4_Bootloader(FC3_Bootloader):
 
     def _getParser(self):
         op = FC3_Bootloader._getParser(self)
-        op.remove_option("--linear")
-        op.remove_option("--nolinear")
-        op.remove_option("--useLilo")
+        op.remove_argument("--linear")
+        op.remove_argument("--nolinear")
+        op.remove_argument("--useLilo")
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class F8_Bootloader(FC4_Bootloader):
@@ -169,8 +159,8 @@ class F8_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_option("--timeout", dest="timeout", type="int")
-        op.add_option("--default", dest="default")
+        op.add_argument("--timeout", dest="timeout", type=int)
+        op.add_argument("--default", dest="default")
         return op
 
 class F12_Bootloader(F8_Bootloader):
@@ -179,7 +169,7 @@ class F12_Bootloader(F8_Bootloader):
 
     def _getParser(self):
         op = F8_Bootloader._getParser(self)
-        op.add_option("--lba32", dest="forceLBA", deprecated=1, action="store_true")
+        op.add_argument("--lba32", dest="forceLBA", deprecated=1, action="store_true")
         return op
 
 class F14_Bootloader(F12_Bootloader):
@@ -188,7 +178,7 @@ class F14_Bootloader(F12_Bootloader):
 
     def _getParser(self):
         op = F12_Bootloader._getParser(self)
-        op.remove_option("--lba32")
+        op.remove_argument("--lba32")
         return op
 
 class F15_Bootloader(F14_Bootloader):
@@ -209,14 +199,23 @@ class F15_Bootloader(F14_Bootloader):
         return ret
 
     def _getParser(self):
-        def password_cb(option, opt_str, value, parser):
-            parser.values.isCrypted = True
-            parser.values.password = value
-
         op = F14_Bootloader._getParser(self)
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op.add_argument("--md5pass", dest="_md5pass", type=str)
         return op
+
+    def parse(self, args):
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+
+        # argparse doesn't give us a way to set two things at once, so we need to check if
+        # _md5pass was given and if so, set everything now.
+        if getattr(ns, "_md5pass", None):
+            ns.password = ns._md5pass
+            ns.isCrypted = True
+            del(ns._md5pass)
+
+        self._setToSelf(ns)
+        return self
 
 class F17_Bootloader(F15_Bootloader):
     removedKeywords = F15_Bootloader.removedKeywords
@@ -237,17 +236,16 @@ class F17_Bootloader(F15_Bootloader):
 
     def _getParser(self):
         op = F15_Bootloader._getParser(self)
-        op.add_option("--boot-drive", dest="bootDrive", default="")
+        op.add_argument("--boot-drive", dest="bootDrive", default="")
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        retval = F15_Bootloader.parse(self, args)
 
-        if "," in opts.bootDrive:
+        if "," in retval.bootDrive:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))
 
-        self._setToSelf(self.op, opts)
-        return self
+        return retval
 
 class F18_Bootloader(F17_Bootloader):
     removedKeywords = F17_Bootloader.removedKeywords
@@ -268,7 +266,7 @@ class F18_Bootloader(F17_Bootloader):
 
     def _getParser(self):
         op = F17_Bootloader._getParser(self)
-        op.add_option("--leavebootorder", dest="leavebootorder", action="store_true", default=False)
+        op.add_argument("--leavebootorder", dest="leavebootorder", action="store_true", default=False)
         return op
 
 class RHEL5_Bootloader(FC4_Bootloader):
@@ -290,7 +288,7 @@ class RHEL5_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_option("--hvargs", dest="hvArgs", type="string")
+        op.add_argument("--hvargs", dest="hvArgs", type=str)
         return op
 
 class RHEL6_Bootloader(F12_Bootloader):
@@ -311,14 +309,23 @@ class RHEL6_Bootloader(F12_Bootloader):
         return ret
 
     def _getParser(self):
-        def password_cb(option, opt_str, value, parser):
-            parser.values.isCrypted = True
-            parser.values.password = value
-
         op = F12_Bootloader._getParser(self)
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_option("--md5pass", action="callback", callback=password_cb, nargs=1, type="string")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op.add_argument("--md5pass", dest="_md5pass", type=str)
         return op
+
+    def parse(self, args):
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+
+        # argparse doesn't give us a way to set two things at once, so we need to check if
+        # _md5pass was given and if so, set everything now.
+        if getattr(ns, "_md5pass", None):
+            ns.password = ns._md5pass
+            ns.isCrypted = True
+            del(ns._md5pass)
+
+        self._setToSelf(ns)
+        return self
 
 class F19_Bootloader(F18_Bootloader):
     removedKeywords = F18_Bootloader.removedKeywords
@@ -339,8 +346,7 @@ class F19_Bootloader(F18_Bootloader):
 
     def _getParser(self):
         op = F18_Bootloader._getParser(self)
-        op.add_option("--extlinux", dest="extlinux", action="store_true",
-                      default=False)
+        op.add_argument("--extlinux", dest="extlinux", action="store_true", default=False)
         return op
 
 class F21_Bootloader(F19_Bootloader):
@@ -364,10 +370,8 @@ class F21_Bootloader(F19_Bootloader):
 
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
-        op.add_option("--disabled", dest="disabled", action="store_true",
-                      default=False)
-        op.add_option("--nombr", dest="nombr", action="store_true",
-                      default=False)
+        op.add_argument("--disabled", dest="disabled", action="store_true", default=False)
+        op.add_argument("--nombr", dest="nombr", action="store_true", default=False)
         return op
 
 RHEL7_Bootloader = F21_Bootloader

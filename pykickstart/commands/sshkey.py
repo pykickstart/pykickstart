@@ -76,18 +76,22 @@ class F22_SshKey(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--username", dest="username", required=True)
+        op.add_argument("--username", dest="username", required=True)
         return op
 
     def parse(self, args):
         ud = self.handler.SshKeyData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, ud)
-        ud.lineno = self.lineno
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshkey"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "sshkey", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+
+        self._setToObj(ns, ud)
         ud.key = extra[0]
+        ud.lineno = self.lineno
 
         if ud in self.dataList():
             warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username)

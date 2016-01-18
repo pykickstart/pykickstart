@@ -47,10 +47,13 @@ class F7_Updates(KickstartCommand):
         return op
 
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "updates", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
         elif len(extra) == 0:
             self.url = "floppy"
         else:

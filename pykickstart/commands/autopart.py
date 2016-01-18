@@ -77,16 +77,14 @@ class F9_AutoPart(FC3_AutoPart):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--encrypted", action="store_true", default=False)
-        op.add_option("--passphrase")
+        op.add_argument("--encrypted", action="store_true", default=False)
+        op.add_argument("--passphrase")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        # Rely on any error handling from baseclass
-        FC3_AutoPart.parse(self, extra)
-
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
+        self.autopart = True
         return self
 
 class F12_AutoPart(F9_AutoPart):
@@ -119,8 +117,8 @@ class F12_AutoPart(F9_AutoPart):
 
     def _getParser(self):
         op = F9_AutoPart._getParser(self)
-        op.add_option("--escrowcert")
-        op.add_option("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert")
+        op.add_argument("--backuppassphrase", action="store_true", default=False)
         return op
 
 class RHEL6_AutoPart(F12_AutoPart):
@@ -146,11 +144,11 @@ class RHEL6_AutoPart(F12_AutoPart):
 
     def _getParser(self):
         op = F12_AutoPart._getParser(self)
-        op.add_option("--cipher")
+        op.add_argument("--cipher")
         return op
 
     def parse(self, args):
-        # call the overriden command to do it's job first
+        # call the overriden command to do its job first
         retval = F12_AutoPart.parse(self, args)
 
         # Using autopart together with other partitioning command such as
@@ -207,8 +205,7 @@ class F16_AutoPart(F12_AutoPart):
 
     def _getParser(self):
         op = F12_AutoPart._getParser(self)
-        op.add_option("--nolvm", action="store_false", dest="lvm",
-            default=True)
+        op.add_argument("--nolvm", action="store_false", dest="lvm", default=True)
         return op
 
 class F17_AutoPart(F16_AutoPart):
@@ -247,33 +244,24 @@ class F17_AutoPart(F16_AutoPart):
         return retval
 
     def _getParser(self):
-        def type_cb(option, opt_str, value, parser):
+        def type_cb(value):
             if value.lower() in self.typeMap:
-                parser.values.ensure_value(option.dest,
-                                           self.typeMap[value.lower()])
-
-        def nolvm_cb(option, opt_str, value, parser):
-            parser.values.ensure_value(option.dest, AUTOPART_TYPE_PLAIN)
+                return self.typeMap[value.lower()]
+            else:
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid autopart type: %s") % value))
 
         op = F16_AutoPart._getParser(self)
-        op.add_option("--nolvm", action="callback", callback=nolvm_cb,
-                      dest="type", nargs=0)
-
-        op.add_option("--type", action="callback", callback=type_cb,
-                      dest="type", nargs=1, type="string")
+        op.add_argument("--nolvm", action="store_const", const=AUTOPART_TYPE_PLAIN, dest="type")
+        op.add_argument("--type", dest="type", type=type_cb)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        # Rely on any error handling from baseclass
-        F16_AutoPart.parse(self, extra)
-
-        self._setToSelf(self.op, opts)
+        retval = F16_AutoPart.parse(self, args)
 
         # make this always True to avoid writing --nolvm
         self.lvm = True
 
-        return self
+        return retval
 
 class F18_AutoPart(F17_AutoPart):
     removedKeywords = F17_AutoPart.removedKeywords
@@ -298,9 +286,8 @@ class F18_AutoPart(F17_AutoPart):
 
     def _getParser(self):
         op = F17_AutoPart._getParser(self)
-        op.add_option("--cipher")
+        op.add_argument("--cipher")
         return op
-
 
 class F20_AutoPart(F18_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
@@ -308,7 +295,7 @@ class F20_AutoPart(F18_AutoPart):
         self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
 
     def parse(self, args):
-        # call the overriden command to do it's job first
+        # call the overriden command to do its job first
         retval = F18_AutoPart.parse(self, args)
 
         # Using autopart together with other partitioning command such as
@@ -363,11 +350,11 @@ class F21_AutoPart(F20_AutoPart):
 
     def _getParser(self):
         op = F20_AutoPart._getParser(self)
-        op.add_option("--fstype")
+        op.add_argument("--fstype")
         return op
 
     def parse(self, args):
-        # call the overriden command to do it's job first
+        # call the overriden command to do its job first
         retval = F20_AutoPart.parse(self, args)
 
         # btrfs is not a valid filesystem type

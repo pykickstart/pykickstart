@@ -71,14 +71,14 @@ class FC3_VolGroupData(BaseData):
 class FC16_VolGroupData(FC3_VolGroupData):
     def __init__(self, *args, **kwargs):
         FC3_VolGroupData.__init__(self, *args, **kwargs)
-        self.reserved_space = kwargs.get("reserved-space", 0)
-        self.reserved_percent = kwargs.get("reserved-percent", 0)
+        self.reserved_space = kwargs.get("reserved-space", None)
+        self.reserved_percent = kwargs.get("reserved-percent", None)
 
     def _getArgsAsStr(self):
         retval = FC3_VolGroupData._getArgsAsStr(self)
-        if self.reserved_space > 0:
+        if self.reserved_space is not None and self.reserved_space > 0:
             retval += " --reserved-space=%d" % self.reserved_space
-        if self.reserved_percent > 0:
+        if self.reserved_percent is not None and self.reserved_percent > 0:
             retval += " --reserved-percent=%d" % self.reserved_percent
 
         return retval
@@ -108,32 +108,31 @@ class FC3_VolGroup(KickstartCommand):
         return retval
 
     def _getParser(self):
-        # Have to be a little more complicated to set two values.
-        def vg_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
         op = KSOptionParser()
-        op.add_option("--noformat", action="callback", callback=vg_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
-                      default=32768)
-        op.add_option("--useexisting", dest="preexist", action="store_true",
-                      default=False)
+        op.add_argument("--noformat", dest="format", action="store_false", default=True)
+        op.add_argument("--pesize", dest="pesize", type=int, default=32768)
+        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+
+        if not ns.format:
+            ns.preexist = True
+
         vg = self.handler.VolGroupData()
-        self._setToObj(self.op, opts, vg)
+        self._setToObj(ns, vg)
         vg.lineno = self.lineno
 
         if len(extra) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "volgroup", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and not opts.preexist:
+        if len(extra) == 1 and not ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
-        elif len(extra) > 1 and opts.preexist:
+        elif len(extra) > 1 and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
 
         vg.vgname = extra[0]
@@ -152,24 +151,29 @@ class FC3_VolGroup(KickstartCommand):
 
 class FC16_VolGroup(FC3_VolGroup):
     def _getParser(self):
-        def space_cb(option, opt_str, value, parser):
-            if value < 0:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
-
-            parser.values.reserved_space = value
-
-        def percent_cb(option, opt_str, value, parser):
-            if not 0 < value < 100:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
-
-            parser.values.reserved_percent = value
-
         op = FC3_VolGroup._getParser(self)
-        op.add_option("--reserved-space", action="callback", callback=space_cb,
-                      dest="reserved_space", type="int", nargs=1, default=0)
-        op.add_option("--reserved-percent", action="callback", callback=percent_cb,
-                      dest="reserved_percent", type="int", nargs=1, default=0)
+        op.add_argument("--reserved-space", dest="reserved_space", type=int)
+        op.add_argument("--reserved-percent", dest="reserved_percent", type=int)
         return op
+
+    def parse(self, args):
+        # first call the overriden method
+        retval = FC3_VolGroup.parse(self, args)
+
+        # Check that any reserved space options are in their valid ranges.
+        if getattr(retval, "reserved_space", None) is not None and retval.reserved_space < 0:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
+
+        if getattr(retval, "reserved_percent", None) is not None and not 0 < retval.reserved_percent < 100:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."))
+
+        # the volgroup command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        if self.handler.autopart.seen:
+            errorMsg = _("The volgroup and autopart commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
+        return retval
 
 class RHEL6_VolGroup(FC16_VolGroup):
     def parse(self, args):
@@ -200,8 +204,7 @@ class F20_VolGroup(FC16_VolGroup):
 class F21_VolGroup(F20_VolGroup):
     def _getParser(self):
         op = F20_VolGroup._getParser(self)
-        op.add_option("--pesize", dest="pesize", type="int", nargs=1,
-                      default=0)
+        op.add_argument("--pesize", dest="pesize", type=int, default=0)
 
         return op
 

@@ -49,14 +49,14 @@ class FC3_Vnc(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--connect")
-        op.add_option("--password", dest="password")
+        op.add_argument("--connect")
+        op.add_argument("--password", dest="password")
         return op
 
     def parse(self, args):
         self.enabled = True
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class FC6_Vnc(FC3_Vnc):
@@ -89,19 +89,27 @@ class FC6_Vnc(FC3_Vnc):
         return retval + "\n"
 
     def _getParser(self):
-        def connect_cb (option, opt_str, value, parser):
-            cargs = value.split(":")
-            parser.values.ensure_value("host", cargs[0])
+        op = FC3_Vnc._getParser(self)
+        op.add_argument("--connect", dest="_connect", type=str)
+        op.add_argument("--host", dest="host")
+        op.add_argument("--port", dest="port")
+        return op
+
+    def parse(self, args):
+        retval = FC3_Vnc.parse(self, args)
+
+        # argparse doesn't give us a way to do something this complicated, so we
+        # have to set it on a throwaway value and then go back and fix it up.
+        if getattr(retval, "_connect", None):
+            cargs = retval._connect.split(":")
+            retval.host = cargs[0]      # pylint: disable=attribute-defined-outside-init
 
             if len(cargs) > 1:
-                parser.values.ensure_value("port", cargs[1])
+                retval.port = cargs[1]  # pylint: disable=attribute-defined-outside-init
 
-        op = FC3_Vnc._getParser(self)
-        op.add_option("--connect", action="callback", callback=connect_cb,
-                      nargs=1, type="string")
-        op.add_option("--host", dest="host")
-        op.add_option("--port", dest="port")
-        return op
+            del(retval._connect)
+
+        return retval
 
 class F9_Vnc(FC6_Vnc):
     removedKeywords = FC6_Vnc.removedKeywords
@@ -109,5 +117,5 @@ class F9_Vnc(FC6_Vnc):
 
     def _getParser(self):
         op = FC6_Vnc._getParser(self)
-        op.remove_option("--connect")
+        op.remove_argument("--connect")
         return op

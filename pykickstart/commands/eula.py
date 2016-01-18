@@ -50,14 +50,14 @@ class F20_Eula(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         # people would struggle remembering the exact word
-        op.add_option("--agreed", "--agree", "--accepted", "--accept",
-                      dest="agreed", action="store_true", default=False)
-
+        op.add_argument("--agreed", "--agree", "--accepted", "--accept",
+                        dest="agreed", action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+
+        self._setToSelf(ns)
 
         if len(extra) != 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))

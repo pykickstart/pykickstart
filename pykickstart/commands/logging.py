@@ -55,19 +55,17 @@ class FC6_Logging(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--host")
-        op.add_option("--level", type="choice",
-                      choices=["debug", "info", "warning", "error", "critical"])
-        op.add_option("--port")
+        op.add_argument("--host")
+        op.add_argument("--level", choices=["debug", "info", "warning", "error", "critical"])
+        op.add_argument("--port")
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
-        if opts.port and not opts.host:
+        if self.port and not self.host:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")))
-
-        self._setToSelf(self.op, opts)
 
         self._levelProvided = self.level != ""
         if not self._levelProvided:

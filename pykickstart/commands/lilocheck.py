@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
 
 class FC3_LiloCheck(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -45,9 +42,6 @@ class FC3_LiloCheck(KickstartCommand):
         return op
 
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        if len(extra) > 0:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "lilocheck"))
-
+        self.op.parse_args(args=args, lineno=self.lineno)
         self.check = True
         return self

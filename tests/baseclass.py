@@ -135,8 +135,8 @@ class CommandTest(unittest.TestCase):
 
         parser = self.getParser(self.command)._getParser()
 
-        for opt in [o for o in parser.option_list if not o.deprecated]:
-            self._options.append(opt.get_opt_string())
+        for action in [a for a in parser._get_optional_actions() if not a.deprecated]:
+            self._options.extend(action.option_strings)
 
         return self._options
 
@@ -192,30 +192,30 @@ class CommandTest(unittest.TestCase):
         '''Ensure that the provided option is listed as deprecated'''
         parser = self.getParser(cmd)
 
-        for op in parser.op.option_list:
-            if op.get_opt_string() == opt:
-                self.assertTrue(op.deprecated)
+        for action in parser.op._get_optional_actions():
+            if opt in action.option_strings:
+                self.assertTrue(action.deprecated)
 
     def assert_removed(self, cmd, opt):
         '''Ensure that the provided option is not present in option_list'''
         parser = self.getParser(cmd)
-        for op in parser.op.option_list:
-            self.assertNotEqual(op.dest, opt)
+        for action in parser.op._get_optional_actions():
+            self.assertNotEqual(action.dest, opt)
 
     def assert_required(self, cmd, opt):
         '''Ensure that the provided option is labelled as required in
         option_list'''
         parser = self.getParser(cmd)
-        for op in parser.op.option_list:
-            if op.get_opt_string() == opt:
-                self.assertTrue(op.required)
+        for action in parser.op._get_optional_actions():
+            if opt in action.option_strings:
+                self.assertTrue(action.required)
 
     def assert_type(self, cmd, opt, opt_type):
         '''Ensure that the provided option is of the requested type'''
         parser = self.getParser(cmd)
-        for op in parser.op.option_list:
-            if op.get_opt_string() == opt:
-                self.assertEqual(op.type, opt_type)
+        for action in parser.op._get_optional_actions():
+            if opt in action.option_strings:
+                self.assertEqual(action.type.__name__, opt_type)
 
 
 def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=None):

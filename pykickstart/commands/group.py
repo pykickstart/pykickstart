@@ -71,14 +71,14 @@ class F12_Group(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--name", required=1)
-        op.add_option("--gid", type="int")
+        op.add_argument("--name", required=1)
+        op.add_argument("--gid", type=int)
         return op
 
     def parse(self, args):
         gd = self.handler.GroupData()
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, gd)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToObj(ns, gd)
         gd.lineno = self.lineno
 
         # Check for duplicates in the data list.

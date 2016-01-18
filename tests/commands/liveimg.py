@@ -62,6 +62,5 @@ class F19_TestCase(CommandTest):
         self.assert_parse_error("liveimg --noverifyssl")
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba")
 
-
 if __name__ == "__main__":
     unittest.main()

@@ -52,7 +52,7 @@ class F23_ReqPart(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--add-boot", action="store_true", dest="addBoot", default=False)
+        op.add_argument("--add-boot", action="store_true", dest="addBoot", default=False)
         return op
 
     def parse(self, args):
@@ -62,8 +62,8 @@ class F23_ReqPart(KickstartCommand):
                          "autopart"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         self.reqpart = True
         return self
 

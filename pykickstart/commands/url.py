@@ -52,13 +52,12 @@ class FC3_Url(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--url", dest="url", required=1)
+        op.add_argument("--url", dest="url", required=1)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
-
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class F13_Url(FC3_Url):
@@ -86,7 +85,7 @@ class F13_Url(FC3_Url):
 
     def _getParser(self):
         op = FC3_Url._getParser(self)
-        op.add_option("--proxy")
+        op.add_argument("--proxy")
         return op
 
 class F14_Url(F13_Url):
@@ -114,7 +113,7 @@ class F14_Url(F13_Url):
 
     def _getParser(self):
         op = F13_Url._getParser(self)
-        op.add_option("--noverifyssl", action="store_true", default=False)
+        op.add_argument("--noverifyssl", action="store_true", default=False)
         return op
 
 RHEL6_Url = F14_Url
@@ -158,8 +157,8 @@ class F18_Url(F14_Url):
         # This overrides the option set in the superclass's _getParser
         # method.  --url is no longer required because you could do
         # --mirrorlist instead.
-        op.add_option("--url", dest="url")
-        op.add_option("--mirrorlist", dest="mirrorlist")
+        op.add_argument("--url", dest="url")
+        op.add_argument("--mirrorlist", dest="mirrorlist")
         return op
 
     def parse(self, args):

@@ -50,17 +50,20 @@ class RHEL3_Mouse(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--device", dest="device", default="")
-        op.add_option("--emulthree", dest="emulthree", default=False, action="store_true")
+        op.add_argument("--device", dest="device", default="")
+        op.add_argument("--emulthree", dest="emulthree", default=False, action="store_true")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "mouse", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
+        self._setToSelf(ns)
         self.mouse = extra[0]
         return self
 

@@ -18,7 +18,6 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -104,17 +103,14 @@ class F12_Fcoe(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--nic", dest="nic", required=1)
+        op.add_argument("--nic", dest="nic", required=1)
         return op
 
     def parse(self, args):
         zd = self.handler.FcoeData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        if len(extra) > 0:
-            mapping = {"command": "fcoe", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
 
-        self._setToObj(self.op, opts, zd)
+        self._setToObj(ns, zd)
         zd.lineno = self.lineno
 
         # Check for duplicates in the data list.
@@ -132,7 +128,7 @@ class F13_Fcoe(F12_Fcoe):
 
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
-        op.add_option("--dcb", dest="dcb", action="store_true", default=False)
+        op.add_argument("--dcb", dest="dcb", action="store_true", default=False)
         return op
 
 class RHEL7_Fcoe(F13_Fcoe):
@@ -141,5 +137,5 @@ class RHEL7_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_option("--autovlan", dest="autovlan", action="store_true", default=False)
+        op.add_argument("--autovlan", dest="autovlan", action="store_true", default=False)
         return op

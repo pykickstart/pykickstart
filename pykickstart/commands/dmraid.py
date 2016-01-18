@@ -72,17 +72,15 @@ class FC6_DmRaid(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--name", dest="name", action="store", type="string",
-                      required=1)
-        op.add_option("--dev", dest="devices", action="append", type="string",
-                      required=1)
+        op.add_argument("--name", dest="name", action="store", type=str, required=1)
+        op.add_argument("--dev", dest="devices", action="append", type=str, required=1)
         return op
 
     def parse(self, args):
         dm = FC6_DmRaidData()
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
         dm.name = dm.name.split('/')[-1]
-        self._setToObj(self.op, opts, dm)
+        self._setToObj(ns, dm)
         dm.lineno = self.lineno
 
         # Check for duplicates in the data list.

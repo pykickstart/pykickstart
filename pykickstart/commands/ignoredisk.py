@@ -19,9 +19,8 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
-
 from pykickstart.i18n import _
+from pykickstart.options import KSOptionParser, commaSplit
 
 class FC3_IgnoreDisk(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -42,18 +41,13 @@ class FC3_IgnoreDisk(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def drive_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = KSOptionParser()
-        op.add_option("--drives", dest="ignoredisk", action="callback",
-                      callback=drive_cb, nargs=1, type="string", required=1)
+        op.add_argument("--drives", dest="ignoredisk", type=commaSplit, required=1)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class F8_IgnoreDisk(FC3_IgnoreDisk):
@@ -85,15 +79,9 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
         return retval
 
     def _getParser(self):
-        def drive_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = FC3_IgnoreDisk._getParser(self)
-        op.add_option("--drives", dest="ignoredisk", action="callback",
-                      callback=drive_cb, nargs=1, type="string")
-        op.add_option("--only-use", dest="onlyuse", action="callback",
-                      callback=drive_cb, nargs=1, type="string")
+        op.add_argument("--drives", dest="ignoredisk", type=commaSplit)
+        op.add_argument("--only-use", dest="onlyuse", type=commaSplit)
         return op
 
 class RHEL6_IgnoreDisk(F8_IgnoreDisk):
@@ -132,8 +120,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
     def _getParser(self):
         op = F8_IgnoreDisk._getParser(self)
-        op.add_option("--interactive", dest="interactive", action="store_true",
-                      default=False)
+        op.add_argument("--interactive", dest="interactive", action="store_true", default=False)
         return op
 
 F14_IgnoreDisk = RHEL6_IgnoreDisk

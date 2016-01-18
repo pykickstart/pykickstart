@@ -19,10 +19,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
 
 class FC6_IscsiData(BaseData):
     removedKeywords = BaseData.removedKeywords
@@ -127,24 +124,17 @@ class FC6_Iscsi(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--target", dest="target", action="store", type="string")
-        op.add_option("--ipaddr", dest="ipaddr", action="store", type="string",
-                      required=1)
-        op.add_option("--port", dest="port", action="store", type="string")
-        op.add_option("--user", dest="user", action="store", type="string")
-        op.add_option("--password", dest="password", action="store",
-                      type="string")
+        op.add_argument("--target", dest="target", action="store", type=str)
+        op.add_argument("--ipaddr", dest="ipaddr", action="store", type=str, required=1)
+        op.add_argument("--port", dest="port", action="store", type=str)
+        op.add_argument("--user", dest="user", action="store", type=str)
+        op.add_argument("--password", dest="password", action="store", type=str)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) != 0:
-            mapping = {"command": "iscsi", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
         dd = self.handler.IscsiData()
-        self._setToObj(self.op, opts, dd)
+        self._setToObj(ns, dd)
         dd.lineno = self.lineno
         return dd
 
@@ -157,10 +147,8 @@ class F10_Iscsi(FC6_Iscsi):
 
     def _getParser(self):
         op = FC6_Iscsi._getParser(self)
-        op.add_option("--reverse-user", dest="user_in", action="store",
-                      type="string")
-        op.add_option("--reverse-password", dest="password_in", action="store",
-                      type="string")
+        op.add_argument("--reverse-user", dest="user_in", action="store", type=str)
+        op.add_argument("--reverse-password", dest="password_in", action="store", type=str)
         return op
 
 class RHEL6_Iscsi(F10_Iscsi):
@@ -169,8 +157,7 @@ class RHEL6_Iscsi(F10_Iscsi):
 
     def _getParser(self):
         op = F10_Iscsi._getParser(self)
-        op.add_option("--iface", dest="iface", action="store",
-                      type="string")
+        op.add_argument("--iface", dest="iface", action="store", type=str)
         return op
 
 class F17_Iscsi(F10_Iscsi):
@@ -179,6 +166,5 @@ class F17_Iscsi(F10_Iscsi):
 
     def _getParser(self):
         op = F10_Iscsi._getParser(self)
-        op.add_option("--iface", dest="iface", action="store",
-                      type="string")
+        op.add_argument("--iface", dest="iface", action="store", type=str)
         return op

@@ -52,17 +52,19 @@ class FC3_RootPw(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
-                      default=False)
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "rootpw", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
+        self._setToSelf(ns)
         self.password = extra[0]
         return self
 
@@ -87,8 +89,8 @@ class F8_RootPw(FC3_RootPw):
 
     def _getParser(self):
         op = FC3_RootPw._getParser(self)
-        op.add_option("--lock", dest="lock", action="store_true", default=False)
-        op.add_option("--plaintext", dest="isCrypted", action="store_false")
+        op.add_argument("--lock", dest="lock", action="store_true", default=False)
+        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
         return op
 
 class F18_RootPw(F8_RootPw):
@@ -104,11 +106,14 @@ class F18_RootPw(F8_RootPw):
         return retval
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if len(extra) != 1 and not self.lock:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "rootpw", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         if len(extra) == 1:
             self.password = extra[0]

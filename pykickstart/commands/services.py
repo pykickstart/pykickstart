@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -49,20 +49,14 @@ class FC6_Services(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def services_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d.strip())
-
         op = KSOptionParser()
-        op.add_option("--disabled", dest="disabled", action="callback",
-                      callback=services_cb, nargs=1, type="string")
-        op.add_option("--enabled", dest="enabled", action="callback",
-                      callback=services_cb, nargs=1, type="string")
+        op.add_argument("--disabled", dest="disabled", type=commaSplit)
+        op.add_argument("--enabled", dest="enabled", type=commaSplit)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if len(self.disabled) == 0 and len(self.enabled) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided.")))

@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -45,11 +45,16 @@ class FC3_Lang(KickstartCommand):
         return op
 
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "lang"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "lang", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.lang = extra[0]
+        self._setToSelf(ns)
         return self
 
 class F19_Lang(FC3_Lang):
@@ -70,18 +75,6 @@ class F19_Lang(FC3_Lang):
         return s
 
     def _getParser(self):
-        def list_cb (option, opt_str, value, parser):
-            for item in value.split(','):
-                if item:
-                    parser.values.ensure_value(option.dest, []).append(item)
-
         op = FC3_Lang._getParser(self)
-        op.add_option("--addsupport", dest="addsupport", action="callback",
-                      callback=list_cb, nargs=1, type="string")
+        op.add_argument("--addsupport", dest="addsupport", type=commaSplit)
         return op
-
-    def parse(self, args):
-        FC3_Lang.parse(self, args)
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
-        return self

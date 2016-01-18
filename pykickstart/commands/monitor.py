@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
 
 class FC3_Monitor(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -53,19 +50,14 @@ class FC3_Monitor(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--hsync")
-        op.add_option("--monitor")
-        op.add_option("--vsync")
+        op.add_argument("--hsync")
+        op.add_argument("--monitor")
+        op.add_argument("--vsync")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if extra:
-            mapping = {"cmd": "monitor", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping))
-
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class FC6_Monitor(FC3_Monitor):
@@ -96,8 +88,7 @@ class FC6_Monitor(FC3_Monitor):
 
     def _getParser(self):
         op = FC3_Monitor._getParser(self)
-        op.add_option("--noprobe", dest="probe", action="store_false",
-                      default=True)
+        op.add_argument("--noprobe", dest="probe", action="store_false", default=True)
         return op
 
 class F10_Monitor(DeprecatedCommand):

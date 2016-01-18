@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_LIST, CLEARPART_TYPE_NONE
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 class FC3_ClearPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -62,26 +62,17 @@ class FC3_ClearPart(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def drive_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = KSOptionParser()
-        op.add_option("--all", dest="type", action="store_const",
-                      const=CLEARPART_TYPE_ALL)
-        op.add_option("--drives", dest="drives", action="callback",
-                      callback=drive_cb, nargs=1, type="string")
-        op.add_option("--initlabel", dest="initAll", action="store_true",
-                      default=False)
-        op.add_option("--linux", dest="type", action="store_const",
-                      const=CLEARPART_TYPE_LINUX)
-        op.add_option("--none", dest="type", action="store_const",
-                      const=CLEARPART_TYPE_NONE)
+        op.add_argument("--all", dest="type", action="store_const", const=CLEARPART_TYPE_ALL)
+        op.add_argument("--drives", dest="drives", type=commaSplit)
+        op.add_argument("--initlabel", dest="initAll", action="store_true", default=False)
+        op.add_argument("--linux", dest="type", action="store_const", const=CLEARPART_TYPE_LINUX)
+        op.add_argument("--none", dest="type", action="store_const", const=CLEARPART_TYPE_NONE)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class F17_ClearPart(FC3_ClearPart):
@@ -99,15 +90,15 @@ class F17_ClearPart(FC3_ClearPart):
 
     def _getParser(self):
         op = FC3_ClearPart._getParser(self)
-
-        def list_cb (option, opt_str, value, parser):
-            self.type = CLEARPART_TYPE_LIST
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
-        op.add_option("--list", dest="devices", action="callback",
-                      callback=list_cb, nargs=1, type="string")
+        op.add_argument("--list", dest="devices", type=commaSplit)
         return op
+
+    def parse(self, args):
+        obj = FC3_ClearPart.parse(self, args)
+        if getattr(obj, "devices", []):
+            obj.type = CLEARPART_TYPE_LIST
+
+        return obj
 
 class F21_ClearPart(F17_ClearPart):
     def __init__(self, *args, **kwargs):
@@ -123,6 +114,5 @@ class F21_ClearPart(F17_ClearPart):
 
     def _getParser(self):
         op = F17_ClearPart._getParser(self)
-
-        op.add_option("--disklabel", dest="disklabel", default="")
+        op.add_argument("--disklabel", dest="disklabel", default="")
         return op

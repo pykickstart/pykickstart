@@ -68,7 +68,7 @@ class F18_TestCase(FC6_TestCase):
                           "timezone Europe/Prague --nontp\n")
         self.assert_parse("timezone Europe/Prague "\
                           "--ntpservers=ntp.cesnet.cz,tik.nic.cz")
-        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz,",
+        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz",
                           "timezone Europe/Prague --ntpservers=ntp.cesnet.cz\n")
 
         # fail

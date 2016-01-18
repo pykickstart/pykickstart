@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import DeprecatedCommand, KickstartCommand
+from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.i18n import _
 from pykickstart.options import KSOptionParser
 
 class FC3_LangSupport(KickstartCommand):
@@ -44,12 +46,16 @@ class FC3_LangSupport(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--default", dest="deflang", default="en_US.UTF-8")
+        op.add_argument("--default", dest="deflang", default="en_US.UTF-8")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        if any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "langsupport", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+
+        self._setToSelf(ns)
         self.supported = extra
         return self
 

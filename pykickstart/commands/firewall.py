@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
+from pykickstart.options import ExtendAction, ExtendConstAction, KSOptionParser, commaSplit
 
 class FC3_Firewall(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -85,41 +82,34 @@ class FC3_Firewall(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def firewall_port_cb (option, opt_str, value, parser):
+        def firewall_port_cb(value):
+            retval = []
             for p in value.split(","):
                 p = p.strip()
                 if p.find(":") == -1:
                     p = "%s:tcp" % p
-                parser.values.ensure_value(option.dest, []).append(p)
 
-        def http_port_cb(option, opt_str, value, parser):
-            parser.values.ensure_value(option.dest, []).extend(["80:tcp", "443:tcp"])
+                retval.append(p)
+
+            return retval
 
         op = KSOptionParser()
-        op.add_option("--disable", "--disabled", dest="enabled",
-                      action="store_false")
-        op.add_option("--enable", "--enabled", dest="enabled",
-                      action="store_true", default=True)
-        op.add_option("--ftp", dest="ports", action="append_const", const="21:tcp")
-        op.add_option("--http", dest="ports", action="callback", callback=http_port_cb)
-        op.add_option("--smtp", dest="ports", action="append_const", const="25:tcp")
-        op.add_option("--ssh", dest="ports", action="append_const", const="22:tcp")
-        op.add_option("--telnet", dest="ports", action="append_const", const="23:tcp")
-        op.add_option("--high", deprecated=1)
-        op.add_option("--medium", deprecated=1)
-        op.add_option("--port", dest="ports", action="callback",
-                      callback=firewall_port_cb, nargs=1, type="string")
-        op.add_option("--trust", dest="trusts", action="append")
+        op.add_argument("--disable", "--disabled", dest="enabled", action="store_false")
+        op.add_argument("--enable", "--enabled", dest="enabled", action="store_true", default=True)
+        op.add_argument("--ftp", dest="ports", action="append_const", const="21:tcp")
+        op.add_argument("--http", dest="ports", action=ExtendConstAction, const=["80:tcp", "443:tcp"], nargs=0)
+        op.add_argument("--smtp", dest="ports", action="append_const", const="25:tcp")
+        op.add_argument("--ssh", dest="ports", action="append_const", const="22:tcp")
+        op.add_argument("--telnet", dest="ports", action="append_const", const="23:tcp")
+        op.add_argument("--high", deprecated=1)
+        op.add_argument("--medium", deprecated=1)
+        op.add_argument("--port", dest="ports", action=ExtendAction, type=firewall_port_cb)
+        op.add_argument("--trust", dest="trusts", action="append")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) != 0:
-            mapping = {"command": "firewall", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class F9_Firewall(FC3_Firewall):
@@ -128,8 +118,8 @@ class F9_Firewall(FC3_Firewall):
 
     def _getParser(self):
         op = FC3_Firewall._getParser(self)
-        op.remove_option("--high")
-        op.remove_option("--medium")
+        op.remove_argument("--high")
+        op.remove_argument("--medium")
         return op
 
 class F10_Firewall(F9_Firewall):
@@ -159,30 +149,13 @@ class F10_Firewall(F9_Firewall):
             return retval
 
     def _getParser(self):
-        def service_cb (option, opt_str, value, parser):
-            # python2.4 does not support action="append_const" that we were
-            # using for these options.  Instead, we have to fake it by
-            # appending whatever the option string is to the service list.
-            if not value:
-                parser.values.ensure_value(option.dest, []).append(opt_str[2:])
-                return
-
-            for p in value.split(","):
-                p = p.strip()
-                parser.values.ensure_value(option.dest, []).append(p)
-
         op = F9_Firewall._getParser(self)
-        op.add_option("--service", dest="services", action="callback",
-                      callback=service_cb, nargs=1, type="string")
-        op.add_option("--ftp", dest="services", action="callback",
-                      callback=service_cb)
-        op.add_option("--http", dest="services", action="callback",
-                      callback=service_cb)
-        op.add_option("--smtp", dest="services", action="callback",
-                      callback=service_cb)
-        op.add_option("--ssh", dest="services", action="callback",
-                      callback=service_cb)
-        op.add_option("--telnet", deprecated=1)
+        op.add_argument("--service", dest="services", action=ExtendAction, type=commaSplit)
+        op.add_argument("--ftp", dest="services", action="append_const", const="ftp")
+        op.add_argument("--http", dest="services", action="append_const", const="http")
+        op.add_argument("--smtp", dest="services", action="append_const", const="smtp")
+        op.add_argument("--ssh", dest="services", action="append_const", const="ssh")
+        op.add_argument("--telnet", deprecated=1)
         return op
 
 class F14_Firewall(F10_Firewall):
@@ -191,32 +164,17 @@ class F14_Firewall(F10_Firewall):
 
     def _getParser(self):
         op = F10_Firewall._getParser(self)
-        op.remove_option("--telnet")
+        op.remove_argument("--telnet")
         return op
 
 class F20_Firewall(F14_Firewall):
-
     def __init__(self, writePriority=0, *args, **kwargs):
         F14_Firewall.__init__(self, writePriority, *args, **kwargs)
         self.remove_services = kwargs.get("remove_services", [])
 
     def _getParser(self):
-        def remove_service_cb(option, opt_str, value, parser):
-            # python2.4 does not support action="append_const" that we were
-            # using for these options.  Instead, we have to fake it by
-            # appending whatever the option string is to the service list.
-            if not value:
-                parser.values.ensure_value(option.dest, []).append(opt_str[2:])
-                return
-
-            for p in value.split(","):
-                p = p.strip()
-                parser.values.ensure_value(option.dest, []).append(p)
-
         op = F14_Firewall._getParser(self)
-        op.add_option("--remove-service", dest="remove_services",
-                      action="callback", callback=remove_service_cb,
-                      nargs=1, type="string")
+        op.add_argument("--remove-service", dest="remove_services", action=ExtendAction, type=commaSplit)
         return op
 
     def __str__(self):

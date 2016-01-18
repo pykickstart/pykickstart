@@ -36,15 +36,13 @@ import os
 import six
 import shlex
 import sys
-# there are no type stubs for optparse, since argparse is the new hotness, and
-# mypy complains while parsing the actual module.
-from optparse import OptionParser   # type: ignore
 import warnings
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
+from pykickstart.options import KSOptionParser
 from pykickstart.orderedset import OrderedSet
 from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection
 
@@ -415,13 +413,13 @@ class Packages(KickstartObject):
             return retval + "\n" + pkgs + "\n"
 
     def _processGroup (self, line): # type: (Packages, str) -> None
-        op = OptionParser()
-        op.add_option("--nodefaults", action="store_true", default=False)
-        op.add_option("--optional", action="store_true", default=False)
+        op = KSOptionParser()
+        op.add_argument("--nodefaults", action="store_true", default=False)
+        op.add_argument("--optional", action="store_true", default=False)
 
-        (opts, extra) = op.parse_args(args=line.split())
+        (ns, extra) = op.parse_known_args(args=line.split())
 
-        if opts.nodefaults and opts.optional:
+        if ns.nodefaults and ns.optional:
             raise KickstartParseError(_("Group cannot specify both --nodefaults and --optional"))
 
         # If the group name has spaces in it, we have to put it back together
@@ -431,9 +429,9 @@ class Packages(KickstartObject):
         if grp in [g.name for g in self.groupList]:
             return
 
-        if opts.nodefaults:
+        if ns.nodefaults:
             self.groupList.append(Group(name=grp, include=constants.GROUP_REQUIRED))
-        elif opts.optional:
+        elif ns.optional:
             self.groupList.append(Group(name=grp, include=constants.GROUP_ALL))
         else:
             self.groupList.append(Group(name=grp, include=constants.GROUP_DEFAULT))

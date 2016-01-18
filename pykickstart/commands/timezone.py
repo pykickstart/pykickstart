@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -49,15 +49,18 @@ class FC3_Timezone(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--utc", dest="isUtc", action="store_true", default=False)
+        op.add_argument("--utc", dest="isUtc", action="store_true", default=False)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "timezone", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.timezone = extra[0]
         return self
@@ -81,7 +84,7 @@ class FC6_Timezone(FC3_Timezone):
 
     def _getParser(self):
         op = FC3_Timezone._getParser(self)
-        op.add_option("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
+        op.add_argument("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
         return op
 
 class F18_Timezone(FC6_Timezone):
@@ -115,21 +118,16 @@ class F18_Timezone(FC6_Timezone):
         return retval
 
     def _getParser(self):
-        def servers_cb(option, opt_str, value, parser):
-            for server in value.split(","):
-                if server:
-                    parser.values.ensure_value(option.dest, set()).add(server)
-
-
         op = FC6_Timezone._getParser(self)
-        op.add_option("--nontp", dest="nontp", action="store_true", default=False)
-        op.add_option("--ntpservers", dest="ntpservers", action="callback",
-                      callback=servers_cb, nargs=1, type="string")
-
+        op.add_argument("--nontp", dest="nontp", action="store_true", default=False)
+        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit)
         return op
 
     def parse(self, args):
         FC6_Timezone.parse(self, args)
+
+        # NTP servers can only be listed once in F18, so weed out the duplicates now.
+        self.ntpservers = list(set(self.ntpservers))
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
@@ -144,15 +142,17 @@ class F23_Timezone(F18_Timezone):
         self.ntpservers = kwargs.get("ntpservers", list())
 
     def _getParser(self):
-        def servers_cb(option, opt_str, value, parser):
-            for server in value.split(","):
-                if server:
-                    parser.values.ensure_value(option.dest, list()).append(server)
-
-
         op = FC6_Timezone._getParser(self)
-        op.add_option("--nontp", dest="nontp", action="store_true", default=False)
-        op.add_option("--ntpservers", dest="ntpservers", action="callback",
-                      callback=servers_cb, nargs=1, type="string")
-
+        op.add_argument("--nontp", dest="nontp", action="store_true", default=False)
+        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit)
         return op
+
+    def parse(self, args):
+        FC6_Timezone.parse(self, args)
+
+        if self.ntpservers and self.nontp:
+            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
+                                    "--ntpservers are mutually exclusive"))
+            raise KickstartParseError(msg)
+
+        return self

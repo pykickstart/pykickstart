@@ -110,23 +110,25 @@ class F13_SshPw(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--username", dest="username", required=True)
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
-                      default=False)
-        op.add_option("--plaintext", dest="isCrypted", action="store_false")
-        op.add_option("--lock", dest="lock", action="store_true", default=False)
+        op.add_argument("--username", dest="username", required=True)
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
+        op.add_argument("--lock", dest="lock", action="store_true", default=False)
         return op
 
     def parse(self, args):
         ud = self.handler.SshPwData()
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, ud)
-        ud.lineno = self.lineno
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "sshpw", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
+        self._setToObj(ns, ud)
         ud.password = " ".join(extra)
+        ud.lineno = self.lineno
 
         if ud in self.dataList():
             warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username)
@@ -142,5 +144,5 @@ class F24_SshPw(F13_SshPw):
 
     def _getParser(self):
         op = F13_SshPw._getParser(self)
-        op.add_option("--sshkey", action="store_true", default=False)
+        op.add_argument("--sshkey", action="store_true", default=False)
         return op

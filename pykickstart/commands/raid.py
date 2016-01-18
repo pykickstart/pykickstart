@@ -278,32 +278,25 @@ class FC3_Raid(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def raid_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
-        def device_cb (option, opt_str, value, parser):
+        def device_cb(value):
             if value[0:2] == "md":
-                parser.values.ensure_value(option.dest, value[2:])
+                return value[2:]
             else:
-                parser.values.ensure_value(option.dest, value)
+                return value
 
-        def level_cb (option, opt_str, value, parser):
+        def level_cb(value):
             if value.upper() in self.levelMap:
-                parser.values.ensure_value(option.dest, self.levelMap[value.upper()])
+                return self.levelMap[value.upper()]
+            else:
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid raid level: %s") % value))
 
         op = KSOptionParser()
-        op.add_option("--device", action="callback", callback=device_cb,
-                      dest="device", type="string", nargs=1, required=1)
-        op.add_option("--fstype", dest="fstype")
-        op.add_option("--level", dest="level", action="callback",
-                      callback=level_cb, type="string", nargs=1)
-        op.add_option("--noformat", action="callback", callback=raid_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--spares", dest="spares", action="store", type="int",
-                      nargs=1, default=0)
-        op.add_option("--useexisting", dest="preexist", action="store_true",
-                      default=False)
+        op.add_argument("--device", dest="device", type=device_cb, required=1)
+        op.add_argument("--fstype", dest="fstype")
+        op.add_argument("--level", dest="level", type=level_cb)
+        op.add_argument("--noformat", dest="format", action="store_false", default=True)
+        op.add_argument("--spares", dest="spares", action="store", type=int, default=0)
+        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
         return op
 
     def _getDevice(self, s):
@@ -314,18 +307,24 @@ class FC3_Raid(KickstartCommand):
         return int(s)
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+
+        if not ns.format:
+            ns.preexist = True
 
         if len(extra) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "raid", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and not opts.preexist:
+        if len(extra) == 1 and not ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"))
-        elif len(extra) > 1 and opts.preexist:
+        elif len(extra) > 1 and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
         rd = self.handler.RaidData()
-        self._setToObj(self.op, opts, rd)
+        self._setToObj(ns, rd)
         rd.lineno = self.lineno
 
         # In older pykickstart --device was always specifying a minor, so
@@ -359,7 +358,7 @@ class FC4_Raid(FC3_Raid):
 
     def _getParser(self):
         op = FC3_Raid._getParser(self)
-        op.add_option("--fsoptions", dest="fsopts")
+        op.add_argument("--fsoptions", dest="fsopts")
         return op
 
 class FC5_Raid(FC4_Raid):
@@ -368,8 +367,7 @@ class FC5_Raid(FC4_Raid):
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
-        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
-                      type="int", nargs=1)
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", action="store", type=int)
         return op
 
 class RHEL5_Raid(FC5_Raid):
@@ -383,8 +381,8 @@ class RHEL5_Raid(FC5_Raid):
 
     def _getParser(self):
         op = FC5_Raid._getParser(self)
-        op.add_option("--encrypted", action="store_true", default=False)
-        op.add_option("--passphrase")
+        op.add_argument("--encrypted", action="store_true", default=False)
+        op.add_argument("--passphrase")
         return op
 
 class F7_Raid(FC5_Raid):
@@ -402,10 +400,10 @@ class F9_Raid(F7_Raid):
 
     def _getParser(self):
         op = F7_Raid._getParser(self)
-        op.add_option("--bytes-per-inode", deprecated=1)
-        op.add_option("--fsprofile")
-        op.add_option("--encrypted", action="store_true", default=False)
-        op.add_option("--passphrase")
+        op.add_argument("--bytes-per-inode", deprecated=1)
+        op.add_argument("--fsprofile")
+        op.add_argument("--encrypted", action="store_true", default=False)
+        op.add_argument("--passphrase")
         return op
 
 class F12_Raid(F9_Raid):
@@ -414,8 +412,8 @@ class F12_Raid(F9_Raid):
 
     def _getParser(self):
         op = F9_Raid._getParser(self)
-        op.add_option("--escrowcert")
-        op.add_option("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert")
+        op.add_argument("--backuppassphrase", action="store_true", default=False)
         return op
 
 class F13_Raid(F12_Raid):
@@ -433,7 +431,7 @@ class RHEL6_Raid(F13_Raid):
 
     def _getParser(self):
         op = F13_Raid._getParser(self)
-        op.add_option("--cipher")
+        op.add_argument("--cipher")
         return op
 
     def parse(self, args):
@@ -452,7 +450,7 @@ class F14_Raid(F13_Raid):
 
     def _getParser(self):
         op = F13_Raid._getParser(self)
-        op.remove_option("--bytes-per-inode")
+        op.remove_argument("--bytes-per-inode")
         return op
 
 class F15_Raid(F14_Raid):
@@ -461,7 +459,7 @@ class F15_Raid(F14_Raid):
 
     def _getParser(self):
         op = F14_Raid._getParser(self)
-        op.add_option("--label")
+        op.add_argument("--label")
         return op
 
 class F18_Raid(F15_Raid):
@@ -470,7 +468,7 @@ class F18_Raid(F15_Raid):
 
     def _getParser(self):
         op = F15_Raid._getParser(self)
-        op.add_option("--cipher")
+        op.add_argument("--cipher")
         return op
 
 class F19_Raid(F18_Raid):
@@ -500,7 +498,7 @@ class F23_Raid(F20_Raid):
 
     def _getParser(self):
         op = F20_Raid._getParser(self)
-        op.add_option("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--mkfsoptions", dest="mkfsopts")
         return op
 
     def parse(self, args):

@@ -342,30 +342,26 @@ class FC3_Network(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=self.bootprotoList)
-        op.add_option("--dhcpclass", dest="dhcpclass")
-        op.add_option("--device", dest="device")
-        op.add_option("--essid", dest="essid")
-        op.add_option("--ethtool", dest="ethtool")
-        op.add_option("--gateway", dest="gateway")
-        op.add_option("--hostname", dest="hostname")
-        op.add_option("--ip", dest="ip")
-        op.add_option("--mtu", dest="mtu")
-        op.add_option("--nameserver", dest="nameserver")
-        op.add_option("--netmask", dest="netmask")
-        op.add_option("--nodns", dest="nodns", action="store_true",
-                      default=False)
-        op.add_option("--onboot", dest="onboot", action="store",
-                      type=ksboolean)
-        op.add_option("--wepkey", dest="wepkey")
+        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
+        op.add_argument("--dhcpclass", dest="dhcpclass")
+        op.add_argument("--device", dest="device")
+        op.add_argument("--essid", dest="essid")
+        op.add_argument("--ethtool", dest="ethtool")
+        op.add_argument("--gateway", dest="gateway")
+        op.add_argument("--hostname", dest="hostname")
+        op.add_argument("--ip", dest="ip")
+        op.add_argument("--mtu", dest="mtu")
+        op.add_argument("--nameserver", dest="nameserver")
+        op.add_argument("--netmask", dest="netmask")
+        op.add_argument("--nodns", dest="nodns", action="store_true", default=False)
+        op.add_argument("--onboot", dest="onboot", action="store", type=ksboolean)
+        op.add_argument("--wepkey", dest="wepkey")
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
         nd = self.handler.NetworkData()
-        self._setToObj(self.op, opts, nd)
+        self._setToObj(ns, nd)
         nd.lineno = self.lineno
 
         # Check for duplicates in the data list.
@@ -383,8 +379,7 @@ class FC4_Network(FC3_Network):
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
-        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
-                      default=False)
+        op.add_argument("--notksdevice", dest="notksdevice", action="store_true", default=False)
         return op
 
 class FC6_Network(FC4_Network):
@@ -393,10 +388,8 @@ class FC6_Network(FC4_Network):
 
     def _getParser(self):
         op = FC4_Network._getParser(self)
-        op.add_option("--noipv4", dest="noipv4", action="store_true",
-                      default=False)
-        op.add_option("--noipv6", dest="noipv6", action="store_true",
-                      default=False)
+        op.add_argument("--noipv4", dest="noipv4", action="store_true", default=False)
+        op.add_argument("--noipv6", dest="noipv6", action="store_true", default=False)
         return op
 
 class F8_Network(FC6_Network):
@@ -405,7 +398,7 @@ class F8_Network(FC6_Network):
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
-        op.add_option("--ipv6", dest="ipv6")
+        op.add_argument("--ipv6", dest="ipv6")
         return op
 
 class F9_Network(F8_Network):
@@ -418,9 +411,7 @@ class F9_Network(F8_Network):
 
     def _getParser(self):
         op = F8_Network._getParser(self)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=self.bootprotoList)
+        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
         return op
 
 class F16_Network(F9_Network):
@@ -433,11 +424,9 @@ class F16_Network(F9_Network):
 
     def _getParser(self):
         op = F9_Network._getParser(self)
-        op.add_option("--activate", dest="activate", action="store_true",
-                      default=False)
-        op.add_option("--nodefroute", dest="nodefroute", action="store_true",
-                      default=False)
-        op.add_option("--wpakey", dest="wpakey", action="store", default="")
+        op.add_argument("--activate", dest="activate", action="store_true", default=False)
+        op.add_argument("--nodefroute", dest="nodefroute", action="store_true", default=False)
+        op.add_argument("--wpakey", dest="wpakey", action="store", default="")
         return op
 
 class F18_Network(F16_Network):
@@ -453,20 +442,17 @@ class F19_Network(F18_Network):
 
     def _getParser(self):
         op = F18_Network._getParser(self)
-        op.add_option("--bondslaves", dest="bondslaves", action="store",
-                default="")
-        op.add_option("--bondopts", dest="bondopts", action="store",
-                default="")
-        op.add_option("--vlanid", dest="vlanid")
-        op.add_option("--ipv6gateway", dest="ipv6gateway", action="store",
-                default="")
+        op.add_argument("--bondslaves", dest="bondslaves", action="store", default="")
+        op.add_argument("--bondopts", dest="bondopts", action="store", default="")
+        op.add_argument("--vlanid", dest="vlanid")
+        op.add_argument("--ipv6gateway", dest="ipv6gateway", action="store", default="")
         return op
 
 class F20_Network(F19_Network):
 
     def _getParser(self):
         # see the tests for teamslaves option
-        def teamslaves_cb(option, opt_str, value, parser):
+        def teamslaves_cb(value):
             # value is of: "<DEV1>['<JSON_CONFIG1>'],<DEV2>['<JSON_CONFIG2>'],..."
             # for example: "eth1,eth2'{"prio": 100}',eth3"
             teamslaves = []
@@ -502,29 +488,25 @@ class F20_Network(F19_Network):
                     # and set config of the last device
                     teamslaves.append((devs[-1], cfg))
                     # teamslaves == [('eth1', ''), ('eth2', '{"prio": 100}']
-            parser.values.teamslaves = teamslaves
+
+            return teamslaves
 
         op = F19_Network._getParser(self)
-        op.add_option("--teamslaves", dest="teamslaves", action="callback",
-                callback=teamslaves_cb, nargs=1, type="string")
-        op.add_option("--teamconfig", dest="teamconfig", action="store",
-                default="")
+        op.add_argument("--teamslaves", dest="teamslaves", type=teamslaves_cb)
+        op.add_argument("--teamconfig", dest="teamconfig", action="store", default="")
         return op
 
 class F21_Network(F20_Network):
     def _getParser(self):
         op = F20_Network._getParser(self)
-        op.add_option("--interfacename", dest="interfacename", action="store",
-                default="")
+        op.add_argument("--interfacename", dest="interfacename", action="store", default="")
         return op
 
 class F22_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
-                default="")
-        op.add_option("--bridgeopts", dest="bridgeopts", action="store",
-                default="")
+        op.add_argument("--bridgeslaves", dest="bridgeslaves", action="store", default="")
+        op.add_argument("--bridgeopts", dest="bridgeopts", action="store", default="")
         return op
 
     def parse(self, args):
@@ -564,8 +546,7 @@ class RHEL4_Network(FC3_Network):
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
-        op.add_option("--notksdevice", dest="notksdevice", action="store_true",
-                      default=False)
+        op.add_argument("--notksdevice", dest="notksdevice", action="store_true", default=False)
         return op
 
 class RHEL5_Network(FC6_Network):
@@ -578,9 +559,7 @@ class RHEL5_Network(FC6_Network):
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
-        op.add_option("--bootproto", dest="bootProto",
-                      default=BOOTPROTO_DHCP,
-                      choices=self.bootprotoList)
+        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
         return op
 
 class RHEL6_Network(F9_Network):
@@ -593,13 +572,11 @@ class RHEL6_Network(F9_Network):
 
     def _getParser(self):
         op = F9_Network._getParser(self)
-        op.add_option("--activate", dest="activate", action="store_true",
-                      default=False)
-        op.add_option("--nodefroute", dest="nodefroute", action="store_true",
-                      default=False)
-        op.add_option("--vlanid", dest="vlanid")
-        op.add_option("--bondslaves", dest="bondslaves")
-        op.add_option("--bondopts", dest="bondopts")
+        op.add_argument("--activate", dest="activate", action="store_true", default=False)
+        op.add_argument("--nodefroute", dest="nodefroute", action="store_true", default=False)
+        op.add_argument("--vlanid", dest="vlanid")
+        op.add_argument("--bondslaves", dest="bondslaves")
+        op.add_argument("--bondopts", dest="bondopts")
         return op
 
 def validate_network_interface_name(name):
@@ -647,10 +624,8 @@ def validate_network_interface_name(name):
 class RHEL7_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
-                default="")
-        op.add_option("--bridgeopts", dest="bridgeopts", action="store",
-                default="")
+        op.add_argument("--bridgeslaves", dest="bridgeslaves", action="store", default="")
+        op.add_argument("--bridgeopts", dest="bridgeopts", action="store", default="")
         return op
 
     def parse(self, args):

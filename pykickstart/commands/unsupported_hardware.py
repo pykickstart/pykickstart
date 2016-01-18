@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
 
 class RHEL6_UnsupportedHardware(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -45,10 +42,6 @@ class RHEL6_UnsupportedHardware(KickstartCommand):
         return op
 
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) > 0:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
-
+        self.op.parse_args(args=args, lineno=self.lineno)
         self.unsupported_hardware = True
         return self

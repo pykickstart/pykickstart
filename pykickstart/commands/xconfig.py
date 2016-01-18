@@ -76,28 +76,22 @@ class FC3_XConfig(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--card")
-        op.add_option("--defaultdesktop")
-        op.add_option("--depth", action="store", type="int", nargs=1)
-        op.add_option("--hsync")
-        op.add_option("--monitor")
-        op.add_option("--noprobe", dest="noProbe", action="store_true",
-                      default=False)
-        op.add_option("--resolution")
-        op.add_option("--server")
-        op.add_option("--startxonboot", dest="startX", action="store_true",
-                      default=False)
-        op.add_option("--videoram", dest="videoRam")
-        op.add_option("--vsync")
+        op.add_argument("--card")
+        op.add_argument("--defaultdesktop")
+        op.add_argument("--depth", action="store", type=int)
+        op.add_argument("--hsync")
+        op.add_argument("--monitor")
+        op.add_argument("--noprobe", dest="noProbe", action="store_true", default=False)
+        op.add_argument("--resolution")
+        op.add_argument("--server")
+        op.add_argument("--startxonboot", dest="startX", action="store_true", default=False)
+        op.add_argument("--videoram", dest="videoRam")
+        op.add_argument("--vsync")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        if extra:
-            mapping = {"command": "xconfig", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self
 
 class FC6_XConfig(FC3_XConfig):
@@ -133,13 +127,13 @@ class FC6_XConfig(FC3_XConfig):
 
     def _getParser(self):
         op = FC3_XConfig._getParser(self)
-        op.add_option("--card", deprecated=1)
-        op.add_option("--driver", dest="driver")
-        op.add_option("--hsync", deprecated=1)
-        op.add_option("--monitor", deprecated=1)
-        op.add_option("--noprobe", deprecated=1)
-        op.add_option("--vsync", deprecated=1)
-        op.remove_option("--server")
+        op.add_argument("--card", deprecated=1)
+        op.add_argument("--driver", dest="driver")
+        op.add_argument("--hsync", deprecated=1)
+        op.add_argument("--monitor", deprecated=1)
+        op.add_argument("--noprobe", deprecated=1)
+        op.add_argument("--vsync", deprecated=1)
+        op.remove_argument("--server")
         return op
 
 class F9_XConfig(FC6_XConfig):
@@ -148,11 +142,11 @@ class F9_XConfig(FC6_XConfig):
 
     def _getParser(self):
         op = FC6_XConfig._getParser(self)
-        op.remove_option("--card")
-        op.remove_option("--hsync")
-        op.remove_option("--monitor")
-        op.remove_option("--noprobe")
-        op.remove_option("--vsync")
+        op.remove_argument("--card")
+        op.remove_argument("--hsync")
+        op.remove_argument("--monitor")
+        op.remove_argument("--noprobe")
+        op.remove_argument("--vsync")
         return op
 
 class F10_XConfig(F9_XConfig):
@@ -165,10 +159,10 @@ class F10_XConfig(F9_XConfig):
 
     def _getParser(self):
         op = F9_XConfig._getParser(self)
-        op.add_option("--driver", deprecated=1)
-        op.add_option("--depth", deprecated=1)
-        op.add_option("--resolution", deprecated=1)
-        op.add_option("--videoram", deprecated=1)
+        op.add_argument("--driver", deprecated=1)
+        op.add_argument("--depth", deprecated=1)
+        op.add_argument("--resolution", deprecated=1)
+        op.add_argument("--videoram", deprecated=1)
         return op
 
 class F14_XConfig(F10_XConfig):
@@ -177,8 +171,8 @@ class F14_XConfig(F10_XConfig):
 
     def _getParser(self):
         op = F10_XConfig._getParser(self)
-        op.remove_option("--driver")
-        op.remove_option("--depth")
-        op.remove_option("--resolution")
-        op.remove_option("--videoram")
+        op.remove_argument("--driver")
+        op.remove_argument("--depth")
+        op.remove_argument("--resolution")
+        op.remove_argument("--videoram")
         return op

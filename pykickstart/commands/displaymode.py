@@ -20,7 +20,6 @@
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_TEXT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
@@ -30,7 +29,6 @@ class FC3_DisplayMode(KickstartCommand):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-        self.op = self._getParser()
         self.displayMode = kwargs.get("displayMode", None)
 
     def __str__(self):
@@ -48,14 +46,8 @@ class FC3_DisplayMode(KickstartCommand):
 
         return retval
 
-    def _getParser(self):
-        op = KSOptionParser()
-        return op
-
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-
-        if len(extra) > 0:
+        if len(args) > 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         if self.currentCmd == "cmdline":

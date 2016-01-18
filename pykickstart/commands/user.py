@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 import warnings
 from pykickstart.i18n import _
@@ -142,26 +142,20 @@ class FC6_User(KickstartCommand):
         return retval
 
     def _getParser(self):
-        def groups_cb (option, opt_str, value, parser):
-            for d in value.split(','):
-                parser.values.ensure_value(option.dest, []).append(d)
-
         op = KSOptionParser()
-        op.add_option("--groups", dest="groups", action="callback",
-                      callback=groups_cb, nargs=1, type="string")
-        op.add_option("--homedir")
-        op.add_option("--iscrypted", dest="isCrypted", action="store_true",
-                      default=False)
-        op.add_option("--name", required=1)
-        op.add_option("--password")
-        op.add_option("--shell")
-        op.add_option("--uid", type="int")
+        op.add_argument("--groups", dest="groups", type=commaSplit)
+        op.add_argument("--homedir")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op.add_argument("--name", required=1)
+        op.add_argument("--password")
+        op.add_argument("--shell")
+        op.add_argument("--uid", type=int)
         return op
 
     def parse(self, args):
         ud = self.handler.UserData()
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, ud)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToObj(ns, ud)
         ud.lineno = self.lineno
 
         # Check for duplicates in the data list.
@@ -179,8 +173,8 @@ class F8_User(FC6_User):
 
     def _getParser(self):
         op = FC6_User._getParser(self)
-        op.add_option("--lock", action="store_true", default=False)
-        op.add_option("--plaintext", dest="isCrypted", action="store_false")
+        op.add_argument("--lock", action="store_true", default=False)
+        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
         return op
 
 class F12_User(F8_User):
@@ -189,7 +183,7 @@ class F12_User(F8_User):
 
     def _getParser(self):
         op = F8_User._getParser(self)
-        op.add_option("--gecos", type="string")
+        op.add_argument("--gecos", type=str)
         return op
 
 class F19_User(F12_User):
@@ -198,5 +192,5 @@ class F19_User(F12_User):
 
     def _getParser(self):
         op = F12_User._getParser(self)
-        op.add_option("--gid", type="int")
+        op.add_argument("--gid", type=int)
         return op

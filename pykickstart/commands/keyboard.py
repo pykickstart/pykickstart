@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -51,10 +51,13 @@ class FC3_Keyboard(KickstartCommand):
         return op
 
     def parse(self, args):
-        (_opts, extra) = self.op.parse_args(args=args, lineno=self.lineno) 
+        (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno) 
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "keyboard", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.keyboard = extra[0]
         return self
@@ -105,29 +108,23 @@ class F18_Keyboard(FC3_Keyboard):
         return retval
 
     def _getParser(self):
-        def csv_parse_callback(option, _opt_str, value, parser):
-            for item in value.split(","):
-                if item:
-                    parser.values.ensure_value(option.dest, []).append(item)
-
         op = FC3_Keyboard._getParser(self)
-        op.add_option("--vckeymap", dest="vc_keymap", action="store", default="")
-        op.add_option("--xlayouts", dest="x_layouts", action="callback",
-                      callback=csv_parse_callback, nargs=1, type="string")
-        op.add_option("--switch", dest="switch_options", action="callback",
-                      callback=csv_parse_callback, nargs=1, type="string")
-
+        op.add_argument("--vckeymap", dest="vc_keymap", action="store", default="")
+        op.add_argument("--xlayouts", dest="x_layouts", type=commaSplit)
+        op.add_argument("--switch", dest="switch_options", type=commaSplit)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if len(extra) > 1:
             message = _("A single argument is expected for the %s command") % \
                         "keyboard"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
-
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "keyboard", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
         elif len(extra) == 0 and not self.vc_keymap and not self.x_layouts:
             message = _("One of --xlayouts, --vckeymap options with value(s) "
                         "or argument is expected for the keyboard command")

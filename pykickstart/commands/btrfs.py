@@ -119,48 +119,49 @@ class F17_BTRFS(KickstartCommand):
         return retval
 
     def _getParser(self):
-        # Have to be a little more complicated to set two values.
-        def btrfs_cb (option, opt_str, value, parser):
-            parser.values.format = False
-            parser.values.preexist = True
-
-        def level_cb (option, opt_str, value, parser):
+        def level_cb(value):
             if value.lower() in self.levelMap:
-                parser.values.ensure_value(option.dest, self.levelMap[value.lower()])
+                return self.levelMap[value.lower()]
+            else:
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid btrfs level: %s") % value))
 
         op = KSOptionParser()
-        op.add_option("--noformat", action="callback", callback=btrfs_cb,
-                      dest="format", default=True, nargs=0)
-        op.add_option("--useexisting", action="callback", callback=btrfs_cb,
-                      dest="preexist", default=False, nargs=0)
+        op.add_argument("--noformat", dest="format", action="store_false", default=True)
+        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
 
         # label, data, metadata
-        op.add_option("--label", dest="label", default="")
-        op.add_option("--data", dest="dataLevel", action="callback",
-                      callback=level_cb, type="string", nargs=1)
-        op.add_option("--metadata", dest="metaDataLevel", action="callback",
-                      callback=level_cb, type="string", nargs=1)
+        op.add_argument("--label", dest="label", default="")
+        op.add_argument("--data", dest="dataLevel", type=level_cb)
+        op.add_argument("--metadata", dest="metaDataLevel", type=level_cb)
 
         #
         # subvolumes
         #
-        op.add_option("--subvol", dest="subvol", action="store_true",
-                      default=False)
+        op.add_argument("--subvol", dest="subvol", action="store_true", default=False)
 
         # parent must be a device spec (LABEL, UUID, &c)
-        op.add_option("--parent", dest="parent", default="")
-        op.add_option("--name", dest="name", default="")
+        op.add_argument("--parent", dest="parent", default="")
+        op.add_argument("--name", dest="name", default="")
 
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+
         data = self.handler.BTRFSData()
-        self._setToObj(self.op, opts, data)
+        self._setToObj(ns, data)
         data.lineno = self.lineno
+
+        if not data.format:
+            data.preexist = True
+        elif data.preexist:
+            data.format = False
 
         if len(extra) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "btrfs", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         if len(extra) == 1 and not data.subvol:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
@@ -188,8 +189,7 @@ class F23_BTRFS(F17_BTRFS):
 
     def _getParser(self):
         op = F17_BTRFS._getParser(self)
-        op.add_option("--mkfsoptions", dest="mkfsopts")
-
+        op.add_argument("--mkfsoptions", dest="mkfsopts")
         return op
 
     def parse(self, args):

@@ -63,14 +63,13 @@ class F19_Liveimg(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--url", required=1)
-        op.add_option("--proxy")
-        op.add_option("--noverifyssl", action="store_true", default=False)
-        op.add_option("--checksum")
+        op.add_argument("--url", required=1)
+        op.add_argument("--proxy")
+        op.add_argument("--noverifyssl", action="store_true", default=False)
+        op.add_argument("--checksum")
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
-
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
         return self

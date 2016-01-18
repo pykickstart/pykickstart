@@ -60,15 +60,14 @@ class FC3_HardDrive(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--biospart", dest="biospart")
-        op.add_option("--partition", dest="partition")
-        op.add_option("--dir", dest="dir", required=1)
-
+        op.add_argument("--biospart", dest="biospart")
+        op.add_argument("--partition", dest="partition")
+        op.add_argument("--dir", dest="dir", required=1)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(ns)
 
         if self.biospart is None and self.partition is None or \
            self.biospart is not None and self.partition is not None:

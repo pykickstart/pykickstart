@@ -105,24 +105,27 @@ class FC3_DriverDisk(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--source")
-        op.add_option("--type")
+        op.add_argument("--source")
+        op.add_argument("--type")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "driverdisk", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and opts.source:
+        if len(extra) == 1 and ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")))
 
-        if not extra and not opts.source:
+        if not extra and not ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source or partition must be specified for driverdisk command.")))
 
         ddd = self.handler.DriverDiskData()
-        self._setToObj(self.op, opts, ddd)
+        self._setToObj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:
             ddd.partition = extra[0]
@@ -138,27 +141,30 @@ class FC4_DriverDisk(FC3_DriverDisk):
 
     def _getParser(self):
         op = FC3_DriverDisk._getParser(self)
-        op.add_option("--biospart")
+        op.add_argument("--biospart")
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "driverdisk", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and opts.source:
+        if len(extra) == 1 and ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")))
-        elif len(extra) == 1 and opts.biospart:
+        elif len(extra) == 1 and ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and partition may be specified for driverdisk command.")))
-        elif opts.source and opts.biospart:
+        elif ns.source and ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and --source may be specified for driverdisk command.")))
 
-        if not extra and not opts.source and not opts.biospart:
+        if not extra and not ns.source and not ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command.")))
 
         ddd = self.handler.DriverDiskData()
-        self._setToObj(self.op, opts, ddd)
+        self._setToObj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:
             ddd.partition = extra[0]
@@ -171,7 +177,7 @@ class F12_DriverDisk(FC4_DriverDisk):
 
     def _getParser(self):
         op = FC4_DriverDisk._getParser(self)
-        op.add_option("--type", deprecated=1)
+        op.add_argument("--type", deprecated=1)
         return op
 
 class F14_DriverDisk(F12_DriverDisk):
@@ -180,5 +186,5 @@ class F14_DriverDisk(F12_DriverDisk):
 
     def _getParser(self):
         op = F12_DriverDisk._getParser(self)
-        op.remove_option("--type")
+        op.remove_argument("--type")
         return op

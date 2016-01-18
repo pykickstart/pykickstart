@@ -48,15 +48,12 @@ class FC3_Firstboot(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_option("--disable", "--disabled", dest="firstboot",
-                      action="store_const", const=FIRSTBOOT_SKIP)
-        op.add_option("--enable", "--enabled", dest="firstboot",
-                      action="store_const", const=FIRSTBOOT_DEFAULT)
-        op.add_option("--reconfig", dest="firstboot", action="store_const",
-                      const=FIRSTBOOT_RECONFIG)
+        op.add_argument("--disable", "--disabled", dest="firstboot", action="store_const", const=FIRSTBOOT_SKIP)
+        op.add_argument("--enable", "--enabled", dest="firstboot", action="store_const", const=FIRSTBOOT_DEFAULT)
+        op.add_argument("--reconfig", dest="firstboot", action="store_const", const=FIRSTBOOT_RECONFIG)
         return op
 
     def parse(self, args):
-        (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self.firstboot = opts.firstboot
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.firstboot = ns.firstboot
         return self

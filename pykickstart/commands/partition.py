@@ -283,45 +283,39 @@ class FC3_Partition(KickstartCommand):
             return ""
 
     def _getParser(self):
-        def part_cb (option, opt_str, value, parser):
+        def part_cb(value):
             if value.startswith("/dev/"):
-                parser.values.ensure_value(option.dest, value[5:])
+                return value[5:]
             else:
-                parser.values.ensure_value(option.dest, value)
+                return value
 
         op = KSOptionParser()
-        op.add_option("--active", dest="active", action="store_true",
-                      default=False)
-        op.add_option("--asprimary", dest="primOnly", action="store_true",
-                      default=False)
-        op.add_option("--end", dest="end", action="store", type="int",
-                      nargs=1)
-        op.add_option("--fstype", "--type", dest="fstype")
-        op.add_option("--grow", dest="grow", action="store_true", default=False)
-        op.add_option("--maxsize", dest="maxSizeMB", action="store", type="int",
-                      nargs=1)
-        op.add_option("--noformat", dest="format", action="store_false",
-                      default=True)
-        op.add_option("--onbiosdisk", dest="onbiosdisk")
-        op.add_option("--ondisk", "--ondrive", dest="disk")
-        op.add_option("--onpart", "--usepart", dest="onPart", action="callback",
-                      callback=part_cb, nargs=1, type="string")
-        op.add_option("--recommended", dest="recommended", action="store_true",
-                      default=False)
-        op.add_option("--size", dest="size", action="store", type="int",
-                      nargs=1)
-        op.add_option("--start", dest="start", action="store", type="int",
-                      nargs=1)
+        op.add_argument("--active", dest="active", action="store_true", default=False)
+        op.add_argument("--asprimary", dest="primOnly", action="store_true", default=False)
+        op.add_argument("--end", dest="end", action="store", type=int)
+        op.add_argument("--fstype", "--type", dest="fstype")
+        op.add_argument("--grow", dest="grow", action="store_true", default=False)
+        op.add_argument("--maxsize", dest="maxSizeMB", action="store", type=int)
+        op.add_argument("--noformat", dest="format", action="store_false", default=True)
+        op.add_argument("--onbiosdisk", dest="onbiosdisk")
+        op.add_argument("--ondisk", "--ondrive", dest="disk")
+        op.add_argument("--onpart", "--usepart", dest="onPart", type=part_cb)
+        op.add_argument("--recommended", dest="recommended", action="store_true", default=False)
+        op.add_argument("--size", dest="size", action="store", type=int)
+        op.add_argument("--start", dest="start", action="store", type=int)
         return op
 
     def parse(self, args):
-        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
+        elif any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "partition", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         pd = self.handler.PartData()
-        self._setToObj(self.op, opts, pd)
+        self._setToObj(ns, pd)
         pd.lineno = self.lineno
         pd.mountpoint=extra[0]
 
@@ -340,10 +334,9 @@ class FC4_Partition(FC3_Partition):
 
     def _getParser(self):
         op = FC3_Partition._getParser(self)
-        op.add_option("--bytes-per-inode", dest="bytesPerInode", action="store",
-                      type="int", nargs=1)
-        op.add_option("--fsoptions", dest="fsopts")
-        op.add_option("--label", dest="label")
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", action="store", type=int)
+        op.add_argument("--fsoptions", dest="fsopts")
+        op.add_argument("--label", dest="label")
         return op
 
 class RHEL5_Partition(FC4_Partition):
@@ -352,8 +345,8 @@ class RHEL5_Partition(FC4_Partition):
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
-        op.add_option("--encrypted", action="store_true", default=False)
-        op.add_option("--passphrase")
+        op.add_argument("--encrypted", action="store_true", default=False)
+        op.add_argument("--passphrase")
         return op
 
 class F9_Partition(FC4_Partition):
@@ -362,10 +355,10 @@ class F9_Partition(FC4_Partition):
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
-        op.add_option("--bytes-per-inode", deprecated=1)
-        op.add_option("--fsprofile")
-        op.add_option("--encrypted", action="store_true", default=False)
-        op.add_option("--passphrase")
+        op.add_argument("--bytes-per-inode", deprecated=1)
+        op.add_argument("--fsprofile")
+        op.add_argument("--encrypted", action="store_true", default=False)
+        op.add_argument("--passphrase")
         return op
 
 class F11_Partition(F9_Partition):
@@ -374,8 +367,8 @@ class F11_Partition(F9_Partition):
 
     def _getParser(self):
         op = F9_Partition._getParser(self)
-        op.add_option("--start", deprecated=1)
-        op.add_option("--end", deprecated=1)
+        op.add_argument("--start", deprecated=1)
+        op.add_argument("--end", deprecated=1)
         return op
 
 class F12_Partition(F11_Partition):
@@ -384,8 +377,8 @@ class F12_Partition(F11_Partition):
 
     def _getParser(self):
         op = F11_Partition._getParser(self)
-        op.add_option("--escrowcert")
-        op.add_option("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert")
+        op.add_argument("--backuppassphrase", action="store_true", default=False)
         return op
 
 class RHEL6_Partition(F12_Partition):
@@ -394,9 +387,8 @@ class RHEL6_Partition(F12_Partition):
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
-        op.add_option("--cipher")
-        op.add_option("--hibernation", dest="hibernation", action="store_true",
-                        default=False)
+        op.add_argument("--cipher")
+        op.add_argument("--hibernation", dest="hibernation", action="store_true", default=False)
         return op
 
     def parse(self, args):
@@ -415,9 +407,9 @@ class F14_Partition(F12_Partition):
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
-        op.remove_option("--bytes-per-inode")
-        op.remove_option("--start")
-        op.remove_option("--end")
+        op.remove_argument("--bytes-per-inode")
+        op.remove_argument("--start")
+        op.remove_argument("--end")
         return op
 
 class F17_Partition(F14_Partition):
@@ -426,7 +418,7 @@ class F17_Partition(F14_Partition):
 
     def _getParser(self):
         op = F14_Partition._getParser(self)
-        op.add_option("--resize", action="store_true", default=False)
+        op.add_argument("--resize", action="store_true", default=False)
         return op
 
     def parse(self, args):
@@ -446,9 +438,8 @@ class F18_Partition(F17_Partition):
 
     def _getParser(self):
         op = F17_Partition._getParser(self)
-        op.add_option("--hibernation", dest="hibernation", action="store_true", default=False)
-        op.add_option("--cipher")
-
+        op.add_argument("--hibernation", dest="hibernation", action="store_true", default=False)
+        op.add_argument("--cipher")
         return op
 
 class F20_Partition(F18_Partition):
@@ -478,8 +469,7 @@ class F23_Partition(F20_Partition):
 
     def _getParser(self):
         op = F20_Partition._getParser(self)
-        op.add_option("--mkfsoptions", dest="mkfsopts")
-
+        op.add_argument("--mkfsoptions", dest="mkfsopts")
         return op
 
     def parse(self, args):
