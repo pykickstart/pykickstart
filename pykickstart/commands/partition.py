@@ -355,7 +355,7 @@ class F9_Partition(FC4_Partition):
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=1)
+        op.add_argument("--bytes-per-inode", deprecated=True)
         op.add_argument("--fsprofile")
         op.add_argument("--encrypted", action="store_true", default=False)
         op.add_argument("--passphrase")
@@ -367,8 +367,8 @@ class F11_Partition(F9_Partition):
 
     def _getParser(self):
         op = F9_Partition._getParser(self)
-        op.add_argument("--start", deprecated=1)
-        op.add_argument("--end", deprecated=1)
+        op.add_argument("--start", deprecated=True)
+        op.add_argument("--end", deprecated=True)
         return op
 
 class F12_Partition(F11_Partition):

@@ -170,7 +170,7 @@ class FC6_Repo(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--name", required=1)
+        op.add_argument("--name", required=True)
         op.add_argument("--baseurl")
         op.add_argument("--mirrorlist")
         return op

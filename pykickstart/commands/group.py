@@ -71,7 +71,7 @@ class F12_Group(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--name", required=1)
+        op.add_argument("--name", required=True)
         op.add_argument("--gid", type=int)
         return op
 

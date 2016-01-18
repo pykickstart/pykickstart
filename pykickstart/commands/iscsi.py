@@ -125,7 +125,7 @@ class FC6_Iscsi(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--target")
-        op.add_argument("--ipaddr", required=1)
+        op.add_argument("--ipaddr", required=True)
         op.add_argument("--port")
         op.add_argument("--user")
         op.add_argument("--password")

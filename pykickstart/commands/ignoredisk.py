@@ -42,7 +42,7 @@ class FC3_IgnoreDisk(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--drives", dest="ignoredisk", type=commaSplit, required=1)
+        op.add_argument("--drives", dest="ignoredisk", type=commaSplit, required=True)
         return op
 
     def parse(self, args):

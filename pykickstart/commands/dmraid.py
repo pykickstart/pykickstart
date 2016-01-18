@@ -72,8 +72,8 @@ class FC6_DmRaid(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--name", required=1)
-        op.add_argument("--dev", dest="devices", action="append", required=1)
+        op.add_argument("--name", required=True)
+        op.add_argument("--dev", dest="devices", action="append", required=True)
         return op
 
     def parse(self, args):

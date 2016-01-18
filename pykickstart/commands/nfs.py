@@ -50,8 +50,8 @@ class FC3_NFS(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--server", required=1)
-        op.add_argument("--dir", required=1)
+        op.add_argument("--server", required=True)
+        op.add_argument("--dir", required=True)
         return op
 
     def parse(self, args):

@@ -101,8 +101,8 @@ class FC3_Firewall(KickstartCommand):
         op.add_argument("--smtp", dest="ports", action="append_const", const="25:tcp")
         op.add_argument("--ssh", dest="ports", action="append_const", const="22:tcp")
         op.add_argument("--telnet", dest="ports", action="append_const", const="23:tcp")
-        op.add_argument("--high", deprecated=1)
-        op.add_argument("--medium", deprecated=1)
+        op.add_argument("--high", deprecated=True)
+        op.add_argument("--medium", deprecated=True)
         op.add_argument("--port", dest="ports", action=ExtendAction, type=firewall_port_cb)
         op.add_argument("--trust", dest="trusts", action="append")
         return op
@@ -155,7 +155,7 @@ class F10_Firewall(F9_Firewall):
         op.add_argument("--http", dest="services", action="append_const", const="http")
         op.add_argument("--smtp", dest="services", action="append_const", const="smtp")
         op.add_argument("--ssh", dest="services", action="append_const", const="ssh")
-        op.add_argument("--telnet", deprecated=1)
+        op.add_argument("--telnet", deprecated=True)
         return op
 
 class F14_Firewall(F10_Firewall):

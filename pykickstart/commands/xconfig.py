@@ -124,12 +124,12 @@ class FC6_XConfig(FC3_XConfig):
 
     def _getParser(self):
         op = FC3_XConfig._getParser(self)
-        op.add_argument("--card", deprecated=1)
+        op.add_argument("--card", deprecated=True)
         op.add_argument("--driver")
-        op.add_argument("--hsync", deprecated=1)
-        op.add_argument("--monitor", deprecated=1)
-        op.add_argument("--noprobe", deprecated=1)
-        op.add_argument("--vsync", deprecated=1)
+        op.add_argument("--hsync", deprecated=True)
+        op.add_argument("--monitor", deprecated=True)
+        op.add_argument("--noprobe", deprecated=True)
+        op.add_argument("--vsync", deprecated=True)
         op.remove_argument("--server")
         return op
 
@@ -156,10 +156,10 @@ class F10_XConfig(F9_XConfig):
 
     def _getParser(self):
         op = F9_XConfig._getParser(self)
-        op.add_argument("--driver", deprecated=1)
-        op.add_argument("--depth", deprecated=1)
-        op.add_argument("--resolution", deprecated=1)
-        op.add_argument("--videoram", deprecated=1)
+        op.add_argument("--driver", deprecated=True)
+        op.add_argument("--depth", deprecated=True)
+        op.add_argument("--resolution", deprecated=True)
+        op.add_argument("--videoram", deprecated=True)
         return op
 
 class F14_XConfig(F10_XConfig):

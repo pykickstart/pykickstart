@@ -291,7 +291,7 @@ class FC3_Raid(KickstartCommand):
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid raid level: %s") % value))
 
         op = KSOptionParser()
-        op.add_argument("--device", type=device_cb, required=1)
+        op.add_argument("--device", type=device_cb, required=True)
         op.add_argument("--fstype")
         op.add_argument("--level", type=level_cb)
         op.add_argument("--noformat", dest="format", action="store_false", default=True)
@@ -400,7 +400,7 @@ class F9_Raid(F7_Raid):
 
     def _getParser(self):
         op = F7_Raid._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=1)
+        op.add_argument("--bytes-per-inode", deprecated=True)
         op.add_argument("--fsprofile")
         op.add_argument("--encrypted", action="store_true", default=False)
         op.add_argument("--passphrase")

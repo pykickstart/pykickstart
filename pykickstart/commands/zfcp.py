@@ -92,11 +92,11 @@ class FC3_ZFCP(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--devnum", required=1)
-        op.add_argument("--fcplun", required=1)
-        op.add_argument("--scsiid", required=1)
-        op.add_argument("--scsilun", required=1)
-        op.add_argument("--wwpn", required=1)
+        op.add_argument("--devnum", required=True)
+        op.add_argument("--fcplun", required=True)
+        op.add_argument("--scsiid", required=True)
+        op.add_argument("--scsilun", required=True)
+        op.add_argument("--wwpn", required=True)
         return op
 
     def parse(self, args):
@@ -131,8 +131,8 @@ class F12_ZFCP(FC3_ZFCP):
 
     def _getParser(self):
         op = FC3_ZFCP._getParser(self)
-        op.add_argument("--scsiid", deprecated=1)
-        op.add_argument("--scsilun", deprecated=1)
+        op.add_argument("--scsiid", deprecated=True)
+        op.add_argument("--scsilun", deprecated=True)
         return op
 
 class F14_ZFCP(F12_ZFCP):

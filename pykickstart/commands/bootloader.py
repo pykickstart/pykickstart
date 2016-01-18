@@ -169,7 +169,7 @@ class F12_Bootloader(F8_Bootloader):
 
     def _getParser(self):
         op = F8_Bootloader._getParser(self)
-        op.add_argument("--lba32", dest="forceLBA", deprecated=1, action="store_true")
+        op.add_argument("--lba32", dest="forceLBA", deprecated=True, action="store_true")
         return op
 
 class F14_Bootloader(F12_Bootloader):

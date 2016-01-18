@@ -177,7 +177,7 @@ class F12_DriverDisk(FC4_DriverDisk):
 
     def _getParser(self):
         op = FC4_DriverDisk._getParser(self)
-        op.add_argument("--type", deprecated=1)
+        op.add_argument("--type", deprecated=True)
         return op
 
 class F14_DriverDisk(F12_DriverDisk):

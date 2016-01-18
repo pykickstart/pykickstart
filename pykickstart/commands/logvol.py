@@ -369,13 +369,13 @@ class FC3_LogVol(KickstartCommand):
         op.add_argument("--fstype")
         op.add_argument("--grow", action="store_true", default=False)
         op.add_argument("--maxsize", dest="maxSizeMB", type=int)
-        op.add_argument("--name", required=1)
+        op.add_argument("--name", required=True)
         op.add_argument("--noformat", action="store_false", dest="format", default=True)
         op.add_argument("--percent", dest="percent", type=int)
         op.add_argument("--recommended", action="store_true", default=False)
         op.add_argument("--size", type=int)
         op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
-        op.add_argument("--vgname", required=1)
+        op.add_argument("--vgname", required=True)
         return op
 
     def parse(self, args):
@@ -430,7 +430,7 @@ class F9_LogVol(FC4_LogVol):
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=1)
+        op.add_argument("--bytes-per-inode", deprecated=True)
         op.add_argument("--fsprofile")
         op.add_argument("--encrypted", action="store_true", default=False)
         op.add_argument("--passphrase")

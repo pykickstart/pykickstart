@@ -146,7 +146,7 @@ class FC6_User(KickstartCommand):
         op.add_argument("--groups", type=commaSplit)
         op.add_argument("--homedir")
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--name", required=1)
+        op.add_argument("--name", required=True)
         op.add_argument("--password")
         op.add_argument("--shell")
         op.add_argument("--uid", type=int)

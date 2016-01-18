@@ -52,7 +52,7 @@ class FC3_Url(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--url", required=1)
+        op.add_argument("--url", required=True)
         return op
 
     def parse(self, args):

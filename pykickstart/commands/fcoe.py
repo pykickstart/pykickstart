@@ -103,7 +103,7 @@ class F12_Fcoe(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--nic", required=1)
+        op.add_argument("--nic", required=True)
         return op
 
     def parse(self, args):
