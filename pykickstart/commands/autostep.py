@@ -44,7 +44,7 @@ class FC3_AutoStep(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--autoscreenshot", dest="autoscreenshot", action="store_true", default=False)
+        op.add_argument("--autoscreenshot", action="store_true", default=False)
         return op
 
     def parse(self, args):

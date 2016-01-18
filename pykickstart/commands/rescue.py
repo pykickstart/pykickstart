@@ -52,8 +52,8 @@ class F10_Rescue(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--nomount", dest="nomount", action="store_true", default=False)
-        op.add_argument("--romount", dest="romount", action="store_true", default=False)
+        op.add_argument("--nomount", action="store_true", default=False)
+        op.add_argument("--romount", action="store_true", default=False)
         return op
 
     def parse(self, args):

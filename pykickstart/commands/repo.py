@@ -170,7 +170,7 @@ class FC6_Repo(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--name", dest="name", required=1)
+        op.add_argument("--name", required=1)
         op.add_argument("--baseurl")
         op.add_argument("--mirrorlist")
         return op
@@ -212,7 +212,7 @@ class F8_Repo(FC6_Repo):
 
     def _getParser(self):
         op = FC6_Repo._getParser(self)
-        op.add_argument("--cost", action="store", type=int)
+        op.add_argument("--cost", type=int)
         op.add_argument("--excludepkgs", type=commaSplit)
         op.add_argument("--includepkgs", type=commaSplit)
         return op
@@ -231,7 +231,7 @@ class F11_Repo(F8_Repo):
 
     def _getParser(self):
         op = F8_Repo._getParser(self)
-        op.add_argument("--ignoregroups", action="store", type=ksboolean)
+        op.add_argument("--ignoregroups", type=ksboolean)
         return op
 
 class F13_Repo(F11_Repo):

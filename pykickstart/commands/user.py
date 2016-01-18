@@ -143,7 +143,7 @@ class FC6_User(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--groups", dest="groups", type=commaSplit)
+        op.add_argument("--groups", type=commaSplit)
         op.add_argument("--homedir")
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
         op.add_argument("--name", required=1)
@@ -183,7 +183,7 @@ class F12_User(F8_User):
 
     def _getParser(self):
         op = F8_User._getParser(self)
-        op.add_argument("--gecos", type=str)
+        op.add_argument("--gecos")
         return op
 
 class F19_User(F12_User):

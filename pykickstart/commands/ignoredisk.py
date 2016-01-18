@@ -120,7 +120,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
     def _getParser(self):
         op = F8_IgnoreDisk._getParser(self)
-        op.add_argument("--interactive", dest="interactive", action="store_true", default=False)
+        op.add_argument("--interactive", action="store_true", default=False)
         return op
 
 F14_IgnoreDisk = RHEL6_IgnoreDisk

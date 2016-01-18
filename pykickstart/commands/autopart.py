@@ -252,7 +252,7 @@ class F17_AutoPart(F16_AutoPart):
 
         op = F16_AutoPart._getParser(self)
         op.add_argument("--nolvm", action="store_const", const=AUTOPART_TYPE_PLAIN, dest="type")
-        op.add_argument("--type", dest="type", type=type_cb)
+        op.add_argument("--type", type=type_cb)
         return op
 
     def parse(self, args):

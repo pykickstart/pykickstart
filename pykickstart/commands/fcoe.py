@@ -103,7 +103,7 @@ class F12_Fcoe(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--nic", dest="nic", required=1)
+        op.add_argument("--nic", required=1)
         return op
 
     def parse(self, args):
@@ -128,7 +128,7 @@ class F13_Fcoe(F12_Fcoe):
 
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
-        op.add_argument("--dcb", dest="dcb", action="store_true", default=False)
+        op.add_argument("--dcb", action="store_true", default=False)
         return op
 
 class RHEL7_Fcoe(F13_Fcoe):
@@ -137,5 +137,5 @@ class RHEL7_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_argument("--autovlan", dest="autovlan", action="store_true", default=False)
+        op.add_argument("--autovlan", action="store_true", default=False)
         return op

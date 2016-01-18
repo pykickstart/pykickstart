@@ -124,11 +124,11 @@ class FC6_Iscsi(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--target", dest="target", action="store", type=str)
-        op.add_argument("--ipaddr", dest="ipaddr", action="store", type=str, required=1)
-        op.add_argument("--port", dest="port", action="store", type=str)
-        op.add_argument("--user", dest="user", action="store", type=str)
-        op.add_argument("--password", dest="password", action="store", type=str)
+        op.add_argument("--target")
+        op.add_argument("--ipaddr", required=1)
+        op.add_argument("--port")
+        op.add_argument("--user")
+        op.add_argument("--password")
         return op
 
     def parse(self, args):
@@ -147,8 +147,8 @@ class F10_Iscsi(FC6_Iscsi):
 
     def _getParser(self):
         op = FC6_Iscsi._getParser(self)
-        op.add_argument("--reverse-user", dest="user_in", action="store", type=str)
-        op.add_argument("--reverse-password", dest="password_in", action="store", type=str)
+        op.add_argument("--reverse-user", dest="user_in")
+        op.add_argument("--reverse-password", dest="password_in")
         return op
 
 class RHEL6_Iscsi(F10_Iscsi):
@@ -157,7 +157,7 @@ class RHEL6_Iscsi(F10_Iscsi):
 
     def _getParser(self):
         op = F10_Iscsi._getParser(self)
-        op.add_argument("--iface", dest="iface", action="store", type=str)
+        op.add_argument("--iface")
         return op
 
 class F17_Iscsi(F10_Iscsi):
@@ -166,5 +166,5 @@ class F17_Iscsi(F10_Iscsi):
 
     def _getParser(self):
         op = F10_Iscsi._getParser(self)
-        op.add_argument("--iface", dest="iface", action="store", type=str)
+        op.add_argument("--iface")
         return op

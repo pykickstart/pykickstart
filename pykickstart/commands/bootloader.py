@@ -79,16 +79,16 @@ class FC3_Bootloader(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--append", dest="appendLine")
-        op.add_argument("--linear", dest="linear", action="store_true", default=True)
+        op.add_argument("--linear", action="store_true", default=True)
         op.add_argument("--nolinear", dest="linear", action="store_false")
-        op.add_argument("--location", dest="location", default="mbr",
+        op.add_argument("--location", default="mbr",
                         choices=["mbr", "partition", "none", "boot"])
         op.add_argument("--lba32", dest="forceLBA", action="store_true", default=False)
-        op.add_argument("--password", dest="password", default="")
-        op.add_argument("--md5pass", dest="md5pass", default="")
-        op.add_argument("--upgrade", dest="upgrade", action="store_true", default=False)
-        op.add_argument("--useLilo", dest="useLilo", action="store_true", default=False)
-        op.add_argument("--driveorder", dest="driveorder", type=commaSplit)
+        op.add_argument("--password", default="")
+        op.add_argument("--md5pass", default="")
+        op.add_argument("--upgrade", action="store_true", default=False)
+        op.add_argument("--useLilo", action="store_true", default=False)
+        op.add_argument("--driveorder", type=commaSplit)
         return op
 
     def parse(self, args):
@@ -159,8 +159,8 @@ class F8_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_argument("--timeout", dest="timeout", type=int)
-        op.add_argument("--default", dest="default")
+        op.add_argument("--timeout", type=int)
+        op.add_argument("--default")
         return op
 
 class F12_Bootloader(F8_Bootloader):
@@ -201,7 +201,7 @@ class F15_Bootloader(F14_Bootloader):
     def _getParser(self):
         op = F14_Bootloader._getParser(self)
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--md5pass", dest="_md5pass", type=str)
+        op.add_argument("--md5pass", dest="_md5pass")
         return op
 
     def parse(self, args):
@@ -266,7 +266,7 @@ class F18_Bootloader(F17_Bootloader):
 
     def _getParser(self):
         op = F17_Bootloader._getParser(self)
-        op.add_argument("--leavebootorder", dest="leavebootorder", action="store_true", default=False)
+        op.add_argument("--leavebootorder", action="store_true", default=False)
         return op
 
 class RHEL5_Bootloader(FC4_Bootloader):
@@ -288,7 +288,7 @@ class RHEL5_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_argument("--hvargs", dest="hvArgs", type=str)
+        op.add_argument("--hvargs", dest="hvArgs")
         return op
 
 class RHEL6_Bootloader(F12_Bootloader):
@@ -311,7 +311,7 @@ class RHEL6_Bootloader(F12_Bootloader):
     def _getParser(self):
         op = F12_Bootloader._getParser(self)
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--md5pass", dest="_md5pass", type=str)
+        op.add_argument("--md5pass", dest="_md5pass")
         return op
 
     def parse(self, args):
@@ -346,7 +346,7 @@ class F19_Bootloader(F18_Bootloader):
 
     def _getParser(self):
         op = F18_Bootloader._getParser(self)
-        op.add_argument("--extlinux", dest="extlinux", action="store_true", default=False)
+        op.add_argument("--extlinux", action="store_true", default=False)
         return op
 
 class F21_Bootloader(F19_Bootloader):
@@ -370,8 +370,8 @@ class F21_Bootloader(F19_Bootloader):
 
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
-        op.add_argument("--disabled", dest="disabled", action="store_true", default=False)
-        op.add_argument("--nombr", dest="nombr", action="store_true", default=False)
+        op.add_argument("--disabled", action="store_true", default=False)
+        op.add_argument("--nombr", action="store_true", default=False)
         return op
 
 RHEL7_Bootloader = F21_Bootloader

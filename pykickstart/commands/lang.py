@@ -76,5 +76,5 @@ class F19_Lang(FC3_Lang):
 
     def _getParser(self):
         op = FC3_Lang._getParser(self)
-        op.add_argument("--addsupport", dest="addsupport", type=commaSplit)
+        op.add_argument("--addsupport", type=commaSplit)
         return op

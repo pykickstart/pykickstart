@@ -290,19 +290,19 @@ class FC3_Partition(KickstartCommand):
                 return value
 
         op = KSOptionParser()
-        op.add_argument("--active", dest="active", action="store_true", default=False)
+        op.add_argument("--active", action="store_true", default=False)
         op.add_argument("--asprimary", dest="primOnly", action="store_true", default=False)
-        op.add_argument("--end", dest="end", action="store", type=int)
+        op.add_argument("--end", type=int)
         op.add_argument("--fstype", "--type", dest="fstype")
-        op.add_argument("--grow", dest="grow", action="store_true", default=False)
-        op.add_argument("--maxsize", dest="maxSizeMB", action="store", type=int)
+        op.add_argument("--grow", action="store_true", default=False)
+        op.add_argument("--maxsize", dest="maxSizeMB", type=int)
         op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--onbiosdisk", dest="onbiosdisk")
+        op.add_argument("--onbiosdisk")
         op.add_argument("--ondisk", "--ondrive", dest="disk")
         op.add_argument("--onpart", "--usepart", dest="onPart", type=part_cb)
-        op.add_argument("--recommended", dest="recommended", action="store_true", default=False)
-        op.add_argument("--size", dest="size", action="store", type=int)
-        op.add_argument("--start", dest="start", action="store", type=int)
+        op.add_argument("--recommended", action="store_true", default=False)
+        op.add_argument("--size", type=int)
+        op.add_argument("--start", type=int)
         return op
 
     def parse(self, args):
@@ -334,9 +334,9 @@ class FC4_Partition(FC3_Partition):
 
     def _getParser(self):
         op = FC3_Partition._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", action="store", type=int)
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
         op.add_argument("--fsoptions", dest="fsopts")
-        op.add_argument("--label", dest="label")
+        op.add_argument("--label")
         return op
 
 class RHEL5_Partition(FC4_Partition):
@@ -388,7 +388,7 @@ class RHEL6_Partition(F12_Partition):
     def _getParser(self):
         op = F12_Partition._getParser(self)
         op.add_argument("--cipher")
-        op.add_argument("--hibernation", dest="hibernation", action="store_true", default=False)
+        op.add_argument("--hibernation", action="store_true", default=False)
         return op
 
     def parse(self, args):
@@ -438,7 +438,7 @@ class F18_Partition(F17_Partition):
 
     def _getParser(self):
         op = F17_Partition._getParser(self)
-        op.add_argument("--hibernation", dest="hibernation", action="store_true", default=False)
+        op.add_argument("--hibernation", action="store_true", default=False)
         op.add_argument("--cipher")
         return op
 

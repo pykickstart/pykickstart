@@ -50,8 +50,8 @@ class RHEL3_Mouse(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--device", dest="device", default="")
-        op.add_argument("--emulthree", dest="emulthree", default=False, action="store_true")
+        op.add_argument("--device", default="")
+        op.add_argument("--emulthree", default=False, action="store_true")
         return op
 
     def parse(self, args):

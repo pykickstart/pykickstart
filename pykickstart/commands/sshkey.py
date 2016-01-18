@@ -76,7 +76,7 @@ class F22_SshKey(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--username", dest="username", required=True)
+        op.add_argument("--username", required=True)
         return op
 
     def parse(self, args):

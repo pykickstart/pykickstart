@@ -130,18 +130,18 @@ class F17_BTRFS(KickstartCommand):
         op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
 
         # label, data, metadata
-        op.add_argument("--label", dest="label", default="")
+        op.add_argument("--label", default="")
         op.add_argument("--data", dest="dataLevel", type=level_cb)
         op.add_argument("--metadata", dest="metaDataLevel", type=level_cb)
 
         #
         # subvolumes
         #
-        op.add_argument("--subvol", dest="subvol", action="store_true", default=False)
+        op.add_argument("--subvol", action="store_true", default=False)
 
         # parent must be a device spec (LABEL, UUID, &c)
-        op.add_argument("--parent", dest="parent", default="")
-        op.add_argument("--name", dest="name", default="")
+        op.add_argument("--parent", default="")
+        op.add_argument("--name", default="")
 
         return op
 

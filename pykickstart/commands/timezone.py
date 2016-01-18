@@ -119,7 +119,7 @@ class F18_Timezone(FC6_Timezone):
 
     def _getParser(self):
         op = FC6_Timezone._getParser(self)
-        op.add_argument("--nontp", dest="nontp", action="store_true", default=False)
+        op.add_argument("--nontp", action="store_true", default=False)
         op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit)
         return op
 
@@ -143,8 +143,8 @@ class F23_Timezone(F18_Timezone):
 
     def _getParser(self):
         op = FC6_Timezone._getParser(self)
-        op.add_argument("--nontp", dest="nontp", action="store_true", default=False)
-        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit)
+        op.add_argument("--nontp", action="store_true", default=False)
+        op.add_argument("--ntpservers", type=commaSplit)
         return op
 
     def parse(self, args):

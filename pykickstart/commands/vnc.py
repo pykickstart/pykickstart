@@ -50,7 +50,7 @@ class FC3_Vnc(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--connect")
-        op.add_argument("--password", dest="password")
+        op.add_argument("--password")
         return op
 
     def parse(self, args):
@@ -90,9 +90,9 @@ class FC6_Vnc(FC3_Vnc):
 
     def _getParser(self):
         op = FC3_Vnc._getParser(self)
-        op.add_argument("--connect", dest="_connect", type=str)
-        op.add_argument("--host", dest="host")
-        op.add_argument("--port", dest="port")
+        op.add_argument("--connect", dest="_connect")
+        op.add_argument("--host")
+        op.add_argument("--port")
         return op
 
     def parse(self, args):

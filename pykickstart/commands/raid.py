@@ -291,11 +291,11 @@ class FC3_Raid(KickstartCommand):
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid raid level: %s") % value))
 
         op = KSOptionParser()
-        op.add_argument("--device", dest="device", type=device_cb, required=1)
-        op.add_argument("--fstype", dest="fstype")
-        op.add_argument("--level", dest="level", type=level_cb)
+        op.add_argument("--device", type=device_cb, required=1)
+        op.add_argument("--fstype")
+        op.add_argument("--level", type=level_cb)
         op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--spares", dest="spares", action="store", type=int, default=0)
+        op.add_argument("--spares", type=int, default=0)
         op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
         return op
 
@@ -367,7 +367,7 @@ class FC5_Raid(FC4_Raid):
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", action="store", type=int)
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
         return op
 
 class RHEL5_Raid(FC5_Raid):

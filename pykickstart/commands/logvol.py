@@ -366,16 +366,16 @@ class FC3_LogVol(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--fstype", dest="fstype")
-        op.add_argument("--grow", dest="grow", action="store_true", default=False)
-        op.add_argument("--maxsize", dest="maxSizeMB", action="store", type=int)
-        op.add_argument("--name", dest="name", required=1)
+        op.add_argument("--fstype")
+        op.add_argument("--grow", action="store_true", default=False)
+        op.add_argument("--maxsize", dest="maxSizeMB", type=int)
+        op.add_argument("--name", required=1)
         op.add_argument("--noformat", action="store_false", dest="format", default=True)
-        op.add_argument("--percent", dest="percent", action="store", type=int)
-        op.add_argument("--recommended", dest="recommended", action="store_true", default=False)
-        op.add_argument("--size", dest="size", action="store", type=int)
+        op.add_argument("--percent", dest="percent", type=int)
+        op.add_argument("--recommended", action="store_true", default=False)
+        op.add_argument("--size", type=int)
         op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
-        op.add_argument("--vgname", dest="vgname", required=1)
+        op.add_argument("--vgname", required=1)
         return op
 
     def parse(self, args):
@@ -410,7 +410,7 @@ class FC4_LogVol(FC3_LogVol):
 
     def _getParser(self):
         op = FC3_LogVol._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", action="store", type=int)
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
         op.add_argument("--fsoptions", dest="fsopts")
         return op
 
@@ -431,7 +431,7 @@ class F9_LogVol(FC4_LogVol):
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
         op.add_argument("--bytes-per-inode", deprecated=1)
-        op.add_argument("--fsprofile", dest="fsprofile", action="store", type=str)
+        op.add_argument("--fsprofile")
         op.add_argument("--encrypted", action="store_true", default=False)
         op.add_argument("--passphrase")
         return op
@@ -453,7 +453,7 @@ class RHEL6_LogVol(F12_LogVol):
     def _getParser(self):
         op = F12_LogVol._getParser(self)
         op.add_argument("--cipher")
-        op.add_argument("--hibernation", dest="hibernation", action="store_true", default=False)
+        op.add_argument("--hibernation", action="store_true", default=False)
 
         op.add_argument("--thinpool", action="store_true", dest="thin_pool", default=False)
         op.add_argument("--thin", action="store_true", dest="thin_volume", default=False)
@@ -631,7 +631,7 @@ class F23_LogVol(F21_LogVol):
     def _getParser(self):
         op = F21_LogVol._getParser(self)
         op.add_argument("--cachesize", type=int, dest="cache_size")
-        op.add_argument("--cachemode", type=str, action="store", dest="cache_mode")
+        op.add_argument("--cachemode", dest="cache_mode")
         op.add_argument("--cachepvs", dest="cache_pvs", type=commaSplit)
         op.add_argument("--mkfsoptions", dest="mkfsopts")
         return op

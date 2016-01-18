@@ -72,7 +72,7 @@ class FC6_Reboot(FC3_Reboot):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--eject", dest="eject", action="store_true", default=False)
+        op.add_argument("--eject", action="store_true", default=False)
         return op
 
     def parse(self, args):
@@ -124,5 +124,5 @@ class F23_Reboot(F18_Reboot):
 
     def _getParser(self):
         op = F18_Reboot._getParser(self)
-        op.add_argument("--kexec", dest="kexec", action="store_true", default=False)
+        op.add_argument("--kexec", action="store_true", default=False)
         return op

@@ -60,9 +60,9 @@ class FC3_HardDrive(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--biospart", dest="biospart")
-        op.add_argument("--partition", dest="partition")
-        op.add_argument("--dir", dest="dir", required=1)
+        op.add_argument("--biospart")
+        op.add_argument("--partition")
+        op.add_argument("--dir", required=1)
         return op
 
     def parse(self, args):

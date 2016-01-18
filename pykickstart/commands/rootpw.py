@@ -89,7 +89,7 @@ class F8_RootPw(FC3_RootPw):
 
     def _getParser(self):
         op = FC3_RootPw._getParser(self)
-        op.add_argument("--lock", dest="lock", action="store_true", default=False)
+        op.add_argument("--lock", action="store_true", default=False)
         op.add_argument("--plaintext", dest="isCrypted", action="store_false")
         return op
 

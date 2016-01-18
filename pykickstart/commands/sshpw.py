@@ -110,10 +110,10 @@ class F13_SshPw(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--username", dest="username", required=True)
+        op.add_argument("--username", required=True)
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
         op.add_argument("--plaintext", dest="isCrypted", action="store_false")
-        op.add_argument("--lock", dest="lock", action="store_true", default=False)
+        op.add_argument("--lock", action="store_true", default=False)
         return op
 
     def parse(self, args):

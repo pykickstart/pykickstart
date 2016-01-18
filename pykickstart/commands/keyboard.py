@@ -109,7 +109,7 @@ class F18_Keyboard(FC3_Keyboard):
 
     def _getParser(self):
         op = FC3_Keyboard._getParser(self)
-        op.add_argument("--vckeymap", dest="vc_keymap", action="store", default="")
+        op.add_argument("--vckeymap", dest="vc_keymap", default="")
         op.add_argument("--xlayouts", dest="x_layouts", type=commaSplit)
         op.add_argument("--switch", dest="switch_options", type=commaSplit)
         return op

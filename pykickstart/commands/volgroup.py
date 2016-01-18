@@ -110,7 +110,7 @@ class FC3_VolGroup(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--pesize", dest="pesize", type=int, default=32768)
+        op.add_argument("--pesize", type=int, default=32768)
         op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
         return op
 
@@ -204,7 +204,7 @@ class F20_VolGroup(FC16_VolGroup):
 class F21_VolGroup(F20_VolGroup):
     def _getParser(self):
         op = F20_VolGroup._getParser(self)
-        op.add_argument("--pesize", dest="pesize", type=int, default=0)
+        op.add_argument("--pesize", type=int, default=0)
 
         return op
 

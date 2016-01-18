@@ -50,8 +50,8 @@ class FC6_Services(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--disabled", dest="disabled", type=commaSplit)
-        op.add_argument("--enabled", dest="enabled", type=commaSplit)
+        op.add_argument("--disabled", type=commaSplit)
+        op.add_argument("--enabled", type=commaSplit)
         return op
 
     def parse(self, args):

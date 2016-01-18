@@ -64,7 +64,7 @@ class FC3_ClearPart(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--all", dest="type", action="store_const", const=CLEARPART_TYPE_ALL)
-        op.add_argument("--drives", dest="drives", type=commaSplit)
+        op.add_argument("--drives", type=commaSplit)
         op.add_argument("--initlabel", dest="initAll", action="store_true", default=False)
         op.add_argument("--linux", dest="type", action="store_const", const=CLEARPART_TYPE_LINUX)
         op.add_argument("--none", dest="type", action="store_const", const=CLEARPART_TYPE_NONE)
@@ -114,5 +114,5 @@ class F21_ClearPart(F17_ClearPart):
 
     def _getParser(self):
         op = F17_ClearPart._getParser(self)
-        op.add_argument("--disklabel", dest="disklabel", default="")
+        op.add_argument("--disklabel", default="")
         return op

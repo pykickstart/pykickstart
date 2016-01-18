@@ -52,7 +52,7 @@ class FC3_Url(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--url", dest="url", required=1)
+        op.add_argument("--url", required=1)
         return op
 
     def parse(self, args):
@@ -157,8 +157,8 @@ class F18_Url(F14_Url):
         # This overrides the option set in the superclass's _getParser
         # method.  --url is no longer required because you could do
         # --mirrorlist instead.
-        op.add_argument("--url", dest="url")
-        op.add_argument("--mirrorlist", dest="mirrorlist")
+        op.add_argument("--url")
+        op.add_argument("--mirrorlist")
         return op
 
     def parse(self, args):

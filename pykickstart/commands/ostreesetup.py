@@ -58,10 +58,10 @@ class F21_OSTreeSetup(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser()
-        op.add_argument("--osname", dest="osname", required=1)
-        op.add_argument("--remote", dest="remote")
-        op.add_argument("--url", dest="url", required=1)
-        op.add_argument("--ref", dest="ref", required=1)
+        op.add_argument("--osname", required=1)
+        op.add_argument("--remote")
+        op.add_argument("--url", required=1)
+        op.add_argument("--ref", required=1)
         op.add_argument("--nogpg", action="store_true")
         return op
 

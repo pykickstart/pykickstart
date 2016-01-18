@@ -18,10 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-
-from pykickstart.i18n import _
 
 class FC3_XConfig(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -78,7 +75,7 @@ class FC3_XConfig(KickstartCommand):
         op = KSOptionParser()
         op.add_argument("--card")
         op.add_argument("--defaultdesktop")
-        op.add_argument("--depth", action="store", type=int)
+        op.add_argument("--depth", type=int)
         op.add_argument("--hsync")
         op.add_argument("--monitor")
         op.add_argument("--noprobe", dest="noProbe", action="store_true", default=False)
@@ -128,7 +125,7 @@ class FC6_XConfig(FC3_XConfig):
     def _getParser(self):
         op = FC3_XConfig._getParser(self)
         op.add_argument("--card", deprecated=1)
-        op.add_argument("--driver", dest="driver")
+        op.add_argument("--driver")
         op.add_argument("--hsync", deprecated=1)
         op.add_argument("--monitor", deprecated=1)
         op.add_argument("--noprobe", deprecated=1)
