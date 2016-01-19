@@ -35,6 +35,7 @@ class RHEL3_TestCase(CommandTest):
         # empty
         self.assert_parse_error("mouse")
         # unknown option
+        self.assert_parse_error("mouse --bad-flag")
         self.assert_parse_error("mouse jerry --bad-flag")
         # --device requires argument
         self.assert_parse_error("mouse jerry --device")

@@ -41,6 +41,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("device TYPE MODNAME GARBAGE")
         self.assert_parse_error("device --opts=foo")
         self.assert_parse_error("device --opts=\"foo\"")
+        self.assert_parse_error("device MODNAME --bogus-option")
 
         # extra test coverage
         device = self.handler().commands["device"]
@@ -75,6 +76,7 @@ class F8_TestCase(CommandTest):
         self.assert_parse_error("device MODNAME GARBAGE")
         self.assert_parse_error("device --opts=foo")
         self.assert_parse_error("device --opts=\"foo\"")
+        self.assert_parse_error("device --bogus-option")
 
         # extra test coverage
         device = self.handler().commands["device"]

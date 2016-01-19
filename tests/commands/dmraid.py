@@ -18,7 +18,9 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
+
+from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
     command = "dmraid"
@@ -30,6 +32,12 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("dmraid --dev=deb1,deb2 --name onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
         self.assert_parse("dmraid --dev \"deb1,deb2\" --name=onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
 
+        # equality
+        self.assertEqual(self.assert_parse("dmraid --name=raidA --dev=deviceA"), self.assert_parse("dmraid --name=raidA --dev=deviceA"))
+        self.assertNotEqual(self.assert_parse("dmraid --name=raidA --dev=deviceA"), None)
+        self.assertNotEqual(self.assert_parse("dmraid --name=raidA --dev=deviceA"), self.assert_parse("dmraid --name=raidB --dev=deviceA"))
+        self.assertNotEqual(self.assert_parse("dmraid --name=raidA --dev=deviceA"), self.assert_parse("dmraid --name=raidA --dev=deviceB"))
+
         # fail
         self.assert_parse_error("dmraid")
         self.assert_parse_error("dmraid --name")
@@ -39,6 +47,23 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("dmraid --dev debaisi")
         self.assert_parse_error("dmraid --dev=deb1,deb2")
         self.assert_parse_error("dmraid --magic")
+
+        # extra test coverage
+        cmd = self.handler().commands[self.command]
+        cmd.dmraids = "--name=blah"
+        self.assertEqual(cmd.__str__(), "--name=blah")
+
+class FC6_Duplicate_TestCase(CommandSequenceTest):
+    version = FC6
+
+    def runTest(self):
+        self.assert_parse("""
+dmraid --name=raidA --dev=deviceA
+dmraid --name=raidB --dev=deviceB""")
+
+        self.assert_parse_error("""
+dmraid --name=raidA --dev=deviceA
+dmraid --name=raidA --dev=deviceA""", UserWarning)
 
 if __name__ == "__main__":
     unittest.main()

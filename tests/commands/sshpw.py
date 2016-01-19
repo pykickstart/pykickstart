@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import F13
+
 class F13_TestCase(CommandTest):
     command = "sshpw"
 
@@ -35,6 +37,7 @@ class F13_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("sshpw")
+        self.assert_parse_error("sshpw --username=someguy --bogus-option")
         self.assert_parse_error("sshpw --username=someguy")
         self.assert_parse_error("sshpw --username=someguy --iscrypted=OMGSEKRITZ")
         self.assert_parse_error("sshpw --username=someguy --iscrypted")
@@ -62,8 +65,9 @@ class F13_TestCase(CommandTest):
         sshpw.sshUserList.append("someguy")
         self.assertEqual(sshpw.__str__(), "someguy")
 
-
 class F13_Duplicate_TestCase(CommandSequenceTest):
+    version = F13
+
     def runTest(self):
         self.assert_parse("""
 sshpw --username=someguy --iscrypted passwordA
@@ -77,6 +81,8 @@ class F24_TestCase(F13_TestCase):
     def runTest(self):
         self.assert_parse("sshpw --username=someguy --sshkey a ssh key with spaces", "sshpw --username=someguy --sshkey a ssh key with spaces\n")
         self.assert_parse("sshpw --username=someguy a password with spaces", "sshpw --username=someguy --plaintext a password with spaces\n")
+        self.assert_parse("sshpw --username=someguy --lock secretpassword", "sshpw --username=someguy --lock --plaintext secretpassword\n")
+        self.assert_parse("sshpw --username=someguy --iscrypted secretpassword", "sshpw --username=someguy --iscrypted secretpassword\n")
 
 if __name__ == "__main__":
     unittest.main()

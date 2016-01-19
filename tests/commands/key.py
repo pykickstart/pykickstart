@@ -31,6 +31,7 @@ class RHEL5_TestCase(CommandTest):
         # fail - command needs argument
         self.assert_parse_error("key")
         # fail - invalid option w/argument
+        self.assert_parse_error("key --bogus-option")
         self.assert_parse_error("key --badflag foobar")
 
         # extra test coverage

@@ -11,6 +11,7 @@ class F7_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("updates cheese crackers")
+        self.assert_parse_error("updates --bogus-option")
 
 if __name__ == "__main__":
     unittest.main()

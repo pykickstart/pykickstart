@@ -38,12 +38,12 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("timezone Eastern Central")
         self.assert_parse_error("timezone --blah Eastern")
         self.assert_parse_error("timezone --utc")
+        self.assert_parse_error("timezone --bogus-option")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
         cmd.timezone = None
         self.assertEqual(cmd.__str__(), "")
-
 
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):

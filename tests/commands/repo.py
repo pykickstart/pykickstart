@@ -22,6 +22,7 @@ import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartError
+from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
     command = "repo"
@@ -66,6 +67,8 @@ class FC6_TestCase(CommandTest):
         self.assertEqual(data._getArgsAsStr(), "")
 
 class FC6_Duplicate_TestCase(CommandSequenceTest):
+    version = FC6
+
     def runTest(self):
         self.assert_parse("""
 repo --name=repoA --baseurl=http://www.domain.com

@@ -46,15 +46,15 @@ class FC3_Firewall(KickstartCommand):
             # port:proto (s-c-kickstart may do this).  So, filter those
             # out into their own list leaving what we expect.
             for port in self.ports:
-                if port == "ssh":
+                if port == "ssh:tcp":
                     extra.append(" --ssh")
-                elif port == "telnet":
+                elif port == "telnet:tcp":
                     extra.append(" --telnet")
-                elif port == "smtp":
+                elif port == "smtp:tcp":
                     extra.append(" --smtp")
-                elif port == "http":
+                elif port == "http:tcp":
                     extra.append(" --http")
-                elif port == "ftp":
+                elif port == "ftp:tcp":
                     extra.append(" --ftp")
                 else:
                     filteredPorts.append(port)
@@ -181,7 +181,7 @@ class F20_Firewall(F14_Firewall):
         if self.enabled is None:
             return ""
 
-        retval = F10_Firewall.__str__(self)
+        retval = F14_Firewall.__str__(self)
         if self.enabled:
             retval = retval.strip()
 

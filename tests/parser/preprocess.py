@@ -3,7 +3,7 @@ import six
 import tempfile
 from tests.baseclass import ParserTest
 
-from pykickstart.errors import KickstartError
+from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.parser import preprocessKickstart, preprocessFromString, preprocessKickstartToString, preprocessFromStringToString
 
 ###
@@ -132,6 +132,15 @@ autopart
     def runTest(self):
         self.assertRaises(KickstartError, preprocessFromString, self.ks)
 
+class PFS_Ksappend_Invalid(PFS_No_Ksappend):
+    ks = """
+lang en_US
+%ksappend
+"""
+
+    def runTest(self):
+        self.assertRaises(KickstartParseError, preprocessFromString, self.ks)
+
 class PFS_With_Ksappend(ParserTest):
     ks = """
 lang en_US
@@ -206,6 +215,10 @@ autopart
 
     def runTest(self):
         self.assertRaises(KickstartError, preprocessKickstartToString, self._path)
+
+class PKTS_Kickstart_Missing(ParserTest):
+    def runTest(self):
+        self.assertRaises(KickstartError, preprocessKickstartToString, "/tmp/MISSING_FILE")
 
 class PKTS_With_Ksappend(ParserTest):
     ks = """

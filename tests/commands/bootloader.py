@@ -177,7 +177,9 @@ class F21_TestCase(F19_TestCase):
         self.assert_parse("bootloader --location=mbr --disabled", "bootloader --disabled\n")
         self.assert_parse("bootloader --location=mbr --nombr", "bootloader --location=mbr --nombr\n")
 
-RHEL7_TestCase = F21_TestCase
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self, iscrypted=False):
+        F21_TestCase.runTest(self, iscrypted=iscrypted)
 
 if __name__ == "__main__":
     unittest.main()

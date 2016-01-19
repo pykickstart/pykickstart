@@ -18,7 +18,9 @@
 # with the express permission of Red Hat, Inc. 
 #
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
+
+from pykickstart.version import RHEL6
 
 class FC3_TestCase(CommandTest):
     command = "autopart"
@@ -89,6 +91,26 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse_error("autopart --cipher")
         self.assert_parse_error("autopart --encrypted --cipher")
 
+class RHEL6_Conflict_TestCase(CommandSequenceTest):
+    version = RHEL6
+
+    def runTest(self):
+        self.assert_parse_error("""
+part / --size=1024 --fstype=ext4
+autopart""")
+
+        self.assert_parse_error("""
+raid / --device=md0 --level=0 raid.01
+autopart""")
+
+        self.assert_parse_error("""
+volgroup vg.01 pv.01 --pesize=70000
+autopart""")
+
+        self.assert_parse_error("""
+logvol / --size=10240 --name=NAME --vgname=VGNAM
+autopart""")
+
 class F16_TestCase(F12_TestCase):
     def runTest(self):
         # Run F12 test case
@@ -129,6 +151,7 @@ class F17_TestCase(F16_TestCase):
 
         # fail
         self.assert_parse_error("autopart --type")
+        self.assert_parse_error("autopart --type=blah")
 
 class F18_TestCase(F17_TestCase):
     def runTest(self):
@@ -167,7 +190,9 @@ class F21_TestCase(F20_TestCase):
         self.assert_parse_error("autopart --fstype=btrfs")
         self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
 
-RHEL7_TestCase = F21_TestCase
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

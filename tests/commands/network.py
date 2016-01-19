@@ -18,12 +18,144 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 
-class F20_TestCase(CommandTest):
-    command = "network"
+from pykickstart.version import FC3
+
+class FC3_TestCase(CommandTest):
+    def __init__(self, *kargs, **kwargs):
+        CommandTest.__init__(self, *kargs, **kwargs)
+        self.bootProtos = ["dhcp", "bootp", "static"]
 
     def runTest(self):
+        # equality
+        self.assertEqual(self.assert_parse("network --device=eth0"), self.assert_parse("network --device=eth0"))
+        self.assertNotEqual(self.assert_parse("network --device=eth0"), None)
+        self.assertNotEqual(self.assert_parse("network --device=eth0"), self.assert_parse("network --device=eth1"))
+
+        # pass
+        self.assert_parse("network --device=eth0 --dhcpclass CLASS",
+                          "network  --bootproto=dhcp --dhcpclass=CLASS --device=eth0\n")
+        self.assert_parse("network --device=eth0 --essid ESSID --wepkey WEPKEY",
+                          "network  --bootproto=dhcp --device=eth0 --essid=\"ESSID\" --wepkey=WEPKEY\n")
+        self.assert_parse("network --device=eth0 --ethtool \"gro on\" --mtu=1200",
+                          "network  --bootproto=dhcp --device=eth0 --ethtool=\"gro on\" --mtu=1200\n")
+        self.assert_parse("network --device=eth0 --gateway gateway.wherever.com --hostname server.wherever.com",
+                          "network  --bootproto=dhcp --device=eth0 --gateway=gateway.wherever.com --hostname=server.wherever.com\n")
+        self.assert_parse("network --device=eth0 --ip 1.2.3.4 --netmask 255.255.255.0",
+                          "network  --bootproto=dhcp --device=eth0 --ip=1.2.3.4 --netmask=255.255.255.0\n")
+        self.assert_parse("network --device=eth0 --nameserver ns.wherever.com",
+                          "network  --bootproto=dhcp --device=eth0 --nameserver=ns.wherever.com\n")
+        self.assert_parse("network --device=eth0 --nodns",
+                          "network  --bootproto=dhcp --device=eth0 --nodns\n")
+        self.assert_parse("network --device=eth0 --onboot=off",
+                          "network  --bootproto=dhcp --device=eth0 --onboot=off\n")
+
+        for bp in self.bootProtos:
+            self.assert_parse("network --device=eth0 --bootproto=%s" % bp,
+                              "network  --bootproto=%s --device=eth0\n" % bp)
+
+        # fail - invalid bootproto
+        self.assert_parse_error("network --device=eth0 --bootproto=bogus")
+
+        # fail - invalid option
+        self.assert_parse_error("network --bogus-option")
+
+class FC3_Duplicate_TestCase(CommandSequenceTest):
+    version = FC3
+
+    def runTest(self):
+        self.assert_parse("""
+network --device=eth0
+network --device=eth1""")
+
+        self.assert_parse_error("""
+network --device=eth0
+network --device=eth0""", UserWarning)
+
+class RHEL4_TestCase(FC3_TestCase):
+    def runTest(self):
+        FC3_TestCase.runTest(self)
+
+        self.assert_parse("network --notksdevice",
+                          "network  --bootproto=dhcp --notksdevice\n")
+
+class FC4_TestCase(FC3_TestCase):
+    def runTest(self):
+        FC3_TestCase.runTest(self)
+
+        self.assert_parse("network --notksdevice",
+                          "network  --bootproto=dhcp --notksdevice\n")
+
+class FC6_TestCase(FC4_TestCase):
+    def runTest(self):
+        FC4_TestCase.runTest(self)
+
+        # bootproto is removed if --noipv4 is given in F24.
+        if isinstance(self, F24_TestCase):
+            self.assert_parse("network --device=eth0 --noipv4",
+                              "network  --device=eth0 --noipv4\n")
+        else:
+            self.assert_parse("network --device=eth0 --noipv4",
+                              "network  --bootproto=dhcp --device=eth0 --noipv4\n")
+
+        self.assert_parse("network --device=eth0 --noipv6",
+                          "network  --bootproto=dhcp --device=eth0 --noipv6\n")
+
+class F8_TestCase(FC6_TestCase):
+    def runTest(self):
+        FC6_TestCase.runTest(self)
+
+        self.assert_parse("network --device=eth0 --ipv6=1:2:3:4",
+                          "network  --bootproto=dhcp --device=eth0 --ipv6=1:2:3:4\n")
+
+class RHEL6_TestCase(F8_TestCase):
+    def runTest(self):
+        F8_TestCase.runTest(self)
+
+        self.assert_parse("network --device=eth0 --activate",
+                          "network  --bootproto=dhcp --device=eth0 --activate\n")
+        self.assert_parse("network --device=eth0 --nodefroute",
+                          "network  --bootproto=dhcp --device=eth0 --nodefroute\n")
+        self.assert_parse("network --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2",
+                          "network  --bootproto=dhcp --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2\n")
+        self.assert_parse("network --device=eth0 --vlanid=ID",
+                          "network  --bootproto=dhcp --device=eth0 --vlanid=ID\n")
+
+class F9_TestCase(F8_TestCase):
+    def __init__(self, *kargs, **kwargs):
+        F8_TestCase.__init__(self, *kargs, **kwargs)
+        self.bootProtos.append("query")
+
+class F16_TestCase(F9_TestCase):
+    def __init__(self, *kargs, **kwargs):
+        F9_TestCase.__init__(self, *kargs, **kwargs)
+        self.bootProtos.append("ibft")
+
+    def runTest(self):
+        F9_TestCase.runTest(self)
+
+        self.assert_parse("network --device=eth0 --activate",
+                          "network  --bootproto=dhcp --device=eth0 --activate\n")
+        self.assert_parse("network --device=eth0 --nodefroute",
+                          "network  --bootproto=dhcp --device=eth0 --nodefroute\n")
+        self.assert_parse("network --device=eth0 --wpakey WPAKEY",
+                          "network  --bootproto=dhcp --device=eth0 --wpakey=WPAKEY\n")
+
+class F19_TestCase(F16_TestCase):
+    def runTest(self):
+        F16_TestCase.runTest(self)
+
+        self.assert_parse("network --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2",
+                          "network  --bootproto=dhcp --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2\n")
+        self.assert_parse("network --device=eth0 --vlanid=ID",
+                          "network  --bootproto=dhcp --device=eth0 --vlanid=ID\n")
+        self.assert_parse("network --device=eth0 --ipv6gateway=gateway6.wherever.com",
+                          "network  --bootproto=dhcp --device=eth0 --ipv6gateway=gateway6.wherever.com\n")
+
+class F20_TestCase(F19_TestCase):
+    def runTest(self):
+        F19_TestCase.runTest(self)
 
         # team device
 
@@ -31,7 +163,8 @@ class F20_TestCase(CommandTest):
         self.assert_parse(cmd)
 
         cmd = "network --device team0 --bootproto dhcp --teamslaves=p3p1,p3p2 --teamconfig=\"{\\\"runner\\\": {\\\"name\\\": \\\"roundrobin\\\"}}\" --activate"
-        self.assert_parse(cmd)
+        outputCmd = "network  --bootproto=dhcp --device=team0 --activate --teamslaves=\"p3p1,p3p2\" --teamconfig=\"{\\\"runner\\\": {\\\"name\\\": \\\"roundrobin\\\"}}\"\n"
+        self.assert_parse(cmd, outputCmd)
 
         # --teamslaves
         # --teamslaves="<DEV1>['<CONFIG1>'],<DEV2>['<CONFIG2>'],..."
@@ -66,15 +199,21 @@ class F20_TestCase(CommandTest):
             nd2 = self.assert_parse(s)
             self.assertEqual(value, nd2.teamslaves)
 
-class F22_TestCase(F20_TestCase):
+class F21_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
 
+        self.assert_parse("network --device=eth0 --interfacename=BLAH",
+                          "network  --bootproto=dhcp --device=eth0 --interfacename=BLAH\n")
+
+class F22_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
         # bridge options
         # pass
-        self.assert_parse("network --device bridge0 --bootproto dhcp "\
-                          "--bridgeslaves=ens3,ens7 "\
-                          "--bridgeopts=priority=40000")
+        self.assert_parse("network --device bridge0 --bootproto dhcp --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000",
+                          "network  --bootproto=dhcp --device=bridge0 --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000\n")
         self.assert_parse("network --device bridge0 --bootproto dhcp "\
                           "--bridgeslaves=ens3,ens7 "\
                           "--bridgeopts=priority=40000,hello-time=3")
@@ -140,9 +279,8 @@ class RHEL7_TestCase(F20_TestCase):
 
         # bridge options
         # pass
-        self.assert_parse("network --device bridge0 --bootproto dhcp "\
-                          "--bridgeslaves=ens3,ens7 "\
-                          "--bridgeopts=priority=40000")
+        self.assert_parse("network --device bridge0 --bootproto dhcp --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000",
+                          "network  --bootproto=dhcp --device=bridge0 --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000\n")
         self.assert_parse("network --device bridge0 --bootproto dhcp "\
                           "--bridgeslaves=ens3,ens7 "\
                           "--bridgeopts=priority=40000,hello-time=3")
@@ -158,7 +296,6 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
                                 "--bridgeslaves=ens3,ens7 "\
                                 "--bridgeopts=priority")
-
 
 if __name__ == "__main__":
     unittest.main()

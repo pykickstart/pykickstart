@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import F22
+
 class F22_TestCase(CommandTest):
     command = "sshkey"
     key = "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJGDmFSzIWSvnFYhExf+FbzSiZxsoohJdrKlmPKQhdts8nSg5PH7jyG5X+w6RgWhSetlD3WouKoo3zFOR5nCYq4= bcl@notae.us"
@@ -37,6 +39,7 @@ class F22_TestCase(CommandTest):
         # fail
         self.assert_parse_error("sshkey")
         self.assert_parse_error("sshkey --foo")
+        self.assert_parse_error("sshkey --username=root --bogus-option")
         self.assert_parse_error("sshkey --username")
         self.assert_parse_error("sshkey --username=root")
 
@@ -46,6 +49,8 @@ class F22_TestCase(CommandTest):
         self.assertEqual(sshkey.__str__(), "someguy")
 
 class F22_Duplicate_TestCase(CommandSequenceTest):
+    version = F22
+
     def runTest(self):
         self.assert_parse("""
 sshkey --username=someguy 'this is the key'

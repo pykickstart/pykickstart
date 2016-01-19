@@ -22,6 +22,7 @@ import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError
+from pykickstart.version import FC3
 
 class FC3_TestCase(CommandTest):
     command = "raid"
@@ -102,6 +103,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("raid / --level=0 --device=md0 --useexisting raid.01 raid.02")
         # no pre-existing device defined
         self.assert_parse_error("raid / --level=0 --useexisting")
+        # bad level
+        self.assert_parse_error("raid / --level=47 --device=md0 raid.01 raid.02")
 
         if self.minorBasedDevice:
             # Invalid device string - device=asdf0 (--device=(md)?<minor>)
@@ -127,6 +130,8 @@ class FC3_TestCase(CommandTest):
             self.assertEqual(cmd.__str__(), "raid\n")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
+    version = FC3
+
     def runTest(self):
         self.assert_parse("""
 raid / --device=md0 --level=0 raid.01 raid.02
@@ -188,7 +193,9 @@ class RHEL5_TestCase(FC5_TestCase):
         self.assert_parse("raid / --device=md0 --level=raid10%s raid.01 raid.02" % (self.bytesPerInode,), \
                           "raid / --device=0 --level=RAID10%s raid.01 raid.02\n" % (self.bytesPerInode,))
 
-F7_TestCase = RHEL5_TestCase
+class F7_TestCase(RHEL5_TestCase):
+    def runTest(self):
+        RHEL5_TestCase.runTest(self)
 
 class F9_TestCase(F7_TestCase):
     '''F9_TestCase'''
@@ -306,7 +313,9 @@ class F23_TestCase(F19_TestCase):
         # can't use --mkfsoptions with --fsprofile
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02")
 
-RHEL7_TestCase = F23_TestCase
+class RHEL7_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

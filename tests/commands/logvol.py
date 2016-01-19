@@ -1,6 +1,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import FC3, RHEL6
+
 class FC3_TestCase(CommandTest):
     command = "logvol"
 
@@ -75,7 +77,17 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol --vgname=NAME", regex="arguments are required: --name")
         self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex="Mount point required for logvol")
 
+        # fail - unknown options
+        self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bogus-option")
+
+        # extra test coverage
+        cmd = self.handler().commands["logvol"]
+        cmd.lvList = "--name=blah"
+        self.assertEqual(cmd.__str__(), "--name=blah")
+
 class FC3_Duplicate_TestCase(CommandSequenceTest):
+    version = FC3
+
     def runTest(self):
         self.assert_parse("""
 logvol / --size=1024 --name=nameA --vgname=vgA
@@ -143,7 +155,9 @@ class FC4_TestCase(FC3_TestCase):
             # fail - --encrypted does not take a value
             self.assert_parse_error("logvol / --encrypted=1 --name=NAME --vgname=VGNAME", regex="argument --encrypted: ignored explicit argument")
 
-RHEL5_TestCase = FC4_TestCase
+class RHEL5_TestCase(FC4_TestCase):
+    def runTest(self):
+        FC4_TestCase.runTest(self)
 
 class F9_TestCase(FC4_TestCase):
     def runTest(self):
@@ -254,6 +268,8 @@ class RHEL6_TestCase(F12_TestCase):
                                 "--chunksize=512")
 
 class RHEL6_AutopartLogVol_TestCase(CommandSequenceTest):
+    version = RHEL6
+
     def runTest(self):
         # fail - can't use both autopart and logvol
         self.assert_parse_error("""
@@ -404,6 +420,12 @@ class F23_TestCase(F21_TestCase):
 
         # can't use --mkfsoptions if you're not formatting
         self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --mkfsoptions=some,thing --noformat")
+
+        # can't use --thin with cache settings
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --cachepvs=pv.01,pv.02 --thin --poolname=POOLNAME")
+
+        # invalid cache mode
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=bogus")
 
 if __name__ == "__main__":
     unittest.main()

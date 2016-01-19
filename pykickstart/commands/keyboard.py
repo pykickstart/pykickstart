@@ -26,7 +26,7 @@ from pykickstart.i18n import _
 # import static typing information if available
 try:
     from typing import Any  # pylint: disable=unused-import
-except ImportError:
+except ImportError:         # pragma: no cover
     pass
 
 class FC3_Keyboard(KickstartCommand):

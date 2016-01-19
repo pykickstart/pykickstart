@@ -80,6 +80,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("part / /home /usr")
         # unknown option
         self.assert_parse_error("part /home --unknown=value")
+        self.assert_parse_error("part --bogus-option")
 
         parser = self.handler().commands["part"]
         pd = parser.parse(["/home"])
@@ -251,7 +252,9 @@ class F23_TestCase(F18_TestCase):
         # can't use --mkfsoptions with --fsprofile
         self.assert_parse_error("part / --size=4096 --mkfsoptions=some,thing --fsprofile=PROFILE")
 
-RHEL7_TestCase = F23_TestCase
+class RHEL7_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

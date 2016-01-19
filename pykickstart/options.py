@@ -55,11 +55,14 @@ def commaSplit(value):
     return list(filter(None, [v.strip() for v in value.split(',')]))
 
 def ksboolean(value):
-    if value.lower() in ("on", "yes", "true", "1"):
-        return True
-    elif value.lower() in ("off", "no", "false", "0"):
-        return False
-    else:
+    try:
+        if value.lower() in ("on", "yes", "true", "1"):
+            return True
+        elif value.lower() in ("off", "no", "false", "0"):
+            return False
+        else:
+            raise ArgumentTypeError(_("invalid boolean value: %r") % value)
+    except AttributeError:
         raise ArgumentTypeError(_("invalid boolean value: %r") % value)
 
 class ExtendAction(Action):

@@ -51,7 +51,7 @@ from pykickstart.parser import Packages
 try:
     from typing import Union, Any, List, Dict   # pylint: disable=unused-import
     from pykickstart.parser import Script       # pylint: disable=unused-import
-except ImportError:
+except ImportError:                             # pragma: no cover
     pass
 
 ###

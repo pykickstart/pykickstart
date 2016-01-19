@@ -21,6 +21,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import F12
+
 class F12_TestCase(CommandTest):
     command = "group"
 
@@ -54,8 +56,9 @@ class F12_TestCase(CommandTest):
         gd.name = ""
         self.assertEqual(gd.__str__(), "group\n")
 
-
 class F12_Duplicate_TestCase(CommandSequenceTest):
+    version = F12
+
     def runTest(self):
         self.assert_parse("""
 group --name=test

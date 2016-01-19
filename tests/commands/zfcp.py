@@ -19,11 +19,11 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
+
+from pykickstart.version import F12
 
 class FC3_TestCase(CommandTest):
-    command = "zfcp"
-
     def runTest(self):
         # pass
         self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3 --scsiid=4 --scsilun=5",
@@ -52,6 +52,25 @@ class F12_TestCase(FC3_TestCase):
         # deprecated
         self.assert_deprecated("zfcp", "--scsiid")
         self.assert_deprecated("zfcp", "--scsilun")
+
+        # equality
+        self.assertEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"))
+        self.assertNotEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), None)
+        self.assertNotEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), self.assert_parse("zfcp --devnum=10 --wwpn=2 --fcplun=3"))
+        self.assertNotEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), self.assert_parse("zfcp --devnum=1 --wwpn=20 --fcplun=3"))
+        self.assertNotEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=30"))
+
+class F12_Duplicate_TestCase(CommandSequenceTest):
+    version = F12
+
+    def runTest(self):
+        self.assert_parse("""
+zfcp --devnum=1 --wwpn=2 --fcplun=3
+zfcp --devnum=10 --wwpn=20 --fcplun=30""")
+
+        self.assert_parse_error("""
+zfcp --devnum=1 --wwpn=2 --fcplun=3
+zfcp --devnum=1 --wwpn=2 --fcplun=3""", UserWarning)
 
 class F14_TestCase(F12_TestCase):
     def runTest(self):

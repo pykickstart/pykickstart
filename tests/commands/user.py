@@ -21,6 +21,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import FC6
+
 class FC6_TestCase(CommandTest):
     command = "user"
 
@@ -67,8 +69,9 @@ class FC6_TestCase(CommandTest):
         cmd.userList = [ud]
         self.assertEqual(cmd.__str__(), "")
 
-
 class FC6_Duplicate_TestCase(CommandSequenceTest):
+    version = FC6
+
     def runTest(self):
         # pass - can use the command twice, as long as they have different names
         self.assert_parse("""
@@ -92,7 +95,6 @@ class F8_TestCase(FC6_TestCase):
 
         # fail
 
-
 class F12_TestCase(F8_TestCase):
     def runTest(self):
         # run F8 test case
@@ -108,7 +110,6 @@ class F19_TestCase(F12_TestCase):
 
         # pass
         self.assert_parse("user --name=user --gid=500", "user --name=user --gid=500\n")
-
 
 if __name__ == "__main__":
     unittest.main()

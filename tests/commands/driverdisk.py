@@ -39,6 +39,8 @@ class FC3_TestCase(CommandTest):
 
         # fail - no arguments
         self.assert_parse_error("driverdisk")
+        # fail - unrecognized argument
+        self.assert_parse_error("driverdisk --bogus-option")
         # fail - spurious argument or extra partition
         self.assert_parse_error("driverdisk /dev/sdb2 foobar")
         # fail - specifying both partition and source

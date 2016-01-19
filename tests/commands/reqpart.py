@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.version import F23
+
 class F23_TestCase(CommandTest):
     command = "reqpart"
 
@@ -31,13 +33,17 @@ class F23_TestCase(CommandTest):
         self.assert_parse("reqpart --add-boot", "reqpart --add-boot\n")
 
 class F23_AutopartReqpart_TestCase(CommandSequenceTest):
+    version = F23
+
     def runTest(self):
         # fail - can't use both autopart and reqpart
         self.assert_parse_error("""
 autopart
 reqpart""")
 
-RHEL7_TestCase = F23_TestCase
+class RHEL7_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

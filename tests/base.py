@@ -25,12 +25,17 @@ class HandlerResetCommand_TestCase(ParserTest):
         # might as well test this way of getting the same information, while we're at it
         self.assertFalse(self.handler.hasCommand("fakecommand"))
 
-        # Set some attributes on a command, then reset it and verify they're gone.
-        self.handler.autopart.autopart = True
+        # Set some attributes on a command (both by calling the command and by setting them
+        # directly), verify they're set, then reset it and verify they're gone.
+        self.handler.autopart(autopart=True, encrypted=True, passphrase="something")
         self.handler.autopart.cipher = "whatever"
-        self.handler.autopart.encrypted = True
-        self.handler.autopart.passphrase = "something"
         self.handler.autopart.bogus = True
+
+        self.assertTrue(self.handler.autopart.autopart)
+        self.assertEqual(self.handler.autopart.cipher, "whatever")
+        self.assertTrue(self.handler.autopart.encrypted)
+        self.assertEqual(self.handler.autopart.passphrase, "something")
+        self.assertTrue(self.handler.autopart.bogus)
 
         self.handler.resetCommand("autopart")
         self.assertFalse(self.handler.autopart.autopart)

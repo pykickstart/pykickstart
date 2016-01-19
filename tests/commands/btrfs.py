@@ -68,6 +68,9 @@ class F17_TestCase(CommandTest):
         # no options
         self.assert_parse_error("btrfs /")
 
+        # invalid argument
+        self.assert_parse_error("btrfs / --bogus-option")
+
         # No members
         self.assert_parse_error("btrfs / --data=0 --label=root")
 
@@ -76,6 +79,10 @@ class F17_TestCase(CommandTest):
 
         # subvol with no parent
         self.assert_parse_error("btrfs / --subvol --name=root")
+
+        # bad level
+        self.assert_parse_error("btrfs / --data=47 btrfs.01")
+        self.assert_parse_error("btrfs / --metadata=47 btrfs.01")
 
         self.assert_parse("btrfs / --subvol --name=root LABEL=test",
                           "btrfs / --subvol --name=root LABEL=test\n")
@@ -134,8 +141,9 @@ class F23_TestCase(F17_TestCase):
         with self.assertRaises(KickstartParseError):
             cmd.parse(["btrfs", "/", "--noformat", "--useexisting", "--mkfsoptions=whatever"])
 
-
-RHEL7_TestCase = F23_TestCase
+class RHEL7_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

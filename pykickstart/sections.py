@@ -42,7 +42,6 @@ from pykickstart.i18n import _
 try:
     from typing import Any, Dict, List, Union
     from pykickstart.base import BaseHandler
-    from pykickstart.parser import Script
 except ImportError:
     pass
 # pylint: enable=unused-import

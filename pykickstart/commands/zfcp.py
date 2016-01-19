@@ -71,6 +71,13 @@ class F12_ZFCPData(FC3_ZFCPData):
         FC3_ZFCPData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
+    def __eq__(self, y):
+        if not y:
+            return False
+
+        return self.devnum == y.devnum and self.wwpn == y.wwpn and \
+               self.fcplun == y.fcplun
+
 F14_ZFCPData = F12_ZFCPData
 
 class FC3_ZFCP(KickstartCommand):
@@ -121,13 +128,6 @@ class F12_ZFCP(FC3_ZFCP):
     def __init__(self, *args, **kwargs):
         FC3_ZFCP.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
-
-    def __eq__(self, y):
-        if not y:
-            return False
-
-        return self.devnum == y.devnum and self.wwpn == y.wwpn and \
-               self.fcplun == y.fcplun
 
     def _getParser(self):
         op = FC3_ZFCP._getParser(self)

@@ -26,6 +26,7 @@ class F19_TestCase(FC3_TestCase):
                           "lang en_US --addsupport=cs_CZ,fr_FR\n")
 
         # fail
+        self.assert_parse_error("lang --bogus-option")
         # Fail if less than or more than one argument is specified
         self.assert_parse_error("lang")
         self.assert_parse_error("lang en_US en_CA")

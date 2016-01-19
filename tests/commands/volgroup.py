@@ -2,6 +2,7 @@ import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError
+from pykickstart.version import FC3
 
 class FC3_TestCase(CommandTest):
     command = "volgroup"
@@ -46,13 +47,17 @@ class FC3_TestCase(CommandTest):
         # fail - both members and useexisting specified
         self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02")
 
+        # fail - invalid argument
+        self.assert_parse_error("volgroup --bogus-option")
+
         # extra test coverage
         cmd = self.handler().commands[self.command]
         cmd.vgList = ["vg.01"]
         self.assertEqual(cmd.__str__(), "vg.01")
 
-
 class FC3_Duplicate_TestCase(CommandSequenceTest):
+    version = FC3
+
     def runTest(self):
         self.assert_parse("""
 volgroup vg.01 pv.01
@@ -86,7 +91,6 @@ class F16_TestCase(FC3_TestCase):
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0")
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100")
 
-
 class RHEL6_TestCase(F16_TestCase):
     def runTest(self):
         F16_TestCase.runTest(self)
@@ -99,14 +103,15 @@ class RHEL6_TestCase(F16_TestCase):
             cmd.parse(["volgroup", "vg.02", "pv.01"])
         cmd.handler.autopart.seen = False
 
-
 class F21_TestCase(F16_TestCase):
     def runTest(self):
         # just run all the old tests with the new class (different PE size
         # default)
         F16_TestCase.runTest(self)
 
-RHEL7_TestCase = F16_TestCase
+class RHEL7_TestCase(F16_TestCase):
+    def runTest(self):
+        F16_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

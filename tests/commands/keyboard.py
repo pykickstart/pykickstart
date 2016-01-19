@@ -31,6 +31,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("keyboard")
         self.assert_parse_error("keyboard us uk")
         self.assert_parse_error("keyboard --foo us")
+        self.assert_parse_error("keyboard --bogus-option")
 
         # extra test coverage
         cmd = self.handler().commands[self.command]
@@ -67,6 +68,7 @@ class F18_TestCase(FC3_TestCase):
         self.assert_parse_error("keyboard --vckeymap=us --xlayouts=cz,"
                                 "'cz (qwerty)' cz sk")
         self.assert_parse_error("keyboard --foo us")
+        self.assert_parse_error("keyboard --bogus-option")
 
         # keyboard property
         obj = self.assert_parse("keyboard us")

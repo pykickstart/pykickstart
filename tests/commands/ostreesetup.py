@@ -48,7 +48,9 @@ class F21_TestCase(CommandTest):
         cmd.nogpg = False
         self.assertEqual(cmd._getArgsAsStr(), "")
 
-RHEL7_TestCase = F21_TestCase
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

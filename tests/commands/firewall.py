@@ -26,6 +26,10 @@ class FC3_TestCase(CommandTest):
 
     def runTest(self):
         # pass
+        # no colon in --port string
+        self.assert_parse("firewall --enabled --port=47",
+                          "firewall --enabled --port=47:tcp\n")
+
         # enable firewall
         if "--service" in self.optionList:
             self.assert_parse("firewall --enabled --trust=eth0 --ssh --port=imap:tcp",
@@ -36,26 +40,16 @@ class FC3_TestCase(CommandTest):
                               "firewall --enabled --port=22:tcp,imap:tcp --trust=eth0\n")
             self.assert_parse("firewall --enable --port=1234:udp,4321:tcp", "firewall --enabled --port=1234:udp,4321:tcp\n")
 
+            # s-c-ks could have passed this sort of string in, so we need to test the conversion
+            self.assert_parse("firewall --enabled --port=ssh,telnet,smtp,http,ftp",
+                              "firewall --enabled --ssh --telnet --smtp --http --ftp\n")
+
         if "--telnet" in self.optionList:
             self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --telnet --http --smtp --ftp --port=1234:udp"
                               "firewall --enabled --port=22:tcp,23:tcp,80:tcp,443:tcp,25:tcp,21:tcp,1234:udp --trust=eth0,eth1\n")
         elif "--service" in self.optionList:
             self.assert_parse("firewall --enable --trust=eth0,eth1 --ssh --http --smtp --ftp --port=1234:udp"
                               "firewall --enabled --port=1234:udp --trust=eth0,eth1 --service=ssh,http,smtp,ftp\n")
-
-        # remove service
-        if "--remove-service" in self.optionList:
-            self.assert_parse("firewall --remove-service=mdns",
-                              "firewall --remove-service=mdns\n")  # remove only
-            # service & remove service at once
-            self.assert_parse("firewall --service=ssh --remove-service=mdns",
-                              "firewall --service=ssh --remove-service=mdns\n")
-            # with alternative service notation
-            self.assert_parse("firewall --ssh --smtp --ftp --remove-service=mdns",
-                              "firewall --ssh --smtp --ftp --remove-service=mdns\n")
-            # multiple remove & remove ssh
-            self.assert_parse("firewall --service=mdns --remove-service=dhcpv6-client --remove-service=ssh",
-                              "firewall --service=mdns --remove-service=dhcpv6-client --remove-service=ssh\n")
 
         # disable firewall
         self.assert_parse("firewall --disabled", "firewall --disabled\n")
@@ -99,6 +93,23 @@ class F14_TestCase(F10_TestCase):
 
         # removed
         self.assert_removed("firewall", "--telnet")
+
+class F20_TestCase(F14_TestCase):
+    def runTest(self):
+        F14_TestCase.runTest(self)
+
+        # remove service
+        self.assert_parse("firewall --remove-service=mdns",
+                          "firewall --enabled --remove-service=mdns\n")  # remove only
+        # service & remove service at once
+        self.assert_parse("firewall --service=ssh --remove-service=mdns",
+                          "firewall --enabled --service=ssh --remove-service=mdns\n")
+        # with alternative service notation
+        self.assert_parse("firewall --ssh --smtp --ftp --remove-service=mdns",
+                          "firewall --enabled --service=ssh,smtp,ftp --remove-service=mdns\n")
+        # multiple remove & remove ssh
+        self.assert_parse("firewall --service=mdns --remove-service=dhcpv6-client --remove-service=ssh",
+                          "firewall --enabled --service=mdns --remove-service=dhcpv6-client,ssh\n")
 
 if __name__ == "__main__":
     unittest.main()
