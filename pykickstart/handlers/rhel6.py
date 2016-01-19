@@ -82,7 +82,7 @@ class RHEL6Handler(BaseHandler):
         "url": commands.url.RHEL6_Url,
         "user": commands.user.F12_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.RHEL6_VolGroup,
+        "volgroup": commands.volgroup.FC16_VolGroup,
         "xconfig": commands.xconfig.F10_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F12_ZFCP,

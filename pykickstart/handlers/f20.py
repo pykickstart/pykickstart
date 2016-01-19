@@ -83,7 +83,7 @@ class F20Handler(BaseHandler):
         "url": commands.url.F18_Url,
         "user": commands.user.F19_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.F20_VolGroup,
+        "volgroup": commands.volgroup.FC16_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F14_ZFCP,
