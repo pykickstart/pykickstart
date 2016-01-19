@@ -29,7 +29,7 @@ class RHEL7Handler(BaseHandler):
     commandMap = {
         "auth": commands.authconfig.FC3_Authconfig,
         "authconfig": commands.authconfig.FC3_Authconfig,
-        "autopart": commands.autopart.F20_AutoPart,
+        "autopart": commands.autopart.RHEL7_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
         "bootloader": commands.bootloader.RHEL7_Bootloader,
         "btrfs": commands.btrfs.RHEL7_BTRFS,
@@ -97,7 +97,7 @@ class RHEL7Handler(BaseHandler):
         "DriverDiskData": commands.driverdisk.F14_DriverDiskData,
         "DeviceData": commands.device.F8_DeviceData,
         "DmRaidData": commands.dmraid.FC6_DmRaidData,
-        "FcoeData": commands.fcoe.F13_FcoeData,
+        "FcoeData": commands.fcoe.RHEL7_FcoeData,
         "GroupData": commands.group.F12_GroupData,
         "IscsiData": commands.iscsi.F17_IscsiData,
         "LogVolData": commands.logvol.RHEL7_LogVolData,
