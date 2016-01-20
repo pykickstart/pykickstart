@@ -1,7 +1,13 @@
+import six
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.version import FC3, RHEL6
+
+if six.PY3:
+    requiredError = "arguments are required: %s"
+else:
+    requiredError = "argument %s is required"
 
 class FC3_TestCase(CommandTest):
     command = "logvol"
@@ -68,13 +74,13 @@ class FC3_TestCase(CommandTest):
         self.assert_required("logvol", "vgname")
 
         # fail - missing required
-        self.assert_parse_error("logvol / --name=NAME", regex="arguments are required: --vgname")
-        self.assert_parse_error("logvol / --vgname=NAME", regex="arguments are required: --name")
+        self.assert_parse_error("logvol / --name=NAME", regex=requiredError % "--vgname")
+        self.assert_parse_error("logvol / --vgname=NAME", regex=requiredError % "--name")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", regex="arguments are required: --name")
-        self.assert_parse_error("logvol --name=NAME", regex="arguments are required: --vgname")
-        self.assert_parse_error("logvol --vgname=NAME", regex="arguments are required: --name")
+        self.assert_parse_error("logvol", regex=requiredError % "--name")
+        self.assert_parse_error("logvol --name=NAME", regex=requiredError % "--vgname")
+        self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "--name")
         self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex="Mount point required for logvol")
 
         # fail - unknown options
