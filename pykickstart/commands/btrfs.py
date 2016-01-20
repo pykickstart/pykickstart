@@ -149,7 +149,7 @@ class F17_BTRFS(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         data = self.handler.BTRFSData()
-        self._setToObj(ns, data)
+        self.set_to_obj(ns, data)
         data.lineno = self.lineno
 
         if not data.format:

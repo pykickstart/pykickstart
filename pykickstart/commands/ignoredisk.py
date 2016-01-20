@@ -47,7 +47,7 @@ class FC3_IgnoreDisk(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         return self
 
 class F8_IgnoreDisk(FC3_IgnoreDisk):

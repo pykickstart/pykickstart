@@ -67,7 +67,7 @@ class FC3_HardDrive(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if self.biospart is None and self.partition is None or \
            self.biospart is not None and self.partition is not None:

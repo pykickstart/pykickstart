@@ -388,7 +388,7 @@ class FC3_LogVol(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         lvd = self.handler.LogVolData()
-        self._setToObj(ns, lvd)
+        self.set_to_obj(ns, lvd)
         lvd.lineno = self.lineno
         lvd.mountpoint = extra[0]
 

@@ -126,7 +126,7 @@ class F13_SshPw(KickstartCommand):
             mapping = {"command": "sshpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToObj(ns, ud)
+        self.set_to_obj(ns, ud)
         ud.password = " ".join(extra)
         ud.lineno = self.lineno
 

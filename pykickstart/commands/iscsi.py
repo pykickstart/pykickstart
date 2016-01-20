@@ -134,7 +134,7 @@ class FC6_Iscsi(KickstartCommand):
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         dd = self.handler.IscsiData()
-        self._setToObj(ns, dd)
+        self.set_to_obj(ns, dd)
         dd.lineno = self.lineno
         return dd
 

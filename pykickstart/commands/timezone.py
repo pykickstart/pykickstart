@@ -54,7 +54,7 @@ class FC3_Timezone(KickstartCommand):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if len(extra) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))

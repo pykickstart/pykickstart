@@ -63,7 +63,7 @@ class RHEL3_Mouse(KickstartCommand):
             mapping = {"command": "mouse", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         self.mouse = extra[0]
         return self
 

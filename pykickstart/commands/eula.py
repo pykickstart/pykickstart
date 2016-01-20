@@ -57,7 +57,7 @@ class F20_Eula(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if len(extra) != 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))

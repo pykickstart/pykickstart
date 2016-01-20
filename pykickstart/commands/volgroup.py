@@ -121,7 +121,7 @@ class FC3_VolGroup(KickstartCommand):
             ns.preexist = True
 
         vg = self.handler.VolGroupData()
-        self._setToObj(ns, vg)
+        self.set_to_obj(ns, vg)
         vg.lineno = self.lineno
 
         if len(extra) == 0:

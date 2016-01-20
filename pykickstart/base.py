@@ -153,22 +153,32 @@ class KickstartCommand(KickstartObject):
         for attr in [k for k in self.removedAttrs if hasattr(self, k)]:
             delattr(self, attr)
 
-    # Set the contents of the namespace object (an instance of argparse.Namespace
-    # returned by parse_arguments) as attributes on the KickstartCommand object.
-    # It's useful to call this from KickstartCommand subclasses after parsing
-    # the arguments.
-    def _setToSelf(self, namespace):
-        self._setToObj(namespace, self)
+    def set_to_self(self, namespace):
+        """Set the contents of the namespace object (an instance of argparse.Namespace
+           returned by parse_arguments) as attributes on the KickstartCommand object.
+           It's useful to call this from KickstartCommand subclasses after parsing
+           the arguments.
+        """
+        self.set_to_obj(namespace, self)
 
-    # Sets the contents of the namespace object (an instance of argparse.Namespace
-    # returned by parse_arguments) as attributes on the provided object obj.  It's
-    # useful to call this from KickstartCommand subclasses that handle lists
-    # of objects (like partitions, network devices, etc.) and need to populate
-    # a Data object.
-    def _setToObj(self, namespace, obj):
+    # Just calls set_to_self - exists for backwards compatibility.
+    def _setToSelf(self, namespace):
+        self.set_to_self(namespace)
+
+    def set_to_obj(self, namespace, obj):
+        """Sets the contents of the namespace object (an instance of argparse.Namespace
+           returned by parse_arguments) as attributes on the provided object obj.  It's
+           useful to call this from KickstartCommand subclasses that handle lists
+           of objects (like partitions, network devices, etc.) and need to populate
+           a Data object.
+        """
         for (key, val) in vars(namespace).items():
             if val != None:
                 setattr(obj, key, val)
+
+    # Just calls set_to_obj - exists for backwards compatibility.
+    def _setToObj(self, namespace, obj):
+        self.set_to_obj(namespace, obj)
 
 class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.

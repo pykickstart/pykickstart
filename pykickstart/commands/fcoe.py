@@ -110,7 +110,7 @@ class F12_Fcoe(KickstartCommand):
         zd = self.handler.FcoeData()
         ns = self.op.parse_args(args=args, lineno=self.lineno)
 
-        self._setToObj(ns, zd)
+        self.set_to_obj(ns, zd)
         zd.lineno = self.lineno
 
         # Check for duplicates in the data list.

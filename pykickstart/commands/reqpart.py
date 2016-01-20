@@ -63,7 +63,7 @@ class F23_ReqPart(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         self.reqpart = True
         return self
 

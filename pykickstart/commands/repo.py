@@ -187,7 +187,7 @@ class FC6_Repo(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
 
         rd = self.handler.RepoData()
-        self._setToObj(ns, rd)
+        self.set_to_obj(ns, rd)
         rd.lineno = self.lineno
 
         # Check for duplicates in the data list.

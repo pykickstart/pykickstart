@@ -78,7 +78,7 @@ class F12_Group(KickstartCommand):
     def parse(self, args):
         gd = self.handler.GroupData()
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(ns, gd)
+        self.set_to_obj(ns, gd)
         gd.lineno = self.lineno
 
         # Check for duplicates in the data list.

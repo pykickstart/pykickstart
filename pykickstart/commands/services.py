@@ -56,7 +56,7 @@ class FC6_Services(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if len(self.disabled) == 0 and len(self.enabled) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided.")))

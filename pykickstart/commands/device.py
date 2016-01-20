@@ -129,7 +129,7 @@ class F8_Device(FC3_Device):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         dd = F8_DeviceData()
-        self._setToObj(ns, dd)
+        self.set_to_obj(ns, dd)
         dd.lineno = self.lineno
         dd.moduleName = extra[0]
 

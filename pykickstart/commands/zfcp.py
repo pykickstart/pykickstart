@@ -109,7 +109,7 @@ class FC3_ZFCP(KickstartCommand):
     def parse(self, args):
         zd = self.handler.ZFCPData()
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(ns, zd)
+        self.set_to_obj(ns, zd)
         zd.lineno = self.lineno
 
         # Check for duplicates in the data list.

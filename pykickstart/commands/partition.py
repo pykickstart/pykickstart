@@ -315,7 +315,7 @@ class FC3_Partition(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         pd = self.handler.PartData()
-        self._setToObj(ns, pd)
+        self.set_to_obj(ns, pd)
         pd.lineno = self.lineno
         pd.mountpoint=extra[0]
 

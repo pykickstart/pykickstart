@@ -89,7 +89,7 @@ class F22_SshKey(KickstartCommand):
             mapping = {"command": "sshkey", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToObj(ns, ud)
+        self.set_to_obj(ns, ud)
         ud.key = extra[0]
         ud.lineno = self.lineno
 

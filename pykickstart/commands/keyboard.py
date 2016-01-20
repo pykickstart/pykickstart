@@ -116,7 +116,7 @@ class F18_Keyboard(FC3_Keyboard):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if len(extra) > 1:
             message = _("A single argument is expected for the %s command") % \

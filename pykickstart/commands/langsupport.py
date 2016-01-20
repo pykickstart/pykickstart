@@ -55,7 +55,7 @@ class FC3_LangSupport(KickstartCommand):
             mapping = {"command": "langsupport", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         self.supported = extra
         return self
 

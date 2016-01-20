@@ -125,7 +125,7 @@ class FC3_DriverDisk(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source or partition must be specified for driverdisk command.")))
 
         ddd = self.handler.DriverDiskData()
-        self._setToObj(ns, ddd)
+        self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:
             ddd.partition = extra[0]
@@ -164,7 +164,7 @@ class FC4_DriverDisk(FC3_DriverDisk):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command.")))
 
         ddd = self.handler.DriverDiskData()
-        self._setToObj(ns, ddd)
+        self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:
             ddd.partition = extra[0]

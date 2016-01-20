@@ -93,7 +93,7 @@ class FC3_Bootloader(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if self.currentCmd == "lilo":
             self.useLilo = True
@@ -134,7 +134,7 @@ class FC4_Bootloader(FC3_Bootloader):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         return self
 
 class F8_Bootloader(FC4_Bootloader):
@@ -214,7 +214,7 @@ class F15_Bootloader(F14_Bootloader):
             ns.isCrypted = True
             del(ns._md5pass)
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         return self
 
 class F17_Bootloader(F15_Bootloader):
@@ -324,7 +324,7 @@ class RHEL6_Bootloader(F12_Bootloader):
             ns.isCrypted = True
             del(ns._md5pass)
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         return self
 
 class F19_Bootloader(F18_Bootloader):

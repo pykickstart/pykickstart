@@ -64,7 +64,7 @@ class FC3_RootPw(KickstartCommand):
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToSelf(ns)
+        self.set_to_self(ns)
         self.password = extra[0]
         return self
 
@@ -107,7 +107,7 @@ class F18_RootPw(F8_RootPw):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if len(extra) != 1 and not self.lock:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))

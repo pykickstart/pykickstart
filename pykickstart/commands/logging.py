@@ -62,7 +62,7 @@ class FC6_Logging(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(ns)
+        self.set_to_self(ns)
 
         if self.port and not self.host:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")))
