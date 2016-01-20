@@ -51,7 +51,7 @@ class RHEL5_Key(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         if self.skip:
             self.key = KS_INSTKEY_SKIP

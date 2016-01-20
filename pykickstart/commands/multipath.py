@@ -84,7 +84,7 @@ class FC6_MultiPath(KickstartCommand):
     def parse(self, args):
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
         dd = FC6_MpPathData()
-        self._setToObj(self.op, opts, dd)
+        self.set_to_obj(self.op, opts, dd)
         dd.lineno = self.lineno
         dd.mpdev = dd.mpdev.split('/')[-1]
 

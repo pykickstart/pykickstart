@@ -144,7 +144,7 @@ class FC6_Iscsi(KickstartCommand):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         dd = self.handler.IscsiData()
-        self._setToObj(self.op, opts, dd)
+        self.set_to_obj(self.op, opts, dd)
         dd.lineno = self.lineno
         return dd
 

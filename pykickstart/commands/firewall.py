@@ -116,7 +116,7 @@ class FC3_Firewall(KickstartCommand):
             mapping = {"command": "firewall", "options": extra}
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class F9_Firewall(FC3_Firewall):

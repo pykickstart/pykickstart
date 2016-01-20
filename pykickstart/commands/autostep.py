@@ -50,6 +50,6 @@ class FC3_AutoStep(KickstartCommand):
 
     def parse(self, args):
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         self.autostep = True
         return self

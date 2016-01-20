@@ -67,7 +67,7 @@ class F21_OSTreeSetup(KickstartCommand):
 
     def parse(self, args):
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         if self.remote is None:
             self.remote = self.osname
 

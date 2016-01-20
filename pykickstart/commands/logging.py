@@ -67,7 +67,7 @@ class FC6_Logging(KickstartCommand):
         if opts.port and not opts.host:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")))
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         self._levelProvided = self.level != ""
         if not self._levelProvided:

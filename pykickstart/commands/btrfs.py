@@ -156,7 +156,7 @@ class F17_BTRFS(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         data = self.handler.BTRFSData()
-        self._setToObj(self.op, opts, data)
+        self.set_to_obj(self.op, opts, data)
         data.lineno = self.lineno
 
         if len(extra) == 0:

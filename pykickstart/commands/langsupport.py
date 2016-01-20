@@ -49,7 +49,7 @@ class FC3_LangSupport(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         self.supported = extra
         return self
 

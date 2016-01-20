@@ -83,5 +83,5 @@ class F19_Lang(FC3_Lang):
     def parse(self, args):
         FC3_Lang.parse(self, args)
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self

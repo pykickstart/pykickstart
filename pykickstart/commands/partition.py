@@ -321,7 +321,7 @@ class FC3_Partition(KickstartCommand):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
 
         pd = self.handler.PartData()
-        self._setToObj(self.op, opts, pd)
+        self.set_to_obj(self.op, opts, pd)
         pd.lineno = self.lineno
         pd.mountpoint=extra[0]
 

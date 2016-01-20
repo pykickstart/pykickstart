@@ -123,7 +123,7 @@ class F8_Device(FC3_Device):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}))
 
         dd = F8_DeviceData()
-        self._setToObj(self.op, opts, dd)
+        self.set_to_obj(self.op, opts, dd)
         dd.lineno = self.lineno
         dd.moduleName = extra[0]
 

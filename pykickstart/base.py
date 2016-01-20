@@ -157,17 +157,25 @@ class KickstartCommand(KickstartObject):
     # returned by parse_args) as attributes on the KickstartCommand object.
     # It's useful to call this from KickstartCommand subclasses after parsing
     # the arguments.
+    def set_to_self(self, optParser, opts):
+        self.set_to_obj(optParser, opts, self)
+
     def _setToSelf(self, optParser, opts):
-        self._setToObj(optParser, opts, self)
+        warnings.warn("_setToSelf has been renamed to set_to_self.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
+        self.set_to_self(optParser, opts)
 
     # Sets the contents of the opts object (an instance of optparse.Values
     # returned by parse_args) as attributes on the provided object obj.  It's
     # useful to call this from KickstartCommand subclasses that handle lists
     # of objects (like partitions, network devices, etc.) and need to populate
     # a Data object.
-    def _setToObj(self, optParser, opts, obj):
+    def set_to_obj(self, optParser, opts, obj):
         for key in [k for k in list(optParser.keys()) if getattr(opts, k) != None]:
             setattr(obj, key, getattr(opts, key))
+
+    def _setToObj(self, optParser, opts, obj):
+        warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
+        self.set_to_obj(optParser, opts, obj)
 
 class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.

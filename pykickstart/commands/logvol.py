@@ -396,7 +396,7 @@ class FC3_LogVol(KickstartCommand):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
 
         lvd = self.handler.LogVolData()
-        self._setToObj(self.op, opts, lvd)
+        self.set_to_obj(self.op, opts, lvd)
         lvd.lineno = self.lineno
         lvd.mountpoint=extra[0]
 

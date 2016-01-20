@@ -65,7 +65,7 @@ class FC3_Monitor(KickstartCommand):
             mapping = {"cmd": "monitor", "options": extra}
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(cmd)s command: %(options)s") % mapping))
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class FC6_Monitor(FC3_Monitor):

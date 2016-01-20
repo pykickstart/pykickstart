@@ -86,7 +86,7 @@ class F9_AutoPart(FC3_AutoPart):
         # Rely on any error handling from baseclass
         FC3_AutoPart.parse(self, extra)
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class F12_AutoPart(F9_AutoPart):
@@ -268,7 +268,7 @@ class F17_AutoPart(F16_AutoPart):
         # Rely on any error handling from baseclass
         F16_AutoPart.parse(self, extra)
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         # make this always True to avoid writing --nolvm
         self.lvm = True
