@@ -1,0 +1,54 @@
+This document describes user-visible changes from pykickstart-2 to
+pykickstart-3.  With the major version number change, I've taken the
+opportunity to make some changes that would break compatibility.  In order
+to use the new version, these are things you should be aware of:
+
+* KickstartValueError is no longer raised in pykickstart.  Any places that
+  would have raised this exception now raise KickstartParseError.  The old
+  KickstartValueError class still exists, should you have code that needs
+  to raise it.
+
+* The map and map_extend actions provided by KSOptionParser have been
+  eliminated.  Nothing in pykickstart outside of the firewall command used
+  these actions, and it's easy enough to implement without custom actions.
+
+* The KSOption class has been removed.
+
+* _setToSelf has been renamed set_to_self to reflect that it's really a public
+  function, and now only takes an argparse.Namespace argument.  _setToObj has
+  similarly been renamed set_to_obj, and now only takes a source
+  argparse.Namespace and a destination object.  The old names still exist as
+  wrappers for the new names.
+
+* pykickstart now uses the argparse module instead of the deprecated optparse
+  module.  The bulk of the changes for this release are related to this move.
+  If you have your own commands or have subclassed existing commands, you
+  will need to make a variety of changes to your code.  The rest of the items
+  in this list are due to this change.
+
+  In general, see:
+
+  https://docs.python.org/3/library/argparse.html#upgrading-optparse-code
+
+* add_option is now add_argument.
+
+* parse_args now returns only one value, an argparse.Namespace instance.  It
+  is recommended you use parse_args for commands that don't expect any extra
+  arguments and parse_known_args for any commands that do.  parse_known_args
+  returns both an argparse.Namespace and a list of extra options.  Examples
+  of commands that should use parse_known_args are things like logvol or part,
+  that want a mount point.
+
+* The callback action no longer exists.  If you need to do some complex
+  conversion of the value given as the argument, use type=<some function> to do
+  it.  See the autopart command for an example.  If you need to set multiple
+  values when one argument is seen, you'll need to set an intermediate value
+  and do the real setting in the parse method.  See the bootloader command.
+
+* There is no need to specify type="choice" any more.  Just give choices=.
+
+* There are new ExtendAction and ExtendConstActions available.  The first
+  extends an existing list with a list of new values.  This is useful if an
+  argument can be provided multiple times and each time can take a comma
+  separated list of values.  The second does the same, but with a given
+  const= value.  See the firewall command for an example.
