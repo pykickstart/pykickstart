@@ -109,5 +109,5 @@ def _copy_file(filename, destination):
 
     try:
         shutil.copyfile(filename, destination)
-    except OSError as e:
+    except (OSError, IOError) as e:
         raise KickstartError(_('Error copying file: %s') % str(e))
