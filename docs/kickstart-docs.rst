@@ -539,14 +539,14 @@ installation program:
     Replace with none or more of the following to allow the specified
     services through the firewall.
 
-        ``--ssh`` - The ssh option is enabled by default, regardless of
-        the presence of this flag.
+    ``--ssh`` - The ssh option is enabled by default, regardless of
+    the presence of this flag.
 
-        ``--smtp``
+    ``--smtp``
 
-        ``--http``
+    ``--http``
 
-        ``--ftp``
+    ``--ftp``
 
 ``--port=``
 
@@ -677,26 +677,26 @@ harddrive
 
 ``harddrive [--biospart=<bios partition> | --partition=<partition>] [--dir=<directory>]``
 
-    Install from a directory of ISO images on a local drive, which must
-    be either vfat or ext2. In addition to this directory, you must also
-    provide the install.img in some way. You can either do this by
-    booting off the boot.iso or by creating an images/ directory in the
-    same directory as the ISO images and placing install.img in there.
+Install from a directory of ISO images on a local drive, which must
+be either vfat or ext2. In addition to this directory, you must also
+provide the install.img in some way. You can either do this by
+booting off the boot.iso or by creating an images/ directory in the
+same directory as the ISO images and placing install.img in there.
 
-    ``--biospart=``
+``--biospart=``
 
-        BIOS partition to install from (such as 82p2).
+    BIOS partition to install from (such as 82p2).
 
-    ``--partition=``
+``--partition=``
 
-        Partition to install from (such as, sdb2).
+    Partition to install from (such as, sdb2).
 
-    ``--dir=``
+``--dir=``
 
-        Directory containing both the ISO images and the
-        images/install.img. For example:
+    Directory containing both the ISO images and the
+    images/install.img. For example:
 
-        ``harddrive --partition=hdb2 --dir=/tmp/install-tree ``
+    ``harddrive --partition=hdb2 --dir=/tmp/install-tree ``
 
 
 liveimg
@@ -704,37 +704,37 @@ liveimg
 
 ``liveimg --url=<url> [--proxy=<proxyurl>] [--checksum=<sha256>] [--noverifyssl]``
 
-    Install a disk image instead of packages. The image can be the
-    squashfs.img from a Live iso, or any filesystem mountable by the
-    install media (eg. ext4). Anaconda expects the image to contain
-    utilities it needs to complete the system install so the best way to
-    create one is to use livemedia-creator to make the disk image. If
-    the image contains /LiveOS/\*.img (this is how squashfs.img is
-    structured) the first \*img file inside LiveOS will be mounted and
-    used to install the target system. As of Anaconda 21.29 the URL may
-    point to a tarfile of the root filesystem. The file must end in
-    .tar, .tbz, .tgz, .txz, .tar.bz2, tar.gz, tar.xz
+Install a disk image instead of packages. The image can be the
+squashfs.img from a Live iso, or any filesystem mountable by the
+install media (eg. ext4). Anaconda expects the image to contain
+utilities it needs to complete the system install so the best way to
+create one is to use livemedia-creator to make the disk image. If
+the image contains /LiveOS/\*.img (this is how squashfs.img is
+structured) the first \*img file inside LiveOS will be mounted and
+used to install the target system. As of Anaconda 21.29 the URL may
+point to a tarfile of the root filesystem. The file must end in
+.tar, .tbz, .tgz, .txz, .tar.bz2, tar.gz, tar.xz
 
-    ``--url=``
+``--url=``
 
-        The URL to install from. http, https, ftp and file are
-        supported.
+    The URL to install from. http, https, ftp and file are
+    supported.
 
-    ``--proxy=[protocol://][username[:password]@]host[:port]``
+``--proxy=[protocol://][username[:password]@]host[:port]``
 
-        Specify an HTTP/HTTPS/FTP proxy to use while performing the
-        install. The various parts of the argument act like you would
-        expect.
+    Specify an HTTP/HTTPS/FTP proxy to use while performing the
+    install. The various parts of the argument act like you would
+    expect.
 
-    ``--checksum=``
+``--checksum=``
 
-        Optional sha256 checksum of the image file
+    Optional sha256 checksum of the image file
 
-    ``--noverifyssl``
+``--noverifyssl``
 
-        For a tree on a HTTPS server do not check the server's
-        certificate with what well-known CA validate and do not check
-        the server's hostname matches the certificate's domain name.
+    For a tree on a HTTPS server do not check the server's
+    certificate with what well-known CA validate and do not check
+    the server's hostname matches the certificate's domain name.
 
 
 nfs
@@ -742,32 +742,32 @@ nfs
 
 ``nfs --server=<hostname> --dir=<directory> [--opts=<nfs options>]``
 
-    Install from the NFS server specified. This can either be an
-    exploded installation tree or a directory of ISO images. In the
-    latter case, the install.img must also be provided subject to the
-    same rules as with the harddrive installation method described
-    above.
+Install from the NFS server specified. This can either be an
+exploded installation tree or a directory of ISO images. In the
+latter case, the install.img must also be provided subject to the
+same rules as with the harddrive installation method described
+above.
 
-    ``--server=``
+``--server=``
 
-        Server from which to install (hostname or IP).
+    Server from which to install (hostname or IP).
 
-    ``--dir=``
+``--dir=``
 
-        Directory containing the Packages/ directory of the installation
-        tree. If doing an ISO install, this directory must also contain
-        images/install.img.
+    Directory containing the Packages/ directory of the installation
+    tree. If doing an ISO install, this directory must also contain
+    images/install.img.
 
-    ``--opts=``
+``--opts=``
 
-        Mount options to use for mounting the NFS export. Any options
-        that can be specified in /etc/fstab for an NFS mount are
-        allowed. The options are listed in the nfs(5) man page. Multiple
-        options are separated with a comma.
+    Mount options to use for mounting the NFS export. Any options
+    that can be specified in /etc/fstab for an NFS mount are
+    allowed. The options are listed in the nfs(5) man page. Multiple
+    options are separated with a comma.
 
-        For example:
+    For example:
 
-        ``nfs --server=nfsserver.example.com --dir=/tmp/install-tree``
+    ``nfs --server=nfsserver.example.com --dir=/tmp/install-tree``
 
 
 url
@@ -775,30 +775,30 @@ url
 
 ``url --url=<url>|--mirrorlist=<url> [--proxy=<proxy url>] [--noverifyssl]``
 
-    Install from an installation tree on a remote server via FTP or
-    HTTP.
+Install from an installation tree on a remote server via FTP or
+HTTP.
 
-    ``--url=``
+``--url=``
 
-        The URL to install from. Variable substitution is done for
-        $releasever and $basearch in the url (added in F19).
+    The URL to install from. Variable substitution is done for
+    $releasever and $basearch in the url (added in F19).
 
-    ``--mirrorlist=``
+``--mirrorlist=``
 
-        The mirror URL to install from. Variable substitution is done
-        for $releasever and $basearch in the url (added in F19).
+    The mirror URL to install from. Variable substitution is done
+    for $releasever and $basearch in the url (added in F19).
 
-    ``--proxy=[protocol://][username[:password]@]host[:port]``
+``--proxy=[protocol://][username[:password]@]host[:port]``
 
-        Specify an HTTP/HTTPS/FTP proxy to use while performing the
-        install. The various parts of the argument act like you would
-        expect.
+    Specify an HTTP/HTTPS/FTP proxy to use while performing the
+    install. The various parts of the argument act like you would
+    expect.
 
-    ``--noverifyssl``
+``--noverifyssl``
 
-        For a tree on a HTTPS server do not check the server's
-        certificate with what well-known CA validate and do not check
-        the server's hostname matches the certificate's domain name.
+    For a tree on a HTTPS server do not check the server's
+    certificate with what well-known CA validate and do not check
+    the server's hostname matches the certificate's domain name.
 
 
 iscsi
@@ -1352,35 +1352,35 @@ one of the following forms:
 
     ``/<path>``
 
-        For example, /, /usr, /home
+     For example, /, /usr, /home
 
     ``swap``
 
-        The partition will be used as swap space.
+     The partition will be used as swap space.
 
-        To determine the size of the swap partition automatically, use
-        the ``--recommended`` option. Starting with Fedora 18 the
-        ``--hibernation`` option can be used to automatically determine
-        the size of the swap partition big enough for hibernation.
+     To determine the size of the swap partition automatically, use
+     the ``--recommended`` option. Starting with Fedora 18 the
+     ``--hibernation`` option can be used to automatically determine
+     the size of the swap partition big enough for hibernation.
 
     ``raid.<id>``
 
-        The partition will be used for software RAID (refer to raid).
+     The partition will be used for software RAID (refer to raid).
 
     ``pv.<id>``
 
-        The partition will be used for LVM (refer to logvol).
+     The partition will be used for LVM (refer to logvol).
 
     ``btrfs.<id>``
 
-        The partition will be used for BTRFS volume (refer to btrfs).
+     The partition will be used for BTRFS volume (refer to btrfs).
 
     ``biosboot``
 
-        The partition will be used for a BIOS Boot Partition. As of
-        Fedora 16 there must be a biosboot partition for the bootloader
-        to be successfully installed onto a disk that contains a
-        GPT/GUID partition table (refer to bootloader).
+     The partition will be used for a BIOS Boot Partition. As of
+     Fedora 16 there must be a biosboot partition for the bootloader
+     to be successfully installed onto a disk that contains a
+     GPT/GUID partition table (refer to bootloader).
 
 ``--size=``
 
@@ -1418,8 +1418,8 @@ one of the following forms:
 
 ``--asprimary``
 
-    Forces automatic allocation of the partition as a primary partition
-    or the partitioning will fail.
+   Forces automatic allocation of the partition as a primary partition
+   or the partitioning will fail.
 
    **TIP:** *The ``--asprimary`` option only makes sense with the MBR partitioning scheme and is ignored when the GPT partitioning scheme is used.*
 
@@ -1498,9 +1498,9 @@ one of the following forms:
 
 ``--resize``
 
-    Attempt to resize this partition to the size given by ``--size=``.
-    This option must be used with ``--onpart --size=``, or an error will
-    be raised.
+   Attempt to resize this partition to the size given by ``--size=``.
+   This option must be used with ``--onpart --size=``, or an error will
+   be raised.
 
    **If partitioning fails for any reason, diagnostic messages will appear on virtual console 3.**
 
@@ -1967,8 +1967,8 @@ the time zones listed by timeconfig.
 
 ``--utc``
 
-    If present, the system assumes the hardware clock is set to UTC
-    (Greenwich Mean) time.
+   If present, the system assumes the hardware clock is set to UTC
+   (Greenwich Mean) time.
 
    *To get the list of supported timezones, you can either run this script: http://vpodzime.fedorapeople.org/timezones_list.py or look at this list: http://vpodzime.fedorapeople.org/timezones_list.txt*
 
@@ -2320,49 +2320,49 @@ Global %packages options
 The following options are available for use in the %packages section
 header:
 
-    ``--default``
+``--default``
 
-        Install the default package set. This corresponds to the package
-        set that would be installed if no other selections were made on
-        the package customization screen during an interactive install.
+    Install the default package set. This corresponds to the package
+    set that would be installed if no other selections were made on
+    the package customization screen during an interactive install.
 
-    ``--excludedocs``
+``--excludedocs``
 
-        Do not install any of the documentation from any packages. For
-        the most part, this means files in /usr/share/doc\* will not get
-        installed though it could mean other files as well, depending on
-        how the package was built.
+    Do not install any of the documentation from any packages. For
+    the most part, this means files in /usr/share/doc\* will not get
+    installed though it could mean other files as well, depending on
+    how the package was built.
 
-    ``--ignoremissing``
+``--ignoremissing``
 
-        Ignore any packages or groups specified in the packages section
-        that are not found in any configured repository. The default
-        behavior is to halt the installation and ask the user if the
-        installation should be aborted or continued. This option allows
-        fully automated installation even in the error case. It is used
-        as follows:
+    Ignore any packages or groups specified in the packages section
+    that are not found in any configured repository. The default
+    behavior is to halt the installation and ask the user if the
+    installation should be aborted or continued. This option allows
+    fully automated installation even in the error case. It is used
+    as follows:
 
-        ``%packages --ignoremissing``
+    ``%packages --ignoremissing``
 
-    ``--instLangs=``
+``--instLangs=``
 
-        Specify the list of languages that should be installed. This is
-        different from the package group level selections, though. This
-        option does not specify what package groups should be installed.
-        Instead, it controls which translation files from individual
-        packages should be installed by setting RPM macros.
+    Specify the list of languages that should be installed. This is
+    different from the package group level selections, though. This
+    option does not specify what package groups should be installed.
+    Instead, it controls which translation files from individual
+    packages should be installed by setting RPM macros.
 
-    ``--multilib``
+``--multilib``
 
-        Enable yum's "all" multilib\_policy as opposed to the default of
-        "best".
+    Enable yum's "all" multilib\_policy as opposed to the default of
+    "best".
 
-    ``--nocore``
+``--nocore``
 
-        Do not install the @core group (installed by default,
-        otherwise).
+    Do not install the @core group (installed by default,
+    otherwise).
 
-   **Omitting the core group can produce a system that is not bootable or that cannot finish the install. Use with caution.**
+**Omitting the core group can produce a system that is not bootable or that cannot finish the install. Use with caution.**
 
 
 Group-level options
@@ -2371,16 +2371,16 @@ Group-level options
 In addition, group lines in the %packages section can take the following
 options:
 
-    ``--nodefaults``
+``--nodefaults``
 
-        Only install the group's mandatory packages, not the default
-        selections.
+    Only install the group's mandatory packages, not the default
+    selections.
 
-    ``--optional``
+``--optional``
 
-        In addition to the mandatory and default packages, also install
-        the optional packages. This means all packages in the group will
-        be installed.
+    In addition to the mandatory and default packages, also install
+    the optional packages. This means all packages in the group will
+    be installed.
 
 
 Chapter 4. Pre-installation Script
@@ -2403,22 +2403,22 @@ anaconda waits for an EOF from the script.**
 
 **Note that the pre-install script is not run in the chroot environment.**
 
-    ``--interpreter /usr/bin/python``
+``--interpreter /usr/bin/python``
 
-        Allows you to specify a different scripting language, such as
-        Python. Replace /usr/bin/python with the scripting language of
-        your choice.
+    Allows you to specify a different scripting language, such as
+    Python. Replace /usr/bin/python with the scripting language of
+    your choice.
 
-    ``--erroronfail``
+``--erroronfail``
 
-        If the pre-installation script fails, this option will cause an
-        error dialog to be displayed and will halt installation. The
-        error message will direct you to where the cause of the failure
-        is logged.
+    If the pre-installation script fails, this option will cause an
+    error dialog to be displayed and will halt installation. The
+    error message will direct you to where the cause of the failure
+    is logged.
 
-    ``--log=``
+``--log=``
 
-        Log all messages from the script to the given log file.
+    Log all messages from the script to the given log file.
 
 
 Example
@@ -2512,27 +2512,27 @@ anaconda waits for an EOF from the script.**
 tasks such as copying scripts or RPMs from the installation media will not
 work.**
 
-    ``--nochroot``
+``--nochroot``
 
-        Allows you to specify commands that you would like to run
-        outside of the chroot environment.
+    Allows you to specify commands that you would like to run
+    outside of the chroot environment.
 
-    ``--interpreter /usr/bin/python``
+``--interpreter /usr/bin/python``
 
-        Allows you to specify a different scripting language, such as
-        Python. Replace /usr/bin/python with the scripting language of
-        your choice.
+    Allows you to specify a different scripting language, such as
+    Python. Replace /usr/bin/python with the scripting language of
+    your choice.
 
-    ``--erroronfail``
+``--erroronfail``
 
-        If the post-installation script fails, this option will cause an
-        error dialog to be displayed and will halt installation. The
-        error message will direct you to where the cause of the failure
-        is logged.
+    If the post-installation script fails, this option will cause an
+    error dialog to be displayed and will halt installation. The
+    error message will direct you to where the cause of the failure
+    is logged.
 
-    ``--log=``
+``--log=``
 
-        Log all messages from the script to the given log file.
+    Log all messages from the script to the given log file.
 
 
 Examples
