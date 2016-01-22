@@ -1352,35 +1352,35 @@ one of the following forms:
 
     ``/<path>``
 
-     For example, /, /usr, /home
+    For example, /, /usr, /home
 
     ``swap``
 
-     The partition will be used as swap space.
+    The partition will be used as swap space.
 
-     To determine the size of the swap partition automatically, use
-     the ``--recommended`` option. Starting with Fedora 18 the
-     ``--hibernation`` option can be used to automatically determine
-     the size of the swap partition big enough for hibernation.
+    To determine the size of the swap partition automatically, use
+    the ``--recommended`` option. Starting with Fedora 18 the
+    ``--hibernation`` option can be used to automatically determine
+    the size of the swap partition big enough for hibernation.
 
     ``raid.<id>``
 
-     The partition will be used for software RAID (refer to raid).
+    The partition will be used for software RAID (refer to raid).
 
     ``pv.<id>``
 
-     The partition will be used for LVM (refer to logvol).
+    The partition will be used for LVM (refer to logvol).
 
     ``btrfs.<id>``
 
-     The partition will be used for BTRFS volume (refer to btrfs).
+    The partition will be used for BTRFS volume (refer to btrfs).
 
     ``biosboot``
 
-     The partition will be used for a BIOS Boot Partition. As of
-     Fedora 16 there must be a biosboot partition for the bootloader
-     to be successfully installed onto a disk that contains a
-     GPT/GUID partition table (refer to bootloader).
+    The partition will be used for a BIOS Boot Partition. As of
+    Fedora 16 there must be a biosboot partition for the bootloader
+    to be successfully installed onto a disk that contains a
+    GPT/GUID partition table (refer to bootloader).
 
 ``--size=``
 
