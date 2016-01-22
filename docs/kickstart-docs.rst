@@ -989,9 +989,9 @@ Create a logical volume for Logical Volume Management (LVM).
 
 ``--maxsize=``
 
-    The maximum size in megabytes when the logical volume is set to
-    grow. Specify an integer value here, and do not append the number
-    with MB.
+    The maximum size in MiB the logical volume may grow to.  Specify an
+    integer value here, and do not append any units.  This option is only
+    relevant if ``--grow`` is specified as well.
 
 ``--recommended``
 
@@ -1384,8 +1384,8 @@ one of the following forms:
 
 ``--size=``
 
-    The minimum partition size in megabytes. Specify an integer value
-    here such as 500. Do not append the number with MB.
+    The minimum partition size in MiB. Specify an integer value
+    here such, and do not append any units.
 
 ``--grow``
 
@@ -1395,9 +1395,9 @@ one of the following forms:
 
 ``--maxsize=``
 
-    The maximum partition size in megabytes when the partition is set to
-    grow. Specify an integer value here, and do not append the number
-    with MB.
+    The maximum size in MiB the partition may grow to.  Specify an
+    integer value here, and do not append any units.  This option is
+    only relevant if ``--grow`` is specified as well.
 
 ``--noformat``
 
@@ -2151,8 +2151,8 @@ Use to create a Logical Volume Management (LVM) group.
 ``--reserved-space=``
 
     Specify an amount of space to leave unused in a volume group, in
-    megabytes. (new volume groups only)
-
+    MiB.  Do not append any units.  This option is only used for new
+    volume groups.
 ``--reserved-percent=``
 
     Specify a percentage of total volume group space to leave unused.
