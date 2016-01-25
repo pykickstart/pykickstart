@@ -5,7 +5,7 @@ import tempfile
 from tests.baseclass import ParserTest
 
 from pykickstart import constants
-from pykickstart.errors import KickstartError
+from pykickstart.errors import KickstartError, KickstartParseError
 
 class Base_Include(ParserTest):
     def setUp(self):
@@ -22,6 +22,11 @@ class Base_Include(ParserTest):
     def tearDown(self):
         ParserTest.tearDown(self)
         os.unlink(self._path)
+
+class Include_Missing_TestCase(ParserTest):
+    def runTest(self):
+        self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, "%include")
+        self.assertRaises(KickstartError, self.parser.readKickstartFromString, "%include /tmp/FILE_NOT_FOUND")
 
 class Include_Packages_TestCase(Base_Include):
     ks = """

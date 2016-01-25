@@ -2,7 +2,7 @@ import unittest
 from tests.baseclass import CommandTest
 
 from pykickstart.errors import KickstartParseError
-from pykickstart.parser import Packages
+from pykickstart.parser import Group, Packages
 from pykickstart.version import DEVEL, returnClassForVersion
 
 class DevelPackagesBase(CommandTest):
@@ -169,6 +169,17 @@ class MultiLib_TestCase(DevelPackagesBase):
         self.assertEqual("""%packages --default --multilib
 
 %end""", str(pkgs).strip())
+
+class GroupObj_TestCase(DevelPackagesBase):
+    def runTest(self):
+        self.assertLess(Group("A"), Group("B"))
+        self.assertLessEqual(Group("A"), Group("B"))
+        self.assertLessEqual(Group("A"), Group("A"))
+        self.assertEqual(Group("A"), Group("A"))
+        self.assertNotEqual(Group("A"), Group("B"))
+        self.assertGreater(Group("B"), Group("A"))
+        self.assertGreaterEqual(Group("B"), Group("A"))
+        self.assertGreaterEqual(Group("B"), Group("B"))
 
 if __name__ == "__main__":
     unittest.main()
