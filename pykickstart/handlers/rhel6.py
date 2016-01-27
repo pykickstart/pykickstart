@@ -51,6 +51,7 @@ class RHEL6Handler(BaseHandler):
         "interactive": commands.interactive.FC3_Interactive,
         "iscsi": commands.iscsi.RHEL6_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
+        "key": commands.key.F7_Key,
         "keyboard": commands.keyboard.FC3_Keyboard,
         "lang": commands.lang.FC3_Lang,
         "logging": commands.logging.FC6_Logging,
