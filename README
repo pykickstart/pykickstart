@@ -1,3 +1,11 @@
-Pykickstart is a Python 2 and Python 3 library consisting of a data
-representation of kickstart files, a parser to read files into that
-representation, and a writer to generate kickstart files.
+This is pykickstart-2, a python2 and python3 library for reading, writing, and
+manipulating kickstart files.  kickstart files are used to automate the
+anaconda installer, among other purposes.
+
+This is the latest released version of pykickstart, but it is not the latest
+version of the library in source control.  Please see docs/2to3 for an
+explanation of how to migrate your code to the latest version.  The 2.x series
+will raise deprecation warnings in various places that the 2to3 document
+covers.  The 3.x series will substantially change parts of the library,
+breaking existing code.  The 2.x series will not be going away any time soon,
+but it is suggested you start migrating your code now.
