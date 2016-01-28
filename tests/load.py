@@ -71,8 +71,13 @@ class Load_From_URL_Test(LoadTest):
     def setUp(self):
         super(Load_From_URL_Test, self).setUp()
 
-        self._server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0),
-                                                           six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler)
+        # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
+        httphandler = six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler
+        def shutup(*args, **kwargs):
+            pass
+        httphandler.log_message = shutup
+
+        self._server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
         httpd_port = self._server.server_port
         self._httpd_pid = os.fork()
         if self._httpd_pid == 0:
