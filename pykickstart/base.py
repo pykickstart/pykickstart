@@ -153,26 +153,30 @@ class KickstartCommand(KickstartObject):
         for attr in [k for k in self.removedAttrs if hasattr(self, k)]:
             delattr(self, attr)
 
-    # Set the contents of the opts object (an instance of optparse.Values
-    # returned by parse_args) as attributes on the KickstartCommand object.
-    # It's useful to call this from KickstartCommand subclasses after parsing
-    # the arguments.
     def set_to_self(self, optParser, opts):
+        """Set the contents of the opts object (an instance of optparse.Values
+           returned by parse_args) as attributes on the KickstartCommand object.
+           It's useful to call this from KickstartCommand subclasses after parsing
+           the arguments.
+        """
         self.set_to_obj(optParser, opts, self)
 
+    # Just calls set_to_self - exists for backwards compatibility.
     def _setToSelf(self, optParser, opts):
         warnings.warn("_setToSelf has been renamed to set_to_self.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_self(optParser, opts)
 
-    # Sets the contents of the opts object (an instance of optparse.Values
-    # returned by parse_args) as attributes on the provided object obj.  It's
-    # useful to call this from KickstartCommand subclasses that handle lists
-    # of objects (like partitions, network devices, etc.) and need to populate
-    # a Data object.
     def set_to_obj(self, optParser, opts, obj):
+        """Sets the contents of the opts object (an instance of optparse.Values
+           returned by parse_args) as attributes on the provided object obj.  It's
+           useful to call this from KickstartCommand subclasses that handle lists
+           of objects (like partitions, network devices, etc.) and need to populate
+           a Data object.
+        """
         for key in [k for k in list(optParser.keys()) if getattr(opts, k) != None]:
             setattr(obj, key, getattr(opts, key))
 
+    # Just calls set_to_obj - exists for backwards compatibility.
     def _setToObj(self, optParser, opts, obj):
         warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_obj(optParser, opts, obj)
