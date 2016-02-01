@@ -163,6 +163,7 @@ class KickstartCommand(KickstartObject):
 
     # Just calls set_to_self - exists for backwards compatibility.
     def _setToSelf(self, namespace):
+        warnings.warn("_setToSelf has been renamed to set_to_self.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_self(namespace)
 
     def set_to_obj(self, namespace, obj):
@@ -178,6 +179,7 @@ class KickstartCommand(KickstartObject):
 
     # Just calls set_to_obj - exists for backwards compatibility.
     def _setToObj(self, namespace, obj):
+        warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_obj(namespace, obj)
 
 class DeprecatedCommand(KickstartCommand):
