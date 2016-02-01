@@ -36,6 +36,8 @@ It also exports several exception classes:
     KickstartVersionError - An exception for errors relating to unsupported
                             syntax versions.
 """
+import warnings
+
 from pykickstart.i18n import _
 
 def formatErrorMsg(lineno, msg=""):
@@ -83,6 +85,7 @@ class KickstartValueError(KickstartError):
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)
+        warnings.warn("KickstartValueError is deprecated and will be removed in pykickstart-3.  Use KickstartParseError instead.", PendingDeprecationWarning, stacklevel=2)
 
     def __str__ (self):
         return self.value

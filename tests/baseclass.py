@@ -28,6 +28,9 @@ class ParserTest(unittest.TestCase):
         self._parser = None
         unittest.TestCase.setUp(self)
 
+        # ignore PendingDeprecationWarning
+        warnings.simplefilter("ignore", category=PendingDeprecationWarning, append=False)
+
     def tearDown(self):
         """Undo anything performed by setUp"""
         unittest.TestCase.tearDown(self)
@@ -109,8 +112,9 @@ class CommandTest(unittest.TestCase):
         # turn warnings into errors so we can catch them
         warnings.simplefilter("error", category=UserWarning)
 
-        # ignore DeprecationWarning
-        warnings.simplefilter("ignore", category=DeprecationWarning, append=0)
+        # ignore DeprecationWarning and PendingDeprecationWarning
+        warnings.simplefilter("ignore", category=DeprecationWarning, append=False)
+        warnings.simplefilter("ignore", category=PendingDeprecationWarning, append=False)
 
     def tearDown(self):
         '''Undo anything performed by setUp(self)'''

@@ -89,6 +89,7 @@ bash
     def runTest(self):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
+            warnings.simplefilter("ignore", PendingDeprecationWarning)
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 1)
             self.assertIsInstance(w[-1].message, DeprecationWarning)
@@ -105,6 +106,7 @@ bash
     def runTest(self):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter("always")
+            warnings.simplefilter("ignore", PendingDeprecationWarning)
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
 

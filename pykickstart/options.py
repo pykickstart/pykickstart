@@ -99,6 +99,14 @@ class KSOptionParser(OptionParser):
 
         return (values, args)
 
+    def add_option(self, *args, **kwargs):
+        warnings.warn("add_option is deprecated and will be removed in pykickstart-3.  Use add_argument instead.", PendingDeprecationWarning, stacklevel=2)
+
+        if "action" in kwargs and kwargs["action"] == "callback":
+            warnings.warn("action=\"callback\" is deprecated and will be removed in pykickstart-3.  Use the argparse module instead.", PendingDeprecationWarning, stacklevel=2)
+
+        return OptionParser.add_option(self, *args, **kwargs)
+
     def parse_args(self, *args, **kwargs):
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
@@ -188,8 +196,10 @@ class KSOption (Option):
     # Override default take_action method to handle our custom actions.
     def take_action(self, action, dest, opt, value, values, parser):
         if action == "map":
+            warnings.warn("action=\"map\" is deprecated and will be removed in pykickstart-3.  Use action=\"extend\" instead.", PendingDeprecationWarning, stacklevel=2)
             values.ensure_value(dest, parser.map[opt.lstrip('-')])
         elif action == "map_extend":
+            warnings.warn("action=\"map_extend\" is deprecated and will be removed in pykickstart-3.  Use action=\"extend_const\" instead.", PendingDeprecationWarning, stacklevel=2)
             values.ensure_value(dest, []).extend(parser.map[opt.lstrip('-')])
         else:
             Option.take_action(self, action, dest, opt, value, values, parser)
@@ -199,6 +209,7 @@ class KSOption (Option):
         return Option.takes_value(self) and not self.deprecated
 
     def __init__(self, *args, **kwargs):
+        warnings.warn("The KSOption class is deprecated and will be removed in pykickstart-3.  Use the argparse module instead.", PendingDeprecationWarning, stacklevel=2)
         self.deprecated = False
         self.required = False
         Option.__init__(self, *args, **kwargs)
