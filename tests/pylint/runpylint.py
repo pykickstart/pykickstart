@@ -6,12 +6,6 @@ from pocketlint import PocketLintConfig, PocketLinter
 
 class PykickstartLintConfig(PocketLintConfig):
     @property
-    def pylintPlugins(self):
-        retval = super(PykickstartLintConfig, self).pylintPlugins
-        retval.remove("pocketlint.checkers.eintr")
-        return retval
-
-    @property
     def ignoreNames(self):
         return {"translation-canary"}
 
