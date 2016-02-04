@@ -20,6 +20,9 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.method import FC3_Method, F19_Method
+from pykickstart.handlers.fc3 import FC3Handler
+from pykickstart.handlers.f19 import F19Handler
 
 from pykickstart.errors import KickstartParseError, KickstartValueError
 
@@ -71,6 +74,24 @@ class FC3_TestCase(CommandTest):
         # missing required option --url
         self.assert_parse_error("url", KickstartValueError)
         self.assert_parse_error("url --url", KickstartParseError)
+
+        # __getattr__ + __setattr__
+        method = FC3_Method()
+        handler = FC3Handler()
+        method.handler = handler
+        self.assertEqual(method.method, None)
+        available_methods = ["cdrom", "harddrive", "nfs", "url"]
+        for chosen_method in available_methods:
+            method.method = chosen_method
+            method.foo = chosen_method # try to set an unused attribute
+            for unseen_method in [m for m in available_methods if m != chosen_method]:
+                self.assertFalse(getattr(method.handler, unseen_method).seen)
+                self.assertEqual(method.foo, chosen_method)
+            self.assertTrue(getattr(method.handler, chosen_method).seen)
+            self.assertEqual(method.method, chosen_method)
+        # last seen method should be returned when 'method' attribute doesn't exist
+        del method.method
+        self.assertEqual(method.method, available_methods[-1])
 
 
 class FC6_TestCase(FC3_TestCase):
@@ -161,6 +182,24 @@ class F19_TestCase(F18_TestCase):
         self.assert_parse_error("liveimg --proxy=http://someplace/somewhere", KickstartValueError)
         self.assert_parse_error("liveimg --noverifyssl", KickstartValueError)
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba", KickstartValueError)
+
+        # __getattr__ + __setattr__
+        method = F19_Method()
+        handler = F19Handler()
+        method.handler = handler
+        self.assertEqual(method.method, None)
+        method.method = "liveimg"
+        method.foo = "liveimg" # try to set an unused attribute
+        available_methods = ["cdrom", "harddrive", "nfs", "url", "liveimg"]
+
+        for unseen_method in [m for m in available_methods if m != "liveimg"]:
+            self.assertFalse(getattr(method.handler, unseen_method).seen)
+            self.assertEqual(method.foo, "liveimg")
+        self.assertTrue(method.handler.liveimg.seen)
+        self.assertEqual(method.method, "liveimg")
+        # AttributeError should be raised when accessing nonexistent 'handler' attribute
+        del method.handler
+        self.assertRaises(AttributeError, getattr, method, "handler")
 
 
 if __name__ == "__main__":
