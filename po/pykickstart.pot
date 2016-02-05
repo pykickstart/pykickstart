@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 10:43-0500\n"
+"POT-Creation-Date: 2016-02-05 11:33-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,21 +50,21 @@ msgid ""
 "your kickstart file to remove this option."
 msgstr ""
 
-#: ../pykickstart/options.py:137
+#: ../pykickstart/options.py:145
 #, python-format
 msgid "Option %(opt)s: invalid boolean value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:142
+#: ../pykickstart/options.py:150
 #, python-format
 msgid "Option %(opt)s: invalid string value: %(value)r"
 msgstr ""
 
-#: ../pykickstart/options.py:179
+#: ../pykickstart/options.py:187
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/base.py:193
+#: ../pykickstart/base.py:205
 #, python-format
 msgid ""
 "Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has "
@@ -73,7 +73,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:429
+#: ../pykickstart/base.py:441
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -111,7 +111,7 @@ msgstr ""
 msgid "--default and --nocore cannot be used together"
 msgstr ""
 
-#: ../pykickstart/errors.py:45
+#: ../pykickstart/errors.py:47
 #, python-format
 msgid ""
 "The following problem occurred on line %(lineno)s of the kickstart file:\n"
@@ -119,7 +119,7 @@ msgid ""
 "%(msg)s\n"
 msgstr ""
 
-#: ../pykickstart/errors.py:47
+#: ../pykickstart/errors.py:49
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
@@ -171,8 +171,8 @@ msgid "Unsupported version specified: %s"
 msgstr ""
 
 #: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
-#: ../pykickstart/commands/xconfig.py:98 ../pykickstart/commands/fcoe.py:115
-#: ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/xconfig.py:98
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
@@ -217,8 +217,21 @@ msgstr ""
 msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
+#: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
+#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/upgrade.py:56
+#: ../pykickstart/commands/upgrade.py:93 ../pykickstart/commands/eula.py:63
+#: ../pykickstart/commands/autopart.py:45
+#: ../pykickstart/commands/zerombr.py:66
+#: ../pykickstart/commands/unsupported_hardware.py:51
+#: ../pykickstart/commands/displaymode.py:59
+#: ../pykickstart/commands/mediacheck.py:49
+#: ../pykickstart/commands/interactive.py:50
+#, python-format
+msgid "Kickstart command %s does not take any arguments"
+msgstr ""
+
 #: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/key.py:59
-#: ../pykickstart/commands/mouse.py:62 ../pykickstart/commands/keyboard.py:57
+#: ../pykickstart/commands/keyboard.py:57 ../pykickstart/commands/mouse.py:62
 #: ../pykickstart/commands/lang.py:50
 #, python-format
 msgid "Kickstart command %s requires one argument"
@@ -242,30 +255,10 @@ msgid ""
 "ignoredisk command."
 msgstr ""
 
-#: ../pykickstart/commands/zerombr.py:53
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-
-#: ../pykickstart/commands/zerombr.py:66 ../pykickstart/commands/upgrade.py:56
-#: ../pykickstart/commands/upgrade.py:93
-#: ../pykickstart/commands/autopart.py:45 ../pykickstart/commands/eula.py:63
-#: ../pykickstart/commands/unsupported_hardware.py:51
-#: ../pykickstart/commands/skipx.py:50
-#: ../pykickstart/commands/displaymode.py:59
-#: ../pykickstart/commands/mediacheck.py:49
-#: ../pykickstart/commands/interactive.py:50
-#: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
-#, python-format
-msgid "Kickstart command %s does not take any arguments"
-msgstr ""
-
-#: ../pykickstart/commands/sshkey.py:89 ../pykickstart/commands/sshpw.py:127
+#: ../pykickstart/commands/sshkey.py:89
 #: ../pykickstart/commands/keyboard.py:127
-#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/sshpw.py:127 ../pykickstart/commands/rootpw.py:64
+#: ../pykickstart/commands/rootpw.py:111
 #: ../pykickstart/commands/timezone.py:60
 #, python-format
 msgid "A single argument is expected for the %s command"
@@ -304,6 +297,10 @@ msgid ""
 "Kickstart command %(command)s does not accept empty parameter %(parameter)s"
 msgstr ""
 
+#: ../pykickstart/commands/eula.py:66
+msgid "Kickstart command eula expects the --agreed option"
+msgstr ""
+
 #. allow for translation of the error message
 #: ../pykickstart/commands/autopart.py:180
 #: ../pykickstart/commands/autopart.py:338
@@ -319,18 +316,12 @@ msgstr ""
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
-#: ../pykickstart/commands/group.py:86
+#: ../pykickstart/commands/zerombr.py:53
 #, python-format
-msgid "A group with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/monitor.py:66
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr ""
-
-#: ../pykickstart/commands/eula.py:66
-msgid "Kickstart command eula expects the --agreed option"
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
 
 #: ../pykickstart/commands/bootloader.py:247
@@ -351,6 +342,12 @@ msgstr ""
 msgid ""
 "A DM RAID device with the name %(name)s and devices %(devices)s has already "
 "been defined."
+msgstr ""
+
+#: ../pykickstart/commands/keyboard.py:132
+msgid ""
+"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
+"for the keyboard command"
 msgstr ""
 
 #: ../pykickstart/commands/driverdisk.py:116
@@ -382,6 +379,20 @@ msgstr ""
 msgid ""
 "One of --source, --biospart, or partition must be specified for driverdisk "
 "command."
+msgstr ""
+
+#: ../pykickstart/commands/device.py:97
+msgid "device command requires two arguments: module type and name"
+msgstr ""
+
+#: ../pykickstart/commands/device.py:123
+#, python-format
+msgid "%(command)s command requires a single argument: %(argument)s"
+msgstr ""
+
+#: ../pykickstart/commands/device.py:132
+#, python-format
+msgid "A module with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/zfcp.py:110
@@ -430,20 +441,6 @@ msgstr ""
 #: ../pykickstart/commands/logvol.py:688
 #: ../pykickstart/commands/partition.py:492
 msgid "--mkfsoptions and --fsprofile cannot be used together."
-msgstr ""
-
-#: ../pykickstart/commands/device.py:97
-msgid "device command requires two arguments: module type and name"
-msgstr ""
-
-#: ../pykickstart/commands/device.py:123
-#, python-format
-msgid "%(command)s command requires a single argument: %(argument)s"
-msgstr ""
-
-#: ../pykickstart/commands/device.py:132
-#, python-format
-msgid "A module with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/logvol.py:405
@@ -555,10 +552,9 @@ msgstr ""
 msgid "Kickstart command %s only takes one argument"
 msgstr ""
 
-#: ../pykickstart/commands/keyboard.py:132
-msgid ""
-"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
-"for the keyboard command"
+#: ../pykickstart/commands/group.py:86
+#, python-format
+msgid "A group with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/network.py:373
@@ -595,6 +591,11 @@ msgstr ""
 #: ../pykickstart/commands/network.py:642
 #, python-format
 msgid "The vlan id is out of the %(minimum)d-%(maximum)d vlan id range."
+msgstr ""
+
+#: ../pykickstart/commands/monitor.py:66
+#, python-format
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/multipath.py:97

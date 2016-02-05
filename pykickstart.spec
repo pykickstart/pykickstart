@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.24
+Version:   2.25
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -116,6 +116,23 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Feb 05 2016 Chris Lumens <clumens@redhat.com> - 2.25-1
+- Use the correct branch in zanata. (clumens)
+- Improved method.py test coverage (jikortus)
+- Remove the removal of the eintr checker, which has been removed (dshea)
+- Verify that a password with a # sign doesn't get read as a comment. (clumens)
+- Add comments to the public set_to_self and set_to_obj methods. (clumens)
+- Promote _setToObj and _setToSelf to public functions. (clumens)
+- Raise PendingDeprecationWarnings for things removed in pykickstart-3. (clumens)
+- Change the README to explain which branch we're talking about here. (clumens)
+- Add a document describing how to adapt your code to pykickstart-3. (clumens)
+- There is no F7_Key class - use RHEL5_Key instead. (clumens)
+- The RHEL6 branch supported the key command. (clumens)
+- Try harder to test translations. (dshea)
+
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 2.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Mon Jan 11 2016 Chris Lumens <clumens@redhat.com> - 2.24-1
 - Add build requires on python-coverage and python3-mypy. (clumens)
 
