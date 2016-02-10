@@ -39,6 +39,7 @@ respectively.
 Summary:  Python 2 library for manipulating kickstart files.
 Requires: python-six
 Requires: python-requests
+Requires: python-ordered-set
 
 %description -n python-kickstart
 Python 2 library for manipulating kickstart files.  The binaries are found in
@@ -49,6 +50,7 @@ the pykickstart package.
 Summary:  Python 3 library for manipulating kickstart files.
 Requires: python3-six
 Requires: python3-requests
+Requires: python3-ordered-set
 
 %description -n python3-kickstart
 Python 3 library for manipulating kickstart files.  The binaries are found in
