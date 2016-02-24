@@ -72,7 +72,7 @@ class F24_SshPwData(F13_SshPwData):
 
     def __init__(self, *args, **kwargs):
         F13_SshPwData.__init__(self, *args, **kwargs)
-        self.key = kwargs.get("sshkey", False)
+        self.sshkey = kwargs.get("sshkey", False)
 
     def _getArgsAsStr(self):
         retval = ""
