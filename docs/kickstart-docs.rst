@@ -1904,7 +1904,7 @@ must specify sshpw for username root. Also note that if Anaconda fails
 to parse the kickstart file, it will allow anyone to login as root and
 have full access to your hardware.
 
-``sshpw --username=<name> <password> [--iscrypted|--plaintext] [--lock]``
+``sshpw --username=<name> [--iscrypted|--plaintext] [--lock] [--sshkey] <password>``
 
 ``--username=``
 
@@ -1920,6 +1920,11 @@ have full access to your hardware.
 
     If this is present, the new user account is locked by default. That
     is, the user will not be able to login from the console.
+
+``--sshkey``
+
+    This is used to set a ssh key for the user during the installation.
+    password is copied into the account's .ssh/authorized_keys file.
 
 
 skipx
