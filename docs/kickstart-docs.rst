@@ -1980,10 +1980,14 @@ Starting with Fedora 18 the ``timezone`` command has two new options:
 
     Disable automatic starting of NTP service.
 
+    ``--nontp`` and ``--ntpservers`` are mutually exclusive.
+
 ``--ntpservers=<server1>,<server2>,...,<serverN>``
 
     Specify a list of NTP servers to be used (comma-separated list with
-    no spaces).
+    no spaces). The chrony package is automatically installed when this
+    option is used. If you don't want the package to be automatically
+    installed then use ``-chrony`` in package selection.
 
     For example:
     ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
