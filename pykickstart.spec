@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.6
+Version: 1.99.66.7
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,14 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Feb 29 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.7-1
+- Add sshkey command to RHEL7 (#1311755) (bcl)
+- Add --sshkey to sshpw command (#1240410) (bcl)
+- Add %%pre-install section to be used after mounting filesystems (bcl)
+- There is no F7_Key class - use RHEL5_Key instead. (clumens)
+- ostree repos can only be HTTP or HTTPS. (clumens)
+- Fix class inheritance in RHEL6_VolGroup (ccoyle)
+
 * Tue Sep 22 2015 Chris Lumens <clumens@redhat.com> - 1.99.66.6-1
 - Update the RHEL7 version constant. (clumens)
 
