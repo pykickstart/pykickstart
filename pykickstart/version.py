@@ -53,10 +53,7 @@ except ImportError:
     cast = lambda ty, val: val
 
 # mypy doesn't handle conditional imports, so just skip this part
-try:
-    from imputil import imp # type: ignore
-except ImportError: # Python 3
-    import imp              # type: ignore
+import importlib
 
 from pykickstart.i18n import _
 
@@ -192,18 +189,13 @@ def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callabl
         import pykickstart.handlers
         # mypy does not understand module.__path__, skip
         sys.path.extend(pykickstart.handlers.__path__)  # type: ignore
-        found = imp.find_module(module)
-        loaded = imp.load_module(module, found[0], found[1], found[2])
+        loaded = importlib.import_module(module)
 
         for (k, v) in list(loaded.__dict__.items()):
             if k.lower().endswith("%shandler" % module):
                 return v
     except:
-        found = None
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
-    finally: # Closing opened files in imp.load_module
-        if found and len(found) > 0:
-            found[0].close()
 
 def makeVersion(version=DEVEL): # type: (int) -> BaseHandler
     """Return a new instance of the syntax handler for version.  version can be
