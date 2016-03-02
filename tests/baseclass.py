@@ -7,10 +7,7 @@ import warnings
 import re
 import six
 
-try:
-    from imputil import imp
-except ImportError: # Python 3
-    import imp
+import importlib
 
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import KickstartParser
@@ -248,27 +245,21 @@ def loadModules(moduleDir, cls_pattern="_TestCase", skip_list=None):
 
         # Attempt to load the found module.
         try:
-            try:
-                found = imp.find_module(module)
-                loaded = imp.load_module(module, found[0], found[1], found[2])
-            except ImportError as e:
-                print(_("Error loading module %s: %s") % (module, e))
-                found = None
-                continue
+            loaded = importlib.import_module(module)
+        except ImportError as e:
+            print(_("Error loading module %s: %s") % (module, e))
+            continue
 
-            # Find class names that match the supplied pattern (default: "_TestCase")
-            beforeCount = len(tests)
-            for obj in list(loaded.__dict__.keys()):
-                if obj.endswith(cls_pattern):
-                    tests.append(loaded.__dict__[obj])
-            afterCount = len(tests)
+        # Find class names that match the supplied pattern (default: "_TestCase")
+        beforeCount = len(tests)
+        for obj in list(loaded.__dict__.keys()):
+            if obj.endswith(cls_pattern):
+                tests.append(loaded.__dict__[obj])
+        afterCount = len(tests)
 
-            # Warn if no tests found
-            if beforeCount == afterCount:
-                print(_("Module %s does not contain any test cases; skipping.") % module)
-                continue
-        finally: # Closing opened files in imp.load_module
-            if found and len(found) > 0:
-                found[0].close()
+        # Warn if no tests found
+        if beforeCount == afterCount:
+            print(_("Module %s does not contain any test cases; skipping.") % module)
+            continue
 
     return tests
