@@ -308,24 +308,20 @@ class FailedImpImport_TestCase(CommandTest):
         try:
             # will force another import
             del sys.modules['pykickstart.version']
-            del sys.modules['imp']
-
-            # will cause ImportError
-            sys.modules['imputil'] = None
+            del sys.modules['importlib']
 
             import pykickstart.version as ver
             from pykickstart.handlers.f23 import F23Handler
 
             cls = ver.returnClassForVersion(ver.F23)
 
-            # assert the names; b/c of how the imp.load_module() works
+            # assert the names; b/c of how the importlib.import_module() works
             # asserting both classes being equal fails
             self.assertEqual(cls.__name__, F23Handler.__name__)
         finally:
             # force import to reload these modules
             del sys.modules['pykickstart.version']
-            del sys.modules['imp']
-            del sys.modules['imputil']
+            del sys.modules['importlib']
 
 if __name__ == "__main__":
     unittest.main()
