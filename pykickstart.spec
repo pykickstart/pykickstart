@@ -89,6 +89,7 @@ popd
 %defattr(-,root,root,-)
 %license COPYING
 %doc README
+%doc data/kickstart.vim
 %{_bindir}/ksvalidator
 %{_bindir}/ksflatten
 %{_bindir}/ksverdiff
