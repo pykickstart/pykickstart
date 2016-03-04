@@ -4,7 +4,6 @@ from tests.baseclass import ParserTest
 
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_PREINSTALL, KS_SCRIPT_TRACEBACK
 from pykickstart.parser import Script
-from pykickstart.version import DEVEL
 
 class Script_Object_TestCase(ParserTest):
     def runTest(self):
