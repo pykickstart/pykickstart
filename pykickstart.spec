@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.24
+Version:   3.0
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,45 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Mar 04 2016 Chris Lumens <clumens@redhat.com> - 3.0-1
+- Make sure the script test references parser. (clumens)
+- Don't use class attributes for the version or kickstart string. (clumens)
+- Add a syntax highlighting file for vim. (clumens)
+- Move tests/parser/* into the tests/ directory. (clumens)
+- Use importlib to import modules. (dshea)
+- Update kickstart documentation for ntp (jkonecny)
+- It's self.sshkey, not self.key. (clumens)
+- Remove orderedset.py (dshea)
+- Remove the removal of the eintr checker, which has been removed (dshea)
+- Improved method.py test coverage (jikortus)
+- Verify that a password with a # sign doesn't get read as a comment. (clumens)
+- Raise deprecation warnings in _setToSelf and _setToObj. (clumens)
+- Do not log httpd messages in the load tests. (dshea)
+- There is no F7_Key class - use RHEL5_Key instead. (clumens)
+- The RHEL6 branch supported the key command. (clumens)
+- Add more test coverage around Group and Script objects. (clumens)
+- load.py initial test coverage + exception catch (jikortus)
+- Fix more formatting problems under the part command. (clumens)
+- Fix some indentation problems in the documentation. (clumens)
+- Clear up confusing documentation about MB vs. MiB. (clumens)
+- argparse error messages are different in python2 and python3. (clumens)
+- Add a document describing how to adapt your code to pykickstart-3. (clumens)
+- Promote _setToObj and _setToSelf to public functions. (clumens)
+- Increase test coverage to 96%. (clumens)
+- Don't duplicate autopart+volgroup checks in the volgroup handlers. (clumens)
+- RHEL7 needs to use the correct version of FcoeData and Autopart. (clumens)
+- Replace required=1 and deprecated=1 with =True. (clumens)
+- Get rid of unnecessary args to add_argument. (clumens)
+- Get rid of references to KickstartParseError in assert_parse_error. (clumens)
+- Convert command objects to use argparse instead of optparse. (clumens)
+- Remove KickstartValueError. (clumens)
+- Add some custom actions and types to make things easier elsewhere. (clumens)
+- _setToSelf and _setToObj now take a Namespace object. (clumens)
+- Use the new ksboolean function where we were using the string. (clumens)
+- Convert options.py to use argparse instead of optparse. (clumens)
+- Remove the custom map and map_extend actions. (clumens)
+- Try harder to test translations. (dshea)
+
 * Mon Jan 11 2016 Chris Lumens <clumens@redhat.com> - 2.24-1
 - Add build requires on python-coverage and python3-mypy. (clumens)
 
