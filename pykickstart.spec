@@ -16,6 +16,7 @@ BuildRequires: gettext
 BuildRequires: python-coverage
 BuildRequires: python-devel
 BuildRequires: python-nose
+BuildRequires: python-ordered-set
 BuildRequires: python-setuptools
 BuildRequires: python-requests
 
@@ -23,6 +24,7 @@ BuildRequires: python3-coverage
 BuildRequires: python3-devel
 BuildRequires: python3-mypy
 BuildRequires: python3-nose
+BuildRequires: python3-ordered-set
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
