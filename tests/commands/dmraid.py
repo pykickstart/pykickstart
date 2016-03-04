@@ -54,7 +54,9 @@ class FC6_TestCase(CommandTest):
         self.assertEqual(cmd.__str__(), "--name=blah")
 
 class FC6_Duplicate_TestCase(CommandSequenceTest):
-    version = FC6
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = FC6
 
     def runTest(self):
         self.assert_parse("""

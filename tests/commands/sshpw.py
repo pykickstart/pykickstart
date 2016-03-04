@@ -66,7 +66,9 @@ class F13_TestCase(CommandTest):
         self.assertEqual(sshpw.__str__(), "someguy")
 
 class F13_Duplicate_TestCase(CommandSequenceTest):
-    version = F13
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F13
 
     def runTest(self):
         self.assert_parse("""

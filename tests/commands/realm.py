@@ -44,7 +44,9 @@ class F19_TestCase(CommandTest):
         self.assert_parse_error("realm join --user=blah one.example.com")
 
 class F19_MultipleJoin_TestCase(CommandSequenceTest):
-    version = F19
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F19
 
     def runTest(self):
         # fail - can't use join more than once

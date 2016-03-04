@@ -189,7 +189,9 @@ class GroupsAreHashable_TestCase(ParserTest):
         hash(Group(name="groupA"))
 
 class Packages_Options_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages --ignoremissing --default --instLangs="bg_BG"
 %end
 """
@@ -206,7 +208,9 @@ class Packages_Options_TestCase(ParserTest):
         self.assertTrue(self.parser._sections['%packages'].seen)
 
 class Packages_Options_Empty_InstLangs_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages --instLangs=
 %end
 """
@@ -221,7 +225,9 @@ class Packages_Options_Empty_InstLangs_TestCase(ParserTest):
         self.assertEqual(str(self.handler.packages).strip(), "%packages --instLangs=\n\n%end")
 
 class Packages_Options_No_InstLangs_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 %end
 """
@@ -236,7 +242,9 @@ class Packages_Options_No_InstLangs_TestCase(ParserTest):
         self.assertEqual(str(self.handler.packages).strip(), "%packages\n\n%end")
 
 class Packages_Contains_Comments_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 packageA    # this is an end-of-line comment
 # this is a whole line comment
@@ -255,9 +263,10 @@ packageC
         self.assertEqual(self.handler.packages.packageList[2], "packageC")
 
 class Packages_Contains_Nobase_1_TestCase(ParserTest):
-    version = F21
-
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = F21
+        self.ks = """
 %packages --nobase
 bash
 %end
@@ -271,9 +280,10 @@ bash
             self.assertIsInstance(w[-1].message, DeprecationWarning)
 
 class Packages_Contains_Nobase_2_TestCase(ParserTest):
-    version = RHEL6
-
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL6
+        self.ks = """
 %packages --nobase
 bash
 %end
@@ -286,7 +296,9 @@ bash
             self.assertEqual(len(w), 0)
 
 class Packages_Contains_Nobase_3_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages --nobase
 bash
 %end
@@ -298,9 +310,10 @@ bash
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
 class Packages_Contains_Nobase_Default_TestCase(ParserTest):
-    version = F21
-
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = F21
+        self.ks = """
 %packages --nobase --default
 %end
 """
@@ -311,7 +324,9 @@ class Packages_Contains_Nobase_Default_TestCase(ParserTest):
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
 class Packages_Contains_Nocore_Default_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages --nocore --default
 %end
 """
@@ -322,7 +337,9 @@ class Packages_Contains_Nocore_Default_TestCase(ParserTest):
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
 class Packages_Contains_Environment_1_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 @^whatever-environment
 %end
@@ -335,7 +352,9 @@ class Packages_Contains_Environment_1_TestCase(ParserTest):
             self.assertEqual(self.handler.packages.environment, "whatever-environment")
 
 class Packages_Contains_Environment_2_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 @^whatever-environment
 @^another-environment
@@ -349,7 +368,9 @@ class Packages_Contains_Environment_2_TestCase(ParserTest):
             self.assertEqual(self.handler.packages.environment, "another-environment")
 
 class Packages_Contains_Environment_3_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 @^whatever-environment
 -@^another-environment
@@ -363,7 +384,9 @@ class Packages_Contains_Environment_3_TestCase(ParserTest):
             self.assertEqual(self.handler.packages.environment, "whatever-environment")
 
 class Packages_Contains_Environment_4_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 @^whatever-environment
 -@^whatever-environment
@@ -382,7 +405,9 @@ class Packages_Contains_Environment_4_TestCase(ParserTest):
 # whatever would have been installed had this been a graphical installation and the user just
 # accepted whatever was offered.
 class Packages_Empty_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 %end
 """

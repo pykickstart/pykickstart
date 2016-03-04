@@ -15,10 +15,9 @@ from pykickstart.version import DEVEL, makeVersion, returnClassForVersion
 from pykickstart.i18n import _
 
 class ParserTest(unittest.TestCase):
-    version = DEVEL
-
     def __init__(self, *args, **kwargs):
         unittest.TestCase.__init__(self, *args, **kwargs)
+        self.version = DEVEL
 
     def setUp(self):
         self._handler = None
@@ -27,6 +26,10 @@ class ParserTest(unittest.TestCase):
 
     def tearDown(self):
         """Undo anything performed by setUp"""
+        del(self._handler)
+        del(self._parser)
+        self._handler = None
+        self._parser = None
         unittest.TestCase.tearDown(self)
 
     def get_parser(self):
@@ -88,7 +91,7 @@ class CommandSequenceTest(ParserTest):
         # reset warnings
         warnings.resetwarnings()
 
-        unittest.TestCase.tearDown(self)
+        ParserTest.tearDown(self)
 
     def get_parser(self):
         """Command sequence tests need a fresh parser

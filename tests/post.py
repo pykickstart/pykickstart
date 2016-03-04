@@ -6,7 +6,9 @@ from pykickstart.errors import KickstartParseError
 from pykickstart import version         # pylint: disable=unused-import
 
 class Script_Includes_Percent_Sign(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %post
 echo "# Added by kickstart
 %wheel ALL=(ALL) ALL" >> /etc/sudoers
@@ -18,7 +20,9 @@ echo "# Added by kickstart
         self.assertEqual(len(self.handler.scripts), 1)
 
 class Simple_Terminated_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %post
 ls /tmp
 %end
@@ -40,7 +44,9 @@ ls /tmp
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
 class Simple_Header_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %post --interpreter /usr/bin/python --erroronfail --log=/tmp/blah --nochroot
 ls /tmp
 %end
@@ -63,7 +69,9 @@ ls /tmp
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
 class Multiple_Terminated_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %post
 ls /tmp
 %end
@@ -92,23 +100,27 @@ ls /var
         self.assertEqual(script.script.rstrip(), "ls /var")
 
 class Simple_Unterminated_TestCase(Simple_Terminated_TestCase):
-    version = version.F7
-
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Simple_Terminated_TestCase.__init__(self, *args, **kwargs)
+        self.version = version.F7
+        self.ks = """
 %post
 ls /tmp
 """
 
 class Simple_Unterminated_Fails_TestCase(Simple_Unterminated_TestCase):
-    version = version.F8
+    def __init__(self, *args, **kwargs):
+        Simple_Unterminated_TestCase.__init__(self, *args, **kwargs)
+        self.version = version.F8
 
     def runTest(self):
         self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
 
 class Multiple_Unterminated_TestCase(Multiple_Terminated_TestCase):
-    version = version.F7
-
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Multiple_Terminated_TestCase.__init__(self, *args, **kwargs)
+        self.version = version.F7
+        self.ks = """
 %post
 ls /tmp
 
@@ -117,7 +129,9 @@ ls /var
 """
 
 class Multiple_Unterminated_Fails_TestCase(Multiple_Unterminated_TestCase):
-    version = version.F8
+    def __init__(self, *args, **kwargs):
+        Multiple_Unterminated_TestCase.__init__(self, *args, **kwargs)
+        self.version = version.F8
 
     def runTest(self):
         self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)

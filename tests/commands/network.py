@@ -62,7 +62,9 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("network --bogus-option")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
-    version = FC3
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = FC3
 
     def runTest(self):
         self.assert_parse("""

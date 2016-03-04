@@ -8,7 +8,9 @@ from pykickstart.errors import KickstartError
 from signal import SIGTERM
 
 class LoadTest(unittest.TestCase):
-    _content = """
+    def __init__(self, *args, **kwargs):
+        unittest.TestCase.__init__(self, *args, **kwargs)
+        self._content = """
 auth --enableshadow --passalgo=sha512
 graphical
 firstboot --enable
@@ -44,14 +46,14 @@ clearpart --all --initlabel --drives=vda
     def tearDown(self):
         os.unlink(self._path)
 
-
 class Load_To_String_TestCase(LoadTest):
     def runTest(self):
         self.assertEqual(self._content, load.load_to_str(self._path))
 
-
 class Load_To_File_TestCase(LoadTest):
-    _target_path = ""
+    def __init__(self, *args, **kwargs):
+        LoadTest.__init__(self, *args, **kwargs)
+        self._target_path = ""
 
     def runTest(self):
         (handle, self._target_path) = tempfile.mkstemp(prefix="testfile", text=True)
@@ -65,7 +67,6 @@ class Load_To_File_TestCase(LoadTest):
     def tearDown(self):
         super(Load_To_File_TestCase, self).tearDown()
         os.unlink(self._target_path)
-
 
 class Load_From_URL_Test(LoadTest):
     def setUp(self):
@@ -92,12 +93,10 @@ class Load_From_URL_Test(LoadTest):
         self._server.server_close()
         os.kill(self._httpd_pid, SIGTERM)
 
-
 class Load_From_URL_To_Str_TestCase(Load_From_URL_Test):
     def runTest(self):
         self.assertEqual(self._content, load.load_to_str(self._url))
         self.assertRaises(KickstartError, load.load_to_str, self._url_https)
-
     
 class Load_From_URL_To_File_TestCase(Load_From_URL_Test):
     def setUp(self):
@@ -119,7 +118,6 @@ class Load_From_URL_To_File_TestCase(Load_From_URL_Test):
     def tearDown(self):
         super(Load_From_URL_To_File_TestCase, self).tearDown()
         os.unlink(self._target_path)
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -92,7 +92,9 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse_error("autopart --encrypted --cipher")
 
 class RHEL6_Conflict_TestCase(CommandSequenceTest):
-    version = RHEL6
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL6
 
     def runTest(self):
         self.assert_parse_error("""

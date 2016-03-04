@@ -71,7 +71,9 @@ class FC6_TestCase(CommandTest):
         self.assertEqual(cmd.__str__(), "")
 
 class FC6_Duplicate_TestCase(CommandSequenceTest):
-    version = FC6
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = FC6
 
     def runTest(self):
         # pass - can use the command twice, as long as they have different names

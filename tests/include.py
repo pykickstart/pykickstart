@@ -29,14 +29,16 @@ class Include_Missing_TestCase(ParserTest):
         self.assertRaises(KickstartError, self.parser.readKickstartFromString, "%include /tmp/FILE_NOT_FOUND")
 
 class Include_Packages_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 %%packages
 %%include %s
 -packageB
 %%end
 """
 
-    includeKS = """
+        self.includeKS = """
 packageA
 """
 
@@ -47,13 +49,15 @@ packageA
         self.assertEqual(len(self.handler.packages.excludedList), 1)
 
 class Include_Commands_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 rootpw 123456
 %%include %s
 text
 """
 
-    includeKS = """
+        self.includeKS = """
 autopart
 clearpart --all
 zerombr
@@ -69,11 +73,13 @@ zerombr
         self.assertTrue(self.handler.zerombr.zerombr)
 
 class Include_Whole_Script_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 %%include %s
 """
 
-    includeKS = """
+        self.includeKS = """
 %pre
 ls /tmp
 %end
@@ -95,13 +101,15 @@ ls /tmp
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
 class Include_Post_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 %%post
 %%include %s
 %%end
 """
 
-    includeKS = """
+        self.includeKS = """
 ls /tmp
 """
 
@@ -121,13 +129,15 @@ ls /tmp
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
 class Include_Pre_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 %%pre
 %%include %s
 %%end
 """
 
-    includeKS = """
+        self.includeKS = """
 ls /tmp
 """
 
@@ -147,11 +157,13 @@ ls /tmp
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
 class Include_URL_TestCase(Base_Include):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        Base_Include.__init__(self, *args, **kwargs)
+        self.ks = """
 %%include %s
 """
 
-    includeKS = """
+        self.includeKS = """
 %pre
 ls /tmp
 %end

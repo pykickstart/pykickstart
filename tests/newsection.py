@@ -7,11 +7,10 @@ from pykickstart import sections
 from pykickstart.errors import KickstartParseError
 
 class RawSection(sections.Section):
-    sectionOpen = "%raw"
-
     def __init__(self, handler, **kwargs):
         sections.Section.__init__(self, handler, **kwargs)
         self.handler.raw = ""
+        self.sectionOpen = "%raw"
 
     def handleLine(self, line):
         if not self.handler:
@@ -20,7 +19,9 @@ class RawSection(sections.Section):
         self.handler.raw += line
 
 class New_Section_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %raw
 1234
 abcd
@@ -49,7 +50,9 @@ class Unknown_New_Section_2_TestCase(New_Section_TestCase):
         self.parser.readKickstartFromString(self.ks)
 
 class Ignored_Section_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %addon
 whatever
 %end

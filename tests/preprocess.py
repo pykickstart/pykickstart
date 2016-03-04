@@ -11,7 +11,9 @@ from pykickstart.parser import preprocessKickstart, preprocessFromString, prepro
 ###
 
 class PK_No_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -41,7 +43,9 @@ autopart
             self.assertEqual(f.read(), self.ks)
 
 class PK_Ksappend_Missing(PK_No_Ksappend):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        PK_No_Ksappend.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -52,13 +56,15 @@ autopart
         self.assertRaises(KickstartError, preprocessKickstart, self._path)
 
 class PK_With_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
 """
 
-    ksappend = """
+        self.ksappend = """
 timezone America/New_York
 """
 
@@ -101,7 +107,9 @@ timezone America/New_York
 ###
 
 class PFS_No_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -122,7 +130,9 @@ autopart
             os.unlink(self._path)
 
 class PFS_Ksappend_Missing(PFS_No_Ksappend):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        PFS_No_Ksappend.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -133,7 +143,9 @@ autopart
         self.assertRaises(KickstartError, preprocessFromString, self.ks)
 
 class PFS_Ksappend_Invalid(PFS_No_Ksappend):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        PFS_No_Ksappend.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 %ksappend
 """
@@ -142,13 +154,15 @@ lang en_US
         self.assertRaises(KickstartParseError, preprocessFromString, self.ks)
 
 class PFS_With_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
 """
 
-    ksappend = """
+        self.ksappend = """
 timezone America/New_York
 """
 
@@ -180,7 +194,9 @@ timezone America/New_York
 ###
 
 class PKTS_No_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -206,7 +222,9 @@ autopart
         self.assertEqual(processed.decode(), self.ks)
 
 class PKTS_Ksappend_Missing(PKTS_No_Ksappend):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        PKTS_No_Ksappend.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -221,13 +239,15 @@ class PKTS_Kickstart_Missing(ParserTest):
         self.assertRaises(KickstartError, preprocessKickstartToString, "/tmp/MISSING_FILE")
 
 class PKTS_With_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
 """
 
-    ksappend = """
+        self.ksappend = """
 timezone America/New_York
 """
 
@@ -266,7 +286,9 @@ timezone America/New_York
 ###
 
 class PFSTS_No_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -277,7 +299,9 @@ autopart
         self.assertEqual(processed.decode(), self.ks)
 
 class PFSTS_Ksappend_Missing(PFSTS_No_Ksappend):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        PFSTS_No_Ksappend.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
@@ -288,13 +312,15 @@ autopart
         self.assertRaises(KickstartError, preprocessFromStringToString, self.ks)
 
 class PFSTS_With_Ksappend(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 lang en_US
 keyboard us
 autopart
 """
 
-    ksappend = """
+        self.ksappend = """
 timezone America/New_York
 """
 

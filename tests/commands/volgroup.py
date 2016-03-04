@@ -56,7 +56,9 @@ class FC3_TestCase(CommandTest):
         self.assertEqual(cmd.__str__(), "vg.01")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
-    version = FC3
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = FC3
 
     def runTest(self):
         self.assert_parse("""

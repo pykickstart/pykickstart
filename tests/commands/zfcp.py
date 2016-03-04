@@ -61,7 +61,9 @@ class F12_TestCase(FC3_TestCase):
         self.assertNotEqual(self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=3"), self.assert_parse("zfcp --devnum=1 --wwpn=2 --fcplun=30"))
 
 class F12_Duplicate_TestCase(CommandSequenceTest):
-    version = F12
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F12
 
     def runTest(self):
         self.assert_parse("""

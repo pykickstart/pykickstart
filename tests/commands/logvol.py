@@ -92,7 +92,9 @@ class FC3_TestCase(CommandTest):
         self.assertEqual(cmd.__str__(), "--name=blah")
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
-    version = FC3
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = FC3
 
     def runTest(self):
         self.assert_parse("""
@@ -274,7 +276,9 @@ class RHEL6_TestCase(F12_TestCase):
                                 "--chunksize=512")
 
 class RHEL6_AutopartLogVol_TestCase(CommandSequenceTest):
-    version = RHEL6
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL6
 
     def runTest(self):
         # fail - can't use both autopart and logvol

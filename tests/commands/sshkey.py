@@ -49,7 +49,9 @@ class F22_TestCase(CommandTest):
         self.assertEqual(sshkey.__str__(), "someguy")
 
 class F22_Duplicate_TestCase(CommandSequenceTest):
-    version = F22
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F22
 
     def runTest(self):
         self.assert_parse("""

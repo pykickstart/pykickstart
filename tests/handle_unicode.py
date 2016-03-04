@@ -8,19 +8,21 @@ import locale
 from tests.baseclass import ParserTest
 
 class HandleUnicode_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 rootpw ááááááááá
 
 %post
 echo áááááá
 %end
 """
+
     def get_encoded_str(self, string, force_encode=False):
         if force_encode or not six.PY3:
             return string.encode("utf-8")
         else:
             return string
-
 
     def runTest(self):
         unicode_str1 = u"ááááááááá"
@@ -75,7 +77,6 @@ echo áááááá
             self.assertIn(self.get_encoded_str(unicode_str2), str(self.handler))
         finally:
             os.unlink(name)
-
 
 if __name__ == "__main__":
     if not six.PY3:

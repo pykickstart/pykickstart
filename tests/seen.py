@@ -2,7 +2,9 @@ import unittest
 from tests.baseclass import ParserTest
 
 class Packages_Seen_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 %packages
 packageA
 %end
@@ -13,7 +15,9 @@ packageA
         self.assertTrue(self.handler.packages.seen)
 
 class Packages_Not_Seen_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 autopart
 """
 
@@ -22,7 +26,9 @@ autopart
         self.assertFalse(self.handler.packages.seen)
 
 class Commands_Seen_TestCase(ParserTest):
-    ks = """
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
 bootloader --location=none
 part / --size=10000 --fstype=ext4
 """

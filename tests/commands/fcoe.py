@@ -51,7 +51,9 @@ class F12_TestCase(CommandTest):
         self.assertEqual(data._getArgsAsStr(), "")
 
 class F12_Duplicate_TestCase(CommandSequenceTest):
-    version = F12
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F12
 
     def runTest(self):
         self.assert_parse("""

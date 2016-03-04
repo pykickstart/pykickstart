@@ -33,7 +33,9 @@ class F23_TestCase(CommandTest):
         self.assert_parse("reqpart --add-boot", "reqpart --add-boot\n")
 
 class F23_AutopartReqpart_TestCase(CommandSequenceTest):
-    version = F23
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F23
 
     def runTest(self):
         # fail - can't use both autopart and reqpart
