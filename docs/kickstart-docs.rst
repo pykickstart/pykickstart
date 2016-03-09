@@ -663,6 +663,8 @@ installation method command must be on separate lines.
 
 **Note that from F18 onward, upgrades are no longer supported in anaconda and should be done with FedUp, the Fedora update tool.**
 
+**If using F21 or later, the `DNF system upgrade plugin <https://fedoraproject.org/wiki/DNF_system_upgrade>` is recommended instead.**
+
 
 cdrom
 ~~~~~
@@ -2011,6 +2013,8 @@ upgrade
 -------
 
 **Note that from F18 onward, upgrades are no longer supported in anaconda and should be done with FedUp, the Fedora update tool.**
+
+**If using F21 or later, the `DNF system upgrade plugin <https://fedoraproject.org/wiki/DNF_system_upgrade>` is recommended instead.**
 
 Tells the system to upgrade an existing system rather than install a
 fresh system. You must specify one of cdrom, harddrive, nfs, or url (for
