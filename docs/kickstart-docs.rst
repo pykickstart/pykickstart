@@ -1192,15 +1192,13 @@ configuration.
     networking information in the kickstart file. As the name implies,
     this information is static and will be used during and after the
     installation. The line for static networking is more complex, as you
-    must include all network configuration information on one line. You
+    must include all network configuration information **on one line**. You
     must specify the IP address, netmask, gateway, and nameserver. For
-    example: (the \\ indicates that it is all one line):
+    example:
 
 ::
 
-   network --device=link --bootproto=static --ip=10.0.2.15 \
-   --netmask=255.255.255.0 --gateway=10.0.2.254 \
-   --nameserver=10.0.2.1
+   network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
 
    If you use the static method, be aware of the following restriction:
 
