@@ -40,6 +40,13 @@ import warnings
 
 from pykickstart.i18n import _
 
+# Keep track of what messages have already been shown
+_deprecated_msgs = []
+def deprecated(msg, category=None, stacklevel=1):
+    if hash(msg) not in _deprecated_msgs:
+        warnings.warn(msg, category, stacklevel+1)
+        _deprecated_msgs.append(hash(msg))
+
 def formatErrorMsg(lineno, msg=""):
     """Properly format the error message msg for inclusion in an exception."""
     if msg != "":
@@ -85,7 +92,7 @@ class KickstartValueError(KickstartError):
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)
-        warnings.warn("KickstartValueError is deprecated and will be removed in pykickstart-3.  Use KickstartParseError instead.", PendingDeprecationWarning, stacklevel=2)
+        deprecated("KickstartValueError is deprecated and will be removed in pykickstart-3.  Use KickstartParseError instead.")
 
     def __str__ (self):
         return self.value

@@ -42,7 +42,7 @@ from pykickstart.i18n import _
 
 import six
 import warnings
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg, deprecated
 from pykickstart.ko import KickstartObject
 from pykickstart.version import versionToString
 from pykickstart.parser import Packages
@@ -163,7 +163,7 @@ class KickstartCommand(KickstartObject):
 
     # Just calls set_to_self - exists for backwards compatibility.
     def _setToSelf(self, optParser, opts):
-        warnings.warn("_setToSelf has been renamed to set_to_self.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
+        deprecated("_setToSelf has been renamed to set_to_self.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_self(optParser, opts)
 
     def set_to_obj(self, optParser, opts, obj):
@@ -178,7 +178,7 @@ class KickstartCommand(KickstartObject):
 
     # Just calls set_to_obj - exists for backwards compatibility.
     def _setToObj(self, optParser, opts, obj):
-        warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
+        deprecated("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_obj(optParser, opts, obj)
 
 class DeprecatedCommand(KickstartCommand):
