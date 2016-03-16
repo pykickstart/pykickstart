@@ -488,7 +488,7 @@ copy the driver disk's contents to the root directory of a partition on
 the system's hard drive. Then you need to use the driverdisk command to
 tell the installation program where to look for the driver disk.
 
-``driverdisk <partition>|--source=<url>|--biospart=<part> ``
+``driverdisk <partition>|--source=<url>|--biospart=<part>``
 
 ``<partition>``
 
@@ -514,7 +514,7 @@ firewall
 This option corresponds to the Firewall Configuration screen in the
 installation program:
 
-``firewall --enabled|--disabled <device> [options] ``
+``firewall --enabled|--disabled <device> [options]``
 
 ``--enabled`` or ``--enable``
 
@@ -698,7 +698,7 @@ harddrive
         Directory containing both the ISO images and the
         images/install.img. For example:
 
-        ``harddrive --partition=hdb2 --dir=/tmp/install-tree ``
+    ``harddrive --partition=hdb2 --dir=/tmp/install-tree``
 
 
 liveimg
@@ -1848,7 +1848,7 @@ selinux
 Sets the state of SELinux on the installed system. SELinux defaults to
 enforcing in anaconda.
 
-``selinux [--disabled|--enforcing|--permissive] ``
+``selinux [--disabled|--enforcing|--permissive]``
 
 ``--disabled``
 
