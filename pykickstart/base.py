@@ -205,7 +205,6 @@ class DeprecatedCommand(KickstartCommand):
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
 
-
 ###
 ### HANDLERS
 ###
@@ -474,7 +473,6 @@ class BaseHandler(KickstartObject):
     def hasCommand(self, cmd):      # type: (BaseHandler, str) -> bool
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
-
 
 ###
 ### DATA

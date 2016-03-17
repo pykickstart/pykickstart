@@ -187,6 +187,7 @@ class PutBackIterator(Iterator):
 
     def __next__(self):
         return self.next()
+
 ###
 ### SCRIPT HANDLING
 ###
@@ -261,7 +262,6 @@ class Script(KickstartObject):
                 return retval + "\n%s\n%%end\n" % self.script
             else:
                 return retval + "\n%s\n" % self.script
-
 
 ##
 ## PACKAGE HANDLING
@@ -485,7 +485,6 @@ class Packages(KickstartObject):
         # FIXME: figure these types out
         self.packageList = list(existingPackageSet) # type: ignore
         self.excludedList = list(existingExcludedSet)   # type: ignore
-
 
 ###
 ### PARSER

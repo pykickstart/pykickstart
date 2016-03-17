@@ -44,7 +44,6 @@ def load_to_str(location):
     else:
         return _load_file(location)
 
-
 def load_to_file(location, destination):
     '''Load a destination URL or file into a file name.
     Type of input is inferred automatically.
@@ -71,8 +70,6 @@ def load_to_file(location, destination):
         _copy_file(location, destination)
         return destination
 
-
-
 def _load_url(location):
     '''Load a location (URL or filename) and return contents as string'''
 
@@ -87,7 +84,6 @@ def _load_url(location):
         raise KickstartError(_('Error accessing URL "%s"') % location + ': {c}'.format(c=str(request.status_code)))
 
     return request.text
-
 
 def _load_file(filename):
     '''Load a file's contents and return them as a string'''
