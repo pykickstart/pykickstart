@@ -588,7 +588,7 @@ class KickstartParser(object):
 
         # Save the platform for s-c-kickstart.
         if line[:10] == "#platform=":
-            self.handler.platform = self._line[11:]
+            self.handler.platform = self._line[10:].strip()
 
     def _readSection(self, lineIter, lineno):
         obj = self._sections[self._state]
