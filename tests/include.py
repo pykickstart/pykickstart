@@ -28,6 +28,18 @@ class Include_Missing_TestCase(ParserTest):
         self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, "%include")
         self.assertRaises(KickstartError, self.parser.readKickstartFromString, "%include /tmp/FILE_NOT_FOUND")
 
+class Include_Missing_In_Section_TestCase(ParserTest):
+    def runTest(self):
+        self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, """
+%packages
+%include
+%end""")
+
+        self.assertRaises(KickstartError, self.parser.readKickstartFromString, """
+%packages
+%include /tmp/FILE_NOT_FOUND
+%end""")
+
 class Include_Packages_TestCase(Base_Include):
     def __init__(self, *args, **kwargs):
         Base_Include.__init__(self, *args, **kwargs)

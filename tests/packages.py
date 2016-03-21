@@ -192,7 +192,7 @@ class Packages_Options_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = """
-%packages --ignoremissing --default --instLangs="bg_BG"
+%packages --ignoremissing --default --instLangs="bg_BG" --excludedocs
 %end
 """
 
@@ -201,8 +201,13 @@ class Packages_Options_TestCase(ParserTest):
 
         # Verify that the options are parsed as expected
         self.assertTrue(self.handler.packages.default)
+        self.assertTrue(self.handler.packages.excludeDocs)
         self.assertEqual(self.handler.packages.handleMissing, KS_MISSING_IGNORE)
         self.assertEqual(self.handler.packages.instLangs, "bg_BG")
+
+        # And then test that all those options would be printed out
+        # correctly.
+        self.assertEqual(str(self.handler.packages), "\n%packages --default --excludedocs --ignoremissing --instLangs=bg_BG\n\n%end\n")
 
         # extra test coverage
         self.assertTrue(self.parser._sections['%packages'].seen)
@@ -295,6 +300,8 @@ bash
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
 
+            self.assertEqual(str(self.handler.packages), "\n%packages --nobase\nbash\n\n%end\n")
+
 class Packages_Contains_Nobase_3_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
@@ -308,6 +315,20 @@ bash
         with warnings.catch_warnings(record=True):
             warnings.simplefilter("always")
             self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
+
+class Packages_Contains_Nocore_1_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
+%packages --nocore
+%end
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True):
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(str(self.handler.packages), "\n%packages --nocore\n\n%end\n")
 
 class Packages_Contains_Nobase_Default_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
