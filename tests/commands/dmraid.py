@@ -20,6 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 
+from pykickstart.base import DeprecatedCommand
 from pykickstart.errors import KickstartParseError, KickstartValueError 
 
 class FC6_TestCase(CommandTest):
@@ -41,6 +42,12 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("dmraid --dev debaisi", KickstartValueError)
         self.assert_parse_error("dmraid --dev=deb1,deb2", KickstartValueError)
         self.assert_parse_error("dmraid --magic", KickstartParseError)
+
+class F24_TestCase(FC6_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("dmraid")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()

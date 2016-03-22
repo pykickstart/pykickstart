@@ -18,7 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
@@ -108,3 +108,7 @@ class FC6_MultiPath(KickstartCommand):
 
     def dataList(self):
         return self.mpaths
+
+class F24_MultiPath(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)
