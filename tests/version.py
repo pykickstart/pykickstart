@@ -108,6 +108,9 @@ class StringToVersion_TestCase(CommandTest):
         # pass - F24
         self.assertEqual(stringToVersion("Fedora 24"), F24)
         self.assertEqual(stringToVersion("F24"), F24)
+        # pass - F25
+        self.assertEqual(stringToVersion("Fedora 25"), F25)
+        self.assertEqual(stringToVersion("F25"), F25)
 
         # pass - RHEL3
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux 3"), RHEL3)
@@ -195,7 +198,8 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(F22, skipDevel=True), "F22")
         self.assertEqual(versionToString(F23, skipDevel=True), "F23")
         self.assertEqual(versionToString(F24, skipDevel=True), "F24")
-        self.assertEqual(versionToString(F24, skipDevel=False), "DEVEL")
+        self.assertEqual(versionToString(F25, skipDevel=True), "F25")
+        self.assertEqual(versionToString(F25, skipDevel=False), "DEVEL")
         # RHEL series
         self.assertEqual(versionToString(RHEL3), "RHEL3")
         self.assertEqual(versionToString(RHEL4), "RHEL4")
