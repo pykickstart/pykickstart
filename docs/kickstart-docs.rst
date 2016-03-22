@@ -451,35 +451,6 @@ mode. Any prompts for interaction will halt the install. This mode is
 useful on S/390 systems with the x3270 console.
 
 
-device
-------
-
-On most PCI systems, the installation program will autoprobe for
-Ethernet and SCSI cards properly. On older systems and some PCI systems,
-however, kickstart needs a hint to find the proper devices. The device
-command, which tells the installation program to install extra modules,
-is in this format:
-
-``device <moduleName> --opts=<options>``
-
-``<moduleName>``
-
-    Replace with the name of the kernel module which should be
-    installed.
-
-``--opts=``
-
-    Options to pass to the kernel module. For example:
-
-    ``--opts="aic152x=0x340 io=11"``
-
-
-dmraid
-------
-
-``dmraid --name= --dev=``
-
-
 driverdisk
 ----------
 
@@ -1149,12 +1120,6 @@ manually configuring your monitor.
 ``--vsync=``
 
     Specifies the vertical sync frequency of the monitor.
-
-
-multipath
----------
-
-``multipath --name= --device= --rule=``
 
 
 network
