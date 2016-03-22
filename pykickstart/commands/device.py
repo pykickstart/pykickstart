@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
@@ -141,3 +141,7 @@ class F8_Device(FC3_Device):
 
     def dataList(self):
         return self.deviceList
+
+class F24_Device(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)

@@ -18,7 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -91,3 +91,7 @@ class FC6_DmRaid(KickstartCommand):
 
     def dataList(self):
         return self.dmraids
+
+class F24_DmRaid(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)

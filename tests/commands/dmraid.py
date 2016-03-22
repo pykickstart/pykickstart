@@ -20,6 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
+from pykickstart.base import DeprecatedCommand
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
@@ -66,6 +67,12 @@ dmraid --name=raidB --dev=deviceB""")
         self.assert_parse_error("""
 dmraid --name=raidA --dev=deviceA
 dmraid --name=raidA --dev=deviceA""", UserWarning)
+
+class F24_TestCase(FC6_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("dmraid")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()

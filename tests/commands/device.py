@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest
 
+from pykickstart.base import DeprecatedCommand
+
 class FC3_TestCase(CommandTest):
     command = "device"
 
@@ -97,6 +99,12 @@ class F8_TestCase(CommandTest):
         dd = self.handler().DeviceData()
         dd.moduleName = ""
         self.assertEqual(dd.__str__(), "\n")
+
+class F24_TestCase(F8_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("device")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()
