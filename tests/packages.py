@@ -6,7 +6,7 @@ from tests.baseclass import CommandTest, ParserTest
 from pykickstart.constants import KS_MISSING_IGNORE
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F21, RHEL6, returnClassForVersion
+from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion
 
 class DevelPackagesBase(CommandTest):
     @property
@@ -439,6 +439,21 @@ class Packages_Empty_TestCase(ParserTest):
             self.parser.readKickstartFromString(self.ks)
             self.assertTrue(self.handler.packages.seen)
             self.assertEqual(str(self.handler.packages).strip(), "%packages\n\n%end")
+
+class Old_Packages_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = F7
+        self.ks = """
+%packages
+bash
+"""
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True):
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(str(self.handler.packages), "\n%packages\nbash\n\n")
 
 if __name__ == "__main__":
     unittest.main()

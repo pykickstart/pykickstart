@@ -61,8 +61,6 @@ except ImportError:
 STATE_END = "end"
 STATE_COMMANDS = "commands"
 
-ver = version.DEVEL
-
 def _preprocessStateMachine (lineIter):
     l = None
     lineno = 0
@@ -192,6 +190,8 @@ class PutBackIterator(Iterator):
 ### SCRIPT HANDLING
 ###
 class Script(KickstartObject):
+    _ver = version.DEVEL
+
     """A class representing a single kickstart script.  If functionality beyond
        just a data representation is needed (for example, a run method in
        anaconda), Script may be subclassed.  Although a run method is not
@@ -253,12 +253,12 @@ class Script(KickstartObject):
             retval += " --erroronfail"
 
         if self.script.endswith("\n"):
-            if ver >= version.F8:
+            if self._ver >= version.F8:
                 return retval + "\n%s%%end\n" % self.script
             else:
-                return retval + "\n%s\n" % self.script
+                return retval + "\n%s" % self.script
         else:
-            if ver >= version.F8:
+            if self._ver >= version.F8:
                 return retval + "\n%s\n%%end\n" % self.script
             else:
                 return retval + "\n%s\n" % self.script
@@ -309,6 +309,8 @@ class Group(KickstartObject):
     __hash__ = KickstartObject.__hash__
 
 class Packages(KickstartObject):
+    _ver = version.DEVEL
+
     """A class representing the %packages section of the kickstart file."""
     def __init__(self, *args, **kwargs):    # type: (Packages, *Any, **Any) -> None
         """Create a new Packages instance.  Instance attributes:
@@ -407,7 +409,7 @@ class Packages(KickstartObject):
         if self.multiLib:
             retval += " --multilib"
 
-        if ver >= version.F8:
+        if self._ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"
         else:
             return retval + "\n" + pkgs + "\n"
@@ -530,9 +532,8 @@ class KickstartParser(object):
         self._line = ""
 
         self.version = self.handler.version
-
-        global ver
-        ver = self.version
+        Script._ver = self.version
+        Packages._ver = self.version
 
         self._sections = {} # type: Dict[str, Section]
         self.setupSections()

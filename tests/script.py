@@ -4,6 +4,7 @@ from tests.baseclass import ParserTest
 
 from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_PREINSTALL, KS_SCRIPT_TRACEBACK
 from pykickstart.parser import Script
+from pykickstart.version import F7
 
 class Script_Object_TestCase(ParserTest):
     def runTest(self):
@@ -53,6 +54,26 @@ ls /
 %traceback
 ls /
 %end
+""")
+
+class Old_Script_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = F7
+
+    def runTest(self):
+        self.get_parser()
+
+        obj = Script("ls /\n", type=KS_SCRIPT_POST)
+        self.assertEqual(str(obj), """
+%post --nochroot
+ls /
+""")
+
+        obj = Script("ls /", type=KS_SCRIPT_POST)
+        self.assertEqual(str(obj), """
+%post --nochroot
+ls /
 """)
 
 if __name__ == "__main__":
