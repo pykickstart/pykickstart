@@ -273,5 +273,9 @@ class RHEL7_TestCase(F19_TestCase):
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02",
                                 KickstartValueError)
 
+        # pass
+        self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --chunksize=512 raid.01 raid.02\n")
+
 if __name__ == "__main__":
     unittest.main()
