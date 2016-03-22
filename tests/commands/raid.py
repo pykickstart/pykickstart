@@ -311,5 +311,12 @@ class F23_TestCase(F19_TestCase):
 
 RHEL7_TestCase = F23_TestCase
 
+class F25_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02")
+
 if __name__ == "__main__":
     unittest.main()
