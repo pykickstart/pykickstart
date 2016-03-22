@@ -50,7 +50,7 @@ class FC6_MultiPathData(BaseData):
         retval = BaseData.__str__(self)
 
         for path in self.paths:
-            retval += "multipath --mpdev=%s %s\n" % (self.name, path.__str__())
+            retval += "multipath --name=%s%s\n" % (self.name, path.__str__())
 
         return retval
 
@@ -83,7 +83,7 @@ class FC6_MultiPath(KickstartCommand):
         dd = FC6_MpPathData()
         self.set_to_obj(ns, dd)
         dd.lineno = self.lineno
-        dd.mpdev = dd.mpdev.split('/')[-1]
+        dd.mpdev = dd.name.split('/')[-1]
 
         parent = None
         for x in range(0, len(self.mpaths)):
@@ -96,12 +96,13 @@ class FC6_MultiPath(KickstartCommand):
                 parent = x
 
         if parent is None:
-            mpath = FC6_MultiPathData()
+            mpath = FC6_MultiPathData(name=dd.name)
+            mpath.paths.append(dd)
             return mpath
         else:
             mpath = self.mpaths[parent]
-
-        return dd
+            mpath.paths.append(dd)
+            return dd
 
     def dataList(self):
         return self.mpaths
