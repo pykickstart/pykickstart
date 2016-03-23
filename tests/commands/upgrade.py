@@ -19,6 +19,7 @@
 #
 
 import unittest
+import warnings
 from tests.baseclass import CommandTest
 
 from pykickstart.base import DeprecatedCommand
@@ -59,6 +60,17 @@ class F20_TestCase(F11_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("upgrade")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+        # deprecated commands don't return a useful string - test that somewhere
+        self.assertEqual(str(self.getParser("upgrade")), "")
+
+        # deprecated commands also raise a deprecation warning - test that somewhere
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            # The upgrade command takes no arguments and we've already got the object
+            # that knows how to parse it from the beginning of this function.
+            parser.parse([])
+            self.assertEqual(len(w), 1)
 
 if __name__ == "__main__":
     unittest.main()
