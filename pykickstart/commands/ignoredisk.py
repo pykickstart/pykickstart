@@ -90,10 +90,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
     def __init__(self, writePriority=0, *args, **kwargs):
         F8_IgnoreDisk.__init__(self, writePriority, *args, **kwargs)
-
         self.interactive = kwargs.get("interactive", False)
-        if self.interactive:
-            self.ignoredisk = []
 
     def __str__(self):
         retval = F8_IgnoreDisk.__str__(self)
@@ -115,6 +112,9 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
             howmany += 1
         if howmany != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command.")))
+
+        if self.interactive:
+            self.ignoredisk = []
 
         return retval
 
