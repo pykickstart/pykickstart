@@ -249,7 +249,7 @@ class F23_PartData(F18_PartData):
     def __init__(self, *args, **kwargs):
         F18_PartData.__init__(self, *args, **kwargs)
 
-        self.mkfsopts = kwargs.get("mkfsoptions", "")
+        self.mkfsopts = kwargs.get("mkfsoptions", "") or kwargs.get("mkfsopts", "")
 
     def _getArgsAsStr(self):
         retval = F18_PartData._getArgsAsStr(self)

@@ -314,7 +314,7 @@ class RHEL7_LogVolData(F21_LogVolData):
 
     def __init__(self, *args, **kwargs):
         F21_LogVolData.__init__(self, *args, **kwargs)
-        self.mkfsopts = kwargs.get("mkfsoptions", "")
+        self.mkfsopts = kwargs.get("mkfsoptions", "") or kwargs.get("mkfsopts", "")
 
     def _getArgsAsStr(self):
         retval = F21_LogVolData._getArgsAsStr(self)
@@ -330,7 +330,7 @@ class F23_LogVolData(F21_LogVolData):
         self.cache_size = kwargs.get("cache_size", 0)
         self.cache_mode = kwargs.get("cache_mode", "")
         self.cache_pvs = kwargs.get("cache_pvs", [])
-        self.mkfsopts = kwargs.get("mkfsoptions", "")
+        self.mkfsopts = kwargs.get("mkfsoptions", "") or kwargs.get("mkfsopts", "")
 
     def _getArgsAsStr(self):
         retval = F21_LogVolData._getArgsAsStr(self)

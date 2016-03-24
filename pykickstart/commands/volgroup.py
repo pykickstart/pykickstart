@@ -71,8 +71,8 @@ class FC3_VolGroupData(BaseData):
 class FC16_VolGroupData(FC3_VolGroupData):
     def __init__(self, *args, **kwargs):
         FC3_VolGroupData.__init__(self, *args, **kwargs)
-        self.reserved_space = kwargs.get("reserved-space", None)
-        self.reserved_percent = kwargs.get("reserved-percent", None)
+        self.reserved_space = kwargs.get("reserved-space", None) or kwargs.get("reserved_space", None)
+        self.reserved_percent = kwargs.get("reserved-percent", None) or kwargs.get("reserved_percent", None)
 
     def _getArgsAsStr(self):
         retval = FC3_VolGroupData._getArgsAsStr(self)

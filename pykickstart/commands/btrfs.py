@@ -36,11 +36,12 @@ class F17_BTRFSData(BaseData):
         self.label = kwargs.get("label", "")
         self.mountpoint = kwargs.get("mountpoint", "")
         self.devices = kwargs.get("devices", [])
-        self.dataLevel = kwargs.get("data", None)
-        self.metaDataLevel = kwargs.get("metadata", None)
+        self.dataLevel = kwargs.get("data", None) or kwargs.get("dataLevel", None)
+        self.metaDataLevel = kwargs.get("metadata", None) or kwargs.get("metaDataLevel", None)
 
         # subvolume-specific
         self.subvol = kwargs.get("subvol", False)
+        self.parent = kwargs.get("parent", "")
         self.name = kwargs.get("name", None)        # required
 
     def __eq__(self, y):
@@ -81,7 +82,7 @@ class F23_BTRFSData(F17_BTRFSData):
 
     def __init__(self, *args, **kwargs):
         F17_BTRFSData.__init__(self, *args, **kwargs)
-        self.mkfsopts = kwargs.get("mkfsoptions", "")
+        self.mkfsopts = kwargs.get("mkfsoptions", "") or kwargs.get("mkfsopts", "")
 
     def _getArgsAsStr(self):
         retval = F17_BTRFSData._getArgsAsStr(self)

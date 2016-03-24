@@ -239,7 +239,7 @@ class F23_RaidData(F18_RaidData):
 
     def __init__(self, *args, **kwargs):
         F18_RaidData.__init__(self, *args, **kwargs)
-        self.mkfsopts = kwargs.get("mkfsoptions", "")
+        self.mkfsopts = kwargs.get("mkfsoptions", "") or kwargs.get("mkfsopts", "")
 
     def _getArgsAsStr(self):
         retval = F18_RaidData._getArgsAsStr(self)
