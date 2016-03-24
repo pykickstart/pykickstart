@@ -153,7 +153,7 @@ class FC6_User(KickstartCommand):
         return op
 
     def parse(self, args):
-        ud = self.handler.UserData()
+        ud = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_obj(ns, ud)
         ud.lineno = self.lineno
@@ -166,6 +166,10 @@ class FC6_User(KickstartCommand):
 
     def dataList(self):
         return self.userList
+
+    @property
+    def dataClass(self):
+        return self.handler.UserData
 
 class F8_User(FC6_User):
     removedKeywords = FC6_User.removedKeywords

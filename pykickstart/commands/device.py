@@ -128,7 +128,7 @@ class F8_Device(FC3_Device):
             mapping = {"command": "device", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        dd = F8_DeviceData()
+        dd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, dd)
         dd.lineno = self.lineno
         dd.moduleName = extra[0]
@@ -141,6 +141,10 @@ class F8_Device(FC3_Device):
 
     def dataList(self):
         return self.deviceList
+
+    @property
+    def dataClass(self):
+        return self.handler.DeviceData
 
 class F24_Device(DeprecatedCommand):
     def __init__(self):

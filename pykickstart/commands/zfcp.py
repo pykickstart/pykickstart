@@ -107,7 +107,7 @@ class FC3_ZFCP(KickstartCommand):
         return op
 
     def parse(self, args):
-        zd = self.handler.ZFCPData()
+        zd = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_obj(ns, zd)
         zd.lineno = self.lineno
@@ -120,6 +120,10 @@ class FC3_ZFCP(KickstartCommand):
 
     def dataList(self):
         return self.zfcp
+
+    @property
+    def dataClass(self):
+        return self.handler.ZFCPData
 
 class F12_ZFCP(FC3_ZFCP):
     removedKeywords = FC3_ZFCP.removedKeywords

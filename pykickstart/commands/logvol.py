@@ -387,7 +387,7 @@ class FC3_LogVol(KickstartCommand):
             mapping = {"command": "logvol", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        lvd = self.handler.LogVolData()
+        lvd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, lvd)
         lvd.lineno = self.lineno
         lvd.mountpoint = extra[0]
@@ -403,6 +403,10 @@ class FC3_LogVol(KickstartCommand):
 
     def dataList(self):
         return self.lvList
+
+    @property
+    def dataClass(self):
+        return self.handler.LogVolData
 
 class FC4_LogVol(FC3_LogVol):
     removedKeywords = FC3_LogVol.removedKeywords

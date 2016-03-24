@@ -145,6 +145,15 @@ class KickstartCommand(KickstartObject):
         """
         return None
 
+    @property
+    def dataClass(self):
+        """For commands that can occur multiple times in a single kickstart
+           file, return the class that should be used to store the data from
+           each invocation.  An instance of this class will be appended to
+           dataList.  For all other commands, return None.
+        """
+        return None
+
     def deleteRemovedAttrs(self):   # type: (KickstartCommand) -> None
         """Remove all attributes from self that are given in the removedAttrs
            list.  This method should be called from __init__ in a subclass,

@@ -80,7 +80,7 @@ class F22_SshKey(KickstartCommand):
         return op
 
     def parse(self, args):
-        ud = self.handler.SshKeyData()
+        ud = self.dataClass()   # pylint: disable=not-callable
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
@@ -100,3 +100,7 @@ class F22_SshKey(KickstartCommand):
 
     def dataList(self):
         return self.sshUserList
+
+    @property
+    def dataClass(self):
+        return self.handler.SshKeyData

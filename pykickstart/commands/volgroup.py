@@ -120,7 +120,7 @@ class FC3_VolGroup(KickstartCommand):
         if not ns.format:
             ns.preexist = True
 
-        vg = self.handler.VolGroupData()
+        vg = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, vg)
         vg.lineno = self.lineno
 
@@ -148,6 +148,10 @@ class FC3_VolGroup(KickstartCommand):
 
     def dataList(self):
         return self.vgList
+
+    @property
+    def dataClass(self):
+        return self.handler.VolGroupData
 
 class FC16_VolGroup(FC3_VolGroup):
     def _getParser(self):

@@ -76,7 +76,7 @@ class F12_Group(KickstartCommand):
         return op
 
     def parse(self, args):
-        gd = self.handler.GroupData()
+        gd = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_obj(ns, gd)
         gd.lineno = self.lineno
@@ -89,3 +89,7 @@ class F12_Group(KickstartCommand):
 
     def dataList(self):
         return self.groupList
+
+    @property
+    def dataClass(self):
+        return self.handler.GroupData

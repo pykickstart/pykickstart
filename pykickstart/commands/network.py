@@ -360,7 +360,7 @@ class FC3_Network(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        nd = self.handler.NetworkData()
+        nd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, nd)
         nd.lineno = self.lineno
 
@@ -372,6 +372,10 @@ class FC3_Network(KickstartCommand):
 
     def dataList(self):
         return self.network
+
+    @property
+    def dataClass(self):
+        return self.handler.NetworkData
 
 class FC4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords

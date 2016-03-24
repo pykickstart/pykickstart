@@ -133,13 +133,17 @@ class FC6_Iscsi(KickstartCommand):
 
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        dd = self.handler.IscsiData()
+        dd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, dd)
         dd.lineno = self.lineno
         return dd
 
     def dataList(self):
         return self.iscsi
+
+    @property
+    def dataClass(self):
+        return self.handler.IscsiData
 
 class F10_Iscsi(FC6_Iscsi):
     removedKeywords = FC6_Iscsi.removedKeywords

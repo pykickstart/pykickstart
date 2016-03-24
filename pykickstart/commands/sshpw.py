@@ -117,7 +117,7 @@ class F13_SshPw(KickstartCommand):
         return op
 
     def parse(self, args):
-        ud = self.handler.SshPwData()
+        ud = self.dataClass()   # pylint: disable=not-callable
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
@@ -137,6 +137,10 @@ class F13_SshPw(KickstartCommand):
 
     def dataList(self):
         return self.sshUserList
+
+    @property
+    def dataClass(self):
+        return self.handler.SshPwData
 
 class F24_SshPw(F13_SshPw):
     removedKeywords = F13_SshPw.removedKeywords

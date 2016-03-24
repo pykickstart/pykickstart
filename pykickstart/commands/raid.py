@@ -323,7 +323,7 @@ class FC3_Raid(KickstartCommand):
         elif len(extra) > 1 and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
-        rd = self.handler.RaidData()
+        rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)
         rd.lineno = self.lineno
 
@@ -351,6 +351,10 @@ class FC3_Raid(KickstartCommand):
 
     def dataList(self):
         return self.raidList
+
+    @property
+    def dataClass(self):
+        return self.handler.RaidData
 
 class FC4_Raid(FC3_Raid):
     removedKeywords = FC3_Raid.removedKeywords

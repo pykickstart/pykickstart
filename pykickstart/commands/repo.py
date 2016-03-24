@@ -186,7 +186,7 @@ class FC6_Repo(KickstartCommand):
         if self.urlRequired and not ns.baseurl and not ns.mirrorlist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
 
-        rd = self.handler.RepoData()
+        rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)
         rd.lineno = self.lineno
 
@@ -198,6 +198,10 @@ class FC6_Repo(KickstartCommand):
 
     def dataList(self):
         return self.repoList
+
+    @property
+    def dataClass(self):
+        return self.handler.RepoData
 
 class F8_Repo(FC6_Repo):
     removedKeywords = FC6_Repo.removedKeywords

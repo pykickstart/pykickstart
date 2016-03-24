@@ -148,7 +148,7 @@ class F17_BTRFS(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        data = self.handler.BTRFSData()
+        data = self.dataClass() # pylint: disable=not-callable
         self.set_to_obj(ns, data)
         data.lineno = self.lineno
 
@@ -182,6 +182,10 @@ class F17_BTRFS(KickstartCommand):
 
     def dataList(self):
         return self.btrfsList
+
+    @property
+    def dataClass(self):
+        return self.handler.BTRFSData
 
 class F23_BTRFS(F17_BTRFS):
     removedKeywords = F17_BTRFS.removedKeywords

@@ -124,7 +124,7 @@ class FC3_DriverDisk(KickstartCommand):
         if not extra and not ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source or partition must be specified for driverdisk command.")))
 
-        ddd = self.handler.DriverDiskData()
+        ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:
@@ -134,6 +134,10 @@ class FC3_DriverDisk(KickstartCommand):
 
     def dataList(self):
         return self.driverdiskList
+
+    @property
+    def dataClass(self):
+        return self.handler.DriverDiskData
 
 class FC4_DriverDisk(FC3_DriverDisk):
     removedKeywords = FC3_DriverDisk.removedKeywords
@@ -163,7 +167,7 @@ class FC4_DriverDisk(FC3_DriverDisk):
         if not extra and not ns.source and not ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command.")))
 
-        ddd = self.handler.DriverDiskData()
+        ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
         if len(extra) == 1:

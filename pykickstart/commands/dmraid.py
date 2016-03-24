@@ -77,7 +77,7 @@ class FC6_DmRaid(KickstartCommand):
         return op
 
     def parse(self, args):
-        dm = FC6_DmRaidData()
+        dm = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         dm.name = dm.name.split('/')[-1]
         self.set_to_obj(ns, dm)
@@ -91,6 +91,10 @@ class FC6_DmRaid(KickstartCommand):
 
     def dataList(self):
         return self.dmraids
+
+    @property
+    def dataClass(self):
+        return self.handler.DmRaidData
 
 class F24_DmRaid(DeprecatedCommand):
     def __init__(self):

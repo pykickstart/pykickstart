@@ -96,7 +96,7 @@ class FC6_MultiPath(KickstartCommand):
                 parent = x
 
         if parent is None:
-            mpath = FC6_MultiPathData(name=dd.name)
+            mpath = self.dataClass(name=dd.name)    # pylint: disable=not-callable
             mpath.paths.append(dd)
             return mpath
         else:
@@ -106,6 +106,10 @@ class FC6_MultiPath(KickstartCommand):
 
     def dataList(self):
         return self.mpaths
+
+    @property
+    def dataClass(self):
+        return self.handler.MultiPathData
 
 class F24_MultiPath(DeprecatedCommand):
     def __init__(self):

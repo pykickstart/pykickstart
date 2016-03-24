@@ -314,7 +314,7 @@ class FC3_Partition(KickstartCommand):
             mapping = {"command": "partition", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        pd = self.handler.PartData()
+        pd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, pd)
         pd.lineno = self.lineno
         pd.mountpoint=extra[0]
@@ -327,6 +327,10 @@ class FC3_Partition(KickstartCommand):
 
     def dataList(self):
         return self.partitions
+
+    @property
+    def dataClass(self):
+        return self.handler.PartData
 
 class FC4_Partition(FC3_Partition):
     removedKeywords = FC3_Partition.removedKeywords

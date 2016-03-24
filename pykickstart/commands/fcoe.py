@@ -107,7 +107,7 @@ class F12_Fcoe(KickstartCommand):
         return op
 
     def parse(self, args):
-        zd = self.handler.FcoeData()
+        zd = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
 
         self.set_to_obj(ns, zd)
@@ -121,6 +121,10 @@ class F12_Fcoe(KickstartCommand):
 
     def dataList(self):
         return self.fcoe
+
+    @property
+    def dataClass(self):
+        return self.handler.FcoeData
 
 class F13_Fcoe(F12_Fcoe):
     removedKeywords = F12_Fcoe.removedKeywords
