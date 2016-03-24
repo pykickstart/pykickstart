@@ -136,11 +136,13 @@ class KSOptionParser(ArgumentParser):
     def add_argument(self, *args, **kwargs):
         deprecated = kwargs.pop("deprecated", False)
         introduced = kwargs.pop("introduced", None)
+        notest = kwargs.pop("notest", False)
         removed = kwargs.pop("removed", None)
 
         action = ArgumentParser.add_argument(self, *args, **kwargs)
         action.deprecated = deprecated
         action.introduced = introduced
+        action.notest = notest
         action.removed = removed
         return action
 

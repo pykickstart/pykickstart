@@ -74,8 +74,8 @@ class FC6_MultiPath(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser()
         op.add_argument("--name", required=True)
-        op.add_argument("--device", required=True)
-        op.add_argument("--rule", required=True)
+        op.add_argument("--device", required=True, notest=True)
+        op.add_argument("--rule", required=True, notest=True)
         return op
 
     def parse(self, args):
