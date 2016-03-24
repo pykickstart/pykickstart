@@ -63,7 +63,7 @@ class F16Handler(BaseHandler):
         "part": commands.partition.F14_Partition,
         "partition": commands.partition.F14_Partition,
         "poweroff": commands.reboot.FC6_Reboot,
-        "raid": commands.raid.F19_Raid,
+        "raid": commands.raid.F15_Raid,
         "reboot": commands.reboot.FC6_Reboot,
         "repo": commands.repo.F15_Repo,
         "rescue": commands.rescue.F10_Rescue,
