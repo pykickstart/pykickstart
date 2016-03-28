@@ -1572,6 +1572,10 @@ Assembles a software RAID device. This command is of the form:
     ``/root``. If more than one LUKS volume uses ``--backuppassphrase``,
     the same passphrase will be used for all such volumes.
 
+``--chunksize=<size>``
+
+    Specify the chunk size (in KiB) for this RAID array.
+
 The following example shows how to create a RAID level 1 partition for
 /, and a RAID level 5 for /usr, assuming there are three disks on the
 system. It also creates three swap partitions, one on each drive.

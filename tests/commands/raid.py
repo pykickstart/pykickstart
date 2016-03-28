@@ -315,6 +315,13 @@ class F23_TestCase(F19_TestCase):
         # can't use --mkfsoptions with --fsprofile
         self.assert_parse_error("raid / --device=md0 --level=1 --mkfsoptions=some,thing --fsprofile=PROFILE raid.01 raid.02")
 
+class F25_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02")
+
 class RHEL7_TestCase(F23_TestCase):
     def runTest(self):
         F23_TestCase.runTest(self)

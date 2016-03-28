@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -246,6 +246,22 @@ class F23_RaidData(F18_RaidData):
 
         if self.mkfsopts:
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
+
+        return retval
+
+class F25_RaidData(F23_RaidData):
+    removedKeywords = F23_RaidData.removedKeywords
+    removedAttrs = F23_RaidData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F23_RaidData.__init__(self, *args, **kwargs)
+        self.chunk_size = kwargs.get("chunk_size", None)
+
+    def _getArgsAsStr(self):
+        retval = F23_RaidData._getArgsAsStr(self)
+
+        if self.chunk_size:
+            retval += " --chunksize=%d" % self.chunk_size
 
         return retval
 
@@ -515,5 +531,14 @@ class F23_Raid(F20_Raid):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
 
         return retval
+
+class F25_Raid(F23_Raid):
+    removedKeywords = F23_Raid.removedKeywords
+    removedAttrs = F23_Raid.removedAttrs
+
+    def _getParser(self):
+        op = F23_Raid._getParser(self)
+        op.add_argument("--chunksize", type=int, dest="chunk_size")
+        return op
 
 RHEL7_Raid = F23_Raid
