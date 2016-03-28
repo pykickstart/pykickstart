@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.25
+Version:   2.26
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,23 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Mar 28 2016 Chris Lumens <clumens@redhat.com> - 2.26-1
+- We need to BuildRequires python-ordered-set. (clumens)
+- Add --chunksize option to raid command. (vtrefny)
+- Add Fedora 25 support. (vtrefny)
+- Remove deprecated commands from the documentation. (clumens)
+- Mark the device, dmraid, and multipath commands as deprecated. (clumens)
+- Fix processing of the #platform= comment. (clumens)
+- fix formating (Frodox)
+- Change network example to working one (Frodox)
+- Add DNF system-upgrade near FedUp references (github)
+- Add a syntax highlighting file for vim. (clumens)
+- Move tests/parser/* into the tests/ directory. (clumens)
+- Use importlib to import modules. (dshea)
+- Update kickstart documentation for ntp (jkonecny)
+- It's self.sshkey, not self.key. (clumens)
+- Remove orderedset.py (dshea)
+
 * Fri Feb 05 2016 Chris Lumens <clumens@redhat.com> - 2.25-1
 - Use the correct branch in zanata. (clumens)
 - Improved method.py test coverage (jikortus)
