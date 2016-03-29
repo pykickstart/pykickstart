@@ -81,6 +81,3 @@ class Attribute_TestCase(unittest.TestCase):
             handler = makeVersion(ver)
             for cmdClass in (v for (k, v) in handler.commandMap.items() if k != "method"):
                 self._test_one_command(handler, cmdClass)
-
-if __name__ == "__main__":
-    unittest.main()

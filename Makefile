@@ -11,7 +11,9 @@ ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 MANDIR=/usr/share/man
 PREFIX=/usr
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py
+tests := $(wildcard tests/*py tests/commands/*py)
+
+NOSEARGS=-s -v -I __init__.py -I baseclass.py
 
 PYTHON?=python3
 
@@ -19,9 +21,10 @@ ifeq ($(PYTHON),python3)
   COVERAGE=coverage3
   # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
   # We default to python3 now so everyone else can just deal with the slowness.
-  NOSEARGS+=--processes=-1
+  NOSEARGS+=--processes=-1 $(tests)
 else
   COVERAGE?=coverage
+  NOSEARGS+=$(filter-out tests/attrs.py,$(tests))
 endif
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
