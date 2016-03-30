@@ -146,8 +146,8 @@ scratch: docs po-empty
 
 rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(SPECFILE) --sources . --resultdir $(PWD) || exit 1
-	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD)  || exit 1
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
+	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
 
 ci:
 	$(MAKE) PYTHON=python3 check coverage
