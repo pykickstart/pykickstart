@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.0
+Version:   3.1
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,30 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Wed Mar 30 2016 Chris Lumens <clumens@redhat.com> - 3.1-1
+- Fix the version of the parser in packages tests, too. (clumens)
+- PWD doesn't work in the Makefile. (clumens)
+- Disable the attrs test for python2. (clumens)
+- Accept alternate names for some keyword arguments. (clumens)
+- Don't change ignoredisk.ignoredisk in the __init__ method. (clumens)
+- Fix bugs where F16 and F18 were using the wrong versions of objects. (clumens)
+- Allow marking options as "notest". (clumens)
+- Add a test case for various ways of setting attributes. (clumens)
+- Add a dataClass attribute to KickstartCommand. (clumens)
+- Add a test case for deprecated command corner cases. (clumens)
+- Add --chunksize option to raid command. (vtrefny)
+- Add a test case for the deprecated multipath command. (clumens)
+- Mark the device, dmraid, and multipath commands as deprecated. (clumens)
+- Get rid of the ver global variable. (clumens)
+- Remove deprecated commands from the documentation. (clumens)
+- Add Fedora 25 support. (vtrefny)
+- Add some more tests for parser-related corner cases. (clumens)
+- Fix processing of the #platform= comment. (clumens)
+- Get rid of a bunch of unnecessary blank lines. (clumens)
+- fix formating (Frodox)
+- Change network example to working one (Frodox)
+- Add DNF system-upgrade near FedUp references (github)
+
 * Fri Mar 04 2016 Chris Lumens <clumens@redhat.com> - 3.0-1
 - Make sure the script test references parser. (clumens)
 - Don't use class attributes for the version or kickstart string. (clumens)
