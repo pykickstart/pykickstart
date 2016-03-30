@@ -1,20 +1,25 @@
 import unittest
 import warnings
 
-from tests.baseclass import CommandTest, ParserTest
+from tests.baseclass import ParserTest
 
 from pykickstart.constants import KS_MISSING_IGNORE
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Group, Packages
 from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion
 
-class DevelPackagesBase(CommandTest):
+class DevelPackagesBase(ParserTest):
     @property
     def handler(self):
         return returnClassForVersion(DEVEL)
 
+    def runTest(self):
+        self.get_parser()
+
 class AddGlobs_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["vim-*"])
         pkgs.add(["kde*"])
@@ -27,6 +32,8 @@ vim-*
 
 class AddGroups_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["@GroupA"])
         pkgs.add(["@group-b"])
@@ -58,6 +65,8 @@ class AddGroups_TestCase(DevelPackagesBase):
 
 class AddGroupsAndEnvironment_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["@^EnvironmentA"])
         pkgs.add(["@GroupB"])
@@ -72,6 +81,8 @@ packageC
 
 class AddPackages_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["packageA"])
         pkgs.add(["packageB"])
@@ -86,6 +97,8 @@ packageC
 
 class ExcludeGlobs_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["-kde*"])
         pkgs.add(["-perl*"])
@@ -100,6 +113,8 @@ class ExcludeGlobs_TestCase(DevelPackagesBase):
 
 class ExcludeGroups_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["-@Conflicts"])
         pkgs.add(["-@Clustering"])
@@ -112,6 +127,8 @@ class ExcludeGroups_TestCase(DevelPackagesBase):
 
 class ExcludePackage_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["-enlightenment"])
         pkgs.add(["-clanlib"])
@@ -126,6 +143,8 @@ class ExcludePackage_TestCase(DevelPackagesBase):
 
 class Mixed1_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["@group-a"])
         pkgs.add(["@group-b"])
@@ -139,6 +158,8 @@ class Mixed1_TestCase(DevelPackagesBase):
 
 class Mixed2_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["vim-enhanced"])
         pkgs.add(["package-b"])
@@ -152,6 +173,8 @@ package-b
 
 class Mixed3_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.add(["vim-enhanced"])
         pkgs.add(["package-b"])
@@ -166,6 +189,8 @@ vim-enhanced
 
 class MultiLib_TestCase(DevelPackagesBase):
     def runTest(self):
+        DevelPackagesBase.runTest(self)
+
         pkgs = Packages()
         pkgs.default = True
         pkgs.multiLib = True
