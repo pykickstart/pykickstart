@@ -136,18 +136,18 @@ to the device by its filesystem label or UUID. This is done as follows:
     part /misc --ondisk=UUID=819ff6de-0bd6-4bf4-8b72-dbe41033a85b
 
 
-Chapter 2. Kickstart Options
-============================
+Chapter 2. Kickstart Commands
+=============================
 
-The following options can be placed in a kickstart file. If you prefer
+The following commands can be placed in a kickstart file. If you prefer
 to use a graphical interface for creating your kickstart file, you can
 use the Kickstart Configurator application.
 
-**If the option is followed by an equals mark (``==``), a value must be specified after it.
+Most commands take arguments.  If an argument is followed equals mark (``=``), a value must be specified after it.
 
-In the example commands, options in '''[square brackets]''' are optional arguments for the command.**
+In the example commands, options in '''[square brackets]''' are optional arguments for the command.
 
-**pykickstart processes arguments to commands just like the shell does:**
+pykickstart processes arguments to commands just like the shell does:
 
 ::
 
@@ -176,7 +176,7 @@ Automatically create partitions -- a root (/) partition, a swap
 partition, and an appropriate boot partition for the architecture. On
 large enough drives, this will also create a /home partition.
 
-**The ``autopart`` command can't be used together with the ``part``/``partition``, ``raid``, ``volgroup`` or ``logvol`` commands in the same kickstart file.**
+The ``autopart`` command can't be used with the logvol, part/partition, raid, requart, or volgroup in the same kickstart file.
 
 ``--type=<type>``
 
@@ -224,8 +224,7 @@ large enough drives, this will also create a /home partition.
 
     Use the specified filesystem type on the partitions. Note that it
     cannot be used with --type=btrfs since btrfs is both a partition
-    scheme and a filesystem. eg. --fstype=ext4. Added in
-    anaconda-21.46-1
+    scheme and a filesystem. eg. --fstype=ext4.
 
 
 autostep
@@ -248,7 +247,7 @@ bootloader
 
 This required command specifies how the boot loader should be installed.
 
-**As of Fedora 16 there must be a biosboot partition for the bootloader to be installed successfully onto a disk that contains a GPT/GUID partition table, which includes disks initialized by anaconda. This partition may be created with the kickstart option ``part biosboot --fstype=biosboot --size=1``. However, in the case that a disk has an existing biosboot partition, adding a "part biosboot" option is unnecessary.**
+There must be a biosboot partition for the bootloader to be installed successfully onto a disk that contains a GPT/GUID partition table, which includes disks initialized by anaconda. This partition may be created with the kickstart option ``part biosboot --fstype=biosboot --size=1``. However, in the case that a disk has an existing biosboot partition, adding a ``part biosboot`` option is unnecessary.
 
 ``--append=``
 
@@ -290,7 +289,7 @@ This required command specifies how the boot loader should be installed.
 ``--nombr``
 
     Install the boot loader configuration and support files, but do not
-    modify the MBR. Since Fedora 21.
+    modify the MBR.
 
 ``--password=``
 
@@ -400,7 +399,7 @@ clearpart
 Removes partitions from the system, prior to creation of new partitions.
 By default, no partitions are removed.
 
-**If the clearpart command is used, then the ``--onpart`` command cannot be used on a logical partition.**
+If the clearpart command is used, then the ``--onpart`` command cannot be used on a logical partition.
 
 ``--all``
 
@@ -440,7 +439,7 @@ By default, no partitions are removed.
 
     Set the default disklabel to use. Only disklabels supported for the
     platform will be accepted. eg. msdos and gpt for x86\_64 but not
-    dasd. Added in anaconda-21.43-1
+    dasd.
 
 
 cmdline
@@ -632,9 +631,7 @@ specify the type of installation from one of cdrom, harddrive, nfs, or
 url (for ftp or http installations). The install command and the
 installation method command must be on separate lines.
 
-**Note that from F18 onward, upgrades are no longer supported in anaconda and should be done with FedUp, the Fedora update tool.**
-
-**If using F21 or later, the DNF system-upgrade plugin is recommended instead.**
+Starting with F18, upgrades are no longer support in anaconda and should be done with FedUp, the Fedora update tool.  Starting with F21, the DNF system-upgrade plugin is recommended instead.  Therefore, the upgrade command essentially does nothing.
 
 
 cdrom
@@ -684,9 +681,9 @@ utilities it needs to complete the system install so the best way to
 create one is to use livemedia-creator to make the disk image. If
 the image contains /LiveOS/\*.img (this is how squashfs.img is
 structured) the first \*img file inside LiveOS will be mounted and
-used to install the target system. As of Anaconda 21.29 the URL may
-point to a tarfile of the root filesystem. The file must end in
-.tar, .tbz, .tgz, .txz, .tar.bz2, tar.gz, tar.xz
+used to install the target system. The URL may also point to a tarfile
+of the root filesystem. The file must end in .tar, .tbz, .tgz, .txz,
+.tar.bz2, tar.gz, tar.xz
 
 ``--url=``
 
@@ -754,12 +751,12 @@ HTTP.
 ``--url=``
 
     The URL to install from. Variable substitution is done for
-    $releasever and $basearch in the url (added in F19).
+    $releasever and $basearch in the url.
 
 ``--mirrorlist=``
 
     The mirror URL to install from. Variable substitution is done
-    for $releasever and $basearch in the url (added in F19).
+    for $releasever and $basearch in the url.
 
 ``--proxy=[protocol://][username[:password]@]host[:port]``
 
@@ -786,7 +783,7 @@ before the iscsi parameter in the kickstart file.
 
 We recommend that wherever possible you configure iSCSI storage in the
 system BIOS or firmware (iBFT for Intel systems) rather than use the
-iscsi parameter. \*Anaconda\* automatically detects and uses disks
+iscsi parameter. anaconda automatically detects and uses disks
 configured in BIOS or firmware and no special configuration is necessary
 in the kickstart file.
 
@@ -849,8 +846,6 @@ keyboard
 This required command sets system keyboard type. See the documentation
 of ``--vckeymap`` option and the tip at the end of this section for a
 guide how to get values accepted by this command.
-
-**Starting with Fedora 18 the ``keyboard`` command has three new options:**
 
 ``keyboard [--vckeymap=<keymap>] [--xlayouts=<layout1>,<layout2>,...,<layoutN>] [--switch=<option1>...<optionN>] [arg]``
 
@@ -1093,35 +1088,6 @@ media. This command requires that installs be attended, so it is
 disabled by default.
 
 
-monitor
--------
-
-If the monitor command is not given, anaconda will use X to
-automatically detect your monitor settings. Please try this before
-manually configuring your monitor.
-
-``--hsync=``
-
-    Specifies the horizontal sync frequency of the monitor.
-
-``--monitor=``
-
-    Use specified monitor; monitor name should be from the list of
-    monitors in /usr/share/hwdata/MonitorsDB from the hwdata package.
-    The list of monitors can also be found on the X Configuration screen
-    of the Kickstart Configurator. This is ignored if --hsync or --vsync
-    is provided. If no monitor information is provided, the installation
-    program tries to probe for it automatically.
-
-``--noprobe``
-
-    Do not probe the monitor.
-
-``--vsync=``
-
-    Specifies the vertical sync frequency of the monitor.
-
-
 network
 -------
 
@@ -1134,16 +1100,14 @@ get kickstart file (e.g. using configuration provided with boot options
 or entered in loader UI) it is re-activated with configuration from
 kickstart file.
 
-In F15, the device of first network command is activated also in case of
-non-network installs, and device is not re-activated using kickstart
+The device given by the first network command is activated also in case of
+non-network installs, and this device is not re-activated using kickstart
 configuration.
 
 ``--activate``
 
     As noted above, using this option ensures any matching devices
     beyond the first will also be activated.
-
-    Since F16.
 
 ``--bootproto=[dhcp|bootp|static|ibft]``
 
@@ -1170,8 +1134,7 @@ configuration.
    All static networking configuration information must be specified
    on one line; you cannot wrap lines using a backslash, for example.
 
-   ibft setting is for reading the configuration from iBFT table. It
-   was added in F16.
+   ibft setting is for reading the configuration from iBFT table.
 
 ``--device=``
 
@@ -1202,7 +1165,7 @@ configuration.
 
     Prevents grabbing of the default route by the device. It can be
     useful when activating additional devices in installer using
-    ``--activate`` option. Since F16.
+    ``--activate`` option.
 
 ``--nameserver=``
 
@@ -1236,7 +1199,7 @@ configuration.
 
 ``--wpakey=``
 
-    The WPA encryption key for wireless networks (since F16).
+    The WPA encryption key for wireless networks.
 
 ``--onboot=``
 
@@ -1262,7 +1225,7 @@ configuration.
 
     Bonded device with name specified by ``--device`` option will be
     created using slaves specified in this option. Example:
-    ``--bondslaves=eth0,eth1``. Since Fedora 19.
+    ``--bondslaves=eth0,eth1``.
 
 ``--bondopts``
 
@@ -1270,14 +1233,13 @@ configuration.
     specified by ``--bondslaves`` and ``--device`` options. Example:
     ``--bondopts=mode=active-backup,primary=eth1``. If an option itself
     contains comma as separator use semicolon to separate the options.
-    Since Fedora 19.
 
 ``--vlanid``
 
     Id (802.1q tag) of vlan device to be created using parent device
     specified by ``--device`` option. For example
     ``network --device=eth0 --vlanid=171`` will create vlan device
-    ``eth0.171``. Since Fedora 19.
+    ``eth0.171``.
 
 ``--teamslaves``
 
@@ -1287,14 +1249,14 @@ configuration.
     single-quoted json format string with double qoutes escaped by
     ``'\'`` character. Example:
     ``--teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'"``.
-    See also ``--teamconfig`` option. Since Fedora 20.
+    See also ``--teamconfig`` option.
 
 ``--teamconfig``
 
     Double-quoted team device configuration which is a json format
     string with double quotes escaped with ``'\'`` character. The device
     name is specified by ``--device`` option and its slaves and their
-    configuration by ``--teamslaves`` option. Since Fedora 20. Example:
+    configuration by ``--teamslaves`` option. Example:
 
 ::
 
@@ -1308,7 +1270,7 @@ part or partition
 
 Creates a partition on the system. This command is required.
 
-**All partitions created will be formatted as part of the installation process unless ``--noformat`` and ``--onpart`` are used.**
+All partitions created will be formatted as part of the installation process unless ``--noformat`` and ``--onpart`` are used.
 
 ``part <mntpoint>``
 
@@ -1375,7 +1337,7 @@ one of the following forms:
     "--onpart=LABEL=name" or "--onpart=UUID=name" to specify a partition
     by label or uuid respectively.
 
-    **Anaconda may create partitions in any particular order, so it is safer to use labels than absolute partition names.**
+    Anaconda may create partitions in any particular order, so it is safer to use labels than absolute partition names.
 
 ``--ondisk=`` or ``--ondrive=``
 
@@ -1466,8 +1428,8 @@ one of the following forms:
    Attempt to resize this partition to the size given by ``--size=``.
    This option must be used with ``--onpart --size=``, or an error will
    be raised.
-
-   **If partitioning fails for any reason, diagnostic messages will appear on virtual console 3.**
+   
+If partitioning fails for any reason, diagnostic messages will appear on virtual console 3.
 
 
 poweroff
@@ -1698,7 +1660,7 @@ cause a conflicting repo error.
     Note that there is a colon after the host--Anaconda passes
     everything after "nfs://\ " directly to the mount command instead of
     parsing URLs according to RFC 2224. Variable substitution is done
-    for $releasever and $basearch in the url (added in F19).
+    for $releasever and $basearch in the url.
 
 ``--mirrorlist=``
 
@@ -1706,7 +1668,7 @@ cause a conflicting repo error.
     variables that may be used in yum repo config files are not
     supported here. You may use one of either this option or
     ``--baseurl``, not both. Variable substitution is done for
-    $releasever and $basearch in the url (added in F19).
+    $releasever and $basearch in the url.
 
 ``--cost=``
 
@@ -1753,7 +1715,7 @@ cause a conflicting repo error.
 ``--install``
 
     Install this repository to the target system so that it can be used
-    after reboot. Added in anaconda-22.3-1
+    after reboot.
 
 
 reqpart
@@ -1979,21 +1941,7 @@ updates.img.
 upgrade
 -------
 
-**Note that from F18 onward, upgrades are no longer supported in anaconda and should be done with FedUp, the Fedora update tool.**
-
-**If using F21 or later, the DNF system upgrade plugin is recommended instead.**
-
-Tells the system to upgrade an existing system rather than install a
-fresh system. You must specify one of cdrom, harddrive, nfs, or url (for
-ftp and http) as the location of the installation tree. Refer to install
-for details.
-
-``--root-device=<root>`` (optional)
-
-    On a system with multiple installs, this option specifies which
-    filesystem holds the installation to be upgraded. This can be
-    specified by device name, UUID=, or LABEL= just like the harddrive
-    command may be.
+Starting with F18, upgrades are no longer support in anaconda and should be done with FedUp, the Fedora update tool.  Starting with F21, the DNF system-upgrade plugin is recommended instead.  Therefore, the upgrade command essentially does nothing.
 
 
 user
@@ -2002,8 +1950,6 @@ user
 Creates a new user on the system.
 
 ``user --name=<username> [--gecos=<string>] [--groups=<list>]  [--homedir=<homedir>] [--password=<password>]  [--iscrypted|--plaintext] [--lock]  [--shell=<shell>] [--uid=<uid>] [--gid=<gid>]``
-
-   **The Anaconda version used in F19 and F20 will create unlocked user accounts with \*NO\* password unless --password or --lock is passed. This was a bug, which is fixed in newer releases.**
 
 ``--name=``
 
@@ -2249,12 +2195,11 @@ Groups can also be specified using the id for the group, such as
 gnome-desktop. Specify individual packages with no additional characters
 (the dhcp line in the example above is an individual package).
 
-**Since Fedora 21** you can also specify environments using the ``@^``
-prefix followed by full environment name as given in the comps.xml file.
-If multiple environments are specified, only the last one specified will
-be used. Environments can be mixed with both group specifications (even
-if the given group is not part of the specified environment) and package
-specifications.
+You can also specify environments using the ``@^`` prefix followed by full
+environment name as given in the comps.xml file.  If multiple environments
+are specified, only the last one specified will be used. Environments can
+be mixed with both group specifications (even if the given group is not part
+of the specified environment) and package specifications.
 
 Here is an example of requesting the GNOME Desktop environment to be
 selected for installation:
@@ -2370,13 +2315,12 @@ configured at this point, so only IP addresses will work.
 
 Preinstallation scripts are required to be closed with %end.
 
-**If your script spawns a daemon process, you must make sure to close stdout
+If your script spawns a daemon process, you must make sure to close stdout
 and stderr.  Doing so is standard procedure for creating daemons.  If you do
 not close these file descriptors, the installation will appear hung as
-anaconda waits for an EOF from the script.**
+anaconda waits for an EOF from the script.
 
-
-**Note that the pre-install script is not run in the chroot environment.**
+Note that the pre-install script is not run in the chroot environment.
 
 ``--interpreter /usr/bin/python``
 
@@ -2471,21 +2415,21 @@ others that need access outside the chroot.
 
 Each %post section is required to be closed with a corresponding %end.
 
-**If you configured the network with static IP information, including a
+If you configured the network with static IP information, including a
 nameserver, you can access the network and resolve IP addresses in the %post
 section.  If you configured the network for DHCP, the /etc/resolv.conf file
 has not been completed when the installation executes the %post section. You
 can access the network, but you can not resolve IP addresses. Thus, if you
-are using DHCP, you must specify IP addresses in the %post section.**
+are using DHCP, you must specify IP addresses in the %post section.
 
-**If your script spawns a daemon process, you must make sure to close stdout
+If your script spawns a daemon process, you must make sure to close stdout
 and stderr.  Doing so is standard procedure for creating daemons.  If you do
 not close these file descriptors, the installation will appear hung as
-anaconda waits for an EOF from the script.**
+anaconda waits for an EOF from the script.
 
-**The post-install script is run in a chroot environment; therefore, performing
+The post-install script is run in a chroot environment; therefore, performing
 tasks such as copying scripts or RPMs from the installation media will not
-work.**
+work.
 
 ``--nochroot``
 
