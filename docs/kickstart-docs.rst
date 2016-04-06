@@ -143,9 +143,11 @@ The following commands can be placed in a kickstart file. If you prefer
 to use a graphical interface for creating your kickstart file, you can
 use the Kickstart Configurator application.
 
-Most commands take arguments.  If an argument is followed equals mark (``=``), a value must be specified after it.
+Most commands take arguments.  If an argument is followed equals mark (``=``),
+a value must be specified after it.
 
-In the example commands, options in '''[square brackets]''' are optional arguments for the command.
+In the example commands, options in '''[square brackets]''' are optional
+arguments for the command.
 
 pykickstart processes arguments to commands just like the shell does:
 
@@ -153,9 +155,9 @@ pykickstart processes arguments to commands just like the shell does:
 
    If a list of arguments can be passed in, the arguments must be separated by
    commas and not include any extra spaces.  If extra spaces are required in the
-   list of arguments, the entire argument must be surrounded by double quotes.  If
-   quotes, spaces, or other special characters need to be added to the argumens
-   list, they must be escaped.
+   list of arguments, the entire argument must be surrounded by double quotes.
+   If quotes, spaces, or other special characters need to be added to the
+   arguments list, they must be escaped.
 
 
 auth or authconfig
@@ -176,7 +178,8 @@ Automatically create partitions -- a root (/) partition, a swap
 partition, and an appropriate boot partition for the architecture. On
 large enough drives, this will also create a /home partition.
 
-The ``autopart`` command can't be used with the logvol, part/partition, raid, requart, or volgroup in the same kickstart file.
+The ``autopart`` command can't be used with the logvol, part/partition, raid,
+reqpart, or volgroup in the same kickstart file.
 
 ``--type=<type>``
 
@@ -247,7 +250,12 @@ bootloader
 
 This required command specifies how the boot loader should be installed.
 
-There must be a biosboot partition for the bootloader to be installed successfully onto a disk that contains a GPT/GUID partition table, which includes disks initialized by anaconda. This partition may be created with the kickstart option ``part biosboot --fstype=biosboot --size=1``. However, in the case that a disk has an existing biosboot partition, adding a ``part biosboot`` option is unnecessary.
+There must be a biosboot partition for the bootloader to be installed
+successfully onto a disk that contains a GPT/GUID partition table, which
+includes disks initialized by anaconda. This partition may be created with
+the kickstart option ``part biosboot --fstype=biosboot --size=1``.  However,
+in the case that a disk has an existing biosboot partition, adding a
+``part biosboot`` option is unnecessary.
 
 ``--append=``
 
@@ -371,11 +379,11 @@ subvolumes, should be the identifier of the subvolume's parent volume.
 
 ``--mkfsoptions=``
 
-    Specifies additional parameters to be passed to the program that makes
-    a filesystem on this partition. No processing is done on the list of arguments,
-    so they must be supplied in a format that can be passed directly to the mkfs
-    program.  This means multiple options should be comma-separated or surrounded
-    by double quotes, depending on the filesystem.
+    Specifies additional parameters to be passed to the program that makes a
+    filesystem on this partition. No processing is done on the list of
+    arguments, so they must be supplied in a format that can be passed directly
+    to the mkfs program.  This means multiple options should be comma-separated
+    or surrounded by double quotes, depending on the filesystem.
 
 The following example shows how to create a BTRFS volume from member
 partitions on three disks with subvolumes for root and home. The main
@@ -399,7 +407,8 @@ clearpart
 Removes partitions from the system, prior to creation of new partitions.
 By default, no partitions are removed.
 
-If the clearpart command is used, then the ``--onpart`` command cannot be used on a logical partition.
+If the clearpart command is used, then the ``--onpart`` command cannot be used
+on a logical partition.
 
 ``--all``
 
@@ -415,7 +424,7 @@ If the clearpart command is used, then the ``--onpart`` command cannot be used o
 
 ``--list=``
 
-    Specifies which partitions to clear. If given, this supercedes any
+    Specifies which partitions to clear. If given, this supersedes any
     of the ``--all`` and ``--linux`` options. This can be across
     different drives:
 
@@ -631,7 +640,10 @@ specify the type of installation from one of cdrom, harddrive, nfs, or
 url (for ftp or http installations). The install command and the
 installation method command must be on separate lines.
 
-Starting with F18, upgrades are no longer support in anaconda and should be done with FedUp, the Fedora update tool.  Starting with F21, the DNF system-upgrade plugin is recommended instead.  Therefore, the upgrade command essentially does nothing.
+Starting with F18, upgrades are no longer support in anaconda and should be
+done with FedUp, the Fedora update tool.  Starting with F21, the DNF
+system-upgrade plugin is recommended instead.  Therefore, the upgrade command
+essentially does nothing.
 
 
 cdrom
@@ -882,7 +894,11 @@ guide how to get values accepted by this command.
     For example
     ``keyboard --xlayouts=cz,'cz (qwerty)' --switch=grp:alt_shift_toggle``
 
-*If you know only the description of the layout (e.g. Czech (qwerty)), you can use http://vpodzime.fedorapeople.org/layouts_list.py to list all available layouts and find the one you want to use. The string in square brackets is the valid layout specification as Anaconda accepts it. The same goes for switching options and http://vpodzime.fedorapeople.org/switching_list.py*
+*If you know only the description of the layout (e.g. Czech (qwerty)), you can
+use http://vpodzime.fedorapeople.org/layouts_list.py to list all available
+layouts and find the one you want to use. The string in square brackets is the
+valid layout specification as Anaconda accepts it. The same goes for switching
+options and http://vpodzime.fedorapeople.org/switching_list.py*
 
 
 lang
@@ -943,11 +959,11 @@ Create a logical volume for Logical Volume Management (LVM).
 
 ``--mkfsoptions=``
 
-    Specifies additional parameters to be passed to the program that makes
-    a filesystem on this partition. No processing is done on the list of arguments,
-    so they must be supplied in a format that can be passed directly to the mkfs
-    program.  This means multiple options should be comma-separated or surrounded
-    by double quotes, depending on the filesystem.
+    Specifies additional parameters to be passed to the program that makes a
+    filesystem on this partition. No processing is done on the list of
+    arguments, so they must be supplied in a format that can be passed directly
+    to the mkfs program.  This means multiple options should be comma-separated
+    or surrounded by double quotes, depending on the filesystem.
 
 ``--grow``
 
@@ -1140,8 +1156,8 @@ configuration.
 
     Specifies device to be configured and/or activated with the network
     command. The device can be specified in the same ways as
-    `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__ boot option. For
-    example:
+    `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__
+    boot option. For example:
 
     ``network --bootproto=dhcp --device=eth0``
 
@@ -1270,7 +1286,8 @@ part or partition
 
 Creates a partition on the system. This command is required.
 
-All partitions created will be formatted as part of the installation process unless ``--noformat`` and ``--onpart`` are used.
+All partitions created will be formatted as part of the installation process
+unless ``--noformat`` and ``--onpart`` are used.
 
 ``part <mntpoint>``
 
@@ -1337,7 +1354,8 @@ one of the following forms:
     "--onpart=LABEL=name" or "--onpart=UUID=name" to specify a partition
     by label or uuid respectively.
 
-    Anaconda may create partitions in any particular order, so it is safer to use labels than absolute partition names.
+    Anaconda may create partitions in any particular order, so it is safer
+    to use labels than absolute partition names.
 
 ``--ondisk=`` or ``--ondrive=``
 
@@ -1348,7 +1366,8 @@ one of the following forms:
    Forces automatic allocation of the partition as a primary partition
    or the partitioning will fail.
 
-   **TIP:** *The ``--asprimary`` option only makes sense with the MBR partitioning scheme and is ignored when the GPT partitioning scheme is used.*
+   **TIP:** *The ``--asprimary`` option only makes sense with the MBR
+   partitioning scheme and is ignored when the GPT partitioning scheme is used.*
 
 ``--fsprofile=``
 
@@ -1429,7 +1448,8 @@ one of the following forms:
    This option must be used with ``--onpart --size=``, or an error will
    be raised.
    
-If partitioning fails for any reason, diagnostic messages will appear on virtual console 3.
+If partitioning fails for any reason, diagnostic messages will appear on
+virtual console 3.
 
 
 poweroff
@@ -1488,11 +1508,11 @@ Assembles a software RAID device. This command is of the form:
 
 ``--mkfsoptions=``
 
-    Specifies additional parameters to be passed to the program that makes
-    a filesystem on this partition. No processing is done on the list of arguments,
-    so they must be supplied in a format that can be passed directly to the mkfs
-    program.  This means multiple options should be comma-separated or surrounded
-    by double quotes, depending on the filesystem.
+    Specifies additional parameters to be passed to the program that makes a
+    filesystem on this partition. No processing is done on the list of
+    arguments, so they must be supplied in a format that can be passed directly
+    to the mkfs program.  This means multiple options should be comma-separated
+    or surrounded by double quotes, depending on the filesystem.
 
 ``--label=``
 
@@ -1619,7 +1639,8 @@ a message and waits for the user to press a key before rebooting.
 
 ``--kexec``
 
-    Use kexec to reboot into the new system, bypassing BIOS/Firmware and bootloader.
+    Use kexec to reboot into the new system, bypassing BIOS/Firmware and
+    bootloader.
 
 
 repo
@@ -1721,15 +1742,23 @@ cause a conflicting repo error.
 reqpart
 -------
 
-Automatically create partitions required by your hardware platform. These include a ``/boot/efi`` for x86_64 and Aarch64 systems with UEFI firmware, ``biosboot`` for x86_64 systems with BIOS firmware and GPT, and ``PRePBoot`` for IBM Power Systems.
+Automatically create partitions required by your hardware platform. These
+include a ``/boot/efi`` for x86_64 and Aarch64 systems with UEFI firmware,
+``biosboot`` for x86_64 systems with BIOS firmware and GPT, and ``PRePBoot``
+for IBM Power Systems.
 
-Note: This command can not be used together with ``autopart``, because ``autopart`` does the same and creates other partitions or logical volumes such as ``/`` and ``swap`` on top. In contrast with ``autopart``, this command only creates platform-specific partitions and leaves the rest of the drive empty, allowing you to create a custom layout.
+Note: This command can not be used together with ``autopart``, because
+``autopart`` does the same and creates other partitions or logical volumes
+such as ``/`` and ``swap`` on top. In contrast with ``autopart``, this command
+only creates platform-specific partitions and leaves the rest of the drive
+empty, allowing you to create a custom layout.
 
 ``reqpart [--add-boot]``
 
 ``--add-boot``
 
-   Create a separate ``/boot`` partition in addition to the platform-specific partition created by the base command.
+   Create a separate ``/boot`` partition in addition to the platform-specific
+   partition created by the base command.
 
 rescue
 ------
@@ -1901,7 +1930,9 @@ the time zones listed by timeconfig.
    If present, the system assumes the hardware clock is set to UTC
    (Greenwich Mean) time.
 
-   *To get the list of supported timezones, you can either run this script: http://vpodzime.fedorapeople.org/timezones_list.py or look at this list: http://vpodzime.fedorapeople.org/timezones_list.txt*
+   *To get the list of supported timezones, you can either run this script:
+   http://vpodzime.fedorapeople.org/timezones_list.py or look at this list:
+   http://vpodzime.fedorapeople.org/timezones_list.txt*
 
 Starting with Fedora 18 the ``timezone`` command has two new options:
 
@@ -1941,7 +1972,10 @@ updates.img.
 upgrade
 -------
 
-Starting with F18, upgrades are no longer support in anaconda and should be done with FedUp, the Fedora update tool.  Starting with F21, the DNF system-upgrade plugin is recommended instead.  Therefore, the upgrade command essentially does nothing.
+Starting with F18, upgrades are no longer support in anaconda and should be done
+with FedUp, the Fedora update tool.  Starting with F21, the DNF system-upgrade
+plugin is recommended instead.  Therefore, the upgrade command essentially does
+nothing.
 
 
 user
@@ -2282,7 +2316,8 @@ header:
     Do not install the @core group (installed by default,
     otherwise).
 
-**Omitting the core group can produce a system that is not bootable or that cannot finish the install. Use with caution.**
+**Omitting the core group can produce a system that is not bootable or that
+cannot finish the install. Use with caution.**
 
 
 Group-level options
