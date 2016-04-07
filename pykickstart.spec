@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.26
+Version:   2.27
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Apr 07 2016 Chris Lumens <clumens@redhat.com> - 2.27-1
+- Ignore DeprecationWarnings originating in pykickstart itself. (clumens)
+
 * Mon Mar 28 2016 Chris Lumens <clumens@redhat.com> - 2.26-1
 - We need to BuildRequires python-ordered-set. (clumens)
 - Add --chunksize option to raid command. (vtrefny)
