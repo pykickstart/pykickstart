@@ -11,7 +11,7 @@ ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 MANDIR=/usr/share/man
 PREFIX=/usr
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py
+NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests/tools/*py
 
 PYTHON?=python3
 
@@ -63,7 +63,7 @@ test: coverage
 coverage:
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart $(NOSEARGS)
+	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
 	$(COVERAGE) combine
 	$(COVERAGE) report -m | tee coverage-report.log
 	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
