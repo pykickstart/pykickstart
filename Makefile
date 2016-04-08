@@ -11,7 +11,7 @@ ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 MANDIR=/usr/share/man
 PREFIX=/usr
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py tests/tools/*py
+NOSEARGS=-s -v -I __init__.py -I baseclass.py tests/*py tests/commands/*py
 
 PYTHON?=python3
 
