@@ -71,12 +71,12 @@ kickstart file:
    #. Command section -- Refer to Chapter 2 for a list of kickstart
       options. You must include the required options.
    #. The %packages section -- Refer to Chapter 3 for details.
-   #. The %pre, %pre-install, %post, and %traceback sections -- These
-      sections can be in any order and are not required. Refer to Chapter
-      4 and Chapter 5 for details.
+   #. The %pre, %pre-install, %post, %onerror, and %traceback sections --
+      These sections can be in any order and are not required. Refer to
+      Chapter 4, Chapter 5, and Chapter 6  for details.
 
--  The %packages, %pre, %pre-install, %post and %traceback sections are all
-   required to be closed with %end
+-  The %packages, %pre, %pre-install, %post, %onerror, and %traceback sections
+   are all required to be closed with %end
 -  Items that are not required can be omitted.
 -  Omitting any required item will result in the installation program
    prompting the user for an answer to the related item, just as the
@@ -2537,7 +2537,67 @@ installed:
 replace /mnt/sysimage above with $INSTALL_ROOT.**
 
 
-Chapter 6. Making the Kickstart File Available
+Chapter 6. Error Scripts
+========================
+
+You can additionally specify two kinds of scripts that can run when an error
+occurs in the installation process.  These scripts could potentially run at
+any stage in installation - early on, between making filesystems and installing
+packages, before the bootloader is installed, when attempting to reboot, and
+so on.  For this reason, these scripts cannot be run in the chroot environment
+and you should not trust anything in the installed system.  These scripts are
+primarily for testing and error reporting purposes.
+
+You may have more than one error script.  These scripts are required to be
+closed with %end.
+
+Note that the pre-install script is not run in the chroot environment.
+
+All kinds of error scripts take the same arguments:
+
+``--interpreter /usr/bin/python``
+
+    Allows you to specify a different scripting language, such as
+    Python. Replace /usr/bin/python with the scripting language of
+    your choice.
+
+``--erroronfail``
+
+    If the pre-installation script fails, this option will cause an
+    error dialog to be displayed and will halt installation. The
+    error message will direct you to where the cause of the failure
+    is logged.
+
+``--log=``
+
+    Log all messages from the script to the given log file.
+
+%traceback script
+-----------------
+
+These scripts run when the installer hits an internal error (a traceback, as
+they are called in Python) and cannot continue.  When this situation happens,
+the installer will display an error dialog to the screen that prompts the user
+to file a bug or reboot.  At the same time, it will run all %traceback scripts
+in the order they are provided in the kickstart file.
+
+%onerror script
+---------------
+
+These scripts run when the installer hits a fatal error, but not necessarily
+a bug in the installer.  Some examples of these situations include errors in
+packages that have been requested to be installed, failures when starting VNC
+when requested, and error when scanning storage.  When these situations happen,
+installaton cannot continue.  The installer will run all %onerror scripts in
+the order they are provided in the kickstart file.
+
+In addition, %onerror scripts will be run on a traceback as well.  To be exact,
+all %onerror scripts will be run and then all %traceback scripts will be run
+afterwards.
+
+
+
+Chapter 7. Making the Kickstart File Available
 ==============================================
 
 A kickstart file must be placed in one of the following locations:
@@ -2664,7 +2724,7 @@ and
 `kssendsn <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendsn>`__
 
 
-Chapter 7. Making the Installation Tree Available
+Chapter 8. Making the Installation Tree Available
 =================================================
 
 The kickstart installation needs to access an installation tree. An
@@ -2685,7 +2745,7 @@ the Preparing for a Network Installation section of the Red Hat
 Enterprise Linux Installation Guide for details.
 
 
-Chapter 8. Starting a Kickstart Installation
+Chapter 9. Starting a Kickstart Installation
 ============================================
 
 To begin a kickstart installation, you must boot the system from a
