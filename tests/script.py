@@ -2,7 +2,7 @@ import unittest
 
 from tests.baseclass import ParserTest
 
-from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_PREINSTALL, KS_SCRIPT_TRACEBACK
+from pykickstart.constants import KS_SCRIPT_POST, KS_SCRIPT_PRE, KS_SCRIPT_PREINSTALL, KS_SCRIPT_TRACEBACK, KS_SCRIPT_ONERROR
 from pykickstart.parser import Script
 from pykickstart.version import F7
 
@@ -52,6 +52,15 @@ ls /
 
         self.assertEqual(str(obj), """
 %traceback
+ls /
+%end
+""")
+
+        obj = Script("ls /", type=KS_SCRIPT_ONERROR)
+        self.assertEqual(obj.type, KS_SCRIPT_ONERROR)
+
+        self.assertEqual(str(obj), """
+%onerror
 ls /
 %end
 """)

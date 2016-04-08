@@ -44,7 +44,9 @@ from pykickstart.errors import KickstartError, KickstartParseError, formatErrorM
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.options import KSOptionParser
-from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection
+from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, \
+                                 PostScriptSection, TracebackScriptSection, OnErrorScriptSection, \
+                                 NullSection
 
 from pykickstart.i18n import _
 
@@ -242,6 +244,8 @@ class Script(KickstartObject):
             retval += '\n%traceback'
         elif self.type == constants.KS_SCRIPT_PREINSTALL:
             retval += '\n%pre-install'
+        elif self.type == constants.KS_SCRIPT_ONERROR:
+            retval += '\n%onerror'
 
         if self.interp != "/bin/sh" and self.interp != "":
             retval += " --interpreter=%s" % self.interp
@@ -811,6 +815,7 @@ class KickstartParser(object):
         self.registerSection(PreScriptSection(self.handler, dataObj=Script))
         self.registerSection(PreInstallScriptSection(self.handler, dataObj=Script))
         self.registerSection(PostScriptSection(self.handler, dataObj=Script))
+        self.registerSection(OnErrorScriptSection(self.handler, dataObj=Script))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=Script))
         self.registerSection(PackageSection(self.handler))
 
