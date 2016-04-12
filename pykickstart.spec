@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.27
+Version:   2.28
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,13 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Apr 12 2016 Chris Lumens <clumens@redhat.com> - 2.28-1
+- Correctly move scripts after they've been installed. (clumens)
+- Document %traceback and %onerror. (clumens)
+- Add a new %onerror script section (#74). (clumens)
+- The tools aren't tests, so don't try to run them. (clumens)
+- Enable coverage reporting for pykickstart tools (jikortus)
+
 * Thu Apr 07 2016 Chris Lumens <clumens@redhat.com> - 2.27-1
 - Ignore DeprecationWarnings originating in pykickstart itself. (clumens)
 
