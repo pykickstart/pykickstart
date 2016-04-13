@@ -2551,7 +2551,7 @@ primarily for testing and error reporting purposes.
 You may have more than one error script.  These scripts are required to be
 closed with %end.
 
-Note that the pre-install script is not run in the chroot environment.
+Note that error scripts are not run in the chroot environment.
 
 All kinds of error scripts take the same arguments:
 
@@ -2563,10 +2563,10 @@ All kinds of error scripts take the same arguments:
 
 ``--erroronfail``
 
-    If the pre-installation script fails, this option will cause an
-    error dialog to be displayed and will halt installation. The
-    error message will direct you to where the cause of the failure
-    is logged.
+    If the error script fails, this option will cause an error
+    dialog to be displayed and will halt installation. The error
+    message will direct you to where the cause of the failure is
+    logged.
 
 ``--log=``
 
