@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.1
+Version:   3.2
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,15 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Apr 14 2016 Chris Lumens <clumens@redhat.com> - 3.2-1
+- Fix a couple mistakes in the documentation. (clumens)
+- Correctly move scripts after they've been installed. (clumens)
+- Document %traceback and %onerror. (clumens)
+- Add a new %onerror script section (#74). (clumens)
+- Enable coverage reporting for pykickstart tools (jikortus)
+- Fix really long lines in the documentation. (clumens)
+- Lots of documentation updates. (clumens)
+
 * Wed Mar 30 2016 Chris Lumens <clumens@redhat.com> - 3.1-1
 - Fix the version of the parser in packages tests, too. (clumens)
 - PWD doesn't work in the Makefile. (clumens)
