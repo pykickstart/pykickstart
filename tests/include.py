@@ -8,6 +8,10 @@ from pykickstart import constants
 from pykickstart.errors import KickstartError, KickstartParseError
 
 class Base_Include(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.includeKS = ""
+
     def setUp(self):
         ParserTest.setUp(self)
 

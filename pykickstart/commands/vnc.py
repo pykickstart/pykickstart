@@ -101,13 +101,13 @@ class FC6_Vnc(FC3_Vnc):
         # argparse doesn't give us a way to do something this complicated, so we
         # have to set it on a throwaway value and then go back and fix it up.
         if getattr(retval, "_connect", None):
-            cargs = retval._connect.split(":")
-            retval.host = cargs[0]      # pylint: disable=attribute-defined-outside-init
+            cargs = retval._connect.split(":")  # pylint: disable=no-member
+            retval.host = cargs[0]              # pylint: disable=attribute-defined-outside-init
 
             if len(cargs) > 1:
-                retval.port = cargs[1]  # pylint: disable=attribute-defined-outside-init
+                retval.port = cargs[1]          # pylint: disable=attribute-defined-outside-init
 
-            del(retval._connect)
+            del(retval._connect)                # pylint: disable=no-member
 
         return retval
 

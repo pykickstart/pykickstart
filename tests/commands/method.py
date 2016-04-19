@@ -192,7 +192,7 @@ class F19_TestCase(F18_TestCase):
         for unseen_method in [m for m in available_methods if m != "liveimg"]:
             self.assertFalse(getattr(method.handler, unseen_method).seen)
             self.assertEqual(method.foo, "liveimg")
-        self.assertTrue(method.handler.liveimg.seen)
+        self.assertTrue(method.handler.liveimg.seen)    # pylint: disable=no-member
         self.assertEqual(method.method, "liveimg")
         # AttributeError should be raised when accessing nonexistent 'handler' attribute
         del method.handler

@@ -33,6 +33,7 @@ class FC6_MpPathData(BaseData):
         self.mpdev = kwargs.get("mpdev", "")
         self.device = kwargs.get("device", "")
         self.rule = kwargs.get("rule", "")
+        self.name = ""
 
     def __str__(self):
         return " --device=%s --rule=\"%s\"" % (self.device, self.rule)

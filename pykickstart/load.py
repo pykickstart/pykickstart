@@ -80,7 +80,7 @@ def _load_url(location):
     except RequestException as e:
         raise KickstartError(_('Error accessing URL "%s"') % location + ': {e}'.format(e=str(e)))
 
-    if request.status_code != requests.codes.ok:
+    if request.status_code != requests.codes.ok:        # pylint: disable=no-member
         raise KickstartError(_('Error accessing URL "%s"') % location + ': {c}'.format(c=str(request.status_code)))
 
     return request.text
