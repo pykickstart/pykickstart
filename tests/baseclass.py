@@ -102,6 +102,8 @@ class CommandSequenceTest(ParserTest):
 
 # Base class for any command test case
 class CommandTest(unittest.TestCase):
+    command = ""
+
     def setUp(self):
         '''Perform any command setup'''
         unittest.TestCase.setUp(self)
