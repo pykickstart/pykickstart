@@ -46,7 +46,7 @@ def cleanup(dest, fn=None, exitval=1):
     sys.exit(exitval)
 
 op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile")
-op.add_argument("ksfile",
+op.add_argument("ksfile", nargs="?",
                 help=_("filename or URL to read from"))
 op.add_argument("-e", "--firsterror", dest="firsterror", action="store_true",
                 default=False, help=_("halt after the first error or warning"))
@@ -65,6 +65,10 @@ if opts.listversions:
     for key in sorted(versionMap.keys()):
         print(key)
 
+    sys.exit(1)
+
+if not opts.ksfile:
+    op.print_usage()
     sys.exit(1)
 
 destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
