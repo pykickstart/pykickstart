@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.28
+Version:   2.29
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,11 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Apr 25 2016 Chris Lumens <clumens@redhat.com> - 2.29-1
+- Fix pylint no-member errors. (clumens)
+- Support file URLs for ostree (#1327460). (clumens)
+- Fix a couple mistakes in the documentation. (clumens)
+
 * Tue Apr 12 2016 Chris Lumens <clumens@redhat.com> - 2.28-1
 - Correctly move scripts after they've been installed. (clumens)
 - Document %traceback and %onerror. (clumens)
