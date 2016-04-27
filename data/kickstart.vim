@@ -27,7 +27,7 @@ syntax region ksComment start=/#/ end=/$/ contains=ksTodo
 syntax keyword ksTodo contained FIXME NOTE TODO NOTES XXX
 
 " commands
-syntax keyword ksCommands contained auth autoconfig autopart autostep bootloader btrfs cdrom clearpart cmdline device deviceprobe displaymode dmraid driverdisk eula fcoe firewall firstboot graphical group halt harddrive ignoredisk install interactive iscsiname iscsi keyboard key lang langsupport lilocheck liveimg logging logvol mediacheck monitor mouse multipath network nfs ostreesetup part partition poweroff raid realm reboot repo reqpart rescue rootpw selinux services shutdown skipx sshkey sshpw text timezone unsupported_hardware updates upgrade url user vnc volgroup xconfig zerombr zfcp
+syntax keyword ksCommands contained auth authconfig autopart autostep bootloader btrfs cdrom clearpart cmdline device deviceprobe displaymode dmraid driverdisk eula fcoe firewall firstboot graphical group halt harddrive ignoredisk install interactive iscsiname iscsi keyboard key lang langsupport lilocheck liveimg logging logvol mediacheck monitor mouse multipath network nfs ostreesetup part partition poweroff raid realm reboot repo reqpart rescue rootpw selinux services shutdown skipx sshkey sshpw text timezone unsupported_hardware updates upgrade url user vnc volgroup xconfig zerombr zfcp
 
 " only match commands at the start of a new line
 syntax match ksCommandLine '^\s*\l\+' contains=ksUnknownCommand nextgroup=ksCommandOpts
