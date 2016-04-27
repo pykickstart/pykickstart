@@ -33,7 +33,7 @@ syntax keyword ksCommands contained auth authconfig autopart autostep bootloader
 syntax match ksCommandLine '^\s*\l\+' contains=ksUnknownCommand nextgroup=ksCommandOpts
 syntax match ksUnknownCommand contained '\l\+' contains=ksCommands
 syntax match ksCommandOpts contained '.*$' contains=ksFlag
-syntax match ksFlag contained '--\a[a-zA-Z-]*=\?'
+syntax match ksFlag contained '--\a[a-zA-Z0-9-]*=\?'
 
 " includes
 syntax match ksIncludes '^\s*\(%include\|%ksappend\)'
