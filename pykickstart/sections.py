@@ -34,7 +34,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24
 
 from pykickstart.i18n import _
 
@@ -254,6 +254,7 @@ class PackageSection(Section):
         op.add_argument("--default", dest="defaultPackages", action="store_true", default=False, introduced=F7)
         op.add_argument("--instLangs", default=None, introduced=F9)
         op.add_argument("--multilib", dest="multiLib", action="store_true", default=False, introduced=F18)
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps", action="store_true", default=False, introduced=F24)
 
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
@@ -277,4 +278,5 @@ class PackageSection(Section):
 
         self.handler.packages.nocore = ns.nocore
         self.handler.packages.multiLib = ns.multiLib
+        self.handler.packages.excludeWeakdeps = ns.excludeWeakdeps
         self.handler.packages.seen = True

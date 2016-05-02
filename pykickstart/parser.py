@@ -345,6 +345,7 @@ class Packages(KickstartObject):
                             %packages section.
            instLangs     -- A list of languages to install.
            multiLib      -- Whether to use yum's "all" multilib policy.
+           excludeWeakdeps -- Whether to exclude weak dependencies.
            seen          -- If %packages was ever used in the kickstart file,
                             this attribute will be set to True.
 
@@ -363,6 +364,7 @@ class Packages(KickstartObject):
         self.packageList = []   # type: List[str]
         self.instLangs = None   # type: Union[None, List[str]]
         self.multiLib = False   # type: bool
+        self.excludeWeakdeps = False   # type: bool
         self.seen = False   # type: bool
 
     def __str__(self):  # type: (Packages) -> str
@@ -412,6 +414,8 @@ class Packages(KickstartObject):
             retval += " --instLangs=%s" % self.instLangs
         if self.multiLib:
             retval += " --multilib"
+        if self.excludeWeakdeps:
+            retval += " --excludeWeakdeps"
 
         if self._ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"
