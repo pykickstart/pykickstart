@@ -2339,6 +2339,12 @@ header:
 
    **Omitting the core group can produce a system that is not bootable or that cannot finish the install. Use with caution.**
 
+``--excludeWeakdeps``
+
+    Do not install packages from weak dependencies. These are packages linked
+    to the selected package set by Recommends and Supplements flags. By default
+    weak dependencies will be installed.
+
 
 Group-level options
 -------------------
