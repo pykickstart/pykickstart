@@ -384,5 +384,14 @@ class Packages_Empty_TestCase(ParserTest):
             self.assertTrue(self.handler.packages.seen)
             self.assertEqual(str(self.handler.packages).strip(), "%packages\n\n%end")
 
+class WeakDeps_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.default = True
+        pkgs.excludeWeakdeps = True
+        self.assertEqual("""%packages --default --excludeWeakdeps
+
+%end""", str(pkgs).strip())
+
 if __name__ == "__main__":
     unittest.main()
