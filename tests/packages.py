@@ -198,6 +198,17 @@ class MultiLib_TestCase(DevelPackagesBase):
 
 %end""", str(pkgs).strip())
 
+class WeakDeps_TestCase(DevelPackagesBase):
+    def runTest(self):
+        DevelPackagesBase.runTest(self)
+
+        pkgs = Packages()
+        pkgs.default = True
+        pkgs.excludeWeakdeps = True
+        self.assertEqual("""%packages --default --excludeWeakdeps
+
+%end""", str(pkgs).strip())
+
 class GroupObj_TestCase(DevelPackagesBase):
     def runTest(self):
         self.assertLess(Group("A"), Group("B"))
