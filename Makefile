@@ -57,8 +57,6 @@ check: po-fallback
 	$(MAKE) -C po $(PKGNAME).pot
 	PYTHONPATH=translation-canary python3 -m translation_canary.translatable po/$(PKGNAME).pot
 	git checkout -- po/$(PKGNAME).pot || true
-	@echo "*** Running tests on translated strings ***"
-	PYTHONPATH=translation-canary python3 -m translation_canary.translated .
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
