@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.29
+Version:   2.30
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue May 10 2016 Chris Lumens <clumens@redhat.com> - 2.30-1
+- Add documentation for --excludeWeakdeps (dshea)
+- Add support for --excludeWeakdeps option to %packages. (james)
+- Numbers can be part of a kickstart command option. (clumens)
+- It's authconfig, not autoconfig (in the kickstart.vim file). (clumens)
+
 * Mon Apr 25 2016 Chris Lumens <clumens@redhat.com> - 2.29-1
 - Fix pylint no-member errors. (clumens)
 - Support file URLs for ostree (#1327460). (clumens)
