@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.2
+Version:   3.3
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,20 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue May 10 2016 Chris Lumens <clumens@redhat.com> - 3.3-1
+- Do not check translated strings during make check. (dshea)
+- Merge the most recent translation-canary changes. (dshea)
+- Squashed 'translation-canary/' changes from 5a45c19..840c2d6 (dshea)
+- Add documentation for --excludeWeakdeps (dshea)
+- Add support for --excludeWeakdeps option to %packages. (james)
+- Numbers can be part of a kickstart command option. (clumens)
+- It's authconfig, not autoconfig (in the kickstart.vim file). (clumens)
+- Fix pylint no-member errors. (clumens)
+- Support file URLs for ostree (#1327460). (clumens)
+- Add ksvalidator test cases (jikortus)
+- Add classes for pykickstart tools testing (jikortus)
+- ksvalidator - don't require KS file with -l option (jikortus)
+
 * Thu Apr 14 2016 Chris Lumens <clumens@redhat.com> - 3.2-1
 - Fix a couple mistakes in the documentation. (clumens)
 - Correctly move scripts after they've been installed. (clumens)
