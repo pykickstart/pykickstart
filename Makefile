@@ -69,7 +69,7 @@ coverage:
 	$(COVERAGE) report -m | tee coverage-report.log
 	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
 	@echo "*** Running type checks ***"
-	PYTHONPATH=. mypy --use-python-path pykickstart
+	PYTHONPATH=. mypy pykickstart
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage
