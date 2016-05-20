@@ -47,22 +47,15 @@ from pykickstart.ko import KickstartObject
 from pykickstart.version import versionToString
 from pykickstart.parser import Packages
 
-# import static typing information if avaialble
-try:
-    from typing import Union, Any, List, Dict   # pylint: disable=unused-import
-    from pykickstart.parser import Script       # pylint: disable=unused-import
-except ImportError:
-    pass
-
 ###
 ### COMMANDS
 ###
 class KickstartCommand(KickstartObject):
     """The base class for all kickstart commands.  This is an abstract class."""
-    removedKeywords = []    # type: List[str]
-    removedAttrs = []       # type: List[str]
+    removedKeywords = []
+    removedAttrs = []
 
-    def __init__(self, writePriority=0, *args, **kwargs):   # type: (KickstartCommand, Union[None, int], *Any, **Any) -> None
+    def __init__(self, writePriority=0, *args, **kwargs):
         """Create a new KickstartCommand instance.  This method must be
            provided by all subclasses, but subclasses must call
            KickstartCommand.__init__ first.  Instance attributes:
@@ -97,7 +90,7 @@ class KickstartCommand(KickstartObject):
         # These will be set by the dispatcher.
         self.currentCmd = ""
         self.currentLine = ""
-        self.handler = None     # type: Union[None, BaseHandler]
+        self.handler = None
         self.lineno = 0
         self.seen = False
 
@@ -108,7 +101,7 @@ class KickstartCommand(KickstartObject):
         for arg in (kw for kw in self.removedKeywords if kw in kwargs):
             kwargs.pop(arg)
 
-    def __call__(self, *args, **kwargs):    # type: (KickstartCommand, *Any, **Any) -> None
+    def __call__(self, *args, **kwargs):
         """Set multiple attributes on a subclass of KickstartCommand at once
            via keyword arguments.  Valid attributes are anything specified in
            a subclass, but unknown attributes will be ignored.
@@ -131,21 +124,22 @@ class KickstartCommand(KickstartObject):
         return KickstartObject.__str__(self)
 
     # pylint: disable=unused-argument
-    def parse(self, args):  # type: (KickstartCommand, List[str]) -> Union[None, BaseData, KickstartCommand]
+    def parse(self, args):
         """Parse the list of args and set data on the KickstartCommand object.
            This method must be provided by all subclasses.
         """
         raise TypeError("parse() not implemented for KickstartCommand")
     # pylint: enable=unused-argument
 
-    def dataList(self):     # type: (KickstartCommand) -> List[BaseData]
+    def dataList(self):
         """For commands that can occur multiple times in a single kickstart
            file (like network, part, etc.), return the list that we should
            append more data objects to.
         """
         return None
 
-    def deleteRemovedAttrs(self):   # type: (KickstartCommand) -> None
+
+    def deleteRemovedAttrs(self):
         """Remove all attributes from self that are given in the removedAttrs
            list.  This method should be called from __init__ in a subclass,
            but only after the superclass's __init__ method has been called.
@@ -187,7 +181,7 @@ class DeprecatedCommand(KickstartCommand):
        only specifying an __init__ method that calls the superclass's __init__.
        This is an abstract class.
     """
-    def __init__(self, writePriority=None, *args, **kwargs):    # type: (DeprecatedCommand, Union[None, int], *Any, **Any) -> None
+    def __init__(self, writePriority=None, *args, **kwargs):
         # We don't want people using this class by itself.
         if self.__class__ is DeprecatedCommand:
             raise TypeError("DeprecatedCommand is an abstract class.")
@@ -199,7 +193,7 @@ class DeprecatedCommand(KickstartCommand):
         """Placeholder since DeprecatedCommands don't work anymore."""
         return ""
 
-    def parse(self, args):      # type: (DeprecatedCommand, List[str]) -> Union[None, BaseData, KickstartCommand]
+    def parse(self, args):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
@@ -218,10 +212,10 @@ class BaseHandler(KickstartObject):
                   a class attribute of a BaseHandler subclass and is used to
                   set up the command dict.  It is for read-only use.
     """
-    version = None      # type: Union[None, int]
+    version = None
 
     def __init__(self, mapping=None, dataMapping=None, commandUpdates=None,
-            dataUpdates=None, *args, **kwargs):    # type: (BaseHandler, Union[Dict[str, KickstartCommand], None], Union[Dict[str, BaseData], None], Union[Dict[str, KickstartCommand], None], Union[Dict[str, BaseData], None], *Any, **Any) -> None
+            dataUpdates=None, *args, **kwargs):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
 
@@ -271,19 +265,19 @@ class BaseHandler(KickstartObject):
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
-        self.scripts = []   # type: List[Script]
-        self.packages = Packages()  # type: Packages
+        self.scripts = []
+        self.packages = Packages()
         self.platform = ""
 
         # These will be set by the dispatcher.
-        self.commands = {}  # type: Dict[str, KickstartCommand]
+        self.commands = {}
         self.currentLine = ""
 
         # A dict keyed by an integer priority number, with each value being a
         # list of KickstartCommand subclasses.  This dict is maintained by
         # registerCommand and used in __str__.  No one else should be touching
         # it.
-        self._writeOrder = {}   # type: Dict[int, List[KickstartCommand]]
+        self._writeOrder = {}
 
         self._registerCommands(mapping, dataMapping, commandUpdates, dataUpdates)
 
@@ -408,7 +402,7 @@ class BaseHandler(KickstartObject):
         for (dataName, dataClass) in list(dMap.items()):
             setattr(self, dataName, dataClass)
 
-    def resetCommand(self, cmdName):    # type: (BaseHandler, str) -> None
+    def resetCommand(self, cmdName):
         """Given the name of a command that's already been instantiated, create
            a new instance of it that will take the place of the existing
            instance.  This is equivalent to quickly blanking out all the
@@ -420,13 +414,13 @@ class BaseHandler(KickstartObject):
             raise KeyError
 
         # mypy does not understand this, so ignore it for now
-        cmdObj = self.commands[cmdName].__class__() # type: ignore
+        cmdObj = self.commands[cmdName].__class__()
 
         self._setCommand(cmdObj)
         self.commands[cmdName] = cmdObj
         self.commands[cmdName].handler = self
 
-    def dispatcher(self, args, lineno): # type: (BaseHandler, List[str], int) -> Union[BaseData, KickstartCommand]
+    def dispatcher(self, args, lineno):
         """Call the appropriate KickstartCommand handler for the current line
            in the kickstart file.  A handler for the current command should
            be registered, though a handler of None is not an error.  Returns
@@ -460,7 +454,7 @@ class BaseHandler(KickstartObject):
 
             return obj
 
-    def maskAllExcept(self, lst):   # type: (BaseHandler, List[str]) -> None
+    def maskAllExcept(self, lst):
         """Set all entries in the commands dict to None, except the ones in
            the lst.  All other commands will not be processed.
         """
@@ -470,7 +464,7 @@ class BaseHandler(KickstartObject):
             if not key in lst:
                 self.commands[key] = None
 
-    def hasCommand(self, cmd):      # type: (BaseHandler, str) -> bool
+    def hasCommand(self, cmd):
         """Return true if there is a handler for the string cmd."""
         return hasattr(self, cmd)
 
@@ -480,10 +474,10 @@ class BaseHandler(KickstartObject):
 ###
 class BaseData(KickstartObject):
     """The base class for all data objects.  This is an abstract class."""
-    removedKeywords = []    # type: List[str]
-    removedAttrs = []       # type: List[str]
+    removedKeywords = []
+    removedAttrs = []
 
-    def __init__(self, *args, **kwargs):    # type: (BaseData, *Any, **Any) -> None
+    def __init__(self, *args, **kwargs):
         """Create a new BaseData instance.
 
            lineno -- Line number in the ks-file where this object was defined
@@ -500,7 +494,7 @@ class BaseData(KickstartObject):
         """Return a string formatted for output to a kickstart file."""
         return ""
 
-    def __call__(self, *args, **kwargs):    # type: (BaseData, *Any, **Any) -> None
+    def __call__(self, *args, **kwargs):
         """Set multiple attributes on a subclass of BaseData at once via
            keyword arguments.  Valid attributes are anything specified in a
            subclass, but unknown attributes will be ignored.
@@ -514,7 +508,7 @@ class BaseData(KickstartObject):
             if hasattr(self, key):
                 setattr(self, key, val)
 
-    def deleteRemovedAttrs(self):   # type: (BaseData) -> None
+    def deleteRemovedAttrs(self):
         """Remove all attributes from self that are given in the removedAttrs
            list.  This method should be called from __init__ in a subclass,
            but only after the superclass's __init__ method has been called.

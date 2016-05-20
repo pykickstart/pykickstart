@@ -105,7 +105,7 @@ versionMap = {
         "RHEL7": RHEL7
 }
 
-def stringToVersion(s): # type: (str) -> int
+def stringToVersion(s):
     """Convert string into one of the provided version constants.  Raises
        KickstartVersionError if string does not match anything.
     """
@@ -138,7 +138,7 @@ def stringToVersion(s): # type: (str) -> int
     # If nothing else worked, we're out of options.
     raise KickstartVersionError(_("Unsupported version specified: %s") % s)
 
-def versionToString(version, skipDevel=False):  # type: (int, bool) -> str
+def versionToString(version, skipDevel=False):
     """Convert version into a string representation of the version number.
        This is the reverse operation of stringToVersion.  Raises
        KickstartVersionError if version does not match anything.
@@ -154,7 +154,7 @@ def versionToString(version, skipDevel=False):  # type: (int, bool) -> str
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def versionFromFile(f): # type: (str) -> int
+def versionFromFile(f):
     """Given a file or URL, look for a line starting with #version= and
        return the version number.  If no version is found, return DEVEL.
     """
@@ -172,7 +172,7 @@ def versionFromFile(f): # type: (str) -> int
 
     return v
 
-def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callable[[], BaseHandler]
+def returnClassForVersion(version=DEVEL):
     """Return the class of the syntax handler for version.  version can be
        either a string or the matching constant.  Raises KickstartValueError
        if version does not match anything.
@@ -188,8 +188,7 @@ def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callabl
 
     try:
         import pykickstart.handlers
-        # mypy does not understand module.__path__, skip
-        sys.path.extend(pykickstart.handlers.__path__)  # type: ignore
+        sys.path.extend(pykickstart.handlers.__path__)
         loaded = importlib.import_module(module)
 
         for (k, v) in list(loaded.__dict__.items()):
@@ -198,7 +197,7 @@ def returnClassForVersion(version=DEVEL):   # type: (Union[int, str]) -> Callabl
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def makeVersion(version=DEVEL): # type: (int) -> BaseHandler
+def makeVersion(version=DEVEL):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of

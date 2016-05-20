@@ -40,7 +40,7 @@ import sys
 # mypy complains while parsing the actual module.
 from optparse import OptionParser   # type: ignore
 import warnings
-from ordered_set import OrderedSet  # type: ignore
+from ordered_set import OrderedSet
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartValueError, formatErrorMsg
@@ -49,16 +49,6 @@ from pykickstart.load import load_to_str
 from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, PostScriptSection, TracebackScriptSection, NullSection, OnErrorScriptSection
 
 from pykickstart.i18n import _
-
-# import static typing information if available
-# pylint: disable=unused-import
-try:
-    from typing import Any, Callable, List, Union
-    from pykickstart.base import BaseData, BaseHandler, KickstartCommand
-    from pykickstart.sections import Section
-except ImportError:
-    pass
-# pylint: enable=unused-import
 
 STATE_END = "end"
 STATE_COMMANDS = "commands"
@@ -112,7 +102,7 @@ def _preprocessStateMachine (lineIter):
 
     return retval
 
-def preprocessFromStringToString (s):   # type: (str) -> str
+def preprocessFromStringToString (s):
     """Preprocess the kickstart file, provided as the string s.  This
        method is currently only useful for handling %ksappend lines, which
        need to be fetched before the real kickstart parser can be run.
@@ -121,7 +111,7 @@ def preprocessFromStringToString (s):   # type: (str) -> str
     i = iter(s.splitlines(True) + [""])
     return _preprocessStateMachine(i)
 
-def preprocessKickstartToString (f):    # type: (bytes) -> str
+def preprocessKickstartToString (f):
     """Preprocess the kickstart file, given by the filename f.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
@@ -199,7 +189,7 @@ class Script(KickstartObject):
        provided, most of the attributes of Script have to do with running the
        script.  Instances of Script are held in a list by the Version object.
     """
-    def __init__(self, script, *args , **kwargs):   # type: (Script, str, *Any, **Any) -> None
+    def __init__(self, script, *args , **kwargs):
         """Create a new Script instance.  Instance attributes:
 
            :keyword errorOnFail: If execution of the script fails, should anaconda
@@ -224,12 +214,12 @@ class Script(KickstartObject):
         KickstartObject.__init__(self, *args, **kwargs)
         self.script = "".join(script)
 
-        self.interp = kwargs.get("interp", "/bin/sh")   # type: str
-        self.inChroot = kwargs.get("inChroot", False)   # type: Union[None, bool]
-        self.lineno = kwargs.get("lineno", None)    # type: Union[None, int]
-        self.logfile = kwargs.get("logfile", None)  # type: Union[None, str]
-        self.errorOnFail = kwargs.get("errorOnFail", False) # type: Union[None, bool]
-        self.type = kwargs.get("type", constants.KS_SCRIPT_PRE) # type: int
+        self.interp = kwargs.get("interp", "/bin/sh")
+        self.inChroot = kwargs.get("inChroot", False)
+        self.lineno = kwargs.get("lineno", None)
+        self.logfile = kwargs.get("logfile", None)
+        self.errorOnFail = kwargs.get("errorOnFail", False)
+        self.type = kwargs.get("type", constants.KS_SCRIPT_PRE)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
@@ -272,7 +262,7 @@ class Script(KickstartObject):
 ##
 class Group(KickstartObject):
     """A class representing a single group in the %packages section."""
-    def __init__(self, name="", include=constants.GROUP_DEFAULT):   # type: (Group, str, int) -> None
+    def __init__(self, name="", include=constants.GROUP_DEFAULT):
         """Create a new Group instance.  Instance attributes:
 
            name    -- The group's identifier
@@ -314,7 +304,7 @@ class Group(KickstartObject):
 
 class Packages(KickstartObject):
     """A class representing the %packages section of the kickstart file."""
-    def __init__(self, *args, **kwargs):    # type: (Packages, *Any, **Any) -> None
+    def __init__(self, *args, **kwargs):
         """Create a new Packages instance.  Instance attributes:
 
            addBase       -- Should the Base group be installed even if it is
@@ -350,22 +340,22 @@ class Packages(KickstartObject):
         """
         KickstartObject.__init__(self, *args, **kwargs)
 
-        self.addBase = True # type: bool
-        self.nocore = False # type: bool
-        self.default = False    # type: bool
-        self.environment = None # type: Union[None, str]
-        self.excludedList = []  # type: List[str]
-        self.excludedGroupList = [] # type: List[Group]
-        self.excludeDocs = False    # type: bool
-        self.groupList = [] # type: List[Group]
-        self.handleMissing = constants.KS_MISSING_PROMPT    # type: int
-        self.packageList = []   # type: List[str]
-        self.instLangs = None   # type: Union[None, List[str]]
-        self.multiLib = False   # type: bool
-        self.excludeWeakdeps = False   # type: bool
-        self.seen = False   # type: bool
+        self.addBase = True
+        self.nocore = False
+        self.default = False
+        self.environment = None
+        self.excludedList = []
+        self.excludedGroupList = []
+        self.excludeDocs = False
+        self.groupList = []
+        self.handleMissing = constants.KS_MISSING_PROMPT
+        self.packageList = []
+        self.instLangs = None
+        self.multiLib = False
+        self.excludeWeakdeps = False
+        self.seen = False
 
-    def __str__(self):  # type: (Packages) -> str
+    def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         pkgs = ""
 
@@ -420,7 +410,7 @@ class Packages(KickstartObject):
         else:
             return retval + "\n" + pkgs + "\n"
 
-    def _processGroup (self, line): # type: (Packages, str) -> None
+    def _processGroup (self, line):
         op = OptionParser()
         op.add_option("--nodefaults", action="store_true", default=False)
         op.add_option("--optional", action="store_true", default=False)
@@ -444,7 +434,7 @@ class Packages(KickstartObject):
         else:
             self.groupList.append(Group(name=grp, include=constants.GROUP_DEFAULT))
 
-    def add (self, pkgList):    # type: (Packages, List[str]) -> None
+    def add (self, pkgList):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
@@ -491,8 +481,8 @@ class Packages(KickstartObject):
         existingExcludedSet = (existingExcludedSet - existingPackageSet) | newExcludedSet
 
         # FIXME: figure these types out
-        self.packageList = list(existingPackageSet) # type: ignore
-        self.excludedList = list(existingExcludedSet)   # type: ignore
+        self.packageList = list(existingPackageSet)
+        self.excludedList = list(existingExcludedSet)
 
 
 ###
@@ -506,7 +496,7 @@ class KickstartParser(object):
        overridden.
     """
     def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True, unknownSectionIsFatal=True):  # type: (KickstartParser, BaseHandler, bool, bool, bool, bool) -> None
+                  missingIncludeIsFatal=True, unknownSectionIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
            errorsAreFatal        -- Should errors cause processing to halt, or
@@ -530,7 +520,7 @@ class KickstartParser(object):
         self.errorsAreFatal = errorsAreFatal
         self.followIncludes = followIncludes
         self.handler = handler
-        self.currentdir = {}    # type: Dict[int, str]
+        self.currentdir = {}
         self.missingIncludeIsFatal = missingIncludeIsFatal
         self.unknownSectionIsFatal = unknownSectionIsFatal
 
@@ -543,21 +533,21 @@ class KickstartParser(object):
         global ver
         ver = self.version
 
-        self._sections = {} # type: Dict[str, Section]
+        self._sections = {}
         self.setupSections()
 
-    def _reset(self):   # type: (KickstartParser) -> None
+    def _reset(self):
         """Reset the internal variables of the state machine for a new kickstart file."""
         self._state = STATE_COMMANDS
         self._includeDepth = 0
 
-    def getSection(self, s):    # type: (KickstartParser, str) -> Section
+    def getSection(self, s):
         """Return a reference to the requested section (s must start with '%'s),
            or raise KeyError if not found.
         """
         return self._sections[s]
 
-    def handleCommand (self, lineno, args): # type: (KickstartParser, int, List[str]) -> Union[BaseData, KickstartCommand]
+    def handleCommand (self, lineno, args):
         """Given the list of command and arguments, call the Version's
            dispatcher method to handle the command.  Returns the command or
            data object returned by the dispatcher.  This method may be
@@ -568,7 +558,7 @@ class KickstartParser(object):
             retval = self.handler.dispatcher(args, lineno)
             return retval
 
-    def registerSection(self, obj): # type: (KickstartParser, Section) -> None
+    def registerSection(self, obj):
         """Given an instance of a Section subclass, register the new section
            with the parser.  Calling this method means the parser will
            recognize your new section and dispatch into the given object to
@@ -582,7 +572,7 @@ class KickstartParser(object):
 
         self._sections[obj.sectionOpen] = obj
 
-    def _finalize(self, obj):   # type: (KickstartParser, Section) -> None
+    def _finalize(self, obj):
         """Called at the close of a kickstart section to take any required
            actions.  Internally, this is used to add scripts once we have the
            whole body read.
@@ -590,7 +580,7 @@ class KickstartParser(object):
         obj.finalize()
         self._state = STATE_COMMANDS
 
-    def _handleSpecialComments(self, line): # type: (KickstartParser, str) -> None
+    def _handleSpecialComments(self, line):
         """Kickstart recognizes a couple special comments."""
         if self._state != STATE_COMMANDS:
             return
@@ -664,7 +654,7 @@ class KickstartParser(object):
 
         return lineno
 
-    def _validState(self, st):  # type: (KickstartParser, str) -> bool
+    def _validState(self, st):
         """Is the given section tag one that has been registered with the parser?"""
         return st in list(self._sections.keys())
 
@@ -681,10 +671,10 @@ class KickstartParser(object):
             else:
                 print(msg)
 
-    def _isBlankOrComment(self, line):  # type: (KickstartParser, str) -> bool
+    def _isBlankOrComment(self, line):
         return line.isspace() or line == "" or line.lstrip()[0] == '#'
 
-    def _handleInclude(self, f):    # type: (KickstartParser, str) -> None
+    def _handleInclude(self, f):
         # This case comes up primarily in ksvalidator.
         if not self.followIncludes:
             return
@@ -702,7 +692,7 @@ class KickstartParser(object):
 
         self._includeDepth -= 1
 
-    def _stateMachine(self, lineIter):  # type: (KickstartParser, PutBackIterator) -> None
+    def _stateMachine(self, lineIter):
         # For error reporting.
         lineno = 0
 
@@ -770,7 +760,7 @@ class KickstartParser(object):
                 lineno -= 1
                 lineno = self._readSection(lineIter, lineno)
 
-    def readKickstartFromString (self, s, reset=True):  # type: (KickstartParser, str, bool) -> None
+    def readKickstartFromString (self, s, reset=True):
         """Process a kickstart file, provided as the string str."""
         if reset:
             self._reset()
@@ -781,7 +771,7 @@ class KickstartParser(object):
         i = PutBackIterator(s.splitlines(True) + [""])
         self._stateMachine (i)
 
-    def readKickstart(self, f, reset=True): # type: (KickstartParser, str, bool) -> None
+    def readKickstart(self, f, reset=True):
         """Process a kickstart file, given by the filename f."""
         if reset:
             self._reset()
@@ -808,7 +798,7 @@ class KickstartParser(object):
 
         self.readKickstartFromString(s, reset=False)
 
-    def setupSections(self):    # type: (KickstartParser) -> None
+    def setupSections(self):
         """Install the sections all kickstart files support.  You may override
            this method in a subclass, but should avoid doing so unless you know
            what you're doing.
