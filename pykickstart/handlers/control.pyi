@@ -1,7 +1,8 @@
+# type stubs for pykickstart.handlers.control
 #
-# Chris Lumens <clumens@redhat.com>
+# David Shea <dshea@redhat.com>
 #
-# Copyright 2007-2014 Red Hat, Inc.
+# Copyright 2016 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -17,24 +18,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-__all__ = ["commandMap", "dataMap"]
 
-from pykickstart import handlers
+from typing import Dict
 
-commandMap = {}
-dataMap = {}
+from pykickstart.base import KickstartCommand, BaseData
 
-if not commandMap:
-    for (name, obj) in list(handlers.__dict__.items()):
-        if not (name.startswith("fc") or name.startswith("f") or name.startswith("rhel")):
-            continue
-
-        if not obj.__all__ or not obj.__all__[0].endswith("Handler"):
-            continue
-
-        # Now we've got a WhateverHandler module in obj.  This module should
-        # export one class named WhateverHandler, which we can get at indirectly
-        # through __all__, like so:
-        handler = obj.__dict__[obj.__all__[0]]
-        commandMap[handler.version] = handler.commandMap
-        dataMap[handler.version] = handler.dataMap
+commandMap = ... # type: Dict[int, Dict[str, KickstartCommand]]
+dataMap = ...    # type: Dict[int, Dict[str, BaseData]]
