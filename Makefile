@@ -36,21 +36,14 @@ po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
-po-empty:
-	for lingua in $$(gawk 'match($$0, /locale>(.*)<\/locale/, ary) {print ary[1]}' ./zanata.xml) ; do \
-		[ -f ./po/$$lingua.po ] || \
-		msginit -i ./po/$(PKGNAME).pot -o ./po/$$lingua.po --no-translator || \
-		exit 1 ; \
-	done
-
-# Try to fetch the real .po files, but if that fails use the empty ones
+# Try to fetch the real .po files, but if that fails continue
 po-fallback:
-	$(MAKE) po-pull || $(MAKE) po-empty
+	$(MAKE) po-pull || :
 
 docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
-check: po-fallback
+check:
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
 	@echo "*** Running tests on translatable strings ***"
@@ -120,7 +113,7 @@ bumpver: po-pull
 	make -C po $(PKGNAME).pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
-scratch-bumpver: po-empty
+scratch-bumpver:
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-$(RC_RELEASE)"  ; \
@@ -133,7 +126,7 @@ scratch-bumpver: po-empty
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot
 
-scratch: docs po-empty
+scratch: docs
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
 	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
 	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
