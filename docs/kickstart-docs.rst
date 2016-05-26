@@ -1112,34 +1112,6 @@ in installer environment. The device specified in the first network command is
 activated automatically.  Activation of the device can be also explicitly
 required by ``--activate`` option.
 
-``--activate``
-
-    Activate this device in the installation environment.
-
-    If the device has already been activated (for example, an interface you
-    configured with boot options so that the system could retrieve the
-    Kickstart file) the device is reactivated to use the configuration
-    specified in the Kickstart file.
-
-``--bootproto=[dhcp|static|ibft]``
-
-    The method of IPv4 configuration. For IPv6 configuration use ``--ipv6`` option.
-
-    The default setting is ``dhcp``. To turn
-    IPv4 configuration off use ``--noipv4`` option.
-
-    - The ``dhcp`` method uses a DHCP server system to obtain its networking
-      configuration.
-
-    - The ``static`` method requires that you specify at least IP address and
-      netmask with ``--ip`` and ``--netmask`` options. For example:
-
-      ::
-
-       network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
-
-    - ``ibft`` setting is for reading the configuration from iBFT table.
-
 ``--device=``
 
     Specifies the device to be configured (and eventually activated in
@@ -1171,9 +1143,40 @@ required by ``--activate`` option.
     ``--device=`` option is missing. Make sure you specify this option for any
     network command beyond the first.
 
+``--bootproto=[dhcp|static|ibft]``
+
+    The method of IPv4 configuration. For IPv6 configuration use ``--ipv6`` option.
+
+    The default setting is ``dhcp``. To turn
+    IPv4 configuration off use ``--noipv4`` option.
+
+    - The ``dhcp`` method uses a DHCP server system to obtain its networking
+      configuration.
+
+    - The ``static`` method requires that you specify at least IP address and
+      netmask with ``--ip`` and ``--netmask`` options. For example:
+
+      ::
+
+       network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
+
+    - ``ibft`` setting is for reading the configuration from iBFT table.
+
 ``--ip=``
 
     IPv4 address for the interface.
+
+``--netmask=``
+
+    IPv4 network mask of the device.
+
+``--gateway=``
+
+    Default gateway, as a single IPv4 address.
+
+``--noipv4``
+
+    Disable IPv4 configuration of this device.
 
 ``--ipv6=``
 
@@ -1184,13 +1187,27 @@ required by ``--activate`` option.
     - ``auto`` for stateless automatic address autoconfiguration, or
     - ``dhcp`` for DHCPv6-only configuration (no router advertisements).
 
-``--gateway=``
-
-    Default gateway, as a single IPv4 address.
-
 ``--ipv6gateway=``
 
     Default gateway, as a single IPv6 address.
+
+``--noipv6``
+
+    Disable IPv6 configuration of this device.
+
+``--nameserver=``
+
+    Primary nameserver, as an IP address. Multiple nameservers must be
+    comma separated.
+
+``--activate``
+
+    Activate this device in the installation environment.
+
+    If the device has already been activated (for example, an interface you
+    configured with boot options so that the system could retrieve the
+    Kickstart file) the device is reactivated to use the configuration
+    specified in the Kickstart file.
 
 ``--nodefroute``
 
@@ -1198,14 +1215,9 @@ required by ``--activate`` option.
     you activate additional devices with the ``--activate=`` option, for
     example, a NIC on a separate subnet for an iSCSI target.
 
-``--nameserver=``
+``--onboot=``
 
-    Primary nameserver, as an IP address. Multiple nameservers must be
-    comma separated.
-
-``--netmask=``
-
-    Network mask of the device.
+    Whether or not to enable the device a boot time.
 
 ``--hostname=``
 
@@ -1217,31 +1229,19 @@ required by ``--activate`` option.
     with a domain name; to allow DHCP to assign the domain name, only specify a
     short host name.
 
+``--mtu=``
+
+    The MTU of the device.
+
 ``--ethtool=``
 
     Specifies additional low-level settings for the network device which
     will be passed to the ethtool program.
 
-``--onboot=``
-
-    Whether or not to enable the device a boot time.
-
 ``--dhcpclass=``
 
     Specifies the DHCP vendor class identifier. The dhcpd service will see this
     value as vendor-class-identifier.
-
-``--mtu=``
-
-    The MTU of the device.
-
-``--noipv4``
-
-    Disable IPv4 configuration of this device.
-
-``--noipv6``
-
-    Disable IPv6 configuration of this device.
 
 ``--bondslaves=``
 
