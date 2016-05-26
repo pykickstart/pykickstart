@@ -29,7 +29,7 @@ BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
 
-Requires: python3-kickstart
+Requires: python3-kickstart = %{version}-%{release}
 
 %description
 Python utilities for manipulating kickstart files.  The Python 2 and 3 libraries
