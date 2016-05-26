@@ -62,6 +62,6 @@ class F10_Rescue(KickstartCommand):
         if opts.nomount and opts.romount:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --nomount and --romount may be specified for rescue command.")))
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         self.rescue = True
         return self

@@ -97,7 +97,7 @@ class FC3_XConfig(KickstartCommand):
             mapping = {"command": "xconfig", "options": extra}
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class FC6_XConfig(FC3_XConfig):

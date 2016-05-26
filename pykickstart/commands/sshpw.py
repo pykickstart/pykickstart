@@ -120,7 +120,7 @@ class F13_SshPw(KickstartCommand):
     def parse(self, args):
         ud = self.handler.SshPwData()
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToObj(self.op, opts, ud)
+        self.set_to_obj(self.op, opts, ud)
         ud.lineno = self.lineno
 
         if len(extra) == 0:

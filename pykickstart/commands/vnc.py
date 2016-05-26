@@ -56,7 +56,7 @@ class FC3_Vnc(KickstartCommand):
     def parse(self, args):
         self.enabled = True
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class FC6_Vnc(FC3_Vnc):

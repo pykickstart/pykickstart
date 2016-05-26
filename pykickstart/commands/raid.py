@@ -341,7 +341,7 @@ class FC3_Raid(KickstartCommand):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
         rd = self.handler.RaidData()
-        self._setToObj(self.op, opts, rd)
+        self.set_to_obj(self.op, opts, rd)
         rd.lineno = self.lineno
 
         # In older pykickstart --device was always specifying a minor, so

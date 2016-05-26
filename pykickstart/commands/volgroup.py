@@ -125,7 +125,7 @@ class FC3_VolGroup(KickstartCommand):
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         vg = self.handler.VolGroupData()
-        self._setToObj(self.op, opts, vg)
+        self.set_to_obj(self.op, opts, vg)
         vg.lineno = self.lineno
 
         if len(extra) == 0:

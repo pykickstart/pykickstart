@@ -79,7 +79,7 @@ class FC6_Reboot(FC3_Reboot):
     def parse(self, args):
         FC3_Reboot.parse(self, args)
         (opts, _extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
         return self
 
 class F18_Reboot(FC6_Reboot):

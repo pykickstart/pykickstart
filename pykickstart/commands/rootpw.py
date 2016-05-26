@@ -58,7 +58,7 @@ class FC3_RootPw(KickstartCommand):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         if len(extra) != 1:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
@@ -105,7 +105,7 @@ class F18_RootPw(F8_RootPw):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         if len(extra) != 1 and not self.lock:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
