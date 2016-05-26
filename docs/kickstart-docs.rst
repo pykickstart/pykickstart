@@ -1222,18 +1222,6 @@ required by ``--activate`` option.
     Specifies additional low-level settings for the network device which
     will be passed to the ethtool program.
 
-``--essid=``
-
-    The network ID for wireless networks.
-
-``--wepkey=``
-
-    The WEP encryption key for wireless networks.
-
-``--wpakey=``
-
-    The WPA encryption key for wireless networks.
-
 ``--onboot=``
 
     Whether or not to enable the device a boot time.
