@@ -1107,178 +1107,226 @@ disabled by default.
 network
 -------
 
-Configures network information for target system and activates network
-devices in installer environment. Device of the first network command is
-activated if network is required, e.g. in case of network installation
-or using vnc. Activation of the device can be also explicitly required
-by ``--activate`` option. If the device has already been activated to
-get kickstart file (e.g. using configuration provided with boot options
-or entered in loader UI) it is re-activated with configuration from
-kickstart file.
-
-The device given by the first network command is activated also in case of
-non-network installs, and this device is not re-activated using kickstart
-configuration.
-
-``--activate``
-
-    As noted above, using this option ensures any matching devices
-    beyond the first will also be activated.
-
-``--bootproto=[dhcp|bootp|static|ibft]``
-
-    The default setting is dhcp. bootp and dhcp are treated the same.
-
-    The DHCP method uses a DHCP server system to obtain its networking
-    configuration. As you might guess, the BOOTP method is similar,
-    requiring a BOOTP server to supply the networking configuration.
-
-    The static method requires that you enter all the required
-    networking information in the kickstart file. As the name implies,
-    this information is static and will be used during and after the
-    installation. The line for static networking is more complex, as you
-    must include all network configuration information **on one line**. You
-    must specify the IP address, netmask, gateway, and nameserver. For
-    example:
-
-::
-
-   network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
-
-   If you use the static method, be aware of the following restriction:
-
-   All static networking configuration information must be specified
-   on one line; you cannot wrap lines using a backslash, for example.
-
-   ibft setting is for reading the configuration from iBFT table.
+Configures network information for target system and activates network devices
+in installer environment. The device specified in the first network command is
+activated automatically.  Activation of the device can be also explicitly
+required by ``--activate`` option.
 
 ``--device=``
 
-    Specifies device to be configured and/or activated with the network
-    command. The device can be specified in the same ways as
-    `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__
-    boot option. For example:
+    Specifies the device to be configured (and eventually activated in
+    Anaconda) with the network command.
 
-    ``network --bootproto=dhcp --device=eth0``
+    You can specify a device to be activated in any of the following ways:
+
+    - the device name of the interface, for example, ``em1``
+    - the MAC address of the interface, for example, ``01:23:45:67:89:ab``
+    - the keyword ``link``, which specifies the first interface with its link
+      in the up state
+    - the keyword ``bootif``, which uses the MAC address that pxelinux set in
+      the ``BOOTIF`` variable. Set ``IPAPPEND 2`` in your pxelinux.cfg file to
+      have pxelinux set the ``BOOTIF`` variable.
+
+    For example:
+
+    ::
+
+     network --bootproto=dhcp --device=ens3
+
+
+    If the ``--device=`` option is missing on the first use of the network
+    command, the value of the ``ksdevice=`` Anaconda boot option is used, if
+    available. If ``ksdevice=`` is not set, ``link`` value is used. Note that
+    this is considered deprecated behavior; in most cases, you should always
+    specify a ``--device=`` for every network command. The behavior of any
+    subsequent network command in the same Kickstart file is unspecified if its
+    ``--device=`` option is missing. Make sure you specify this option for any
+    network command beyond the first.
+
+``--bootproto=[dhcp|static|ibft]``
+
+    The method of IPv4 configuration. For IPv6 configuration use ``--ipv6`` option.
+
+    The default setting is ``dhcp``. To turn
+    IPv4 configuration off use ``--noipv4`` option.
+
+    - The ``dhcp`` method uses a DHCP server system to obtain its networking
+      configuration.
+
+    - The ``static`` method requires that you specify at least IP address and
+      netmask with ``--ip`` and ``--netmask`` options. For example:
+
+      ::
+
+       network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
+
+    - ``ibft`` setting is for reading the configuration from iBFT table.
 
 ``--ip=``
 
-    IP address for the interface.
+    IPv4 address for the interface.
 
-``--ipv6=``
+``--netmask=``
 
-    IPv6 address for the interface. This can be the static address in
-    form ``<IPv6 address>[/<prefix length>]``, e.g. 3ffe:ffff:0:1::1/128
-    (if prefix is omitted 64 is assumed), "auto" for address assignment
-    based on automatic neighbor discovery, or "dhcp" to use the DHCPv6
-    protocol.
+    IPv4 network mask of the device.
 
 ``--gateway=``
 
-    Default gateway, as an IPv4 or IPv6 address.
+    Default gateway, as a single IPv4 address.
 
-``--nodefroute``
+``--noipv4``
 
-    Prevents grabbing of the default route by the device. It can be
-    useful when activating additional devices in installer using
-    ``--activate`` option.
+    Disable IPv4 configuration of this device.
+
+``--ipv6=``
+
+    IPv6 address for the interface. This can be
+
+    - the static address in form ``<IPv6 address>[/<prefix length>]``,
+      e.g. ``3ffe:ffff:0:1::1/128`` (if prefix is omitted 64 is assumed),
+    - ``auto`` for stateless automatic address autoconfiguration, or
+    - ``dhcp`` for DHCPv6-only configuration (no router advertisements).
+
+``--ipv6gateway=``
+
+    Default gateway, as a single IPv6 address.
+
+``--noipv6``
+
+    Disable IPv6 configuration of this device.
 
 ``--nameserver=``
 
     Primary nameserver, as an IP address. Multiple nameservers must be
     comma separated.
 
-``--nodns``
+``--activate``
 
-    Do not configure any DNS server.
+    Activate this device in the installation environment.
 
-``--netmask=``
+    If the device has already been activated (for example, an interface you
+    configured with boot options so that the system could retrieve the
+    Kickstart file) the device is reactivated to use the configuration
+    specified in the Kickstart file.
 
-    Netmask for the installed system.
+``--nodefroute``
+
+    Prevents the interface being set as the default route. Use this option when
+    you activate additional devices with the ``--activate=`` option, for
+    example, a NIC on a separate subnet for an iSCSI target.
+
+``--onboot=``
+
+    Whether or not to enable the device a boot time.
 
 ``--hostname=``
 
-    Hostname for the installed system.
+    The host name for the installed system.
+
+    The host name can either be a fully-qualified domain name (FQDN) in the
+    format hostname.domainname, or a short host name with no domain. Many
+    networks have a DHCP service which automatically supplies connected systems
+    with a domain name; to allow DHCP to assign the domain name, only specify a
+    short host name.
+
+``--mtu=``
+
+    The MTU of the device.
 
 ``--ethtool=``
 
     Specifies additional low-level settings for the network device which
     will be passed to the ethtool program.
 
-``--essid=``
-
-    The network ID for wireless networks.
-
-``--wepkey=``
-
-    The WEP encryption key for wireless networks.
-
-``--wpakey=``
-
-    The WPA encryption key for wireless networks.
-
-``--onboot=``
-
-    Whether or not to enable the device a boot time.
-
 ``--dhcpclass=``
 
-    The DHCP class.
+    Specifies the DHCP vendor class identifier. The dhcpd service will see this
+    value as vendor-class-identifier.
 
-``--mtu=``
+``--bondslaves=``
 
-    The MTU of the device.
+    Bonded device with name specified by ``--device`` option will be created
+    using slaves specified in this option.  Example:
 
-``--noipv4``
+    ::
 
-    Disable IPv4 on this device.
+     network --device bond0 --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens7 --activate
 
-``--noipv6``
-
-    Disable IPv6 on this device.
-
-``--bondslaves``
-
-    Bonded device with name specified by ``--device`` option will be
-    created using slaves specified in this option. Example:
-    ``--bondslaves=eth0,eth1``.
-
-``--bondopts``
+``--bondopts=``
 
     A comma-separated list of optional parameters for bonded interface
     specified by ``--bondslaves`` and ``--device`` options. Example:
     ``--bondopts=mode=active-backup,primary=eth1``. If an option itself
     contains comma as separator use semicolon to separate the options.
+    Example: ``--bondopts=mode=active-backup,balance-rr;primary=eth1``
 
-``--vlanid``
+``--vlanid=``
 
     Id (802.1q tag) of vlan device to be created using parent device
     specified by ``--device`` option. For example
     ``network --device=eth0 --vlanid=171`` will create vlan device
     ``eth0.171``.
 
-``--teamslaves``
+``--interfacename=``
+
+    Specify a custom interface name for a virtual LAN device. This option
+    should be used when the default name generated by the ``--vlanid=`` option
+    is not desirable. This option must be used along with ``--vlanid=``. For
+    example:
+
+    ::
+
+     network --device=em1 --vlanid=171 --interfacename=vlan171
+
+    The above command creates a virtual LAN interface named ``vlan171`` on the
+    em1 device with an ID of 171. The interface name can be arbitrary (for
+    example, ``my-vlan``), but in specific cases, the following conventions
+    must be followed:
+
+    If the name contains a dot (.), it must take the form of NAME.ID. The NAME
+    is arbitrary, but the ID must be the VLAN ID. For example: ``em1.171`` or
+    ``my-vlan.171``.  Names starting with vlan must take the form of vlanID -
+    for example: ``vlan171``.
+
+``--teamslaves=``
 
     Team device with name specified by ``--device`` option will be
     created using slaves specified in this option. Slaves are separated
-    by comma. A slave can be followed by its configuration which is a
+    by commas. A slave can be followed by its configuration which is a
     single-quoted json format string with double qoutes escaped by
     ``'\'`` character. Example:
     ``--teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'"``.
     See also ``--teamconfig`` option.
 
-``--teamconfig``
+``--teamconfig=``
 
     Double-quoted team device configuration which is a json format
     string with double quotes escaped with ``'\'`` character. The device
     name is specified by ``--device`` option and its slaves and their
     configuration by ``--teamslaves`` option. Example:
 
-::
+    ::
 
-    network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2  \
-    --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'" \
-    --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
+     network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
+
+``--bridgeslaves=``
+
+    When this option is used, the network bridge with device name specified
+    using the ``--device=`` option will be created and devices defined in the
+    ``--bridgeslaves=`` option will be added to the bridge. For example:
+
+    ::
+
+     network --device=bridge0 --bridgeslaves=em1
+
+``--bridgeopts=``
+
+    An optional comma-separated list of parameters for the bridged interface.
+    Available values are ``stp``, ``priority``, ``forward-delay``,
+    ``hello-time``, ``max-age``, and ``ageing-time``. For information about
+    these parameters, see the bridge setting table in the nm-settings(5) man
+    page or at
+    https://developer.gnome.org/NetworkManager/0.9/ref-settings.html.
 
 
 part or partition
