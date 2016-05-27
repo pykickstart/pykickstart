@@ -155,7 +155,7 @@ class F16_NetworkData(F8_NetworkData):
 
     def __init__(self, *args, **kwargs):
         F8_NetworkData.__init__(self, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
+        self.activate = kwargs.get("activate", None)
         self.nodefroute = kwargs.get("nodefroute", False)
         self.wpakey = kwargs.get("wpakey", "")
 
@@ -276,7 +276,7 @@ class RHEL6_NetworkData(F8_NetworkData):
 
     def __init__(self, *args, **kwargs):
         F8_NetworkData.__init__(self, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
+        self.activate = kwargs.get("activate", None)
         self.nodefroute = kwargs.get("nodefroute", False)
         self.vlanid = kwargs.get("vlanid", "")
         self.bondslaves = kwargs.get("bondslaves", "")
@@ -314,6 +314,8 @@ class RHEL7_NetworkData(F21_NetworkData):
             retval += " --bridgeslaves=%s" % self.bridgeslaves
         if self.bridgeopts != "":
             retval += " --bridgeopts=%s" % self.bridgeopts
+        if self.activate == False:
+            retval += " --no-activate"
 
         return retval
 
@@ -435,7 +437,7 @@ class F16_Network(F9_Network):
     def _getParser(self):
         op = F9_Network._getParser(self)
         op.add_option("--activate", dest="activate", action="store_true",
-                      default=False)
+                      default=None)
         op.add_option("--nodefroute", dest="nodefroute", action="store_true",
                       default=False)
         op.add_option("--wpakey", dest="wpakey", action="store", default="")
@@ -582,7 +584,7 @@ class RHEL6_Network(F9_Network):
     def _getParser(self):
         op = F9_Network._getParser(self)
         op.add_option("--activate", dest="activate", action="store_true",
-                      default=False)
+                      default=None)
         op.add_option("--nodefroute", dest="nodefroute", action="store_true",
                       default=False)
         op.add_option("--vlanid", dest="vlanid")
@@ -639,6 +641,8 @@ class RHEL7_Network(F21_Network):
                 default="")
         op.add_option("--bridgeopts", dest="bridgeopts", action="store",
                 default="")
+        op.add_option("--no-activate", dest="activate", action="store_false",
+                      default=None)
         return op
 
     def parse(self, args):
