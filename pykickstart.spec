@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.7
+Version: 1.99.66.8
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jun 02 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.8-1
+- Add --no-activate option to network command (#1277975) (rvykydal)
+
 * Mon Feb 29 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.7-1
 - Add sshkey command to RHEL7 (#1311755) (bcl)
 - Add --sshkey to sshpw command (#1240410) (bcl)
