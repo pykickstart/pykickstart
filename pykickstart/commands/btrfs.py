@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F17, F23
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -126,24 +127,75 @@ class F17_BTRFS(KickstartCommand):
             else:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid btrfs level: %s") % value))
 
-        op = KSOptionParser()
-        op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
+        op = KSOptionParser(prog="btrfs", description="""
+                            Defines a BTRFS volume or subvolume. This command
+                            is of the form:
+
+                            ``btrfs <mntpoint> --data=<level> --metadata=<level> --label=<label> <partitions*>``
+
+                            for volumes and of the form:
+
+                            ``btrfs <mntpoint> --subvol --name=<path> <parent>``
+
+                            for subvolumes.
+
+                            The ``<partitions*>`` (which denotes that multiple
+                            partitions can be listed) lists the BTRFS identifiers
+                            to add to the BTRFS volume. For subvolumes, should be
+                            the identifier of the subvolume's parent volume.
+
+                            ``<mntpoint>``
+
+                            Location where the file system is mounted.""",
+                            epilog="""
+                            The following example shows how to create a BTRFS
+                            volume from member partitions on three disks with
+                            subvolumes for root and home. The main volume is not
+                            mounted or used directly in this example -- only
+                            the root and home subvolumes::
+
+                                part btrfs.01 --size=6000 --ondisk=sda
+                                part btrfs.02 --size=6000 --ondisk=sdb
+                                part btrfs.03 --size=6000 --ondisk=sdc
+
+                                btrfs none --data=0 --metadata=1 --label=f17 btrfs.01 btrfs.02 btrfs.03
+                                btrfs / --subvol --name=root LABEL=f17
+                                btrfs /home --subvol --name=home f17""",
+                            version=F17)
+        op.add_argument("--noformat", dest="format", action="store_false",
+                        default=True, version=F17, help="""
+                        Use an existing BTRFS volume (or subvolume) and do not
+                        reformat the filesystem.""")
+        op.add_argument("--useexisting", dest="preexist", action="store_true",
+                        default=False, help="Same as ``--noformat``.",
+                        version=F17)
 
         # label, data, metadata
-        op.add_argument("--label", default="")
-        op.add_argument("--data", dest="dataLevel", type=level_cb)
-        op.add_argument("--metadata", dest="metaDataLevel", type=level_cb)
+        op.add_argument("--label", default="", version=F17, help="""
+                        Specify the label to give to the filesystem to be made.
+                        If the given label is already in use by another
+                        filesystem, a new label will be created. This option
+                        has no meaning for subvolumes.""")
+        op.add_argument("--data", dest="dataLevel", type=level_cb, help="""
+                        RAID level to use (0, 1, 10) for filesystem data. Optional.
+                        This option has no meaning for subvolumes.""",
+                        version=F17)
+        op.add_argument("--metadata", dest="metaDataLevel", type=level_cb,
+                        version=F17, help="""
+                        RAID level to use (0, 1, 10) for filesystem/volume
+                        metadata. Optional. This option has no meaning for
+                        subvolumes.""")
 
         #
         # subvolumes
         #
-        op.add_argument("--subvol", action="store_true", default=False)
+        op.add_argument("--subvol", action="store_true", default=False,
+                        version=F17, help="Create BTRFS subvolume.")
 
         # parent must be a device spec (LABEL, UUID, &c)
-        op.add_argument("--parent", default="")
-        op.add_argument("--name", default="")
-
+        op.add_argument("--parent", default="", version=F17, help="")
+        op.add_argument("--name", default="", version=F17, help="""
+                        Subvolume name.""")
         return op
 
     def parse(self, args):
@@ -194,7 +246,14 @@ class F23_BTRFS(F17_BTRFS):
 
     def _getParser(self):
         op = F17_BTRFS._getParser(self)
-        op.add_argument("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--mkfsoptions", dest="mkfsopts", version=F23, help="""
+                        Specifies additional parameters to be passed to the
+                        program that makes a filesystem on this partition. No
+                        processing is done on the list of arguments, so they
+                        must be supplied in a format that can be passed directly
+                        to the mkfs program. This means multiple options should
+                        be comma-separated or surrounded by double quotes,
+                        depending on the filesystem.""")
         return op
 
     def parse(self, args):
