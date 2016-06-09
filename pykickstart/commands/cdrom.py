@@ -17,8 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
@@ -39,3 +41,8 @@ class FC3_Cdrom(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         return self
+
+    def _getParser(self):
+        return KSOptionParser(prog="cdrom",  description="""
+                            Install from the first CD-ROM/DVD drive on the
+                            system.""", version=FC3)
