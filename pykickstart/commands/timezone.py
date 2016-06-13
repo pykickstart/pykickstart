@@ -53,6 +53,8 @@ class FC3_Timezone(KickstartCommand):
         op.add_option("--utc", dest="isUtc", action="store_true", default=False)
         return op
 
+    # Caution: This method is overridden in the RHEL7_Timezone class
+    # by a new implementation not calling this method.
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
         self._setToSelf(self.op, opts)
@@ -129,12 +131,48 @@ class F18_Timezone(FC6_Timezone):
 
         return op
 
+    # Caution: This method is overridden in the RHEL7_Timezone class
+    # by a new implementation not calling this method.
     def parse(self, args):
         FC6_Timezone.parse(self, args)
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
                                     "--ntpservers are mutually exclusive"))
+            raise KickstartParseError(msg)
+
+        return self
+
+class RHEL7_Timezone(F18_Timezone):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F18_Timezone.__init__(self, writePriority, *args, **kwargs)
+
+    def parse(self, args):
+        (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
+        self._setToSelf(self.op, opts)
+
+        # just "timezone" without any arguments and timezone specification doesn't really make sense,
+        # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
+        if not args:
+            error_message = _("At least one option and/or an argument are expected for the  %s command") % "timezone"
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+
+        # To be able to support the timezone command being used without
+        # a timezone specification:
+        # - we don't call the parse() method of the ancestors
+        # -> due to the FC3 parse() method that would be eventually called,
+        #    which throws an exception if no timezone specification is provided
+        # - we implement the relevant functionality of the ancestor methods here
+
+        if len(extra) > 1:
+            error_message = _("One or zero arguments are expected for the %s command") % "timezone"
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=error_message))
+
+        if len(extra) > 0:
+            self.timezone = extra[0]
+
+        if self.ntpservers and self.nontp:
+            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
             raise KickstartParseError(msg)
 
         return self
