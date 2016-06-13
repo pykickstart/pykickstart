@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest
 
+from pykickstart.errors import KickstartParseError
+
 class FC3_TestCase(CommandTest):
     command = "timezone"
 
@@ -88,6 +90,38 @@ class F23_TestCase(F18_TestCase):
                           "timezone Europe/Prague --isUtc --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org," +
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org\n")
         self.assert_parse("timezone --utc Europe/Sofia --ntpservers=,0.fedora.pool.ntp.org,")
+
+class RHEL7_TestCase(F18_TestCase):
+    def runTest(self):
+        # since RHEL7 command version the timezone command can be used
+        # without a timezone specification
+        self.assert_parse("timezone --utc")
+        self.assert_parse("timezone --isUtc")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz")
+        # unknown argument
+        self.assert_parse_error("timezone --blah")
+        # more than two timezone specs
+        self.assert_parse_error("timezone foo bar", exception=KickstartParseError)
+        self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
+        # just "timezone" without any arguments is also wrong as it really dosn't make sense
+        self.assert_parse_error("timezone")
+
+class F25_TestCase(F23_TestCase):
+    def runTest(self):
+        # since RHEL7 command version the timezone command can be used
+        # without a timezone specification
+        self.assert_parse("timezone --utc")
+        self.assert_parse("timezone --isUtc")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz")
+        # unknown argument
+        self.assert_parse_error("timezone --blah")
+        # more than two timezone specs
+        self.assert_parse_error("timezone foo bar", exception=KickstartParseError)
+        self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
+        # just "timezone" without any arguments is also wrong as it really dosn't make sense
+        self.assert_parse_error("timezone")
 
 if __name__ == "__main__":
     unittest.main()
