@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F12
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -70,9 +71,16 @@ class F12_Group(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--name", required=True)
-        op.add_argument("--gid", type=int)
+        op = KSOptionParser(prog="group", description="""
+            Creates a new user group on the system. If a group with the given
+            name or GID already exists, this command will fail. In addition,
+            the ``user`` command can be used to create a new group for the
+            newly created user.""", version=F12)
+        op.add_argument("--name", required=True, version=F12,
+                        help="Provides the name of the new group.")
+        op.add_argument("--gid", type=int, version=F12, help="""
+                        The group's GID. If not provided, this defaults to the
+                        next available non-system GID.""")
         return op
 
     def parse(self, args):
