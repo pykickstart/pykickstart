@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F19
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -41,20 +42,38 @@ class FC3_Lang(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="lang", description="""
+            This required command sets the language to use during installation
+            and the default language to use on the installed system to ``<id>``.
+            This can be the same as any recognized setting for the $LANG
+            environment variable, though not all languages are supported during
+            installation.
+
+            Certain languages (mainly Chinese, Japanese, Korean, and Indic
+            languages) are not supported during text mode installation. If one
+            of these languages is specified using the lang command, installation
+            will continue in English though the running system will have the
+            specified langauge by default.
+
+            The file /usr/share/system-config-language/locale-list provides a
+            list the valid language codes in the first column of each line and
+            is part of the system-config-languages package.""",
+            version=FC3)
+        op.add_argument("lang", metavar="<lang>", nargs=1, version=FC3,
+                        help="Language ID.")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) != 1:
+        if len(ns.lang) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "lang"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "lang", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self.lang = extra[0]
         self.set_to_self(ns)
+        self.lang = ns.lang[0]
         return self
 
 class F19_Lang(FC3_Lang):
@@ -76,5 +95,10 @@ class F19_Lang(FC3_Lang):
 
     def _getParser(self):
         op = FC3_Lang._getParser(self)
-        op.add_argument("--addsupport", type=commaSplit)
+        op.add_argument("--addsupport", type=commaSplit,
+                        metavar="LOCALE", help="""
+                        Install the support packages for the given locales,
+                        specified as a comma-separated list. Each locale may be
+                        specified in the same ways as the primary language may
+                        be, as described above.""", version=F19)
         return op
