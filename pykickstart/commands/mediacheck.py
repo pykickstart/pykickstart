@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC4
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -37,7 +38,11 @@ class FC4_MediaCheck(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="mediacheck", description="""
+                            If given, this will force anaconda to run mediacheck
+                            on the installation media. This command requires that
+                            installs be attended, so it is disabled by default.
+                            """, version=FC4)
         return op
 
     def parse(self, args):
