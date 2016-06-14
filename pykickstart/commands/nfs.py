@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC3, FC6
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -49,9 +50,21 @@ class FC3_NFS(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--server", required=True)
-        op.add_argument("--dir", required=True)
+        op = KSOptionParser(prog="nfs", description="""
+                            Install from the NFS server specified. This can
+                            either be an exploded installation tree or a
+                            directory of ISO images. In the latter case, the
+                            install.img must also be provided subject to the
+                            same rules as with the harddrive installation
+                            method described above.""", version=FC3)
+        op.add_argument("--server", metavar="<hostname>", required=True,
+                        version=FC3, help="""
+                        Server from which to install (hostname or IP).""")
+        op.add_argument("--dir", metavar="<directory>", required=True,
+                        version=FC3, help="""
+                        Directory containing the Packages/ directory of the
+                        installation tree. If doing an ISO install, this
+                        directory must also contain images/install.img.""")
         return op
 
     def parse(self, args):
@@ -84,5 +97,10 @@ class FC6_NFS(FC3_NFS):
 
     def _getParser(self):
         op = FC3_NFS._getParser(self)
-        op.add_argument("--opts")
+        op.add_argument("--opts", metavar="<options>", version=FC6, help="""
+                        Mount options to use for mounting the NFS export. Any
+                        options that can be specified in /etc/fstab for an NFS
+                        mount are allowed. The options are listed in the nfs(5)
+                        man page. Multiple options are separated with a comma.
+                        """)
         return op
