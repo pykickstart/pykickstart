@@ -17,7 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from textwrap import dedent
 from pykickstart.base import KickstartCommand
+from pykickstart.version import FC3, F18, versionToLongString
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
 
@@ -47,19 +49,22 @@ class FC3_Keyboard(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="keyboard", description="""
+            This required command sets system keyboard type.""",
+            version=FC3)
+        op.add_argument("kbd", nargs='*', help="Keyboard type", version=FC3)
         return op
 
     def parse(self, args):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno) 
 
-        if len(extra) != 1:
+        if len(_ns.kbd) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "keyboard", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self.keyboard = extra[0]
+        self.keyboard = _ns.kbd[0]
         return self
 
 class F18_Keyboard(FC3_Keyboard):
@@ -109,29 +114,71 @@ class F18_Keyboard(FC3_Keyboard):
 
     def _getParser(self):
         op = FC3_Keyboard._getParser(self)
-        op.add_argument("--vckeymap", dest="vc_keymap", default="")
-        op.add_argument("--xlayouts", dest="x_layouts", type=commaSplit)
-        op.add_argument("--switch", dest="switch_options", type=commaSplit)
+        op.description += dedent("""
+
+        .. versionchanged:: %s
+
+        See the documentation of ``--vckeymap`` option and the tip at the end
+        of this section for a guide how to get values accepted by this command.
+
+        Either ``--vckeymap`` or ``--xlayouts`` must be used.
+
+        Alternatively, use the older format, ``arg``, which is still supported.
+        ``arg`` can be an X layout or VConsole keymap name.
+
+        Missing values will be automatically converted from the given one(s).
+        """ % versionToLongString(F18))
+
+        op.add_argument("--vckeymap", dest="vc_keymap", default="", help="""
+                        Specify VConsole keymap that should be used. is a keymap
+                        name which is the same as the filename under
+                        /usr/lib/kbd/keymaps/ without the ".map.gz" extension.
+                        """, version=F18)
+        op.add_argument("--xlayouts", dest="x_layouts", type=commaSplit,
+                        version=F18, help="""
+                        Specify a list of X layouts that should be used
+                        (comma-separated list without spaces). Accepts the same
+                        values as setxkbmap(1), but uses either the layout format
+                        (such as cz) or the 'layout (variant)' format (such as
+                        'cz (qwerty)'). For example::
+
+                        ``keyboard --xlayouts=cz,'cz (qwerty)'`""")
+        op.add_argument("--switch", dest="switch_options", type=commaSplit,
+                        version=F18, help="""
+                        Specify a list of layout switching options that should
+                        be used (comma-separated list without spaces). Accepts
+                        the same values as setxkbmap(1) for layout switching.
+                        For example::
+
+                        ``keyboard --xlayouts=cz,'cz (qwerty)' --switch=grp:alt_shift_toggle``
+                        """)
+        op.epilog = dedent("""
+        *If you know only the description of the layout (e.g. Czech (qwerty)),
+        you can use http://vpodzime.fedorapeople.org/layouts_list.py to list
+        all available layouts and find the one you want to use. The string in
+        square brackets is the valid layout specification as Anaconda accepts
+        it. The same goes for switching options and
+        http://vpodzime.fedorapeople.org/switching_list.py*""")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
 
-        if len(extra) > 1:
+        if len(ns.kbd) > 1:
             message = _("A single argument is expected for the %s command") % \
                         "keyboard"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "keyboard", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-        elif len(extra) == 0 and not self.vc_keymap and not self.x_layouts:
+        elif len(ns.kbd) == 0 and not self.vc_keymap and not self.x_layouts:
             message = _("One of --xlayouts, --vckeymap options with value(s) "
                         "or argument is expected for the keyboard command")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
 
-        if len(extra) > 0:
-            self._keyboard = extra[0]
+        if len(ns.kbd) > 0:
+            self._keyboard = ns.kbd[0]
 
         return self
 
