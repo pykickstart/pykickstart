@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import F19
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -62,11 +63,37 @@ class F19_Liveimg(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--url", required=True)
-        op.add_argument("--proxy")
-        op.add_argument("--noverifyssl", action="store_true", default=False)
-        op.add_argument("--checksum")
+        op = KSOptionParser(prog="liveimg", description="""
+            Install a disk image instead of packages. The image can be the
+            squashfs.img from a Live iso, or any filesystem mountable by the
+            install media (eg. ext4). Anaconda expects the image to contain
+            utilities it needs to complete the system install so the best way to
+            create one is to use livemedia-creator to make the disk image. If
+            the image contains /LiveOS/*.img (this is how squashfs.img is
+            structured) the first *img file inside LiveOS will be mounted and
+            used to install the target system. The URL may also point to a
+            tarfile of the root filesystem. The file must end in .tar, .tbz,
+            .tgz, .txz, .tar.bz2, tar.gz, tar.xz""",
+            version=F19)
+        op.add_argument("--url", metavar="<url>", required=True, version=F19,
+                        help="""
+                        The URL to install from. http, https, ftp and file are
+                        supported.""")
+        op.add_argument("--proxy", metavar="<proxyurl>", version=F19, help="""
+                        Specify an HTTP/HTTPS/FTP proxy to use while performing
+                        the install. The various parts of the argument act like
+                        you would expect. Syntax is::
+
+                        ``--proxy=[protocol://][username[:password]@]host[:port]``
+                        """)
+        op.add_argument("--noverifyssl", action="store_true", version=F19,
+                        default=False, help="""
+                        For a tree on a HTTPS server do not check the server's
+                        certificate with what well-known CA validate and do not
+                        check the server's hostname matches the certificate's
+                        domain name.""")
+        op.add_argument("--checksum", metavar="<sha256>", version=F19,
+                        help="Optional sha256 checksum of the image file")
         return op
 
     def parse(self, args):
