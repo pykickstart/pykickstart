@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F8, RHEL6
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.i18n import _
@@ -41,8 +42,15 @@ class FC3_IgnoreDisk(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--drives", dest="ignoredisk", type=commaSplit, required=True)
+        op = KSOptionParser(prog="ignoredisk", description="""
+            Controls anaconda's access to disks attached to the system. By
+            default, all disks will be available for partitioning. Only one of
+            the following three options may be used.""",
+            version=FC3)
+        op.add_argument("--drives", dest="ignoredisk", type=commaSplit,
+                        required=True, version=FC3, help="""
+                        Specifies those disks that anaconda should not touch
+                        when partitioning, formatting, and clearing.""")
         return op
 
     def parse(self, args):
@@ -80,8 +88,13 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
 
     def _getParser(self):
         op = FC3_IgnoreDisk._getParser(self)
-        op.add_argument("--drives", dest="ignoredisk", type=commaSplit)
-        op.add_argument("--only-use", dest="onlyuse", type=commaSplit)
+        op.add_argument("--drives", dest="ignoredisk", version=F8,
+                        type=commaSplit, help="""
+                        This argument is no longer required!""")
+        op.add_argument("--only-use", dest="onlyuse",
+                        type=commaSplit, version=F8, help="""
+                        Specifies the opposite - only disks listed here will be
+                        used during installation.""")
         return op
 
 class RHEL6_IgnoreDisk(F8_IgnoreDisk):
@@ -120,7 +133,10 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
     def _getParser(self):
         op = F8_IgnoreDisk._getParser(self)
-        op.add_argument("--interactive", action="store_true", default=False)
+        op.add_argument("--interactive", action="store_true",
+                        default=False, version=RHEL6, help="""
+                        Allow the user manually navigate the advanced storage
+                        screen.""")
         return op
 
 F14_IgnoreDisk = RHEL6_IgnoreDisk
