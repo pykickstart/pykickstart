@@ -17,7 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
+from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
 from pykickstart.options import KSOptionParser, ksboolean
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -341,21 +344,85 @@ class FC3_Network(KickstartCommand):
             return ""
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
-        op.add_argument("--dhcpclass")
-        op.add_argument("--device")
-        op.add_argument("--essid")
-        op.add_argument("--ethtool")
-        op.add_argument("--gateway")
-        op.add_argument("--hostname")
-        op.add_argument("--ip")
-        op.add_argument("--mtu")
-        op.add_argument("--nameserver")
-        op.add_argument("--netmask")
-        op.add_argument("--nodns", action="store_true", default=False)
-        op.add_argument("--onboot", type=ksboolean)
-        op.add_argument("--wepkey")
+        op = KSOptionParser(prog="network", description="""
+                            Configures network information for target system
+                            and activates network devices in installer
+                            environment. Device of the first network command is
+                            activated if network is required, e.g. in case of
+                            network installation or using vnc. Activation of the
+                            device can be also explicitly required by
+                            ``--activate`` option. If the device has already
+                            been activated to get kickstart file (e.g. using
+                            configuration provided with boot options or entered
+                            in loader UI) it is re-activated with configuration
+                            from kickstart file.
+
+                            The device given by the first network command is
+                            activated also in case of non-network installs, and
+                            this device is not re-activated using kickstart
+                            configuration.""", version=FC3)
+        op.add_argument("--bootproto", dest="bootProto", version=FC3,
+                        default=BOOTPROTO_DHCP, choices=self.bootprotoList,
+                        help="""
+                        The default setting is dhcp. bootp and dhcp are treated
+                        the same. The DHCP method uses a DHCP server system to
+                        obtain its networking configuration. As you might guess,
+                        the BOOTP method is similar, requiring a BOOTP server to
+                        supply the networking configuration.
+
+                        The static method requires that you enter all the
+                        required networking information in the kickstart file.
+                        As the name implies, this information is static and will
+                        be used during and after the installation. The line for
+                        static networking is more complex, as you must include
+                        all network configuration information **on one line**.
+                        You must specify the IP address, netmask, gateway, and
+                        nameserver. For example::
+
+                            network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
+
+                        If you use the static method, be aware of the following
+                        restriction:
+
+                        All static networking configuration information must be
+                        specified on one line; you cannot wrap lines using a
+                        backslash, for example.
+
+                        ``ibft`` setting is for reading the configuration from
+                        iBFT table.""")
+        op.add_argument("--dhcpclass", help="The DHCP class.", version=FC3)
+        op.add_argument("--device", version=FC3, help="""
+                        Specifies device to be configured and/or activated with
+                        the network command. The device can be specified in the
+                        same ways as
+                        `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__
+                        boot option. For example::
+
+                            ``network --bootproto=dhcp --device=eth0``
+                        """)
+        op.add_argument("--essid", version=FC3,
+                        help="The network ID for wireless networks.")
+        op.add_argument("--ethtool", version=FC3, help="""
+                        Specifies additional low-level settings for the network
+                        device which will be passed to the ethtool program.""")
+        op.add_argument("--gateway", version=FC3,
+                        help="Default gateway, as an IPv4 or IPv6 address.")
+        op.add_argument("--hostname", version=FC3,
+                        help="Hostname for the installed system.")
+        op.add_argument("--ip", version=FC3,
+                        help="IP address for the interface.")
+        op.add_argument("--mtu", version=FC3, help="The MTU of the device.")
+        op.add_argument("--nameserver", version=FC3, help="""
+                        Primary nameserver, as an IP address. Multiple
+                        nameservers must be comma separated.""")
+        op.add_argument("--netmask", version=FC3,
+                        help="Netmask for the installed system.")
+        op.add_argument("--nodns", action="store_true", default=False,
+                        version=FC3, help="Do not configure any DNS server.")
+        op.add_argument("--onboot", type=ksboolean, version=FC3, help="""
+                        Whether or not to enable the device a boot time.""")
+        op.add_argument("--wepkey", version=FC3,
+                        help="The WEP encryption key for wireless networks.")
         return op
 
     def parse(self, args):
@@ -383,7 +450,9 @@ class FC4_Network(FC3_Network):
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
-        op.add_argument("--notksdevice", action="store_true", default=False)
+        op.add_argument("--notksdevice", action="store_true", default=False,
+                        version=FC4, help="""
+                        This network device is not used for kickstart.""")
         return op
 
 class FC6_Network(FC4_Network):
@@ -392,8 +461,10 @@ class FC6_Network(FC4_Network):
 
     def _getParser(self):
         op = FC4_Network._getParser(self)
-        op.add_argument("--noipv4", action="store_true", default=False)
-        op.add_argument("--noipv6", action="store_true", default=False)
+        op.add_argument("--noipv4", action="store_true", default=False,
+                        version=FC6, help="Disable IPv4 on this device.")
+        op.add_argument("--noipv6", action="store_true", default=False,
+                        version=FC6, help="Disable IPv6 on this device.")
         return op
 
 class F8_Network(FC6_Network):
@@ -402,7 +473,13 @@ class F8_Network(FC6_Network):
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
-        op.add_argument("--ipv6")
+        op.add_argument("--ipv6", version=F8, help="""
+                        IPv6 address for the interface. This can be the static
+                        address in form ``<IPv6 address>[/<prefix length>]``,
+                        e.g. 3ffe:ffff:0:1::1/128 (if prefix is omitted 64 is
+                        assumed), "auto" for address assignment based on automatic
+                        neighbor discovery, or "dhcp" to use the DHCPv6 protocol.
+                        """)
         return op
 
 class F9_Network(F8_Network):
@@ -415,7 +492,15 @@ class F9_Network(F8_Network):
 
     def _getParser(self):
         op = F8_Network._getParser(self)
-        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
+        for action in op._actions:
+            if "--bootproto" in action.option_strings:
+                action.help += dedent("""
+
+                        .. versionchanged:: %s
+
+                        The 'query' value was added.""" % \
+                        versionToLongString(F9))
+                break
         return op
 
 class F16_Network(F9_Network):
@@ -428,9 +513,26 @@ class F16_Network(F9_Network):
 
     def _getParser(self):
         op = F9_Network._getParser(self)
-        op.add_argument("--activate", action="store_true", default=False)
-        op.add_argument("--nodefroute", action="store_true", default=False)
-        op.add_argument("--wpakey", default="")
+        for action in op._actions:
+            if "--bootproto" in action.option_strings:
+                action.help += dedent("""
+
+                        .. versionchanged:: %s
+
+                        The 'ibft' value was added.""" % \
+                        versionToLongString(F16))
+                break
+        op.add_argument("--activate", action="store_true", version=F16,
+                        default=False, help="""
+                        As noted above, using this option ensures any matching
+                        devices beyond the first will also be activated.""")
+        op.add_argument("--nodefroute", action="store_true", version=F16,
+                        default=False, help="""
+                        Prevents grabbing of the default route by the device.
+                        It can be useful when activating additional devices in
+                        installer using ``--activate`` option.""")
+        op.add_argument("--wpakey", default="", version=F16, help="""
+                        The WPA encryption key for wireless networks.""")
         return op
 
 class F18_Network(F16_Network):
@@ -446,10 +548,32 @@ class F19_Network(F18_Network):
 
     def _getParser(self):
         op = F18_Network._getParser(self)
-        op.add_argument("--bondslaves", default="")
-        op.add_argument("--bondopts", default="")
-        op.add_argument("--vlanid")
-        op.add_argument("--ipv6gateway", default="")
+        op.add_argument("--bondslaves", default="", version=F19, help="""
+                        Bonded device with name specified by ``--device`` option
+                        will be created using slaves specified in this option.
+                        Example::
+
+                            ``--bondslaves=eth0,eth1``.
+                        """)
+        op.add_argument("--bondopts", default="", version=F19, help="""
+                        A comma-separated list of optional parameters for bonded
+                        interface specified by ``--bondslaves`` and ``--device``
+                        options. Example::
+
+                            ``--bondopts=mode=active-backup,primary=eth1``
+
+                        If an option itself contains comma as separator use
+                        semicolon to separate the options.""")
+        op.add_argument("--vlanid", version=F19, help="""
+                        Id (802.1q tag) of vlan device to be created using parent
+                        device specified by ``--device`` option. For example::
+
+                            ``network --device=eth0 --vlanid=171``
+
+                        will create vlan device ``eth0.171``.""")
+        op.add_argument("--ipv6gateway", default="", version=F19, help="""
+                        Address of IPv6 gateway.
+                        """)
         return op
 
 class F20_Network(F19_Network):
@@ -496,21 +620,40 @@ class F20_Network(F19_Network):
             return teamslaves
 
         op = F19_Network._getParser(self)
-        op.add_argument("--teamslaves", type=teamslaves_cb)
-        op.add_argument("--teamconfig", default="")
+        op.add_argument("--teamslaves", type=teamslaves_cb, version=F20,
+                        help="""
+                        Team device with name specified by ``--device`` option
+                        will be created using slaves specified in this option.
+                        Slaves are separated by comma. A slave can be followed
+                        by its configuration which is a single-quoted json format
+                        string with double qoutes escaped by ``'\'`` character.
+                        Example::
+
+                            ``--teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'"``.
+
+                        See also ``--teamconfig`` option.""")
+        op.add_argument("--teamconfig", default="", version=F20, help="""
+                        Double-quoted team device configuration which is a json
+                        format string with double quotes escaped with ``'\'``
+                        character. The device name is specified by ``--device``
+                        option and its slaves and their configuration by
+                        ``--teamslaves`` option. Example::
+
+                            network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
+                        """)
         return op
 
 class F21_Network(F20_Network):
     def _getParser(self):
         op = F20_Network._getParser(self)
-        op.add_argument("--interfacename", default="")
+        op.add_argument("--interfacename", default="", version=F21, help="")
         return op
 
 class F22_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_argument("--bridgeslaves", default="")
-        op.add_argument("--bridgeopts", default="")
+        op.add_argument("--bridgeslaves", default="", version=F22, help="")
+        op.add_argument("--bridgeopts", default="", version=F22, help="")
         return op
 
     def parse(self, args):
@@ -544,13 +687,15 @@ class F24_Network(F22_Network):
             retval.bootProto = ""
         return retval
 
+# todo: deal with inheritance
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
 
     def _getParser(self):
         op = FC3_Network._getParser(self)
-        op.add_argument("--notksdevice", action="store_true", default=False)
+        op.add_argument("--notksdevice", action="store_true", default=False,
+                        version=RHEL4, help="")
         return op
 
 class RHEL5_Network(FC6_Network):
@@ -563,7 +708,15 @@ class RHEL5_Network(FC6_Network):
 
     def _getParser(self):
         op = FC6_Network._getParser(self)
-        op.add_argument("--bootproto", dest="bootProto", default=BOOTPROTO_DHCP, choices=self.bootprotoList)
+        for action in op._actions:
+            if "--bootproto" in action.option_strings:
+                action.help += dedent("""
+
+                        .. versionchanged:: %s
+
+                        The 'query' value was added.""" % \
+                        versionToLongString(RHEL5))
+                break
         return op
 
 class RHEL6_Network(F9_Network):
@@ -576,11 +729,47 @@ class RHEL6_Network(F9_Network):
 
     def _getParser(self):
         op = F9_Network._getParser(self)
-        op.add_argument("--activate", action="store_true", default=False)
-        op.add_argument("--nodefroute", action="store_true", default=False)
-        op.add_argument("--vlanid")
-        op.add_argument("--bondslaves")
-        op.add_argument("--bondopts")
+        for action in op._actions:
+            if "--bootproto" in action.option_strings:
+                action.help += dedent("""
+
+                        .. versionchanged:: %s
+
+                        The 'ibft' value was added.""" % \
+                        versionToLongString(RHEL6))
+                break
+        op.add_argument("--activate", action="store_true", version=RHEL6,
+                        default=False, help="""
+                        As noted above, using this option ensures any matching
+                        devices beyond the first will also be activated.""")
+        op.add_argument("--nodefroute", action="store_true", version=RHEL6,
+                        default=False, help="""
+                        Prevents grabbing of the default route by the device.
+                        It can be useful when activating additional devices in
+                        installer using ``--activate`` option.""")
+        op.add_argument("--vlanid", version=RHEL6, help="""
+                        Id (802.1q tag) of vlan device to be created using parent
+                        device specified by ``--device`` option. For example::
+
+                            ``network --device=eth0 --vlanid=171``
+
+                        will create vlan device ``eth0.171``.""")
+        op.add_argument("--bondslaves", version=RHEL6, help="""
+                        Bonded device with name specified by ``--device`` option
+                        will be created using slaves specified in this option.
+                        Example::
+
+                            ``--bondslaves=eth0,eth1``.
+                        """)
+        op.add_argument("--bondopts", version=RHEL6, help="""
+                        A comma-separated list of optional parameters for bonded
+                        interface specified by ``--bondslaves`` and ``--device``
+                        options. Example::
+
+                            ``--bondopts=mode=active-backup,primary=eth1``.
+
+                        If an option itself contains comma as separator use
+                        semicolon to separate the options.""")
         return op
 
 def validate_network_interface_name(name):
@@ -628,8 +817,8 @@ def validate_network_interface_name(name):
 class RHEL7_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_argument("--bridgeslaves", default="")
-        op.add_argument("--bridgeopts", default="")
+        op.add_argument("--bridgeslaves", default="", version=RHEL7, help="")
+        op.add_argument("--bridgeopts", default="", version=RHEL7, help="")
         return op
 
     def parse(self, args):
