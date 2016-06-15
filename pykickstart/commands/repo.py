@@ -17,6 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from textwrap import dedent
+from pykickstart.version import versionToLongString
+from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
@@ -169,10 +172,54 @@ class FC6_Repo(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--name", required=True)
-        op.add_argument("--baseurl")
-        op.add_argument("--mirrorlist")
+        op = KSOptionParser(prog="repo", description="""
+                            Configures additional yum repositories that may be
+                            used as sources for package installation. Multiple
+                            repo lines may be specified. By default, anaconda
+                            has a configured set of repos taken from
+                            /etc/anaconda.repos.d plus a special Installation
+                            Repo in the case of a media install. The exact set
+                            of repos in this directory changes from release to
+                            release and cannot be listed here. There will
+                            likely always be a repo named "updates".
+
+                            Note: If you want to enable one of the repos in
+                            /etc/anaconda.repos.d that is disabled by default
+                            (like "updates"), you should use --name= but none
+                            of the other options. anaconda will look for a repo
+                            by this name automatically. Providing a baseurl or
+                            mirrorlist URL will result in anaconda attempting
+                            to add another repo by the same name, which will
+                            cause a conflicting repo error.""",
+                            version=FC6)
+        op.add_argument("--name", required=True, version=FC6, help="""
+                        The repo id. This option is required. If a repo has a
+                        name that conflicts with a previously added one, the
+                        new repo will be ignored. Because anaconda has a
+                        populated list of repos when it starts, this means that
+                        users cannot create new repos that override these names.
+                        Please check /etc/anaconda.repos.d from the operating
+                        system you wish to install to see what names are not
+                        available.""")
+        op.add_argument("--baseurl", version=FC6, help="""
+                        The URL for the repository. The variables that may be
+                        used in yum repo config files are not supported here.
+                        You may use one of either this option or
+                        ``--mirrorlist``, not both. If an NFS repository is
+                        specified, it should be of the form
+                        ``nfs://host:/path/to/repo``. Note that there is a
+                        colon after the host. Anaconda passes everything after
+                        "nfs:// " directly to the mount command instead of
+                        parsing URLs according to RFC 2224. Variable
+                        substitution is done for $releasever and $basearch in
+                        the url.""")
+        op.add_argument("--mirrorlist", version=FC6, help="""
+                        The URL pointing at a list of mirrors for the
+                        repository. The variables that may be used in yum repo
+                        config files are not supported here. You may use one of
+                        either this option or ``--baseurl``, not both. Variable
+                        substitution is done for $releasever and $basearch in
+                        the url.""")
         return op
 
     def parse(self, args):
@@ -216,9 +263,24 @@ class F8_Repo(FC6_Repo):
 
     def _getParser(self):
         op = FC6_Repo._getParser(self)
-        op.add_argument("--cost", type=int)
-        op.add_argument("--excludepkgs", type=commaSplit)
-        op.add_argument("--includepkgs", type=commaSplit)
+        op.add_argument("--cost", type=int, version=F8, help="""
+                        An integer value to assign a cost to this repository.
+                        If multiple repositories provide the same packages,
+                        this number will be used to prioritize which repository
+                        will be used before another. Repositories with a lower
+                        cost take priority over repositories with higher cost.
+                        """)
+        op.add_argument("--excludepkgs", type=commaSplit, version=F8, help="""
+                        A comma-separated list of package names and globs that
+                        must not be pulled from this repository. This is useful
+                        if multiple repositories provide the same package and
+                        you want to make sure it comes from a particular
+                        repository.""")
+        op.add_argument("--includepkgs", type=commaSplit, version=F8, help="""
+                        A comma-separated list of package names and globs that
+                        must be pulled from this repository. This is useful if
+                        multiple repositories provide the same package and you
+                        want to make sure it comes from this repository.""")
         return op
 
     def methodToRepo(self):
@@ -235,7 +297,12 @@ class F11_Repo(F8_Repo):
 
     def _getParser(self):
         op = F8_Repo._getParser(self)
-        op.add_argument("--ignoregroups", type=ksboolean)
+        op.add_argument("--ignoregroups", type=ksboolean, version=F11, help="""
+                        This option is used when composing installation trees
+                        and has no effect on the installation process itself.
+                        It tells the compose tools to not look at the package
+                        group information when mirroring trees so as to avoid
+                        mirroring large amounts of unnecessary data.""")
         return op
 
 class F13_Repo(F11_Repo):
@@ -244,7 +311,15 @@ class F13_Repo(F11_Repo):
 
     def _getParser(self):
         op = F11_Repo._getParser(self)
-        op.add_argument("--proxy")
+        op.add_argument("--proxy", version=F13, help="""
+                        Specify an HTTP/HTTPS/FTP proxy to use just for this
+                        repository. This setting does not affect any other
+                        repositories, nor how the install.img is fetched on
+                        HTTP installs. The various parts of the argument act
+                        like you would expect. The syntax is::
+
+                        ``--proxy=[protocol://][username[:password]@]host[:port]``
+                        """)
         return op
 
 class F14_Repo(F13_Repo):
@@ -253,7 +328,12 @@ class F14_Repo(F13_Repo):
 
     def _getParser(self):
         op = F13_Repo._getParser(self)
-        op.add_argument("--noverifyssl", action="store_true", default=False)
+        op.add_argument("--noverifyssl", action="store_true", version=F14,
+                        default=False, help="""
+                        For a https repo do not check the server's certificate
+                        with what well-known CA validate and do not check the
+                        server's hostname matches the certificate's domain name.
+                        """)
         return op
 
 RHEL6_Repo = F14_Repo
@@ -264,13 +344,29 @@ class F15_Repo(F14_Repo):
 
     urlRequired = False
 
+    def _getParser(self):
+        op = F14_Repo._getParser(self)
+        for action in op._actions:
+            for option in ['--baseurl', '--mirrorlist']:
+                if option in action.option_strings:
+                    action.help += dedent("""
+
+                    .. versionchanged:: %s
+
+                    ``--mirrorlist`` and ``--baseurl`` are not required anymore!
+                    """ % versionToLongString(F15))
+        return op
+
 class F21_Repo(F15_Repo):
     removedKeywords = F15_Repo.removedKeywords
     removedAttrs = F15_Repo.removedAttrs
 
     def _getParser(self):
         op = F15_Repo._getParser(self)
-        op.add_argument("--install", action="store_true", default=False)
+        op.add_argument("--install", action="store_true", version=F21,
+                        default=False, help="""
+                        Install this repository to the target system so that it
+                        can be used after reboot.""")
         return op
 
 RHEL7_Repo = F21_Repo
