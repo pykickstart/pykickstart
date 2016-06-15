@@ -17,6 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from textwrap import dedent
+from pykickstart.version import versionToLongString, FC3, FC6, F18, F23
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN, KS_WAIT
 from pykickstart.options import KSOptionParser
@@ -52,6 +54,30 @@ class FC3_Reboot(KickstartCommand):
 
         return self
 
+    def _getParser(self):
+        op = KSOptionParser(prog="reboot|poweroff|shutdown", description="""
+
+                            ``reboot``
+
+                            Reboot after the installation is complete. Normally,
+                            kickstart displays a message and waits for the user
+                            to press a key before rebooting.
+
+                            ``poweroff``
+
+                            Turn off the machine after the installation is complete.
+                            Normally, kickstart displays a message and waits for
+                            the user to press a key before rebooting.
+
+                            ``shutdown``
+
+                            At the end of installation, shut down the machine.
+                            This is the same as the poweroff command. Normally,
+                            kickstart displays a message and waits for the user
+                            to press a key before rebooting.""", version=FC3)
+        return op
+
+
 class FC6_Reboot(FC3_Reboot):
     removedKeywords = FC3_Reboot.removedKeywords
     removedAttrs = FC3_Reboot.removedAttrs
@@ -71,8 +97,11 @@ class FC6_Reboot(FC3_Reboot):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--eject", action="store_true", default=False)
+        op = FC3_Reboot._getParser(self)
+        op.add_argument("--eject", action="store_true", version=FC6,
+                        default=False, help="""
+                        Attempt to eject CD or DVD media before rebooting.
+                        """)
         return op
 
     def parse(self, args):
@@ -104,6 +133,23 @@ class F18_Reboot(FC6_Reboot):
             self.action = KS_WAIT
         return self
 
+    def _getParser(self):
+        op = FC6_Reboot._getParser(self)
+        op.prog += "|halt"
+        op.description += dedent("""
+
+        ``halt``
+
+        At the end of installation, display a message and wait for the user to
+        press a key before rebooting. This is the default action.
+
+        .. versionchanged:: %s
+
+        The 'halt' command was added!
+
+        """ % versionToLongString(F18))
+        return op
+
 class F23_Reboot(F18_Reboot):
     removedKeywords = F18_Reboot.removedKeywords
     removedAttrs = F18_Reboot.removedAttrs
@@ -124,5 +170,8 @@ class F23_Reboot(F18_Reboot):
 
     def _getParser(self):
         op = F18_Reboot._getParser(self)
-        op.add_argument("--kexec", action="store_true", default=False)
+        op.add_argument("--kexec", action="store_true", version=F23,
+                        default=False, help="""
+                        Use kexec to reboot into the new system, bypassing
+                        BIOS/Firmware and bootloader.""")
         return op
