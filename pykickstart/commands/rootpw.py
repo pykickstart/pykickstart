@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F8
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -51,21 +52,34 @@ class FC3_RootPw(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
+        op = KSOptionParser(prog="rootpw", description="""
+                            This required command sets the system's root
+                            password.""", version=FC3)
+        op.add_argument('password', metavar='<password>', nargs='*', version=FC3,
+                        help="The desired root password.")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
+                        default=False, version=FC3, help="""
+                        If this is present, the password argument is assumed to
+                        already be encrypted. To create an encrypted password
+                        you can use python::
+
+                            python -c 'import crypt; print(crypt.crypt("My Password", "$6$My Salt"))'
+
+                        This will generate sha512 crypt of your password using
+                        your provided salt.""")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) != 1:
+        if len(ns.password) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.set_to_self(ns)
-        self.password = extra[0]
+        self.password = ns.password[0]
         return self
 
 class F8_RootPw(FC3_RootPw):
@@ -89,8 +103,15 @@ class F8_RootPw(FC3_RootPw):
 
     def _getParser(self):
         op = FC3_RootPw._getParser(self)
-        op.add_argument("--lock", action="store_true", default=False)
-        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
+        op.add_argument("--lock", action="store_true", default=False,
+                        version=F8, help="""
+                        If this is present, the root account is locked by
+                        default. That is, the root user will not be able to
+                        login from the console.""")
+        op.add_argument("--plaintext", dest="isCrypted", action="store_false",
+                        version=F8, help="""
+                        The password argument is assumed to not be encrypted.
+                        This is the default!""")
         return op
 
 class F18_RootPw(F8_RootPw):
@@ -109,13 +130,15 @@ class F18_RootPw(F8_RootPw):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
 
-        if len(extra) != 1 and not self.lock:
+        if len(ns.password) != 1 and not self.lock:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1:
-            self.password = extra[0]
+        if len(ns.password) == 1:
+            self.password = ns.password[0]
+        else:
+            self.password = ""
 
         return self
