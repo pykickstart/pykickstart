@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC3, F13, F14, F18
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -51,8 +52,12 @@ class FC3_Url(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--url", required=True)
+        op = KSOptionParser(prog="url", description="""
+                            Install from an installation tree on a remote server
+                            via FTP or HTTP.""", version=FC3)
+        op.add_argument("--url", required=True, version=FC3, help="""
+                        The URL to install from. Variable substitution is done
+                        for $releasever and $basearch in the url.""")
         return op
 
     def parse(self, args):
@@ -85,7 +90,14 @@ class F13_Url(FC3_Url):
 
     def _getParser(self):
         op = FC3_Url._getParser(self)
-        op.add_argument("--proxy")
+        op.add_argument("--proxy", metavar="URL", version=F13,
+                        help="""
+                        Specify an HTTP/HTTPS/FTP proxy to use while performing
+                        the install. The various parts of the argument act like
+                        you would expect. The syntax is::
+
+                            [protocol://][username[:password]@]host[:port]
+                        """)
         return op
 
 class F14_Url(F13_Url):
@@ -113,7 +125,12 @@ class F14_Url(F13_Url):
 
     def _getParser(self):
         op = F13_Url._getParser(self)
-        op.add_argument("--noverifyssl", action="store_true", default=False)
+        op.add_argument("--noverifyssl", action="store_true", version=F14,
+                        default=False, help="""
+                        For a tree on a HTTPS server do not check the server's
+                        certificate with what well-known CA validate and do not
+                        check the server's hostname matches the certificate's
+                        domain name.""")
         return op
 
 RHEL6_Url = F14_Url
@@ -154,11 +171,12 @@ class F18_Url(F14_Url):
 
     def _getParser(self):
         op = F14_Url._getParser(self)
-        # This overrides the option set in the superclass's _getParser
-        # method.  --url is no longer required because you could do
-        # --mirrorlist instead.
-        op.add_argument("--url")
-        op.add_argument("--mirrorlist")
+        op.add_argument("--url", version=F18, help="""
+                        This parameter is no longer required because you could
+                        use ``--mirrorlist`` instead.""")
+        op.add_argument("--mirrorlist", metavar="URL", version=F18, help="""
+                        The mirror URL to install from. Variable substitution
+                        is done for $releasever and $basearch in the url.""")
         return op
 
     def parse(self, args):
