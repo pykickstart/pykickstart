@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F7
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -43,20 +44,30 @@ class F7_Updates(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="updates", description="""
+                            Specify the location of an updates.img for use in
+                            installation. See anaconda-release-notes.txt for a
+                            description of how to make an updates.img.""",
+                            version=F7)
+        op.add_argument("updates", metavar="[URL]", nargs="*", version=F7,
+                        help="""
+                        If present, the URL for an updates image.
+
+                        If not present, anaconda will attempt to load from a
+                        floppy disk.""")
         return op
 
     def parse(self, args):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) > 1:
+        if len(_ns.updates) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "updates", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-        elif len(extra) == 0:
+        elif len(_ns.updates) == 0:
             self.url = "floppy"
         else:
-            self.url = extra[0]
+            self.url = _ns.updates[0]
 
         return self
