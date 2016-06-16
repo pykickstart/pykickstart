@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC6, F8, F12, F19, F24
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser, commaSplit
 
@@ -142,14 +143,45 @@ class FC6_User(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--groups", type=commaSplit)
-        op.add_argument("--homedir")
-        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--name", required=True)
-        op.add_argument("--password")
-        op.add_argument("--shell")
-        op.add_argument("--uid", type=int)
+        op = KSOptionParser(prog="user", description="""
+                            Creates a new user on the system.""",
+                            version=FC6)
+        op.add_argument("--groups", type=commaSplit, version=FC6, help="""
+                        In addition to the default group, a comma separated
+                        list of group names the user should belong to. Any groups
+                        that do not already exist will be created. If the group
+                        already exists with a different GID, an error will
+                        be raised.""",
+                        metavar="<group1>,<group2>,...,<groupN>")
+        op.add_argument("--homedir", version=FC6, help="""
+                        The home directory for the user. If not provided, this
+                        defaults to /home/.""")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
+                        default=False, version=FC6, help="""
+                        If specified, consider the password provided by
+                        ``--password`` already encrypted. This is the default.
+                        """)
+        op.add_argument("--name", required=True, version=FC6, help="""
+                        Provides the name of the user. This option is required.
+                        """)
+        op.add_argument("--password", version=FC6, help="""
+                        The new user's password. If not provided, the account
+                        will be locked by default. If this is present, the
+                        password argument is assumed to already be encrypted.
+                        ``--plaintext`` has the opposite effect - the password
+                        argument is assumed to not be encrypted. To create an
+                        encrypted password you can use python::
+
+                        ``python -c 'import crypt; print(crypt.crypt("My Password", "$6$My Sault"))'``
+
+                        This will generate sha512 crypt of your password using
+                        your provided salt.""")
+        op.add_argument("--shell", version=FC6, help="""
+                        The user's login shell. If not provided, this defaults
+                        to the system default.""")
+        op.add_argument("--uid", type=int, metavar="INT", version=FC6, help="""
+                        The user's UID. If not provided, this defaults to the
+                        next available non-system UID.""")
         return op
 
     def parse(self, args):
@@ -177,8 +209,15 @@ class F8_User(FC6_User):
 
     def _getParser(self):
         op = FC6_User._getParser(self)
-        op.add_argument("--lock", action="store_true", default=False)
-        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
+        op.add_argument("--lock", action="store_true", default=False,
+                        version=F8, help="""
+                        If this is present, the new user account is locked by
+                        default. That is, the user will not be able to login
+                        from the console.""")
+        op.add_argument("--plaintext", dest="isCrypted", version=F8,
+                        action="store_false", help="""
+                        If specified, consider the password provided by
+                        ``--password`` to be plain text.""")
         return op
 
 class F12_User(F8_User):
@@ -187,7 +226,12 @@ class F12_User(F8_User):
 
     def _getParser(self):
         op = F8_User._getParser(self)
-        op.add_argument("--gecos")
+        op.add_argument("--gecos", version=F12, help="""
+                        Provides the GECOS information for the user. This is a
+                        string of various system-specific fields separated by a
+                        comma. It is frequently used to specify the user's full
+                        name, office number, and the like. See ``man 5 passwd``
+                        for more details.""")
         return op
 
 class F19_User(F12_User):
@@ -196,5 +240,18 @@ class F19_User(F12_User):
 
     def _getParser(self):
         op = F12_User._getParser(self)
-        op.add_argument("--gid", type=int)
+        op.add_argument("--gid", type=int, metavar="INT", version=F19, help="""
+                        The GID of the user's primary group. If not provided,
+                        this defaults to the next available non-system GID.""")
+        return op
+
+class F24_User(F19_User):
+    removedKeywords = F19_User.removedKeywords
+    removedAttrs = F19_User.removedAttrs
+
+    def _getParser(self):
+        op = F19_User._getParser(self)
+        op.add_argument("--groups", type=commaSplit, version=F24, help="""
+                        The group name can optionally be followed by a GID in
+                        parenthesis, for example, ``newgroup(5002)``.""")
         return op
