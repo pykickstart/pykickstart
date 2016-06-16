@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F13, F24
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -109,25 +110,60 @@ class F13_SshPw(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--username", required=True)
-        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--plaintext", dest="isCrypted", action="store_false")
-        op.add_argument("--lock", action="store_true", default=False)
+        op = KSOptionParser(prog="sshpw", description="""
+                            The installer can start up ssh to provide for
+                            interactivity and inspection, just like it can with
+                            telnet. The "inst.sshd" option must be specified on
+                            the kernel command-line for Anaconda to start an ssh
+                            daemon. The sshpw command is used to control the
+                            accounts created in the installation environment that
+                            may be remotely logged into. For each instance of
+                            this command given, a user will be created. These
+                            users will not be created on the final system -
+                            they only exist for use while the installer is
+                            running.
+
+                            Note that by default, root has a blank password. If
+                            you don't want any user to be able to ssh in and
+                            have full access to your hardware, you must specify
+                            sshpw for username root. Also note that if Anaconda
+                            fails to parse the kickstart file, it will allow
+                            anyone to login as root and have full access to
+                            your hardware.""", version=F13)
+        op.add_argument("--username", required=True, metavar="<name>",
+                        version=F13, help="""
+                        Provides the name of the user. This option is required.
+                        """)
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
+                        default=False, version=F13, help="""
+                        If this is present, the password argument is assumed to
+                        already be encrypted.""")
+        op.add_argument("--plaintext", dest="isCrypted", action="store_false",
+                        version=F13, help="""
+                        If this is present, the password argument is assumed to
+                        not be encrypted. This is the default.""")
+        op.add_argument("--lock", action="store_true", default=False,
+                        version=F13, help="""
+                        If this is present, the new user account is locked by
+                        default. That is, the user will not be able to login
+                        from the console.""")
+        op.add_argument("password", metavar="<password>", nargs="*",
+                        version=F13, help="""
+                        The password string to use.""")
         return op
 
     def parse(self, args):
         ud = self.dataClass()   # pylint: disable=not-callable
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) == 0:
+        if len(ns.password) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        if len(extra) > 0:
             mapping = {"command": "sshpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.set_to_obj(ns, ud)
-        ud.password = " ".join(extra)
+        ud.password = " ".join(ns.password)
         ud.lineno = self.lineno
 
         if ud in self.dataList():
@@ -148,5 +184,8 @@ class F24_SshPw(F13_SshPw):
 
     def _getParser(self):
         op = F13_SshPw._getParser(self)
-        op.add_argument("--sshkey", action="store_true", default=False)
+        op.add_argument("--sshkey", action="store_true", default=False,
+                        version=F24, help="""
+                        If this is used then the <password> string is
+                        interpreted as an ssh key value.""")
         return op
