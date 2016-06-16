@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F16, F21
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -108,14 +109,44 @@ class FC3_VolGroup(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--pesize", type=int, default=32768)
-        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
+        op = KSOptionParser(prog="volgroup", description="""
+                            Creates a Logical Volume Management (LVM) group.
+                            """, epilog="""
+                            Create the partition first, create the logical
+                            volume group, and then create the logical volume.
+                            For example::
+
+                                part pv.01 --size 3000
+                                volgroup myvg pv.01
+                                logvol / --vgname=myvg --size=2000 --name=rootvol
+                            """, version=FC3)
+        op.add_argument("name", metavar="<name>", nargs="*", version=FC3, help="""
+                        Name given to the volume group. The (which denotes that
+                        multiple partitions can be listed) lists the identifiers
+                        to add to the volume group.""")
+        op.add_argument("partitions", metavar="<partitions*>", nargs="*", help="""
+                        Physical Volume partitions to be included in this
+                        Volume Group""", version=FC3)
+        op.add_argument("--noformat", dest="format", action="store_false",
+                        default=True, version=FC3, help="""
+                        Use an existing volume group. Do not specify partitions
+                        when using this option.""")
+        op.add_argument("--pesize", type=int, default=32768, version=FC3,
+                        help="""
+                        Set the size of the physical extents in KiB.""")
+        op.add_argument("--useexisting", dest="preexist", action="store_true",
+                        default=False, version=FC3, help="""
+                        Use an existing volume group. Do not specify partitions
+                        when using this option.""")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        # because positional argumnets with variable number of values
+        # don't parse very well
+        if len(ns.name) > 1 and len(ns.partitions) == 0:
+            ns.partitions = ns.name[1:]
+            ns.name = [ns.name[0]]
 
         if not ns.format:
             ns.preexist = True
@@ -124,21 +155,21 @@ class FC3_VolGroup(KickstartCommand):
         self.set_to_obj(ns, vg)
         vg.lineno = self.lineno
 
-        if len(extra) == 0:
+        if len(ns.name) == 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "volgroup", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and not ns.preexist:
+        if len(ns.partitions) == 0 and not ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
-        elif len(extra) > 1 and ns.preexist:
+        elif len(ns.partitions) > 1 and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
 
-        vg.vgname = extra[0]
+        vg.vgname = ns.name[0]
 
-        if len(extra) > 1:
-            vg.physvols = extra[1:]
+        if len(ns.partitions) > 0:
+            vg.physvols = ns.partitions
 
         # Check for duplicates in the data list.
         if vg in self.dataList():
@@ -156,8 +187,15 @@ class FC3_VolGroup(KickstartCommand):
 class FC16_VolGroup(FC3_VolGroup):
     def _getParser(self):
         op = FC3_VolGroup._getParser(self)
-        op.add_argument("--reserved-space", dest="reserved_space", type=int)
-        op.add_argument("--reserved-percent", dest="reserved_percent", type=int)
+        op.add_argument("--reserved-space", dest="reserved_space", type=int,
+                        version=F16, help="""
+                        Specify an amount of space to leave unused in a volume
+                        group, in MiB. Do not append any units. This option is
+                        only used for new volume groups.""")
+        op.add_argument("--reserved-percent", dest="reserved_percent", type=int,
+                        version=F16, help="""
+                        Specify a percentage of total volume group space to
+                        leave unused (new volume groups only).""")
         return op
 
     def parse(self, args):
@@ -182,8 +220,8 @@ class FC16_VolGroup(FC3_VolGroup):
 class F21_VolGroup(FC16_VolGroup):
     def _getParser(self):
         op = FC16_VolGroup._getParser(self)
-        op.add_argument("--pesize", type=int, default=0)
-
+        op.add_argument("--pesize", type=int, default=0, version=F21, help="""
+                        Set the size of the physical extents in KiB.""")
         return op
 
 RHEL7_VolGroup = F21_VolGroup
