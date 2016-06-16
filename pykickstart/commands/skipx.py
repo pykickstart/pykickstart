@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -38,7 +39,9 @@ class FC3_SkipX(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="skipx", description="""
+                            If present, X is not configured on the installed
+                            system.""", version=FC3)
         return op
 
     def parse(self, args):
