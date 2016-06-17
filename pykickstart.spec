@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.8
+Version: 1.99.66.9
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jun 17 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.9-1
+- Support timezone command usage without timezone specification (mkolman)
+  Related: rhbz#1312135
+
 * Thu Jun 02 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.8-1
 - Add --no-activate option to network command (#1277975) (rvykydal)
 
