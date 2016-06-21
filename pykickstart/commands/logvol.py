@@ -17,6 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21
+from pykickstart.version import F23, RHEL5, RHEL6, RHEL7
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -365,32 +367,74 @@ class FC3_LogVol(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--fstype")
-        op.add_argument("--grow", action="store_true", default=False)
-        op.add_argument("--maxsize", dest="maxSizeMB", type=int)
-        op.add_argument("--name", required=True)
-        op.add_argument("--noformat", action="store_false", dest="format", default=True)
-        op.add_argument("--percent", dest="percent", type=int)
-        op.add_argument("--recommended", action="store_true", default=False)
-        op.add_argument("--size", type=int)
-        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
-        op.add_argument("--vgname", required=True)
+        op = KSOptionParser(prog="logvol", description="""
+                            Create a logical volume for Logical Volume Management
+                            (LVM).""", version=FC3, epilog="""
+                            Create the partition first, create the logical volume
+                            group, and then create the logical volume. For example::
+
+                                part pv.01 --size 3000
+                                volgroup myvg pv.01
+                                logvol / --vgname=myvg --size=2000 --name=rootvol
+                            """)
+        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=FC3,
+                        help="Mountpoint for this logical volume or 'none'.")
+        op.add_argument("--fstype", version=FC3, help="""
+                        Sets the file system type for the logical volume. Valid
+                        values include ext4, ext3, ext2, btrfs, swap, and vfat.
+                        Other filesystems may be valid depending on command line
+                        arguments passed to Anaconda to enable other filesystems.
+                        """)
+        op.add_argument("--grow", action="store_true", default=False,
+                        version=FC3, help="""
+                        Tells the logical volume to grow to fill available space
+                        (if any), or up to the maximum size setting. Note that
+                        --grow is not supported for logical volumes containing
+                        a RAID volume on top of them.""")
+        op.add_argument("--maxsize", dest="maxSizeMB", type=int,
+                        version=FC3, help="""
+                        The maximum size in MiB the logical volume may grow to.
+                        Specify an integer value here, and do not append any
+                        units.  This option is only relevant if ``--grow`` is
+                        specified as well.""")
+        op.add_argument("--name", required=True, version=FC3, help="""
+                        The name of this logical volume.""")
+        op.add_argument("--noformat", action="store_false", version=FC3,
+                        dest="format", default=True, help="""
+                        Use an existing logical volume and do not format it.
+                        """)
+        op.add_argument("--percent", dest="percent", type=int,
+                        version=FC3, help="""
+                        Specify the size of the logical volume as a percentage
+                        of available space in the volume group. Without the above
+                        --grow option, this may not work.""")
+        op.add_argument("--recommended", action="store_true", default=False,
+                        version=FC3, help="""
+                        Determine the size of the logical volume automatically.
+                        """)
+        op.add_argument("--size", type=int, version=FC3, help="""
+                        Size of this logical volume.""")
+        op.add_argument("--useexisting", dest="preexist", version=FC3,
+                        action="store_true", default=False,
+                        help="Use an existing logical volume and reformat it.")
+        op.add_argument("--vgname", required=True, version=FC3, help="""
+                        Name of the Volume Group this logical volume belongs to.
+                        """)
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) == 0:
+        if len(ns.mntpoint) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "logvol", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         lvd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, lvd)
         lvd.lineno = self.lineno
-        lvd.mountpoint = extra[0]
+        lvd.mountpoint = ns.mntpoint[0]
 
         if not lvd.format:
             lvd.preexist = True
@@ -414,8 +458,13 @@ class FC4_LogVol(FC3_LogVol):
 
     def _getParser(self):
         op = FC3_LogVol._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
-        op.add_argument("--fsoptions", dest="fsopts")
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int,
+                        version=FC4, help="Specify the bytes/inode ratio.")
+        op.add_argument("--fsoptions", dest="fsopts", version=FC4, help="""
+                        Specifies a free form string of options to be used when
+                        mounting the filesystem. This string will be copied into
+                        the /etc/fstab file of the installed system and should
+                        be enclosed in quotes.""")
         return op
 
 class RHEL5_LogVol(FC4_LogVol):
@@ -424,8 +473,17 @@ class RHEL5_LogVol(FC4_LogVol):
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op.add_argument("--encrypted", action="store_true", version=RHEL5,
+                        default=False, help="""
+                        Specify that this logical volume should be encrypted.
+                        """)
+        op.add_argument("--passphrase", version=RHEL5, help="""
+                        Specify the passphrase to use when encrypting this
+                        logical volume. Without the above ``--encrypted``
+                        option, this option does nothing. If no passphrase is
+                        specified, the default system-wide one is used, or the
+                        installer will stop and prompt if there is no default.
+                        """)
         return op
 
 class F9_LogVol(FC4_LogVol):
@@ -434,10 +492,27 @@ class F9_LogVol(FC4_LogVol):
 
     def _getParser(self):
         op = FC4_LogVol._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=True)
-        op.add_argument("--fsprofile")
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op.add_argument("--bytes-per-inode", deprecated=F9)
+        op.add_argument("--fsprofile", version=F9, help="""
+                        Specifies a usage type to be passed to the program that
+                        makes a filesystem on this partition. A usage type
+                        defines a variety of tuning parameters to be used when
+                        making a filesystem. For this option to work, the
+                        filesystem must support the concept of usage types and
+                        there must be a configuration file that lists valid
+                        types. For ext2/3/4, this configuration file is
+                        ``/etc/mke2fs.conf``.""")
+        op.add_argument("--encrypted", action="store_true", default=False,
+                        version=F9, help="""
+                        Specify that this logical volume should be encrypted.
+                        """)
+        op.add_argument("--passphrase", version=F9, help="""
+                        Specify the passphrase to use when encrypting this
+                        logical volume. Without the above ``--encrypted``
+                        option, this option does nothing. If no passphrase is
+                        specified, the default system-wide one is used, or the
+                        installer will stop and prompt if there is no default.
+                        """)
         return op
 
 class F12_LogVol(F9_LogVol):
@@ -446,8 +521,21 @@ class F12_LogVol(F9_LogVol):
 
     def _getParser(self):
         op = F9_LogVol._getParser(self)
-        op.add_argument("--escrowcert")
-        op.add_argument("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert", metavar="<url>", version=F12, help="""
+                        Load an X.509 certificate from ``<url>``. Store the data
+                        encryption key of this logical volume, encrypted using
+                        the certificate, as a file in ``/root``. Only relevant
+                        if ``--encrypted`` is specified as well.""")
+        op.add_argument("--backuppassphrase", action="store_true", version=F12,
+                        default=False, help="""
+                        Only relevant if ``--escrowcert`` is specified as well.
+                        In addition to storing the data encryption key, generate
+                        a random passphrase and add it to this logical volume.
+                        Then store the passphrase, encrypted using the certificate
+                        specified by ``--escrowcert``, as a file in ``/root``. If
+                        more than one LUKS volume uses ``--backuppassphrase``,
+                        the same passphrase will be used for all such volumes.
+                        """)
         return op
 
 class RHEL6_LogVol(F12_LogVol):
@@ -456,15 +544,38 @@ class RHEL6_LogVol(F12_LogVol):
 
     def _getParser(self):
         op = F12_LogVol._getParser(self)
-        op.add_argument("--cipher")
-        op.add_argument("--hibernation", action="store_true", default=False)
-
-        op.add_argument("--thinpool", action="store_true", dest="thin_pool", default=False)
-        op.add_argument("--thin", action="store_true", dest="thin_volume", default=False)
-        op.add_argument("--poolname", dest="pool_name")
-        op.add_argument("--chunksize", type=int, dest="chunk_size")
-        op.add_argument("--metadatasize", type=int, dest="metadata_size")
-        op.add_argument("--profile")
+        op.add_argument("--cipher", version=RHEL6, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
+        op.add_argument("--hibernation", action="store_true", default=False,
+                        version=RHEL6, help="""
+                        This option can be used to automatically determine the
+                        size of the swap partition big enough for hibernation.
+                        """)
+        op.add_argument("--thinpool", action="store_true", version=RHEL6,
+                        dest="thin_pool", default=False, help="""
+                        Create a thin pool logical volume. Use a mountpoint of
+                        'none'""")
+        op.add_argument("--thin", action="store_true", version=RHEL6,
+                        dest="thin_volume", default=False, help="""
+                        Create a thin logical volume. Requires ``--poolname``.
+                        """)
+        op.add_argument("--poolname", dest="pool_name", version=RHEL6, help="""
+                        Specify the name of the thin pool in which to create a
+                        thin logical volume. Requires ``--thin``.""")
+        op.add_argument("--chunksize", type=int, dest="chunk_size",
+                        version=RHEL6, help="""
+                        Specify the chunk size (in KiB) for a new thin pool
+                        device.""")
+        op.add_argument("--metadatasize", type=int, dest="metadata_size",
+                        version=RHEL6, help="""
+                        Specify the metadata area size (in MiB) for a new thin
+                        pool device.""")
+        op.add_argument("--profile", version=RHEL6, help="""
+                        Specify an LVM profile for the thin pool (see lvm(8),
+                        standard profiles are 'default' and 'thin-performance'
+                        defined in the /etc/lvm/profile/ directory).""")
         return op
 
     def parse(self, args):
@@ -492,13 +603,14 @@ class RHEL6_LogVol(F12_LogVol):
 
         return retval
 
+#todo: this also breaks inheritance
 class F14_LogVol(F12_LogVol):
     removedKeywords = F12_LogVol.removedKeywords
     removedAttrs = F12_LogVol.removedAttrs
 
     def _getParser(self):
         op = F12_LogVol._getParser(self)
-        op.remove_argument("--bytes-per-inode")
+        op.remove_argument("--bytes-per-inode", version=F14)
         return op
 
 class F15_LogVol(F14_LogVol):
@@ -507,7 +619,10 @@ class F15_LogVol(F14_LogVol):
 
     def _getParser(self):
         op = F14_LogVol._getParser(self)
-        op.add_argument("--label")
+        op.add_argument("--label", version=F15, help="""
+                        Specify the label to give to the filesystem to be made.
+                        If the given label is already in use by another
+                        filesystem, a new label will be created.""")
         return op
 
 class F17_LogVol(F15_LogVol):
@@ -516,7 +631,12 @@ class F17_LogVol(F15_LogVol):
 
     def _getParser(self):
         op = F15_LogVol._getParser(self)
-        op.add_argument("--resize", action="store_true", default=False)
+        op.add_argument("--resize", action="store_true", default=False,
+                        version=F17, help="""
+                        Attempt to resize this logical volume to the size given
+                        by ``--size=``. This option must be used with
+                        ``--useexisting --size=``, or an error will be raised.
+                        """)
         return op
 
     def parse(self, args):
@@ -536,8 +656,16 @@ class F18_LogVol(F17_LogVol):
 
     def _getParser(self):
         op = F17_LogVol._getParser(self)
-        op.add_argument("--hibernation", action="store_true", default=False)
-        op.add_argument("--cipher")
+        op.add_argument("--hibernation", action="store_true", default=False,
+                        version=F18, help="""
+                        This option can be used to automatically determine the
+                        size of the swap partition big enough for hibernation.
+                        """)
+
+        op.add_argument("--cipher", version=F18, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
 class F20_LogVol(F18_LogVol):
@@ -546,11 +674,25 @@ class F20_LogVol(F18_LogVol):
 
     def _getParser(self):
         op = F18_LogVol._getParser(self)
-        op.add_argument("--thinpool", action="store_true", dest="thin_pool", default=False)
-        op.add_argument("--thin", action="store_true", dest="thin_volume", default=False)
-        op.add_argument("--poolname", dest="pool_name")
-        op.add_argument("--chunksize", type=int, dest="chunk_size")
-        op.add_argument("--metadatasize", type=int, dest="metadata_size")
+        op.add_argument("--thinpool", action="store_true", version=F20,
+                        dest="thin_pool", default=False, help="""
+                        Create a thin pool logical volume. Use a mountpoint
+                        of 'none'.""")
+        op.add_argument("--thin", action="store_true", version=F20,
+                        dest="thin_volume", default=False, help="""
+                        Create a thin logical volume. Requires ``--poolname``.
+                        """)
+        op.add_argument("--poolname", dest="pool_name", version=F20, help="""
+                        Specify the name of the thin pool in which to create a
+                        thin logical volume. Requires ``--thin``.""")
+        op.add_argument("--chunksize", type=int, dest="chunk_size",
+                        version=F20, help="""
+                        Specify the chunk size (in KiB) for a new thin pool
+                        device.""")
+        op.add_argument("--metadatasize", type=int, dest="metadata_size",
+                        version=F20, help="""
+                        Specify the metadata area size (in MiB) for a new thin
+                        pool device.""")
         return op
 
     def parse(self, args):
@@ -597,7 +739,10 @@ class F21_LogVol(F20_LogVol):
 
     def _getParser(self):
         op = F20_LogVol._getParser(self)
-        op.add_argument("--profile")
+        op.add_argument("--profile", version=F21, help="""
+                        Specify an LVM profile for the thin pool (see lvm(8),
+                        standard profiles are 'default' and 'thin-performance'
+                        defined in the /etc/lvm/profile/ directory).""")
         return op
 
     def parse(self, args):
@@ -617,7 +762,14 @@ class RHEL7_LogVol(F21_LogVol):
 
     def _getParser(self):
         op = F21_LogVol._getParser(self)
-        op.add_argument("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--mkfsoptions", dest="mkfsopts", version=RHEL7, help="""
+                        Specifies additional parameters to be passed to the
+                        program that makes a filesystem on this partition. No
+                        processing is done on the list of arguments, so they
+                        must be supplied in a format that can be passed directly
+                        to the mkfs program.  This means multiple options should
+                        be comma-separated or surrounded by double quotes,
+                        depending on the filesystem.""")
         return op
 
     def parse(self, args):
@@ -631,13 +783,29 @@ class RHEL7_LogVol(F21_LogVol):
 
         return retval
 
+# todo: another inheritance problem here
 class F23_LogVol(F21_LogVol):
     def _getParser(self):
         op = F21_LogVol._getParser(self)
-        op.add_argument("--cachesize", type=int, dest="cache_size")
-        op.add_argument("--cachemode", dest="cache_mode")
-        op.add_argument("--cachepvs", dest="cache_pvs", type=commaSplit)
-        op.add_argument("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--cachesize", type=int, dest="cache_size",
+                        version=F23, help="""
+                        Requested size (in MiB) of cache attached to the logical
+                        volume. Requires ``--cachepvs``.""")
+        op.add_argument("--cachemode", dest="cache_mode", version=F23, help="""
+                        Mode that should be used for the cache. Either
+                        ``writeback`` or ``writethrough``.""")
+        op.add_argument("--cachepvs", dest="cache_pvs", type=commaSplit,
+                        version=F23, help="""
+                        Comma-separated list of (fast) physical volumes that
+                        should be used for the cache.""")
+        op.add_argument("--mkfsoptions", dest="mkfsopts", version=F23, help="""
+                        Specifies additional parameters to be passed to the
+                        program that makes a filesystem on this partition. No
+                        processing is done on the list of arguments, so they
+                        must be supplied in a format that can be passed directly
+                        to the mkfs program.  This means multiple options should
+                        be comma-separated or surrounded by double quotes,
+                        depending on the filesystem.""")
         return op
 
     def parse(self, args):
