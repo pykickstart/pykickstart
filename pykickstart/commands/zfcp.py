@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F12, F14
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -98,12 +99,12 @@ class FC3_ZFCP(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--devnum", required=True)
-        op.add_argument("--fcplun", required=True)
-        op.add_argument("--scsiid", required=True)
-        op.add_argument("--scsilun", required=True)
-        op.add_argument("--wwpn", required=True)
+        op = KSOptionParser(prog="zfcp", description="", version=FC3)
+        op.add_argument("--devnum", required=True, version=FC3, help="")
+        op.add_argument("--fcplun", required=True, version=FC3, help="")
+        op.add_argument("--scsiid", required=True, version=FC3, help="")
+        op.add_argument("--scsilun", required=True, version=FC3, help="")
+        op.add_argument("--wwpn", required=True, version=FC3, help="")
         return op
 
     def parse(self, args):
@@ -135,8 +136,8 @@ class F12_ZFCP(FC3_ZFCP):
 
     def _getParser(self):
         op = FC3_ZFCP._getParser(self)
-        op.add_argument("--scsiid", deprecated=True)
-        op.add_argument("--scsilun", deprecated=True)
+        op.add_argument("--scsiid", deprecated=F12)
+        op.add_argument("--scsilun", deprecated=F12)
         return op
 
 class F14_ZFCP(F12_ZFCP):
@@ -145,6 +146,6 @@ class F14_ZFCP(F12_ZFCP):
 
     def _getParser(self):
         op = F12_ZFCP._getParser(self)
-        op.remove_argument("--scsiid")
-        op.remove_argument("--scsilun")
+        op.remove_argument("--scsiid", version=F14)
+        op.remove_argument("--scsilun", version=F14)
         return op
