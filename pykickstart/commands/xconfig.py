@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC6, F9, F10, F14
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -72,18 +73,29 @@ class FC3_XConfig(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--card")
-        op.add_argument("--defaultdesktop")
-        op.add_argument("--depth", type=int)
-        op.add_argument("--hsync")
-        op.add_argument("--monitor")
-        op.add_argument("--noprobe", dest="noProbe", action="store_true", default=False)
-        op.add_argument("--resolution")
-        op.add_argument("--server")
-        op.add_argument("--startxonboot", dest="startX", action="store_true", default=False)
-        op.add_argument("--videoram", dest="videoRam")
-        op.add_argument("--vsync")
+        op = KSOptionParser(prog="xconfig", description="""
+                            Configures the X Window System. If this option is
+                            not given, Anaconda will use X and attempt to
+                            automatically configure. Please try this before
+                            manually configuring your system.""", version=FC3)
+        op.add_argument("--card", version=FC3, help="")
+        op.add_argument("--defaultdesktop", metavar="GNOME|KDE", help="""
+                        Specify either GNOME or KDE to set the default desktop
+                        (assumes that GNOME Desktop Environment and/or KDE
+                        Desktop Environment has been installed through
+                        %%packages).""", version=FC3)
+        op.add_argument("--depth", type=int, version=FC3, help="")
+        op.add_argument("--hsync", version=FC3, help="")
+        op.add_argument("--monitor", version=FC3, help="")
+        op.add_argument("--noprobe", dest="noProbe", action="store_true",
+                        default=False, version=FC3, help="")
+        op.add_argument("--resolution", version=FC3, help="")
+        op.add_argument("--server", version=FC3, help="")
+        op.add_argument("--startxonboot", dest="startX", action="store_true",
+                        default=False, version=FC3, help="""
+                        Use a graphical login on the installed system.""")
+        op.add_argument("--videoram", dest="videoRam", version=FC3, help="")
+        op.add_argument("--vsync", version=FC3, help="")
         return op
 
     def parse(self, args):
@@ -124,13 +136,13 @@ class FC6_XConfig(FC3_XConfig):
 
     def _getParser(self):
         op = FC3_XConfig._getParser(self)
-        op.add_argument("--card", deprecated=True)
-        op.add_argument("--driver")
-        op.add_argument("--hsync", deprecated=True)
-        op.add_argument("--monitor", deprecated=True)
-        op.add_argument("--noprobe", deprecated=True)
-        op.add_argument("--vsync", deprecated=True)
-        op.remove_argument("--server")
+        op.add_argument("--card", deprecated=FC6)
+        op.add_argument("--driver", version=FC6, help="")
+        op.add_argument("--hsync", deprecated=FC6)
+        op.add_argument("--monitor", deprecated=FC6)
+        op.add_argument("--noprobe", deprecated=FC6)
+        op.add_argument("--vsync", deprecated=FC6)
+        op.remove_argument("--server", version=FC6, help="")
         return op
 
 class F9_XConfig(FC6_XConfig):
@@ -139,11 +151,11 @@ class F9_XConfig(FC6_XConfig):
 
     def _getParser(self):
         op = FC6_XConfig._getParser(self)
-        op.remove_argument("--card")
-        op.remove_argument("--hsync")
-        op.remove_argument("--monitor")
-        op.remove_argument("--noprobe")
-        op.remove_argument("--vsync")
+        op.remove_argument("--card", version=F9)
+        op.remove_argument("--hsync", version=F9)
+        op.remove_argument("--monitor", version=F9)
+        op.remove_argument("--noprobe", version=F9)
+        op.remove_argument("--vsync", version=F9)
         return op
 
 class F10_XConfig(F9_XConfig):
@@ -156,10 +168,10 @@ class F10_XConfig(F9_XConfig):
 
     def _getParser(self):
         op = F9_XConfig._getParser(self)
-        op.add_argument("--driver", deprecated=True)
-        op.add_argument("--depth", deprecated=True)
-        op.add_argument("--resolution", deprecated=True)
-        op.add_argument("--videoram", deprecated=True)
+        op.add_argument("--driver", deprecated=F10)
+        op.add_argument("--depth", deprecated=F10)
+        op.add_argument("--resolution", deprecated=F10)
+        op.add_argument("--videoram", deprecated=F10)
         return op
 
 class F14_XConfig(F10_XConfig):
@@ -168,8 +180,8 @@ class F14_XConfig(F10_XConfig):
 
     def _getParser(self):
         op = F10_XConfig._getParser(self)
-        op.remove_argument("--driver")
-        op.remove_argument("--depth")
-        op.remove_argument("--resolution")
-        op.remove_argument("--videoram")
+        op.remove_argument("--driver", version=F14)
+        op.remove_argument("--depth", version=F14)
+        op.remove_argument("--resolution", version=F14)
+        op.remove_argument("--videoram", version=F14)
         return op
