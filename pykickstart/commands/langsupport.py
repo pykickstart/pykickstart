@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC5, versionToLongString
 from pykickstart.base import DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.i18n import _
@@ -45,8 +46,9 @@ class FC3_LangSupport(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--default", dest="deflang", default="en_US.UTF-8")
+        op = KSOptionParser(prog="langsupport", description="", version=FC3)
+        op.add_argument("--default", dest="deflang", default="en_US.UTF-8",
+                        version=FC3, help="")
         return op
 
     def parse(self, args):
@@ -59,6 +61,11 @@ class FC3_LangSupport(KickstartCommand):
         self.supported = extra
         return self
 
-class FC5_LangSupport(DeprecatedCommand):
-    def __init__(self):
+class FC5_LangSupport(DeprecatedCommand, FC3_LangSupport):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC3_LangSupport._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(FC5)
+        return op
