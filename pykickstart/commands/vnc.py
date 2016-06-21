@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC6, F9
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -48,9 +49,21 @@ class FC3_Vnc(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--connect")
-        op.add_argument("--password")
+        op = KSOptionParser(prog="vnc", description="""
+                            Allows the graphical installation to be viewed
+                            remotely via VNC. This method is usually preferred
+                            over text mode, as there are some size and language
+                            limitations in text installs. With no options, this
+                            command will start a VNC server on the machine with
+                            no password and will print out the command that
+                            needs to be run to connect a remote machine.""",
+                            version=FC3)
+        op.add_argument("--connect", version=FC3, help="""
+                        Connect to a remote host instead of starting VNC server
+                        locally.""")
+        op.add_argument("--password", version=FC3, help="""
+                        Set a password which must be provided to connect to the
+                        VNC session. This is optional, but recommended.""")
         return op
 
     def parse(self, args):
@@ -90,9 +103,17 @@ class FC6_Vnc(FC3_Vnc):
 
     def _getParser(self):
         op = FC3_Vnc._getParser(self)
-        op.add_argument("--connect", dest="_connect")
-        op.add_argument("--host")
-        op.add_argument("--port")
+        op.add_argument("--connect", dest="_connect", version=FC6,
+                        metavar="host[:port]", help="""
+                        Added support for host[:port] syntax.""")
+        op.add_argument("--host", version=FC6, help="""
+                        Instead of starting a VNC server on the install machine,
+                        connect to the VNC viewer process listening on the given
+                        hostname.""")
+        op.add_argument("--port", version=FC6, help="""
+                        Provide a port that the remote VNC viewer process is
+                        listening on. If not provided, anaconda will use the
+                        VNC default.""")
         return op
 
     def parse(self, args):
@@ -117,5 +138,5 @@ class F9_Vnc(FC6_Vnc):
 
     def _getParser(self):
         op = FC6_Vnc._getParser(self)
-        op.remove_argument("--connect")
+        op.remove_argument("--connect", version=F9)
         return op
