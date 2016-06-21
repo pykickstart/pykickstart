@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC4, F12, F14
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -104,31 +105,42 @@ class FC3_DriverDisk(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--source")
-        op.add_argument("--type")
+        op = KSOptionParser(prog="driverdisk", description="""
+                            Driver diskettes can be used during kickstart
+                            installations. You need to copy the driver disk's
+                            contents to the root directory of a partition on
+                            the system's hard drive. Then you need to use the
+                            driverdisk command to tell the installation program
+                            where to look for the driver disk.""",
+                            version=FC3)
+        op.add_argument("partition", nargs="*", version=FC3,
+                        help="Partition containing the driver disk.")
+        op.add_argument("--source", version=FC3, help="""
+                        Specify a URL for the driver disk. NFS locations can be
+                        given with ``nfs:host:/path/to/img``.""")
+        op.add_argument("--type", version=FC3, help="")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) > 1:
+        if len(ns.partition) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and ns.source:
+        if len(ns.partition) == 1 and ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")))
 
-        if not extra and not ns.source:
+        if not ns.partition and not ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source or partition must be specified for driverdisk command.")))
 
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
-        if len(extra) == 1:
-            ddd.partition = extra[0]
+        if len(ns.partition) == 1:
+            ddd.partition = ns.partition[0]
 
         return ddd
 
@@ -145,33 +157,35 @@ class FC4_DriverDisk(FC3_DriverDisk):
 
     def _getParser(self):
         op = FC3_DriverDisk._getParser(self)
-        op.add_argument("--biospart")
+        op.add_argument("--biospart", version=FC4, help="""
+                        BIOS partition containing the driver disk (such as 82p2).
+                        """)
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) > 1:
+        if len(ns.partition) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and ns.source:
+        if len(ns.partition) == 1 and ns.source:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")))
-        elif len(extra) == 1 and ns.biospart:
+        elif len(ns.partition) == 1 and ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and partition may be specified for driverdisk command.")))
         elif ns.source and ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and --source may be specified for driverdisk command.")))
 
-        if not extra and not ns.source and not ns.biospart:
+        if not ns.partition and not ns.source and not ns.biospart:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command.")))
 
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
-        if len(extra) == 1:
-            ddd.partition = extra[0]
+        if len(ns.partition) == 1:
+            ddd.partition = ns.partition[0]
 
         return ddd
 
@@ -181,7 +195,7 @@ class F12_DriverDisk(FC4_DriverDisk):
 
     def _getParser(self):
         op = FC4_DriverDisk._getParser(self)
-        op.add_argument("--type", deprecated=True)
+        op.add_argument("--type", deprecated=F12)
         return op
 
 class F14_DriverDisk(F12_DriverDisk):
@@ -190,5 +204,5 @@ class F14_DriverDisk(F12_DriverDisk):
 
     def _getParser(self):
         op = F12_DriverDisk._getParser(self)
-        op.remove_argument("--type")
+        op.remove_argument("--type", version=F14)
         return op
