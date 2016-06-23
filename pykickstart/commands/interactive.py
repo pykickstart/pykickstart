@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import versionToLongString, FC3, F14
 from pykickstart.base import DeprecatedCommand, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -38,7 +39,7 @@ class FC3_Interactive(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="interactive", description="", version=FC3)
         return op
 
     def parse(self, args):
@@ -46,6 +47,12 @@ class FC3_Interactive(KickstartCommand):
         self.interactive = True
         return self
 
-class F14_Interactive(DeprecatedCommand):
-    def __init__(self):
+class F14_Interactive(DeprecatedCommand, FC3_Interactive):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC3_Interactive._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % \
+                        versionToLongString(F14)
+        return op
