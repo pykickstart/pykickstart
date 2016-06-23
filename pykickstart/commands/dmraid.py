@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import versionToLongString, FC6, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -71,9 +72,10 @@ class FC6_DmRaid(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--name", required=True)
-        op.add_argument("--dev", dest="devices", action="append", required=True)
+        op = KSOptionParser(prog="dmraid", description="", version=FC6)
+        op.add_argument("--name", required=True, version=FC6, help="")
+        op.add_argument("--dev", dest="devices", action="append",
+                        required=True, version=FC6, help="")
         return op
 
     def parse(self, args):
@@ -96,6 +98,12 @@ class FC6_DmRaid(KickstartCommand):
     def dataClass(self):
         return self.handler.DmRaidData
 
-class F24_DmRaid(DeprecatedCommand):
-    def __init__(self):
+class F24_DmRaid(DeprecatedCommand, FC6_DmRaid):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC6_DmRaid._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % \
+                            versionToLongString(F24)
+        return op
