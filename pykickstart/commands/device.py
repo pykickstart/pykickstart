@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import versionToLongString, FC3, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -86,8 +87,9 @@ class FC3_Device(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--opts", dest="moduleOpts", default="")
+        op = KSOptionParser(prog="device", description="", version=FC3)
+        op.add_argument("--opts", dest="moduleOpts", default="", version=FC3,
+                        help="")
         return op
 
     def parse(self, args):
@@ -146,6 +148,12 @@ class F8_Device(FC3_Device):
     def dataClass(self):
         return self.handler.DeviceData
 
-class F24_Device(DeprecatedCommand):
-    def __init__(self):
+class F24_Device(DeprecatedCommand, F8_Device):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F8_Device._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % \
+                        versionToLongString(F24)
+        return op
