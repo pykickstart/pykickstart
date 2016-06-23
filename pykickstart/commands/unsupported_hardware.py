@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import RHEL6
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -38,7 +39,8 @@ class RHEL6_UnsupportedHardware(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="unsupported_hardware", description="",
+                            version=RHEL6)
         return op
 
     def parse(self, args):
