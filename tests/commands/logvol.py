@@ -78,10 +78,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol / --vgname=NAME", regex=requiredError % "--name")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", regex=requiredError % "--name")
-        self.assert_parse_error("logvol --name=NAME", regex=requiredError % "--vgname")
-        self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "--name")
-        self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex="Mount point required for logvol")
+        self.assert_parse_error("logvol", regex=requiredError % "<mntpoint>, --name, --vgname")
+        self.assert_parse_error("logvol --name=NAME", regex=requiredError % "<mntpoint>, --vgname")
+        self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "<mntpoint>, --name")
+        self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex=requiredError % "<mntpoint>")
 
         # fail - unknown options
         self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bogus-option")

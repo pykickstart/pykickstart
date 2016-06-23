@@ -8,7 +8,9 @@ class Attribute_TestCase(unittest.TestCase):
         # * Start with an underscore - they're probably internal use only things
         # * Are deprecated - we don't set those attributes on the object
         # * Are marked as notest - We are doing something weird with those
-        return not attr.dest.startswith("_") and not attr.deprecated and not attr.notest
+        # * Are positional arguments (e.g. no option_strings present)
+        return not attr.dest.startswith("_") and not attr.deprecated and \
+               not attr.notest and len(attr.option_strings) > 0
 
     def _test_one_command(self, handler, cmdClass):
         # Create an instance of the command class here so we have something
