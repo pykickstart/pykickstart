@@ -17,7 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
+from pykickstart.options import KSOptionParser
 
 class FC3_Authconfig(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -38,3 +40,19 @@ class FC3_Authconfig(KickstartCommand):
     def parse(self, args):
         self.authconfig = self.currentLine[len(self.currentCmd):].strip()
         return self
+
+    def _getParser(self):
+        op = KSOptionParser(prog="authconfig",  description="""
+                            This required command sets up the authentication
+                            options for the system. This is just a wrapper
+                            around the authconfig program, so all options
+                            recognized by that program are valid for this
+                            command. See the manual page for authconfig for a
+                            complete list.
+
+                            By default, passwords are normally encrypted and
+                            are not shadowed.""", version=FC3)
+        op.add_argument("options", metavar="[options]", nargs=1, help="""
+                        See ``man authconfig``.""", version=FC3)
+        return op
+

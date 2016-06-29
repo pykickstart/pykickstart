@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc. 
 #
 from pykickstart.base import KickstartCommand
+from pykickstart.version import versionToLongString, RHEL6
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -46,6 +48,17 @@ class FC3_AutoPart(KickstartCommand):
 
         self.autopart = True
         return self
+
+    def _getParser(self):
+        return KSOptionParser(prog="autopart",  description="""
+                            Automatically create partitions -- a root (/) partition,
+                            a swap partition, and an appropriate boot partition
+                            for the architecture. On large enough drives, this
+                            will also create a /home partition.
+
+                            The ``autopart`` command can't be used with the logvol,
+                            part/partition, raid, reqpart, or volgroup in the same
+                            kickstart file.""", version=FC3)
 
 class F9_AutoPart(FC3_AutoPart):
     removedKeywords = FC3_AutoPart.removedKeywords
@@ -76,9 +89,16 @@ class F9_AutoPart(FC3_AutoPart):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op = FC3_AutoPart._getParser(self)
+        op.add_argument("--encrypted", action="store_true", default=False,
+                        version=F9, help="""
+                        Should all devices with support be encrypted by default?
+                        This is equivalent to checking the "Encrypt" checkbox on
+                        the initial partitioning screen.""")
+        op.add_argument("--passphrase", version=F9, help="""
+                        Only relevant if ``--encrypted`` is specified. Provide
+                        a default system-wide passphrase for all encrypted
+                        devices.""")
         return op
 
     def parse(self, args):
@@ -117,8 +137,21 @@ class F12_AutoPart(F9_AutoPart):
 
     def _getParser(self):
         op = F9_AutoPart._getParser(self)
-        op.add_argument("--escrowcert")
-        op.add_argument("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert", metavar="<url>", version=F12, help="""
+                        Only relevant if ``--encrypted`` is specified. Load an
+                        X.509 certificate from ``<url>``. Store the data
+                        encryption keys of all encrypted volumes created during
+                        installation, encrypted using the certificate, as files
+                        in ``/root``.""")
+        op.add_argument("--backuppassphrase", action="store_true",
+                        default=False, version=F12, help="""
+                        Only relevant if ``--escrowcert`` is specified. In
+                        addition to storing the data encryption keys, generate
+                        a random passphrase and add it to all encrypted volumes
+                        created during installation. Then store the passphrase,
+                        encrypted using the certificate specified by
+                        ``--escrowcert``, as files in ``/root`` (one file for
+                        each encrypted volume).""")
         return op
 
 class RHEL6_AutoPart(F12_AutoPart):
@@ -144,7 +177,10 @@ class RHEL6_AutoPart(F12_AutoPart):
 
     def _getParser(self):
         op = F12_AutoPart._getParser(self)
-        op.add_argument("--cipher")
+        op.add_argument("--cipher", version=RHEL6, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
     def parse(self, args):
@@ -205,17 +241,19 @@ class F16_AutoPart(F12_AutoPart):
 
     def _getParser(self):
         op = F12_AutoPart._getParser(self)
-        op.add_argument("--nolvm", action="store_false", dest="lvm", default=True)
+        op.add_argument("--nolvm", action="store_false", dest="lvm",
+                        default=True, version=F16,
+                        help="Don't use LVM when partitioning.")
         return op
 
 class F17_AutoPart(F16_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
-        F16_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
-        self.type = kwargs.get("type", None)
         self.typeMap = { "lvm": AUTOPART_TYPE_LVM,
                          "btrfs": AUTOPART_TYPE_BTRFS,
                          "plain": AUTOPART_TYPE_PLAIN,
                          "partition": AUTOPART_TYPE_PLAIN }
+        F16_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.type = kwargs.get("type", None)
 
     def _typeAsStr(self):
         retval = None
@@ -243,16 +281,22 @@ class F17_AutoPart(F16_AutoPart):
 
         return retval
 
-    def _getParser(self):
-        def type_cb(value):
-            if value.lower() in self.typeMap:
-                return self.typeMap[value.lower()]
-            else:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid autopart type: %s") % value))
+    def _type_cb(self, value):
+        if value.lower() in self.typeMap:
+            return self.typeMap[value.lower()]
+        else:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid autopart type: %s") % value))
 
+    def _getParser(self):
         op = F16_AutoPart._getParser(self)
-        op.add_argument("--nolvm", action="store_const", const=AUTOPART_TYPE_PLAIN, dest="type")
-        op.add_argument("--type", type=type_cb)
+        op.add_argument("--nolvm", action="store_const", version=F17,
+                        const=AUTOPART_TYPE_PLAIN, dest="type",
+                        help="The same as ``--type=plain``")
+        op.add_argument("--type", type=self._type_cb, version=F17, help="""
+                        Select automatic partitioning scheme. Must be one of the
+                        following: %s. Plain means regular
+                        partitions with no btrfs or lvm.""" % \
+                        list(self.typeMap.keys()))
         return op
 
     def parse(self, args):
@@ -286,7 +330,10 @@ class F18_AutoPart(F17_AutoPart):
 
     def _getParser(self):
         op = F17_AutoPart._getParser(self)
-        op.add_argument("--cipher")
+        op.add_argument("--cipher", version=F18, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
 class F20_AutoPart(F18_AutoPart):
@@ -327,6 +374,18 @@ class F20_AutoPart(F18_AutoPart):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F18_AutoPart._getParser(self)
+        for action in op._actions:
+            if "--type" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Partitioning scheme 'thinp' was added.""" % versionToLongString(F20)
+        return op
+
 class F21_AutoPart(F20_AutoPart):
     removedKeywords = F20_AutoPart.removedKeywords
     removedAttrs = F20_AutoPart.removedAttrs
@@ -350,7 +409,11 @@ class F21_AutoPart(F20_AutoPart):
 
     def _getParser(self):
         op = F20_AutoPart._getParser(self)
-        op.add_argument("--fstype")
+        op.add_argument("--fstype", version=F21, help="""
+                        Use the specified filesystem type on the partitions.
+                        Note that it cannot be used with --type=btrfs since
+                        btrfs is both a partition scheme and a filesystem. eg.
+                        --fstype=ext4.""")
         return op
 
     def parse(self, args):

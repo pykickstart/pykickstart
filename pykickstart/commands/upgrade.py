@@ -17,6 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from textwrap import dedent
+from pykickstart.version import versionToLongString, FC3, F11, F20
 from pykickstart.base import DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -46,7 +48,9 @@ class FC3_Upgrade(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="upgrade", description="""
+                            Upgrade the system instead of install.""",
+                            version=FC3)
         return op
 
     def parse(self, args):
@@ -79,8 +83,9 @@ class F11_Upgrade(FC3_Upgrade):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--root-device", dest="root_device")
+        op = FC3_Upgrade._getParser(self)
+        op.add_argument("--root-device", dest="root_device", version=F11,
+                        help="")
         return op
 
     def parse(self, args):
@@ -98,6 +103,19 @@ class F11_Upgrade(FC3_Upgrade):
 
         return self
 
-class F20_Upgrade(DeprecatedCommand):
-    def __init__(self):
+class F20_Upgrade(DeprecatedCommand, F11_Upgrade):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F11_Upgrade._getParser(self)
+        op.description += dedent("""
+
+                        .. versiondeprecated:: %s
+
+                        Starting with F18, upgrades are no longer supported in
+                        anaconda and should be done with FedUp, the Fedora update
+                        tool. Starting with F21, the DNF system-upgrade plugin is
+                        recommended instead.  Therefore, the upgrade command
+                        essentially does nothing.""" % versionToLongString(F20))
+        return op

@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -43,8 +44,19 @@ class FC3_AutoStep(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--autoscreenshot", action="store_true", default=False)
+        op = KSOptionParser(prog="autostep", description="""
+                            Kickstart installs normally skip unnecessary screens.
+                            This makes the installer step through every screen,
+                            displaying each briefly.
+
+                            This is mostly used for debugging.""",
+                            version=FC3)
+        op.add_argument("--autoscreenshot", action="store_true", default=False,
+                        version=FC3, help="""
+                        Take a screenshot at every step during installation and
+                        copy the images over to /root/anaconda-screenshots after
+                        installation is complete. This is most useful for
+                        documentation.""")
         return op
 
     def parse(self, args):

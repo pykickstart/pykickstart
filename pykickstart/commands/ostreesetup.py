@@ -15,7 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-
+from pykickstart.version import F21
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -57,12 +57,21 @@ class F21_OSTreeSetup(KickstartCommand):
         return ' '.join(retcmd)
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--osname", required=True)
-        op.add_argument("--remote")
-        op.add_argument("--url", required=True)
-        op.add_argument("--ref", required=True)
-        op.add_argument("--nogpg", action="store_true")
+        op = KSOptionParser(prog="ostreesetup", description="""
+                            Used for OSTree installations. See
+                            https://wiki.gnome.org/action/show/Projects/OSTree
+                            for more information about OSTree.
+                            """, version=F21)
+        op.add_argument("--osname", required=True, version=F21, help="""
+                        Management root for OS installation.""")
+        op.add_argument("--remote", version=F21, help="""
+                        Management root for OS installation.""")
+        op.add_argument("--url", required=True, version=F21, help="""
+                        Repository URL.""")
+        op.add_argument("--ref", required=True, version=F21, help="""
+                        Name of branch inside the repository.""")
+        op.add_argument("--nogpg", action="store_true", version=F21, help="""
+                        Disable GPG key verification.""")
         return op
 
     def parse(self, args):

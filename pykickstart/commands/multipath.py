@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import versionToLongString, FC6, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -73,10 +74,12 @@ class FC6_MultiPath(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--name", required=True)
-        op.add_argument("--device", required=True, notest=True)
-        op.add_argument("--rule", required=True, notest=True)
+        op = KSOptionParser(prog="multipath", description="", version=FC6)
+        op.add_argument("--name", required=True, version=FC6, help="")
+        op.add_argument("--device", required=True, notest=True,
+                        version=FC6, help="")
+        op.add_argument("--rule", required=True, notest=True,
+                        version=FC6, help="")
         return op
 
     def parse(self, args):
@@ -112,6 +115,12 @@ class FC6_MultiPath(KickstartCommand):
     def dataClass(self):
         return self.handler.MultiPathData
 
-class F24_MultiPath(DeprecatedCommand):
-    def __init__(self):
+class F24_MultiPath(DeprecatedCommand, FC6_MultiPath):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC6_MultiPath._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % \
+                        versionToLongString(F24)
+        return op

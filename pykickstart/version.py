@@ -39,6 +39,8 @@ This module also exports several functions:
 
     versionToString - Perform the reverse mapping.
 
+    versionToLongString - Perform the reverse mapping but use long names.
+
     versionFromFile - Read a kickstart file and determine the version of
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
@@ -153,6 +155,15 @@ def versionToString(version, skipDevel=False):
             return key
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
+
+def versionToLongString(version, skipDevel=False):
+    """
+        Convert version into a long string representation.
+    """
+    result = versionToString(version, skipDevel)
+    result = result.replace('FC', 'F').replace('F', 'Fedora')
+    result = result.replace('RHEL', 'RedHatEnterpriseLinux')
+    return result
 
 def versionFromFile(f):
     """Given a file or URL, look for a line starting with #version= and

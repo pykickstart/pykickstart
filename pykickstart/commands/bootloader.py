@@ -17,6 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import RHEL5, RHEL6
+from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -77,18 +79,56 @@ class FC3_Bootloader(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--append", dest="appendLine")
-        op.add_argument("--linear", action="store_true", default=True)
-        op.add_argument("--nolinear", dest="linear", action="store_false")
-        op.add_argument("--location", default="mbr",
-                        choices=["mbr", "partition", "none", "boot"])
-        op.add_argument("--lba32", dest="forceLBA", action="store_true", default=False)
-        op.add_argument("--password", default="")
-        op.add_argument("--md5pass", default="")
-        op.add_argument("--upgrade", action="store_true", default=False)
-        op.add_argument("--useLilo", action="store_true", default=False)
-        op.add_argument("--driveorder", type=commaSplit)
+        op = KSOptionParser(prog="bootloader", description="""
+                            This required command specifies how the boot loader
+                            should be installed.
+
+                            There must be a biosboot partition for the bootloader
+                            to be installed successfully onto a disk that contains
+                            a GPT/GUID partition table, which includes disks
+                            initialized by anaconda. This partition may be created
+                            with the kickstart command
+                            ``part biosboot --fstype=biosboot --size=1``. However,
+                            in the case that a disk has an existing biosboot
+                            partition, adding a ``part biosboot`` option is
+                            unnecessary.""", version=FC3)
+        op.add_argument("--append", dest="appendLine", version=FC3, help="""
+                        Specifies kernel parameters. The default set of bootloader
+                        arguments is "rhgb quiet". You will get this set of
+                        arguments regardless of what parameters you pass to
+                        --append, or if you leave out --append entirely.
+                        For example::
+
+                        ``bootloader --location=mbr --append="hdd=ide-scsi ide=nodma"``
+                        """)
+        op.add_argument("--linear", action="store_true", default=True,
+                        version=FC3, help="")
+        op.add_argument("--nolinear", dest="linear", action="store_false",
+                        version=FC3, help="")
+        op.add_argument("--location", default="mbr", version=FC3,
+                        choices=["mbr", "partition", "none", "boot"],
+                        help="""
+                        Specifies where the boot record is written. Valid values
+                        are the following: mbr (the default), partition
+                        (installs the boot loader on the first sector of the
+                        partition containing the kernel), or none
+                        (do not install the boot loader).""")
+#todo: choice boot isn't documented
+# todo: how do we validate the choices are documented ?
+        op.add_argument("--lba32", dest="forceLBA", action="store_true",
+                        default=False, version=FC3, help="")
+        op.add_argument("--password", default="", version=FC3, help="""
+                        If using GRUB, sets the GRUB boot loader password. This
+                        should be used to restrict access to the GRUB shell,
+                        where arbitrary kernel options can be passed.""")
+        op.add_argument("--md5pass", default="", version=FC3, help="""
+                        If using GRUB, similar to ``--password=`` except the
+                        password should already be encrypted.""")
+        op.add_argument("--upgrade", action="store_true", default=False,
+                        version=FC3, help="")
+        op.add_argument("--useLilo", action="store_true", default=False,
+                        version=FC3, help="")
+        op.add_argument("--driveorder", type=commaSplit, version=FC3, help="")
         return op
 
     def parse(self, args):
@@ -127,9 +167,9 @@ class FC4_Bootloader(FC3_Bootloader):
 
     def _getParser(self):
         op = FC3_Bootloader._getParser(self)
-        op.remove_argument("--linear")
-        op.remove_argument("--nolinear")
-        op.remove_argument("--useLilo")
+        op.remove_argument("--linear", version=FC4)
+        op.remove_argument("--nolinear", version=FC4)
+        op.remove_argument("--useLilo", version=FC4)
         return op
 
     def parse(self, args):
@@ -159,8 +199,12 @@ class F8_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_argument("--timeout", type=int)
-        op.add_argument("--default")
+        op.add_argument("--timeout", type=int, version=F8, help="""
+                        Specify the number of seconds before the bootloader
+                        times out and boots the default option.""")
+        op.add_argument("--default", version=F8, help="""
+                        Sets the default boot image in the bootloader
+                        configuration.""")
         return op
 
 class F12_Bootloader(F8_Bootloader):
@@ -169,7 +213,8 @@ class F12_Bootloader(F8_Bootloader):
 
     def _getParser(self):
         op = F8_Bootloader._getParser(self)
-        op.add_argument("--lba32", dest="forceLBA", deprecated=True, action="store_true")
+        op.add_argument("--lba32", dest="forceLBA", action="store_true",
+                        deprecated=F12)
         return op
 
 class F14_Bootloader(F12_Bootloader):
@@ -178,7 +223,7 @@ class F14_Bootloader(F12_Bootloader):
 
     def _getParser(self):
         op = F12_Bootloader._getParser(self)
-        op.remove_argument("--lba32")
+        op.remove_argument("--lba32", version=F14)
         return op
 
 class F15_Bootloader(F14_Bootloader):
@@ -200,8 +245,14 @@ class F15_Bootloader(F14_Bootloader):
 
     def _getParser(self):
         op = F14_Bootloader._getParser(self)
-        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--md5pass", dest="_md5pass")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
+                        default=False, version=F15, help="""
+                        If given, the password specified by ``--password=`` is
+                        already encrypted and should be passed to the bootloader
+                        configuration without additional modification.""")
+        op.add_argument("--md5pass", dest="_md5pass", version=F15, help="""
+                        If using GRUB, similar to ``--password=`` except the password
+                        should already be encrypted.""")
         return op
 
     def parse(self, args):
@@ -236,7 +287,10 @@ class F17_Bootloader(F15_Bootloader):
 
     def _getParser(self):
         op = F15_Bootloader._getParser(self)
-        op.add_argument("--boot-drive", dest="bootDrive", default="")
+        op.add_argument("--boot-drive", dest="bootDrive", default="",
+                        version=F17, help="""
+                        Specifies which drive the bootloader should be written
+                        to and thus, which drive the computer will boot from.""")
         return op
 
     def parse(self, args):
@@ -266,7 +320,11 @@ class F18_Bootloader(F17_Bootloader):
 
     def _getParser(self):
         op = F17_Bootloader._getParser(self)
-        op.add_argument("--leavebootorder", action="store_true", default=False)
+        op.add_argument("--leavebootorder", action="store_true", default=False,
+                        version=F18, help="""
+                        On EFI or ISeries/PSeries machines, this option prevents
+                        the installer from making changes to the existing list
+                        of bootable images.""")
         return op
 
 class RHEL5_Bootloader(FC4_Bootloader):
@@ -288,7 +346,7 @@ class RHEL5_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
-        op.add_argument("--hvargs", dest="hvArgs")
+        op.add_argument("--hvargs", dest="hvArgs", version=RHEL5, help="")
         return op
 
 class RHEL6_Bootloader(F12_Bootloader):
@@ -307,11 +365,19 @@ class RHEL6_Bootloader(F12_Bootloader):
             ret += " --iscrypted"
 
         return ret
-
+#todo: for RHEL5 and RHEL6 we don't have a direct inheritance path
+# between RHEL and Fedora so when using the DEVEL version to generate
+# the docs we'll skip these two classes, possibly losing some information
     def _getParser(self):
         op = F12_Bootloader._getParser(self)
-        op.add_argument("--iscrypted", dest="isCrypted", action="store_true", default=False)
-        op.add_argument("--md5pass", dest="_md5pass")
+        op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
+                        default=False, version=RHEL6, help="""
+                        If given, the password specified by ``--password=`` is
+                        already encrypted and should be passed to the bootloader
+                        configuration without additional modification.""")
+        op.add_argument("--md5pass", dest="_md5pass", version=RHEL6, help="""
+                        If using GRUB, similar to ``--password=`` except the
+                        password should already be encrypted.""")
         return op
 
     def parse(self, args):
@@ -346,7 +412,10 @@ class F19_Bootloader(F18_Bootloader):
 
     def _getParser(self):
         op = F18_Bootloader._getParser(self)
-        op.add_argument("--extlinux", action="store_true", default=False)
+        op.add_argument("--extlinux", action="store_true", default=False,
+                        version=F19, help="""
+                        Use the extlinux bootloader instead of GRUB. This option
+                        only works on machines that are supported by extlinux.""")
         return op
 
 class F21_Bootloader(F19_Bootloader):
@@ -370,8 +439,10 @@ class F21_Bootloader(F19_Bootloader):
 
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
-        op.add_argument("--disabled", action="store_true", default=False)
-        op.add_argument("--nombr", action="store_true", default=False)
+        op.add_argument("--disabled", action="store_true", default=False,
+                        version=F21, help="Do not install the boot loader.")
+        op.add_argument("--nombr", action="store_true", default=False,
+                        version=F21, help="")
         return op
 
 RHEL7_Bootloader = F21_Bootloader

@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc. 
 #
 import warnings
-
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -42,7 +42,15 @@ class FC3_ZeroMbr(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="zerombr", description="""
+                            If zerombr is specified, any disks whose formatting
+                            is unrecognized are initialized. This will destroy
+                            all of the contents of disks with invalid partition
+                            tables or other formatting unrecognizable to the
+                            installer. It is useful so that the installation
+                            program does not ask if it should initialize the
+                            disk label if installing to a brand new hard drive.
+                            """, version=FC3)
         return op
 
     def parse(self, args):

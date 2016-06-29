@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC6, F10, versionToLongString
 from pykickstart.base import DeprecatedCommand, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -49,10 +50,26 @@ class FC3_Monitor(KickstartCommand):
             return ""
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--hsync")
-        op.add_argument("--monitor")
-        op.add_argument("--vsync")
+        op = KSOptionParser(prog="monitor", description="""
+                            If the monitor command is not given, anaconda will
+                            use X to automatically detect your monitor settings.
+                            Please try this before manually configuring your
+                            monitor.""", version=FC3)
+        op.add_argument("--hsync", version=FC3, help="""
+                        Specifies the horizontal sync frequency of the monitor.
+                        """)
+        op.add_argument("--monitor", version=FC3, help="""
+                        Use specified monitor; monitor name should be from the
+                        list of monitors in /usr/share/hwdata/MonitorsDB from
+                        the hwdata package. The list of monitors can also be
+                        found on the X Configuration screen of the
+                        Kickstart Configurator. This is ignored if --hsync or
+                        --vsync is provided. If no monitor information is
+                        provided, the installation program tries to probe for
+                        it automatically.""")
+        op.add_argument("--vsync", version=FC3, help="""
+                        Specifies the vertical sync frequency of the monitor.
+                        """)
         return op
 
     def parse(self, args):
@@ -88,9 +105,17 @@ class FC6_Monitor(FC3_Monitor):
 
     def _getParser(self):
         op = FC3_Monitor._getParser(self)
-        op.add_argument("--noprobe", dest="probe", action="store_false", default=True)
+        op.add_argument("--noprobe", dest="probe", action="store_false",
+                        default=True, version=FC6, help="""
+                        Do not probe the monitor.""")
         return op
 
-class F10_Monitor(DeprecatedCommand):
-    def __init__(self):
+class F10_Monitor(DeprecatedCommand, FC6_Monitor):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC6_Monitor._getParser(self)
+        op.description += "\n\n.. versiondeprecated:: %s" % \
+                            versionToLongString(F10)
+        return op

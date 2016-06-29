@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -59,10 +60,23 @@ class FC3_HardDrive(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--biospart")
-        op.add_argument("--partition")
-        op.add_argument("--dir", required=True)
+        op = KSOptionParser(prog="harddrive", description="""
+            Install from a directory of ISO images on a local drive, which must
+            be either vfat or ext2. In addition to this directory, you must also
+            provide the install.img in some way. You can either do this by
+            booting off the boot.iso or by creating an images/ directory in the
+            same directory as the ISO images and placing install.img in there.
+            """, version=FC3)
+        op.add_argument("--biospart", version=FC3,
+                        help="BIOS partition to install from (such as 82p2).")
+        op.add_argument("--partition", version=FC3,
+                        help="Partition to install from (such as, sdb2).")
+        op.add_argument("--dir", required=True, version=FC3, help="""
+                        Directory containing both the ISO images and the
+                        images/install.img. For example::
+
+                        ``harddrive --partition=hdb2 --dir=/tmp/install-tree``
+                        """)
         return op
 
     def parse(self, args):

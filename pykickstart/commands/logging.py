@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -54,10 +55,22 @@ class FC6_Logging(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--host")
-        op.add_argument("--level", choices=["debug", "info", "warning", "error", "critical"])
-        op.add_argument("--port")
+        op = KSOptionParser(prog="logging", description="""
+            This command controls the error logging of anaconda during
+            installation. It has no effect on the installed system.""",
+            version=FC6)
+        op.add_argument("--host", version=FC6, help="""
+            Send logging information to the given remote host, which must be
+            running a syslogd process configured to accept remote logging.""")
+        op.add_argument("--port", version=FC6, help="""
+            If the remote syslogd process uses a port other than the default, it
+            may be specified with this option.""")
+        op.add_argument("--level", version=FC6,
+                        choices=["debug", "info", "warning", "error", "critical"],
+                        help="""
+                        Specify the minimum level of messages that appear on tty3.
+                        All messages will still be sent to the log file regardless
+                        of this level, however.""")
         return op
 
     def parse(self, args):

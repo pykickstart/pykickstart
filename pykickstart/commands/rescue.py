@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F10
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -51,9 +52,22 @@ class F10_Rescue(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--nomount", action="store_true", default=False)
-        op.add_argument("--romount", action="store_true", default=False)
+        op = KSOptionParser(prog="rescue", description="""
+                            Automatically enter the installer's rescue mode.
+                            This gives you a chance to repair the system should
+                            something catastrophic happen.""", epilog="""
+                            By default, the installer will find your system and
+                            mount it in read-write mode, telling you where it has
+                            performed this mount. You may optionally choose to
+                            not mount anything or mount in read-only mode. Only
+                            one of these two options may be given at any one
+                            time.""", version=F10)
+        op.add_argument("--nomount", action="store_true", version=F10,
+                        default=False, help="""
+                        Don't mount the installed system.""")
+        op.add_argument("--romount", action="store_true", version=F10,
+                        default=False, help="""
+                        Mount the installed system in read-only mode.""")
         return op
 
     def parse(self, args):

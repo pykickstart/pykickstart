@@ -125,6 +125,7 @@ class NullSection(Section):
 
 class ScriptSection(Section):
     allLines = True
+    description = ""
 
     def __init__(self, *args, **kwargs):
         Section.__init__(self, *args, **kwargs)
@@ -132,10 +133,25 @@ class ScriptSection(Section):
         self._resetScript()
 
     def _getParser(self):
-        op = KSOptionParser(self.version)
-        op.add_argument("--erroronfail", dest="errorOnFail", action="store_true", default=False)
-        op.add_argument("--interpreter", dest="interpreter", default="/bin/sh")
-        op.add_argument("--log", "--logfile", dest="log")
+        op = KSOptionParser(prog=self.sectionOpen,
+                            description=self.description,
+                            version=self.version)
+        op.add_argument("--erroronfail", dest="errorOnFail", action="store_true",
+                        default=False, help="""
+                        If the error script fails, this option will cause an
+                        error dialog to be displayed and will halt installation.
+                        The error message will direct you to where the cause of
+                        the failure is logged.""", introduced=FC4)
+        op.add_argument("--interpreter", dest="interpreter", default="/bin/sh",
+                        introduced=FC4, help="""
+                        Allows you to specify a different scripting language,
+                        such as Python. Replace /usr/bin/python with the
+                        scripting language of your choice.
+                        """)
+        op.add_argument("--log", "--logfile", dest="log", introduced=FC4,
+                        help="""
+                        Log all messages from the script to the given log file.
+                        """)
         return op
 
     def _resetScript(self):
@@ -197,7 +213,10 @@ class PostScriptSection(ScriptSection):
 
     def _getParser(self):
         op = ScriptSection._getParser(self)
-        op.add_argument("--nochroot", dest="nochroot", action="store_true", default=False)
+        op.add_argument("--nochroot", dest="nochroot", action="store_true",
+                        default=False, introduced=FC4, help="""
+                        Allows you to specify commands that you would like to
+                        run outside of the chroot environment.""")
         return op
 
     def _resetScript(self):
@@ -233,17 +252,162 @@ class PackageSection(Section):
            overridden in a subclass if necessary.
         """
         Section.handleHeader(self, lineno, args)
-        op = KSOptionParser(version=self.version)
-        op.add_argument("--excludedocs", action="store_true", default=False)
-        op.add_argument("--ignoremissing", action="store_true", default=False)
-        op.add_argument("--nobase", action="store_true", default=False, deprecated=F18, removed=F22)
-        op.add_argument("--nocore", action="store_true", default=False, introduced=F21)
-        op.add_argument("--ignoredeps", dest="resolveDeps", action="store_false", deprecated=FC4, removed=F9)
-        op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true", deprecated=FC4, removed=F9)
-        op.add_argument("--default", dest="defaultPackages", action="store_true", default=False, introduced=F7)
-        op.add_argument("--instLangs", default=None, introduced=F9)
-        op.add_argument("--multilib", dest="multiLib", action="store_true", default=False, introduced=F18)
-        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps", action="store_true", default=False, introduced=F24)
+        op = KSOptionParser(prog=self.sectionOpen, description="""
+                            Use the %packages command to begin a kickstart file
+                            section that lists the packages you would like to
+                            install.
+
+                            Packages can be specified by group or by individual
+                            package name. The installation program defines
+                            several groups that contain related packages. Refer
+                            to the repodata/*comps.xml file on the first CD-ROM
+                            for a list of groups. Each group has an id, user
+                            visibility value, name, description, and package
+                            list. In the package list, the packages marked as
+                            mandatory are always installed if the group is
+                            selected, the packages marked default are selected
+                            by default if the group is selected, and the packages
+                            marked optional must be specifically selected even
+                            if the group is selected to be installed.
+
+                            In most cases, it is only necessary to list the
+                            desired groups and not individual packages. Note
+                            that the Core group is always selected by default,
+                            so it is not necessary to specify it in the
+                            %packages section.
+
+                            The %packages section is required to be closed with
+                            %end. Also, multiple %packages sections may be given.
+                            This may be handy if the kickstart file is used as a
+                            template and pulls in various other files with the
+                            %include mechanism.
+
+                            Here is an example %packages selection::
+
+                                %packages
+                                @X Window System
+                                @GNOME Desktop Environment
+                                @Graphical Internet
+                                @Sound and Video
+                                dhcp
+                                %end
+
+                            As you can see, groups are specified, one to a line,
+                            starting with an ``@`` symbol followed by the full
+                            group name as given in the comps.xml file. Groups
+                            can also be specified using the id for the group,
+                            such as gnome-desktop. Specify individual packages
+                            with no additional characters (the dhcp line in the
+                            example above is an individual package).
+
+                            You can also specify environments using the ``@^``
+                            prefix followed by full environment name as given in
+                            the comps.xml file.  If multiple environments are
+                            specified, only the last one specified will be used.
+                            Environments can be mixed with both group
+                            specifications (even if the given group is not part
+                            of the specified environment) and package
+                            specifications.
+
+                            Here is an example of requesting the GNOME Desktop
+                            environment to be selected for installation::
+
+                                %packages
+                                @^gnome-desktop-environment
+                                %end
+
+                            Additionally, individual packages may be specified
+                            using globs. For instance::
+
+                                %packages
+                                vim*
+                                kde-i18n-*
+                                %end
+
+                            This would install all packages whose names start
+                            with "vim" or "kde-i18n-".
+
+                            You can also specify which packages or groups not to
+                            install from the default package list::
+
+                                %packages
+                                -autofs
+                                -@Sound and Video
+                                %end
+                            """, epilog="""
+                            Group-level options
+                            -------------------
+
+                            In addition, group lines in the %packages section
+                            can take the following options:
+
+                            ``--nodefaults``
+
+                                Only install the group's mandatory packages, not
+                                the default selections.
+
+                            ``--optional``
+
+                                In addition to the mandatory and default packages,
+                                also install the optional packages. This means all
+                                packages in the group will be installed.
+                            """, version=self.version)
+        op.add_argument("--excludedocs", action="store_true", default=False,
+                        help="""
+                        Do not install any of the documentation from any packages.
+                        For the most part, this means files in /usr/share/doc*
+                        will not get installed though it could mean other files
+                        as well, depending on how the package was built.""",
+                        introduced=FC4)
+        op.add_argument("--ignoremissing", action="store_true", default=False,
+                        help="""
+                        Ignore any packages or groups specified in the packages
+                        section that are not found in any configured repository.
+                        The default behavior is to halt the installation and ask
+                        the user if the installation should be aborted or
+                        continued. This option allows fully automated
+                        installation even in the error case.""",
+                        introduced=FC4)
+        op.add_argument("--nobase", action="store_true", default=False,
+                        deprecated=F18, removed=F22, help="""
+                        Do not install the @base group (installed by default,
+                        otherwise).""")
+        op.add_argument("--nocore", action="store_true", default=False,
+                        introduced=F21, help="""
+                        Do not install the @core group (installed by default,
+                        otherwise).
+
+                        **Omitting the core group can produce a system that is
+                        not bootable or that cannot finish the install. Use
+                        with caution.**""")
+        op.add_argument("--ignoredeps", dest="resolveDeps", action="store_false",
+                        deprecated=FC4, removed=F9, help="")
+        op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true",
+                        deprecated=FC4, removed=F9, help="")
+        op.add_argument("--default", dest="defaultPackages", action="store_true",
+                        default=False, introduced=F7, help="""
+                        Install the default package set. This corresponds to the
+                        package set that would be installed if no other
+                        selections were made on the package customization screen
+                        during an interactive install.""")
+        op.add_argument("--instLangs", default=None, introduced=F9, help="""
+                        Specify the list of languages that should be installed.
+                        This is different from the package group level
+                        selections, though. This option does not specify what
+                        package groups should be installed. Instead, it controls
+                        which translation files from individual packages should
+                        be installed by setting RPM macros.""")
+        op.add_argument("--multilib", dest="multiLib", action="store_true",
+                        default=False, introduced=F18, help="""
+                        Enable yum's "all" multilib_policy as opposed to the
+                        default of "best".""")
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
+                        action="store_true", default=False, introduced=F24,
+                        help="""
+                        Do not install packages from weak dependencies. These
+                        are packages linked to the selected package set by
+                        Recommends and Supplements flags. By default weak
+                        dependencies will be installed.""")
 
         ns = op.parse_args(args=args[1:], lineno=lineno)
 

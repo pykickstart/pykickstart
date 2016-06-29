@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F12, F13, RHEL7
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -102,8 +103,8 @@ class F12_Fcoe(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--nic", required=True)
+        op = KSOptionParser(prog="fcoe", description="", version=F12)
+        op.add_argument("--nic", required=True, version=F12, help="")
         return op
 
     def parse(self, args):
@@ -132,7 +133,8 @@ class F13_Fcoe(F12_Fcoe):
 
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
-        op.add_argument("--dcb", action="store_true", default=False)
+        op.add_argument("--dcb", action="store_true", default=False, help="",
+                        version=F13)
         return op
 
 class RHEL7_Fcoe(F13_Fcoe):
@@ -141,5 +143,6 @@ class RHEL7_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_argument("--autovlan", action="store_true", default=False)
+        op.add_argument("--autovlan", action="store_true", default=False,
+                        help="", version=RHEL7)
         return op

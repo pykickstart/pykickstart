@@ -17,6 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from textwrap import dedent
+from pykickstart.version import versionToLongString, RHEL5, RHEL6, FC3, FC4, FC5
+from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -273,8 +276,6 @@ class FC3_Raid(KickstartCommand):
 
     def __init__(self, writePriority=131, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-        self.op = self._getParser()
-
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
@@ -284,6 +285,7 @@ class FC3_Raid(KickstartCommand):
                           "RAID6": "RAID6", "6": "RAID6" }
 
         self.raidList = kwargs.get("raidList", [])
+        self.op = self._getParser()
 
     def __str__(self):
         retval = ""
@@ -306,13 +308,68 @@ class FC3_Raid(KickstartCommand):
             else:
                 raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid raid level: %s") % value))
 
-        op = KSOptionParser()
-        op.add_argument("--device", type=device_cb, required=True)
-        op.add_argument("--fstype")
-        op.add_argument("--level", type=level_cb)
-        op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--spares", type=int, default=0)
-        op.add_argument("--useexisting", dest="preexist", action="store_true", default=False)
+        op = KSOptionParser(prog="raid", description="""
+                            Assembles a software RAID device.""",
+                            epilog="""
+                            The following example shows how to create a RAID
+                            level 1 partition for /, and a RAID level 5 for
+                            /usr, assuming there are three disks on the
+                            system. It also creates three swap partitions, one
+                            on each drive::
+
+                                part raid.01 --size=6000 --ondisk=sda
+                                part raid.02 --size=6000 --ondisk=sdb
+                                part raid.03 --size=6000 --ondisk=sdc
+
+                                part swap1 --size=512 --ondisk=sda
+                                part swap2 --size=512 --ondisk=sdb
+                                part swap3 --size=512 --ondisk=sdc
+
+                                part raid.11 --size=6000 --ondisk=sda
+                                part raid.12 --size=6000 --ondisk=sdb
+                                part raid.13 --size=6000 --ondisk=sdc
+
+                                raid / --level=1 --device=md0 raid.01 raid.02 raid.03
+                                raid /usr --level=5 --device=md1 raid.11 raid.12 raid.13
+                            """, version=FC3)
+        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=FC3,
+                        help="""
+                        Location where the RAID file system is mounted. If it
+                        is /, the RAID level must be 1 unless a boot partition
+                        (/boot) is present. If a boot partition is present, the
+                        /boot partition must be level 1 and the root (/)
+                        partition can be any of the available types.""")
+        op.add_argument("partitions", metavar="<partitions*>", nargs="*",
+                        version=FC3, help="""
+                        The software raid partitions lists the RAID identifiers
+                        to add to the RAID array.""")
+        op.add_argument("--device", type=device_cb, required=True,
+                        version=FC3, help="""
+                        Name of the RAID device to use (such as 'fedora-root'
+                        or 'home'). As of Fedora 19, RAID devices are no longer
+                        referred to by names like 'md0'. If you have an old
+                        (v0.90 metadata) array that you cannot assign a name to,
+                        you can specify the array by a filesystem label or UUID
+                        (eg: --device=LABEL=fedora-root).""")
+        op.add_argument("--fstype", version=FC3, help="""
+                        Sets the file system type for the RAID array. Valid
+                        values include ext4, ext3, ext2, btrfs, swap, and vfat.
+                        Other filesystems may be valid depending on command
+                        line arguments passed to anaconda to enable other
+                        filesystems.""")
+        op.add_argument("--level", type=level_cb, version=FC3, help="""
+                        RAID level to use %s.""" % set(self.levelMap.values()))
+        op.add_argument("--noformat", dest="format", action="store_false",
+                        default=True, version=FC3, help="""
+                        Use an existing RAID device and do not format the RAID
+                        array.""")
+        op.add_argument("--spares", type=int, default=0, version=FC3, help="""
+                        Specifies the number of spare drives allocated for the
+                        RAID array. Spare drives are used to rebuild the array
+                        in case of drive failure.""")
+        op.add_argument("--useexisting", dest="preexist", action="store_true",
+                        default=False, version=FC3, help="""
+                        Use an existing RAID device and reformat it.""")
         return op
 
     def _getDevice(self, s):
@@ -324,19 +381,24 @@ class FC3_Raid(KickstartCommand):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        if any(arg for arg in extra if arg.startswith("-")):
+            mapping = {"command": "raid", "options": extra}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+
+        # because positional argumnets with variable number of values
+        # don't parse very well
+        if not ns.partitions and extra:
+            ns.partitions = extra
+            extra = []
 
         if not ns.format:
             ns.preexist = True
 
-        if len(extra) == 0:
+        if len(ns.mntpoint) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid"))
-        elif any(arg for arg in extra if arg.startswith("-")):
-            mapping = {"command": "raid", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-
-        if len(extra) == 1 and not ns.preexist:
+        elif len(ns.partitions) == 0 and not ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"))
-        elif len(extra) > 1 and ns.preexist:
+        elif len(ns.partitions) > 0 and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
         rd = self.dataClass()   # pylint: disable=not-callable
@@ -348,10 +410,10 @@ class FC3_Raid(KickstartCommand):
         # In newer pykickstart it has to be the array name since the minor
         # cannot be reliably predicted due to lack of mdadm.conf during boot.
         rd.device = self._getDevice(rd.device)
-        rd.mountpoint = extra[0]
+        rd.mountpoint = ns.mntpoint[0]
 
-        if len(extra) > 1:
-            rd.members = extra[1:]
+        if len(ns.partitions) > 0:
+            rd.members = ns.partitions
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
@@ -378,7 +440,11 @@ class FC4_Raid(FC3_Raid):
 
     def _getParser(self):
         op = FC3_Raid._getParser(self)
-        op.add_argument("--fsoptions", dest="fsopts")
+        op.add_argument("--fsoptions", dest="fsopts", version=FC4, help="""
+                        Specifies a free form string of options to be used when
+                        mounting the filesystem. This string will be copied into
+                        the /etc/fstab file of the installed system and should
+                        be enclosed in quotes.""")
         return op
 
 class FC5_Raid(FC4_Raid):
@@ -387,7 +453,8 @@ class FC5_Raid(FC4_Raid):
 
     def _getParser(self):
         op = FC4_Raid._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int,
+                        version=FC5, help="Specify the bytes/inode ratio.")
         return op
 
 class RHEL5_Raid(FC5_Raid):
@@ -401,8 +468,26 @@ class RHEL5_Raid(FC5_Raid):
 
     def _getParser(self):
         op = FC5_Raid._getParser(self)
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        for action in op._actions:
+            if "--level" in action.option_strings:
+                action.help += dedent("""
+
+                .. versionchanged:: %s
+
+                The "RAID10" level was added.""" % \
+                versionToLongString(RHEL5))
+                break
+
+        op.add_argument("--encrypted", action="store_true",
+                        default=False, version=RHEL5, help="""
+                        Specify that this RAID device should be encrypted.
+                        """)
+        op.add_argument("--passphrase", version=RHEL5, help="""
+                        Specify the passphrase to use when encrypting this RAID
+                        device. Without the above --encrypted option, this
+                        option does nothing. If no passphrase is specified, the
+                        default system-wide one is used, or the installer will
+                        stop and prompt if there is no default.""")
         return op
 
 class F7_Raid(FC5_Raid):
@@ -414,16 +499,44 @@ class F7_Raid(FC5_Raid):
 
         self.levelMap.update({"RAID10": "RAID10", "10": "RAID10"})
 
+    def _getParser(self):
+        op = FC5_Raid._getParser(self)
+        for action in op._actions:
+            if "--level" in action.option_strings:
+                action.help += dedent("""
+
+                .. versionchanged:: %s
+
+                The "RAID10" level was added.""" % \
+                versionToLongString(F7))
+                break
+        return op
+
 class F9_Raid(F7_Raid):
     removedKeywords = F7_Raid.removedKeywords
     removedAttrs = F7_Raid.removedAttrs
 
     def _getParser(self):
         op = F7_Raid._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=True)
-        op.add_argument("--fsprofile")
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op.add_argument("--bytes-per-inode", deprecated=F9)
+        op.add_argument("--fsprofile", version=F9, help="""
+                        Specifies a usage type to be passed to the program that
+                        makes a filesystem on this partition. A usage type
+                        defines a variety of tuning parameters to be used when
+                        making a filesystem. For this option to work, the
+                        filesystem must support the concept of usage types and
+                        there must be a configuration file that lists valid
+                        types. For ext2/3/4, this configuration file is
+                        ``/etc/mke2fs.conf``.""")
+        op.add_argument("--encrypted", action="store_true", version=F9,
+                        default=False, help="""
+                        Specify that this RAID device should be encrypted.""")
+        op.add_argument("--passphrase", version=F9, help="""
+                        Specify the passphrase to use when encrypting this RAID
+                        device. Without the above --encrypted option, this option
+                        does nothing. If no passphrase is specified, the default
+                        system-wide one is used, or the installer will stop and
+                        prompt if there is no default.""")
         return op
 
 class F12_Raid(F9_Raid):
@@ -432,8 +545,21 @@ class F12_Raid(F9_Raid):
 
     def _getParser(self):
         op = F9_Raid._getParser(self)
-        op.add_argument("--escrowcert")
-        op.add_argument("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert", metavar="<url>", version=F12, help="""
+                        Load an X.509 certificate from ``<url>``. Store the
+                        data encryption key of this partition, encrypted using
+                        the certificate, as a file in ``/root``. Only relevant
+                        if ``--encrypted`` is specified as well.""")
+        op.add_argument("--backuppassphrase", action="store_true",
+                        default=False, version=F12, help="""
+                        Only relevant if ``--escrowcert`` is specified as well.
+                        In addition to storing the data encryption key, generate
+                        a random passphrase and add it to this partition. Then
+                        store the passphrase, encrypted using the certificate
+                        specified by ``--escrowcert``, as a file in ``/root``.
+                        If more than one LUKS volume uses ``--backuppassphrase``,
+                        the same passphrase will be used for all such volumes.
+                        """)
         return op
 
 class F13_Raid(F12_Raid):
@@ -445,13 +571,29 @@ class F13_Raid(F12_Raid):
 
         self.levelMap.update({"RAID4": "RAID4", "4": "RAID4"})
 
+    def _getParser(self):
+        op = F12_Raid._getParser(self)
+        for action in op._actions:
+            if "--level" in action.option_strings:
+                action.help += dedent("""
+
+                .. versionchanged:: %s
+
+                The "RAID4" level was added.""" % \
+                versionToLongString(F13))
+                break
+        return op
+
 class RHEL6_Raid(F13_Raid):
     removedKeywords = F13_Raid.removedKeywords
     removedAttrs = F13_Raid.removedAttrs
 
     def _getParser(self):
         op = F13_Raid._getParser(self)
-        op.add_argument("--cipher")
+        op.add_argument("--cipher", version=RHEL6, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
     def parse(self, args):
@@ -470,7 +612,7 @@ class F14_Raid(F13_Raid):
 
     def _getParser(self):
         op = F13_Raid._getParser(self)
-        op.remove_argument("--bytes-per-inode")
+        op.remove_argument("--bytes-per-inode", version=F14)
         return op
 
 class F15_Raid(F14_Raid):
@@ -479,7 +621,10 @@ class F15_Raid(F14_Raid):
 
     def _getParser(self):
         op = F14_Raid._getParser(self)
-        op.add_argument("--label")
+        op.add_argument("--label", version=F15, help="""
+                        Specify the label to give to the filesystem to be made.
+                        If the given label is already in use by another
+                        filesystem, a new label will be created.""")
         return op
 
 class F18_Raid(F15_Raid):
@@ -488,7 +633,10 @@ class F18_Raid(F15_Raid):
 
     def _getParser(self):
         op = F15_Raid._getParser(self)
-        op.add_argument("--cipher")
+        op.add_argument("--cipher", version=F18, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
 class F19_Raid(F18_Raid):
@@ -518,7 +666,14 @@ class F23_Raid(F20_Raid):
 
     def _getParser(self):
         op = F20_Raid._getParser(self)
-        op.add_argument("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--mkfsoptions", dest="mkfsopts", version=F23, help="""
+                        Specifies additional parameters to be passed to the
+                        program that makes a filesystem on this partition. No
+                        processing is done on the list of arguments, so they
+                        must be supplied in a format that can be passed directly
+                        to the mkfs program. This means multiple options should
+                        be comma-separated or surrounded by double quotes,
+                        depending on the filesystem.""")
         return op
 
     def parse(self, args):
@@ -532,13 +687,16 @@ class F23_Raid(F20_Raid):
 
         return retval
 
+RHEL7_Raid = F23_Raid
+
 class F25_Raid(F23_Raid):
     removedKeywords = F23_Raid.removedKeywords
     removedAttrs = F23_Raid.removedAttrs
 
     def _getParser(self):
         op = F23_Raid._getParser(self)
-        op.add_argument("--chunksize", type=int, dest="chunk_size")
+        op.add_argument("--chunksize", type=int, dest="chunk_size",
+                        version=F25, help="""
+                        Specify the chunk size (in KiB) for this RAID array.
+                        """)
         return op
-
-RHEL7_Raid = F23_Raid

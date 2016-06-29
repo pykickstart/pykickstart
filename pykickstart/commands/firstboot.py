@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import FIRSTBOOT_DEFAULT, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG
 from pykickstart.options import KSOptionParser
@@ -47,10 +48,29 @@ class FC3_Firstboot(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--disable", "--disabled", dest="firstboot", action="store_const", const=FIRSTBOOT_SKIP)
-        op.add_argument("--enable", "--enabled", dest="firstboot", action="store_const", const=FIRSTBOOT_DEFAULT)
-        op.add_argument("--reconfig", dest="firstboot", action="store_const", const=FIRSTBOOT_RECONFIG)
+        op = KSOptionParser(prog="firstboot", description="""
+                            Determine whether the Setup Agent starts the first
+                            time the system is booted. If enabled, the
+                            ``initial-setup`` package must be installed. If not
+                            specified, the setup agent (initial-setup) is disabled
+                            by default.""",
+                            version=FC3)
+        op.add_argument("--disable", "--disabled", dest="firstboot",
+                        action="store_const", const=FIRSTBOOT_SKIP, version=FC3,
+                        help="""The Setup Agent is not started the first time the
+                        system boots.""")
+        op.add_argument("--enable", "--enabled", dest="firstboot",
+                        action="store_const", const=FIRSTBOOT_DEFAULT, version=FC3,
+                        help="""The Setup Agent is started the first time the
+                        system boots.""")
+        op.add_argument("--reconfig", dest="firstboot", version=FC3,
+                        action="store_const", const=FIRSTBOOT_RECONFIG,
+                        help="""
+                        Enable the Setup Agent to start at boot time in
+                        reconfiguration mode. This mode enables the language,
+                        mouse, keyboard, root password, security level,
+                        time zone, and networking configuration options in
+                        addition to the default ones.""")
         return op
 
     def parse(self, args):

@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -49,9 +50,22 @@ class FC6_Services(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--disabled", type=commaSplit)
-        op.add_argument("--enabled", type=commaSplit)
+        op = KSOptionParser(prog="services", description="""
+                            Modifies the default set of services that will run
+                            under the default runlevel. The services listed in
+                            the disabled list will be disabled before the
+                            services listed in the enabled list are enabled.
+                            """, epilog="""
+                            One of --disabled or --enabled must be provided.
+                            """, version=FC6)
+        op.add_argument("--disabled", type=commaSplit, version=FC6,
+                        metavar="<list>", help="""
+                        Disable the services given in the comma separated list.
+                        """)
+        op.add_argument("--enabled", type=commaSplit, version=FC6,
+                        metavar="<list>", help="""
+                        Enable the services given in the comma separated list.
+                        """)
         return op
 
     def parse(self, args):

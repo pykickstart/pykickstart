@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -42,17 +43,23 @@ class FC6_IscsiName(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="iscsiname", description="""
+            Assigns an initiator name to the computer. If you use the iscsi
+            parameter in your kickstart file, this parameter is mandatory, and
+            you must specify iscsiname in the kickstart file before you specify
+            iscsi.""", version=FC6)
+        op.add_argument("iqn", metavar="<iqn>", nargs=1, version=FC6, help="""
+                        IQN name""")
         return op
 
     def parse(self, args):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) != 1:
+        if len(_ns.iqn) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "iscsiname", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self.iscsiname = extra[0]
+        self.iscsiname = _ns.iqn[0]
         return self

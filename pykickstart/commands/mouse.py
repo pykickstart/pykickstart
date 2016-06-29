@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import versionToLongString, RHEL3, FC3
 from pykickstart.base import DeprecatedCommand, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -49,9 +50,10 @@ class RHEL3_Mouse(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--device", default="")
-        op.add_argument("--emulthree", default=False, action="store_true")
+        op = KSOptionParser(prog="mouse", description="", version=RHEL3)
+        op.add_argument("--device", default="", version=RHEL3, help="")
+        op.add_argument("--emulthree", default=False, action="store_true",
+                        version=RHEL3, help="")
         return op
 
     def parse(self, args):
@@ -67,6 +69,12 @@ class RHEL3_Mouse(KickstartCommand):
         self.mouse = extra[0]
         return self
 
-class FC3_Mouse(DeprecatedCommand):
-    def __init__(self):
+class FC3_Mouse(DeprecatedCommand, RHEL3_Mouse):
+    def __init__(self): # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = RHEL3_Mouse._getParser(self)
+        op.description += "\n\n.. versiondeprecated: %s" % \
+                        versionToLongString(FC3)
+        return op

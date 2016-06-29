@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC6, F10, RHEL6
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -89,21 +90,7 @@ class RHEL6_IscsiData(F10_IscsiData):
 
         return retval
 
-class F17_IscsiData(F10_IscsiData):
-    removedKeywords = F10_IscsiData.removedKeywords
-    removedAttrs = F10_IscsiData.removedAttrs
-
-    def __init__(self, *args, **kwargs):
-        F10_IscsiData.__init__(self, *args, **kwargs)
-        self.iface = kwargs.get("iface", None)
-
-    def _getArgsAsStr(self):
-        retval = F10_IscsiData._getArgsAsStr(self)
-
-        if self.iface is not None:
-            retval += " --iface=%s" % self.iface
-
-        return retval
+F17_IscsiData = RHEL6_IscsiData
 
 class FC6_Iscsi(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -123,12 +110,40 @@ class FC6_Iscsi(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--target")
-        op.add_argument("--ipaddr", required=True)
-        op.add_argument("--port")
-        op.add_argument("--user")
-        op.add_argument("--password")
+        op = KSOptionParser(prog="iscsi", description="""
+                            Specifies additional iSCSI storage to be attached
+                            during installation. If you use the iscsi parameter,
+                            you must also assign a name to the iSCSI node, using
+                            the iscsiname parameter. The iscsiname parameter
+                            must appear before the iscsi parameter in the
+                            kickstart file.
+
+                            We recommend that wherever possible you configure
+                            iSCSI storage in the system BIOS or firmware (iBFT
+                            for Intel systems) rather than use the iscsi
+                            parameter. Anaconda automatically detects and uses
+                            disks configured in BIOS or firmware and no special
+                            configuration is necessary in the kickstart file.
+
+                            If you must use the iscsi parameter, ensure that
+                            networking is activated at the beginning of the
+                            installation, and that the iscsi parameter appears
+                            in the kickstart file before you refer to iSCSI
+                            disks with parameters such as clearpart or
+                            ignoredisk.""",
+                            version=FC6)
+        op.add_argument("--target", help="The target iqn.", version=FC6)
+        op.add_argument("--ipaddr", required=True, version=FC6, help="""
+                        The IP address of the target to connect to.""")
+        op.add_argument("--port", version=FC6, help="""
+                        The port number to connect to (default, --port=3260).
+                        """)
+        op.add_argument("--user", version=FC6, help="""
+                        The username required to authenticate with the target.
+                        """)
+        op.add_argument("--password", version=FC6, help="""
+                        The password that corresponds with the username specified
+                        for the target.""")
         return op
 
     def parse(self, args):
@@ -151,8 +166,13 @@ class F10_Iscsi(FC6_Iscsi):
 
     def _getParser(self):
         op = FC6_Iscsi._getParser(self)
-        op.add_argument("--reverse-user", dest="user_in")
-        op.add_argument("--reverse-password", dest="password_in")
+        op.add_argument("--reverse-user", dest="user_in", version=F10, help="""
+                        The username required to authenticate with the initiator
+                        from a target that uses reverse CHAP authentication.""")
+        op.add_argument("--reverse-password", dest="password_in",
+                        version=F10, help="""
+                        The password that corresponds with the username
+                        specified for the initiator.""")
         return op
 
 class RHEL6_Iscsi(F10_Iscsi):
@@ -161,14 +181,11 @@ class RHEL6_Iscsi(F10_Iscsi):
 
     def _getParser(self):
         op = F10_Iscsi._getParser(self)
-        op.add_argument("--iface")
+        op.add_argument("--iface", version=RHEL6, help="""
+                        Bind connection to specific network interface instead
+                        of using the default one determined by network layer.
+                        Once used, it must be specified for all iscsi commands.
+                        """)
         return op
-
-class F17_Iscsi(F10_Iscsi):
-    removedKeywords = F10_Iscsi.removedKeywords
-    removedAttrs = F10_Iscsi.removedAttrs
-
-    def _getParser(self):
-        op = F10_Iscsi._getParser(self)
-        op.add_argument("--iface")
-        return op
+# todo: how do we mark that --iface is available since F17, while RHEL6 is based on F12 ?
+F17_Iscsi = RHEL6_Iscsi

@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import RHEL5
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import KS_INSTKEY_SKIP
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -45,8 +46,9 @@ class RHEL5_Key(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--skip", action="store_true", default=False)
+        op = KSOptionParser(prog="key", description="", version=RHEL5)
+        op.add_argument("--skip", action="store_true", default=False,
+                        version=RHEL5, help="")
         return op
 
     def parse(self, args):

@@ -17,6 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import RHEL5, RHEL6
+from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -289,35 +291,124 @@ class FC3_Partition(KickstartCommand):
             else:
                 return value
 
-        op = KSOptionParser()
-        op.add_argument("--active", action="store_true", default=False)
-        op.add_argument("--asprimary", dest="primOnly", action="store_true", default=False)
-        op.add_argument("--end", type=int)
-        op.add_argument("--fstype", "--type", dest="fstype")
-        op.add_argument("--grow", action="store_true", default=False)
-        op.add_argument("--maxsize", dest="maxSizeMB", type=int)
-        op.add_argument("--noformat", dest="format", action="store_false", default=True)
-        op.add_argument("--onbiosdisk")
-        op.add_argument("--ondisk", "--ondrive", dest="disk")
-        op.add_argument("--onpart", "--usepart", dest="onPart", type=part_cb)
-        op.add_argument("--recommended", action="store_true", default=False)
-        op.add_argument("--size", type=int)
-        op.add_argument("--start", type=int)
+        op = KSOptionParser(prog="part", description="""
+                            Creates a partition on the system. This command is
+                            required. All partitions created will be formatted
+                            as part of the installation process unless
+                            ``--noformat`` and ``--onpart`` are used.
+                            """, epilog="""
+                            If partitioning fails for any reason, diagnostic
+                            messages will appear on virtual console 3.""",
+                            version=FC3)
+        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=FC3,
+                        help="""
+                        The ``<mntpoint>`` is where the partition will be mounted
+                        and must be of one of the following forms:
+
+                        ``/<path>``
+
+                        For example, /, /usr, /home
+
+                        ``swap``
+
+                        The partition will be used as swap space.
+
+                        ``raid.<id>``
+
+                        The partition will be used for software RAID.
+                        Refer to the ``raid`` command.
+
+                        ``pv.<id>``
+
+                        The partition will be used for LVM. Refer to the
+                        ``logvol`` command.
+
+                        ``btrfs.<id>``
+
+                        The partition will be used for BTRFS volume. Rerefer to
+                        the ``btrfs`` command.
+
+                        ``biosboot``
+
+                        The partition will be used for a BIOS Boot Partition. As
+                        of Fedora 16 there must be a biosboot partition for the
+                        bootloader to be successfully installed onto a disk that
+                        contains a GPT/GUID partition table. Rerefer to the
+                        ``bootloader`` command.
+                        """)
+        op.add_argument("--active", action="store_true", default=False,
+                        version=FC3, help="")
+        op.add_argument("--asprimary", dest="primOnly", action="store_true",
+                        default=False, version=FC3, help="""
+                        Forces automatic allocation of the partition as a primary
+                        partition or the partitioning will fail.
+
+                        **TIP:** *The ``--asprimary`` option only makes sense
+                        with the MBR partitioning scheme and is ignored when the
+                        GPT partitioning scheme is used.*""")
+        op.add_argument("--start", type=int, version=FC3, help="")
+        op.add_argument("--end", type=int, version=FC3, help="")
+        op.add_argument("--fstype", "--type", dest="fstype", version=FC3,
+                        help="""
+                        Sets the file system type for the partition. Valid
+                        values include ext4, ext3, ext2, xfs, btrfs, swap, and
+                        vfat. Other filesystems may be valid depending on
+                        command line arguments passed to anaconda to enable
+                        other filesystems.""")
+        op.add_argument("--grow", action="store_true", default=False,
+                        version=FC3, help="""
+                        Tells the partition to grow to fill available space
+                        (if any), or up to the maximum size setting. Note that
+                        ``--grow`` is not supported for partitions containing a
+                        RAID volume on top of them.""")
+        op.add_argument("--maxsize", dest="maxSizeMB", type=int,
+                        version=FC3, help="""
+                        The maximum size in MiB the partition may grow to.
+                        Specify an integer value here, and do not append any
+                        units. This option is only relevant if ``--grow`` is
+                        specified as well.""")
+        op.add_argument("--noformat", dest="format", version=FC3,
+                        action="store_false", default=True, help="""
+                        Tells the installation program not to format the
+                        partition, for use with the ``--onpart`` command.""")
+        op.add_argument("--onbiosdisk", version=FC3, help="""
+                        Forces the partition to be created on a particular disk
+                        as discovered by the BIOS.""")
+        op.add_argument("--ondisk", "--ondrive", dest="disk",
+                        version=FC3, help="""
+                        Forces the partition to be created on a particular disk.
+                        """)
+        op.add_argument("--onpart", "--usepart", dest="onPart", type=part_cb,
+                        version=FC3, help="""
+                        Put the partition on an already existing device. Use
+                        "--onpart=LABEL=name" or "--onpart=UUID=name" to specify
+                        a partition by label or uuid respectively.
+
+                        Anaconda may create partitions in any particular order,
+                        so it is safer to use labels than absolute partition
+                        names.""")
+        op.add_argument("--recommended", action="store_true", default=False,
+                        version=FC3, help="""
+                        Determine the size of the partition automatically.
+                        """)
+        op.add_argument("--size", type=int, version=FC3, help="""
+                        The minimum partition size in MiB. Specify an integer
+                        value here and do not append any units.""")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(extra) != 1:
+        if len(ns.mntpoint) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "partition", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         pd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, pd)
         pd.lineno = self.lineno
-        pd.mountpoint=extra[0]
+        pd.mountpoint=ns.mntpoint[0]
 
         # Check for duplicates in the data list.
         if pd.mountpoint != "swap" and pd in self.dataList():
@@ -338,9 +429,18 @@ class FC4_Partition(FC3_Partition):
 
     def _getParser(self):
         op = FC3_Partition._getParser(self)
-        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int)
-        op.add_argument("--fsoptions", dest="fsopts")
-        op.add_argument("--label")
+        op.add_argument("--bytes-per-inode", dest="bytesPerInode", type=int,
+                        version=FC4, help="Specify the bytes/inode ratio.")
+        op.add_argument("--fsoptions", dest="fsopts", version=FC4, help="""
+                        Specifies a free form string of options to be used when
+                        mounting the filesystem. This string will be copied into
+                        the /etc/fstab file of the installed system and should
+                        be enclosed in quotes.""")
+        op.add_argument("--label", version=FC4, help="""
+                        Specify the label to give to the filesystem to be made
+                        on the partition. If the given label is already in use
+                        by another filesystem, a new label will be created for
+                        this partition.""")
         return op
 
 class RHEL5_Partition(FC4_Partition):
@@ -349,8 +449,15 @@ class RHEL5_Partition(FC4_Partition):
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op.add_argument("--encrypted", action="store_true", version=RHEL5,
+                        default=False, help="""
+                        Specify that this partition should be encrypted.""")
+        op.add_argument("--passphrase", version=RHEL5, help="""
+                        Specify the passphrase to use when encrypting this
+                        partition. Without the above --encrypted option, this
+                        option does nothing. If no passphrase is specified, the
+                        default system-wide one is used, or the installer will
+                        stop and prompt if there is no default.""")
         return op
 
 class F9_Partition(FC4_Partition):
@@ -359,10 +466,25 @@ class F9_Partition(FC4_Partition):
 
     def _getParser(self):
         op = FC4_Partition._getParser(self)
-        op.add_argument("--bytes-per-inode", deprecated=True)
-        op.add_argument("--fsprofile")
-        op.add_argument("--encrypted", action="store_true", default=False)
-        op.add_argument("--passphrase")
+        op.add_argument("--bytes-per-inode", deprecated=F9)
+        op.add_argument("--fsprofile", version=F9, help="""
+                        Specifies a usage type to be passed to the program that
+                        makes a filesystem on this partition. A usage type
+                        defines a variety of tuning parameters to be used when
+                        making a filesystem. For this option to work, the
+                        filesystem must support the concept of usage types and
+                        there must be a configuration file that lists valid
+                        types. For ext2/3/4, this configuration file is
+                        ``/etc/mke2fs.conf``.""")
+        op.add_argument("--encrypted", action="store_true", version=F9,
+                        default=False, help="""
+                        Specify that this partition should be encrypted.""")
+        op.add_argument("--passphrase", version=F9, help="""
+                        Specify the passphrase to use when encrypting this
+                        partition. Without the above --encrypted option, this
+                        option does nothing. If no passphrase is specified, the
+                        default system-wide one is used, or the installer will
+                        stop and prompt if there is no default.""")
         return op
 
 class F11_Partition(F9_Partition):
@@ -371,8 +493,8 @@ class F11_Partition(F9_Partition):
 
     def _getParser(self):
         op = F9_Partition._getParser(self)
-        op.add_argument("--start", deprecated=True)
-        op.add_argument("--end", deprecated=True)
+        op.add_argument("--start", deprecated=F11)
+        op.add_argument("--end", deprecated=F11)
         return op
 
 class F12_Partition(F11_Partition):
@@ -381,8 +503,21 @@ class F12_Partition(F11_Partition):
 
     def _getParser(self):
         op = F11_Partition._getParser(self)
-        op.add_argument("--escrowcert")
-        op.add_argument("--backuppassphrase", action="store_true", default=False)
+        op.add_argument("--escrowcert", metavar="<url>", version=F12, help="""
+                        Load an X.509 certificate from ``<url>``. Store the
+                        data encryption key of this partition, encrypted using
+                        the certificate, as a file in ``/root``. Only relevant
+                        if ``--encrypted`` is specified as well.""")
+        op.add_argument("--backuppassphrase", action="store_true", version=F12,
+                        default=False, help="""
+                        Only relevant if ``--escrowcert`` is specified as well.
+                        In addition to storing the data encryption key, generate
+                        a random passphrase and add it to this partition. Then
+                        store the passphrase, encrypted using the certificate
+                        specified by ``--escrowcert``, as a file in ``/root``.
+                        If more than one LUKS volume uses ``--backuppassphrase``,
+                        the same passphrase will be used for all such volumes.
+                        """)
         return op
 
 class RHEL6_Partition(F12_Partition):
@@ -391,8 +526,15 @@ class RHEL6_Partition(F12_Partition):
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
-        op.add_argument("--cipher")
-        op.add_argument("--hibernation", action="store_true", default=False)
+        op.add_argument("--cipher", version=RHEL6, help="""
+                        Only relevant if ``--encrypted`` is specified.
+                        Specifies which encryption algorithm should be used to
+                        encrypt the filesystem.""")
+        op.add_argument("--hibernation", action="store_true", default=False,
+                        version=RHEL6, help="""
+                        This option can be used to automatically determine the
+                        size of the swap partition big enough for hibernation.
+                        """)
         return op
 
     def parse(self, args):
@@ -411,9 +553,9 @@ class F14_Partition(F12_Partition):
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
-        op.remove_argument("--bytes-per-inode")
-        op.remove_argument("--start")
-        op.remove_argument("--end")
+        op.remove_argument("--bytes-per-inode", version=F14)
+        op.remove_argument("--start", version=F14)
+        op.remove_argument("--end", version=F14)
         return op
 
 class F17_Partition(F14_Partition):
@@ -422,7 +564,11 @@ class F17_Partition(F14_Partition):
 
     def _getParser(self):
         op = F14_Partition._getParser(self)
-        op.add_argument("--resize", action="store_true", default=False)
+        op.add_argument("--resize", action="store_true", version=F17,
+                        default=False, help="""
+                        Attempt to resize this partition to the size given by
+                        ``--size=``. This option must be used with
+                        ``--onpart --size=``, or an error will be raised.""")
         return op
 
     def parse(self, args):
@@ -442,8 +588,15 @@ class F18_Partition(F17_Partition):
 
     def _getParser(self):
         op = F17_Partition._getParser(self)
-        op.add_argument("--hibernation", action="store_true", default=False)
-        op.add_argument("--cipher")
+        op.add_argument("--hibernation", action="store_true", default=False,
+                        version=F18, help="""
+                        This option can be used to automatically determine the
+                        size of the swap partition big enough for hibernation.
+                        """)
+        op.add_argument("--cipher", version=F18, help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which encryption algorithm should be used to encrypt the
+                        filesystem.""")
         return op
 
 class F20_Partition(F18_Partition):
@@ -473,7 +626,16 @@ class F23_Partition(F20_Partition):
 
     def _getParser(self):
         op = F20_Partition._getParser(self)
-        op.add_argument("--mkfsoptions", dest="mkfsopts")
+        op.add_argument("--mkfsoptions", dest="mkfsopts", version=F23, help="""
+                        Specifies additional parameters to be passed to the
+                        program that makes a filesystem on this partition. This
+                        is similar to ``--fsprofile`` but works for all
+                        filesystems, not just the ones that support the profile
+                        concept. No processing is done on the list of arguments,
+                        so they must be supplied in a format that can be passed
+                        directly to the mkfs program. This means multiple
+                        options should be comma-separated or surrounded by
+                        double quotes, depending on the filesystem.""")
         return op
 
     def parse(self, args):

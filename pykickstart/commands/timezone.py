@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, FC6, F18
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -48,21 +49,37 @@ class FC3_Timezone(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--utc", dest="isUtc", action="store_true", default=False)
+        op = KSOptionParser(prog="timezone", description="""
+                            This required command sets the system time zone to
+                            which may be any of the time zones listed by
+                            timeconfig.""", version=FC3)
+        op.add_argument("--utc", dest="isUtc", action="store_true",
+                        default=False, version=FC3, help="""
+                        If present, the system assumes the hardware clock is set
+                        to UTC (Greenwich Mean) time.
+
+                       *To get the list of supported timezones, you can either
+                        run this script:
+                        http://vpodzime.fedorapeople.org/timezones_list.py or
+                        look at this list:
+                        http://vpodzime.fedorapeople.org/timezones_list.txt*
+                        """)
+        op.add_argument("timezone", metavar="<timezone>", nargs=1,
+                        version=FC3, help="""
+                        Timezone name, e.g. Europe/Sofia.""")
         return op
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
 
-        if len(extra) != 1:
+        if len(ns.timezone) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))
-        elif any(arg for arg in extra if arg.startswith("-")):
+        elif len(extra) > 0:
             mapping = {"command": "timezone", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        self.timezone = extra[0]
+        self.timezone = ns.timezone[0]
         return self
 
 class FC6_Timezone(FC3_Timezone):
@@ -84,7 +101,9 @@ class FC6_Timezone(FC3_Timezone):
 
     def _getParser(self):
         op = FC3_Timezone._getParser(self)
-        op.add_argument("--utc", "--isUtc", dest="isUtc", action="store_true", default=False)
+        op.add_argument("--utc", "--isUtc", dest="isUtc", action="store_true",
+                        default=False, version=FC6, help="""
+                        The ``--isUtc`` option was added.""")
         return op
 
 class F18_Timezone(FC6_Timezone):
@@ -119,8 +138,23 @@ class F18_Timezone(FC6_Timezone):
 
     def _getParser(self):
         op = FC6_Timezone._getParser(self)
-        op.add_argument("--nontp", action="store_true", default=False)
-        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit)
+        op.add_argument("--nontp", action="store_true", default=False,
+                        version=F18, help="""
+                        Disable automatic starting of NTP service.
+
+                        ``--nontp`` and ``--ntpservers`` are mutually exclusive.
+                        """)
+        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit,
+                        metavar="<server1>,<server2>,...,<serverN>",
+                        version=F18, help="""
+                        Specify a list of NTP servers to be used (comma-separated
+                        list with no spaces). The chrony package is automatically
+                        installed when this option is used. If you don't want the
+                        package to be automatically installed then use ``-chrony``
+                        in package selection. For example::
+
+                        ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
+                        """)
         return op
 
     def parse(self, args):
@@ -140,12 +174,6 @@ class F23_Timezone(F18_Timezone):
     def __init__(self, *args, **kwargs):
         F18_Timezone.__init__(self, *args, **kwargs)
         self.ntpservers = kwargs.get("ntpservers", list())
-
-    def _getParser(self):
-        op = FC6_Timezone._getParser(self)
-        op.add_argument("--nontp", action="store_true", default=False)
-        op.add_argument("--ntpservers", type=commaSplit)
-        return op
 
     def parse(self, args):
         FC6_Timezone.parse(self, args)

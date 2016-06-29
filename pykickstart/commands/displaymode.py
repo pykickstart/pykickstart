@@ -17,9 +17,11 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_TEXT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
@@ -58,3 +60,11 @@ class FC3_DisplayMode(KickstartCommand):
             self.displayMode = DISPLAY_MODE_TEXT
 
         return self
+
+    def _getParser(self):
+        op = KSOptionParser(prog="graphical|text|cmdline", version=FC3, help="""
+                            Controls which display mode will be used during
+                            installation. If ``cmdline`` is chosen all required
+                            installation options must be configured via kickstart
+                            otherwise the installation will fail.""")
+        return op

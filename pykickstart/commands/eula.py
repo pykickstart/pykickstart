@@ -17,7 +17,7 @@
 #
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
-
+from pykickstart.version import F20
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -48,10 +48,12 @@ class F20_Eula(KickstartCommand):
             return ""
 
     def _getParser(self):
-        op = KSOptionParser()
+        op = KSOptionParser(prog="eula", version=F20, description="""
+                            Automatically accept Red Hat's EULA""")
         # people would struggle remembering the exact word
         op.add_argument("--agreed", "--agree", "--accepted", "--accept",
-                        dest="agreed", action="store_true", default=False)
+                        dest="agreed", action="store_true", default=False,
+                        version=F20, help="Accept the EULA. This is mandatory option!")
         return op
 
     def parse(self, args):

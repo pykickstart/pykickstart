@@ -44,10 +44,12 @@ And it exports two functions:
                 that can take a boolean.
 """
 import warnings
+import textwrap
+from argparse import RawTextHelpFormatter, SUPPRESS
 from argparse import Action, ArgumentParser, ArgumentTypeError
 
 from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pykickstart.version import versionToString
+from pykickstart.version import versionToString, versionToLongString
 
 from pykickstart.i18n import _
 
@@ -64,6 +66,34 @@ def ksboolean(value):
             raise ArgumentTypeError(_("invalid boolean value: %r") % value)
     except AttributeError:
         raise ArgumentTypeError(_("invalid boolean value: %r") % value)
+
+class KSHelpFormatter(RawTextHelpFormatter):
+    """
+        Used in generating documentation
+    """
+
+    def _format_usage(self, usage, actions, groups, prefix):
+        return "::\n\n    %s" % super(self.__class__,
+                                self)._format_usage(usage,
+                                                    actions,
+                                                    groups,
+                                                    "").strip()
+
+    def _format_action(self, action):
+        text = super(self.__class__, self)._format_action(action)
+        parts = text.strip().split('\n')
+        new_parts = []
+        new_parts.append("\n``%s``\n" % parts[0].strip())
+        for p in parts[1:]:
+            if p:
+                new_parts.append("    %s" % p.lstrip())
+        return self._join_parts(new_parts)
+
+    def _join_parts(self, part_strings):
+        return '\n'.join([part.rstrip(' ')
+                        for part in part_strings
+                        if part and part is not SUPPRESS])
+
 
 class ExtendAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
@@ -96,11 +126,31 @@ class KSOptionParser(ArgumentParser):
         """
         # Overridden to allow for the version kwargs, to skip help option generation,
         # and to resolve conflicts instead of override earlier options.
-        version = kwargs.pop("version", None)
-
-        ArgumentParser.__init__(self, add_help=False, conflict_handler="resolve", *args, **kwargs)
-        self.lineno = None
+        version = kwargs.pop("version") # fail fast if no version specified
         self.version = version
+        version = versionToLongString(version)
+
+        # remove leading spaced from description and epilog.
+        # fail fast if we forgot to add description
+        kwargs['description'] = textwrap.dedent(kwargs.pop("description"))
+        kwargs['description'] = "\n.. versionadded:: %s\n%s" % (version,
+                                                                kwargs['description'])
+        kwargs['epilog'] = textwrap.dedent(kwargs.pop("epilog", ""))
+
+        # fail fast if we forgot to add prog
+        kwargs['prog'] = kwargs.pop("prog")
+
+        # remove leading spaced from description and epilog.
+        # fail fast if we forgot to add description
+        kwargs['description'] = textwrap.dedent(kwargs.pop("description"))
+        kwargs['epilog'] = textwrap.dedent(kwargs.pop("epilog", ""))
+
+        # fail fast if we forgot to add prog
+        kwargs['prog'] = kwargs.pop("prog")
+
+        ArgumentParser.__init__(self, add_help=False, conflict_handler="resolve",
+                                formatter_class=KSHelpFormatter, *args, **kwargs)
+        self.lineno = None
 
     def _parse_optional(self, arg_string):
         def usedTooNew(action):
@@ -127,15 +177,48 @@ class KSOptionParser(ArgumentParser):
                 self.error(_("The %(option)s option is no longer supported.") % mapping)
             else:
                 self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-        elif action.deprecated == True or (self.version and self.version >= action.deprecated):
+        elif action.deprecated == True or \
+            (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
             mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
             warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
 
         return option_tuple
 
     def add_argument(self, *args, **kwargs):
-        deprecated = kwargs.pop("deprecated", False)
         introduced = kwargs.pop("introduced", None)
+        deprecated = kwargs.pop("deprecated", False)
+        if deprecated:
+            version = versionToLongString(deprecated)
+        else:
+            # fail fast if version is missing
+            version = versionToLongString(introduced or kwargs.pop("version"))
+
+        candidate = None
+        for action in self._actions:
+            for arg in args:
+                if arg in action.option_strings:
+                    candidate = action
+                    break
+
+        if candidate:
+            if deprecated:
+                _help = candidate.help or ""
+                _help += "\n\n    .. versiondeprecated:: %s" % version
+                kwargs["help"] = _help
+            else:
+                # this is a modified argument, which is already present
+                _help = candidate.help or ""
+                _help += "\n\n    .. versionchanged:: %s\n\n%s" % (version, kwargs.pop("help"))
+                kwargs["help"] = _help
+        else:
+            # this is a new argument which is added for the first time
+            _help = kwargs.pop("help")
+            _help += "\n\n    .. versionadded:: %s" % version
+            # there are some argumets which are deprecated on first declaration
+            if deprecated:
+                _help += "\n\n    .. versiondeprecated:: %s" % version
+            kwargs["help"] = _help
+
         notest = kwargs.pop("notest", False)
         removed = kwargs.pop("removed", None)
 
@@ -146,7 +229,7 @@ class KSOptionParser(ArgumentParser):
         action.removed = removed
         return action
 
-    def remove_argument(self, arg):
+    def remove_argument(self, arg, **kwargs):
         candidate = None
 
         for action in self._actions:
@@ -155,6 +238,10 @@ class KSOptionParser(ArgumentParser):
                 break
 
         if candidate:
+            if not candidate.help:
+                candidate.help = ""
+            candidate.help += "\n\n    .. versiondeleted:: %s" % \
+                                versionToLongString(kwargs.pop("version"))
             self._remove_action(candidate)
             self._option_string_actions.pop(arg)
 

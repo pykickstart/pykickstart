@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import FC3, F17, F21
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_LIST, CLEARPART_TYPE_NONE
 from pykickstart.options import KSOptionParser, commaSplit
@@ -62,12 +63,36 @@ class FC3_ClearPart(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--all", dest="type", action="store_const", const=CLEARPART_TYPE_ALL)
-        op.add_argument("--drives", type=commaSplit)
-        op.add_argument("--initlabel", dest="initAll", action="store_true", default=False)
-        op.add_argument("--linux", dest="type", action="store_const", const=CLEARPART_TYPE_LINUX)
-        op.add_argument("--none", dest="type", action="store_const", const=CLEARPART_TYPE_NONE)
+        op = KSOptionParser(prog="clearpart", description="""
+                            Removes partitions from the system, prior to creation
+                            of new partitions. By default, no partitions are
+                            removed.
+
+                            If the clearpart command is used, then the ``--onpart``
+                            command cannot be used on a logical partition.""",
+                            version=FC3)
+        op.add_argument("--all", dest="type", action="store_const",
+                        const=CLEARPART_TYPE_ALL, version=FC3,
+                        help="Erases all partitions from the system.")
+        op.add_argument("--drives", type=commaSplit, help="""
+                        Specifies which drives to clear partitions from. For
+                        example, the following clears the partitions on the
+                        first two drives on the primary IDE controller:
+
+                        ``clearpart --all --drives=sda,sdb``""",
+                        version=FC3)
+        op.add_argument("--initlabel", dest="initAll", action="store_true",
+                        default=False, version=FC3, help="""
+                        Initializes the disk label to the default for your
+                        architecture (for example msdos for x86 and gpt for
+                        Itanium). This is only meaningful in combination with
+                        the '--all' option.""")
+        op.add_argument("--linux", dest="type", action="store_const",
+                        const=CLEARPART_TYPE_LINUX, version=FC3,
+                        help="Erases all Linux partitions.")
+        op.add_argument("--none", dest="type", action="store_const",
+                        const=CLEARPART_TYPE_NONE, version=FC3, help="""
+                        Do not remove any partitions. This is the default""")
         return op
 
     def parse(self, args):
@@ -90,7 +115,13 @@ class F17_ClearPart(FC3_ClearPart):
 
     def _getParser(self):
         op = FC3_ClearPart._getParser(self)
-        op.add_argument("--list", dest="devices", type=commaSplit)
+        op.add_argument("--list", dest="devices", type=commaSplit,
+                        version=F17, help="""
+                        Specifies which partitions to clear. If given, this
+                        supersedes any of the ``--all`` and ``--linux``
+                        options. This can be across different drives::
+
+                        ``clearpart --list=sda2,sda3,sdb1``""")
         return op
 
     def parse(self, args):
@@ -114,5 +145,8 @@ class F21_ClearPart(F17_ClearPart):
 
     def _getParser(self):
         op = F17_ClearPart._getParser(self)
-        op.add_argument("--disklabel", default="")
+        op.add_argument("--disklabel", default="", version=F21, help="""
+                        Set the default disklabel to use. Only disklabels
+                        supported for the platform will be accepted. eg. msdos
+                        and gpt for x86_64 but not dasd.""")
         return op

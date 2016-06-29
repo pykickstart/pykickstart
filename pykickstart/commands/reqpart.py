@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
+from pykickstart.version import F23
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -51,8 +52,26 @@ class F23_ReqPart(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser()
-        op.add_argument("--add-boot", action="store_true", dest="addBoot", default=False)
+        op = KSOptionParser(prog="reqpart", description="""
+                            Automatically create partitions required by your
+                            hardware platform. These include a ``/boot/efi``
+                            for x86_64 and Aarch64 systems with UEFI firmware,
+                            ``biosboot`` for x86_64 systems with BIOS firmware
+                            and GPT, and ``PRePBoot`` for IBM Power Systems.
+
+                            Note: This command can not be used together with
+                            ``autopart``, because ``autopart`` does the same
+                            and creates other partitions or logical volumes
+                            such as ``/`` and ``swap`` on top. In contrast with
+                            ``autopart``, this command only creates
+                            platform-specific partitions and leaves the rest of
+                            the drive empty, allowing you to create a custom
+                            layout.""", version=F23)
+        op.add_argument("--add-boot", action="store_true", version=F23,
+                        dest="addBoot", default=False, help="""
+                        Create a separate ``/boot`` partition in addition to the
+                        platform-specific partition created by the base command.
+                        """)
         return op
 
     def parse(self, args):

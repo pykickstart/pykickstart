@@ -413,9 +413,11 @@ class Packages(KickstartObject):
             return retval + "\n" + pkgs + "\n"
 
     def _processGroup (self, line):
-        op = KSOptionParser()
-        op.add_argument("--nodefaults", action="store_true", default=False)
-        op.add_argument("--optional", action="store_true", default=False)
+        op = KSOptionParser(prog="", description="", version=version.DEVEL)
+        op.add_argument("--nodefaults", action="store_true", default=False,
+                        help="", version=version.DEVEL)
+        op.add_argument("--optional", action="store_true", default=False,
+                        help="", version=version.DEVEL)
 
         (ns, extra) = op.parse_known_args(args=line.split())
 
