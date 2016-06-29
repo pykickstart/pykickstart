@@ -469,7 +469,7 @@ class BaseHandler(KickstartObject):
         self._writeOrder = {}
 
         for (key, _val) in list(self.commands.items()):
-            if not key in lst:
+            if key not in lst:
                 self.commands[key] = None
 
     def hasCommand(self, cmd):
