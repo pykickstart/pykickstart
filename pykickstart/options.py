@@ -247,7 +247,7 @@ class KSOptionParser(ArgumentParser):
 
     def error(self, message):
         # Overridden to turn errors into KickstartParseErrors.
-        if self.lineno != None:
+        if self.lineno is not None:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
         else:
             raise KickstartParseError(message)

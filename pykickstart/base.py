@@ -176,7 +176,7 @@ class KickstartCommand(KickstartObject):
            a Data object.
         """
         for (key, val) in vars(namespace).items():
-            if val != None:
+            if val is not None:
                 setattr(obj, key, val)
 
     # Just calls set_to_obj - exists for backwards compatibility.
@@ -363,13 +363,13 @@ class BaseHandler(KickstartObject):
 
     def _registerCommands(self, mapping=None, dataMapping=None, commandUpdates=None,
                           dataUpdates=None):
-        if mapping == {} or mapping == None:
+        if mapping == {} or mapping is None:
             from pykickstart.handlers.control import commandMap
             cMap = commandMap[self.version]
         else:
             cMap = mapping
 
-        if dataMapping == {} or dataMapping == None:
+        if dataMapping == {} or dataMapping is None:
             from pykickstart.handlers.control import dataMap
             dMap = dataMap[self.version]
         else:
@@ -396,7 +396,7 @@ class BaseHandler(KickstartObject):
                     break
 
             # If we didn't find an instance in self.commands, create one now.
-            if cmdObj == None:
+            if cmdObj is None:
                 cmdObj = cmdClass()
                 self._setCommand(cmdObj)
 
@@ -441,7 +441,7 @@ class BaseHandler(KickstartObject):
 
         if cmd not in self.commands:
             raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown command: %s") % cmd))
-        elif self.commands[cmd] != None:
+        elif self.commands[cmd] is not None:
             self.commands[cmd].currentCmd = cmd
             self.commands[cmd].currentLine = self.currentLine
             self.commands[cmd].lineno = lineno
