@@ -1,0 +1,16 @@
+language: python
+python:
+  - "3.5"
+
+install:
+  - pip install --upgrade pip setuptools
+  - pip install coverage mypy-lang nose ordered-set polib pylint requests six
+  - pip install https://github.com/rhinstaller/pocketlint/zipball/master
+
+script:
+  - make ci
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change

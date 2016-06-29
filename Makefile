@@ -19,9 +19,12 @@ PYTHON?=python3
 
 ifeq ($(PYTHON),python3)
   COVERAGE=coverage3
-  # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
-  # We default to python3 now so everyone else can just deal with the slowness.
-  NOSEARGS+=--processes=-1 $(tests)
+  ifneq ($(TRAVIS),true)
+      # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
+      # We default to python3 now so everyone else can just deal with the slowness.
+      NOSEARGS+=--processes=-1
+  endif
+  NOSEARGS+=$(tests)
 else
   COVERAGE?=coverage
   NOSEARGS+=$(filter-out tests/attrs.py,$(tests))
@@ -46,9 +49,12 @@ docs:
 check:
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
+	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
+	@echo "*** Running type checks ***"
+	PYTHONPATH=. mypy pykickstart
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po $(PKGNAME).pot
-	PYTHONPATH=translation-canary python3 -m translation_canary.translatable po/$(PKGNAME).pot
+	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/$(PKGNAME).pot
 	git checkout -- po/$(PKGNAME).pot || true
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
@@ -59,10 +65,7 @@ coverage:
 	@echo "*** Running unittests with coverage ***"
 	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
 	$(COVERAGE) combine
-	$(COVERAGE) report -m | tee coverage-report.log
-	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
-	@echo "*** Running type checks ***"
-	PYTHONPATH=. mypy pykickstart
+	$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage
@@ -87,7 +90,7 @@ archive: check test tag docs
 	cp -r po/*.po $(PKGNAME)-$(VERSION)/po/
 	$(MAKE) -C $(PKGNAME)-$(VERSION)/po
 	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
-	PYTHONPATH=translation-canary python3 -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
+	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
 	( cd $(PKGNAME)-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf $(PKGNAME)-$(VERSION)
 	git checkout -- po/$(PKGNAME).pot
@@ -141,6 +144,6 @@ rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
 
 ci:
-	$(MAKE) PYTHON=python3 check coverage
+	$(MAKE) PYTHON=$(PYTHON) check coverage
 
 .PHONY: check clean install tag archive local docs release
