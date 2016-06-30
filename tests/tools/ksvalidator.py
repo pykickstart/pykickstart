@@ -1,10 +1,17 @@
 import re
 import os
+import tempfile
 from unittest import TestCase
 import unittest.mock as mock
 from tools import ksvalidator
 from tests.tools.utils import mktempfile
 from pykickstart.version import versionMap
+
+class Remove_Non_Existing_File_TestCase(TestCase):
+    def runTest(self):
+        destdir = tempfile.mkdtemp("", "ksvalidator-test-tmp-", "/tmp")
+        # no exception should be raised
+        ksvalidator.cleanup(destdir, "/non/existing/file")
 
 class No_Parameters_TestCase(TestCase):
     """
@@ -181,3 +188,50 @@ class List_Versions_TestCase(TestCase):
         retval, out = ksvalidator.main(["-l"])
         self.assertEqual(self.versions_list, out)
         self.assertEqual(retval, 0)
+
+class Raise_KickstartError_TestCase(TestCase):
+    def setUp(self):
+        super(self.__class__, self).setUp()
+        ks_content = "%ksappend /none.ks"
+        self._ks_path = mktempfile(ks_content)
+
+    def runTest(self):
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
+        self.assertEqual(retval, 1)
+        self.assertTrue("General kickstart error" in " ".join(out))
+
+    def tearDown(self):
+        super(self.__class__, self).tearDown()
+        os.unlink(self._ks_path)
+
+class Raise_Exception_TestCase(TestCase):
+    def setUp(self):
+        super(self.__class__, self).setUp()
+        ks_content = "text'" # extra quote here
+        self._ks_path = mktempfile(ks_content)
+
+    def runTest(self):
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
+        self.assertEqual(retval, 1)
+        self.assertTrue("General error in input file:  No closing quotation" in " ".join(out))
+
+    def tearDown(self):
+        super(self.__class__, self).tearDown()
+        os.unlink(self._ks_path)
+
+class Raise_DeprecationWarning_TestCase(TestCase):
+    def setUp(self):
+        super(self.__class__, self).setUp()
+        ks_content = "text"
+        self._ks_path = mktempfile(ks_content)
+
+    @mock.patch('pykickstart.parser.KickstartParser.readKickstart')
+    def runTest(self, _mock):
+        _mock.side_effect = DeprecationWarning('Raised by test')
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
+        self.assertNotEqual(retval, 0)
+        self.assertTrue("File uses a deprecated option or command" in " ".join(out))
+
+    def tearDown(self):
+        super(self.__class__, self).tearDown()
+        os.unlink(self._ks_path)
