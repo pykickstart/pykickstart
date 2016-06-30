@@ -78,7 +78,7 @@ unknown --foo='bar'
         retval, out = ksvalidator.main([self._ks_path])
         # kickstart file contains 3 erroneous lines - 3 error messages should be present
         self.assertEqual(_print.call_count, 3)
-        self.assertEqual(retval, 0)
+        self.assertNotEqual(retval, 0)
 
     def tearDown(self):
         super(KS_With_Errors_TestCase, self).tearDown()
@@ -106,7 +106,7 @@ unknown --foo='bar'
         # there is one error message only, coming from
         # ksvalidator itself
         self.assertTrue("Unknown command: firstb00t" in " ".join(out))
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
 
     def tearDown(self):
         super(Stop_On_First_Error_TestCase, self).tearDown()
@@ -126,9 +126,10 @@ class KS_With_Include_TestCase(TestCase):
         self.assertEqual(len(out), 0) # no output should be present
         self.assertEqual(retval, 0)
 
+        # included snippet has errors
         retval, out = ksvalidator.main(["-i", self._ks_path])
         self.assertEqual(_print.call_count, 1)
-        self.assertEqual(retval, 0)
+        self.assertNotEqual(retval, 0)
 
     def tearDown(self):
         super(KS_With_Include_TestCase, self).tearDown()
@@ -139,7 +140,7 @@ class KS_With_Include_TestCase(TestCase):
 class Nonexistent_KS_File_TestCase(TestCase):
     def runTest(self):
         retval, out = ksvalidator.main(["/foo/bar/baz/ks.cfg"])
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
         self.assertTrue("No such file or directory" in " ".join(out))
 
 
@@ -157,7 +158,7 @@ class KS_With_Wrong_Permissions_TestCase(TestCase):
             if re.search("Error reading %s.*" % self._ks_path, line):
                 read_error_seen = True
         self.assertTrue(read_error_seen)
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
 
     def tearDown(self):
         super(KS_With_Wrong_Permissions_TestCase, self).tearDown()
@@ -172,7 +173,7 @@ class Wrong_KS_Version_TestCase(TestCase):
     def runTest(self):
         # run ksvalidator with nonexistent KS version (FC42)
         retval, out = ksvalidator.main([self._ks_path, "-v", "FC42"])
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
         self.assertTrue("The version FC42 is not supported by pykickstart" in " ".join(out))
 
     def tearDown(self):
@@ -197,7 +198,7 @@ class Raise_KickstartError_TestCase(TestCase):
 
     def runTest(self):
         retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
         self.assertTrue("General kickstart error" in " ".join(out))
 
     def tearDown(self):
@@ -212,7 +213,7 @@ class Raise_Exception_TestCase(TestCase):
 
     def runTest(self):
         retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
-        self.assertEqual(retval, 1)
+        self.assertNotEqual(retval, 0)
         self.assertTrue("General error in input file:  No closing quotation" in " ".join(out))
 
     def tearDown(self):

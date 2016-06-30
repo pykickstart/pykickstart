@@ -103,7 +103,7 @@ def main(argv=sys.argv[1:]):
     try:
         processedFile = preprocessKickstart(f)
         ksparser.readKickstart(processedFile)
-        return (cleanup(destdir, processedFile, exitval=0), [])
+        return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
     except DeprecationWarning as msg:
         return (cleanup(destdir, processedFile),
                 [_("File uses a deprecated option or command.\n%s") % msg])
