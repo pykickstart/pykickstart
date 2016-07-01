@@ -45,7 +45,7 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import re, sys
+import os, re, sys
 
 try:
     from typing import cast
@@ -196,8 +196,8 @@ def returnClassForVersion(version=DEVEL):
     module = module.lower()
 
     try:
-        import pykickstart.handlers
-        sys.path.extend(pykickstart.handlers.__path__)
+        _path = os.path.join(os.path.dirname(__file__), "handlers/")
+        sys.path.extend([_path])
         loaded = importlib.import_module(module)
 
         for (k, v) in list(loaded.__dict__.items()):

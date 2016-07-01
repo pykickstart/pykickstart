@@ -234,7 +234,9 @@ class returnClassForVersion_TestCase(CommandTest):
 
         # Load the handlers
         import pykickstart.handlers
-        for module in loadModules(pykickstart.handlers.__path__[0], cls_pattern="Handler", skip_list=["control"]):
+        _path = os.path.join(os.path.dirname(__file__), "..", "pykickstart", "handlers")
+        _path = os.path.abspath(_path)
+        for module in loadModules(_path, cls_pattern="Handler", skip_list=["control"]):
             if module.__name__.endswith("Handler") and module.__name__ not in ["BaseHandler"]:
                 # What is the version of the handler?
                 vers = module.__name__.replace("Handler","")
