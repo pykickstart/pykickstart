@@ -47,10 +47,8 @@ This module also exports several functions:
 """
 import re, sys
 
-# import static typing information if available
 try:
-    from typing import Callable, Union, cast    # pylint: disable=unused-import
-    from pykickstart.base import BaseHandler    # pylint: disable=unused-import
+    from typing import cast
 except ImportError:
     cast = lambda ty, val: val
 
