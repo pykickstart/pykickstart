@@ -19,16 +19,21 @@
 #
 __all__ = ["commandMap", "dataMap"]
 
-from pykickstart import handlers
+import os
+import importlib
 
 commandMap = {}
 dataMap = {}
 
 if not commandMap:
-    for (name, obj) in list(handlers.__dict__.items()):
+    for name in os.listdir(os.path.dirname(__file__)):
         if not (name.startswith("fc") or name.startswith("f") or name.startswith("rhel")):
             continue
 
+        if not name.endswith(".py"):
+            continue
+
+        obj = importlib.import_module(name.replace(".py", ""))
         if not obj.__all__ or not obj.__all__[0].endswith("Handler"):
             continue
 
