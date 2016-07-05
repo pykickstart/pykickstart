@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 #
 # Simple script to take a kickstart config, read it in, parse any %includes,
 # etc to write out a flattened config that is stand-alone

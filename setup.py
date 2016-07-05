@@ -1,3 +1,5 @@
+# pylint: disable=import-error,no-name-in-module
+# See https://github.com/PyCQA/pylint/issues/73#issuecomment-163171888
 from distutils.core import setup
 from distutils.command.install_scripts import install_scripts as _install_scripts
 from distutils.file_util import move_file
