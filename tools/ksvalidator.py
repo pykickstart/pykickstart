@@ -104,11 +104,11 @@ def main(argv=sys.argv[1:]):
         processedFile = preprocessKickstart(f)
         ksparser.readKickstart(processedFile)
         return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
-    except DeprecationWarning as msg:
+    except DeprecationWarning as err:
         return (cleanup(destdir, processedFile),
-                [_("File uses a deprecated option or command.\n%s") % msg])
-    except KickstartParseError as msg:
-        return (cleanup(destdir, processedFile), [str(msg)])
+                [_("File uses a deprecated option or command.\n%s") % err])
+    except KickstartParseError as err:
+        return (cleanup(destdir, processedFile), [str(err)])
     except KickstartError:
         return (cleanup(destdir, processedFile),
                 [_("General kickstart error in input file")])

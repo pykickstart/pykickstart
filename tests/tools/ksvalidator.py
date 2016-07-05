@@ -75,7 +75,7 @@ unknown --foo='bar'
 
     @mock.patch('pykickstart.parser.print', create=True)
     def runTest(self, _print):
-        retval, out = ksvalidator.main([self._ks_path])
+        retval, _out = ksvalidator.main([self._ks_path])
         # kickstart file contains 3 erroneous lines - 3 error messages should be present
         self.assertEqual(_print.call_count, 3)
         self.assertNotEqual(retval, 0)
