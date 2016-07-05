@@ -521,6 +521,7 @@ class KickstartParser(object):
                                     pykickstart ignore them.
         """
         self.errorsAreFatal = errorsAreFatal
+        self.errorsCount = 0
         self.followIncludes = followIncludes
         self.handler = handler
         self.currentdir = {}
@@ -668,6 +669,7 @@ class KickstartParser(object):
         try:
             fn()
         except Exception as msg:    # pylint: disable=broad-except
+            self.errorsCount += 1
             if self.errorsAreFatal:
                 raise
             else:

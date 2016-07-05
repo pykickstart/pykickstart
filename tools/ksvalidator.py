@@ -43,68 +43,81 @@ def cleanup(dest, fn=None, exitval=1):
         except Exception:
             pass
 
-    sys.exit(exitval)
+    return exitval
 
-op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile")
-op.add_argument("ksfile", nargs="?",
-                help=_("filename or URL to read from"))
-op.add_argument("-e", "--firsterror", dest="firsterror", action="store_true",
-                default=False, help=_("halt after the first error or warning"))
-op.add_argument("-i", "--followincludes", dest="followincludes",
-                action="store_true", default=False,
-                help=_("parse include files when %%include is seen"))
-op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
-                default=False,
-                help=_("list the available versions of kickstart syntax"))
-op.add_argument("-v", "--version", dest="version", default=DEVEL,
-                help=_("version of kickstart syntax to validate against"))
+def main(argv=sys.argv[1:]):
+    op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile", add_help=False)
+    op.add_argument("ksfile", nargs="?",
+                    help=_("filename or URL to read from"))
+    op.add_argument("-e", "--firsterror", dest="firsterror", action="store_true",
+                    default=False, help=_("halt after the first error or warning"))
+    op.add_argument("-i", "--followincludes", dest="followincludes",
+                    action="store_true", default=False,
+                    help=_("parse include files when %%include is seen"))
+    op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
+                    default=False,
+                    help=_("list the available versions of kickstart syntax"))
+    op.add_argument("-v", "--version", dest="version", default=DEVEL,
+                    help=_("version of kickstart syntax to validate against"))
+    op.add_argument("-h", "--help", dest="help", action="store_true", default=False,
+                    help=_("show this help message and exit"))
 
-opts = op.parse_args(sys.argv[1:])
+    opts = op.parse_args(argv)
 
-if opts.listversions:
-    for key in sorted(versionMap.keys()):
-        print(key)
+    # parse --help manually b/c we don't want to sys.exit before the
+    # tests have finished
+    if opts.help:
+        return (0, op.format_help().split("\n"))
 
-    sys.exit(1)
+    if opts.listversions:
+        versions = []
+        for key in sorted(versionMap.keys()):
+            versions.append(key)
+        return (0, versions)
 
-if not opts.ksfile:
-    op.print_usage()
-    sys.exit(1)
+    if not opts.ksfile:
+        return (1, op.format_usage().split("\n"))
 
-destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
-try:
-    f = load_to_file(opts.ksfile, "%s/ks.cfg" % destdir)
-except KickstartError as e:
-    print(_("Error reading %(filename)s:\n%(version)s") % {"filename": opts.ksfile, "version": e})
-    cleanup(destdir)
+    destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
+    try:
+        f = load_to_file(opts.ksfile, "%s/ks.cfg" % destdir)
+    except KickstartError as e:
+        return (cleanup(destdir),
+                [_("Error reading %(filename)s:\n%(version)s") % {"filename": opts.ksfile, "version": e}])
 
-try:
-    handler = makeVersion(opts.version)
-except KickstartVersionError:
-    print(_("The version %s is not supported by pykickstart") % opts.version)
-    cleanup(destdir)
+    try:
+        handler = makeVersion(opts.version)
+    except KickstartVersionError:
+        return (cleanup(destdir),
+                [_("The version %s is not supported by pykickstart") % opts.version])
 
-ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
-                           errorsAreFatal=opts.firsterror)
 
-# turn DeprecationWarnings into errors
-warnings.filterwarnings("error")
+    ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
+                               errorsAreFatal=opts.firsterror)
 
-processedFile = None
+    # turn DeprecationWarnings into errors
+    warnings.filterwarnings("error")
 
-try:
-    processedFile = preprocessKickstart(f)
-    ksparser.readKickstart(processedFile)
-    cleanup(destdir, processedFile, exitval=0)
-except DeprecationWarning as msg:
-    print(_("File uses a deprecated option or command.\n%s") % msg)
-    cleanup(destdir, processedFile)
-except KickstartParseError as msg:
-    print(msg)
-    cleanup(destdir, processedFile)
-except KickstartError:
-    print(_("General kickstart error in input file"))
-    cleanup(destdir, processedFile)
-except Exception as e:
-    print(_("General error in input file:  %s") % e)
-    cleanup(destdir, processedFile)
+    processedFile = None
+
+    try:
+        processedFile = preprocessKickstart(f)
+        ksparser.readKickstart(processedFile)
+        return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
+    except DeprecationWarning as msg:
+        return (cleanup(destdir, processedFile),
+                [_("File uses a deprecated option or command.\n%s") % msg])
+    except KickstartParseError as msg:
+        return (cleanup(destdir, processedFile), [str(msg)])
+    except KickstartError:
+        return (cleanup(destdir, processedFile),
+                [_("General kickstart error in input file")])
+    except Exception as e:
+        return (cleanup(destdir, processedFile),
+                [_("General error in input file:  %s") % e])
+
+if __name__ == "__main__":
+    retval, messages = main()
+    for msg in messages:
+        print(msg)
+    sys.exit(retval)
