@@ -241,7 +241,7 @@ class Script(KickstartObject):
             retval += " --interpreter=%s" % self.interp
         if self.type == constants.KS_SCRIPT_POST and not self.inChroot:
             retval += " --nochroot"
-        if self.logfile != None:
+        if self.logfile is not None:
             retval += " --logfile=%s" % self.logfile
         if self.errorOnFail:
             retval += " --erroronfail"

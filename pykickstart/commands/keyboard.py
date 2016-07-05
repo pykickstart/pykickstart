@@ -25,11 +25,6 @@ from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
-# import static typing information if available
-try:
-    from typing import Any  # pylint: disable=unused-import
-except ImportError:         # pragma: no cover
-    pass
 
 class FC3_Keyboard(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

@@ -45,12 +45,10 @@ This module also exports several functions:
                       syntax it uses.  This requires the kickstart file to
                       have a version= comment in it.
 """
-import re, sys
+import os, re, sys
 
-# import static typing information if available
 try:
-    from typing import Callable, Union, cast    # pylint: disable=unused-import
-    from pykickstart.base import BaseHandler    # pylint: disable=unused-import
+    from typing import cast
 except ImportError:
     cast = lambda ty, val: val
 
@@ -198,8 +196,8 @@ def returnClassForVersion(version=DEVEL):
     module = module.lower()
 
     try:
-        import pykickstart.handlers
-        sys.path.extend(pykickstart.handlers.__path__)
+        _path = os.path.join(os.path.dirname(__file__), "handlers/")
+        sys.path.extend([_path])
         loaded = importlib.import_module(module)
 
         for (k, v) in list(loaded.__dict__.items()):

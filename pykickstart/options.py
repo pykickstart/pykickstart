@@ -177,7 +177,7 @@ class KSOptionParser(ArgumentParser):
                 self.error(_("The %(option)s option is no longer supported.") % mapping)
             else:
                 self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-        elif action.deprecated == True or \
+        elif action.deprecated is True or \
             (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
             mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
             warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
@@ -247,7 +247,7 @@ class KSOptionParser(ArgumentParser):
 
     def error(self, message):
         # Overridden to turn errors into KickstartParseErrors.
-        if self.lineno != None:
+        if self.lineno is not None:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
         else:
             raise KickstartParseError(message)
