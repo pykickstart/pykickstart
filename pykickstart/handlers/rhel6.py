@@ -83,7 +83,7 @@ class RHEL6Handler(BaseHandler):
         "url": commands.url.RHEL6_Url,
         "user": commands.user.F12_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.FC16_VolGroup,
+        "volgroup": commands.volgroup.F16_VolGroup,
         "xconfig": commands.xconfig.F10_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F12_ZFCP,
@@ -104,6 +104,6 @@ class RHEL6Handler(BaseHandler):
         "RepoData": commands.repo.RHEL6_RepoData,
         "SshPwData": commands.sshpw.F13_SshPwData,
         "UserData": commands.user.F12_UserData,
-        "VolGroupData": commands.volgroup.FC16_VolGroupData,
+        "VolGroupData": commands.volgroup.F16_VolGroupData,
         "ZFCPData": commands.zfcp.F12_ZFCPData,
     }
