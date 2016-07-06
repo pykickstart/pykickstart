@@ -445,4 +445,6 @@ class F21_Bootloader(F19_Bootloader):
                         version=F21, help="")
         return op
 
-RHEL7_Bootloader = F21_Bootloader
+class RHEL7_Bootloader(F21_Bootloader):
+    pass
+

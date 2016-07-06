@@ -89,7 +89,8 @@ class F21_VolGroupData(FC16_VolGroupData):
         FC16_VolGroupData.__init__(self, *args, **kwargs)
         self.pesize = kwargs.get("pesize", 0)
 
-RHEL7_VolGroupData = F21_VolGroupData
+class RHEL7_VolGroupData(F21_VolGroupData):
+    pass
 
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -224,4 +225,5 @@ class F21_VolGroup(FC16_VolGroup):
                         Set the size of the physical extents in KiB.""")
         return op
 
-RHEL7_VolGroup = F21_VolGroup
+class RHEL7_VolGroup(F21_VolGroup):
+    pass

@@ -93,7 +93,8 @@ class F23_BTRFSData(F17_BTRFSData):
 
         return retval
 
-RHEL7_BTRFSData = F23_BTRFSData
+class RHEL7_BTRFSData(F23_BTRFSData):
+    pass
 
 class F17_BTRFS(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -264,4 +265,5 @@ class F23_BTRFS(F17_BTRFS):
 
         return data
 
-RHEL7_BTRFS = F23_BTRFS
+class RHEL7_BTRFS(F23_BTRFS):
+    pass

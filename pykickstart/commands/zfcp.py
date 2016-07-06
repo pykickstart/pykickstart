@@ -79,7 +79,8 @@ class F12_ZFCPData(FC3_ZFCPData):
         return self.devnum == y.devnum and self.wwpn == y.wwpn and \
                self.fcplun == y.fcplun
 
-F14_ZFCPData = F12_ZFCPData
+class F14_ZFCPData(F12_ZFCPData):
+    pass
 
 class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

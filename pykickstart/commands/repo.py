@@ -130,27 +130,30 @@ class F14_RepoData(F13_RepoData):
 
         return retval
 
-RHEL6_RepoData = F14_RepoData
+class RHEL6_RepoData(F14_RepoData):
+    pass
 
-F15_RepoData = F14_RepoData
+class F15_RepoData(F14_RepoData):
+    pass
 
-class F21_RepoData(F14_RepoData):
-    removedKeywords = F14_RepoData.removedKeywords
-    removedAttrs = F14_RepoData.removedAttrs
+class F21_RepoData(F15_RepoData):
+    removedKeywords = F15_RepoData.removedKeywords
+    removedAttrs = F15_RepoData.removedAttrs
 
     def __init__(self, *args, **kwargs):
-        F14_RepoData.__init__(self, *args, **kwargs)
+        F15_RepoData.__init__(self, *args, **kwargs)
         self.install = kwargs.get("install", False)
 
     def _getArgsAsStr(self):
-        retval = F14_RepoData._getArgsAsStr(self)
+        retval = F15_RepoData._getArgsAsStr(self)
 
         if self.install:
             retval += " --install"
 
         return retval
 
-RHEL7_RepoData = F21_RepoData
+class RHEL7_RepoData(F21_RepoData):
+    pass
 
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -336,7 +339,8 @@ class F14_Repo(F13_Repo):
                         """)
         return op
 
-RHEL6_Repo = F14_Repo
+class RHEL6_Repo(F14_Repo):
+    pass
 
 class F15_Repo(F14_Repo):
     removedKeywords = F14_Repo.removedKeywords
@@ -369,4 +373,5 @@ class F21_Repo(F15_Repo):
                         can be used after reboot.""")
         return op
 
-RHEL7_Repo = F21_Repo
+class RHEL7_Repo(F21_Repo):
+    pass

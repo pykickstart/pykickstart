@@ -133,7 +133,8 @@ class F14_Url(F13_Url):
                         domain name.""")
         return op
 
-RHEL6_Url = F14_Url
+class RHEL6_Url(F14_Url):
+    pass
 
 class F18_Url(F14_Url):
     removedKeywords = F14_Url.removedKeywords

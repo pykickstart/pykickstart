@@ -85,7 +85,8 @@ class F12_DriverDiskData(FC4_DriverDiskData):
         FC4_DriverDiskData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
-F14_DriverDiskData = F12_DriverDiskData
+class F14_DriverDiskData(F12_DriverDiskData):
+    pass
 
 class FC3_DriverDisk(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

@@ -431,4 +431,5 @@ class F21_AutoPart(F20_AutoPart):
 
         return retval
 
-RHEL7_AutoPart = F21_AutoPart
+class RHEL7_AutoPart(F21_AutoPart):
+    pass

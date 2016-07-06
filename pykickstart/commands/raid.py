@@ -132,14 +132,15 @@ class RHEL5_RaidData(FC5_RaidData):
 
         return retval
 
-F7_RaidData = FC5_RaidData
+class F7_RaidData(FC5_RaidData):
+    pass
 
-class F9_RaidData(FC5_RaidData):
-    removedKeywords = FC5_RaidData.removedKeywords + ["bytesPerInode"]
-    removedAttrs = FC5_RaidData.removedAttrs + ["bytesPerInode"]
+class F9_RaidData(F7_RaidData):
+    removedKeywords = F7_RaidData.removedKeywords + ["bytesPerInode"]
+    removedAttrs = F7_RaidData.removedAttrs + ["bytesPerInode"]
 
     def __init__(self, *args, **kwargs):
-        FC5_RaidData.__init__(self, *args, **kwargs)
+        F7_RaidData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
         self.fsprofile = kwargs.get("fsprofile", "")
@@ -147,7 +148,7 @@ class F9_RaidData(FC5_RaidData):
         self.passphrase = kwargs.get("passphrase", "")
 
     def _getArgsAsStr(self):
-        retval = FC5_RaidData._getArgsAsStr(self)
+        retval = F7_RaidData._getArgsAsStr(self)
 
         if self.fsprofile != "":
             retval += " --fsprofile=\"%s\"" % self.fsprofile
@@ -180,7 +181,8 @@ class F12_RaidData(F9_RaidData):
                 retval += " --backuppassphrase"
         return retval
 
-F13_RaidData = F12_RaidData
+class F13_RaidData(F12_RaidData):
+    pass
 
 class RHEL6_RaidData(F13_RaidData):
     removedKeywords = F13_RaidData.removedKeywords
@@ -199,7 +201,8 @@ class RHEL6_RaidData(F13_RaidData):
 
         return retval
 
-F14_RaidData = F13_RaidData
+class F14_RaidData(F13_RaidData):
+    pass
 
 class F15_RaidData(F14_RaidData):
     removedKeywords = F14_RaidData.removedKeywords
@@ -268,7 +271,8 @@ class F25_RaidData(F23_RaidData):
 
         return retval
 
-RHEL7_RaidData = F23_RaidData
+class RHEL7_RaidData(F23_RaidData):
+    pass
 
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -687,7 +691,8 @@ class F23_Raid(F20_Raid):
 
         return retval
 
-RHEL7_Raid = F23_Raid
+class RHEL7_Raid(F23_Raid):
+    pass
 
 class F25_Raid(F23_Raid):
     removedKeywords = F23_Raid.removedKeywords
