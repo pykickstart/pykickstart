@@ -20,12 +20,17 @@
 __all__ = ["commandMap", "dataMap"]
 
 import os
+import sys
 import importlib
 
 commandMap = {}
 dataMap = {}
 
 if not commandMap:
+    _path = os.path.dirname(__file__)
+    if not _path in sys.path:
+        sys.path.append(_path)
+
     for name in os.listdir(os.path.dirname(__file__)):
         if not (name.startswith("fc") or name.startswith("f") or name.startswith("rhel")):
             continue
