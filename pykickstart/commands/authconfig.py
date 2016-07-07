@@ -26,7 +26,7 @@ class FC3_Authconfig(KickstartCommand):
     removedAttrs = KickstartCommand.removedAttrs
 
     def __init__(self, writePriority=0, *args, **kwargs):
-        KickstartCommand.__init__(self, *args, **kwargs)
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.authconfig = kwargs.get("authconfig", "")
 
     def __str__(self):
