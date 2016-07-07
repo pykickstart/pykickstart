@@ -76,15 +76,20 @@ class FC3_Method(KickstartCommand):
 
 # These are all just for compat.  Calling into the appropriate version-specific
 # method command will deal with making sure the right options are used.
-FC6_Method = FC3_Method
+class FC6_Method(FC3_Method):
+    pass
 
-F13_Method = FC6_Method
+class F13_Method(FC6_Method):
+    pass
 
-F14_Method = F13_Method
+class F14_Method(F13_Method):
+    pass
 
-RHEL6_Method = F14_Method
+class RHEL6_Method(F14_Method):
+    pass
 
-F18_Method = F14_Method
+class F18_Method(F14_Method):
+    pass
 
 class F19_Method(FC3_Method):
     removedKeywords = FC3_Method.removedKeywords

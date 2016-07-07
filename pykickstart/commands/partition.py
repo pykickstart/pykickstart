@@ -207,7 +207,8 @@ class RHEL6_PartData(F12_PartData):
 
         return retval
 
-F14_PartData = F12_PartData
+class F14_PartData(F12_PartData):
+    pass
 
 class F17_PartData(F14_PartData):
     removedKeywords = F14_PartData.removedKeywords
@@ -261,7 +262,8 @@ class F23_PartData(F18_PartData):
 
         return retval
 
-RHEL7_PartData = F23_PartData
+class RHEL7_PartData(F23_PartData):
+    pass
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -649,4 +651,5 @@ class F23_Partition(F20_Partition):
 
         return retval
 
-RHEL7_Partition = F23_Partition
+class RHEL7_Partition(F23_Partition):
+    pass

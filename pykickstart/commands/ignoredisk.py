@@ -139,4 +139,6 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
                         screen.""")
         return op
 
-F14_IgnoreDisk = RHEL6_IgnoreDisk
+class F14_IgnoreDisk(RHEL6_IgnoreDisk):
+    pass
+

@@ -90,7 +90,8 @@ class RHEL6_IscsiData(F10_IscsiData):
 
         return retval
 
-F17_IscsiData = RHEL6_IscsiData
+class F17_IscsiData(RHEL6_IscsiData):
+    pass
 
 class FC6_Iscsi(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -188,4 +189,6 @@ class RHEL6_Iscsi(F10_Iscsi):
                         """)
         return op
 # todo: how do we mark that --iface is available since F17, while RHEL6 is based on F12 ?
-F17_Iscsi = RHEL6_Iscsi
+
+class F17_Iscsi(RHEL6_Iscsi):
+    pass

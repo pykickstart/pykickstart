@@ -85,4 +85,5 @@ class F21_OSTreeSetup(KickstartCommand):
 
         return self
 
-RHEL7_OSTreeSetup = F21_OSTreeSetup
+class RHEL7_OSTreeSetup(F21_OSTreeSetup):
+    pass

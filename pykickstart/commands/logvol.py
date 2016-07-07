@@ -210,7 +210,8 @@ class RHEL6_LogVolData(F12_LogVolData):
 
         return retval
 
-F14_LogVolData = F12_LogVolData
+class F14_LogVolData(F12_LogVolData):
+    pass
 
 class F15_LogVolData(F14_LogVolData):
     removedKeywords = F14_LogVolData.removedKeywords
