@@ -84,7 +84,7 @@ class F24Handler(BaseHandler):
         "updates": commands.updates.F7_Updates,
         "upgrade": commands.upgrade.F20_Upgrade,
         "url": commands.url.F18_Url,
-        "user": commands.user.F19_User,
+        "user": commands.user.F24_User,
         "vnc": commands.vnc.F9_Vnc,
         "volgroup": commands.volgroup.F21_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,

@@ -233,7 +233,6 @@ class returnClassForVersion_TestCase(CommandTest):
         ver.versionToString = orig_versionToString
 
         # Load the handlers
-        import pykickstart.handlers
         _path = os.path.join(os.path.dirname(__file__), "..", "pykickstart", "handlers")
         _path = os.path.abspath(_path)
         for module in loadModules(_path, cls_pattern="Handler", skip_list=["control"]):

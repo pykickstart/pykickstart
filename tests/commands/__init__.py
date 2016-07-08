@@ -27,7 +27,7 @@ class ClassDefinitionTestCase(unittest.TestCase):
         if commands_dir not in sys.path:
             sys.path.append(commands_dir)
 
-        for dirpath, _dirnames, paths in os.walk(commands_dir):
+        for _dirpath, _dirnames, paths in os.walk(commands_dir):
             for path in paths:
                 if path == '__init__.py' or not path.endswith('.py'):
                     continue

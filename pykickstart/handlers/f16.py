@@ -80,7 +80,7 @@ class F16Handler(BaseHandler):
         "url": commands.url.F14_Url,
         "user": commands.user.F12_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.FC16_VolGroup,
+        "volgroup": commands.volgroup.F16_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F14_ZFCP,
@@ -101,6 +101,6 @@ class F16Handler(BaseHandler):
         "RepoData": commands.repo.F15_RepoData,
         "SshPwData": commands.sshpw.F13_SshPwData,
         "UserData": commands.user.F12_UserData,
-        "VolGroupData": commands.volgroup.FC16_VolGroupData,
+        "VolGroupData": commands.volgroup.F16_VolGroupData,
         "ZFCPData": commands.zfcp.F14_ZFCPData,
     }

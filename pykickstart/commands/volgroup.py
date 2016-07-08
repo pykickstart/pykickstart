@@ -69,7 +69,7 @@ class FC3_VolGroupData(BaseData):
 
         return retval.strip() + "\n"
 
-class FC16_VolGroupData(FC3_VolGroupData):
+class F16_VolGroupData(FC3_VolGroupData):
     def __init__(self, *args, **kwargs):
         FC3_VolGroupData.__init__(self, *args, **kwargs)
         self.reserved_space = kwargs.get("reserved-space", None) or kwargs.get("reserved_space", None)
@@ -84,9 +84,9 @@ class FC16_VolGroupData(FC3_VolGroupData):
 
         return retval
 
-class F21_VolGroupData(FC16_VolGroupData):
+class F21_VolGroupData(F16_VolGroupData):
     def __init__(self, *args, **kwargs):
-        FC16_VolGroupData.__init__(self, *args, **kwargs)
+        F16_VolGroupData.__init__(self, *args, **kwargs)
         self.pesize = kwargs.get("pesize", 0)
 
 class RHEL7_VolGroupData(F21_VolGroupData):
@@ -185,7 +185,7 @@ class FC3_VolGroup(KickstartCommand):
     def dataClass(self):
         return self.handler.VolGroupData
 
-class FC16_VolGroup(FC3_VolGroup):
+class F16_VolGroup(FC3_VolGroup):
     def _getParser(self):
         op = FC3_VolGroup._getParser(self)
         op.add_argument("--reserved-space", dest="reserved_space", type=int,
@@ -218,9 +218,9 @@ class FC16_VolGroup(FC3_VolGroup):
 
         return retval
 
-class F21_VolGroup(FC16_VolGroup):
+class F21_VolGroup(F16_VolGroup):
     def _getParser(self):
-        op = FC16_VolGroup._getParser(self)
+        op = F16_VolGroup._getParser(self)
         op.add_argument("--pesize", type=int, default=0, version=F21, help="""
                         Set the size of the physical extents in KiB.""")
         return op
