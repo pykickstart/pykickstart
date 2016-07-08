@@ -58,7 +58,7 @@ class F18Handler(BaseHandler):
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F18_Method,
         "multipath": commands.multipath.FC6_MultiPath,
-        "network": commands.network.F16_Network,
+        "network": commands.network.F18_Network,
         "nfs": commands.nfs.FC6_NFS,
         "part": commands.partition.F18_Partition,
         "partition": commands.partition.F18_Partition,

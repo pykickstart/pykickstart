@@ -57,7 +57,7 @@ class RHEL6Handler(BaseHandler):
         "logging": commands.logging.FC6_Logging,
         "logvol": commands.logvol.RHEL6_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
-        "method": commands.method.F13_Method,
+        "method": commands.method.RHEL6_Method,
         "monitor": commands.monitor.F10_Monitor,
         "multipath": commands.multipath.FC6_MultiPath,
         "network": commands.network.RHEL6_Network,
