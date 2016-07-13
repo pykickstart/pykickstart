@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, FC6, F18
 from pykickstart.base import KickstartCommand
@@ -44,7 +44,7 @@ class FC3_Timezone(KickstartCommand):
             else:
                 utc = ""
 
-            retval += "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
+            retval += "# System timezone\ntimezone %s %s\n" % (utc, self.timezone)
 
         return retval
 
@@ -95,7 +95,7 @@ class FC6_Timezone(FC3_Timezone):
             else:
                 utc = ""
 
-            retval += "# System timezone\ntimezone %s %s\n" %(utc, self.timezone)
+            retval += "# System timezone\ntimezone %s %s\n" % (utc, self.timezone)
 
         return retval
 
@@ -164,8 +164,7 @@ class F18_Timezone(FC6_Timezone):
         self.ntpservers = list(set(self.ntpservers))
 
         if self.ntpservers and self.nontp:
-            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
-                                    "--ntpservers are mutually exclusive"))
+            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
             raise KickstartParseError(msg)
 
         return self
@@ -179,8 +178,7 @@ class F23_Timezone(F18_Timezone):
         FC6_Timezone.parse(self, args)
 
         if self.ntpservers and self.nontp:
-            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and "\
-                                    "--ntpservers are mutually exclusive"))
+            msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
             raise KickstartParseError(msg)
 
         return self
