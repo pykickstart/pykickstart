@@ -1961,6 +1961,15 @@ Starting with Fedora 18 the ``timezone`` command has two new options:
     For example:
     ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
 
+Starting with Fedora 25 and RHEL 7.3 the timezone specification for the ``timezone`` command is optional, eq.:
+
+``timezone [--utc] [--nontp] [--ntpservers=<server1>,<server2>,...,<serverN>] [<timezone>]``
+
+This makes it possible to use options for the ``timezone`` command without setting a timezone, for example:
+
+``timezone --utc``
+
+But not that at leas one option and/or one timezone specififcation needs to be provided. Using just ``timezone`` in a kickstart is incorrect.
 
 updates
 -------
