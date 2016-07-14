@@ -21,6 +21,7 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
+from pykickstart.constants import SNAPSHOT_WHEN_POST_INSTALL, SNAPSHOT_WHEN_PRE_INSTALL
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -33,20 +34,32 @@ class RHEL7_SnapshotData(BaseData):
         BaseData.__init__(self, *args, **kwargs)
         self.name = kwargs.get("name", "")
         self.origin = kwargs.get("origin", "")
+        self.when = kwargs.get("when", None)
 
     def __eq__(self, y):
         if not y:
             return False
         return (self.name == y.name and
-                self.origin == y.origin)
+                self.origin == y.origin and
+                self.when == y.when)
 
     def __ne__(self, y):
         return not self == y
 
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.when == SNAPSHOT_WHEN_POST_INSTALL:
+            retval += "--when=post-install"
+        elif self.when == SNAPSHOT_WHEN_PRE_INSTALL:
+            retval += "--when=pre-install"
+
+        return retval
+
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "snapshot %s --name=%s" % (self.origin, self.name)
-        return retval + "\n"
+        retval += ("snapshot %s --name=%s %s" % (self.origin, self.name, self._getArgsAsStr()))
+        return retval.strip() + "\n"
 
 
 class RHEL7_Snapshot(KickstartCommand):
@@ -58,6 +71,8 @@ class RHEL7_Snapshot(KickstartCommand):
         self.op = self._getParser()
 
         self.snapshotList = kwargs.get("snapshotList", [])
+        self.whenMap = { "post-install": SNAPSHOT_WHEN_POST_INSTALL,
+                         "pre-install": SNAPSHOT_WHEN_PRE_INSTALL }
 
     def __str__(self):
         retval = ""
@@ -68,8 +83,14 @@ class RHEL7_Snapshot(KickstartCommand):
         return retval
 
     def _getParser(self):
+        def when_cb(option, opt_str, value, parser):
+            if value.lower() in self.whenMap:
+                parser.values.ensure_value(option.dest, self.whenMap[value.lower()])
         op = KSOptionParser()
+
         op.add_option("--name", dest="name", required=True, type="string")
+        op.add_option("--when", action="callback", callback=when_cb,
+                      dest="when", required=True, type="string")
 
         return op
 
@@ -77,9 +98,11 @@ class RHEL7_Snapshot(KickstartCommand):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
 
         if len(extra) == 0:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Snapshot origin must be specified!")))
+            msg = _("Snapshot origin must be specified!")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
         elif len(extra) > 1:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Snapshot origin can be specified only once")))
+            msg = _("Snapshot origin can be specified only once!")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
 
         snap_data = self.handler.SnapshotData()
         self._setToObj(self.op, opts, snap_data)
@@ -87,9 +110,23 @@ class RHEL7_Snapshot(KickstartCommand):
         snap_data.origin = extra[0]
 
         # Check for duplicates
-        if snap_data in self.dataList():
-            warnings.warn(_("Snapshot with the name %s has been already defined") % snap_data.name)
+        if snap_data.name in [snap.name for snap in self.dataList()]:
+            msg = (_("Snapshot with the name %s has been already defined!") % snap_data.name)
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
 
+        if snap_data.when is None:
+            msg = _("Snapshot \"when\" parameter must be specified!")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
+
+        groups = snap_data.origin.split('/')
+        if len(groups) != 2 or len(groups[0]) == 0 or len(groups[1]) == 0:
+            msg = (_("Snapshot origin %s must be specified by VG/LV!") % snap_data.origin)
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
+
+        # Check if value in a '--when' param is valid
+        if snap_data.when != "" and snap_data.when not in self.whenMap.values():
+            msg = (_("Snapshot when param must have one of these values %s!") % self.whenMap.keys())
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=msg))
         return snap_data
 
     def dataList(self):
