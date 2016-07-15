@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString, FC3, F11, F20
@@ -104,7 +104,7 @@ class F11_Upgrade(FC3_Upgrade):
         return self
 
 class F20_Upgrade(DeprecatedCommand, F11_Upgrade):
-    def __init__(self): # pylint: disable=super-init-not-called
+    def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
 
     def _getParser(self):

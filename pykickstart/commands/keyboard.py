@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from textwrap import dedent
 from pykickstart.base import KickstartCommand
@@ -45,13 +45,12 @@ class FC3_Keyboard(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(prog="keyboard", description="""
-            This required command sets system keyboard type.""",
-            version=FC3)
+            This required command sets system keyboard type.""", version=FC3)
         op.add_argument("kbd", nargs='*', help="Keyboard type", version=FC3)
         return op
 
     def parse(self, args):
-        (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno) 
+        (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(_ns.kbd) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
@@ -63,8 +62,8 @@ class FC3_Keyboard(KickstartCommand):
         return self
 
 class F18_Keyboard(FC3_Keyboard):
-    def __init__(self, writePriority=0, *args, **kwargs):               # pylint: disable=super-init-not-called
-        KickstartCommand.__init__(self, writePriority, *args, **kwargs) # pylint: disable=non-parent-init-called
+    def __init__(self, writePriority=0, *args, **kwargs):                # pylint: disable=super-init-not-called
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)  # pylint: disable=non-parent-init-called
         self.op = self._getParser()
         self._keyboard = kwargs.get("_keyboard", "")
         self.vc_keymap = kwargs.get("vc_keymap", "")
@@ -161,8 +160,7 @@ class F18_Keyboard(FC3_Keyboard):
         self.set_to_self(ns)
 
         if len(ns.kbd) > 1:
-            message = _("A single argument is expected for the %s command") % \
-                        "keyboard"
+            message = _("A single argument is expected for the %s command") % "keyboard"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
         elif len(extra) > 0:
             mapping = {"command": "keyboard", "options": extra}
@@ -190,4 +188,3 @@ class F18_Keyboard(FC3_Keyboard):
     @keyboard.setter
     def keyboard(self, value):
         self._keyboard = value
-

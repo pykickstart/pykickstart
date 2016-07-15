@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, FC5, versionToLongString
 from pykickstart.base import DeprecatedCommand, KickstartCommand
@@ -62,7 +62,7 @@ class FC3_LangSupport(KickstartCommand):
         return self
 
 class FC5_LangSupport(DeprecatedCommand, FC3_LangSupport):
-    def __init__(self): # pylint: disable=super-init-not-called
+    def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
 
     def _getParser(self):

@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
@@ -29,10 +29,10 @@ class F13_TestCase(CommandTest):
         # pass
         self.assert_parse("sshpw --username=someguy --iscrypted secrethandshake", "sshpw --username=someguy --iscrypted secrethandshake\n")
 
-        self.assertFalse(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") == None)
-        self.assertTrue(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") != \
+        self.assertFalse(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") is None)
+        self.assertTrue(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") !=
                         self.assert_parse("sshpw --username=B --iscrypted secrethandshake"))
-        self.assertFalse(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") == \
+        self.assertFalse(self.assert_parse("sshpw --username=A --iscrypted secrethandshake") ==
                          self.assert_parse("sshpw --username=B --iscrypted secrethandshake"))
 
         # fail

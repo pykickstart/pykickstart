@@ -16,7 +16,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import F17, F23
 from pykickstart.base import BaseData, KickstartCommand
@@ -107,10 +107,10 @@ class F17_BTRFS(KickstartCommand):
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
-        self.levelMap = { "raid0": "raid0", "0": "raid0",
-                          "raid1": "raid1", "1": "raid1",
-                          "raid10": "raid10", "10": "raid10",
-                          "single": "single" }
+        self.levelMap = {"raid0": "raid0", "0": "raid0",
+                         "raid1": "raid1", "1": "raid1",
+                         "raid10": "raid10", "10": "raid10",
+                         "single": "single"}
 
         self.btrfsList = kwargs.get("btrfsList", [])
 
@@ -202,7 +202,7 @@ class F17_BTRFS(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        data = self.dataClass() # pylint: disable=not-callable
+        data = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, data)
         data.lineno = self.lineno
 

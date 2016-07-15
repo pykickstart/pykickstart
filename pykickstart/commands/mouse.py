@@ -70,11 +70,10 @@ class RHEL3_Mouse(KickstartCommand):
         return self
 
 class FC3_Mouse(DeprecatedCommand, RHEL3_Mouse):
-    def __init__(self): # pylint: disable=super-init-not-called
+    def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
 
     def _getParser(self):
         op = RHEL3_Mouse._getParser(self)
-        op.description += "\n\n.. versiondeprecated: %s" % \
-                        versionToLongString(FC3)
+        op.description += "\n\n.. versiondeprecated: %s" % versionToLongString(FC3)
         return op

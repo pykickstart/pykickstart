@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, F19
 from pykickstart.base import KickstartCommand
@@ -57,8 +57,7 @@ class FC3_Lang(KickstartCommand):
 
             The file /usr/share/system-config-language/locale-list provides a
             list the valid language codes in the first column of each line and
-            is part of the system-config-languages package.""",
-            version=FC3)
+            is part of the system-config-languages package.""", version=FC3)
         op.add_argument("lang", metavar="<lang>", nargs=1, version=FC3,
                         help="Language ID.")
         return op

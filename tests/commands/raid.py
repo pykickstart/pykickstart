@@ -40,48 +40,48 @@ class FC3_TestCase(CommandTest):
         # pass
         # valid levels
         for level in self.validLevels:
-            self.assert_parse("raid / --device=md0 --level=%s%s raid.01" % (level, self.bytesPerInode), \
+            self.assert_parse("raid / --device=md0 --level=%s%s raid.01" % (level, self.bytesPerInode),
                               "raid / --device=0 --level=%s%s raid.01\n" % (level, self.bytesPerInode))
 
         # device=md0, level=0
-        self.assert_parse("raid / --device=md0 --level=0%s raid.01" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=0%s raid.01" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID0%s raid.01\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md0 --level=raid0%s raid.01" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=raid0%s raid.01" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID0%s raid.01\n" % (self.bytesPerInode))
         # device=0, level=1
-        self.assert_parse("raid / --device=0 --level=1%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=0 --level=1%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID1%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=0 --level=raid1%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=0 --level=raid1%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID1%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
         # device=2, level=RAID1
-        self.assert_parse("raid / --device=md0 --level=RAID1%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=RAID1%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID1%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
         # spares=0
-        self.assert_parse("raid / --device=md2 --level=5 --spares=0%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md2 --level=5 --spares=0%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=2 --level=RAID5%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md2 --level=raid5 --spares=0%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md2 --level=raid5 --spares=0%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=2 --level=RAID5%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
         # spares != 0
-        self.assert_parse("raid / --device=md2 --level=5 --spares=2%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md2 --level=5 --spares=2%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=2 --level=RAID5 --spares=2%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md2 --level=raid5 --spares=2%s raid.01 raid.02 raid.03" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md2 --level=raid5 --spares=2%s raid.01 raid.02 raid.03" % (self.bytesPerInode),
                           "raid / --device=2 --level=RAID5 --spares=2%s raid.01 raid.02 raid.03\n" % (self.bytesPerInode))
 
         # fstype
-        self.assert_parse("raid / --device=md0 --fstype=ASDF --level=6%s raid.01 raid.02" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --fstype=ASDF --level=6%s raid.01 raid.02" % (self.bytesPerInode),
                           "raid / --device=0 --fstype=\"ASDF\" --level=RAID6%s raid.01 raid.02\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md0 --fstype=ASDF --level=raid6%s raid.01 raid.02" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --fstype=ASDF --level=raid6%s raid.01 raid.02" % (self.bytesPerInode),
                           "raid / --device=0 --fstype=\"ASDF\" --level=RAID6%s raid.01 raid.02\n" % (self.bytesPerInode))
         # useexisting
-        self.assert_parse("raid / --device=md0 --level=6 --useexisting%s" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=6 --useexisting%s" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID6 --useexisting%s\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md0 --level=raid6 --useexisting%s" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=raid6 --useexisting%s" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID6 --useexisting%s\n" % (self.bytesPerInode))
 
         # noformat
-        self.assert_parse("raid / --device=md0 --level=6 --noformat --useexisting%s" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=6 --noformat --useexisting%s" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID6 --noformat --useexisting%s\n" % (self.bytesPerInode))
-        self.assert_parse("raid / --device=md0 --level=raid6 --noformat --useexisting%s" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --level=raid6 --noformat --useexisting%s" % (self.bytesPerInode),
                           "raid / --device=0 --level=RAID6 --noformat --useexisting%s\n" % (self.bytesPerInode))
 
         # fail
@@ -116,7 +116,7 @@ class FC3_TestCase(CommandTest):
         # extra test coverage
         rd = self.handler().RaidData()
         self.assertTrue(rd == rd)
-        self.assertFalse(rd == None)
+        self.assertFalse(rd is None)
         self.assertFalse(rd != rd)
         rd.device = ""
         rd.level = ""
@@ -152,7 +152,7 @@ class FC4_TestCase(FC3_TestCase):
 
         # pass
         # fsoptions
-        self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=6 --fsoptions \"these=are,options\"%s raid.01 raid.02" % (self.bytesPerInode), \
+        self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=6 --fsoptions \"these=are,options\"%s raid.01 raid.02" % (self.bytesPerInode),
                           "raid / --device=0 --fstype=\"ext3\" --level=RAID6 --fsoptions=\"these=are,options\"%s raid.01 raid.02\n" % (self.bytesPerInode))
 
 class FC5_TestCase(FC4_TestCase):
@@ -162,21 +162,21 @@ class FC5_TestCase(FC4_TestCase):
 
         # pass
         # fsoptions
-        self.assert_parse("raid / --device=md0 --fstype=\"ext2\" --level=RAID0%s raid.01 raid.02" % (self.bytesPerInode,), \
+        self.assert_parse("raid / --device=md0 --fstype=\"ext2\" --level=RAID0%s raid.01 raid.02" % (self.bytesPerInode,),
                           "raid / --device=0 --fstype=\"ext2\" --level=RAID0%s raid.01 raid.02\n" % (self.bytesPerInode,))
 
         if "--encrypted" in self.optionList:
             # pass
             # encrypted
-            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --encrypted raid.01 raid.02" % (self.bytesPerInode), \
+            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --encrypted raid.01 raid.02" % (self.bytesPerInode),
                               "raid / --device=0 --fstype=\"ext3\" --level=RAID1%s --encrypted raid.01 raid.02\n" % (self.bytesPerInode))
             # passphrase
             # FIXME - should this fail since no --encrypted?
-            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --passphrase=asdf raid.01 raid.02" % (self.bytesPerInode), \
+            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --passphrase=asdf raid.01 raid.02" % (self.bytesPerInode),
                               "raid / --device=0 --fstype=\"ext3\" --level=RAID1%s raid.01 raid.02\n" % (self.bytesPerInode))
 
             # encrypted w/ passphrase
-            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --encrypted --passphrase=asdf raid.01 raid.02" % (self.bytesPerInode), \
+            self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1%s --encrypted --passphrase=asdf raid.01 raid.02" % (self.bytesPerInode),
                               "raid / --device=0 --fstype=\"ext3\" --level=RAID1%s --encrypted --passphrase=\"asdf\" raid.01 raid.02\n" % (self.bytesPerInode))
 
             # fail
@@ -190,9 +190,9 @@ class RHEL5_TestCase(FC5_TestCase):
 
     def runTest(self):
         FC5_TestCase.runTest(self)
-        self.assert_parse("raid / --device=md0 --level=10%s raid.01 raid.02" % (self.bytesPerInode,), \
+        self.assert_parse("raid / --device=md0 --level=10%s raid.01 raid.02" % (self.bytesPerInode,),
                           "raid / --device=0 --level=RAID10%s raid.01 raid.02\n" % (self.bytesPerInode,))
-        self.assert_parse("raid / --device=md0 --level=raid10%s raid.01 raid.02" % (self.bytesPerInode,), \
+        self.assert_parse("raid / --device=md0 --level=raid10%s raid.01 raid.02" % (self.bytesPerInode,),
                           "raid / --device=0 --level=RAID10%s raid.01 raid.02\n" % (self.bytesPerInode,))
 
 class F7_TestCase(RHEL5_TestCase):
@@ -206,7 +206,7 @@ class F9_TestCase(F7_TestCase):
         F7_TestCase.runTest(self)
 
         # fsprofile
-        self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1 --fsprofile=ASDF raid.01 raid.02", \
+        self.assert_parse("raid / --device=md0 --fstype=\"ext3\" --level=1 --fsprofile=ASDF raid.01 raid.02",
                           "raid / --device=0 --fstype=\"ext3\" --level=RAID1 --fsprofile=\"ASDF\" raid.01 raid.02\n")
 
         # deprecated
@@ -244,9 +244,9 @@ class F13_TestCase(F12_TestCase):
 
     def runTest(self):
         F12_TestCase.runTest(self)
-        self.assert_parse("raid / --device=md0 --level=4%s raid.01 raid.02" % (self.bytesPerInode,), \
+        self.assert_parse("raid / --device=md0 --level=4%s raid.01 raid.02" % (self.bytesPerInode,),
                           "raid / --device=0 --level=RAID4%s raid.01 raid.02\n" % (self.bytesPerInode,))
-        self.assert_parse("raid / --device=md0 --level=raid4%s raid.01 raid.02" % (self.bytesPerInode,), \
+        self.assert_parse("raid / --device=md0 --level=raid4%s raid.01 raid.02" % (self.bytesPerInode,),
                           "raid / --device=0 --level=RAID4%s raid.01 raid.02\n" % (self.bytesPerInode,))
 
 class RHEL6_TestCase(F13_TestCase):

@@ -26,12 +26,12 @@ class FC3_TestCase(CommandTest):
         # pass
         self.assert_parse("nfs --server=1.2.3.4 --dir=/install", "nfs --server=1.2.3.4 --dir=/install\n")
 
-        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") == None)
-        self.assertTrue(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") != \
+        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") is None)
+        self.assertTrue(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") !=
                         self.assert_parse("nfs --server=2.3.4.5 --dir=/install"))
-        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") == \
+        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") ==
                          self.assert_parse("nfs --server=2.3.4.5 --dir=/install"))
-        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") == \
+        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install") ==
                          self.assert_parse("nfs --server=1.2.3.4 --dir=/install2"))
 
         # fail
@@ -52,9 +52,9 @@ class FC6_TestCase(FC3_TestCase):
         # pass
         self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options", "nfs --server=1.2.3.4 --dir=/install --opts=\"options\"\n")
 
-        self.assertTrue(self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options") == \
+        self.assertTrue(self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options") ==
                         self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options"))
-        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options") == \
+        self.assertFalse(self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options") ==
                          self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=other,options"))
 
         # fail

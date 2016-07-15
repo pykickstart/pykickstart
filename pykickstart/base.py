@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 """
 Base classes for creating commands and syntax version object.
@@ -223,7 +223,7 @@ class BaseHandler(KickstartObject):
     version = None
 
     def __init__(self, mapping=None, dataMapping=None, commandUpdates=None,
-            dataUpdates=None, *args, **kwargs):
+                 dataUpdates=None, *args, **kwargs):
         """Create a new BaseHandler instance.  This method must be provided by
            all subclasses, but subclasses must call BaseHandler.__init__ first.
 

@@ -34,7 +34,7 @@ if six.PY3:
     _find_locale_files()
 
     def _(x):
-        if x == '': # Workaround for gettext's behaviour on empty strings
+        if x == '':  # Workaround for gettext's behaviour on empty strings
             return ''
 
         result = gettext.lgettext(x)

@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6
 from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23
@@ -410,7 +410,7 @@ class FC3_Partition(KickstartCommand):
         pd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, pd)
         pd.lineno = self.lineno
-        pd.mountpoint=ns.mntpoint[0]
+        pd.mountpoint = ns.mntpoint[0]
 
         # Check for duplicates in the data list.
         if pd.mountpoint != "swap" and pd in self.dataList():
@@ -618,7 +618,7 @@ class F20_Partition(F18_Partition):
         if retval.fstype == "tmpfs":
             if retval.grow or retval.maxSizeMB != 0:
                 errorMsg = _("The --fstype=tmpfs option can't be used together with --grow or --maxsize")
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg)) 
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
 

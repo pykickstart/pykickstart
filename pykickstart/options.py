@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 """
 Specialized option handling.
@@ -74,10 +74,10 @@ class KSHelpFormatter(RawTextHelpFormatter):
 
     def _format_usage(self, usage, actions, groups, prefix):
         return "::\n\n    %s" % super(self.__class__,
-                                self)._format_usage(usage,
-                                                    actions,
-                                                    groups,
-                                                    "").strip()
+                                      self)._format_usage(usage,
+                                                          actions,
+                                                          groups,
+                                                          "").strip()
 
     def _format_action(self, action):
         text = super(self.__class__, self)._format_action(action)
@@ -91,8 +91,8 @@ class KSHelpFormatter(RawTextHelpFormatter):
 
     def _join_parts(self, part_strings):
         return '\n'.join([part.rstrip(' ')
-                        for part in part_strings
-                        if part and part is not SUPPRESS])
+                          for part in part_strings
+                          if part and part is not SUPPRESS])
 
 
 class ExtendAction(Action):
@@ -126,7 +126,7 @@ class KSOptionParser(ArgumentParser):
         """
         # Overridden to allow for the version kwargs, to skip help option generation,
         # and to resolve conflicts instead of override earlier options.
-        version = kwargs.pop("version") # fail fast if no version specified
+        version = kwargs.pop("version")  # fail fast if no version is specified
         self.version = version
         version = versionToLongString(version)
 
@@ -177,8 +177,7 @@ class KSOptionParser(ArgumentParser):
                 self.error(_("The %(option)s option is no longer supported.") % mapping)
             else:
                 self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-        elif action.deprecated is True or \
-            (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
+        elif action.deprecated is True or (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
             mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
             warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
 
@@ -240,8 +239,7 @@ class KSOptionParser(ArgumentParser):
         if candidate:
             if not candidate.help:
                 candidate.help = ""
-            candidate.help += "\n\n    .. versiondeleted:: %s" % \
-                                versionToLongString(kwargs.pop("version"))
+            candidate.help += "\n\n    .. versiondeleted:: %s" % versionToLongString(kwargs.pop("version"))
             self._remove_action(candidate)
             self._option_string_actions.pop(arg)
 

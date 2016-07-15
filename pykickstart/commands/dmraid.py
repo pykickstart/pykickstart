@@ -16,7 +16,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import versionToLongString, FC6, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
@@ -99,11 +99,10 @@ class FC6_DmRaid(KickstartCommand):
         return self.handler.DmRaidData
 
 class F24_DmRaid(DeprecatedCommand, FC6_DmRaid):
-    def __init__(self): # pylint: disable=super-init-not-called
+    def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
 
     def _getParser(self):
         op = FC6_DmRaid._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % \
-                            versionToLongString(F24)
+        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F24)
         return op

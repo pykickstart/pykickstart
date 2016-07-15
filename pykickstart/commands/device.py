@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import versionToLongString, FC3, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
@@ -149,11 +149,10 @@ class F8_Device(FC3_Device):
         return self.handler.DeviceData
 
 class F24_Device(DeprecatedCommand, F8_Device):
-    def __init__(self): # pylint: disable=super-init-not-called
+    def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
 
     def _getParser(self):
         op = F8_Device._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % \
-                        versionToLongString(F24)
+        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F24)
         return op

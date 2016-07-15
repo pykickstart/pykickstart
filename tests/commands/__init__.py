@@ -34,7 +34,7 @@ class ClassDefinitionTestCase(unittest.TestCase):
 
                 # load the module defining all possible command implementations
                 command_module = importlib.import_module(path.replace(".py", ""))
-                module_commands = [] # a list of already checked commands
+                module_commands = []  # a list of already checked commands
 
                 for impl_name, impl_class in command_module.__dict__.items():
                     # skip everything which isn't a class
@@ -57,7 +57,6 @@ class ClassDefinitionTestCase(unittest.TestCase):
                         errors += 1
                         message = "ERROR: In `commands/%s` %s = %s" % (path, impl_name, impl_class.__name__)
                         print(message)
-
 
         # assert for errors presence
         self.assertEqual(0, errors)

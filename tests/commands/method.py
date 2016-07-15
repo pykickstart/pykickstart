@@ -81,7 +81,7 @@ class FC3_TestCase(CommandTest):
         available_methods = ["cdrom", "harddrive", "nfs", "url"]
         for chosen_method in available_methods:
             method.method = chosen_method
-            method.foo = chosen_method # try to set an unused attribute
+            method.foo = chosen_method  # try to set an unused attribute
             for unseen_method in [m for m in available_methods if m != chosen_method]:
                 self.assertFalse(getattr(method.handler, unseen_method).seen)
                 self.assertEqual(method.foo, chosen_method)
@@ -186,7 +186,7 @@ class F19_TestCase(F18_TestCase):
         method.handler = handler
         self.assertEqual(method.method, None)
         method.method = "liveimg"
-        method.foo = "liveimg" # try to set an unused attribute
+        method.foo = "liveimg"  # try to set an unused attribute
         available_methods = ["cdrom", "harddrive", "nfs", "url", "liveimg"]
 
         for unseen_method in [m for m in available_methods if m != "liveimg"]:

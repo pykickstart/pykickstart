@@ -29,10 +29,10 @@ class FC3_TestCase(CommandTest):
         self.assert_type("volgroup", "format", "boolean")
         self.assert_type("volgroup", "preexist", "boolean")
 
-        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") == None)
-        self.assertTrue(self.assert_parse("volgroup vg.01 pv.01") != \
+        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") is None)
+        self.assertTrue(self.assert_parse("volgroup vg.01 pv.01") !=
                         self.assert_parse("volgroup vg.02 pv.01"))
-        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") == \
+        self.assertFalse(self.assert_parse("volgroup vg.01 pv.01") ==
                          self.assert_parse("volgroup vg.02 pv.01"))
 
         # fail - incorrect type

@@ -182,12 +182,12 @@ class F20_TestCase(F19_TestCase):
         ]
 
         teamslaves_values = [
-            [('eth1',""), ('eth2',"")],
-            [('eth1',""), ('eth2','{"prio": 100}')],
-            [('eth1','{"prio": -10, "sticky": true}'), ('eth2',"")],
-            [('eth1','{"prio": -10, "sticky": true}'), ('eth2','{"prio": 100}')],
-            [('eth1',""), ('eth2',""), ('eth3',"")],
-            [('eth1',""), ('eth2','{"prio": 100}'), ('eth3',"")],
+            [('eth1', ""), ('eth2', "")],
+            [('eth1', ""), ('eth2', '{"prio": 100}')],
+            [('eth1', '{"prio": -10, "sticky": true}'), ('eth2', "")],
+            [('eth1', '{"prio": -10, "sticky": true}'), ('eth2', '{"prio": 100}')],
+            [('eth1', ""), ('eth2', ""), ('eth3', "")],
+            [('eth1', ""), ('eth2', '{"prio": 100}'), ('eth3', "")],
         ]
 
         for string, value in zip(teamslaves_strings, teamslaves_values):
@@ -216,19 +216,19 @@ class F22_TestCase(F21_TestCase):
         # pass
         self.assert_parse("network --device bridge0 --bootproto dhcp --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000",
                           "network  --bootproto=dhcp --device=bridge0 --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000\n")
-        self.assert_parse("network --device bridge0 --bootproto dhcp "\
-                          "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse("network --device bridge0 --bootproto dhcp "
+                          "--bridgeslaves=ens3,ens7 "
                           "--bridgeopts=priority=40000,hello-time=3")
         # fail
         # slaves missing
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
                                 "--bridgeopts=priority=40000")
         # bad options format
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
+                                "--bridgeslaves=ens3,ens7 "
                                 '--bridgeopts="priority=40000 hello-time=3"')
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
+                                "--bridgeslaves=ens3,ens7 "
                                 "--bridgeopts=priority")
 
 class F24_TestCase(F22_TestCase):
@@ -283,20 +283,20 @@ class RHEL7_TestCase(F20_TestCase):
         # pass
         self.assert_parse("network --device bridge0 --bootproto dhcp --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000",
                           "network  --bootproto=dhcp --device=bridge0 --bridgeslaves=ens3,ens7 --bridgeopts=priority=40000\n")
-        self.assert_parse("network --device bridge0 --bootproto dhcp "\
-                          "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse("network --device bridge0 --bootproto dhcp "
+                          "--bridgeslaves=ens3,ens7 "
                           "--bridgeopts=priority=40000,hello-time=3")
 
         # fail
         # slaves missing
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
                                 "--bridgeopts=priority=40000")
         # bad options format
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
+                                "--bridgeslaves=ens3,ens7 "
                                 '--bridgeopts="priority=40000 hello-time=3"')
-        self.assert_parse_error("network --device bridge0 --bootproto dhcp "\
-                                "--bridgeslaves=ens3,ens7 "\
+        self.assert_parse_error("network --device bridge0 --bootproto dhcp "
+                                "--bridgeslaves=ens3,ens7 "
                                 "--bridgeopts=priority")
 
 if __name__ == "__main__":

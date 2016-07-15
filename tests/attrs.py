@@ -35,7 +35,7 @@ class Attribute_TestCase(unittest.TestCase):
                 init_kwargs[a[0]] = 147
             elif a[1] == bool:
                 call_kwargs[a[0]] = False
-                init_kwargs[a[0]] = True 
+                init_kwargs[a[0]] = True
             elif getattr(a[1], "func_name", "") == "commaSplit":
                 call_kwargs[a[0]] = ["call-placeholder"]
                 init_kwargs[a[0]] = ["init-placeholder"]

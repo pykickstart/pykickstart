@@ -37,10 +37,10 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("user --name=user --password=secret", "user --name=user --password=secret\n")
         self.assert_parse("user --name=user --uid=1000", "user --name=user --uid=1000\n")
 
-        self.assertFalse(self.assert_parse("user --name=user") == None)
-        self.assertTrue(self.assert_parse("user --name=userA") != \
+        self.assertFalse(self.assert_parse("user --name=user") is None)
+        self.assertTrue(self.assert_parse("user --name=userA") !=
                         self.assert_parse("user --name=userB"))
-        self.assertFalse(self.assert_parse("user --name=userA") == \
+        self.assertFalse(self.assert_parse("user --name=userA") ==
                          self.assert_parse("user --name=userB"))
 
         # fail

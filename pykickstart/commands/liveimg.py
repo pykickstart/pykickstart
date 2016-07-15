@@ -73,8 +73,7 @@ class F19_Liveimg(KickstartCommand):
             structured) the first *img file inside LiveOS will be mounted and
             used to install the target system. The URL may also point to a
             tarfile of the root filesystem. The file must end in .tar, .tbz,
-            .tgz, .txz, .tar.bz2, tar.gz, tar.xz""",
-            version=F19)
+            .tgz, .txz, .tar.bz2, tar.gz, tar.xz""", version=F19)
         op.add_argument("--url", metavar="<url>", required=True, version=F19,
                         help="""
                         The URL to install from. http, https, ftp and file are

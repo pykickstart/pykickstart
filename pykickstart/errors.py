@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 """
 Error handling classes and functions.
@@ -48,14 +48,14 @@ def formatErrorMsg(lineno, msg=""):
 
 class KickstartError(Exception):
     """A generic exception class for unspecific error conditions."""
-    def __init__(self, val = ""):
+    def __init__(self, val=""):
         """Create a new KickstartError exception instance with the descriptive
            message val.  val should be the return value of formatErrorMsg.
         """
         Exception.__init__(self)
         self.value = val
 
-    def __str__ (self):
+    def __str__(self):
         return self.value
 
 class KickstartParseError(KickstartError):
@@ -79,7 +79,7 @@ class KickstartValueError(KickstartError):
     def __init__(self, msg):
         KickstartError.__init__(self, msg)
 
-    def __str__ (self):
+    def __str__(self):
         return self.value
 
 class KickstartVersionError(KickstartError):
@@ -93,5 +93,5 @@ class KickstartVersionError(KickstartError):
         """
         KickstartError.__init__(self, msg)
 
-    def __str__ (self):
+    def __str__(self):
         return self.value

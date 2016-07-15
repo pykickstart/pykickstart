@@ -26,8 +26,8 @@ class ParserTest(unittest.TestCase):
 
     def tearDown(self):
         """Undo anything performed by setUp"""
-        del(self._handler)
-        del(self._parser)
+        del self._handler
+        del self._parser
         self._handler = None
         self._parser = None
         unittest.TestCase.tearDown(self)

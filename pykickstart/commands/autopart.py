@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6
@@ -50,7 +50,7 @@ class FC3_AutoPart(KickstartCommand):
         return self
 
     def _getParser(self):
-        return KSOptionParser(prog="autopart",  description="""
+        return KSOptionParser(prog="autopart", description="""
                             Automatically create partitions -- a root (/) partition,
                             a swap partition, and an appropriate boot partition
                             for the architecture. On large enough drives, this
@@ -83,7 +83,7 @@ class F9_AutoPart(FC3_AutoPart):
             retval += " --encrypted"
 
             if self.passphrase != "":
-                retval += " --passphrase=\"%s\""% self.passphrase
+                retval += " --passphrase=\"%s\"" % self.passphrase
 
         retval += "\n"
         return retval
@@ -211,8 +211,7 @@ class RHEL6_AutoPart(F12_AutoPart):
 
         if conflicting_command:
             # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % \
-                         conflicting_command
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
@@ -248,10 +247,10 @@ class F16_AutoPart(F12_AutoPart):
 
 class F17_AutoPart(F16_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
-        self.typeMap = { "lvm": AUTOPART_TYPE_LVM,
-                         "btrfs": AUTOPART_TYPE_BTRFS,
-                         "plain": AUTOPART_TYPE_PLAIN,
-                         "partition": AUTOPART_TYPE_PLAIN }
+        self.typeMap = {"lvm": AUTOPART_TYPE_LVM,
+                        "btrfs": AUTOPART_TYPE_BTRFS,
+                        "plain": AUTOPART_TYPE_PLAIN,
+                        "partition": AUTOPART_TYPE_PLAIN}
         F16_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.type = kwargs.get("type", None)
 
@@ -295,8 +294,7 @@ class F17_AutoPart(F16_AutoPart):
         op.add_argument("--type", type=self._type_cb, version=F17, help="""
                         Select automatic partitioning scheme. Must be one of the
                         following: %s. Plain means regular
-                        partitions with no btrfs or lvm.""" % \
-                        list(self.typeMap.keys()))
+                        partitions with no btrfs or lvm.""" % list(self.typeMap.keys()))
         return op
 
     def parse(self, args):
@@ -369,8 +367,7 @@ class F20_AutoPart(F18_AutoPart):
 
         if conflicting_command:
             # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % \
-                         conflicting_command
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
@@ -423,11 +420,11 @@ class F21_AutoPart(F20_AutoPart):
         # btrfs is not a valid filesystem type
         if self.fstype == "btrfs":
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead")))
+                                      msg=_("autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead")))
 
         if self._typeAsStr() == "btrfs" and self.fstype:
             raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("autopart --fstype cannot be used with --type=btrfs")))
+                                      msg=_("autopart --fstype cannot be used with --type=btrfs")))
 
         return retval
 

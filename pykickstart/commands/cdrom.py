@@ -43,6 +43,6 @@ class FC3_Cdrom(KickstartCommand):
         return self
 
     def _getParser(self):
-        return KSOptionParser(prog="cdrom",  description="""
+        return KSOptionParser(prog="cdrom", description="""
                             Install from the first CD-ROM/DVD drive on the
                             system.""", version=FC3)

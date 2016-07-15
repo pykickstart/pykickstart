@@ -31,11 +31,9 @@ class F12_TestCase(CommandTest):
         self.assert_parse("group --name=test", "group --name=test\n")
         self.assert_parse("group --name=test --gid=1000", "group --name=test --gid=1000\n")
 
-        self.assertFalse(self.assert_parse("group --name=test") == None)
-        self.assertTrue(self.assert_parse("group --name=testA") != \
-                        self.assert_parse("group --name=testB"))
-        self.assertFalse(self.assert_parse("group --name=testA") == \
-                         self.assert_parse("group --name=testB"))
+        self.assertFalse(self.assert_parse("group --name=test") is None)
+        self.assertTrue(self.assert_parse("group --name=testA") != self.assert_parse("group --name=testB"))
+        self.assertFalse(self.assert_parse("group --name=testA") == self.assert_parse("group --name=testB"))
 
         # fail
         # missing required option --name
