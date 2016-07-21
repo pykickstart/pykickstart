@@ -52,7 +52,7 @@ class FC3_Authconfig(KickstartCommand):
 
                             By default, passwords are normally encrypted and
                             are not shadowed.""", version=FC3)
-        op.add_argument("options", metavar="[options]", nargs=1, help="""
+        op.add_argument("options", metavar="[options]", help="""
                         See ``man authconfig``.""", version=FC3)
         return op
 
