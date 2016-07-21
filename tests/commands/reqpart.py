@@ -18,9 +18,15 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+from pykickstart.version import F23
+from pykickstart.commands.reqpart import F23_ReqPart
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.version import F23
+class ReqPart_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F23_ReqPart()
+        self.assertEqual(cmd.reqpart, False)
+        self.assertEqual(cmd.addBoot, False)
 
 class F23_TestCase(CommandTest):
     command = "reqpart"
