@@ -4,6 +4,7 @@ import tempfile
 from unittest import TestCase
 import unittest.mock as mock
 from tools import ksvalidator
+from pykickstart import parser
 from tests.tools.utils import mktempfile
 from pykickstart.version import versionMap
 
@@ -73,7 +74,7 @@ unknown --foo='bar'
 """
         self._ks_path = mktempfile(ks_content)
 
-    @mock.patch('pykickstart.parser.print', create=True)
+    @mock.patch.object(parser, 'print', create=True)
     def runTest(self, _print):
         retval, _out = ksvalidator.main([self._ks_path])
         # kickstart file contains 3 erroneous lines - 3 error messages should be present
@@ -95,7 +96,7 @@ unknown --foo='bar'
 """
         self._ks_path = mktempfile(ks_content)
 
-    @mock.patch('pykickstart.parser.print', create=True)
+    @mock.patch.object(parser, 'print', create=True)
     def runTest(self, _print):
         # kickstart file contains 3 erroneous lines, but ksvalidator is run
         # with "-e" option
@@ -120,7 +121,7 @@ class KS_With_Include_TestCase(TestCase):
         ks_content = "autopart --type=lvm\n%%include %s" % self._include_path
         self._ks_path = mktempfile(ks_content)
 
-    @mock.patch('pykickstart.parser.print', create=True)
+    @mock.patch.object(parser, 'print', create=True)
     def runTest(self, _print):
         retval, out = ksvalidator.main([self._ks_path])
         self.assertEqual(len(out), 0)  # no output should be present
@@ -226,7 +227,7 @@ class Raise_DeprecationWarning_TestCase(TestCase):
         ks_content = "text"
         self._ks_path = mktempfile(ks_content)
 
-    @mock.patch('pykickstart.parser.KickstartParser.readKickstart')
+    @mock.patch.object(parser.KickstartParser, 'readKickstart')
     def runTest(self, _mock):
         _mock.side_effect = DeprecationWarning('Raised by test')
         retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
