@@ -1,5 +1,6 @@
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.unsupported_hardware import RHEL6_UnsupportedHardware
 
 class RHEL6_TestCase(CommandTest):
     command = "unsupported_hardware"
@@ -17,6 +18,11 @@ class RHEL6_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.unsupported_hardware = False
         self.assertEqual(cmd.__str__(), "")
+
+class Unsupported_Hardware_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = RHEL6_UnsupportedHardware()
+        self.assertEqual(cmd.unsupported_hardware, False)
 
 if __name__ == "__main__":
     unittest.main()
