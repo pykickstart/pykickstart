@@ -19,6 +19,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.skipx import FC3_SkipX
 
 class FC3_TestCase(CommandTest):
     command = "skipx"
@@ -30,6 +31,11 @@ class FC3_TestCase(CommandTest):
         # fail
         self.assert_parse_error("skipx --do-something-awesome")
         self.assert_parse_error("skipx MAGIC")
+
+class SkipX_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_SkipX()
+        self.assertEqual(cmd.skipx, False)
 
 if __name__ == "__main__":
     unittest.main()
