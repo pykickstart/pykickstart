@@ -19,6 +19,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.autostep import FC3_AutoStep
 
 class FC3_TestCase(CommandTest):
     command = "autostep"
@@ -30,6 +31,21 @@ class FC3_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("autostep --autoscreenshot=FOO")
+
+class AutoStep_TestCase(unittest.TestCase):
+    """
+        Additional autostep tests
+    """
+    def runTest(self):
+        # by default autostep is False if not specified
+        cmd = FC3_AutoStep()
+        self.assertEqual(cmd.autostep, False)
+        self.assertEqual(cmd.autoscreenshot, False)
+
+        # after parsing autostep becomes True
+        cmd.parse(['--autoscreenshot'])
+        self.assertEqual(cmd.autostep, True)
+        self.assertEqual(cmd.autoscreenshot, True)
 
 if __name__ == "__main__":
     unittest.main()
