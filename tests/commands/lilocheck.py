@@ -20,6 +20,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.lilocheck import FC3_LiloCheck
 
 class FC3_TestCase(CommandTest):
     command = "lilocheck"
@@ -36,6 +37,11 @@ class FC3_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.check = False
         self.assertEqual(cmd.__str__(), "")
+
+class LiloCheck_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_LiloCheck()
+        self.assertEqual(cmd.check, False)
 
 if __name__ == "__main__":
     unittest.main()

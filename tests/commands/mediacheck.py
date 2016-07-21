@@ -19,6 +19,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.mediacheck import FC4_MediaCheck
 
 class FC4_TestCase(CommandTest):
     command = "mediacheck"
@@ -31,6 +32,11 @@ class FC4_TestCase(CommandTest):
         self.assert_parse_error("mediacheck --cheese")
         self.assert_parse_error("mediacheck --crackers=CRUNCHY")
         self.assert_parse_error("mediacheck cheese crackers")
+
+class MediaCheck_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC4_MediaCheck()
+        self.assertEqual(cmd.mediacheck, False)
 
 if __name__ == "__main__":
     unittest.main()
