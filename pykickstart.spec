@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.30
+Version:   2.31
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,15 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Jul 21 2016 Chris Lumens <clumens@redhat.com> - 2.31-1
+- Support timezone command usage without timezone specification (mkolman)
+- Formatting fixes (mkolman)
+- Download translations less frequently. (#83) (dshea)
+- Adapt to the new version of mypy (#82) (dshea)
+- The pykickstart package should require a specific python3-kickstart. (clumens)
+- Use set_to_self and set_to_obj internally. (clumens)
+- Remove the locales from zanata.xml. (clumens)
+
 * Tue May 10 2016 Chris Lumens <clumens@redhat.com> - 2.30-1
 - Add documentation for --excludeWeakdeps (dshea)
 - Add support for --excludeWeakdeps option to %packages. (james)
