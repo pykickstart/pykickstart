@@ -20,6 +20,14 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.rescue import F10_Rescue
+
+class Rescue_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F10_Rescue()
+        self.assertEqual(cmd.rescue, False)
+        self.assertEqual(cmd.nomount, False)
+        self.assertEqual(cmd.romount, False)
 
 class F10_TestCase(CommandTest):
     command = "rescue"
