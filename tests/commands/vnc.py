@@ -1,5 +1,11 @@
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.vnc import FC3_Vnc
+
+class Vnc_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_Vnc()
+        self.assertEqual(cmd.enabled, False)
 
 class FC3_TestCase(CommandTest):
     command = "vnc"
