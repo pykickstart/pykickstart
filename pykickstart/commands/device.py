@@ -46,10 +46,10 @@ class F8_DeviceData(BaseData):
     def __str__(self):
         retval = BaseData.__str__(self)
 
-        if self.moduleName != "":
+        if self.moduleName:
             retval += "device %s" % self.moduleName
 
-            if self.moduleOpts != "":
+            if self.moduleOpts:
                 retval += " --opts=\"%s\"" % self.moduleOpts
 
         return retval + "\n"
@@ -78,10 +78,10 @@ class FC3_Device(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.moduleName != "":
+        if self.moduleName:
             retval += "device %s %s" % (self.type, self.moduleName)
 
-            if self.moduleOpts != "":
+            if self.moduleOpts:
                 retval += " --opts=\"%s\"" % self.moduleOpts
 
         return retval + "\n"

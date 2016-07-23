@@ -88,7 +88,7 @@ class F23_BTRFSData(F17_BTRFSData):
     def _getArgsAsStr(self):
         retval = F17_BTRFSData._getArgsAsStr(self)
 
-        if self.mkfsopts != "":
+        if self.mkfsopts:
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval

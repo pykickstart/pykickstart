@@ -51,15 +51,15 @@ class FC3_ZFCPData(BaseData):
         retval = BaseData.__str__(self)
         retval += "zfcp"
 
-        if self.devnum != "":
+        if self.devnum:
             retval += " --devnum=%s" % self.devnum
-        if self.wwpn != "":
+        if self.wwpn:
             retval += " --wwpn=%s" % self.wwpn
-        if self.fcplun != "":
+        if self.fcplun:
             retval += " --fcplun=%s" % self.fcplun
-        if hasattr(self, "scsiid") and self.scsiid != "":
+        if hasattr(self, "scsiid") and self.scsiid:
             retval += " --scsiid=%s" % self.scsiid
-        if hasattr(self, "scsilun") and self.scsilun != "":
+        if hasattr(self, "scsilun") and self.scsilun:
             retval += " --scsilun=%s" % self.scsilun
 
         return retval + "\n"

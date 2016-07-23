@@ -38,7 +38,7 @@ class F7_Updates(KickstartCommand):
 
         if self.url == "floppy":
             retval += "updates\n"
-        elif self.url != "":
+        elif self.url:
             retval += "updates %s\n" % self.url
 
         return retval

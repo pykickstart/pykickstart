@@ -293,7 +293,7 @@ class BaseHandler(KickstartObject):
         """Return a string formatted for output to a kickstart file."""
         retval = ""
 
-        if self.platform != "":
+        if self.platform:
             retval += "#platform=%s\n" % self.platform
 
         retval += "#version=%s\n" % versionToString(self.version)

@@ -37,9 +37,9 @@ class FC6_IscsiData(BaseData):
     def _getArgsAsStr(self):
         retval = ""
 
-        if self.target != "":
+        if self.target:
             retval += " --target=%s" % self.target
-        if self.ipaddr != "":
+        if self.ipaddr:
             retval += " --ipaddr=%s" % self.ipaddr
         if self.port != "3260":
             retval += " --port=%s" % self.port

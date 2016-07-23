@@ -56,7 +56,7 @@ class FC3_LogVolData(BaseData):
     def _getArgsAsStr(self):
         retval = ""
 
-        if self.fstype != "":
+        if self.fstype:
             retval += " --fstype=\"%s\"" % self.fstype
         if self.grow:
             retval += " --grow"
@@ -94,7 +94,7 @@ class FC4_LogVolData(FC3_LogVolData):
 
         if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
-        if self.fsopts != "":
+        if self.fsopts:
             retval += " --fsoptions=\"%s\"" % self.fsopts
 
         return retval
@@ -114,7 +114,7 @@ class RHEL5_LogVolData(FC4_LogVolData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -135,12 +135,12 @@ class F9_LogVolData(FC4_LogVolData):
     def _getArgsAsStr(self):
         retval = FC4_LogVolData._getArgsAsStr(self)
 
-        if self.fsprofile != "":
+        if self.fsprofile:
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -159,7 +159,7 @@ class F12_LogVolData(F9_LogVolData):
     def _getArgsAsStr(self):
         retval = F9_LogVolData._getArgsAsStr(self)
 
-        if self.encrypted and self.escrowcert != "":
+        if self.encrypted and self.escrowcert:
             retval += " --escrowcert=\"%s\"" % self.escrowcert
 
             if self.backuppassphrase:
@@ -224,7 +224,7 @@ class F15_LogVolData(F14_LogVolData):
     def _getArgsAsStr(self):
         retval = F14_LogVolData._getArgsAsStr(self)
 
-        if self.label != "":
+        if self.label:
             retval += " --label=\"%s\"" % self.label
 
         return retval

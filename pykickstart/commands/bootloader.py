@@ -48,7 +48,7 @@ class FC3_Bootloader(KickstartCommand):
     def _getArgsAsStr(self):
         retval = ""
 
-        if self.appendLine != "":
+        if self.appendLine:
             retval += " --append=\"%s\"" % self.appendLine
         if self.linear:
             retval += " --linear"
@@ -56,9 +56,9 @@ class FC3_Bootloader(KickstartCommand):
             retval += " --location=%s" % self.location
         if hasattr(self, "forceLBA") and self.forceLBA:
             retval += " --lba32"
-        if self.password != "":
+        if self.password:
             retval += " --password=\"%s\"" % self.password
-        if self.md5pass != "":
+        if self.md5pass:
             retval += " --md5pass=\"%s\"" % self.md5pass
         if self.upgrade:
             retval += " --upgrade"
@@ -72,7 +72,7 @@ class FC3_Bootloader(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.location != "":
+        if self.location:
             retval += "# System bootloader configuration\nbootloader"
             retval += self._getArgsAsStr() + "\n"
 
@@ -149,15 +149,15 @@ class FC4_Bootloader(FC3_Bootloader):
 
     def _getArgsAsStr(self):
         retval = ""
-        if self.appendLine != "":
+        if self.appendLine:
             retval += " --append=\"%s\"" % self.appendLine
         if self.location:
             retval += " --location=%s" % self.location
         if hasattr(self, "forceLBA") and self.forceLBA:
             retval += " --lba32"
-        if self.password != "":
+        if self.password:
             retval += " --password=\"%s\"" % self.password
-        if self.md5pass != "":
+        if self.md5pass:
             retval += " --md5pass=\"%s\"" % self.md5pass
         if self.upgrade:
             retval += " --upgrade"

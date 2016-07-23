@@ -37,7 +37,7 @@ class FC6_IscsiName(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.iscsiname != "":
+        if self.iscsiname:
             retval += "iscsiname %s\n" % self.iscsiname
 
         return retval

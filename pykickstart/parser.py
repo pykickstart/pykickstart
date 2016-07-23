@@ -237,7 +237,7 @@ class Script(KickstartObject):
         elif self.type == constants.KS_SCRIPT_ONERROR:
             retval += '\n%onerror'
 
-        if self.interp != "/bin/sh" and self.interp != "":
+        if self.interp != "/bin/sh" and self.interp:
             retval += " --interpreter=%s" % self.interp
         if self.type == constants.KS_SCRIPT_POST and not self.inChroot:
             retval += " --nochroot"

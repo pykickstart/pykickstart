@@ -65,7 +65,7 @@ class FC3_PartData(BaseData):
             retval += " --asprimary"
         if hasattr(self, "end") and self.end != 0:
             retval += " --end=%s" % self.end
-        if self.fstype != "":
+        if self.fstype:
             retval += " --fstype=\"%s\"" % self.fstype
         if self.grow:
             retval += " --grow"
@@ -73,11 +73,11 @@ class FC3_PartData(BaseData):
             retval += " --maxsize=%d" % self.maxSizeMB
         if not self.format:
             retval += " --noformat"
-        if self.onbiosdisk != "":
+        if self.onbiosdisk:
             retval += " --onbiosdisk=%s" % self.onbiosdisk
-        if self.disk != "":
+        if self.disk:
             retval += " --ondisk=%s" % self.disk
-        if self.onPart != "":
+        if self.onPart:
             retval += " --onpart=%s" % self.onPart
         if self.recommended:
             retval += " --recommended"
@@ -108,9 +108,9 @@ class FC4_PartData(FC3_PartData):
 
         if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
-        if self.fsopts != "":
+        if self.fsopts:
             retval += " --fsoptions=\"%s\"" % self.fsopts
-        if self.label != "":
+        if self.label:
             retval += " --label=%s" % self.label
 
         return retval
@@ -130,7 +130,7 @@ class RHEL5_PartData(FC4_PartData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -152,12 +152,12 @@ class F9_PartData(FC4_PartData):
     def _getArgsAsStr(self):
         retval = FC4_PartData._getArgsAsStr(self)
 
-        if self.fsprofile != "":
+        if self.fsprofile:
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -179,7 +179,7 @@ class F12_PartData(F11_PartData):
     def _getArgsAsStr(self):
         retval = F11_PartData._getArgsAsStr(self)
 
-        if self.encrypted and self.escrowcert != "":
+        if self.encrypted and self.escrowcert:
             retval += " --escrowcert=\"%s\"" % self.escrowcert
 
             if self.backuppassphrase:
@@ -257,7 +257,7 @@ class F23_PartData(F18_PartData):
     def _getArgsAsStr(self):
         retval = F18_PartData._getArgsAsStr(self)
 
-        if self.mkfsopts != "":
+        if self.mkfsopts:
             retval += " --mkfsoptions=\"%s\"" % self.mkfsopts
 
         return retval
@@ -281,7 +281,7 @@ class FC3_Partition(KickstartCommand):
         for part in self.partitions:
             retval += part.__str__()
 
-        if retval != "":
+        if retval:
             return "# Disk partitioning information\n" + retval
         else:
             return ""

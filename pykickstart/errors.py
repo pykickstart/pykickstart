@@ -40,7 +40,7 @@ from pykickstart.i18n import _
 
 def formatErrorMsg(lineno, msg=""):
     """Properly format the error message msg for inclusion in an exception."""
-    if msg != "":
+    if msg:
         mapping = {"lineno": lineno, "msg": msg}
         return _("The following problem occurred on line %(lineno)s of the kickstart file:\n\n%(msg)s\n") % mapping
     else:

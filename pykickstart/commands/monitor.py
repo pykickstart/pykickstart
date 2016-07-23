@@ -37,11 +37,11 @@ class FC3_Monitor(KickstartCommand):
         retval = KickstartCommand.__str__(self)
         retval += "monitor"
 
-        if self.hsync != "":
+        if self.hsync:
             retval += " --hsync=%s" % self.hsync
-        if self.monitor != "":
+        if self.monitor:
             retval += " --monitor=\"%s\"" % self.monitor
-        if self.vsync != "":
+        if self.vsync:
             retval += " --vsync=%s" % self.vsync
 
         if retval != "monitor":
@@ -89,13 +89,13 @@ class FC6_Monitor(FC3_Monitor):
         retval = KickstartCommand.__str__(self)
         retval += "monitor"
 
-        if self.hsync != "":
+        if self.hsync:
             retval += " --hsync=%s" % self.hsync
-        if self.monitor != "":
+        if self.monitor:
             retval += " --monitor=\"%s\"" % self.monitor
         if not self.probe:
             retval += " --noprobe"
-        if self.vsync != "":
+        if self.vsync:
             retval += " --vsync=%s" % self.vsync
 
         if retval != "monitor":
