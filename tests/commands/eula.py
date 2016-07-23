@@ -20,6 +20,12 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.eula import F20_Eula
+
+class Eula_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F20_Eula()
+        self.assertEqual(cmd.agreed, False)
 
 class F20_TestCase(CommandTest):
     command = "eula"
