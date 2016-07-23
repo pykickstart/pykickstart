@@ -20,6 +20,12 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.mouse import RHEL3_Mouse
+
+class Mouse_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = RHEL3_Mouse()
+        self.assertEqual(cmd.emulthree, False)
 
 class RHEL3_TestCase(CommandTest):
     command = "mouse"
@@ -34,6 +40,8 @@ class RHEL3_TestCase(CommandTest):
         # fail
         # empty
         self.assert_parse_error("mouse")
+        # multiple mice specified
+        self.assert_parse_error("mouse tom and jerry")
         # unknown option
         self.assert_parse_error("mouse --bad-flag")
         self.assert_parse_error("mouse jerry --bad-flag")
