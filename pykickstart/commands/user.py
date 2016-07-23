@@ -50,9 +50,9 @@ class FC6_UserData(BaseData):
     def __str__(self):
         retval = BaseData.__str__(self)
 
-        if self.uid:
-            retval += "user"
-            retval += self._getArgsAsStr() + "\n"
+        args = self._getArgsAsStr()
+        if args:
+            retval += "user%s\n" % args
 
         return retval
 
