@@ -44,30 +44,30 @@ class FC3_XConfig(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.card != "":
+        if self.card:
             retval += " --card=%s" % self.card
-        if self.defaultdesktop != "":
+        if self.defaultdesktop:
             retval += " --defaultdesktop=%s" % self.defaultdesktop
         if self.depth != 0:
             retval += " --depth=%d" % self.depth
-        if self.hsync != "":
+        if self.hsync:
             retval += " --hsync=%s" % self.hsync
-        if self.monitor != "":
+        if self.monitor:
             retval += " --monitor=%s" % self.monitor
         if self.noProbe:
             retval += " --noprobe"
-        if self.resolution != "":
+        if self.resolution:
             retval += " --resolution=%s" % self.resolution
-        if self.server != "":
+        if self.server:
             retval += " --server=%s" % self.server
         if self.startX:
             retval += " --startxonboot"
-        if self.videoRam != "":
+        if self.videoRam:
             retval += " --videoram=%s" % self.videoRam
-        if self.vsync != "":
+        if self.vsync:
             retval += " --vsync=%s" % self.vsync
 
-        if retval != "":
+        if retval:
             retval = "# X Window System configuration information\nxconfig %s\n" % retval
 
         return retval
@@ -116,20 +116,20 @@ class FC6_XConfig(FC3_XConfig):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if hasattr(self, "driver") and self.driver != "":
+        if hasattr(self, "driver") and self.driver:
             retval += " --driver=%s" % self.driver
-        if self.defaultdesktop != "":
+        if self.defaultdesktop:
             retval += " --defaultdesktop=%s" % self.defaultdesktop
         if self.depth != 0:
             retval += " --depth=%d" % self.depth
-        if hasattr(self, "resolution") and self.resolution != "":
+        if hasattr(self, "resolution") and self.resolution:
             retval += " --resolution=%s" % self.resolution
         if self.startX:
             retval += " --startxonboot"
-        if hasattr(self, "videoRam") and self.videoRam != "":
+        if hasattr(self, "videoRam") and self.videoRam:
             retval += " --videoram=%s" % self.videoRam
 
-        if retval != "":
+        if retval:
             retval = "# X Window System configuration information\nxconfig %s\n" % retval
 
         return retval

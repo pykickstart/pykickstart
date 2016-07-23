@@ -82,8 +82,8 @@ class F9_AutoPart(FC3_AutoPart):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
-                retval += " --passphrase=\"%s\"" % self.passphrase
+            if self.passphrase:
+                retval += " --passphrase=\"%s\""% self.passphrase
 
         retval += "\n"
         return retval
@@ -123,7 +123,7 @@ class F12_AutoPart(F9_AutoPart):
         if not self.autopart:
             return retval
 
-        if self.encrypted and self.escrowcert != "":
+        if self.encrypted and self.escrowcert:
             retval = retval.strip()
 
             retval += " --escrowcert=\"%s\"" % self.escrowcert

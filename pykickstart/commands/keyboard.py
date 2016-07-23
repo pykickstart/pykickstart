@@ -38,7 +38,7 @@ class FC3_Keyboard(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.keyboard != "":
+        if self.keyboard:
             retval += "# System keyboard\nkeyboard %s\n" % self.keyboard
 
         return retval

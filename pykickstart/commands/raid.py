@@ -54,11 +54,14 @@ class FC3_RaidData(BaseData):
     def _getArgsAsStr(self):
         retval = ""
 
-        if self.device != "":
+        # NB: using str(device) b/c when device=0 (as int) the condition fails
+        # I'm not sure if we want to modify the tests b/c they compare device=md0 to device=0
+        # and expect both to be equal
+        if str(self.device):
             retval += " --device=%s" % self.device
-        if self.fstype != "":
+        if self.fstype:
             retval += " --fstype=\"%s\"" % self.fstype
-        if self.level != "":
+        if self.level:
             retval += " --level=%s" % self.level.upper()
         if not self.format:
             retval += " --noformat"
@@ -91,7 +94,7 @@ class FC4_RaidData(FC3_RaidData):
     def _getArgsAsStr(self):
         retval = FC3_RaidData._getArgsAsStr(self)
 
-        if self.fsopts != "":
+        if self.fsopts:
             retval += " --fsoptions=\"%s\"" % self.fsopts
 
         return retval
@@ -127,7 +130,7 @@ class RHEL5_RaidData(FC5_RaidData):
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -150,12 +153,12 @@ class F9_RaidData(F7_RaidData):
     def _getArgsAsStr(self):
         retval = F7_RaidData._getArgsAsStr(self)
 
-        if self.fsprofile != "":
+        if self.fsprofile:
             retval += " --fsprofile=\"%s\"" % self.fsprofile
         if self.encrypted:
             retval += " --encrypted"
 
-            if self.passphrase != "":
+            if self.passphrase:
                 retval += " --passphrase=\"%s\"" % self.passphrase
 
         return retval
@@ -174,7 +177,7 @@ class F12_RaidData(F9_RaidData):
     def _getArgsAsStr(self):
         retval = F9_RaidData._getArgsAsStr(self)
 
-        if self.encrypted and self.escrowcert != "":
+        if self.encrypted and self.escrowcert:
             retval += " --escrowcert=\"%s\"" % self.escrowcert
 
             if self.backuppassphrase:
@@ -217,7 +220,7 @@ class F15_RaidData(F14_RaidData):
     def _getArgsAsStr(self):
         retval = F14_RaidData._getArgsAsStr(self)
 
-        if self.label != "":
+        if self.label:
             retval += " --label=%s" % self.label
 
         return retval

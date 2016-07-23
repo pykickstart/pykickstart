@@ -36,7 +36,7 @@ class FC3_Lang(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.lang != "":
+        if self.lang:
             retval += "# System language\nlang %s\n" % self.lang
 
         return retval

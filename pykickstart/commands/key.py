@@ -40,7 +40,7 @@ class RHEL5_Key(KickstartCommand):
 
         if self.key == KS_INSTKEY_SKIP:
             retval += "key --skip\n"
-        elif self.key != "":
+        elif self.key:
             retval += "key %s\n" % self.key
 
         return retval

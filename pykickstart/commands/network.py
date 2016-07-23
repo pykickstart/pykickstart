@@ -64,33 +64,33 @@ class FC3_NetworkData(BaseData):
     def _getArgsAsStr(self):
         retval = ""
 
-        if self.bootProto != "":
+        if self.bootProto:
             retval += " --bootproto=%s" % self.bootProto
-        if self.dhcpclass != "":
+        if self.dhcpclass:
             retval += " --dhcpclass=%s" % self.dhcpclass
-        if self.device != "":
+        if self.device:
             retval += " --device=%s" % self.device
-        if self.essid != "":
+        if self.essid:
             retval += " --essid=\"%s\"" % self.essid
-        if self.ethtool != "":
+        if self.ethtool:
             retval += " --ethtool=\"%s\"" % self.ethtool
-        if self.gateway != "":
+        if self.gateway:
             retval += " --gateway=%s" % self.gateway
-        if self.hostname != "":
+        if self.hostname:
             retval += " --hostname=%s" % self.hostname
-        if self.ip != "":
+        if self.ip:
             retval += " --ip=%s" % self.ip
-        if self.mtu != "":
+        if self.mtu:
             retval += " --mtu=%s" % self.mtu
-        if self.nameserver != "":
+        if self.nameserver:
             retval += " --nameserver=%s" % self.nameserver
-        if self.netmask != "":
+        if self.netmask:
             retval += " --netmask=%s" % self.netmask
         if self.nodns:
             retval += " --nodns"
         if not self.onboot:
             retval += " --onboot=off"
-        if self.wepkey != "":
+        if self.wepkey:
             retval += " --wepkey=%s" % self.wepkey
 
         return retval
@@ -146,7 +146,7 @@ class F8_NetworkData(FC6_NetworkData):
     def _getArgsAsStr(self):
         retval = FC6_NetworkData._getArgsAsStr(self)
 
-        if self.ipv6 != "":
+        if self.ipv6:
             retval += " --ipv6=%s" % self.ipv6
 
         return retval
@@ -168,7 +168,7 @@ class F16_NetworkData(F8_NetworkData):
             retval += " --activate"
         if self.nodefroute:
             retval += " --nodefroute"
-        if self.wpakey != "":
+        if self.wpakey:
             retval += " --wpakey=%s" % self.wpakey
 
         return retval
@@ -187,9 +187,9 @@ class F19_NetworkData(F16_NetworkData):
     def _getArgsAsStr(self):
         retval = F16_NetworkData._getArgsAsStr(self)
 
-        if self.bondslaves != "":
+        if self.bondslaves:
             retval += " --bondslaves=%s" % self.bondslaves
-        if self.bondopts != "":
+        if self.bondopts:
             retval += " --bondopts=%s" % self.bondopts
         if self.vlanid:
             retval += " --vlanid=%s" % self.vlanid
@@ -249,9 +249,9 @@ class F22_NetworkData(F21_NetworkData):
 
     def _getArgsAsStr(self):
         retval = F21_NetworkData._getArgsAsStr(self)
-        if self.bridgeslaves != "":
+        if self.bridgeslaves:
             retval += " --bridgeslaves=%s" % self.bridgeslaves
-        if self.bridgeopts != "":
+        if self.bridgeopts:
             retval += " --bridgeopts=%s" % self.bridgeopts
 
         return retval
@@ -321,9 +321,9 @@ class RHEL7_NetworkData(F21_NetworkData):
 
     def _getArgsAsStr(self):
         retval = F21_NetworkData._getArgsAsStr(self)
-        if self.bridgeslaves != "":
+        if self.bridgeslaves:
             retval += " --bridgeslaves=%s" % self.bridgeslaves
-        if self.bridgeopts != "":
+        if self.bridgeopts:
             retval += " --bridgeopts=%s" % self.bridgeopts
         if self.activate == False:
             retval += " --no-activate"
@@ -349,7 +349,7 @@ class FC3_Network(KickstartCommand):
         for nic in self.network:
             retval += nic.__str__()
 
-        if retval != "":
+        if retval:
             return "# Network information\n" + retval
         else:
             return ""

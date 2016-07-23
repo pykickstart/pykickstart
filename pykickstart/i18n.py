@@ -45,4 +45,4 @@ if six.PY3:
 else:
     _find_locale_files()
 
-    _ = lambda x: gettext.lgettext(x) if x != '' else ''
+    _ = lambda x: gettext.lgettext(x) if x else ''

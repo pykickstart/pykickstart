@@ -41,9 +41,9 @@ class FC3_Vnc(KickstartCommand):
 
         retval += "vnc"
 
-        if self.connect != "":
+        if self.connect:
             retval += " --connect=%s" % self.connect
-        if self.password != "":
+        if self.password:
             retval += " --password=%s" % self.password
 
         return retval + "\n"
@@ -91,12 +91,12 @@ class FC6_Vnc(FC3_Vnc):
 
         retval += "vnc"
 
-        if self.host != "":
+        if self.host:
             retval += " --host=%s" % self.host
 
-            if self.port != "":
+            if self.port:
                 retval += " --port=%s" % self.port
-        if self.password != "":
+        if self.password:
             retval += " --password=%s" % self.password
 
         return retval + "\n"

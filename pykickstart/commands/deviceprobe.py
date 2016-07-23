@@ -32,7 +32,7 @@ class FC3_DeviceProbe(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.deviceprobe != "":
+        if self.deviceprobe:
             retval += "deviceprobe %s\n" % self.deviceprobe
 
         return retval

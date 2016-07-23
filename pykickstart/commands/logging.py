@@ -36,7 +36,7 @@ class FC6_Logging(KickstartCommand):
         self.level = kwargs.get("level", "")
         self.port = kwargs.get("port", "")
 
-        self._levelProvided = self.level != ""
+        self._levelProvided = bool(self.level) # b/c of mutation testing
         if not self._levelProvided:
             self.level = "info"
 
@@ -46,10 +46,10 @@ class FC6_Logging(KickstartCommand):
         if self.level and self._levelProvided:
             retval += "# Installation logging level\nlogging --level=%s" % self.level
 
-            if self.host != "":
+            if self.host:
                 retval += " --host=%s" % self.host
 
-                if self.port != "":
+                if self.port:
                     retval += " --port=%s" % self.port
 
         return retval + "\n"
@@ -79,7 +79,7 @@ class FC6_Logging(KickstartCommand):
         if self.port and not self.host:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")))
 
-        self._levelProvided = self.level != ""
+        self._levelProvided = bool(self.level) # b/c of mutation testing
         if not self._levelProvided:
             self.level = "info"
 
