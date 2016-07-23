@@ -20,6 +20,12 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.zerombr import FC3_ZeroMbr
+
+class ZeroMbr_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_ZeroMbr()
+        self.assertEqual(cmd.zerombr, False)
 
 class FC3_TestCase(CommandTest):
     command = "zerombr"
