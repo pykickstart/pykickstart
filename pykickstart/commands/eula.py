@@ -27,8 +27,8 @@ from pykickstart.i18n import _
 class F20_Eula(KickstartCommand):
     """The 'eula' kickstart command"""
 
-    def __init__(self, *args, **kwargs):
-        KickstartCommand.__init__(self, *args, **kwargs)
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
         self.agreed = kwargs.get("agreed", False)
 
@@ -61,7 +61,7 @@ class F20_Eula(KickstartCommand):
 
         self.set_to_self(ns)
 
-        if len(extra) != 0:
+        if extra:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))
 
         if not self.agreed:
