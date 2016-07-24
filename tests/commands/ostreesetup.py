@@ -20,6 +20,23 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.ostreesetup import F21_OSTreeSetup
+
+class OSTreeSetup_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F21_OSTreeSetup()
+        self.assertEqual(cmd.nogpg, False)
+
+        # no remote, should equal osname
+        cmd.parse('--osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core'.split(' '))
+        self.assertEqual(cmd.remote, cmd.osname)
+
+        # test if arguments are required
+        op = cmd._getParser()
+        for action in op._actions:
+            for a in ['--osname', '--url', '--ref']:
+                if a in action.option_strings:
+                    self.assertEqual(action.required, True)
 
 class F21_TestCase(CommandTest):
     command = "ostreesetup"
