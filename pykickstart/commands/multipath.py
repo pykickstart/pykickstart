@@ -99,7 +99,7 @@ class FC6_MultiPath(KickstartCommand):
             if mpath.name == dd.mpdev:
                 parent = x
 
-        if parent is None:
+        if not parent:
             mpath = self.dataClass(name=dd.name)    # pylint: disable=not-callable
             mpath.paths.append(dd)
             return mpath
