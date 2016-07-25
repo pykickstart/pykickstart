@@ -19,6 +19,8 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartParseError
+
 
 class FC3_TestCase(CommandTest):
     command = "displaymode"
@@ -45,10 +47,15 @@ class FC3_TestCase(CommandTest):
 
         # extra test coverage
         cmd = self.handler().commands["text"]
-        cmd.displayMode = 999
-        self.assertEqual(cmd.__str__(), "")
-        cmd.currentCmd = None
-        cmd.parse([])
+        self.assertIsNotNone(cmd._getParser())
+
+        for mode in [None, 999, -1]:
+            cmd.displayMode = mode
+            self.assertEqual(cmd.__str__(), "")
+
+        with self.assertRaises(KickstartParseError):
+            cmd.currentCmd = None
+            cmd.parse([])
 
 
 if __name__ == "__main__":

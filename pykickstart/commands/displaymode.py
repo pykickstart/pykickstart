@@ -49,7 +49,7 @@ class FC3_DisplayMode(KickstartCommand):
         return retval
 
     def parse(self, args):
-        if len(args) > 0:
+        if args:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         if self.currentCmd == "cmdline":
@@ -58,6 +58,8 @@ class FC3_DisplayMode(KickstartCommand):
             self.displayMode = DISPLAY_MODE_GRAPHICAL
         elif self.currentCmd == "text":
             self.displayMode = DISPLAY_MODE_TEXT
+        else:
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unknown command %s") % self.currentCmd))
 
         return self
 
