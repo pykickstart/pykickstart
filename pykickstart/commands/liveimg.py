@@ -25,8 +25,8 @@ class F19_Liveimg(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 
-    def __init__(self, *args, **kwargs):
-        KickstartCommand.__init__(self, *args, **kwargs)
+    def __init__(self, writePriority=0, *args, **kwargs):
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.checksum = kwargs.get("checksum", "")
         self.noverifyssl = kwargs.get("noverifyssl", None)
         self.proxy = kwargs.get("proxy", None)

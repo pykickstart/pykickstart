@@ -20,6 +20,19 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.liveimg import F19_Liveimg
+
+class LiveImg_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F19_Liveimg()
+        self.assertFalse(cmd == None)
+
+        op = cmd._getParser()
+        for action in op._actions:
+            if '--url' in action.option_strings:
+                self.assertEqual(action.required, True)
+            elif '--noverifyssl' in action.option_strings:
+                self.assertEqual(action.default, False)
 
 class F19_TestCase(CommandTest):
     def runTest(self):
