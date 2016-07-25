@@ -20,8 +20,55 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
 from pykickstart.version import F12
+from pykickstart.commands.zfcp import FC3_ZFCP, FC3_ZFCPData, F12_ZFCPData
+
+class ZFCP_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_ZFCP()
+
+        # test option parser
+        op = cmd._getParser()
+        for action in op._actions:
+            for a in ['--devnum', '--fcplun', '--scsiid', '--scsilun', '--wwpn']:
+                if a in action.option_strings:
+                    self.assertEqual(action.required, True)
+
+        # test that new objects are always equal
+        data1 = FC3_ZFCPData()
+        data2 = FC3_ZFCPData()
+        self.assertEqual(data1, data2)
+
+        # additional asserts for code coverage
+        self.assertEqual(data1.__str__(), "zfcp\n")
+        cmd.zfcp = [data1]
+        self.assertEqual(cmd.__str__(), "zfcp\n")
+
+        # test for objects difference
+        for atr in ['devnum', 'wwpn', 'fcplun', 'scsiid', 'scsilun']:
+            setattr(data1, atr, 1)
+            setattr(data2, atr, 2)
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, 0)
+            setattr(data2, atr, 0)
+
+        # repeat test for newer data class
+        # b/c it uses fewer attributes to compare for equality
+        data3 = F12_ZFCPData()
+        data4 = F12_ZFCPData()
+        self.assertEqual(data3, data4)
+
+        for atr in ['devnum', 'wwpn', 'fcplun']:
+            setattr(data3, atr, 3)
+            setattr(data4, atr, 4)
+            self.assertNotEqual(data3, data4)
+            self.assertNotEqual(data4, data3)
+            setattr(data3, atr, 0)
+            setattr(data4, atr, 0)
+
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
