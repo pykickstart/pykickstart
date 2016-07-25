@@ -20,6 +20,22 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.xconfig import FC3_XConfig, FC6_XConfig
+
+class XConfig_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_XConfig()
+        self.assertEqual(cmd.noProbe, False)
+        self.assertEqual(cmd.startX, False)
+        self.assertEqual(cmd.depth, 0)
+
+        cmd.depth = -1
+        self.assertTrue(cmd.__str__().find('--depth') > -1)
+
+        cmd6 = FC6_XConfig()
+        cmd6.depth = -1
+        self.assertTrue(cmd6.__str__().find('--depth') > -1)
+
 
 class FC3_TestCase(CommandTest):
     command = "xconfig"
