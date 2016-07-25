@@ -54,7 +54,7 @@ class FC3_Keyboard(KickstartCommand):
 
         if len(_ns.kbd) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "keyboard", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
@@ -162,15 +162,15 @@ class F18_Keyboard(FC3_Keyboard):
         if len(ns.kbd) > 1:
             message = _("A single argument is expected for the %s command") % "keyboard"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "keyboard", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-        elif len(ns.kbd) == 0 and not self.vc_keymap and not self.x_layouts:
+        elif not any([ns.kbd, self.vc_keymap, self.x_layouts]):
             message = _("One of --xlayouts, --vckeymap options with value(s) "
                         "or argument is expected for the keyboard command")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=message))
 
-        if len(ns.kbd) > 0:
+        if ns.kbd:
             self._keyboard = ns.kbd[0]
 
         return self
