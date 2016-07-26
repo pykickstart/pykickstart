@@ -19,9 +19,32 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.dmraid import FC6_DmRaidData
 from pykickstart.base import DeprecatedCommand
 from pykickstart.version import FC6
+
+class DmRaid_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = FC6_DmRaidData()
+        data2 = FC6_DmRaidData()
+        self.assertEqual(data1, data2)
+
+        # test that objects which differ in one
+        # of these attributes are not equal
+        data1.name = ''
+        data2.name = 'test'
+        self.assertNotEqual(data1, data2)
+        self.assertNotEqual(data2, data1)
+        data1.name = ''
+        data2.name = ''
+
+        data1.devices = []
+        data2.devices = ['test']
+        self.assertNotEqual(data1, data2)
+        self.assertNotEqual(data2, data1)
+        data1.devices = []
+        data2.devices = []
+
 
 class FC6_TestCase(CommandTest):
     command = "dmraid"
@@ -73,6 +96,7 @@ class F24_TestCase(FC6_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("dmraid")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+        self.assertIsNotNone(parser._getParser())
 
 if __name__ == "__main__":
     unittest.main()
