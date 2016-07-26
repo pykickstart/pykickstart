@@ -50,7 +50,7 @@ class FC3_VolGroupData(BaseData):
         retval = ""
         if not self.format:
             retval += " --noformat"
-        if self.pesize != 0:
+        if self.pesize:
             retval += " --pesize=%d" % self.pesize
         if self.preexist:
             retval += " --useexisting"
@@ -77,9 +77,9 @@ class F16_VolGroupData(FC3_VolGroupData):
 
     def _getArgsAsStr(self):
         retval = FC3_VolGroupData._getArgsAsStr(self)
-        if self.reserved_space is not None and self.reserved_space > 0:
+        if self.reserved_space:
             retval += " --reserved-space=%d" % self.reserved_space
-        if self.reserved_percent is not None and self.reserved_percent > 0:
+        if self.reserved_percent:
             retval += " --reserved-percent=%d" % self.reserved_percent
 
         return retval
@@ -143,11 +143,15 @@ class FC3_VolGroup(KickstartCommand):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-        # because positional argumnets with variable number of values
+        # because positional arguments with variable number of values
         # don't parse very well
-        if len(ns.name) > 1 and len(ns.partitions) == 0:
-            ns.partitions = ns.name[1:]
-            ns.name = [ns.name[0]]
+        if not ns.partitions:
+            if extra:
+                ns.partitions = extra
+                extra = []
+            elif len(ns.name) > 1:
+                ns.partitions = ns.name[1:]
+                ns.name = [ns.name[0]]
 
         if not ns.format:
             ns.preexist = True
@@ -156,20 +160,17 @@ class FC3_VolGroup(KickstartCommand):
         self.set_to_obj(ns, vg)
         vg.lineno = self.lineno
 
-        if len(ns.name) == 0:
+        if not ns.name:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")))
-        elif len(extra) > 0:
-            mapping = {"command": "volgroup", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(ns.partitions) == 0 and not ns.preexist:
+        if not any([ns.partitions, ns.preexist]):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")))
-        elif len(ns.partitions) > 1 and ns.preexist:
+        elif ns.partitions and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")))
 
         vg.vgname = ns.name[0]
 
-        if len(ns.partitions) > 0:
+        if ns.partitions:
             vg.physvols = ns.partitions
 
         # Check for duplicates in the data list.
@@ -204,7 +205,7 @@ class F16_VolGroup(FC3_VolGroup):
         retval = FC3_VolGroup.parse(self, args)
 
         # Check that any reserved space options are in their valid ranges.
-        if getattr(retval, "reserved_space", None) is not None and retval.reserved_space < 0:
+        if getattr(retval, "reserved_space", None) and retval.reserved_space < 0:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."))
 
         if getattr(retval, "reserved_percent", None) is not None and not 0 < retval.reserved_percent < 100:
