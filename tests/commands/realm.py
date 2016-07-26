@@ -1,7 +1,13 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.realm import F19_Realm
 from pykickstart.version import F19
+
+class Realm_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F19_Realm()
+        # additional code coverage
+        self.assertEqual(cmd.__str__(), "")
 
 class F19_TestCase(CommandTest):
     command = "realm"
