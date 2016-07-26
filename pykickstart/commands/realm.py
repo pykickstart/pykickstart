@@ -32,7 +32,7 @@ class F19_Realm(KickstartCommand):
     removedAttrs = KickstartCommand.removedAttrs
 
     def __init__(self, writePriority=0, *args, **kwargs):
-        KickstartCommand.__init__(self, *args, **kwargs)
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.join_realm = None
         self.join_args = []
         self.discover_options = []
