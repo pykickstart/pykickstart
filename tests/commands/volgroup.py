@@ -1,8 +1,18 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.volgroup import FC3_VolGroupData, F21_VolGroupData
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import FC3
+
+class VolGroup_TestCase(unittest.TestCase):
+    def runTest(self):
+        data = FC3_VolGroupData()
+        self.assertEqual(data.format, True)
+        self.assertEqual(data.pesize, 32768)
+        self.assertEqual(data.preexist, False)
+
+        self.assertEqual(F21_VolGroupData().pesize, 0)
+
 
 class FC3_TestCase(CommandTest):
     command = "volgroup"
@@ -45,6 +55,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("volgroup vg01")
 
         # fail - both members and useexisting specified
+        self.assert_parse_error("volgroup vg.01 pv.01 pv.02 --useexisting")
         self.assert_parse_error("volgroup vg.01 --useexisting pv.01 pv.02")
 
         # fail - invalid argument
