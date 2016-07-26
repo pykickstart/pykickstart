@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
@@ -57,8 +57,7 @@ class FC6_Logging(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser(prog="logging", description="""
             This command controls the error logging of anaconda during
-            installation. It has no effect on the installed system.""",
-            version=FC6)
+            installation. It has no effect on the installed system.""", version=FC6)
         op.add_argument("--host", version=FC6, help="""
             Send logging information to the given remote host, which must be
             running a syslogd process configured to accept remote logging.""")

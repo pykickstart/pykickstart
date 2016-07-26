@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6
 from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21
@@ -191,9 +191,9 @@ class F8_Bootloader(FC4_Bootloader):
         ret = FC4_Bootloader._getArgsAsStr(self)
 
         if self.timeout is not None:
-            ret += " --timeout=%d" %(self.timeout,)
+            ret += " --timeout=%d" % (self.timeout,)
         if self.default:
-            ret += " --default=%s" %(self.default,)
+            ret += " --default=%s" % (self.default,)
 
         return ret
 
@@ -263,7 +263,7 @@ class F15_Bootloader(F14_Bootloader):
         if getattr(ns, "_md5pass", None):
             ns.password = ns._md5pass
             ns.isCrypted = True
-            del(ns._md5pass)
+            del ns._md5pass
 
         self.set_to_self(ns)
         return self
@@ -340,7 +340,7 @@ class RHEL5_Bootloader(FC4_Bootloader):
         ret = FC4_Bootloader._getArgsAsStr(self)
 
         if self.hvArgs:
-            ret += " --hvargs=\"%s\"" %(self.hvArgs,)
+            ret += " --hvargs=\"%s\"" % (self.hvArgs,)
 
         return ret
 
@@ -365,9 +365,11 @@ class RHEL6_Bootloader(F12_Bootloader):
             ret += " --iscrypted"
 
         return ret
-#todo: for RHEL5 and RHEL6 we don't have a direct inheritance path
-# between RHEL and Fedora so when using the DEVEL version to generate
-# the docs we'll skip these two classes, possibly losing some information
+
+    # TODO: for RHEL5 and RHEL6 we don't have a direct inheritance path
+    #       between RHEL and Fedora so when using the DEVEL version to generate
+    #       the docs we'll skip these two classes, possibly losing some information
+
     def _getParser(self):
         op = F12_Bootloader._getParser(self)
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
@@ -388,7 +390,7 @@ class RHEL6_Bootloader(F12_Bootloader):
         if getattr(ns, "_md5pass", None):
             ns.password = ns._md5pass
             ns.isCrypted = True
-            del(ns._md5pass)
+            del ns._md5pass
 
         self.set_to_self(ns)
         return self
@@ -447,4 +449,3 @@ class F21_Bootloader(F19_Bootloader):
 
 class RHEL7_Bootloader(F21_Bootloader):
     pass
-

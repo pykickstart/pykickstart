@@ -17,7 +17,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 """
 This module exports the classes that define a section of a kickstart file.  A
@@ -173,7 +173,7 @@ class ScriptSection(Section):
                   "type": self._script["type"]}
 
         if self.dataObj is not None:
-            s = self.dataObj (self._script["body"], **kwargs)
+            s = self.dataObj(self._script["body"], **kwargs)
             self._resetScript()
             self.handler.scripts.append(s)
 

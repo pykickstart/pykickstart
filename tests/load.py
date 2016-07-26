@@ -42,7 +42,7 @@ clearpart --all --initlabel --drives=vda
         (handle, self._path) = tempfile.mkstemp(prefix="testfile-", text=True)
         os.write(handle, self._content.encode("utf-8"))
         os.close(handle)
-    
+
     def tearDown(self):
         os.unlink(self._path)
 
@@ -74,6 +74,7 @@ class Load_From_URL_Test(LoadTest):
 
         # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
         httphandler = six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler
+
         def shutup(*args, **kwargs):
             pass
         httphandler.log_message = shutup
@@ -97,7 +98,7 @@ class Load_From_URL_To_Str_TestCase(Load_From_URL_Test):
     def runTest(self):
         self.assertEqual(self._content, load.load_to_str(self._url))
         self.assertRaises(KickstartError, load.load_to_str, self._url_https)
-    
+
 class Load_From_URL_To_File_TestCase(Load_From_URL_Test):
     def setUp(self):
         super(Load_From_URL_To_File_TestCase, self).setUp()
@@ -114,7 +115,7 @@ class Load_From_URL_To_File_TestCase(Load_From_URL_Test):
                           load.load_to_file,
                           self._url_https,
                           self._target_path)
-    
+
     def tearDown(self):
         super(Load_From_URL_To_File_TestCase, self).tearDown()
         os.unlink(self._target_path)

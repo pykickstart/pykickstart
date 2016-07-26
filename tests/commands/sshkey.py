@@ -30,10 +30,10 @@ class F22_TestCase(CommandTest):
         # pass
         self.assert_parse('sshkey --username=root "%s"' % self.key, 'sshkey --username=root "%s"\n' % self.key)
 
-        self.assertFalse(self.assert_parse("sshkey --username=root '%s'" % self.key) == None)
-        self.assertTrue(self.assert_parse("sshkey --username=A '%s'" % self.key) != \
+        self.assertFalse(self.assert_parse("sshkey --username=root '%s'" % self.key) is None)
+        self.assertTrue(self.assert_parse("sshkey --username=A '%s'" % self.key) !=
                         self.assert_parse("sshkey --username=B '%s'" % self.key))
-        self.assertFalse(self.assert_parse("sshkey --username=A '%s'" % self.key) == \
+        self.assertFalse(self.assert_parse("sshkey --username=A '%s'" % self.key) ==
                          self.assert_parse("sshkey --username=B '%s'" % self.key))
 
         # fail

@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 import unittest
 from tests.baseclass import CommandTest
@@ -30,7 +30,7 @@ class FC3_TestCase(CommandTest):
             linear = ""
 
         # pass
-        self.assert_parse("bootloader --append=rhgb","bootloader --append=\"rhgb\" %s--location=mbr\n" % linear)
+        self.assert_parse("bootloader --append=rhgb", "bootloader --append=\"rhgb\" %s--location=mbr\n" % linear)
         self.assert_parse("bootloader --append=\"rhgb quiet\"", "bootloader --append=\"rhgb quiet\" %s--location=mbr\n" % linear)
         self.assert_parse("bootloader", "bootloader %s--location=mbr\n" % linear)
 

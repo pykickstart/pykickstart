@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 import unittest
 from tests.baseclass import CommandTest
@@ -64,7 +64,7 @@ class F18_TestCase(FC6_TestCase):
         self.assert_parse("timezone Europe/Prague")
         self.assert_parse("timezone Europe/Prague --nontp",
                           "timezone Europe/Prague --nontp\n")
-        self.assert_parse("timezone Europe/Prague "\
+        self.assert_parse("timezone Europe/Prague "
                           "--ntpservers=ntp.cesnet.cz,tik.nic.cz")
         self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz",
                           "timezone Europe/Prague --ntpservers=ntp.cesnet.cz\n")
@@ -75,17 +75,17 @@ class F18_TestCase(FC6_TestCase):
         self.assert_parse_error("timezone --blah Eastern")
         self.assert_parse_error("timezone --utc")
         self.assert_parse_error("timezone --isUtc")
-        self.assert_parse_error("timezone Europe/Prague --nontp "\
+        self.assert_parse_error("timezone Europe/Prague --nontp "
                                 "--ntpservers=ntp.cesnet.cz")
-        self.assert_parse_error("timezone Europe/Prague --ntpservers="\
+        self.assert_parse_error("timezone Europe/Prague --ntpservers="
                                 "ntp.cesnet.cz, tik.nic.cz")
 
 class F23_TestCase(F18_TestCase):
     def runTest(self):
         # should keep multiple instances of the same URL
-        self.assert_parse("timezone --utc Europe/Prague --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org,"+
+        self.assert_parse("timezone --utc Europe/Prague --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org," +
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org",
-                          "timezone Europe/Prague --isUtc --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org,"+
+                          "timezone Europe/Prague --isUtc --ntpservers=ntp.cesnet.cz,0.fedora.pool.ntp.org," +
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org\n")
         self.assert_parse("timezone --utc Europe/Sofia --ntpservers=,0.fedora.pool.ntp.org,")
 

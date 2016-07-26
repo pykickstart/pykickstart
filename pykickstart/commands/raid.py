@@ -283,10 +283,10 @@ class FC3_Raid(KickstartCommand):
         # A dict of all the RAID levels we support.  This means that if we
         # support more levels in the future, subclasses don't have to
         # duplicate too much.
-        self.levelMap = { "RAID0": "RAID0", "0": "RAID0",
-                          "RAID1": "RAID1", "1": "RAID1",
-                          "RAID5": "RAID5", "5": "RAID5",
-                          "RAID6": "RAID6", "6": "RAID6" }
+        self.levelMap = {"RAID0": "RAID0", "0": "RAID0",
+                         "RAID1": "RAID1", "1": "RAID1",
+                         "RAID5": "RAID5", "5": "RAID5",
+                         "RAID6": "RAID6", "6": "RAID6"}
 
         self.raidList = kwargs.get("raidList", [])
         self.op = self._getParser()
@@ -478,8 +478,7 @@ class RHEL5_Raid(FC5_Raid):
 
                 .. versionchanged:: %s
 
-                The "RAID10" level was added.""" % \
-                versionToLongString(RHEL5))
+                The "RAID10" level was added.""" % versionToLongString(RHEL5))
                 break
 
         op.add_argument("--encrypted", action="store_true",
@@ -511,8 +510,7 @@ class F7_Raid(FC5_Raid):
 
                 .. versionchanged:: %s
 
-                The "RAID10" level was added.""" % \
-                versionToLongString(F7))
+                The "RAID10" level was added.""" % versionToLongString(F7))
                 break
         return op
 
@@ -583,8 +581,7 @@ class F13_Raid(F12_Raid):
 
                 .. versionchanged:: %s
 
-                The "RAID4" level was added.""" % \
-                versionToLongString(F13))
+                The "RAID4" level was added.""" % versionToLongString(F13))
                 break
         return op
 

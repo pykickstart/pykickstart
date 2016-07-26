@@ -16,7 +16,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 
 # This script takes as input an optional input kickstart file and an optional
 # kickstart syntax version (the latest is assumed, if none specified).  It
@@ -196,7 +196,7 @@ print("Press ^D to exit.")
 
 while True:
     try:
-        line = six.moves.input("ks> ") # pylint: disable=no-member
+        line = six.moves.input("ks> ")  # pylint: disable=no-member
     except EOFError:
         # ^D was hit, time to quit.
         break

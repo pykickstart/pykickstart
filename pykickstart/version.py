@@ -68,7 +68,7 @@ FC4 = 2000
 FC5 = 3000
 FC6 = 4000
 RHEL5 = 4100
-F7  = 5000
+F7 = 5000
 F8 = 6000
 F9 = 7000
 F10 = 8000
@@ -95,14 +95,14 @@ DEVEL = F25
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
-        "DEVEL": DEVEL,
-        "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
-        "F9": F9, "F10": F10, "F11": F11, "F12": F12, "F13": F13,
-        "F14": F14, "F15": F15, "F16": F16, "F17": F17, "F18": F18,
-        "F19": F19, "F20": F20, "F21": F21, "F22": F22, "F23": F23,
-        "F24": F24, "F25": F25,
-        "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
-        "RHEL7": RHEL7
+    "DEVEL": DEVEL,
+    "FC3": FC3, "FC4": FC4, "FC5": FC5, "FC6": FC6, "F7": F7, "F8": F8,
+    "F9": F9, "F10": F10, "F11": F11, "F12": F12, "F13": F13,
+    "F14": F14, "F15": F15, "F16": F16, "F17": F17, "F18": F18,
+    "F19": F19, "F20": F20, "F21": F21, "F22": F22, "F23": F23,
+    "F24": F24, "F25": F25,
+    "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
+    "RHEL7": RHEL7
 }
 
 def stringToVersion(s):

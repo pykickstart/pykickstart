@@ -20,12 +20,12 @@ class FC3_TestCase(CommandTest):
         if "--bytes-per-inode" in self.optionList:
             self.bytesPerInode = "--bytes-per-inode=4096 "
 
-        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == None)
-        self.assertTrue(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") != \
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") is None)
+        self.assertTrue(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") !=
                         self.assert_parse("logvol / --size=1024 --name=OTHER --vgname=VGNAME"))
-        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == \
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") ==
                          self.assert_parse("logvol / --size=1024 --name=OTHER --vgname=VGNAME"))
-        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") == \
+        self.assertFalse(self.assert_parse("logvol / --size=1024 --name=NAME --vgname=VGNAME") ==
                          self.assert_parse("logvol / --size=1024 --name=NAME --vgname=OTHERVG"))
 
         # --name and --vgname
@@ -51,7 +51,7 @@ class FC3_TestCase(CommandTest):
                           "logvol /  --percent=10 %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)
         # --noformat
         # FIXME - should --noformat also be adding --useexisting (seems counter
-        # to posted documentation 
+        # to posted documentation
         # http://fedoraproject.org/wiki/Anaconda/Kickstart)
         self.assert_parse("logvol / --noformat --name=NAME --vgname=VGNAME",
                           "logvol /  --noformat --useexisting %s--name=NAME --vgname=VGNAME\n" % self.bytesPerInode)

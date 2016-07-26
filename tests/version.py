@@ -132,7 +132,7 @@ class StringToVersion_TestCase(CommandTest):
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux 5"), RHEL5)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 5"), RHEL5)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 5"), RHEL5)
-        for MINOR in range(1,10):
+        for MINOR in range(1, 10):
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux 5.%s" % MINOR), RHEL5)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 5.%s" % MINOR), RHEL5)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 5.%s" % MINOR), RHEL5)
@@ -142,7 +142,7 @@ class StringToVersion_TestCase(CommandTest):
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux 6"), RHEL6)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 6"), RHEL6)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 6"), RHEL6)
-        for MINOR in range(1,10):
+        for MINOR in range(1, 10):
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux 6.%s" % MINOR), RHEL6)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 6.%s" % MINOR), RHEL6)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 6.%s" % MINOR), RHEL6)
@@ -152,7 +152,7 @@ class StringToVersion_TestCase(CommandTest):
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux 7"), RHEL7)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 7"), RHEL7)
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 7"), RHEL7)
-        for MINOR in range(1,10):
+        for MINOR in range(1, 10):
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux 7.%s" % MINOR), RHEL7)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Client 7.%s" % MINOR), RHEL7)
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux Server 7.%s" % MINOR), RHEL7)
@@ -164,7 +164,7 @@ class VersionToString_TestCase(CommandTest):
         # Make sure DEVEL is the highest version, but RHEL versions aren't
         # counted as devel.
         highest = 0
-        for (ver_str,ver_num) in list(versionMap.items()):
+        for (ver_str, ver_num) in list(versionMap.items()):
             if ver_str.startswith("RHEL"):
                 continue
 
@@ -225,7 +225,7 @@ class returnClassForVersion_TestCase(CommandTest):
         import pykickstart.version as ver
         orig_versionToString = ver.versionToString
         with self.assertRaises(KickstartVersionError):
-            def fake_versionToString(version, skipDevel = False):
+            def fake_versionToString(version, skipDevel=False):
                 return "-1"
 
             ver.versionToString = fake_versionToString
@@ -238,7 +238,7 @@ class returnClassForVersion_TestCase(CommandTest):
         for module in loadModules(_path, cls_pattern="Handler", skip_list=["control"]):
             if module.__name__.endswith("Handler") and module.__name__ not in ["BaseHandler"]:
                 # What is the version of the handler?
-                vers = module.__name__.replace("Handler","")
+                vers = module.__name__.replace("Handler", "")
                 self.assertTrue(vers in versionMap)
                 # Ensure that returnClassForVersion returns what we expect
                 self.assertEqual(getClassName(returnClassForVersion(versionMap[vers])), getClassName(module))

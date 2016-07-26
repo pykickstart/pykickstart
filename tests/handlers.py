@@ -76,8 +76,8 @@ class HandlerMappingTestCase(unittest.TestCase):
                             ERROR: In `handlers/%s.py` the "%s" command maps to "%s" while in
                             `%s` there is newer implementation: "%s".
                         """ % (versionToString(handler_version, True).lower(),
-                                command_name, command_class.__name__,
-                                command_class.__module__, impl_class.__name__))
+                               command_name, command_class.__name__,
+                               command_class.__module__, impl_class.__name__))
                         print(message)
 
             # test for data
@@ -131,8 +131,8 @@ class HandlerMappingTestCase(unittest.TestCase):
                             ERROR: In `handlers/%s.py` "%s" maps to "%s" while in
                             `%s` there is newer implementation: "%s".
                         """ % (versionToString(handler_version, True).lower(),
-                                data_name, data_class.__name__,
-                                data_class.__module__, impl_class.__name__))
+                               data_name, data_class.__name__,
+                               data_class.__module__, impl_class.__name__))
                         print(message)
 
         # assert for errors presence

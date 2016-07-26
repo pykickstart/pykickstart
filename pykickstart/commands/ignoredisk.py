@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, F8, RHEL6
 from pykickstart.base import KickstartCommand
@@ -45,8 +45,7 @@ class FC3_IgnoreDisk(KickstartCommand):
         op = KSOptionParser(prog="ignoredisk", description="""
             Controls anaconda's access to disks attached to the system. By
             default, all disks will be available for partitioning. Only one of
-            the following three options may be used.""",
-            version=FC3)
+            the following three options may be used.""", version=FC3)
         op.add_argument("--drives", dest="ignoredisk", type=commaSplit,
                         required=True, version=FC3, help="""
                         Specifies those disks that anaconda should not touch
@@ -141,4 +140,3 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
 class F14_IgnoreDisk(RHEL6_IgnoreDisk):
     pass
-

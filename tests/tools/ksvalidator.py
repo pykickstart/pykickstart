@@ -123,7 +123,7 @@ class KS_With_Include_TestCase(TestCase):
     @mock.patch('pykickstart.parser.print', create=True)
     def runTest(self, _print):
         retval, out = ksvalidator.main([self._ks_path])
-        self.assertEqual(len(out), 0) # no output should be present
+        self.assertEqual(len(out), 0)  # no output should be present
         self.assertEqual(retval, 0)
 
         # included snippet has errors
@@ -208,7 +208,7 @@ class Raise_KickstartError_TestCase(TestCase):
 class Raise_Exception_TestCase(TestCase):
     def setUp(self):
         super(self.__class__, self).setUp()
-        ks_content = "text'" # extra quote here
+        ks_content = "text'"  # extra quote here
         self._ks_path = mktempfile(ks_content)
 
     def runTest(self):

@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
@@ -216,7 +216,7 @@ class F20_NetworkData(F19_NetworkData):
             for slave, config in self.teamslaves:
                 if config:
                     config = "'" + config + "'"
-                slavecfgs.append(slave+config)
+                slavecfgs.append(slave + config)
             slavecfgs = ",".join(slavecfgs).replace('"', r'\"')
             retval += ' --teamslaves="%s"' % slavecfgs
         if self.teamconfig:
@@ -297,7 +297,6 @@ class RHEL6_NetworkData(F8_NetworkData):
             retval += " --bondslaves=%s" % self.bondslaves
         if self.bondopts:
             retval += " --bondopts=%s" % self.bondopts
-
 
         return retval
 
@@ -498,8 +497,7 @@ class F9_Network(F8_Network):
 
                         .. versionchanged:: %s
 
-                        The 'query' value was added.""" % \
-                        versionToLongString(F9))
+                        The 'query' value was added.""" % versionToLongString(F9))
                 break
         return op
 
@@ -519,8 +517,7 @@ class F16_Network(F9_Network):
 
                         .. versionchanged:: %s
 
-                        The 'ibft' value was added.""" % \
-                        versionToLongString(F16))
+                        The 'ibft' value was added.""" % versionToLongString(F16))
                 break
         op.add_argument("--activate", action="store_true", version=F16,
                         default=False, help="""
@@ -604,7 +601,7 @@ class F20_Network(F19_Network):
                         # parts == ['eth1,eth2', '{"prio": 100}', ',eth3', '']
                 # zip devices with their configs
                 it = iter(parts)
-                for devs, cfg in zip(it,it):
+                for devs, cfg in zip(it, it):
                     # first loop:
                     # devs == "eth1,eth2", cfg == '{"prio": 100}'
                     devs = devs.strip(',').split(',')
@@ -662,8 +659,7 @@ class F22_Network(F21_Network):
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
-                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
-                                        "--bridgeslaves to be specified"))
+                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
                 raise KickstartParseError(msg)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
@@ -714,8 +710,7 @@ class RHEL5_Network(FC6_Network):
 
                         .. versionchanged:: %s
 
-                        The 'query' value was added.""" % \
-                        versionToLongString(RHEL5))
+                        The 'query' value was added.""" % versionToLongString(RHEL5))
                 break
         return op
 
@@ -735,8 +730,7 @@ class RHEL6_Network(F9_Network):
 
                         .. versionchanged:: %s
 
-                        The 'ibft' value was added.""" % \
-                        versionToLongString(RHEL6))
+                        The 'ibft' value was added.""" % versionToLongString(RHEL6))
                 break
         op.add_argument("--activate", action="store_true", version=RHEL6,
                         default=False, help="""
@@ -829,12 +823,11 @@ class RHEL7_Network(F21_Network):
         error_message = validate_network_interface_name(retval.interfacename)
         # something is wrong with the interface name
         if error_message is not None:
-            raise KickstartParseError(formatErrorMsg(self.lineno,msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
-                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires "\
-                                        "--bridgeslaves to be specified"))
+                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
                 raise KickstartParseError(msg)
             opts = retval.bridgeopts.split(",")
             for opt in opts:

@@ -17,7 +17,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 """
 Main kickstart file processing module.
@@ -53,7 +53,7 @@ from pykickstart.i18n import _
 STATE_END = "end"
 STATE_COMMANDS = "commands"
 
-def _preprocessStateMachine (lineIter):
+def _preprocessStateMachine(lineIter):
     l = None
     lineno = 0
     retval = ""
@@ -100,7 +100,7 @@ def _preprocessStateMachine (lineIter):
 
     return retval
 
-def preprocessFromStringToString (s):
+def preprocessFromStringToString(s):
     """Preprocess the kickstart file, provided as the string s.  This
        method is currently only useful for handling %ksappend lines, which
        need to be fetched before the real kickstart parser can be run.
@@ -109,7 +109,7 @@ def preprocessFromStringToString (s):
     i = iter(s.splitlines(True) + [""])
     return _preprocessStateMachine(i)
 
-def preprocessKickstartToString (f):
+def preprocessKickstartToString(f):
     """Preprocess the kickstart file, given by the filename f.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
@@ -122,7 +122,7 @@ def preprocessKickstartToString (f):
 
     return _preprocessStateMachine(iter(contents.splitlines(True)))
 
-def preprocessFromString (s):
+def preprocessFromString(s):
     """Preprocess the kickstart file, provided as the string s.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
@@ -139,7 +139,7 @@ def preprocessFromString (s):
 
     return None
 
-def preprocessKickstart (f):
+def preprocessKickstart(f):
     """Preprocess the kickstart file, given by the filename f.  This
        method is currently only useful for handling %ksappend lines,
        which need to be fetched before the real kickstart parser can be
@@ -190,7 +190,7 @@ class Script(KickstartObject):
        provided, most of the attributes of Script have to do with running the
        script.  Instances of Script are held in a list by the Version object.
     """
-    def __init__(self, script, *args , **kwargs):
+    def __init__(self, script, *args, **kwargs):
         """Create a new Script instance.  Instance attributes:
 
            :keyword errorOnFail: If execution of the script fails, should anaconda
@@ -412,7 +412,7 @@ class Packages(KickstartObject):
         else:
             return retval + "\n" + pkgs + "\n"
 
-    def _processGroup (self, line):
+    def _processGroup(self, line):
         op = KSOptionParser(prog="", description="", version=version.DEVEL)
         op.add_argument("--nodefaults", action="store_true", default=False,
                         help="", version=version.DEVEL)
@@ -438,7 +438,7 @@ class Packages(KickstartObject):
         else:
             self.groupList.append(Group(name=grp, include=constants.GROUP_DEFAULT))
 
-    def add (self, pkgList):
+    def add(self, pkgList):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
@@ -498,8 +498,8 @@ class KickstartParser(object):
        anything may just pass.  However, _stateMachine should never be
        overridden.
     """
-    def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True, unknownSectionIsFatal=True):
+    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
+                 missingIncludeIsFatal=True, unknownSectionIsFatal=True):
         """Create a new KickstartParser instance.  Instance attributes:
 
            errorsAreFatal        -- Should errors cause processing to halt, or
@@ -550,7 +550,7 @@ class KickstartParser(object):
         """
         return self._sections[s]
 
-    def handleCommand (self, lineno, args):
+    def handleCommand(self, lineno, args):
         """Given the list of command and arguments, call the Version's
            dispatcher method to handle the command.  Returns the command or
            data object returned by the dispatcher.  This method may be
@@ -764,7 +764,7 @@ class KickstartParser(object):
                 lineno -= 1
                 lineno = self._readSection(lineIter, lineno)
 
-    def readKickstartFromString (self, s, reset=True):
+    def readKickstartFromString(self, s, reset=True):
         """Process a kickstart file, provided as the string str."""
         if reset:
             self._reset()
@@ -773,7 +773,7 @@ class KickstartParser(object):
         # file reader and we only get StopIteration when we're after the final
         # line of input.
         i = PutBackIterator(s.splitlines(True) + [""])
-        self._stateMachine (i)
+        self._stateMachine(i)
 
     def readKickstart(self, f, reset=True):
         """Process a kickstart file, given by the filename f."""

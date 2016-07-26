@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21
 from pykickstart.version import F23, RHEL5, RHEL6, RHEL7

@@ -68,4 +68,3 @@ class F20_Eula(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command eula expects the --agreed option")))
 
         return self
-

@@ -28,10 +28,10 @@ class FC3_TestCase(CommandTest):
         # pass
         self.assert_parse("url --url=http://domain.com", "url --url=\"http://domain.com\"\n")
 
-        self.assertFalse(self.assert_parse("url --url=http://domain.com") == None)
-        self.assertTrue(self.assert_parse("url --url=http://domainA.com") != \
+        self.assertFalse(self.assert_parse("url --url=http://domain.com") is None)
+        self.assertTrue(self.assert_parse("url --url=http://domainA.com") !=
                         self.assert_parse("url --url=http://domainB.com"))
-        self.assertFalse(self.assert_parse("url --url=http://domainA.com") == \
+        self.assertFalse(self.assert_parse("url --url=http://domainA.com") ==
                          self.assert_parse("url --url=http://domainB.com"))
 
         # fail
@@ -53,9 +53,9 @@ class F13_TestCase(FC3_TestCase):
         self.assert_parse("url --url=http://someplace/somewhere --proxy=http://wherever/other",
                           "url --url=\"http://someplace/somewhere\" --proxy=\"http://wherever/other\"\n")
 
-        self.assertTrue(self.assert_parse("url --url=http://domain.com --proxy=http://proxy.com") == \
+        self.assertTrue(self.assert_parse("url --url=http://domain.com --proxy=http://proxy.com") ==
                         self.assert_parse("url --url=http://domain.com --proxy=http://proxy.com"))
-        self.assertFalse(self.assert_parse("url --url=http://domain.com --proxy=http://proxyA.com") == \
+        self.assertFalse(self.assert_parse("url --url=http://domain.com --proxy=http://proxyA.com") ==
                          self.assert_parse("url --url=http://domain.com --proxy=http://proxyB.com"))
 
         # fail
@@ -72,9 +72,9 @@ class F14_TestCase(F13_TestCase):
         self.assert_parse("url --url=https://someplace/somewhere --noverifyssl",
                           "url --url=\"https://someplace/somewhere\" --noverifyssl\n")
 
-        self.assertTrue(self.assert_parse("url --url=https://domain.com --noverifyssl") == \
+        self.assertTrue(self.assert_parse("url --url=https://domain.com --noverifyssl") ==
                         self.assert_parse("url --url=https://domain.com --noverifyssl"))
-        self.assertFalse(self.assert_parse("url --url=https://domain.com") == \
+        self.assertFalse(self.assert_parse("url --url=https://domain.com") ==
                          self.assert_parse("url --url=https://domain.com --noverifyssl"))
 
         # fail
@@ -89,9 +89,9 @@ class F18_TestCase(F14_TestCase):
         self.assert_parse("url --mirrorlist=http://www.wherever.com/mirror",
                           "url --mirrorlist=\"http://www.wherever.com/mirror\"\n")
 
-        self.assertTrue(self.assert_parse("url --mirrorlist=https://domain.com") == \
+        self.assertTrue(self.assert_parse("url --mirrorlist=https://domain.com") ==
                         self.assert_parse("url --mirrorlist=https://domain.com"))
-        self.assertFalse(self.assert_parse("url --url=https://domain.com") == \
+        self.assertFalse(self.assert_parse("url --url=https://domain.com") ==
                          self.assert_parse("url --mirrorlist=https://domain.com"))
 
         # fail
