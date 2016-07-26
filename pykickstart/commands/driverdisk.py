@@ -28,8 +28,8 @@ class FC3_DriverDiskData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
 
-    def __init__(self, writePriority=0, *args, **kwargs):
-        BaseData.__init__(self, writePriority, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
 
         self.partition = kwargs.get("partition", "")
         self.source = kwargs.get("source", "")
@@ -56,7 +56,7 @@ class FC4_DriverDiskData(FC3_DriverDiskData):
     removedKeywords = FC3_DriverDiskData.removedKeywords
     removedAttrs = FC3_DriverDiskData.removedAttrs
 
-    def __init__(self, writePriority=0, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         FC3_DriverDiskData.__init__(self, *args, **kwargs)
         self.deleteRemovedAttrs()
 
@@ -127,7 +127,7 @@ class FC3_DriverDisk(KickstartCommand):
 
         if len(ns.partition) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
@@ -168,7 +168,7 @@ class FC4_DriverDisk(FC3_DriverDisk):
 
         if len(ns.partition) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
