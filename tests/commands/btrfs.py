@@ -20,8 +20,15 @@
 
 import unittest
 from tests.baseclass import CommandTest
-
+from pykickstart.commands.btrfs import F17_BTRFSData
 from pykickstart.errors import KickstartParseError
+
+class BTRFS_TestCase(unittest.TestCase):
+    def runTest(self):
+        data = F17_BTRFSData()
+        self.assertEqual(data.format, True)
+        self.assertEqual(data.preexist, False)
+        self.assertEqual(data.subvol, False)
 
 class F17_TestCase(CommandTest):
     command = "btrfs"

@@ -211,22 +211,22 @@ class F17_BTRFS(KickstartCommand):
         elif data.preexist:
             data.format = False
 
-        if len(extra) == 0:
+        if not extra:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "btrfs", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(extra) == 1 and not data.subvol:
+        data.mountpoint = extra[0]
+        data.devices = extra[1:]
+
+        if not any([data.devices, data.subvol]):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
-        elif len(extra) == 1:
+        elif not data.devices:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")))
 
         if data.subvol and not data.name:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")))
-
-        data.mountpoint = extra[0]
-        data.devices = extra[1:]
 
         # Check for duplicates in the data list.
         if data in self.dataList():
