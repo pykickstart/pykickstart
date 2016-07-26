@@ -30,7 +30,7 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("iscsi --ipaddr=1.1.1.1 --target=tar --port=1234 --user=name --password=secret",
                           "iscsi --target=tar --ipaddr=1.1.1.1 --port=1234 --user=name --password=secret\n")
         self.assert_parse("iscsi --ipaddr=1.1.1.1 --target=tar", "iscsi --target=tar --ipaddr=1.1.1.1\n")
-        self.assert_parse("iscsi --ipaddr=1.1.1.1 --port=1234", "iscsi --ipaddr=1.1.1.1 --port=1234\n")
+        self.assert_parse("iscsi --ipaddr=1.1.1.1 --port=4321", "iscsi --ipaddr=1.1.1.1 --port=4321\n")
         self.assert_parse("iscsi --ipaddr=1.1.1.1 --user=name", "iscsi --ipaddr=1.1.1.1 --user=name\n")
         self.assert_parse("iscsi --ipaddr=1.1.1.1 --password=secret", "iscsi --ipaddr=1.1.1.1 --password=secret\n")
 
@@ -49,6 +49,7 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --user")
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --password")
         self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --port")
+        self.assert_parse_error("iscsi --ipaddr=1.2.3.4 --port=''")
 
         # extra test coverage
         data = self.handler().IscsiData()

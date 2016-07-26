@@ -29,7 +29,7 @@ class FC6_IscsiData(BaseData):
     def __init__(self, *args, **kwargs):
         BaseData.__init__(self, *args, **kwargs)
         self.ipaddr = kwargs.get("ipaddr", "")
-        self.port = kwargs.get("port", "3260")
+        self.port = kwargs.get("port", 3260)
         self.target = kwargs.get("target", "")
         self.user = kwargs.get("user", None)
         self.password = kwargs.get("password", None)
@@ -41,11 +41,11 @@ class FC6_IscsiData(BaseData):
             retval += " --target=%s" % self.target
         if self.ipaddr:
             retval += " --ipaddr=%s" % self.ipaddr
-        if self.port != "3260":
+        if self.port != 3260:
             retval += " --port=%s" % self.port
-        if self.user is not None:
+        if self.user:
             retval += " --user=%s" % self.user
-        if self.password is not None:
+        if self.password:
             retval += " --password=%s" % self.password
 
         return retval
@@ -67,9 +67,9 @@ class F10_IscsiData(FC6_IscsiData):
     def _getArgsAsStr(self):
         retval = FC6_IscsiData._getArgsAsStr(self)
 
-        if self.user_in is not None:
+        if self.user_in:
             retval += " --reverse-user=%s" % self.user_in
-        if self.password_in is not None:
+        if self.password_in:
             retval += " --reverse-password=%s" % self.password_in
 
         return retval
@@ -85,7 +85,7 @@ class RHEL6_IscsiData(F10_IscsiData):
     def _getArgsAsStr(self):
         retval = F10_IscsiData._getArgsAsStr(self)
 
-        if self.iface is not None:
+        if self.iface:
             retval += " --iface=%s" % self.iface
 
         return retval
@@ -136,7 +136,7 @@ class FC6_Iscsi(KickstartCommand):
         op.add_argument("--target", help="The target iqn.", version=FC6)
         op.add_argument("--ipaddr", required=True, version=FC6, help="""
                         The IP address of the target to connect to.""")
-        op.add_argument("--port", version=FC6, help="""
+        op.add_argument("--port", version=FC6, type=int, help="""
                         The port number to connect to (default, --port=3260).
                         """)
         op.add_argument("--user", version=FC6, help="""
