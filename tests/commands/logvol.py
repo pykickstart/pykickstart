@@ -1,13 +1,59 @@
 import six
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
-from pykickstart.version import FC3, RHEL6
+from pykickstart.commands.logvol import  RHEL5_LogVolData, RHEL6_LogVolData
+from pykickstart.commands.logvol import FC3_LogVolData, F9_LogVolData, \
+    F12_LogVolData, F17_LogVolData, F18_LogVolData, F20_LogVolData
+from pykickstart.version import FC3, RHEL6, F20
 
 if six.PY3:
     requiredError = "arguments are required: %s"
 else:
     requiredError = "argument %s is required"
+
+class LogVol_TestCase(unittest.TestCase):
+    def runTest(self):
+        # new objects are equal
+        data1 = FC3_LogVolData()
+        data2 = FC3_LogVolData()
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # assert default properties
+        self.assertEqual(data1.grow, False)
+        self.assertEqual(data1.maxSizeMB, 0)
+        self.assertEqual(data1.format, True)
+        self.assertEqual(data1.percent, 0)
+        self.assertEqual(data1.recommended, False)
+        self.assertEqual(data1.preexist, False)
+
+        # test for objects difference
+        for atr in ['name', 'vgname']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
+        # more tests for other data members
+        self.assertEqual(RHEL5_LogVolData().encrypted, False)
+        rhel6_data = RHEL6_LogVolData()
+        self.assertEqual(rhel6_data.hibernation, False)
+        self.assertEqual(rhel6_data.thin_pool, False)
+        self.assertEqual(rhel6_data.thin_volume, False)
+
+        self.assertEqual(F9_LogVolData().encrypted, False)
+        self.assertEqual(F12_LogVolData().backuppassphrase, False)
+        self.assertEqual(F17_LogVolData().resize, False)
+        self.assertEqual(F18_LogVolData().hibernation, False)
+        f20_data = F20_LogVolData()
+        self.assertEqual(f20_data.thin_pool, False)
+        self.assertEqual(f20_data.thin_volume, False)
+
+
 
 class FC3_TestCase(CommandTest):
     command = "logvol"
@@ -381,8 +427,26 @@ class F20_TestCase(F18_TestCase):
         self.assert_parse("logvol none --name=pool1 --vgname=vg --thinpool --useexisting")
 
         # logvol with a disallowed percent value
-        self.assert_parse_error("logvol / --percent=1000 --name=NAME --vgname=VGNAME",
+        # test with boundary values
+        self.assert_parse("logvol / --percent=100 --name=NAME --vgname=VGNAME")
+#        self.assert_parse("logvol / --percent=0 --name=NAME --vgname=VGNAME")
+        # test with boundary values +/- 1
+        self.assert_parse_error("logvol / --percent=101 --name=NAME --vgname=VGNAME",
                                 regex="Percentage must be between 0 and 100.")
+        self.assert_parse_error("logvol / --percent=-1 --name=NAME --vgname=VGNAME",
+                                regex="Percentage must be between 0 and 100.")
+
+
+class F20_AutopartLogVol_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F20
+
+    def runTest(self):
+        # fail - can't use both autopart and logvol
+        self.assert_parse_error("""
+autopart
+logvol / --size=1024 --name=lv --vgname=vg""")
 
 class F21_TestCase(F20_TestCase):
     def runTest(self):

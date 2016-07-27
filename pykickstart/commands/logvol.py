@@ -60,15 +60,15 @@ class FC3_LogVolData(BaseData):
             retval += " --fstype=\"%s\"" % self.fstype
         if self.grow:
             retval += " --grow"
-        if self.maxSizeMB > 0:
+        if self.maxSizeMB:
             retval += " --maxsize=%d" % self.maxSizeMB
         if not self.format:
             retval += " --noformat"
-        if self.percent > 0:
+        if self.percent:
             retval += " --percent=%d" % self.percent
         if self.recommended:
             retval += " --recommended"
-        if self.size is not None and self.size > 0:
+        if self.size:
             retval += " --size=%d" % self.size
         if self.preexist:
             retval += " --useexisting"
@@ -92,7 +92,7 @@ class FC4_LogVolData(FC3_LogVolData):
     def _getArgsAsStr(self):
         retval = FC3_LogVolData._getArgsAsStr(self)
 
-        if hasattr(self, "bytesPerInode") and self.bytesPerInode != 0:
+        if hasattr(self, "bytesPerInode") and self.bytesPerInode:
             retval += " --bytes-per-inode=%d" % self.bytesPerInode
         if self.fsopts:
             retval += " --fsoptions=\"%s\"" % self.fsopts
@@ -426,9 +426,7 @@ class FC3_LogVol(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(ns.mntpoint) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "logvol"))
-        elif len(extra) > 0:
+        if extra:
             mapping = {"command": "logvol", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
