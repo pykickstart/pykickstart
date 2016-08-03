@@ -21,6 +21,7 @@ import unittest
 
 from tests.baseclass import CommandTest
 from pykickstart.base import DeprecatedCommand
+from pykickstart.commands.monitor import FC6_Monitor
 
 class FC3_TestCase(CommandTest):
     command = "monitor"
@@ -52,6 +53,8 @@ class FC6_TestCase(FC3_TestCase):
         self.assert_parse("monitor --noprobe", "monitor --noprobe\n")
         # fail
         self.assert_parse_error("monitor --noprobe 1")
+        # assert default values
+        self.assertTrue(FC6_Monitor().probe)
 
 class F10_TestCase(FC6_TestCase):
     def runTest(self):
