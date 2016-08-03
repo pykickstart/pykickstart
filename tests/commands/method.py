@@ -78,19 +78,34 @@ class FC3_TestCase(CommandTest):
         handler = FC3Handler()
         method.handler = handler
         self.assertEqual(method.method, None)
-        available_methods = ["cdrom", "harddrive", "nfs", "url"]
-        for chosen_method in available_methods:
+        for chosen_method in method._methods:
             method.method = chosen_method
             method.foo = chosen_method  # try to set an unused attribute
-            for unseen_method in [m for m in available_methods if m != chosen_method]:
+            for unseen_method in [m for m in method._methods if m != chosen_method]:
                 self.assertFalse(getattr(method.handler, unseen_method).seen)
                 self.assertEqual(method.foo, chosen_method)
             self.assertTrue(getattr(method.handler, chosen_method).seen)
             self.assertEqual(method.method, chosen_method)
         # last seen method should be returned when 'method' attribute doesn't exist
         del method.method
-        self.assertEqual(method.method, available_methods[-1])
+        self.assertEqual(method.method, method._methods[-1])
 
+        # trying to get attributes that don't exist raises an AttributeError
+        with self.assertRaises(AttributeError):
+            method.internals.append('method1')
+            getattr(method, 'method1')
+        method.internals.remove('method1')
+
+        with self.assertRaises(AttributeError):
+            method.internals.append('0method')
+            getattr(method, '0method')
+        method.internals.remove('0method')
+
+        # trying to set attributes with bogus values
+        for value in ['aaa', 'xxx']:
+            method.method = value
+            for m in method._methods:
+                self.assertFalse(getattr(method.handler, m).seen)
 
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):
@@ -187,9 +202,8 @@ class F19_TestCase(F18_TestCase):
         self.assertEqual(method.method, None)
         method.method = "liveimg"
         method.foo = "liveimg"  # try to set an unused attribute
-        available_methods = ["cdrom", "harddrive", "nfs", "url", "liveimg"]
 
-        for unseen_method in [m for m in available_methods if m != "liveimg"]:
+        for unseen_method in [m for m in method._methods if m != "liveimg"]:
             self.assertFalse(getattr(method.handler, unseen_method).seen)
             self.assertEqual(method.foo, "liveimg")
         self.assertTrue(method.handler.liveimg.seen)    # pylint: disable=no-member

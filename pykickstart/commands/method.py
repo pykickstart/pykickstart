@@ -56,14 +56,14 @@ class FC3_Method(KickstartCommand):
         if name in self.internals:
             if name == "method":
                 self._clear_seen()
-            if name == "method" and value == "cdrom":
-                setattr(self.handler.cdrom, "seen", True)
-            elif name == "method" and value == "harddrive":
-                setattr(self.handler.harddrive, "seen", True)
-            elif name == "method" and value == "nfs":
-                setattr(self.handler.nfs, "seen", True)
-            elif name == "method" and value == "url":
-                setattr(self.handler.url, "seen", True)
+                if value == "cdrom":
+                    setattr(self.handler.cdrom, "seen", True)
+                elif value == "harddrive":
+                    setattr(self.handler.harddrive, "seen", True)
+                elif value == "nfs":
+                    setattr(self.handler.nfs, "seen", True)
+                elif value == "url":
+                    setattr(self.handler.url, "seen", True)
             KickstartCommand.__setattr__(self, name, value)
         elif self.handler.cdrom.seen:
             setattr(self.handler.cdrom, name, value)
@@ -111,9 +111,8 @@ class F19_Method(FC3_Method):
 
     def __setattr__(self, name, value):
         if name in self.internals:
-            if name == "method":
-                self._clear_seen()
             if name == "method" and value == "liveimg":
+                self._clear_seen()
                 setattr(self.handler.liveimg, "seen", True)
             else:
                 FC3_Method.__setattr__(self, name, value)
