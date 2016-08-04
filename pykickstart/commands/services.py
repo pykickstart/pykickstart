@@ -39,9 +39,9 @@ class FC6_Services(KickstartCommand):
         retval = KickstartCommand.__str__(self)
         args = ""
 
-        if len(self.disabled) > 0:
+        if self.disabled:
             args += " --disabled=\"%s\"" % ",".join(self.disabled)
-        if len(self.enabled) > 0:
+        if self.enabled:
             args += " --enabled=\"%s\"" % ",".join(self.enabled)
 
         if args:
@@ -72,7 +72,7 @@ class FC6_Services(KickstartCommand):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
 
-        if len(self.disabled) == 0 and len(self.enabled) == 0:
+        if not (self.disabled or self.enabled):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided.")))
 
         return self
