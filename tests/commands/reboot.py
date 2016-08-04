@@ -19,7 +19,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
-
+from pykickstart.commands.reboot import FC6_Reboot, F23_Reboot
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN, KS_WAIT
 
 class FC3_TestCase(CommandTest):
@@ -46,6 +46,10 @@ class FC6_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)
 
+        # assert default values
+        cmd = FC6_Reboot()
+        self.assertFalse(cmd.eject)
+
         # pass
         cmd = self.assert_parse("reboot --eject")
         self.assertEqual(cmd.action, KS_REBOOT)
@@ -67,6 +71,10 @@ class F18_TestCase(FC6_TestCase):
 class F23_TestCase(F18_TestCase):
     def runTest(self):
         F18_TestCase.runTest(self)
+
+        # assert default values
+        cmd = F23_Reboot()
+        self.assertFalse(cmd.kexec)
 
         # pass
         cmd = self.assert_parse("reboot --kexec")
