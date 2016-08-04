@@ -19,6 +19,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.timezone import FC3_Timezone, F18_Timezone
 
 from pykickstart.errors import KickstartParseError
 
@@ -26,6 +27,10 @@ class FC3_TestCase(CommandTest):
     command = "timezone"
 
     def runTest(self):
+        # assert defaults
+        self.assertFalse(FC3_Timezone().isUtc)
+        self.assertFalse(F18_Timezone().nontp)
+
         # pass
         self.assert_parse("timezone Eastern", "timezone  Eastern\n")
 
