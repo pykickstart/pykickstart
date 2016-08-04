@@ -19,7 +19,7 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.multipath import FC6_MultiPath
 from pykickstart.base import DeprecatedCommand
 from pykickstart.version import FC6
 
@@ -27,6 +27,15 @@ class FC6_TestCase(CommandTest):
     command = "multipath"
 
     def runTest(self):
+        for action in FC6_MultiPath()._getParser()._actions:
+            if '--name' in action.option_strings:
+                self.assertTrue(action.required)
+
+            for a in ['--device', '--rule']:
+                if a in action.option_strings:
+                    self.assertTrue(action.required)
+                    self.assertTrue(action.notest)
+
         # pass
         self.assert_parse("multipath --name=mpath0 --device=/dev/sdc --rule=failover",
                           "multipath --name=mpath0 --device=/dev/sdc --rule=\"failover\"\n")
