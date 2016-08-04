@@ -18,11 +18,15 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.rootpw import FC3_RootPw, F8_RootPw
 
 class FC3_TestCase(CommandTest):
     command = "rootpw"
 
     def runTest(self):
+        # assert default values
+        self.assertFalse(FC3_RootPw().isCrypted)
+
         # pass
         self.assert_parse("rootpw --iscrypted secrethandshake", "rootpw --iscrypted secrethandshake\n")
 
@@ -37,6 +41,9 @@ class FC3_TestCase(CommandTest):
 class F8_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)
+
+        # assert default values
+        self.assertFalse(F8_RootPw().lock)
 
         # pass
         self.assert_parse("rootpw --lock secrethandshake", "rootpw --lock --plaintext secrethandshake\n")
