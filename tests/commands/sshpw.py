@@ -19,8 +19,44 @@
 #
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.sshpw import F13_SshPwData, F13_SshPw, F24_SshPwData
 from pykickstart.version import F13
+
+class SshPw_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = F13_SshPwData()
+        data2 = F13_SshPwData()
+        self.assertEqual(data1, data2)
+        self.assertFalse(data1 != data2)
+        self.assertNotEqual(data1, None)
+
+        # assert default values
+        self.assertFalse(data1.isCrypted)
+        self.assertFalse(data1.lock)
+
+        # test for objects difference
+        for atr in ['username']:
+            setattr(data1, atr, None)
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, None)
+            setattr(data2, atr, None)
+
+        # check options defaults
+        for action in F13_SshPw()._getParser()._actions:
+            for a in ['--username']:
+                if a in action.option_strings:
+                    self.assertTrue(action.required)
+
+            for a in ['--lock']:
+                if a in action.option_strings:
+                    self.assertFalse(action.default)
+
+        # assert default values
+        self.assertFalse(F24_SshPwData().sshkey)
 
 class F13_TestCase(CommandTest):
     command = "sshpw"

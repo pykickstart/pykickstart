@@ -156,9 +156,9 @@ class F13_SshPw(KickstartCommand):
         ud = self.dataClass()   # pylint: disable=not-callable
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(ns.password) == 0:
+        if not ns.password:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"))
-        if len(extra) > 0:
+        if extra:
             mapping = {"command": "sshpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
