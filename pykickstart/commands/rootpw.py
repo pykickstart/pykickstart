@@ -74,7 +74,7 @@ class FC3_RootPw(KickstartCommand):
 
         if len(ns.password) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
@@ -132,11 +132,11 @@ class F18_RootPw(F8_RootPw):
 
         if len(ns.password) != 1 and not self.lock:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if len(ns.password) == 1:
+        if ns.password:
             self.password = ns.password[0]
         else:
             self.password = ""
