@@ -75,7 +75,7 @@ class FC3_Timezone(KickstartCommand):
 
         if len(ns.timezone) != 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "timezone", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
