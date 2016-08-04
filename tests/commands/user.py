@@ -20,13 +20,27 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.user import FC6_UserData
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
     command = "user"
 
     def runTest(self):
+        data1 = FC6_UserData()
+        data2 = FC6_UserData()
+        self.assertEqual(data1, data2)
+        self.assertFalse(data1 != data2) # test __ne__ method
+        self.assertNotEqual(data1, None)
+
+        for attr in ['name']:
+            setattr(data1, attr, '')
+            setattr(data2, attr, 'test')
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, attr, '')
+            setattr(data2, attr, '')
+
         # pass
         self.assert_parse("user --name=user", "user --name=user\n")
         self.assert_parse("user --name=user --password=comment#inpassword", "user --name=user --password=comment#inpassword\n")

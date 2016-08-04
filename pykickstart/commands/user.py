@@ -59,7 +59,7 @@ class FC6_UserData(BaseData):
     def _getArgsAsStr(self):
         retval = ""
 
-        if len(self.groups) > 0:
+        if self.groups:
             retval += " --groups=%s" % ",".join(self.groups)
         if self.homedir:
             retval += " --homedir=%s" % self.homedir
