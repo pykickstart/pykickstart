@@ -20,11 +20,28 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.fcoe import F12_FcoeData
 from pykickstart.version import F12
 
 class F12_TestCase(CommandTest):
     def runTest(self):
+        data1 = F12_FcoeData()
+        data2 = F12_FcoeData()
+        self.assertEqual(data1, data2)
+        self.assertFalse(data1 != data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['nic']:
+            setattr(data1, atr, None)
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, None)
+            setattr(data2, atr, None)
+
         # pass
         self.assert_parse("fcoe --nic=eth0",
                           "fcoe --nic=eth0\n")
