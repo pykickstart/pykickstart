@@ -1127,8 +1127,8 @@ network
 
 Configures network information for target system and activates network devices
 in installer environment. The device specified in the first network command is
-activated automatically.  Activation of the device can be also explicitly
-required by ``--activate`` option.
+activated automatically unless ``--no-activate`` option is used.  Activation of
+a device can be also explicitly required by ``--activate`` option.
 
 ``--device=``
 
@@ -1226,6 +1226,11 @@ required by ``--activate`` option.
     configured with boot options so that the system could retrieve the
     Kickstart file) the device is reactivated to use the configuration
     specified in the Kickstart file.
+
+``--no-activate``
+
+    Prevents automatic activation of the device specified in the first network
+    command.
 
 ``--nodefroute``
 
