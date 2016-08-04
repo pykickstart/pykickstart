@@ -62,10 +62,10 @@ class F7_Updates(KickstartCommand):
 
         if len(_ns.updates) > 1:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates"))
-        elif len(extra) > 0:
+        elif extra:
             mapping = {"command": "updates", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
-        elif len(_ns.updates) == 0:
+        elif not _ns.updates:
             self.url = "floppy"
         else:
             self.url = _ns.updates[0]
