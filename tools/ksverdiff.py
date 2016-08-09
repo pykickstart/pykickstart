@@ -37,86 +37,85 @@ def getOptSet(lst):
 def printList(lst):
     print(' '.join(lst))
 
-op = argparse.ArgumentParser()
-op.add_argument("-f", "--from", dest="f")
-op.add_argument("-t", "--to", dest="t")
-op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
-                default=False,
-                help=_("list the available versions of kickstart syntax"))
+def main():
+    op = argparse.ArgumentParser()
+    op.add_argument("-f", "--from", dest="f")
+    op.add_argument("-t", "--to", dest="t")
+    op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
+                    default=False,
+                    help=_("list the available versions of kickstart syntax"))
 
-opts = op.parse_args(sys.argv[1:])
+    opts = op.parse_args(sys.argv[1:])
 
-if opts.listversions:
-    for key in sorted(versionMap.keys()):
-        print(key)
+    if opts.listversions:
+        for key in sorted(versionMap.keys()):
+            print(key)
 
-    sys.exit(1)
+        sys.exit(1)
 
-if not opts.f or not opts.t:
-    print(_("You must specify two syntax versions."))
-    sys.exit(1)
+    if not opts.f or not opts.t:
+        print(_("You must specify two syntax versions."))
+        sys.exit(1)
 
-try:
-    fromHandler = makeVersion(opts.f)
-except KickstartVersionError:
-    print(_("The version %s is not supported by pykickstart") % opts.f)
-    sys.exit(1)
+    try:
+        fromHandler = makeVersion(opts.f)
+        toHandler = makeVersion(opts.t)
+    except KickstartVersionError as exn:
+        print(_("The version %s is not supported by pykickstart") % exn)
+        sys.exit(1)
 
-try:
-    toHandler = makeVersion(opts.t)
-except KickstartVersionError:
-    print(_("The version %s is not supported by pykickstart") % opts.t)
-    sys.exit(1)
+    fromCmdSet = getCommandSet(fromHandler)
+    toCmdSet = getCommandSet(toHandler)
+    bothSet = fromCmdSet & toCmdSet
 
-fromCmdSet = getCommandSet(fromHandler)
-toCmdSet = getCommandSet(toHandler)
-bothSet = fromCmdSet & toCmdSet
+    print(_("The following commands were removed in %s:") % opts.t)
+    printList(sorted(fromCmdSet - toCmdSet))
 
-print(_("The following commands were removed in %s:") % opts.t)
-printList(sorted(fromCmdSet - toCmdSet))
+    print(_("The following commands were deprecated in %s:") % opts.t)
+    printList(sorted([cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], DeprecatedCommand)]))
 
-print(_("The following commands were deprecated in %s:") % opts.t)
-printList(sorted([cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], DeprecatedCommand)]))
+    print(_("The following commands were added in %s:") % opts.t)
+    printList(sorted(toCmdSet - fromCmdSet))
 
-print(_("The following commands were added in %s:") % opts.t)
-printList(sorted(toCmdSet - fromCmdSet))
+    print()
 
-print()
+    for cmd in sorted(bothSet):
+        printed = False
 
-for cmd in sorted(bothSet):
-    printed = False
+        newOptList = []
+        deprecatedOptList = []
+        removedOptList = []
 
-    newOptList = []
-    deprecatedOptList = []
-    removedOptList = []
+        fromCmd = fromHandler.commands[cmd]
+        toCmd = toHandler.commands[cmd]
 
-    fromCmd = fromHandler.commands[cmd]
-    toCmd = toHandler.commands[cmd]
+        if not hasattr(fromCmd, "op") or not hasattr(toCmd, "op"):
+            continue
 
-    if not hasattr(fromCmd, "op") or not hasattr(toCmd, "op"):
-        continue
+        fromOpt = fromCmd.op.option_list
+        toOpt = toCmd.op.option_list
 
-    fromOpt = fromCmd.op.option_list
-    toOpt = toCmd.op.option_list
+        newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
+        removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
+        deprecatedOptList = getOptSet([cmd for cmd in toOpt if cmd.deprecated == 1])
 
-    newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
-    removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
-    deprecatedOptList = getOptSet([cmd for cmd in toOpt if cmd.deprecated == 1])
+        if len(newOptList) > 0:
+            print(_("The following options were added to the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
+            printList(sorted(newOptList))
+            printed = True
 
-    if len(newOptList) > 0:
-        print(_("The following options were added to the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
-        printList(sorted(newOptList))
-        printed = True
+        if len(deprecatedOptList) > 0:
+            print(_("The following options were deprecated from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
+            printList(sorted(deprecatedOptList))
+            printed = True
 
-    if len(deprecatedOptList) > 0:
-        print(_("The following options were deprecated from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
-        printList(sorted(deprecatedOptList))
-        printed = True
+        if len(removedOptList) > 0:
+            print(_("The following options were removed from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
+            printList(sorted(removedOptList))
+            printed = True
 
-    if len(removedOptList) > 0:
-        print(_("The following options were removed from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
-        printList(sorted(removedOptList))
-        printed = True
+        if printed:
+            print()
 
-    if printed:
-        print()
+if __name__ == "__main__":
+    main()

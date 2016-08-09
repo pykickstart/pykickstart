@@ -137,98 +137,103 @@ class KickstartCompleter(object):
 
         return response
 
-##
-## OPTION PROCESSING
-##
+def main():
 
-op = argparse.ArgumentParser()
-op.add_argument("-i", "--input", dest="input",
-                help=_("a basis file to use for seeding the kickstart data (optional)"))
-op.add_argument("-o", "--output", dest="output",
-                help=_("the location to write the finished kickstart file, or stdout if not given"))
-op.add_argument("-v", "--version", dest="version", default=DEVEL,
-                help=_("version of kickstart syntax to validate against"))
+    ##
+    ## OPTION PROCESSING
+    ##
 
-opts = op.parse_args(sys.argv[1:])
+    op = argparse.ArgumentParser()
+    op.add_argument("-i", "--input", dest="input",
+                    help=_("a basis file to use for seeding the kickstart data (optional)"))
+    op.add_argument("-o", "--output", dest="output",
+                    help=_("the location to write the finished kickstart file, or stdout if not given"))
+    op.add_argument("-v", "--version", dest="version", default=DEVEL,
+                    help=_("version of kickstart syntax to validate against"))
 
-##
-## SETTING UP PYKICKSTART
-##
+    opts = op.parse_args(sys.argv[1:])
 
-try:
-    kshandler = makeVersion(opts.version)
-except KickstartVersionError:
-    print(_("The version %s is not supported by pykickstart") % opts.version)
-    sys.exit(1)
+    ##
+    ## SETTING UP PYKICKSTART
+    ##
 
-ksparser = KickstartParser(kshandler, followIncludes=True, errorsAreFatal=False)
-
-if opts.input:
     try:
-        processedFile = preprocessKickstart(opts.input)
-        ksparser.readKickstart(processedFile)
-        os.remove(processedFile)
-    except KickstartError as e:
-        # Errors should just dump you to the prompt anyway.
-        print(_("Warning:  The following error occurred when processing the input file:\n%s\n") % e)
+        kshandler = makeVersion(opts.version)
+    except KickstartVersionError:
+        print(_("The version %s is not supported by pykickstart") % opts.version)
+        sys.exit(1)
 
-internalCommands = {".clear": ClearCommand(),
-                    ".show": ShowCommand(),
-                    ".quit": QuitCommand()}
+    ksparser = KickstartParser(kshandler, followIncludes=True, errorsAreFatal=False)
 
-##
-## SETTING UP READLINE
-##
+    if opts.input:
+        try:
+            processedFile = preprocessKickstart(opts.input)
+            ksparser.readKickstart(processedFile)
+            os.remove(processedFile)
+        except KickstartError as e:
+            # Errors should just dump you to the prompt anyway.
+            print(_("Warning:  The following error occurred when processing the input file:\n%s\n") % e)
 
-readline.parse_and_bind("tab: complete")
-readline.set_completer(KickstartCompleter(kshandler, internalCommands).complete)
+    internalCommands = {".clear": ClearCommand(),
+                        ".show": ShowCommand(),
+                        ".quit": QuitCommand()}
 
-# Since everything in kickstart looks like a command line arg, we need to
-# remove '-' from the delimiter string.
-delims = readline.get_completer_delims()
-readline.set_completer_delims(delims.replace('-', ''))
+    ##
+    ## SETTING UP READLINE
+    ##
 
-##
-## REPL
-##
+    readline.parse_and_bind("tab: complete")
+    readline.set_completer(KickstartCompleter(kshandler, internalCommands).complete)
 
-print("Press ^D to exit.")
+    # Since everything in kickstart looks like a command line arg, we need to
+    # remove '-' from the delimiter string.
+    delims = readline.get_completer_delims()
+    readline.set_completer_delims(delims.replace('-', ''))
 
-while True:
-    try:
-        line = six.moves.input("ks> ")  # pylint: disable=no-member
-    except EOFError:
-        # ^D was hit, time to quit.
-        break
-    except KeyboardInterrupt:
-        # ^C was hit, time to quit.  Don't be like other programs.
-        break
+    ##
+    ## REPL
+    ##
 
-    # All internal commands start with a ., so if that's the beginning of the
-    # line, we need to dispatch ourselves.
-    if line.startswith("."):
-        words = line.split()
-        if words[0] in internalCommands:
-            try:
-                internalCommands[words[0]].execute(ksparser)
-            except EOFError:
-                # ".quit" was typed, time to quit.
-                break
-        else:
-            print(_("Internal command %s not recognized.") % words[0])
+    print("Press ^D to exit.")
 
-        continue
+    while True:
+        try:
+            line = six.moves.input("ks> ")  # pylint: disable=no-member
+        except EOFError:
+            # ^D was hit, time to quit.
+            break
+        except KeyboardInterrupt:
+            # ^C was hit, time to quit.  Don't be like other programs.
+            break
 
-    # Now process the line of input as if it were a kickstart file - just an
-    # extremely short one.
-    try:
-        ksparser.readKickstartFromString(line)
-    except KickstartError as e:
-        print(e)
+        # All internal commands start with a ., so if that's the beginning of the
+        # line, we need to dispatch ourselves.
+        if line.startswith("."):
+            words = line.split()
+            if words[0] in internalCommands:
+                try:
+                    internalCommands[words[0]].execute(ksparser)
+                except EOFError:
+                    # ".quit" was typed, time to quit.
+                    break
+            else:
+                print(_("Internal command %s not recognized.") % words[0])
 
-# And finally, print the output kickstart file.
-if opts.output:
-    with open(opts.output, "w") as fd:
-        fd.write(str(ksparser.handler))
-else:
-    print("\n" + str(ksparser.handler))
+            continue
+
+        # Now process the line of input as if it were a kickstart file - just an
+        # extremely short one.
+        try:
+            ksparser.readKickstartFromString(line)
+        except KickstartError as e:
+            print(e)
+
+    # And finally, print the output kickstart file.
+    if opts.output:
+        with open(opts.output, "w") as fd:
+            fd.write(str(ksparser.handler))
+    else:
+        print("\n" + str(ksparser.handler))
+
+if __name__ == "__main__":
+    main()
