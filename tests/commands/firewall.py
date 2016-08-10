@@ -20,6 +20,15 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.firewall import FC3_Firewall
+
+class Firewall_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_Firewall()
+        op = cmd._getParser()
+        for action in op._actions:
+            if '--enable' in action.option_strings:
+                self.assertTrue(action.default)
 
 class FC3_TestCase(CommandTest):
     command = "firewall"
