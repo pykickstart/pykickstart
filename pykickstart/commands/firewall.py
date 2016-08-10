@@ -62,15 +62,13 @@ class FC3_Firewall(KickstartCommand):
 
             # All the port:proto strings go into a comma-separated list.
             portstr = ",".join(filteredPorts)
-            if len(portstr) > 0:
+            if portstr:
                 portstr = " --port=" + portstr
-            else:
-                portstr = ""
 
             extrastr = "".join(extra)
             truststr = ",".join(self.trusts)
 
-            if len(truststr) > 0:
+            if truststr:
                 truststr = " --trust=" + truststr
 
             # The output port list consists only of port:proto for
@@ -170,10 +168,8 @@ class F10_Firewall(F9_Firewall):
             retval = retval.strip()
 
             svcstr = ",".join(self.services)
-            if len(svcstr) > 0:
+            if svcstr:
                 svcstr = " --service=" + svcstr
-            else:
-                svcstr = ""
 
             return retval + "%s\n" % svcstr
         else:
@@ -238,10 +234,8 @@ class F20_Firewall(F14_Firewall):
             retval = retval.strip()
 
             svcstr = ",".join(self.remove_services)
-            if len(svcstr) > 0:
+            if svcstr:
                 svcstr = " --remove-service=" + svcstr
-            else:
-                svcstr = ""
 
             return retval + "%s\n" % svcstr
         else:
