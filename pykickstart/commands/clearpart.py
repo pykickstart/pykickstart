@@ -54,7 +54,7 @@ class FC3_ClearPart(KickstartCommand):
         else:
             initstr = ""
 
-        if len(self.drives) > 0:
+        if self.drives:
             drivestr = " --drives=" + ",".join(self.drives)
         else:
             drivestr = ""
@@ -107,7 +107,7 @@ class F17_ClearPart(FC3_ClearPart):
 
     def __str__(self):
         s = super(F17_ClearPart, self).__str__()
-        if s and len(self.devices) > 0:
+        if s and self.devices:
             s = s.rstrip()
             s += " --list=" + ",".join(self.devices)
             s += "\n"
