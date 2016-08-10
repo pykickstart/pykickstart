@@ -1,10 +1,17 @@
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.clearpart import FC3_ClearPart
 
 class FC3_TestCase(CommandTest):
     command = "clearpart"
 
     def runTest(self):
+        cmd = FC3_ClearPart()
+        self.assertFalse(cmd.initAll)
+
+        cmd.type = -1 # invalid value, don't know what partitions to clear
+        self.assertEqual(cmd.__str__(), "# Partition clearing information\nclearpart\n")
+
         # pass
         self.assert_parse("clearpart")
         self.assert_parse("clearpart --all", "clearpart --all\n")
