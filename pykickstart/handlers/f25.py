@@ -80,7 +80,7 @@ class F25Handler(BaseHandler):
         "sshpw": commands.sshpw.F24_SshPw,
         "sshkey": commands.sshkey.F22_SshKey,
         "text": commands.displaymode.FC3_DisplayMode,
-        "timezone": commands.timezone.F23_Timezone,
+        "timezone": commands.timezone.F25_Timezone,
         "updates": commands.updates.F7_Updates,
         "upgrade": commands.upgrade.F20_Upgrade,
         "url": commands.url.F18_Url,

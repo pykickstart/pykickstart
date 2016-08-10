@@ -79,7 +79,7 @@ class RHEL7Handler(BaseHandler):
         "skipx": commands.skipx.FC3_SkipX,
         "sshpw": commands.sshpw.F13_SshPw,
         "text": commands.displaymode.FC3_DisplayMode,
-        "timezone": commands.timezone.F18_Timezone,
+        "timezone": commands.timezone.RHEL7_Timezone,
         "unsupported_hardware": commands.unsupported_hardware.RHEL6_UnsupportedHardware,
         "updates": commands.updates.F7_Updates,
         "upgrade": commands.upgrade.F20_Upgrade,
