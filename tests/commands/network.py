@@ -19,8 +19,48 @@
 #
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.network import FC3_NetworkData, FC4_NetworkData, \
+    FC6_NetworkData, F16_NetworkData, RHEL4_NetworkData, RHEL6_NetworkData
 from pykickstart.version import FC3
+
+class Network_TestCase(unittest.TestCase):
+    def runTest(self):
+        fc3_data1 = FC3_NetworkData()
+        fc3_data2 = FC3_NetworkData()
+        # test default values
+        self.assertFalse(fc3_data1.nodns)
+        self.assertTrue(fc3_data1.onboot)
+
+        # test equality/non-equality
+        self.assertEqual(fc3_data1, fc3_data2)
+        self.assertFalse(fc3_data1 != fc3_data2) # test the __ne__ method
+        self.assertNotEqual(fc3_data1, None)
+
+        for attr in ['device']:
+            setattr(fc3_data1, attr, '')
+            setattr(fc3_data2, attr, 'test')
+            self.assertNotEqual(fc3_data1, fc3_data2)
+            self.assertNotEqual(fc3_data2, fc3_data1)
+            setattr(fc3_data1, attr, '')
+            setattr(fc3_data2, attr, '')
+
+        fc4_data = FC4_NetworkData()
+        self.assertFalse(fc4_data.notksdevice)
+
+        fc6_data = FC6_NetworkData()
+        self.assertFalse(fc6_data.noipv4)
+        self.assertFalse(fc6_data.noipv6)
+
+        f16_data = F16_NetworkData()
+        self.assertFalse(f16_data.activate)
+        self.assertFalse(f16_data.nodefroute)
+
+        rhel4_data = RHEL4_NetworkData()
+        self.assertFalse(rhel4_data.notksdevice)
+
+        rhel6_data = RHEL6_NetworkData()
+        self.assertFalse(rhel6_data.activate)
+        self.assertFalse(rhel6_data.nodefroute)
 
 class FC3_TestCase(CommandTest):
     def __init__(self, *kargs, **kwargs):
@@ -276,6 +316,7 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse("network --interfacename=vlan4095")
         self.assert_parse("network --interfacename=abc.0")
         self.assert_parse("network --interfacename=abc.4095")
+        self.assert_parse_error("network --interfacename=vlan4096")
         self.assert_parse_error("network --interfacename=vlan9001")
         self.assert_parse_error("network --interfacename=abc.9001")
 

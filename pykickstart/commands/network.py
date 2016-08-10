@@ -56,7 +56,7 @@ class FC3_NetworkData(BaseData):
         if not y:
             return False
 
-        return self.device and self.device == y.device
+        return self.device == y.device
 
     def __ne__(self, y):
         return not self == y
@@ -822,7 +822,7 @@ class RHEL7_Network(F21_Network):
         # validate the network interface name
         error_message = validate_network_interface_name(retval.interfacename)
         # something is wrong with the interface name
-        if error_message is not None:
+        if error_message:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
 
         if retval.bridgeopts:
