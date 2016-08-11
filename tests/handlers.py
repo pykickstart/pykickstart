@@ -3,7 +3,7 @@ import importlib
 from textwrap import dedent
 from pykickstart.version import *           # pylint: disable=wildcard-import
 from pykickstart.handlers import control
-from pykickstart.base import KickstartCommand, DeprecatedCommand, BaseData
+from pykickstart.base import KickstartCommand, BaseData
 
 def getVersionFromCommandClass(cls):
     return versionMap[cls.__name__.split('_')[0]]
@@ -36,12 +36,6 @@ class HandlerMappingTestCase(unittest.TestCase):
 
                     # skip everything which doesn't inherit from KickstartCommand
                     if not issubclass(impl_class, KickstartCommand):
-                        continue
-
-                    # skip everything which inherits from DeprecatedCommand
-                    # b/c we have multiple inheritance in order to use
-                    # KickstartCommand._getParser() for documentation purposes.
-                    if issubclass(impl_class, DeprecatedCommand):
                         continue
 
                     # skip base classes as well
