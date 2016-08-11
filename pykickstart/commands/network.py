@@ -390,7 +390,7 @@ class FC3_Network(KickstartCommand):
                         You must specify the IP address, netmask, gateway, and
                         nameserver. For example::
 
-                            network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1
+                        ``network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1``
 
                         If you use the static method, be aware of the following
                         restriction:
@@ -409,7 +409,7 @@ class FC3_Network(KickstartCommand):
                         `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__
                         boot option. For example::
 
-                            ``network --bootproto=dhcp --device=eth0``
+                        ``network --bootproto=dhcp --device=eth0``
                         """)
         op.add_argument("--essid", version=FC3,
                         help="The network ID for wireless networks.")
@@ -648,7 +648,7 @@ class F20_Network(F19_Network):
                         option and its slaves and their configuration by
                         ``--teamslaves`` option. Example::
 
-                            network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"
+                        ``network --device team0 --activate --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --teamslaves="p3p1'{\"prio\": -10, \"sticky\": true}',p3p2'{\"prio\": 100}'" --teamconfig="{\"runner\": {\"name\": \"activebackup\"}}"``
                         """)
         return op
 

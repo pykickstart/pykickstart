@@ -121,5 +121,5 @@ class F24_MultiPath(DeprecatedCommand, FC6_MultiPath):
 
     def _getParser(self):
         op = FC6_MultiPath._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F24)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F24)
         return op

@@ -67,5 +67,5 @@ class FC5_LangSupport(DeprecatedCommand, FC3_LangSupport):
 
     def _getParser(self):
         op = FC3_LangSupport._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(FC5)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC5)
         return op

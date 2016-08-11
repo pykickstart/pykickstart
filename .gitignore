@@ -11,3 +11,5 @@ coverage-report.log
 docs/_build
 docs/modules.rst
 docs/pykickstart*.rst
+docs/commands*.rst
+docs/sections.rst

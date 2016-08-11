@@ -154,5 +154,5 @@ class F24_Device(DeprecatedCommand, F8_Device):
 
     def _getParser(self):
         op = F8_Device._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F24)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F24)
         return op

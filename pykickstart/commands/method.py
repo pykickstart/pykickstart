@@ -17,7 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
+from pykickstart.options import KSOptionParser
 
 class FC3_Method(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -73,6 +75,13 @@ class FC3_Method(KickstartCommand):
             setattr(self.handler.nfs, name, value)
         else:
             setattr(self.handler.url, name, value)
+
+    def _getParser(self):
+        # TODO:
+        # this command appears to be duplicate of cdrom, nfs, url and liveimg
+        # what is it's purpose ?
+        return KSOptionParser(prog="method", description="", version=FC3)
+
 
 # These are all just for compat.  Calling into the appropriate version-specific
 # method command will deal with making sure the right options are used.

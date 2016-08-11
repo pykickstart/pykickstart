@@ -293,7 +293,7 @@ class FC3_Partition(KickstartCommand):
             else:
                 return value
 
-        op = KSOptionParser(prog="part", description="""
+        op = KSOptionParser(prog="part|partition", description="""
                             Creates a partition on the system. This command is
                             required. All partitions created will be formatted
                             as part of the installation process unless

@@ -187,10 +187,10 @@ class F10_Firewall(F9_Firewall):
                         or specify ``--service=`` and open them all at once.
 
                         Valid options are anything recognized by the
-                        firewall-offline-cmd program in the firewalld package.
+                        firewall-cmd program in the firewalld package.
                         If firewalld is running::
 
-                            firewall-cmd --get-services
+                        ``firewall-cmd --get-services``
 
                         will provide a list of known service names.""",
                         version=F10)

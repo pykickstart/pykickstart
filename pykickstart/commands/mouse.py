@@ -75,5 +75,5 @@ class FC3_Mouse(DeprecatedCommand, RHEL3_Mouse):
 
     def _getParser(self):
         op = RHEL3_Mouse._getParser(self)
-        op.description += "\n\n.. versiondeprecated: %s" % versionToLongString(FC3)
+        op.description += "\n\n.. deprecated: %s" % versionToLongString(FC3)
         return op

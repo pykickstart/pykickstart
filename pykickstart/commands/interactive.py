@@ -53,5 +53,5 @@ class F14_Interactive(DeprecatedCommand, FC3_Interactive):
 
     def _getParser(self):
         op = FC3_Interactive._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F14)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F14)
         return op
