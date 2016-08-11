@@ -154,11 +154,11 @@ def versionToString(version, skipDevel=False):
 
     raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def versionToLongString(version, skipDevel=False):
+def versionToLongString(version):
     """
         Convert version into a long string representation.
     """
-    result = versionToString(version, skipDevel)
+    result = versionToString(version, True)
     result = result.replace('FC', 'F').replace('F', 'Fedora')
     result = result.replace('RHEL', 'RedHatEnterpriseLinux')
     return result
@@ -215,3 +215,6 @@ def makeVersion(version=DEVEL):
     """
     cl = returnClassForVersion(version)
     return cl()
+
+def getVersionFromCommandClass(cls):
+    return versionMap[cls.__name__.split('_')[0]]

@@ -116,7 +116,7 @@ class F20_Upgrade(DeprecatedCommand, F11_Upgrade):
         op = F11_Upgrade._getParser(self)
         op.description += dedent("""
 
-                        .. versiondeprecated:: %s
+                        .. deprecated:: %s
 
                         Starting with F18, upgrades are no longer supported in
                         anaconda and should be done with FedUp, the Fedora update

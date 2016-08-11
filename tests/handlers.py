@@ -5,8 +5,6 @@ from pykickstart.version import *           # pylint: disable=wildcard-import
 from pykickstart.handlers import control
 from pykickstart.base import KickstartCommand, BaseData
 
-def getVersionFromCommandClass(cls):
-    return versionMap[cls.__name__.split('_')[0]]
 
 class HandlerMappingTestCase(unittest.TestCase):
     """

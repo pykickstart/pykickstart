@@ -17,8 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-
+from pykickstart.version import F19
 from pykickstart.base import KickstartCommand
+from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 
 import getopt
@@ -103,3 +104,6 @@ class F19_Realm(KickstartCommand):
     def parse(self, args):
         self._parseArguments(self.currentLine[len(self.currentCmd):].strip())
         return self
+
+    def _getParser(self):
+        return KSOptionParser(prog="realm", description="", version=F19)

@@ -11,7 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-
+   Kickstart documentation <kickstart-docs>
+   Testing pykickstart <testing>
 
 Indices and tables
 ==================

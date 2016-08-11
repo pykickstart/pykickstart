@@ -125,7 +125,9 @@ class NullSection(Section):
 
 class ScriptSection(Section):
     allLines = True
-    description = ""
+    _description = ""
+    _epilog = ""
+    _title = ""
 
     def __init__(self, *args, **kwargs):
         Section.__init__(self, *args, **kwargs)
@@ -134,8 +136,10 @@ class ScriptSection(Section):
 
     def _getParser(self):
         op = KSOptionParser(prog=self.sectionOpen,
-                            description=self.description,
-                            version=self.version)
+                            description=self._description,
+                            epilog=self._epilog,
+                            version=self.version,
+                            addVersion=False)
         op.add_argument("--erroronfail", dest="errorOnFail", action="store_true",
                         default=False, help="""
                         If the error script fails, this option will cause an
@@ -143,7 +147,7 @@ class ScriptSection(Section):
                         The error message will direct you to where the cause of
                         the failure is logged.""", introduced=FC4)
         op.add_argument("--interpreter", dest="interpreter", default="/bin/sh",
-                        introduced=FC4, help="""
+                        introduced=FC4, metavar="/usr/bin/python", help="""
                         Allows you to specify a different scripting language,
                         such as Python. Replace /usr/bin/python with the
                         scripting language of your choice.
@@ -196,6 +200,74 @@ class ScriptSection(Section):
 
 class PreScriptSection(ScriptSection):
     sectionOpen = "%pre"
+    _title = "Pre-installation script"
+    _description = """
+        You can add commands to run on the system immediately after the ks.cfg
+        has been parsed and the lang, keyboard, and url options have been
+        processed. This section must be at the end of the kickstart file (after
+        the commands) and must start with the %pre command. You can access the
+        network in the %pre section; however, name service has not been
+        configured at this point, so only IP addresses will work.
+
+        Preinstallation scripts are required to be closed with %end.
+
+        If your script spawns a daemon process, you must make sure to close
+        ``stdout`` and ``stderr``. Doing so is standard procedure for creating
+        daemons. If you do not close these file descriptors, the installation
+        will appear hung as anaconda waits for an EOF from the script.
+
+        .. note::
+
+            The pre-install script is not run in the chroot environment.
+    """
+    _epilog = """
+    Example
+    -------
+
+    Here is an example %pre section::
+
+        %pre
+        #!/bin/bash
+        hds=""
+        mymedia=""
+
+        for file in /sys/block/sd*; do
+        hds="$hds $(basename $file)"
+        done
+
+        set $hds
+        numhd=$(echo $#)
+
+        drive1=$(echo $hds | cut -d' ' -f1)
+        drive2=$(echo $hds | cut -d' ' -f2)
+
+
+        if [ $numhd == "2" ]  ; then
+            echo "#partitioning scheme generated in %pre for 2 drives" > /tmp/part-include
+            echo "clearpart --all" >> /tmp/part-include
+            echo "part /boot --fstype ext4 --size 512 --ondisk sda" >> /tmp/part-include
+            echo "part / --fstype ext4 --size 10000 --grow --ondisk sda" >> /tmp/part-include
+            echo "part swap --recommended --ondisk $drive1" >> /tmp/part-include
+            echo "part /home --fstype ext4 --size 10000 --grow --ondisk sdb" >> /tmp/part-include
+        else
+            echo "#partitioning scheme generated in %pre for 1 drive" > /tmp/part-include
+            echo "clearpart --all" >> /tmp/part-include
+            echo "part /boot --fstype ext4 --size 521" >> /tmp/part-include
+            echo "part swap --recommended" >> /tmp/part-include
+            echo "part / --fstype ext4 --size 2048" >> /tmp/part-include
+            echo "part /home --fstype ext4 --size 2048 --grow" >> /tmp/part-include
+        fi
+        %end
+
+    This script determines the number of hard drives in the system and
+    writes a text file with a different partitioning scheme depending on
+    whether it has one or two drives. Instead of having a set of
+    partitioning commands in the kickstart file, include the line:
+
+    ``%include /tmp/part-include``
+
+    The partitioning commands selected in the script will be used.
+    """
 
     def _resetScript(self):
         ScriptSection._resetScript(self)
@@ -203,6 +275,14 @@ class PreScriptSection(ScriptSection):
 
 class PreInstallScriptSection(ScriptSection):
     sectionOpen = "%pre-install"
+    _title = "Pre-install Script"
+    _description="""
+    You can use the %pre-install section to run commands after the system has been
+    partitioned, filesystems created, and everything is mounted under /mnt/sysimage
+    Like %pre these scripts do not run in the chrooted environment.
+
+    Each %pre-install section is required to be closed with a corresponding %end.
+    """
 
     def _resetScript(self):
         ScriptSection._resetScript(self)
@@ -210,6 +290,60 @@ class PreInstallScriptSection(ScriptSection):
 
 class PostScriptSection(ScriptSection):
     sectionOpen = "%post"
+    _title = "Post-installation Script"
+    _description="""
+    You have the option of adding commands to run on the system once the
+    installation is complete. This section must be at the end of the
+    kickstart file and must start with the %post command. This section is
+    useful for functions such as installing additional software and
+    configuring an additional nameserver.
+
+    You may have more than one %post section, which can be useful for cases
+    where some post-installation scripts need to be run in the chroot and
+    others that need access outside the chroot.
+
+    Each %post section is required to be closed with a corresponding %end.
+
+    If you configured the network with static IP information, including a
+    nameserver, you can access the network and resolve IP addresses in the %post
+    section.  If you configured the network for DHCP, the /etc/resolv.conf file
+    has not been completed when the installation executes the %post section. You
+    can access the network, but you can not resolve IP addresses. Thus, if you
+    are using DHCP, you must specify IP addresses in the %post section.
+
+    If your script spawns a daemon process, you must make sure to close stdout
+    and stderr.  Doing so is standard procedure for creating daemons.  If you do
+    not close these file descriptors, the installation will appear hung as
+    anaconda waits for an EOF from the script.
+
+    The post-install script is run in a chroot environment; therefore, performing
+    tasks such as copying scripts or RPMs from the installation media will not
+    work.
+    """
+
+    _epilog="""
+    Examples
+    --------
+
+    Run a script named ``runme`` from an NFS share::
+
+        %post
+        mkdir /mnt/temp
+        mount 10.10.0.2:/usr/new-machines /mnt/temp
+        open -s -w -- /mnt/temp/runme
+        umount /mnt/temp
+        %end
+
+    Copy the file /etc/resolv.conf to the file system that was just
+    installed::
+
+        %post --nochroot
+        cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+        %end
+
+    **If your kickstart is being interpreted by the livecd-creator tool, you should
+    replace /mnt/sysimage above with $INSTALL_ROOT.**
+    """
 
     def _getParser(self):
         op = ScriptSection._getParser(self)
@@ -226,6 +360,30 @@ class PostScriptSection(ScriptSection):
 
 class OnErrorScriptSection(ScriptSection):
     sectionOpen = "%onerror"
+    _title = "Handling Errors"
+    _description="""
+    These scripts run when the installer hits a fatal error, but not necessarily
+    a bug in the installer.  Some examples of these situations include errors in
+    packages that have been requested to be installed, failures when starting VNC
+    when requested, and error when scanning storage.  When these situations happen,
+    installaton cannot continue.  The installer will run all %onerror scripts in
+    the order they are provided in the kickstart file.
+
+    In addition, %onerror scripts will be run on a traceback as well.  To be exact,
+    all %onerror scripts will be run and then all %traceback scripts will be run
+    afterwards.
+
+    Each %onerror script is required to be closed with a corresponding %end.
+
+    .. note::
+
+        These scripts could potentially run at
+        any stage in installation - early on, between making filesystems and installing
+        packages, before the bootloader is installed, when attempting to reboot, and
+        so on.  For this reason, these scripts cannot be run in the chroot environment
+        and you should not trust anything in the installed system.  These scripts are
+        primarily for testing and error reporting purposes.
+    """
 
     def _resetScript(self):
         ScriptSection._resetScript(self)
@@ -233,6 +391,25 @@ class OnErrorScriptSection(ScriptSection):
 
 class TracebackScriptSection(OnErrorScriptSection):
     sectionOpen = "%traceback"
+    _title = "Handling Tracebacks"
+    _description="""
+    These scripts run when the installer hits an internal error (a traceback, as
+    they are called in Python) and cannot continue.  When this situation happens,
+    the installer will display an error dialog to the screen that prompts the user
+    to file a bug or reboot.  At the same time, it will run all %traceback scripts
+    in the order they are provided in the kickstart file.
+
+    Each %traceback script is required to be closed with a corresponding %end.
+
+    .. note::
+
+        These scripts could potentially run at
+        any stage in installation - early on, between making filesystems and installing
+        packages, before the bootloader is installed, when attempting to reboot, and
+        so on.  For this reason, these scripts cannot be run in the chroot environment
+        and you should not trust anything in the installed system.  These scripts are
+        primarily for testing and error reporting purposes.
+    """
 
     def _resetScript(self):
         OnErrorScriptSection._resetScript(self)
@@ -240,18 +417,14 @@ class TracebackScriptSection(OnErrorScriptSection):
 
 class PackageSection(Section):
     sectionOpen = "%packages"
+    _title = "Package Selection"
 
     def handleLine(self, line):
         h = line.partition('#')[0]
         line = h.rstrip()
         self.handler.packages.add([line])
 
-    def handleHeader(self, lineno, args):
-        """Process the arguments to the %packages header and set attributes
-           on the Version's Packages instance appropriate.  This method may be
-           overridden in a subclass if necessary.
-        """
-        Section.handleHeader(self, lineno, args)
+    def _getParser(self):
         op = KSOptionParser(prog=self.sectionOpen, description="""
                             Use the %packages command to begin a kickstart file
                             section that lists the packages you would like to
@@ -260,7 +433,7 @@ class PackageSection(Section):
                             Packages can be specified by group or by individual
                             package name. The installation program defines
                             several groups that contain related packages. Refer
-                            to the repodata/*comps.xml file on the first CD-ROM
+                            to the repodata/\\*comps.xml file on the first CD-ROM
                             for a list of groups. Each group has an id, user
                             visibility value, name, description, and package
                             list. In the package list, the packages marked as
@@ -351,7 +524,7 @@ class PackageSection(Section):
                                 In addition to the mandatory and default packages,
                                 also install the optional packages. This means all
                                 packages in the group will be installed.
-                            """, version=self.version)
+                            """, version=self.version, addVersion=False)
         op.add_argument("--excludedocs", action="store_true", default=False,
                         help="""
                         Do not install any of the documentation from any packages.
@@ -408,7 +581,15 @@ class PackageSection(Section):
                         are packages linked to the selected package set by
                         Recommends and Supplements flags. By default weak
                         dependencies will be installed.""")
+        return op
 
+    def handleHeader(self, lineno, args):
+        """Process the arguments to the %packages header and set attributes
+           on the Version's Packages instance appropriate.  This method may be
+           overridden in a subclass if necessary.
+        """
+        Section.handleHeader(self, lineno, args)
+        op = self._getParser()
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
         if ns.defaultPackages and ns.nobase:

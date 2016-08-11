@@ -104,5 +104,5 @@ class F24_DmRaid(DeprecatedCommand, FC6_DmRaid):
 
     def _getParser(self):
         op = FC6_DmRaid._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F24)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F24)
         return op

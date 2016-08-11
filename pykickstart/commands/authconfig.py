@@ -42,7 +42,7 @@ class FC3_Authconfig(KickstartCommand):
         return self
 
     def _getParser(self):
-        op = KSOptionParser(prog="authconfig",  description="""
+        op = KSOptionParser(prog="auth|authconfig",  description="""
                             This required command sets up the authentication
                             options for the system. This is just a wrapper
                             around the authconfig program, so all options

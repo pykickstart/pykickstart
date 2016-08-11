@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+
+#from pykickstart.parser import *
+from pykickstart import sections
+from pykickstart.version import returnClassForVersion, DEVEL
+
+def _format_title(title, underline = '-'):
+    t = title.replace('|', ' or ')
+    return "\n%s\n%s\n" % (t, underline * len(t))
+
+if __name__ == "__main__":
+    chapter = 4
+    handler = returnClassForVersion(DEVEL)
+    for _, section_class in sections.__dict__.items():
+        # skip everything which isn't a class
+        if type(section_class) is not type:
+            continue
+
+        # skip everything which doesn't inherit from Section
+        if not issubclass(section_class, sections.Section):
+            continue
+
+        section = section_class(handler)
+
+        # skip everything which doesn't have a _getParser atrtibute
+        if not hasattr(section, '_getParser'):
+            continue
+
+        if not section.sectionOpen:
+            continue
+
+        title = _format_title('Chapter %d. %s' % (chapter, section._title), '=')
+        print(title)
+        op = section._getParser()
+        op.print_help()
+        chapter += 1

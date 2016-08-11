@@ -116,5 +116,5 @@ class F10_Monitor(DeprecatedCommand, FC6_Monitor):
 
     def _getParser(self):
         op = FC6_Monitor._getParser(self)
-        op.description += "\n\n.. versiondeprecated:: %s" % versionToLongString(F10)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F10)
         return op

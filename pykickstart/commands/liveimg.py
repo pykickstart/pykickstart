@@ -69,8 +69,8 @@ class F19_Liveimg(KickstartCommand):
             install media (eg. ext4). Anaconda expects the image to contain
             utilities it needs to complete the system install so the best way to
             create one is to use livemedia-creator to make the disk image. If
-            the image contains /LiveOS/*.img (this is how squashfs.img is
-            structured) the first *img file inside LiveOS will be mounted and
+            the image contains /LiveOS/\\*.img (this is how squashfs.img is
+            structured) the first \\*.img file inside LiveOS will be mounted and
             used to install the target system. The URL may also point to a
             tarfile of the root filesystem. The file must end in .tar, .tbz,
             .tgz, .txz, .tar.bz2, tar.gz, tar.xz""", version=F19)

@@ -77,7 +77,7 @@ class FC3_ClearPart(KickstartCommand):
         op.add_argument("--drives", type=commaSplit, help="""
                         Specifies which drives to clear partitions from. For
                         example, the following clears the partitions on the
-                        first two drives on the primary IDE controller:
+                        first two drives on the primary IDE controller::
 
                         ``clearpart --all --drives=sda,sdb``""",
                         version=FC3)

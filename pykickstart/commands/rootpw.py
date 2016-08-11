@@ -63,7 +63,7 @@ class FC3_RootPw(KickstartCommand):
                         already be encrypted. To create an encrypted password
                         you can use python::
 
-                            python -c 'import crypt; print(crypt.crypt("My Password", "$6$My Salt"))'
+                        ``python -c 'import crypt; print(crypt.crypt("My Password", "$6$My Salt"))'``
 
                         This will generate sha512 crypt of your password using
                         your provided salt.""")

@@ -130,11 +130,15 @@ class KSOptionParser(ArgumentParser):
         self.version = version
         version = versionToLongString(version)
 
+        # always document the version
+        addVersion = kwargs.pop('addVersion', True)
+
         # remove leading spaced from description and epilog.
         # fail fast if we forgot to add description
         kwargs['description'] = textwrap.dedent(kwargs.pop("description"))
-        kwargs['description'] = "\n.. versionadded:: %s\n%s" % (version,
-                                                                kwargs['description'])
+        if addVersion:
+            kwargs['description'] = "\n.. versionadded:: %s\n%s" % (version,
+                                                                    kwargs['description'])
         kwargs['epilog'] = textwrap.dedent(kwargs.pop("epilog", ""))
 
         # fail fast if we forgot to add prog
@@ -202,7 +206,7 @@ class KSOptionParser(ArgumentParser):
         if candidate:
             if deprecated:
                 _help = candidate.help or ""
-                _help += "\n\n    .. versiondeprecated:: %s" % version
+                _help += "\n\n    .. deprecated:: %s" % version
                 kwargs["help"] = _help
             else:
                 # this is a modified argument, which is already present
@@ -215,7 +219,7 @@ class KSOptionParser(ArgumentParser):
             _help += "\n\n    .. versionadded:: %s" % version
             # there are some argumets which are deprecated on first declaration
             if deprecated:
-                _help += "\n\n    .. versiondeprecated:: %s" % version
+                _help += "\n\n    .. deprecated:: %s" % version
             kwargs["help"] = _help
 
         notest = kwargs.pop("notest", False)
@@ -239,7 +243,7 @@ class KSOptionParser(ArgumentParser):
         if candidate:
             if not candidate.help:
                 candidate.help = ""
-            candidate.help += "\n\n    .. versiondeleted:: %s" % versionToLongString(kwargs.pop("version"))
+            candidate.help += "\n\n    .. versionremoved:: %s" % versionToLongString(kwargs.pop("version"))
             self._remove_action(candidate)
             self._option_string_actions.pop(arg)
 
