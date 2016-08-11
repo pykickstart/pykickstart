@@ -49,7 +49,7 @@ class F20Handler(BaseHandler):
         "halt": commands.reboot.F18_Reboot,
         "harddrive": commands.harddrive.FC3_HardDrive,
         "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
-        "install": commands.upgrade.F11_Upgrade,
+        "install": commands.install.F20_Install,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.F18_Keyboard,
