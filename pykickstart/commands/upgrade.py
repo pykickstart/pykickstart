@@ -48,8 +48,13 @@ class FC3_Upgrade(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="upgrade", description="""
-                            Upgrade the system instead of install.""",
+        op = KSOptionParser(prog="install|upgrade", description="""
+                            Install a fresh system or upgrade an existing system.
+                            Install is the default mode. For installation, you must
+                            specify the type of installation from one of
+                            cdrom, harddrive, nfs, or url (for ftp or http installations).
+                            The install command and the installation method command
+                            must be on separate lines.""",
                             version=FC3)
         return op
 

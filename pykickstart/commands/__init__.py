@@ -20,8 +20,8 @@
 from pykickstart.commands import \
      authconfig, autopart, autostep, bootloader, btrfs, clearpart, cdrom, device, \
      deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot, \
-     group, harddrive, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang, \
-     langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
+     group, harddrive, ignoredisk, install, interactive, iscsi, iscsiname, key, keyboard, \
+     lang, langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
      mouse, multipath, network, nfs, ostreesetup, partition, raid, reqpart, realm, reboot, \
      repo, rescue, rootpw, selinux, services, skipx, sshpw, sshkey, timezone, updates, \
      upgrade, url, user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
