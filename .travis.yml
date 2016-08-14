@@ -4,7 +4,7 @@ python:
 
 install:
   - pip install --upgrade pip setuptools
-  - pip install coverage mypy-lang nose ordered-set polib pylint requests six
+  - pip install coverage mypy-lang nose ordered-set polib pylint requests six Sphinx
   - pip install https://github.com/rhinstaller/pocketlint/zipball/master
 
 script:
