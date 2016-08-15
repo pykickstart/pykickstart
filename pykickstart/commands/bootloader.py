@@ -140,6 +140,18 @@ class FC3_Bootloader(KickstartCommand):
 
         return self
 
+
+class FC3_Lilo(FC3_Bootloader):
+    """
+        This is for backwards compatibility and docs generation.
+        Used only in FC3, RHEL3 and RHEL4.
+    """
+    def _getParser(self):
+        op = super(self.__class__, self)._getParser()
+        op.prog = "lilo"
+        return op
+
+
 class FC4_Bootloader(FC3_Bootloader):
     removedKeywords = FC3_Bootloader.removedKeywords + ["linear", "useLilo"]
     removedAttrs = FC3_Bootloader.removedAttrs + ["linear", "useLilo"]
