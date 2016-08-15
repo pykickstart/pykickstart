@@ -49,7 +49,7 @@ class FC3Handler(BaseHandler):
         "keyboard": commands.keyboard.FC3_Keyboard,
         "lang": commands.lang.FC3_Lang,
         "langsupport": commands.langsupport.FC3_LangSupport,
-        "lilo": commands.bootloader.FC3_Bootloader,
+        "lilo": commands.bootloader.FC3_Lilo,
         "lilocheck": commands.lilocheck.FC3_LiloCheck,
         "logvol": commands.logvol.FC3_LogVol,
         "method": commands.method.FC3_Method,
