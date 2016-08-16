@@ -113,8 +113,6 @@ class FC3_Bootloader(KickstartCommand):
                         (installs the boot loader on the first sector of the
                         partition containing the kernel), or none
                         (do not install the boot loader).""")
-#todo: choice boot isn't documented
-# todo: how do we validate the choices are documented ?
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
                         default=False, version=FC3, help="")
         op.add_argument("--password", default="", version=FC3, help="""
@@ -358,6 +356,9 @@ class RHEL5_Bootloader(FC4_Bootloader):
 
     def _getParser(self):
         op = FC4_Bootloader._getParser(self)
+        # todo: this is only in RHEL5 and nowhere else
+        # possibly shadowed by the way we implement commands
+        # inheritance
         op.add_argument("--hvargs", dest="hvArgs", version=RHEL5, help="")
         return op
 
@@ -377,10 +378,6 @@ class RHEL6_Bootloader(F12_Bootloader):
             ret += " --iscrypted"
 
         return ret
-
-    # TODO: for RHEL5 and RHEL6 we don't have a direct inheritance path
-    #       between RHEL and Fedora so when using the DEVEL version to generate
-    #       the docs we'll skip these two classes, possibly losing some information
 
     def _getParser(self):
         op = F12_Bootloader._getParser(self)

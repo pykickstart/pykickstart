@@ -18,7 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC6, F10, RHEL6
+from pykickstart.version import FC6, F10, RHEL6, F17, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -188,7 +188,17 @@ class RHEL6_Iscsi(F10_Iscsi):
                         Once used, it must be specified for all iscsi commands.
                         """)
         return op
-# todo: how do we mark that --iface is available since F17, while RHEL6 is based on F12 ?
 
 class F17_Iscsi(RHEL6_Iscsi):
-    pass
+    def _getParser(self):
+        op = super(self.__class__, self)._getParser()
+        for action in op._actions:
+            # mark the fact that --iface is available since F17
+            # while RHEL6 is based on F12
+            if '--iface' in action.option_strings:
+                action.help = action.help.replace(
+                                versionToLongString(RHEL6),
+                                versionToLongString(F17)
+                            )
+
+        return op
