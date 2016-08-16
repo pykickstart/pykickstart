@@ -604,7 +604,6 @@ class RHEL6_LogVol(F12_LogVol):
 
         return retval
 
-#todo: this also breaks inheritance
 class F14_LogVol(F12_LogVol):
     removedKeywords = F12_LogVol.removedKeywords
     removedAttrs = F12_LogVol.removedAttrs
@@ -784,7 +783,7 @@ class RHEL7_LogVol(F21_LogVol):
 
         return retval
 
-# todo: another inheritance problem here
+
 class F23_LogVol(F21_LogVol):
     def _getParser(self):
         op = F21_LogVol._getParser(self)

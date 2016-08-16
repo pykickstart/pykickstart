@@ -707,7 +707,6 @@ class F25_Network(F24_Network):
                 activation of the device in istaller environment""")
         return op
 
-# todo: deal with inheritance
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
     removedAttrs = FC3_Network.removedAttrs
