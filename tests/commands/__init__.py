@@ -2,6 +2,8 @@ import os
 import sys
 import unittest
 import importlib
+from unittest import mock
+from pykickstart.options import KSOptionParser
 from pykickstart.base import KickstartCommand, BaseData
 
 class ClassDefinitionTestCase(unittest.TestCase):
@@ -56,6 +58,75 @@ class ClassDefinitionTestCase(unittest.TestCase):
                     else:
                         errors += 1
                         message = "ERROR: In `commands/%s` %s = %s" % (path, impl_name, impl_class.__name__)
+                        print(message)
+
+        # assert for errors presence
+        self.assertEqual(0, errors)
+
+class TestKSOptionParser(KSOptionParser):
+    """
+        Wrapper class that will raise exception if some of the
+        help attributes are empty.
+    """
+    def __init__(self, *args, **kwargs):
+        for arg_name in ['prog', 'version', 'description']:
+            if not kwargs.get(arg_name):
+                raise Exception("%s can't be blank" % arg_name)
+        return super(self.__class__, self).__init__(*args, **kwargs)
+
+    def add_argument(self, *args, **kwargs):
+        for arg_name in ['help', 'version']:
+            if not kwargs.get(arg_name):
+                raise Exception("%s can't be blank" % arg_name)
+
+        return super(self.__class__, self).add_argument(*args, **kwargs)
+
+
+class HelpAndDescription_TestCase(unittest.TestCase):
+    """
+        Check that all commands and their options have some description text.
+    """
+
+    @mock.patch('pykickstart.options.KSOptionParser', new=TestKSOptionParser)
+    def runTest(self):
+        errors = 0
+        commands_dir = os.path.join(os.path.dirname(__file__), "..", "..", "pykickstart", "commands")
+        commands_dir = os.path.abspath(commands_dir)
+
+        self.assertTrue(os.path.exists(commands_dir))
+        if commands_dir not in sys.path:
+            sys.path.append(commands_dir)
+
+        for _dirpath, _dirnames, paths in os.walk(commands_dir):
+            for path in paths:
+                if path == '__init__.py' or not path.endswith('.py'):
+                    continue
+
+                # load the module defining all possible command implementations
+                command_module = importlib.import_module(path.replace(".py", ""))
+                module_commands = []  # a list of already checked commands
+
+                for impl_name, impl_class in command_module.__dict__.items():
+                    # skip everything which isn't a class
+                    if type(impl_class) is not type:
+                        continue
+
+                    # skip everything which doesn't inherit from KickstartCommand
+                    if not issubclass(impl_class, KickstartCommand):
+                        continue
+
+                    # skip base classes as well
+                    if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand']:
+                        continue
+
+                    try:
+                        # just construct the option parser
+                        # the wrapper class will raise an exception in case
+                        # there are empty help strings
+                        op = impl_class()._getParser()
+                    except Exception as e:
+                        errors += 1
+                        message = "ERROR: In `%s` %s" % (impl_class, e)
                         print(message)
 
         # assert for errors presence
