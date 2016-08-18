@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.9
+Version: 1.99.66.10
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Aug 18 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.10-1
+- Support file URLs for ostree. (clumens)
+  Resolves: rhbz#1367933
+
 * Fri Jun 17 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.9-1
 - Support timezone command usage without timezone specification (mkolman)
   Related: rhbz#1312135
