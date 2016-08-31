@@ -164,8 +164,9 @@ class F23_Timezone(F18_Timezone):
 # About the RHEL7_Timezone & F25_Timezone command classes
 # =======================================================
 #
-# The F18_Timezone command class used in RHEL <=7.2 and Fedora <=24 the
-# timezone command always required a ti,ezone specification to be provided.
+# The F18_Timezone command class used in RHEL <=7.2 and the F23_Timezone
+# command class used in Fedora <=24 the timezone command always required
+# a timezone specification to be provided.
 #
 # On the other hand the timezone command has also some commands that don't
 # really need a timezone to be specicifed to work, like "--utc/--isutc".
@@ -216,9 +217,9 @@ class RHEL7_Timezone(F18_Timezone):
 
         return self
 
-class F25_Timezone(F18_Timezone):
+class F25_Timezone(F23_Timezone):
     def __init__(self, writePriority=0, *args, **kwargs):
-        F18_Timezone.__init__(self, writePriority, *args, **kwargs)
+        F23_Timezone.__init__(self, writePriority, *args, **kwargs)
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
