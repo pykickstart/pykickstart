@@ -78,10 +78,16 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol / --vgname=NAME", regex=requiredError % "--name")
 
         # fail - missing a mountpoint
-        self.assert_parse_error("logvol", regex=requiredError % "<mntpoint>, --name, --vgname")
-        self.assert_parse_error("logvol --name=NAME", regex=requiredError % "<mntpoint>, --vgname")
-        self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "<mntpoint>, --name")
-        self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex=requiredError % "<mntpoint>")
+        if six.PY3:
+            self.assert_parse_error("logvol", regex=requiredError % "<mntpoint>, --name, --vgname")
+            self.assert_parse_error("logvol --name=NAME", regex=requiredError % "<mntpoint>, --vgname")
+            self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "<mntpoint>, --name")
+            self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex=requiredError % "<mntpoint>")
+        else:
+            self.assert_parse_error("logvol", regex="too few arguments")
+            self.assert_parse_error("logvol --name=NAME", regex="too few arguments")
+            self.assert_parse_error("logvol --vgname=NAME", regex="too few arguments")
+            self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex="too few arguments")
 
         # fail - unknown options
         self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bogus-option")
