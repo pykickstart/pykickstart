@@ -27,7 +27,7 @@ ifeq ($(PYTHON),python3)
   NOSEARGS+=$(tests)
 else
   COVERAGE?=coverage
-  NOSEARGS+=$(filter-out tests/attrs.py,$(tests))
+  NOSEARGS+=$(filter-out tests/attrs.py tests/tools/ksvalidator.py,$(tests))
 endif
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
