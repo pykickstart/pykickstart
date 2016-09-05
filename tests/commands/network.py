@@ -115,15 +115,15 @@ class F25_TestCase(F24_TestCase):
 
         # activating a device
         network_data = self.assert_parse("network --device eth0")
-        self.assertEquals(network_data.activate, None)
+        self.assertEqual(network_data.activate, None)
         network_data = self.assert_parse("network --device eth0 --no-activate")
-        self.assertEquals(network_data.activate, False)
+        self.assertEqual(network_data.activate, False)
         network_data = self.assert_parse("network --device eth0 --activate")
-        self.assertEquals(network_data.activate, True)
+        self.assertEqual(network_data.activate, True)
         network_data = self.assert_parse("network --device eth0 --activate --no-activate")
-        self.assertEquals(network_data.activate, False)
+        self.assertEqual(network_data.activate, False)
         network_data = self.assert_parse("network --device eth0 --no-activate --activate")
-        self.assertEquals(network_data.activate, True)
+        self.assertEqual(network_data.activate, True)
 
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
@@ -183,15 +183,15 @@ class RHEL7_TestCase(F20_TestCase):
 
         # activating a device
         network_data = self.assert_parse("network --device eth0")
-        self.assertEquals(network_data.activate, None)
+        self.assertEqual(network_data.activate, None)
         network_data = self.assert_parse("network --device eth0 --no-activate")
-        self.assertEquals(network_data.activate, False)
+        self.assertEqual(network_data.activate, False)
         network_data = self.assert_parse("network --device eth0 --activate")
-        self.assertEquals(network_data.activate, True)
+        self.assertEqual(network_data.activate, True)
         network_data = self.assert_parse("network --device eth0 --activate --no-activate")
-        self.assertEquals(network_data.activate, False)
+        self.assertEqual(network_data.activate, False)
         network_data = self.assert_parse("network --device eth0 --no-activate --activate")
-        self.assertEquals(network_data.activate, True)
+        self.assertEqual(network_data.activate, True)
 
 if __name__ == "__main__":
     unittest.main()
