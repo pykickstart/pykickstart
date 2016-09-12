@@ -246,6 +246,22 @@ class F24_TestCase(F22_TestCase):
         self.assertIn("2:2:2:2::", nd.nameserver)
         self.assertEqual(nd.device, "eth0")
 
+class F25_TestCase(F24_TestCase):
+    def runTest(self):
+        F24_TestCase.runTest(self)
+
+        # activating a device
+        network_data = self.assert_parse("network --device eth0")
+        self.assertEqual(network_data.activate, None)
+        network_data = self.assert_parse("network --device eth0 --no-activate")
+        self.assertEqual(network_data.activate, False)
+        network_data = self.assert_parse("network --device eth0 --activate")
+        self.assertEqual(network_data.activate, True)
+        network_data = self.assert_parse("network --device eth0 --activate --no-activate")
+        self.assertEqual(network_data.activate, False)
+        network_data = self.assert_parse("network --device eth0 --no-activate --activate")
+        self.assertEqual(network_data.activate, True)
+
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
@@ -298,6 +314,18 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse_error("network --device bridge0 --bootproto dhcp "
                                 "--bridgeslaves=ens3,ens7 "
                                 "--bridgeopts=priority")
+
+        # activating a device
+        network_data = self.assert_parse("network --device eth0")
+        self.assertEqual(network_data.activate, None)
+        network_data = self.assert_parse("network --device eth0 --no-activate")
+        self.assertEqual(network_data.activate, False)
+        network_data = self.assert_parse("network --device eth0 --activate")
+        self.assertEqual(network_data.activate, True)
+        network_data = self.assert_parse("network --device eth0 --activate --no-activate")
+        self.assertEqual(network_data.activate, False)
+        network_data = self.assert_parse("network --device eth0 --no-activate --activate")
+        self.assertEqual(network_data.activate, True)
 
 if __name__ == "__main__":
     unittest.main()

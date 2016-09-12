@@ -20,7 +20,7 @@
 from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
-from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22
+from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
 from pykickstart.options import KSOptionParser, ksboolean
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -157,7 +157,7 @@ class F16_NetworkData(F8_NetworkData):
 
     def __init__(self, *args, **kwargs):
         F8_NetworkData.__init__(self, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
+        self.activate = kwargs.get("activate", None)
         self.nodefroute = kwargs.get("nodefroute", False)
         self.wpakey = kwargs.get("wpakey", "")
 
@@ -256,6 +256,16 @@ class F22_NetworkData(F21_NetworkData):
 
         return retval
 
+class F25_NetworkData(F22_NetworkData):
+    removedKeywords = F22_NetworkData.removedKeywords
+    removedAttrs = F22_NetworkData.removedAttrs
+
+    def _getArgsAsStr(self):
+        retval = F22_NetworkData._getArgsAsStr(self)
+        if self.activate == False:
+            retval += " --no-activate"
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -278,7 +288,7 @@ class RHEL6_NetworkData(F8_NetworkData):
 
     def __init__(self, *args, **kwargs):
         F8_NetworkData.__init__(self, *args, **kwargs)
-        self.activate = kwargs.get("activate", False)
+        self.activate = kwargs.get("activate", None)
         self.nodefroute = kwargs.get("nodefroute", False)
         self.vlanid = kwargs.get("vlanid", "")
         self.bondslaves = kwargs.get("bondslaves", "")
@@ -315,6 +325,8 @@ class RHEL7_NetworkData(F21_NetworkData):
             retval += " --bridgeslaves=%s" % self.bridgeslaves
         if self.bridgeopts != "":
             retval += " --bridgeopts=%s" % self.bridgeopts
+        if self.activate == False:
+            retval += " --no-activate"
 
         return retval
 
@@ -520,7 +532,7 @@ class F16_Network(F9_Network):
                         The 'ibft' value was added.""" % versionToLongString(F16))
                 break
         op.add_argument("--activate", action="store_true", version=F16,
-                        default=False, help="""
+                        default=None, help="""
                         As noted above, using this option ensures any matching
                         devices beyond the first will also be activated.""")
         op.add_argument("--nodefroute", action="store_true", version=F16,
@@ -683,6 +695,18 @@ class F24_Network(F22_Network):
             retval.bootProto = ""
         return retval
 
+class F25_Network(F24_Network):
+    removedKeywords = F24_Network.removedKeywords
+    removedAttrs = F24_Network.removedAttrs
+
+    def _getParser(self):
+        op = F24_Network._getParser(self)
+        op.add_argument("--no-activate", default=None, version=F25, dest="activate",
+                action="store_false", help="""
+                Use this option with first network command to prevent
+                activation of the device in istaller environment""")
+        return op
+
 # todo: deal with inheritance
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
@@ -733,7 +757,7 @@ class RHEL6_Network(F9_Network):
                         The 'ibft' value was added.""" % versionToLongString(RHEL6))
                 break
         op.add_argument("--activate", action="store_true", version=RHEL6,
-                        default=False, help="""
+                        default=None, help="""
                         As noted above, using this option ensures any matching
                         devices beyond the first will also be activated.""")
         op.add_argument("--nodefroute", action="store_true", version=RHEL6,
@@ -813,6 +837,10 @@ class RHEL7_Network(F21_Network):
         op = F21_Network._getParser(self)
         op.add_argument("--bridgeslaves", default="", version=RHEL7, help="")
         op.add_argument("--bridgeopts", default="", version=RHEL7, help="")
+        op.add_argument("--no-activate", default=None, version=RHEL7, dest="activate",
+                action="store_false", help="""
+                Use this option with first network command to prevent
+                activation of the device in istaller environment""")
         return op
 
     def parse(self, args):
