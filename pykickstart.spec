@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.31
+Version:   2.32
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,13 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Sep 13 2016 Chris Lumens <clumens@redhat.com> - 2.32-1
+- replace assertEquals with assertEqual in network tests (#103) (rvykydal)
+- Fix F25 timezone should subclass F23 instead of F18 (#102) (jkonecny)
+- Update network command documentation for --no-activate option. (rvykydal)
+- Update network command documentation (from master) (rvykydal)
+- Add --no-activate option to network command (#1277975) (rvykydal)
+
 * Thu Jul 21 2016 Chris Lumens <clumens@redhat.com> - 2.31-1
 - Support timezone command usage without timezone specification (mkolman)
 - Formatting fixes (mkolman)

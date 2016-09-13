@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-07-21 11:36-0400\n"
+"POT-Creation-Date: 2016-09-13 10:52-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,13 +171,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
-#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
-#: ../pykickstart/commands/xconfig.py:98
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
-msgstr ""
-
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -200,6 +193,26 @@ msgstr ""
 msgid "Specify only one realm to join"
 msgstr ""
 
+#: ../pykickstart/commands/sshpw.py:127 ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/keyboard.py:127
+#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/timezone.py:62
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr ""
+
+#: ../pykickstart/commands/sshpw.py:132 ../pykickstart/commands/sshkey.py:93
+#, python-format
+msgid "An ssh user with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/firewall.py:117
+#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/xconfig.py:98
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr ""
+
 #: ../pykickstart/commands/repo.py:188
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
@@ -219,11 +232,11 @@ msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
 #: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
-#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/upgrade.py:56
-#: ../pykickstart/commands/upgrade.py:93 ../pykickstart/commands/eula.py:63
-#: ../pykickstart/commands/autopart.py:45
+#: ../pykickstart/commands/upgrade.py:56 ../pykickstart/commands/upgrade.py:93
+#: ../pykickstart/commands/eula.py:63 ../pykickstart/commands/autopart.py:45
 #: ../pykickstart/commands/zerombr.py:66
 #: ../pykickstart/commands/unsupported_hardware.py:51
+#: ../pykickstart/commands/skipx.py:50
 #: ../pykickstart/commands/displaymode.py:59
 #: ../pykickstart/commands/mediacheck.py:49
 #: ../pykickstart/commands/interactive.py:50
@@ -231,9 +244,9 @@ msgstr ""
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/mouse.py:62
-#: ../pykickstart/commands/keyboard.py:57 ../pykickstart/commands/lang.py:50
-#: ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/keyboard.py:57 ../pykickstart/commands/mouse.py:62
+#: ../pykickstart/commands/lang.py:50
 #, python-format
 msgid "Kickstart command %s requires one argument"
 msgstr ""
@@ -303,38 +316,17 @@ msgstr ""
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
+#: ../pykickstart/commands/monitor.py:66
+#, python-format
+msgid "Unexpected arguments to %(cmd)s command: %(options)s"
+msgstr ""
+
 #: ../pykickstart/commands/zerombr.py:53
 #, python-format
 msgid ""
 "Ignoring deprecated option on line %s:  The zerombr command no longer takes "
 "any options.  In future releases, this will result in a fatal error from "
 "kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:62 ../pykickstart/commands/sshkey.py:89
-#: ../pykickstart/commands/sshpw.py:127
-#: ../pykickstart/commands/keyboard.py:127
-#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:139
-#: ../pykickstart/commands/timezone.py:214
-#: ../pykickstart/commands/timezone.py:248
-msgid "Options --nontp and --ntpservers are mutually exclusive"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:196
-#: ../pykickstart/commands/timezone.py:230
-#, python-format
-msgid "At least one option and/or an argument are expected for the  %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:207
-#: ../pykickstart/commands/timezone.py:241
-#, python-format
-msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
 #: ../pykickstart/commands/bootloader.py:247
@@ -350,21 +342,17 @@ msgstr ""
 msgid "One of --disabled or --enabled must be provided."
 msgstr ""
 
-#: ../pykickstart/commands/sshkey.py:93 ../pykickstart/commands/sshpw.py:132
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/monitor.py:66
-#, python-format
-msgid "Unexpected arguments to %(cmd)s command: %(options)s"
-msgstr ""
-
 #: ../pykickstart/commands/dmraid.py:90
 #, python-format
 msgid ""
 "A DM RAID device with the name %(name)s and devices %(devices)s has already "
 "been defined."
+msgstr ""
+
+#: ../pykickstart/commands/keyboard.py:132
+msgid ""
+"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
+"for the keyboard command"
 msgstr ""
 
 #: ../pykickstart/commands/driverdisk.py:116
@@ -574,44 +562,38 @@ msgstr ""
 msgid "A group with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/keyboard.py:132
-msgid ""
-"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
-"for the keyboard command"
-msgstr ""
-
-#: ../pykickstart/commands/network.py:373
+#: ../pykickstart/commands/network.py:385
 #, python-format
 msgid "A network device with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:536
-#: ../pykickstart/commands/network.py:668
+#: ../pykickstart/commands/network.py:548
+#: ../pykickstart/commands/network.py:692
 msgid "Option --bridgeopts requires --bridgeslaves to be specified"
 msgstr ""
 
-#: ../pykickstart/commands/network.py:543
-#: ../pykickstart/commands/network.py:675
+#: ../pykickstart/commands/network.py:555
+#: ../pykickstart/commands/network.py:699
 msgid ""
 "Bad format of --bridgeopts, expecting key=value options separated by ','"
 msgstr ""
 
-#: ../pykickstart/commands/network.py:624
+#: ../pykickstart/commands/network.py:646
 msgid ""
 "When using the <prefix>.<vlan id> interface name notation, <prefix> can't be "
 "equal to 'vlan'."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:628
+#: ../pykickstart/commands/network.py:650
 msgid "If network --interfacename contains a '.', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:637
+#: ../pykickstart/commands/network.py:659
 msgid ""
 "If network --interfacename starts with 'vlan', valid vlan id should follow."
 msgstr ""
 
-#: ../pykickstart/commands/network.py:642
+#: ../pykickstart/commands/network.py:664
 #, python-format
 msgid "The vlan id is out of the %(minimum)d-%(maximum)d vlan id range."
 msgstr ""
@@ -644,6 +626,24 @@ msgstr ""
 
 #: ../pykickstart/commands/btrfs.py:199
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:139
+#: ../pykickstart/commands/timezone.py:215
+#: ../pykickstart/commands/timezone.py:249
+msgid "Options --nontp and --ntpservers are mutually exclusive"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:197
+#: ../pykickstart/commands/timezone.py:231
+#, python-format
+msgid "At least one option and/or an argument are expected for the  %s command"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:208
+#: ../pykickstart/commands/timezone.py:242
+#, python-format
+msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
 #: ../tools/ksverdiff.py:45 ../tools/ksvalidator.py:58
