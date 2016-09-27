@@ -593,6 +593,15 @@ graphical
 Perform the kickstart installation in graphical mode. This is the
 default.
 
+``graphical [--non-interactive]``
+
+``--non-interactive``
+
+    Perform the installation in a completely non-interactive mode.
+    This mode will kill the installation when user interaction will be
+    required. Behavior of this mode is similar to ``cmdline`` or
+    ``text --non-interactive`` modes but with graphics.
+
 
 halt
 ----
@@ -1973,6 +1982,13 @@ text
 
 Perform the kickstart installation in text mode. Kickstart installations
 are performed in graphical mode by default.
+
+``text [--non-interactive]``
+
+``--non-interactive``
+
+    If present, run the installation in completely non interactive text
+    mode. This mode behaves same as the ``cmdline`` mode.
 
 
 timezone
