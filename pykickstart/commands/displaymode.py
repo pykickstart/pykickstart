@@ -17,9 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3
+from pykickstart.version import FC3, F26
 from pykickstart.base import KickstartCommand
-from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_TEXT
+from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, \
+                                  DISPLAY_MODE_TEXT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
@@ -32,6 +33,7 @@ class FC3_DisplayMode(KickstartCommand):
     def __init__(self, writePriority=0, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
         self.displayMode = kwargs.get("displayMode", None)
+        self.op = self._getParser()
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
@@ -49,8 +51,8 @@ class FC3_DisplayMode(KickstartCommand):
         return retval
 
     def parse(self, args):
-        if args:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
 
         if self.currentCmd == "cmdline":
             self.displayMode = DISPLAY_MODE_CMDLINE
@@ -71,3 +73,39 @@ class FC3_DisplayMode(KickstartCommand):
                             installation options must be configured via kickstart
                             otherwise the installation will fail.""")
         return op
+
+class F26_DisplayMode(FC3_DisplayMode):
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_DisplayMode.__init__(self, writePriority, args, kwargs)
+        self.nonInteractive = kwargs.get("nonInteractive", False)
+
+    def __str__(self):
+        retval = super(F26_DisplayMode, self).__str__()
+
+        if self.nonInteractive:
+            retval = retval.rstrip()
+            retval += " --non-interactive\n"
+
+        return retval
+
+    def _getParser(self):
+        op = FC3_DisplayMode._getParser(self)
+        op.add_argument("--non-interactive", action="store_true", default=False,
+                      dest="nonInteractive", version=F26, help="""
+                       Perform the installation in a completely non-interactive mode.
+                       This mode will kill the installation when user interaction will be
+                       required. Can't be used with ``cmdline`` mode. This option is
+                       especially useful for automated testing purpose.""")
+        return op
+
+    def parse(self, args):
+        FC3_DisplayMode.parse(self, args)
+
+        if self.currentCmd == "cmdline" and self.nonInteractive:
+            msg = _("Kickstart command cmdline does not support --non-interactive parameter")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg))
+
+        return self
