@@ -2010,7 +2010,7 @@ This makes it possible to use options for the ``timezone`` command without setti
 
 ``timezone --utc``
 
-But not that at leas one option and/or one timezone specififcation needs to be provided. Using just ``timezone`` in a kickstart is incorrect.
+But note that at least one option and/or one timezone specification needs to be provided. Using just ``timezone`` in a kickstart is incorrect.
 
 updates
 -------
