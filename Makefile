@@ -52,9 +52,11 @@ check:
 	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
 	@echo "*** Running type checks ***"
 	PYTHONPATH=. mypy pykickstart
+ifneq ($(PYTHON),python2)
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po $(PKGNAME).pot
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/$(PKGNAME).pot
+endif
 	git checkout -- po/$(PKGNAME).pot || true
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
