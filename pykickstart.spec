@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.3
+Version:   3.4
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,42 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Oct 06 2016 Chris Lumens <clumens@redhat.com> - 3.4-1
+- Fix Python 2 builds by assigning to KSOptionParser.version properly (#106) (atodorov)
+- Do not run translation-canary under python2. (clumens)
+- Add network --no-activate option. (#104) (rvykydal)
+- Don't run the ksvalidator test under python2. (clumens)
+- Fix the check for the error raised by the logvol command on python2. (clumens)
+- Support timezone command usage without timezone specification (mkolman)
+- Formatting fixes (mkolman)
+- Stylistic improvements as sugested by static chackers (#95) (martin.kolman)
+- Fix unused-variable warning (atodorov)
+- Fix command handler errors identified by previous test (atodorov)
+- Test for older versions in new Fedora releases. Closes #28 (atodorov)
+- Rename FC16 to F16 so we can find it later in versionMap (atodorov)
+- Update sys.path in handlers/control.py if not already updated (atodorov)
+- KSOptionParser accepts description, not help argument (atodorov)
+- Remove unused import (atodorov)
+- Fix class definition problems identified by previous test (atodorov)
+- Test how command and data classes are defined (atodorov)
+- Fix a couple problems with the previous ksvalidator patches. (clumens)
+- Remove a bunch of history from the spec file. (clumens)
+- Refactor ksvalidator and its tests (#90) (atodorov)
+- Fix some code smells (#89) (atodorov)
+- Enable Travis-CI (#88) (atodorov)
+- Add versionToLongString to the type annotation file. (clumens)
+- Update tests to reflect new positional arguments (atodorov)
+- Add empty help/description for KSOptionParser (atodorov)
+- Add custom help formatter for ArgumentParser (atodorov)
+- Initial Sphinx configuration (atodorov)
+- The pykickstart package should require a specific python3-kickstart. (clumens)
+- Shuffle network command options for more logical order. (rvykydal)
+- Update documentation of network command. (rvykydal)
+- Update documentation of network command. (rvykydal)
+- Download translations less frequently. (#83) (dshea)
+- Adapt to the new version of mypy (#82) (dshea)
+- Remove the locales from zanata.xml. (clumens)
+
 * Tue May 10 2016 Chris Lumens <clumens@redhat.com> - 3.3-1
 - Do not check translated strings during make check. (dshea)
 - Merge the most recent translation-canary changes. (dshea)
