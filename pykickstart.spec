@@ -28,6 +28,7 @@ BuildRequires: python3-ordered-set
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
+BuildRequires: python3-sphinx
 
 Requires: python3-kickstart = %{version}-%{release}
 
