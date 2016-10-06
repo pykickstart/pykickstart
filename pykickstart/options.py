@@ -126,9 +126,8 @@ class KSOptionParser(ArgumentParser):
         """
         # Overridden to allow for the version kwargs, to skip help option generation,
         # and to resolve conflicts instead of override earlier options.
-        version = kwargs.pop("version")  # fail fast if no version is specified
-        self.version = version
-        version = versionToLongString(version)
+        int_version = kwargs.pop("version")  # fail fast if no version is specified
+        version = versionToLongString(int_version)
 
         # remove leading spaced from description and epilog.
         # fail fast if we forgot to add description
@@ -150,6 +149,11 @@ class KSOptionParser(ArgumentParser):
 
         ArgumentParser.__init__(self, add_help=False, conflict_handler="resolve",
                                 formatter_class=KSHelpFormatter, *args, **kwargs)
+        # NOTE: On Python 2.7 ArgumentParser has a deprecated version parameter
+        # which always defaults to self.version = None which breaks deprecation
+        # warnings in pykickstart. That's why we always set this value after
+        # ArgumentParser.__init__ has been executed
+        self.version = int_version
         self.lineno = None
 
     def _parse_optional(self, arg_string):
