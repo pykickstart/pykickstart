@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.74.20
+Version: 1.74.21
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -45,6 +45,10 @@ rm -rf %{buildroot}
 %{_bindir}/ksverdiff
 
 %changelog
+* Fri Oct 07 2016 Chris Lumens <clumens@redhat.com> - 1.74.21-1
+- Fix line splitting when end-of-line comments are involved. (clumens)
+  Resolves: rhbz#1301267
+
 * Wed Mar 04 2015 Chris Lumens <clumens@redhat.com> - 1.74.20-1
 - Fix a typo in the conflicting command error message. (clumens)
   Resolves: rhbz#1017061
