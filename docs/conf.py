@@ -12,7 +12,6 @@
 # serve to show the default.
 
 import os
-import re
 import sys
 
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -45,18 +44,8 @@ master_doc = 'index'
 project = u'Pykickstart'
 copyright = u'2016, Red Hat Installer Engineering Team' # pylint: disable=redefined-builtin
 
-def read_version():
-    """ Read version from ../pykickstart.spec"""
-    version_re = re.compile(r"Version:\s+(.*)")
-    with open("../pykickstart.spec", "rt") as f:
-        for line in f:
-            m = version_re.match(line)
-            if m:
-                return m.group(1)
-
-#
 # The short X.Y version.
-version = read_version()
+version = '3.4'
 # The full version, including alpha/beta/rc tags.
 release = version
 

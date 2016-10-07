@@ -115,6 +115,7 @@ bumpver: po-pull
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
 	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	make -C po $(PKGNAME).pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
@@ -129,6 +130,7 @@ scratch-bumpver:
 	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/Release:   $(RELEASE)/Release:   $(RC_RELEASE)/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	make -C po $(PKGNAME).pot
 
 scratch: docs
