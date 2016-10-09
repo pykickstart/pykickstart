@@ -72,14 +72,13 @@ class TestKSOptionParser(KSOptionParser):
         for arg_name in ['prog', 'version', 'description']:
             if not kwargs.get(arg_name):
                 raise Exception("%s can't be blank" % arg_name)
-        return super(self.__class__, self).__init__(*args, **kwargs)
+        return super(TestKSOptionParser, self).__init__(*args, **kwargs)
 
     def add_argument(self, *args, **kwargs):
         for arg_name in ['help', 'version']:
             if not kwargs.get(arg_name):
                 raise Exception("%s can't be blank" % arg_name)
-
-        return super(self.__class__, self).add_argument(*args, **kwargs)
+        return super(TestKSOptionParser, self).add_argument(*args, **kwargs)
 
 
 class HelpAndDescription_TestCase(unittest.TestCase):
@@ -87,7 +86,6 @@ class HelpAndDescription_TestCase(unittest.TestCase):
         Check that all commands and their options have some description text.
     """
 
-    @mock.patch('pykickstart.options.KSOptionParser', new=TestKSOptionParser)
     def runTest(self):
         errors = 0
         commands_dir = os.path.join(os.path.dirname(__file__), "..", "..", "pykickstart", "commands")
@@ -119,15 +117,28 @@ class HelpAndDescription_TestCase(unittest.TestCase):
                     if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand']:
                         continue
 
-                    try:
-                        # just construct the option parser
-                        # the wrapper class will raise an exception in case
-                        # there are empty help strings
-                        op = impl_class()._getParser()
-                    except Exception as e:
-                        errors += 1
-                        message = "ERROR: In `%s` %s" % (impl_class, e)
-                        print(message)
+                    # In order for patch to locate the function to be patched, it must be
+                    # specified using its fully qualified name, which may not be what you expect.
+                    # For example, if a class is imported in the module my_module.py as follows:
+                    # from module import ClassA
+                    # It must be patched as patch(my_module.ClassA), rather than patch(module.ClassA),
+                    # due to the semantics of the from ... import ... statement, which imports
+                    # classes and functions into the current namespace.
+                    command_module_name = command_module.__name__
+                    # the install.py command inherits from upgrade.py and doesn't import
+                    # KSOptionParser on its own
+                    if command_module_name == 'install':
+                        command_module_name = 'upgrade'
+                    with mock.patch('%s.KSOptionParser' % command_module_name, new=TestKSOptionParser):
+                        try:
+                            # just construct the option parser
+                            # the wrapper class will raise an exception in case
+                            # there are empty help strings
+                            op = impl_class()._getParser()
+                        except Exception as e:
+                            errors += 1
+                            message = "ERROR: In `%s` %s" % (impl_class, e)
+                            print(message)
 
         # assert for errors presence
         self.assertEqual(0, errors)
