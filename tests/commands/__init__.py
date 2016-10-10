@@ -72,7 +72,8 @@ class TestKSOptionParser(KSOptionParser):
         for arg_name in ['prog', 'version', 'description']:
             if not kwargs.get(arg_name):
                 raise Exception("%s can't be blank" % arg_name)
-        return super(TestKSOptionParser, self).__init__(*args, **kwargs)
+
+        super(TestKSOptionParser, self).__init__(*args, **kwargs)
 
     def add_argument(self, *args, **kwargs):
         for arg_name in ['help', 'version']:
@@ -102,9 +103,8 @@ class HelpAndDescription_TestCase(unittest.TestCase):
 
                 # load the module defining all possible command implementations
                 command_module = importlib.import_module(path.replace(".py", ""))
-                module_commands = []  # a list of already checked commands
 
-                for impl_name, impl_class in command_module.__dict__.items():
+                for _, impl_class in command_module.__dict__.items():
                     # skip everything which isn't a class
                     if type(impl_class) is not type:
                         continue
@@ -134,8 +134,8 @@ class HelpAndDescription_TestCase(unittest.TestCase):
                             # just construct the option parser
                             # the wrapper class will raise an exception in case
                             # there are empty help strings
-                            op = impl_class()._getParser()
-                        except Exception as e:
+                            impl_class()._getParser()
+                        except Exception as e:      # pylint: disable=broad-except
                             errors += 1
                             message = "ERROR: In `%s` %s" % (impl_class, e)
                             print(message)
