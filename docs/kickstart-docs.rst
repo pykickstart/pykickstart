@@ -362,10 +362,12 @@ installed.
 
 There are also 2 optional headers, controlled by the kernel command line
 options
-`kssendmac <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendmac>`__
+`inst.ks.sendmac <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendmac>`__
 and
-`kssendsn <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendsn>`__
+`inst.ks.sendsn <https://rhinstaller.github.io/anaconda/boot-options.html#inst-ks-sendsn>`__
 
+Prior to Fedora 17 and Red Hat Enterprise Linux 7, these options were
+named ``kssendmac`` and ``kssendsn``.
 
 Chapter 11. Making the Installation Tree Available
 ==================================================
@@ -402,6 +404,9 @@ line argument is passed to the kernel.
 
 https://fedoraproject.org/wiki/File:Fedora_boot_screen.png
 
+Prior to Fedora 17 and Red Hat Enterprise Linux 7, all the various forms
+of the ``inst.ks=`` parameter were simply named ``ks=``.
+
 
 Boot Diskette
 -------------
@@ -411,13 +416,13 @@ Section called Creating a Kickstart Boot Diskette in Chapter 6, boot the
 system with the diskette in the drive, and enter the following command
 at the boot: prompt:
 
-``linux ks=floppy``
+``linux inst.ks=floppy``
 
 
 CD-ROM #1 and Diskette
 ----------------------
 
-The linux ks=floppy command also works if the ks.cfg file is located on
+The linux inst.ks=floppy command also works if the ks.cfg file is located on
 a vfat or ext2 file system on a diskette and you boot from the Fedora or
 Red Hat Enterprise Linux CD-ROM #1.
 
@@ -426,7 +431,7 @@ Enterprise Linux CD-ROM #1 and have the kickstart file on a vfat or ext2
 file system on a diskette. To do so, enter the following command at the
 boot: prompt:
 
-``linux ks=hd:fd0:/ks.cfg``
+``linux inst.ks=hd:fd0:/ks.cfg``
 
 
 With Driver Disk
@@ -436,7 +441,7 @@ If you need to use a driver disk with kickstart, specify the dd option
 as well. For example, to boot off a boot diskette and use a driver disk,
 enter the following command at the boot: prompt:
 
-``linux ks=floppy dd``
+``linux inst.ks=floppy dd``
 
 
 Boot CD-ROM
@@ -447,66 +452,66 @@ called Creating a Kickstart Boot CD-ROM in Chapter 6, insert the CD-ROM
 into the system, boot the system, and enter the following command at the
 boot: prompt (where ks.cfg is the name of the kickstart file):
 
-``linux ks=cdrom:<device>:/ks.cfg``
+``linux inst.ks=cdrom:<device>:/ks.cfg``
 
 
 Other kickstart options
 ------------------------
 
-``ks=nfs:<server>:/<path>``
+``inst.ks=nfs:<server>:/<path>``
 
     The installation program will look for the kickstart file on the NFS
     server , as file . The installation program will use DHCP to
     configure the Ethernet card. For example, if your NFS server is
     server.example.com and the kickstart file is in the NFS share
     /mydir/ks.cfg, the correct boot command would be
-    ks=\ nfs:server.example.com:/mydir/ks.cfg.
+    inst.ks=\ nfs:server.example.com:/mydir/ks.cfg.
 
-``ks=http://<server>/<path>``
+``inst.ks=http://<server>/<path>``
 
     The installation program will look for the kickstart file on the
     HTTP server , as file . The installation program will use DHCP to
     configure the Ethernet card. For example, if your HTTP server is
     server.example.com and the kickstart file is in the HTTP directory
     /mydir/ks.cfg, the correct boot command would be
-    ks=\ http://server.example.com/mydir/ks.cfg.
+    inst.ks=\ http://server.example.com/mydir/ks.cfg.
 
-``ks=floppy``
+``inst.ks=floppy``
 
     The installation program looks for the file ks.cfg on a vfat or ext2
     file system on the diskette in /dev/fd0.
 
-``ks=floppy:/<path>``
+``inst.ks=floppy:/<path>``
 
     The installation program will look for the kickstart file on the
     diskette in /dev/fd0, as file .
 
-``ks=hd:<device>:/<file>``
+``inst.ks=hd:<device>:/<file>``
 
     The installation program will mount the file system on (which must
     be vfat or ext2), and look for the kickstart configuration file as
-    in that file system (for example, ks=hd:sda3:/mydir/ks.cfg).
+    in that file system (for example, inst.ks=hd:sda3:/mydir/ks.cfg).
 
-``ks=bd:<biosdev>:/<path>``
+``inst.ks=bd:<biosdev>:/<path>``
 
     The installation program will mount the file system on the specified
     partition on the specified BIOS device (for example,
-    ks=bd:80p3:/mydir/ks.cfg). Note this does not work for BIOS RAID
+    inst.ks=bd:80p3:/mydir/ks.cfg). Note this does not work for BIOS RAID
     sets.
 
-``ks=file:/<file>``
+``inst.ks=file:/<file>``
 
     The installation program will try to read the file from the file
     system; no mounts will be done. This is normally used if the
     kickstart file is already on the initrd image.
 
-``ks=cdrom:/<path>`` or in newer versions
-``ks=cdrom:<cdrom device>:/<path>``
+``inst.ks=cdrom:/<path>`` or in newer versions
+``inst.ks=cdrom:<cdrom device>:/<path>``
 
     The installation program will look for the kickstart file on CD-ROM,
     as file .
 
-``ks``
+``inst.ks``
 
     If ks is used alone, the installation program will configure the
     Ethernet card to use DHCP. The kickstart file is read from the
@@ -526,15 +531,18 @@ Other kickstart options
        tries to read the file /kickstart/1.2.3.4-kickstart, where
        1.2.3.4 is the numeric IP address of the machine being installed.
 
-``ksdevice=<device>``
+``inst.ks.device=<device>``
 
     The installation program will use this network device to connect to
     the network. For example, to start a kickstart installation with the
     kickstart file on an NFS server that is connected to the system
     through the eth1 device, use the command
-    ``ks=nfs:<server>:/<path> ksdevice=eth1`` at the boot: prompt. For
+    ``inst.ks=nfs:<server>:/<path> ksdevice=eth1`` at the boot: prompt. For
     more information, see
     `anaconda boot options <https://rhinstaller.github.io/anaconda/boot-options.html>`__.
+
+    Prior to Fedora 17 and Red Hat Enterprise Linux 7, this option was named
+    ``ksdevice=``.
 
 
 Example Kickstart Script
@@ -552,8 +560,8 @@ some other good examples.
 
     #version=DEVEL
     #url --url http://mirrors.kernel.org/fedora/releases/7/Fedora/i386/os
-    #ks=http://127.0.0.1/ks.cfg
-    #ks=http://localhost/ks.cfg
+    #inst.ks=http://127.0.0.1/ks.cfg
+    #inst.ks=http://localhost/ks.cfg
     url --url http://ftp.usf.edu/pub/fedora/linux/releases/14/Fedora/i386/os
     install
     cdrom
