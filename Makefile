@@ -44,6 +44,7 @@ po-fallback:
 	$(MAKE) po-pull || :
 
 docs:
+	$(MAKE) -C docs html
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
@@ -105,7 +106,7 @@ local: docs po-pull
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
 
-bumpver: po-pull
+bumpver: po-pull docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
@@ -119,7 +120,7 @@ bumpver: po-pull
 	make -C po $(PKGNAME).pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
-scratch-bumpver:
+scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-$(RC_RELEASE)"  ; \
