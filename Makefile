@@ -44,7 +44,7 @@ po-fallback:
 	$(MAKE) po-pull || :
 
 docs:
-	$(MAKE) -C docs html
+	$(MAKE) -C docs html text
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
@@ -92,7 +92,7 @@ archive: check test tag docs
 	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | tar -xf -
 	cp -r po/*.po $(PKGNAME)-$(VERSION)/po/
 	$(MAKE) -C $(PKGNAME)-$(VERSION)/po
-	cp docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
+	cp docs/_build/text/kickstart-docs.txt docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
 	( cd $(PKGNAME)-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf $(PKGNAME)-$(VERSION)

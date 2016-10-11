@@ -103,7 +103,7 @@ popd
 %defattr(-,root,root,-)
 %doc docs/2to3
 %doc docs/programmers-guide
-%doc docs/kickstart-docs.rst
+%doc docs/kickstart-docs.txt
 %{python2_sitelib}/pykickstart*egg*
 %{python2_sitelib}/pykickstart/*py*
 %{python2_sitelib}/pykickstart/commands/*py*
@@ -114,7 +114,7 @@ popd
 %defattr(-,root,root,-)
 %doc docs/2to3
 %doc docs/programmers-guide
-%doc docs/kickstart-docs.rst
+%doc docs/kickstart-docs.txt
 %{python3_sitelib}/pykickstart*egg*
 %{python3_sitelib}/pykickstart/*py*
 %{python3_sitelib}/pykickstart/commands/*py*
