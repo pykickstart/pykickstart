@@ -19,11 +19,15 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.logging import FC6_Logging
 
 class FC6_TestCase(CommandTest):
     command = "logging"
 
     def runTest(self):
+        cmd = FC6_Logging()
+        self.assertEqual(cmd.__str__(), '\n')
+
         # pass
         self.assert_parse("logging", "logging --level=info\n")
         self.assert_parse("logging --level=debug", "logging --level=debug\n")

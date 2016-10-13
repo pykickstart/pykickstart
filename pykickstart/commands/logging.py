@@ -35,10 +35,7 @@ class FC6_Logging(KickstartCommand):
         self.host = kwargs.get("host", "")
         self.level = kwargs.get("level", "")
         self.port = kwargs.get("port", "")
-
-        self._levelProvided = bool(self.level) # b/c of mutation testing
-        if not self._levelProvided:
-            self.level = "info"
+        self._levelProvided = False
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
@@ -82,5 +79,6 @@ class FC6_Logging(KickstartCommand):
         self._levelProvided = bool(self.level) # b/c of mutation testing
         if not self._levelProvided:
             self.level = "info"
+            self._levelProvided = bool(self.level)
 
         return self
