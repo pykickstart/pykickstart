@@ -20,8 +20,29 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.group import F12_GroupData
 from pykickstart.version import F12
+
+class Group_TestCase(unittest.TestCase):
+    def runTest(self):
+        # test that new objects are always equal
+        data1 = F12_GroupData()
+        data2 = F12_GroupData()
+        self.assertEqual(data1, data2)
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['name']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test-group')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
 
 class F12_TestCase(CommandTest):
     command = "group"
