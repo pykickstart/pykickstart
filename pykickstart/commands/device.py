@@ -87,9 +87,25 @@ class FC3_Device(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser(prog="device", description="", version=FC3)
+        op = KSOptionParser(prog="device", description="""
+            On most PCI systems, the installation program will autoprobe for
+            Ethernet and SCSI cards properly. On older systems and some PCI
+            systems, however, kickstart needs a hint to find the proper
+            devices. The device command, which tells the installation program
+            to install extra modules, is in this format:
+
+            ``device <moduleName> --opts=<options>``
+
+            ``<moduleName>``
+
+            Replace with the name of the kernel module which should be
+            installed.""", version=FC3)
         op.add_argument("--opts", dest="moduleOpts", default="", version=FC3,
-                        help="")
+                        help="""
+                        Options to pass to the kernel module. For example:
+
+                        ``--opts="aic152x=0x340 io=11"``
+                        """)
         return op
 
     def parse(self, args):
