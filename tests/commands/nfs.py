@@ -20,6 +20,32 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.nfs import FC3_NFS
+
+class NFS_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = FC3_NFS()
+        data2 = FC3_NFS()
+
+        # extra test coverage
+        self.assertEqual(data1.__str__(), '')
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['server', 'dir']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
