@@ -22,7 +22,31 @@ import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
 from pykickstart.errors import KickstartParseError
-from pykickstart.version import FC3
+from pykickstart.version import FC3, F20
+from pykickstart.commands.raid import FC3_RaidData
+
+class Raid_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = FC3_RaidData()
+        data2 = FC3_RaidData()
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['device']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
+
 
 class FC3_TestCase(CommandTest):
     command = "raid"
@@ -299,6 +323,23 @@ class F19_TestCase(F18_TestCase):
         F18_TestCase.__init__(self, *kargs, **kwargs)
         self.minorBasedDevice = False
 
+    def runTest(self):
+        F18_TestCase.runTest(self)
+
+        # empty device name is not allowed
+        self.assert_parse_error("raid / --level=0 --useexisting --device=''")
+
+class F20_Autopart_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F20
+
+    def runTest(self):
+        self.assert_parse_error("""
+autopart
+raid / --device=md0 --level=0 raid.01 raid.02
+""")
+
 class F23_TestCase(F19_TestCase):
     def runTest(self):
         F19_TestCase.runTest(self)
@@ -320,7 +361,8 @@ class F25_TestCase(F23_TestCase):
         F23_TestCase.runTest(self)
 
         # pass
-        self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02")
+        self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --chunksize=512 raid.01 raid.02\n")
 
 class RHEL7_TestCase(F23_TestCase):
     def runTest(self):
