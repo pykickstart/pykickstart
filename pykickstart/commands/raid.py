@@ -401,11 +401,10 @@ class FC3_Raid(KickstartCommand):
         if not ns.format:
             ns.preexist = True
 
-        if len(ns.mntpoint) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "raid"))
-        elif len(ns.partitions) == 0 and not ns.preexist:
+        assert len(ns.mntpoint) == 1
+        if not ns.partitions and not ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"))
-        elif len(ns.partitions) > 0 and ns.preexist:
+        elif ns.partitions and ns.preexist:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")))
 
         rd = self.dataClass()   # pylint: disable=not-callable
