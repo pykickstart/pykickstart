@@ -58,5 +58,18 @@ class FC3_TestCase(CommandTest):
             cmd.parse([])
 
 
+class F26_TestCase(FC3_TestCase):
+    def runTest(self):
+        #pass
+        self.assert_parse("text --non-interactive", "text --non-interactive\n")
+        self.assert_parse("graphical --non-interactive", "graphical --non-interactive\n")
+
+        #fail
+        self.assert_parse_error("cmdline --non-interactive", KickstartParseError)
+        self.assert_parse_error("text --non-interactive-test", KickstartParseError)
+        self.assert_parse_error("text --non-interactive --test", KickstartParseError)
+        self.assert_parse_error("graphical --non-interactive-test", KickstartParseError)
+        self.assert_parse_error("graphical --non-interactive --test", KickstartParseError)
+
 if __name__ == "__main__":
     unittest.main()
