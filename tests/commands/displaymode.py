@@ -14,7 +14,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 
 import unittest
@@ -52,6 +52,19 @@ class FC3_TestCase(CommandTest):
         cmd.currentCmd = None
         cmd.parse([])
 
+
+class F26_TestCase(FC3_TestCase):
+    def runTest(self):
+        #pass
+        self.assert_parse("text --non-interactive", "text --non-interactive\n")
+        self.assert_parse("graphical --non-interactive", "graphical --non-interactive\n")
+
+        #fail
+        self.assert_parse_error("cmdline --non-interactive", KickstartParseError)
+        self.assert_parse_error("text --non-interactive-test", KickstartParseError)
+        self.assert_parse_error("text --non-interactive --test", KickstartParseError)
+        self.assert_parse_error("graphical --non-interactive-test", KickstartParseError)
+        self.assert_parse_error("graphical --non-interactive --test", KickstartParseError)
 
 if __name__ == "__main__":
     unittest.main()
