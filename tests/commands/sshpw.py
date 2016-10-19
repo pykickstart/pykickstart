@@ -74,6 +74,7 @@ class F13_TestCase(CommandTest):
         # fail
         self.assert_parse_error("sshpw")
         self.assert_parse_error("sshpw --username=someguy --bogus-option")
+        self.assert_parse_error("sshpw --username=someguy pass-phrase --bogus-option")
         self.assert_parse_error("sshpw --username=someguy")
         self.assert_parse_error("sshpw --username=someguy --iscrypted=OMGSEKRITZ")
         self.assert_parse_error("sshpw --username=someguy --iscrypted")
