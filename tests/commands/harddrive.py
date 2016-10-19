@@ -32,7 +32,6 @@ class HardDrive_TestCase(unittest.TestCase):
 
         # test that new objects are always equal
         self.assertEqual(data1, data2)
-        self.assertEqual(data1, data2)
         self.assertNotEqual(data1, None)
 
         # test for objects difference
