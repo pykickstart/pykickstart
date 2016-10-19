@@ -21,8 +21,13 @@
 import unittest
 import warnings
 from tests.baseclass import CommandTest
-
 from pykickstart.base import DeprecatedCommand
+from pykickstart.commands.upgrade import FC3_Upgrade
+
+class Upgrade_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_Upgrade()
+        self.assertEqual(cmd.__str__(), '')
 
 class FC3_TestCase(CommandTest):
     command = "upgrade"
