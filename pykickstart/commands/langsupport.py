@@ -46,9 +46,10 @@ class FC3_LangSupport(KickstartCommand):
         return retval + "\n"
 
     def _getParser(self):
-        op = KSOptionParser(prog="langsupport", description="", version=FC3)
+        op = KSOptionParser(prog="langsupport", description="""
+            Install the support packages for the given locales.""", version=FC3)
         op.add_argument("--default", dest="deflang", default="en_US.UTF-8",
-                        version=FC3, help="")
+                        version=FC3, help="Default locale")
         return op
 
     def parse(self, args):
