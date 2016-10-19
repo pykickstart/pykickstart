@@ -90,7 +90,11 @@ class F11_Upgrade(FC3_Upgrade):
     def _getParser(self):
         op = FC3_Upgrade._getParser(self)
         op.add_argument("--root-device", dest="root_device", version=F11,
-                        help="")
+                        help="""
+                        On a system with multiple installs, this option specifies which
+                        filesystem holds the installation to be upgraded. This can be
+                        specified by device name, UUID=, or LABEL= just like the harddrive
+                        command may be.""")
         return op
 
     def parse(self, args):
