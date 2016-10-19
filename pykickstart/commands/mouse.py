@@ -50,10 +50,12 @@ class RHEL3_Mouse(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="mouse", description="", version=RHEL3)
-        op.add_argument("--device", default="", version=RHEL3, help="")
+        op = KSOptionParser(prog="mouse", description="""
+                            Configure the system mouse""", version=RHEL3)
+        op.add_argument("--device", default="", version=RHEL3,
+                        help="Which device node to use for mouse")
         op.add_argument("--emulthree", default=False, action="store_true",
-                        version=RHEL3, help="")
+                        version=RHEL3, help="If set emulate 3 mouse buttons")
         return op
 
     def parse(self, args):
