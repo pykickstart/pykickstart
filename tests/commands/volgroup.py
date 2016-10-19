@@ -6,12 +6,30 @@ from pykickstart.version import FC3
 
 class VolGroup_TestCase(unittest.TestCase):
     def runTest(self):
-        data = FC3_VolGroupData()
-        self.assertEqual(data.format, True)
-        self.assertEqual(data.pesize, 32768)
-        self.assertEqual(data.preexist, False)
+        data1 = FC3_VolGroupData()
+        data2 = FC3_VolGroupData()
+
+        # test default object values
+        self.assertEqual(data1.format, True)
+        self.assertEqual(data1.pesize, 32768)
+        self.assertEqual(data1.preexist, False)
 
         self.assertEqual(F21_VolGroupData().pesize, 0)
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['vgname']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
 
 
 class FC3_TestCase(CommandTest):
