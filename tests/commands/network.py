@@ -20,7 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.network import FC3_NetworkData, FC4_NetworkData, \
-    FC6_NetworkData, F16_NetworkData, RHEL4_NetworkData, RHEL6_NetworkData
+    FC6_NetworkData, F16_NetworkData, F25_NetworkData, \
+    RHEL4_NetworkData, RHEL6_NetworkData, RHEL7_NetworkData
 from pykickstart.version import FC3
 
 class Network_TestCase(unittest.TestCase):
@@ -55,12 +56,19 @@ class Network_TestCase(unittest.TestCase):
         self.assertFalse(f16_data.activate)
         self.assertFalse(f16_data.nodefroute)
 
+        f25_data = F25_NetworkData(activate=False)
+        self.assertTrue(f25_data._getArgsAsStr().find('--no-activate') > -1)
+
         rhel4_data = RHEL4_NetworkData()
         self.assertFalse(rhel4_data.notksdevice)
 
         rhel6_data = RHEL6_NetworkData()
         self.assertFalse(rhel6_data.activate)
         self.assertFalse(rhel6_data.nodefroute)
+
+        rhel7_data = RHEL7_NetworkData(activate=False)
+        self.assertTrue(rhel7_data._getArgsAsStr().find('--no-activate') > -1)
+
 
 class FC3_TestCase(CommandTest):
     def __init__(self, *kargs, **kwargs):
@@ -100,6 +108,14 @@ class FC3_TestCase(CommandTest):
 
         # fail - invalid option
         self.assert_parse_error("network --bogus-option")
+
+        # extra test coverage
+        nic = self.handler().NetworkData(device='eth0')
+        cmd = self.handler().commands['network']
+        self.assertEqual(cmd.__str__(), "")
+        cmd.network.append(nic)
+        self.assertEqual(cmd.__str__(), "# Network information\nnetwork  --bootproto=dhcp --device=eth0\n")
+
 
 class FC3_Duplicate_TestCase(CommandSequenceTest):
     def __init__(self, *args, **kwargs):
@@ -184,9 +200,23 @@ class F16_TestCase(F9_TestCase):
         self.assert_parse("network --device=eth0 --wpakey WPAKEY",
                           "network  --bootproto=dhcp --device=eth0 --wpakey=WPAKEY\n")
 
-class F19_TestCase(F16_TestCase):
+class F18_TestCase(F16_TestCase):
     def runTest(self):
         F16_TestCase.runTest(self)
+
+        cmd = self.handler().commands['network']
+        self.assertEqual(cmd.hostname, None)
+
+        cmd.network.append(self.handler().NetworkData(device='eth0'))
+        cmd.network.append(
+            self.handler().NetworkData(device='eth1', hostname='example.com')
+        )
+        self.assertEqual(cmd.hostname, 'example.com')
+
+
+class F19_TestCase(F18_TestCase):
+    def runTest(self):
+        F18_TestCase.runTest(self)
 
         self.assert_parse("network --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2",
                           "network  --bootproto=dhcp --device=eth0 --bondslaves=A,B --bondopts=opt1,opt2\n")
@@ -206,6 +236,10 @@ class F20_TestCase(F19_TestCase):
 
         cmd = "network --device team0 --bootproto dhcp --teamslaves=p3p1,p3p2 --teamconfig=\"{\\\"runner\\\": {\\\"name\\\": \\\"roundrobin\\\"}}\" --activate"
         outputCmd = "network  --bootproto=dhcp --device=team0 --activate --teamslaves=\"p3p1,p3p2\" --teamconfig=\"{\\\"runner\\\": {\\\"name\\\": \\\"roundrobin\\\"}}\"\n"
+        self.assert_parse(cmd, outputCmd)
+
+        cmd = "network --device team0 --bootproto dhcp --teamslaves=''"
+        outputCmd = "network  --bootproto=dhcp --device=team0\n"
         self.assert_parse(cmd, outputCmd)
 
         # --teamslaves
