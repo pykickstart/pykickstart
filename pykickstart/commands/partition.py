@@ -400,10 +400,9 @@ class FC3_Partition(KickstartCommand):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        assert len(ns.mntpoint) == 1
 
-        if len(ns.mntpoint) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Mount point required for %s") % "partition"))
-        elif len(extra) > 0:
+        if extra:
             mapping = {"command": "partition", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 

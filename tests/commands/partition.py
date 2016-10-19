@@ -19,9 +19,34 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
-
+from pykickstart.version import F20
 from pykickstart.errors import KickstartParseError
+from tests.baseclass import CommandTest, CommandSequenceTest
+from pykickstart.commands.partition import FC3_PartData, FC3_Partition
+
+class Partition_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = FC3_Partition()
+        self.assertEqual(cmd.__str__(), '')
+
+        data1 = FC3_PartData()
+        data2 = FC3_PartData()
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['mountpoint']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
 
 class FC3_TestCase(CommandTest):
     command = "partition"
@@ -62,6 +87,9 @@ class FC3_TestCase(CommandTest):
         # missing mountpoint
         self.assert_parse_error("part")
         self.assert_parse_error("part --ondisk=sda --size=100")
+
+        # multiple mountpoint
+        self.assert_parse_error("part /home / --ondisk=sda --size=100")
 
         int_params = ["size", "maxsize"]
         if "--start" in self.optionList:
@@ -238,9 +266,30 @@ class F18_TestCase(F17_TestCase):
 
         self.assert_parse_error("part / --cipher")
 
-class F23_TestCase(F18_TestCase):
+class F20_TestCase(F18_TestCase):
     def runTest(self):
         F18_TestCase.runTest(self)
+
+        self.assert_parse("part /tmp --fstype=tmpfs")
+
+        # --grow and --maxsize isn't supported with tmpfs
+        self.assert_parse_error("part /tmp --fstype=tmpfs --grow")
+        self.assert_parse_error("part /tmp --fstype=tmpfs --maxsize=10")
+
+
+class F20_Conflict_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F20
+
+    def runTest(self):
+        self.assert_parse_error("""
+autopart
+part / --size=1024 --fstype=ext4""")
+
+class F23_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
 
         # pass
         self.assert_parse("part / --size=4096 --mkfsoptions=some,thing",
