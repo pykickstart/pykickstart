@@ -206,8 +206,6 @@ class RHEL6_AutoPart(F12_AutoPart):
             conflicting_command = "volgroup"
         elif self.handler.logvol.seen:
             conflicting_command = "logvol"
-        elif hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
 
         if conflicting_command:
             # allow for translation of the error message
@@ -362,8 +360,6 @@ class F20_AutoPart(F18_AutoPart):
             conflicting_command = "volgroup"
         elif self.handler.logvol.seen:
             conflicting_command = "logvol"
-        elif hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
 
         if conflicting_command:
             # allow for translation of the error message
@@ -428,5 +424,34 @@ class F21_AutoPart(F20_AutoPart):
 
         return retval
 
+class F23_AutoPart(F21_AutoPart):
+    def parse(self, args):
+        # call the overriden command to do its job first
+        retval = F21_AutoPart.parse(self, args)
+
+        conflicting_command = ""
+        if hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
+            conflicting_command = "reqpart"
+
+        if conflicting_command:
+            # allow for translation of the error message
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
+        return retval
+
 class RHEL7_AutoPart(F21_AutoPart):
-    pass
+    def parse(self, args):
+        # call the overriden command to do its job first
+        retval = F21_AutoPart.parse(self, args)
+
+        conflicting_command = ""
+        if hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
+            conflicting_command = "reqpart"
+
+        if conflicting_command:
+            # allow for translation of the error message
+            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+
+        return retval
