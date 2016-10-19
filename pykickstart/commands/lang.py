@@ -64,10 +64,9 @@ class FC3_Lang(KickstartCommand):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        assert len(ns.lang) == 1
 
-        if len(ns.lang) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "lang"))
-        elif len(extra) > 0:
+        if extra:
             mapping = {"command": "lang", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 

@@ -1,5 +1,12 @@
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.lang import FC3_Lang, F19_Lang
+
+class Lang_TestCase(unittest.TestCase):
+    def runTest(self):
+        self.assertEqual(FC3_Lang().__str__(), '')
+        self.assertEqual(F19_Lang().__str__(), '')
+
 
 class FC3_TestCase(CommandTest):
     command = "lang"
@@ -12,6 +19,8 @@ class FC3_TestCase(CommandTest):
         # Fail if less than or more than one argument is specified
         self.assert_parse_error("lang")
         self.assert_parse_error("lang en_US en_CA")
+        self.assert_parse_error("lang --whatever")
+
 
 class F19_TestCase(FC3_TestCase):
     def runTest(self):
