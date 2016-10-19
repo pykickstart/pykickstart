@@ -29,7 +29,6 @@ class Group_TestCase(unittest.TestCase):
         data1 = F12_GroupData()
         data2 = F12_GroupData()
         self.assertEqual(data1, data2)
-        self.assertEqual(data1, data2)
         self.assertNotEqual(data1, None)
 
         # test for objects difference
