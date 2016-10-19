@@ -54,10 +54,9 @@ class FC6_IscsiName(KickstartCommand):
 
     def parse(self, args):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
+        assert len(_ns.iqn) == 1
 
-        if len(_ns.iqn) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "iscsiname"))
-        elif extra:
+        if extra:
             mapping = {"command": "iscsiname", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
