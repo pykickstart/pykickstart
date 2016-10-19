@@ -38,6 +38,7 @@ class ZFCP_TestCase(unittest.TestCase):
         data1 = FC3_ZFCPData()
         data2 = FC3_ZFCPData()
         self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
 
         # additional asserts for code coverage
         self.assertEqual(data1.__str__(), "zfcp\n")
