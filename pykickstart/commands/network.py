@@ -624,7 +624,7 @@ class F20_Network(F19_Network):
                 if len(parts) % 2 == 1:
                     # if the list ends with an empty string which must be a leftover
                     # from splitting string not ending with device eg
-                    # "eth1,eth2'{"prio":100"}'"
+                    # "eth1,eth2'{"prio":100}'"
                     if not parts[-1]:
                         # just remove it
                         parts = parts[:-1]
