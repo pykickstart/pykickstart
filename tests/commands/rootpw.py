@@ -34,8 +34,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("rootpw")
         self.assert_parse_error("rootpw --iscrypted=OMGSEKRITZ")
         self.assert_parse_error("rootpw --iscrypted")
+        self.assert_parse_error("rootpw pwd1 pwd2")
 
         # fail - unknown option
+        self.assert_parse_error("rootpw pass-phrase --bogus-option")
         self.assert_parse_error("rootpw --bogus-option")
 
 class F8_TestCase(FC3_TestCase):
