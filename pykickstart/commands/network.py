@@ -358,58 +358,64 @@ class FC3_Network(KickstartCommand):
         op = KSOptionParser(prog="network", description="""
                             Configures network information for target system
                             and activates network devices in installer
-                            environment. Device of the first network command is
-                            activated if network is required, e.g. in case of
-                            network installation or using vnc. Activation of the
-                            device can be also explicitly required by
-                            ``--activate`` option. If the device has already
-                            been activated to get kickstart file (e.g. using
-                            configuration provided with boot options or entered
-                            in loader UI) it is re-activated with configuration
-                            from kickstart file.
-
-                            The device given by the first network command is
-                            activated also in case of non-network installs, and
-                            this device is not re-activated using kickstart
-                            configuration.""", version=FC3)
+                            environment. The device specified in the first
+                            network command is activated automatically.
+                            Activation of the device can be also explicitly
+                            required by ``--activate`` option""", version=FC3)
         op.add_argument("--bootproto", dest="bootProto", version=FC3,
                         default=BOOTPROTO_DHCP, choices=self.bootprotoList,
                         help="""
-                        The default setting is dhcp. bootp and dhcp are treated
-                        the same. The DHCP method uses a DHCP server system to
-                        obtain its networking configuration. As you might guess,
-                        the BOOTP method is similar, requiring a BOOTP server to
-                        supply the networking configuration.
+                        The method of IPv4 configuration. For IPv6
+                        configuration use ``--ipv6`` option.
 
-                        The static method requires that you enter all the
-                        required networking information in the kickstart file.
-                        As the name implies, this information is static and will
-                        be used during and after the installation. The line for
-                        static networking is more complex, as you must include
-                        all network configuration information **on one line**.
-                        You must specify the IP address, netmask, gateway, and
-                        nameserver. For example::
+                        The default setting is ``dhcp``. To turn IPv4
+                        configuration off use ``--noipv4`` option.
 
-                        ``network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1``
+                        - The ``dhcp`` method uses a DHCP server system to
+                          obtain its networking configuration.
 
-                        If you use the static method, be aware of the following
-                        restriction:
+                        - The ``static`` method requires that you specify at
+                          least IP address and netmask with ``--ip`` and
+                          ``--netmask`` options. For example::
 
-                        All static networking configuration information must be
-                        specified on one line; you cannot wrap lines using a
-                        backslash, for example.
+                              ``network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1``
 
-                        ``ibft`` setting is for reading the configuration from
-                        iBFT table.""")
-        op.add_argument("--dhcpclass", help="The DHCP class.", version=FC3)
+                        - ``ibft`` setting is for reading the configuration
+                          from iBFT table.""")
+        op.add_argument("--dhcpclass", version=FC3, help="""
+                        Specifies the DHCP vendor class identifier. The dhcpd
+                        service will see this value as vendor-class-identifier.""")
         op.add_argument("--device", version=FC3, help="""
-                        Specifies device to be configured and/or activated with
-                        the network command. The device can be specified in the
-                        same ways as
-                        `ksdevice <https://rhinstaller.github.io/anaconda/boot-options.html#ksdevice>`__
-                        boot option. For example::
+                        Specifies the device to be configured (and eventually
+                        activated in Anaconda) with the network command.
 
-                        ``network --bootproto=dhcp --device=eth0``
+                        You can specify a device to be activated in any of the
+                        following ways:
+                        - the device name of the interface, for example, ``em1``
+                        - the MAC address of the interface, for example,
+                          ``01:23:45:67:89:ab``
+                        - the keyword ``link``, which specifies the first
+                          interface with its link in the up state
+                        - the keyword ``bootif``, which uses the MAC address
+                          that pxelinux set in the ``BOOTIF`` variable. Set
+                          ``IPAPPEND 2`` in your pxelinux.cfg file to have
+                          pxelinux set the ``BOOTIF`` variable.
+
+                        For example::
+
+                            ``network --bootproto=dhcp --device=ens3``
+
+                        If the ``--device=`` option is missing on the first use
+                        of the network command, the value of the ``ksdevice=``
+                        Anaconda boot option is used, if available. If
+                        ``ksdevice=`` is not set, ``link`` value is used. Note
+                        that this is considered deprecated behavior; in most
+                        cases, you should always specify a ``--device=`` for
+                        every network command. The behavior of any subsequent
+                        network command in the same Kickstart file is
+                        unspecified if its ``--device=`` option is missing.
+                        Make sure you specify this option for any network
+                        command beyond the first.
                         """)
         op.add_argument("--essid", version=FC3,
                         help="The network ID for wireless networks.")
@@ -417,17 +423,25 @@ class FC3_Network(KickstartCommand):
                         Specifies additional low-level settings for the network
                         device which will be passed to the ethtool program.""")
         op.add_argument("--gateway", version=FC3,
-                        help="Default gateway, as an IPv4 or IPv6 address.")
+                        help="Default gateway, as a single IPv4 address.")
         op.add_argument("--hostname", version=FC3,
-                        help="Hostname for the installed system.")
+                        help="""
+                        The host name for the installed system.
+
+                        The host name can either be a fully-qualified domain
+                        name (FQDN) in the format hostname.domainname, or a
+                        short host name with no domain. Many networks have a
+                        DHCP service which automatically supplies connected
+                        systems with a domain name; to allow DHCP to assign the
+                        domain name, only specify a short host name.""")
         op.add_argument("--ip", version=FC3,
-                        help="IP address for the interface.")
+                        help="IPv4 address for the interface.")
         op.add_argument("--mtu", version=FC3, help="The MTU of the device.")
         op.add_argument("--nameserver", version=FC3, help="""
                         Primary nameserver, as an IP address. Multiple
                         nameservers must be comma separated.""")
         op.add_argument("--netmask", version=FC3,
-                        help="Netmask for the installed system.")
+                        help="IPv4 network mask of the device.")
         op.add_argument("--nodns", action="store_true", default=False,
                         version=FC3, help="Do not configure any DNS server.")
         op.add_argument("--onboot", type=ksboolean, version=FC3, help="""
@@ -473,9 +487,9 @@ class FC6_Network(FC4_Network):
     def _getParser(self):
         op = FC4_Network._getParser(self)
         op.add_argument("--noipv4", action="store_true", default=False,
-                        version=FC6, help="Disable IPv4 on this device.")
+                        version=FC6, help="Disable IPv4 configuration of this device.")
         op.add_argument("--noipv6", action="store_true", default=False,
-                        version=FC6, help="Disable IPv6 on this device.")
+                        version=FC6, help="Disable IPv6 configuration of this device.")
         return op
 
 class F8_Network(FC6_Network):
@@ -485,11 +499,15 @@ class F8_Network(FC6_Network):
     def _getParser(self):
         op = FC6_Network._getParser(self)
         op.add_argument("--ipv6", version=F8, help="""
-                        IPv6 address for the interface. This can be the static
-                        address in form ``<IPv6 address>[/<prefix length>]``,
-                        e.g. 3ffe:ffff:0:1::1/128 (if prefix is omitted 64 is
-                        assumed), "auto" for address assignment based on automatic
-                        neighbor discovery, or "dhcp" to use the DHCPv6 protocol.
+                        IPv6 address for the interface. This can be:
+                        - the static address in form
+                          ``<IPv6 address>[/<prefix length>]``, e.g.
+                          ``3ffe:ffff:0:1::1/128``
+                          (if prefix is omitted 64 is assumed),
+                        - ``auto`` for stateless automatic address
+                          autoconfiguration, or
+                        - ``dhcp`` for DHCPv6-only configuration (no router
+                          advertisements).
                         """)
         return op
 
@@ -562,7 +580,7 @@ class F19_Network(F18_Network):
                         will be created using slaves specified in this option.
                         Example::
 
-                            ``--bondslaves=eth0,eth1``.
+                            ``network --device bond0 --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --bondslaves=ens7,ens8 --bondopts=mode=active-backup,primary=ens7 --activate``
                         """)
         op.add_argument("--bondopts", default="", version=F19, help="""
                         A comma-separated list of optional parameters for bonded
@@ -572,7 +590,10 @@ class F19_Network(F18_Network):
                             ``--bondopts=mode=active-backup,primary=eth1``
 
                         If an option itself contains comma as separator use
-                        semicolon to separate the options.""")
+                        semicolon to separate the options. Example::
+
+                            ``--bondopts=mode=active-backup,balance-rr;primary=eth1``
+                        """)
         op.add_argument("--vlanid", version=F19, help="""
                         Id (802.1q tag) of vlan device to be created using parent
                         device specified by ``--device`` option. For example::
@@ -581,7 +602,7 @@ class F19_Network(F18_Network):
 
                         will create vlan device ``eth0.171``.""")
         op.add_argument("--ipv6gateway", default="", version=F19, help="""
-                        Address of IPv6 gateway.
+                        Default gateway, as a single IPv6 address.
                         """)
         return op
 
@@ -655,14 +676,48 @@ class F20_Network(F19_Network):
 class F21_Network(F20_Network):
     def _getParser(self):
         op = F20_Network._getParser(self)
-        op.add_argument("--interfacename", default="", version=F21, help="")
+        op.add_argument("--interfacename", default="", version=F21, help="""
+                        Specify a custom interface name for a virtual LAN
+                        device. This option should be used when the default
+                        name generated by the ``--vlanid=`` option is not
+                        desirable. This option must be used along with
+                        ``--vlanid=``. For example::
+
+                            ``network --device=em1 --vlanid=171 --interfacename=vlan171``
+
+                        The above command creates a virtual LAN interface named
+                        ``vlan171`` on the em1 device with an ID of 171. The
+                        interface name can be arbitrary (for example,
+                        ``my-vlan``), but in specific cases, the following
+                        conventions must be followed:
+
+                        If the name contains a dot (.), it must take the form
+                        of NAME.ID. The NAME is arbitrary, but the ID must be
+                        the VLAN ID. For example: ``em1.171`` or
+                        ``my-vlan.171``.  Names starting with vlan must take
+                        the form of vlanID - for example: ``vlan171``.""")
         return op
 
 class F22_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_argument("--bridgeslaves", default="", version=F22, help="")
-        op.add_argument("--bridgeopts", default="", version=F22, help="")
+        op.add_argument("--bridgeslaves", default="", version=F22, help="""
+                        When this option is used, the network bridge with
+                        device name specified using the ``--device=`` option
+                        will be created and devices defined in the
+                        ``--bridgeslaves=`` option will be added to the bridge.
+                        For example::
+
+                            ``network --device=bridge0 --bridgeslaves=em1``""")
+        op.add_argument("--bridgeopts", default="", version=F22, help="""
+                        An optional comma-separated list of parameters for the
+                        bridged interface.  Available values are ``stp``,
+                        ``priority``, ``forward-delay``, ``hello-time``,
+                        ``max-age``, and ``ageing-time``. For information about
+                        these parameters, see the bridge setting table in the
+                        nm-settings(5) man page or at
+                        https://developer.gnome.org/NetworkManager/0.9/ref-settings.html.
+                        """)
         return op
 
     def parse(self, args):
@@ -757,13 +812,19 @@ class RHEL6_Network(F9_Network):
                 break
         op.add_argument("--activate", action="store_true", version=RHEL6,
                         default=None, help="""
-                        As noted above, using this option ensures any matching
-                        devices beyond the first will also be activated.""")
+                        Activate this device in the installation environment.
+
+                        If the device has already been activated (for example,
+                        an interface you configured with boot options so that
+                        the system could retrieve the Kickstart file) the
+                        device is reactivated to use the configuration
+                        specified in the Kickstart file.""")
         op.add_argument("--nodefroute", action="store_true", version=RHEL6,
                         default=False, help="""
-                        Prevents grabbing of the default route by the device.
-                        It can be useful when activating additional devices in
-                        installer using ``--activate`` option.""")
+                        Prevents the interface being set as the default route.
+                        Use this option when you activate additional devices
+                        with the ``--activate=`` option, for example, a NIC on
+                        a separate subnet for an iSCSI target.""")
         op.add_argument("--vlanid", version=RHEL6, help="""
                         Id (802.1q tag) of vlan device to be created using parent
                         device specified by ``--device`` option. For example::
@@ -776,17 +837,21 @@ class RHEL6_Network(F9_Network):
                         will be created using slaves specified in this option.
                         Example::
 
-                            ``--bondslaves=eth0,eth1``.
+                           ``network --device bond0 --bootproto static --ip=10.34.102.222 --netmask=255.255.255.0 --gateway=10.34.102.254 --nameserver=10.34.39.2 --bondslaves=eth0,eth1 --bondopts=mode=active-backup,primary=eth0 --activate``
+
                         """)
         op.add_argument("--bondopts", version=RHEL6, help="""
                         A comma-separated list of optional parameters for bonded
                         interface specified by ``--bondslaves`` and ``--device``
                         options. Example::
 
-                            ``--bondopts=mode=active-backup,primary=eth1``.
+                            ``--bondopts=mode=active-backup,primary=eth1``
 
                         If an option itself contains comma as separator use
-                        semicolon to separate the options.""")
+                        semicolon to separate the options. Example::
+
+                            ``--bondopts=mode=active-backup,balance-rr;primary=eth1``
+                        """)
         return op
 
 def validate_network_interface_name(name):
@@ -834,8 +899,23 @@ def validate_network_interface_name(name):
 class RHEL7_Network(F21_Network):
     def _getParser(self):
         op = F21_Network._getParser(self)
-        op.add_argument("--bridgeslaves", default="", version=RHEL7, help="")
-        op.add_argument("--bridgeopts", default="", version=RHEL7, help="")
+        op.add_argument("--bridgeslaves", default="", version=RHEL7, help="""
+                        When this option is used, the network bridge with
+                        device name specified using the ``--device=`` option
+                        will be created and devices defined in the
+                        ``--bridgeslaves=`` option will be added to the bridge.
+                        For example::
+
+                            ``network --device=bridge0 --bridgeslaves=em1``""")
+        op.add_argument("--bridgeopts", default="", version=RHEL7, help="""
+                        An optional comma-separated list of parameters for the
+                        bridged interface.  Available values are ``stp``,
+                        ``priority``, ``forward-delay``, ``hello-time``,
+                        ``max-age``, and ``ageing-time``. For information about
+                        these parameters, see the bridge setting table in the
+                        nm-settings(5) man page or at
+                        https://developer.gnome.org/NetworkManager/0.9/ref-settings.html.
+                        """)
         op.add_argument("--no-activate", default=None, version=RHEL7, dest="activate",
                 action="store_false", help="""
                 Use this option with first network command to prevent
