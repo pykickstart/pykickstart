@@ -19,9 +19,15 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartParseError
 from pykickstart.commands.timezone import FC3_Timezone, F18_Timezone
 
-from pykickstart.errors import KickstartParseError
+
+class Timezone_TestCase(unittest.TestCase):
+    def runTest(self):
+        cmd = F18_Timezone()
+        self.assertEqual(cmd.__str__(), '')
+
 
 class FC3_TestCase(CommandTest):
     command = "timezone"
@@ -96,11 +102,16 @@ class F23_TestCase(F18_TestCase):
                           "0.fedora.pool.ntp.org,0.fedora.pool.ntp.org,0.fedora.pool.ntp.org\n")
         self.assert_parse("timezone --utc Europe/Sofia --ntpservers=,0.fedora.pool.ntp.org,")
 
+        # fail
+        self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
+
+
 class RHEL7_TestCase(F18_TestCase):
     def runTest(self):
         # since RHEL7 command version the timezone command can be used
         # without a timezone specification
         self.assert_parse("timezone --utc")
+        self.assert_parse("timezone Europe/Sofia")
         self.assert_parse("timezone --isUtc")
         self.assert_parse("timezone --ntpservers=ntp.cesnet.cz")
         self.assert_parse("timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz")
@@ -111,6 +122,10 @@ class RHEL7_TestCase(F18_TestCase):
         self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
         # just "timezone" without any arguments is also wrong as it really dosn't make sense
         self.assert_parse_error("timezone")
+
+        # fail
+        self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
+
 
 class F25_TestCase(F23_TestCase):
     def runTest(self):
@@ -127,6 +142,10 @@ class F25_TestCase(F23_TestCase):
         self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
         # just "timezone" without any arguments is also wrong as it really dosn't make sense
         self.assert_parse_error("timezone")
+
+        # fail
+        self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
+
 
 if __name__ == "__main__":
     unittest.main()

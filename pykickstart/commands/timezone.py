@@ -74,10 +74,9 @@ class FC3_Timezone(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
+        assert len(ns.timezone) == 1
 
-        if len(ns.timezone) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "timezone"))
-        elif extra:
+        if extra:
             mapping = {"command": "timezone", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
@@ -221,7 +220,7 @@ class RHEL7_Timezone(F18_Timezone):
                             This required command sets the system time zone to
                             which may be any of the time zones listed by
                             timeconfig.""", version=FC3)
-        op.add_argument("timezone", metavar="<timezone>", nargs="?",
+        op.add_argument("timezone", metavar="<timezone>", nargs="*",
                         version=FC3, help="""
                         Timezone name, e.g. Europe/Sofia.
                         This is optional but at least one of the options needs
@@ -274,12 +273,11 @@ class RHEL7_Timezone(F18_Timezone):
         #    which throws an exception if no timezone specification is provided
         # - we implement the relevant functionality of the ancestor methods here
 
-        if ns.timezone:
-            if len(ns.timezone) == 1:
-                self.timezone = ns.timezone[0]
-            elif len(ns.timezone) > 1:
-                error_message = _("One or zero arguments are expected for the %s command") % "timezone"
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+        if len(ns.timezone) == 1:
+            self.timezone = ns.timezone[0]
+        elif len(ns.timezone) > 1:
+            error_message = _("One or zero arguments are expected for the %s command") % "timezone"
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
@@ -297,7 +295,7 @@ class F25_Timezone(F23_Timezone):
                             This required command sets the system time zone to
                             which may be any of the time zones listed by
                             timeconfig.""", version=FC3)
-        op.add_argument("timezone", metavar="<timezone>", nargs="?",
+        op.add_argument("timezone", metavar="<timezone>", nargs="*",
                         version=FC3, help="""
                         Timezone name, e.g. Europe/Sofia.
                         This is optional but at least one of the options needs
@@ -350,12 +348,11 @@ class F25_Timezone(F23_Timezone):
         #    which throws an exception if no timezone specification is provided
         # - we implement the relevant functionality of the ancestor methods here
 
-        if ns.timezone:
-            if len(ns.timezone) == 1:
-                self.timezone = ns.timezone[0]
-            elif len(ns.timezone) > 1:
-                error_message = _("One or zero arguments are expected for the %s command") % "timezone"
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+        if len(ns.timezone) == 1:
+            self.timezone = ns.timezone[0]
+        elif len(ns.timezone) > 1:
+            error_message = _("One or zero arguments are expected for the %s command") % "timezone"
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
