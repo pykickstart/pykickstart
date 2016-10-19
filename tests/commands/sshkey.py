@@ -19,8 +19,30 @@
 #
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-
+from pykickstart.commands.sshkey import F22_SshKeyData
 from pykickstart.version import F22
+
+
+class SshKey_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = F22_SshKeyData()
+        data2 = F22_SshKeyData()
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['username']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
 
 class F22_TestCase(CommandTest):
     command = "sshkey"
@@ -42,6 +64,7 @@ class F22_TestCase(CommandTest):
         self.assert_parse_error("sshkey --username=root --bogus-option")
         self.assert_parse_error("sshkey --username")
         self.assert_parse_error("sshkey --username=root")
+        self.assert_parse_error("sshkey --username=root key1 key2")
 
         # extra test coverage
         sshkey = self.handler().commands[self.command]
