@@ -39,7 +39,8 @@ class FC3_Interactive(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="interactive", description="", version=FC3)
+        op = KSOptionParser(prog="interactive", description="""
+                Use interactive kickstart installation method.""", version=FC3)
         return op
 
     def parse(self, args):
