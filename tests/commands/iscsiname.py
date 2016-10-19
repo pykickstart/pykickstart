@@ -20,6 +20,11 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.iscsiname import FC6_IscsiName
+
+class IscsiName_TestCase(unittest.TestCase):
+    def runTest(self):
+        self.assertEqual(FC6_IscsiName().__str__(), '')
 
 class FC6_TestCase(CommandTest):
     command = "iscsiname"
