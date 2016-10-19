@@ -20,6 +20,28 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.commands.url import FC3_Url
+
+class Url_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = FC3_Url()
+        data2 = FC3_Url()
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['url']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, 'test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
 
 class FC3_TestCase(CommandTest):
     command = "url"
