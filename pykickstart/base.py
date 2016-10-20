@@ -94,12 +94,10 @@ class KickstartCommand(KickstartObject):
         self.lineno = 0
         self.seen = False
 
-        # If a subclass provides a removedKeywords list, remove all the
-        # members from the kwargs list before we start processing it.  This
-        # ensures that subclasses don't continue to recognize arguments that
-        # were removed.
+        # If a subclass provides a removedKeywords list, warn if the user
+        # continues to use some of the removed keywords
         for arg in (kw for kw in self.removedKeywords if kw in kwargs):
-            kwargs.pop(arg)
+            warnings.warn("The '%s' keyword has been removed." % arg, SyntaxWarning, stacklevel=2)
 
     def __call__(self, *args, **kwargs):
         """Set multiple attributes on a subclass of KickstartCommand at once
@@ -496,6 +494,11 @@ class BaseData(KickstartObject):
 
         KickstartObject.__init__(self, *args, **kwargs)
         self.lineno = 0
+
+        # If a subclass provides a removedKeywords list, warn if the user
+        # continues to use some of the removed keywords
+        for arg in (kw for kw in self.removedKeywords if kw in kwargs):
+            warnings.warn("The '%s' keyword has been removed." % arg, SyntaxWarning, stacklevel=2)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
