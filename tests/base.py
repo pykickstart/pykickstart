@@ -3,8 +3,15 @@ import sys
 import unittest
 import importlib
 import unittest.mock as mock
+from argparse import Namespace
 from tests.baseclass import ParserTest
+from pykickstart.parser import Script
+from pykickstart.handlers.f25 import F25Handler
+from pykickstart.constants import KS_SCRIPT_POST
 from pykickstart.errors import KickstartParseError
+from pykickstart.commands.zfcp import F14_ZFCPData
+from pykickstart.commands.autopart import F23_AutoPart
+from pykickstart.commands.btrfs import F17_BTRFS, F23_BTRFS, F23_BTRFSData
 from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand
 
 
@@ -21,6 +28,11 @@ class KickstartCommandRemovedKeywords_TestCase(unittest.TestCase):
         KickstartCommandWithRemovals(connect='test')
         self.assertEqual(_warn.call_count, 1)
 
+        cmd = KickstartCommandWithRemovals()
+        cmd.__call__(connect='test', missingAttr='test')
+        self.assertFalse(hasattr(cmd, 'connect'))
+        self.assertFalse(hasattr(cmd, 'missingAttr'))
+
 class BaseDataWithRemovals(BaseData):
     removedKeywords = BaseData.removedKeywords + ["connect"]
     removedAttrs = BaseData.removedAttrs + ["connect"]
@@ -34,6 +46,9 @@ class BaseDataRemovedKeywords_TestCase(unittest.TestCase):
         BaseDataWithRemovals(connect='test')
         self.assertEqual(_warn.call_count, 1)
 
+        data = BaseDataWithRemovals()
+        data.__call__(connect='test-me')
+        self.assertFalse(hasattr(data, 'connect'))
 
 class DeleteRemovedAttrs_TestCase(unittest.TestCase):
     """
@@ -81,6 +96,18 @@ class DeleteRemovedAttrs_TestCase(unittest.TestCase):
         self.assertEqual(errors, [])
 
 
+class KickstartCommandNoParseMethod(KickstartCommand):
+    """ The parse() method is not defined """
+    pass
+
+class TestDeprecatedCommand(DeprecatedCommand):
+    pass
+
+class TestBaseData(BaseData):
+    def __init__(self, *args, **kwargs):
+        BaseData.__init__(self, *args, **kwargs)
+        self.testAttr = kwargs.get('testAttr', '')
+
 class BaseClasses_TestCase(ParserTest):
     def runTest(self):
         # fail - can't instantiate these directly
@@ -89,10 +116,70 @@ class BaseClasses_TestCase(ParserTest):
         self.assertRaises(TypeError, BaseHandler, (100, ))
         self.assertRaises(TypeError, BaseData, (100, ))
 
+        cmd = KickstartCommandNoParseMethod()
+        self.assertEqual(cmd.dataList(), None)
+        self.assertEqual(cmd.dataClass, None)
+        with self.assertRaises(TypeError):
+            cmd.parse(['test'])
+
+        with mock.patch('warnings.warn') as _warn:
+            cmd._setToSelf(Namespace())
+            self.assertEqual(_warn.call_count, 1)
+
+        with mock.patch('warnings.warn') as _warn:
+            cmd._setToObj(Namespace(), cmd)
+            self.assertEqual(_warn.call_count, 1)
+
+        dep_cmd = TestDeprecatedCommand()
+        self.assertEqual(dep_cmd.__str__(), '')
+        with mock.patch('warnings.warn') as _warn:
+            dep_cmd.parse(['test'])
+            self.assertEqual(_warn.call_count, 1)
+
+
+        self.assertEqual(TestBaseData().__str__(), '')
+
+        data = TestBaseData()
+        data.__call__(testAttr='test-me', missingAttr='missing')
+        self.assertEqual(data.testAttr, 'test-me')
+        self.assertFalse(hasattr(data, 'missingAttr'))
+
+class HandlerRegisterCommands_TestCase(unittest.TestCase):
+    def runTest(self):
+        handler = F25Handler(mapping={
+                                'autopart': F23_AutoPart,
+                                'btrfs': F23_BTRFS,
+                             },
+                             dataMapping={
+                                'BTRFSData': F23_BTRFSData,
+                                'ZFCPData': None,
+                             },
+                             commandUpdates={
+                                'btrfs': F17_BTRFS,
+                             },
+                             dataUpdates={
+                                'ZFCPData': F14_ZFCPData,
+                             })
+        self.assertEqual(len(handler.commands.keys()), 2)
+        self.assertTrue(isinstance(handler.commands['autopart'], F23_AutoPart))
+        self.assertTrue(isinstance(handler.commands['btrfs'], F17_BTRFS))
+
+        self.assertTrue(hasattr(handler, 'BTRFSData'))
+        self.assertEqual(getattr(handler, 'BTRFSData'), F23_BTRFSData)
+        self.assertTrue(hasattr(handler, 'ZFCPData'))
+        self.assertEqual(getattr(handler, 'ZFCPData'), F14_ZFCPData)
+
+
 class HandlerString_TestCase(ParserTest):
     def runTest(self):
         self.handler.platform = "x86_64"
         self.assertIn("#platform=x86_64", str(self.handler))
+
+        self.handler.platform = ""
+        self.assertNotIn("#platform", str(self.handler))
+
+        self.handler.scripts.append(Script("echo Hello", type=KS_SCRIPT_POST))
+        self.assertIn("echo Hello", str(self.handler))
 
 class HandlerResetCommand_TestCase(ParserTest):
     def runTest(self):
@@ -125,6 +212,14 @@ class HandlerDispatch_TestCase(ParserTest):
     def runTest(self):
         # fail - no such command
         self.assertRaises(KickstartParseError, self.handler.dispatcher, ["fakecommand"], 1)
+
+        # pass - parses a valid kickstart
+        self.handler.dispatcher(['autopart'], 1)
+        self.assertTrue(self.handler.autopart.seen)
+
+        self.handler.dispatcher(['network', '--device', 'eth0'], 1)
+        self.assertEqual(self.handler.network.dataList()[0].device, 'eth0')
+
 
 class HandlerMask_TestCase(ParserTest):
     def runTest(self):
