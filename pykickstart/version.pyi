@@ -52,8 +52,9 @@ F22 = ...       # type: int
 F23 = ...       # type: int
 F24 = ...       # type: int
 F25 = ...       # type: int
+F26 = ...       # type: int
 
-DEVEL = F25     # type: int
+DEVEL = F26     # type: int
 
 versionMap = ...    # type: Dict[str, int]
 
