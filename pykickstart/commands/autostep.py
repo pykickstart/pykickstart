@@ -54,7 +54,7 @@ class FC3_AutoStep(KickstartCommand):
         op.add_argument("--autoscreenshot", action="store_true", default=False,
                         version=FC3, help="""
                         Take a screenshot at every step during installation and
-                        copy the images over to /root/anaconda-screenshots after
+                        copy the images over to ``/root/anaconda-screenshots`` after
                         installation is complete. This is most useful for
                         documentation.""")
         return op

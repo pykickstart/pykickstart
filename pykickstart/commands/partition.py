@@ -309,7 +309,7 @@ class FC3_Partition(KickstartCommand):
 
                         ``/<path>``
 
-                        For example, /, /usr, /home
+                        For example, ``/``, ``/usr``, ``/home``
 
                         ``swap``
 
@@ -345,9 +345,9 @@ class FC3_Partition(KickstartCommand):
                         Forces automatic allocation of the partition as a primary
                         partition or the partitioning will fail.
 
-                        **TIP:** *The ``--asprimary`` option only makes sense
+                        **TIP:** The ``--asprimary`` option only makes sense
                         with the MBR partitioning scheme and is ignored when the
-                        GPT partitioning scheme is used.*""")
+                        GPT partitioning scheme is used.""")
         op.add_argument("--start", type=int, version=FC3, help="")
         op.add_argument("--end", type=int, version=FC3, help="")
         op.add_argument("--fstype", "--type", dest="fstype", version=FC3,
@@ -383,7 +383,7 @@ class FC3_Partition(KickstartCommand):
         op.add_argument("--onpart", "--usepart", dest="onPart", type=part_cb,
                         version=FC3, help="""
                         Put the partition on an already existing device. Use
-                        "--onpart=LABEL=name" or "--onpart=UUID=name" to specify
+                        ``--onpart=LABEL=name`` or ``--onpart=UUID=name`` to specify
                         a partition by label or uuid respectively.
 
                         Anaconda may create partitions in any particular order,

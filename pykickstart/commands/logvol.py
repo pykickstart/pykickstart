@@ -390,7 +390,7 @@ class FC3_LogVol(KickstartCommand):
                         version=FC3, help="""
                         Tells the logical volume to grow to fill available space
                         (if any), or up to the maximum size setting. Note that
-                        --grow is not supported for logical volumes containing
+                        ``--grow`` is not supported for logical volumes containing
                         a RAID volume on top of them.""")
         op.add_argument("--maxsize", dest="maxSizeMB", type=int,
                         version=FC3, help="""
@@ -408,7 +408,7 @@ class FC3_LogVol(KickstartCommand):
                         version=FC3, help="""
                         Specify the size of the logical volume as a percentage
                         of available space in the volume group. Without the above
-                        --grow option, this may not work.""")
+                        ``--grow`` option, this may not work.""")
         op.add_argument("--recommended", action="store_true", default=False,
                         version=FC3, help="""
                         Determine the size of the logical volume automatically.
@@ -462,7 +462,7 @@ class FC4_LogVol(FC3_LogVol):
         op.add_argument("--fsoptions", dest="fsopts", version=FC4, help="""
                         Specifies a free form string of options to be used when
                         mounting the filesystem. This string will be copied into
-                        the /etc/fstab file of the installed system and should
+                        the ``/etc/fstab`` file of the installed system and should
                         be enclosed in quotes.""")
         return op
 
@@ -572,9 +572,9 @@ class RHEL6_LogVol(F12_LogVol):
                         Specify the metadata area size (in MiB) for a new thin
                         pool device.""")
         op.add_argument("--profile", version=RHEL6, help="""
-                        Specify an LVM profile for the thin pool (see lvm(8),
-                        standard profiles are 'default' and 'thin-performance'
-                        defined in the /etc/lvm/profile/ directory).""")
+                        Specify an LVM profile for the thin pool (see ``lvm(8)``,
+                        standard profiles are ``default`` and ``thin-performance``
+                        defined in the ``/etc/lvm/profile/`` directory).""")
         return op
 
     def parse(self, args):
@@ -738,9 +738,9 @@ class F21_LogVol(F20_LogVol):
     def _getParser(self):
         op = F20_LogVol._getParser(self)
         op.add_argument("--profile", version=F21, help="""
-                        Specify an LVM profile for the thin pool (see lvm(8),
-                        standard profiles are 'default' and 'thin-performance'
-                        defined in the /etc/lvm/profile/ directory).""")
+                        Specify an LVM profile for the thin pool (see ``lvm(8)``,
+                        standard profiles are ``default`` and ``thin-performance``
+                        defined in the ``/etc/lvm/profile/`` directory).""")
         return op
 
     def parse(self, args):

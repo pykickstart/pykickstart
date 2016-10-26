@@ -45,7 +45,7 @@ class FC3_Lang(KickstartCommand):
         op = KSOptionParser(prog="lang", description="""
             This required command sets the language to use during installation
             and the default language to use on the installed system to ``<id>``.
-            This can be the same as any recognized setting for the $LANG
+            This can be the same as any recognized setting for the ``$LANG``
             environment variable, though not all languages are supported during
             installation.
 
@@ -55,7 +55,7 @@ class FC3_Lang(KickstartCommand):
             will continue in English though the running system will have the
             specified langauge by default.
 
-            The file /usr/share/system-config-language/locale-list provides a
+            The file ``/usr/share/system-config-language/locale-list`` provides a
             list the valid language codes in the first column of each line and
             is part of the system-config-languages package.""", version=FC3)
         op.add_argument("lang", metavar="<lang>", nargs=1, version=FC3,

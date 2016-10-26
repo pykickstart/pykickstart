@@ -126,13 +126,13 @@ class F18_Keyboard(FC3_Keyboard):
         op.add_argument("--vckeymap", dest="vc_keymap", default="", help="""
                         Specify VConsole keymap that should be used. is a keymap
                         name which is the same as the filename under
-                        /usr/lib/kbd/keymaps/ without the ".map.gz" extension.
+                        ``/usr/lib/kbd/keymaps/`` without the ``.map.gz`` extension.
                         """, version=F18)
         op.add_argument("--xlayouts", dest="x_layouts", type=commaSplit,
                         version=F18, help="""
                         Specify a list of X layouts that should be used
                         (comma-separated list without spaces). Accepts the same
-                        values as setxkbmap(1), but uses either the layout format
+                        values as ``setxkbmap(1)``, but uses either the layout format
                         (such as cz) or the 'layout (variant)' format (such as
                         'cz (qwerty)'). For example::
 
@@ -141,7 +141,7 @@ class F18_Keyboard(FC3_Keyboard):
                         version=F18, help="""
                         Specify a list of layout switching options that should
                         be used (comma-separated list without spaces). Accepts
-                        the same values as setxkbmap(1) for layout switching.
+                        the same values as ``setxkbmap(1)`` for layout switching.
                         For example::
 
                         ``keyboard --xlayouts=cz,'cz (qwerty)' --switch=grp:alt_shift_toggle``

@@ -62,7 +62,7 @@ class FC3_NFS(KickstartCommand):
                         Server from which to install (hostname or IP).""")
         op.add_argument("--dir", metavar="<directory>", required=True,
                         version=FC3, help="""
-                        Directory containing the Packages/ directory of the
+                        Directory containing the ``Packages/`` directory of the
                         installation tree. If doing an ISO install, this
                         directory must also contain images/install.img.""")
         return op
@@ -99,8 +99,8 @@ class FC6_NFS(FC3_NFS):
         op = FC3_NFS._getParser(self)
         op.add_argument("--opts", metavar="<options>", version=FC6, help="""
                         Mount options to use for mounting the NFS export. Any
-                        options that can be specified in /etc/fstab for an NFS
-                        mount are allowed. The options are listed in the nfs(5)
+                        options that can be specified in ``/etc/fstab`` for an NFS
+                        mount are allowed. The options are listed in the ``nfs(5)``
                         man page. Multiple options are separated with a comma.
                         """)
         return op
