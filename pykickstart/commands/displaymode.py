@@ -77,7 +77,6 @@ class F26_DisplayMode(FC3_DisplayMode):
     def __init__(self, writePriority=0, *args, **kwargs):
         FC3_DisplayMode.__init__(self, writePriority, args, kwargs)
         self.op = self._getParser()
-        self.displayMode = kwargs.get("displayMode", None)
         self.nonInteractive = kwargs.get("nonInteractive", False)
 
     def __str__(self):
