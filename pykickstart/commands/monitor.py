@@ -60,11 +60,11 @@ class FC3_Monitor(KickstartCommand):
                         """)
         op.add_argument("--monitor", version=FC3, help="""
                         Use specified monitor; monitor name should be from the
-                        list of monitors in /usr/share/hwdata/MonitorsDB from
+                        list of monitors in ``/usr/share/hwdata/MonitorsDB`` from
                         the hwdata package. The list of monitors can also be
                         found on the X Configuration screen of the
-                        Kickstart Configurator. This is ignored if --hsync or
-                        --vsync is provided. If no monitor information is
+                        Kickstart Configurator. This is ignored if ``--hsync`` or
+                        ``--vsync`` is provided. If no monitor information is
                         provided, the installation program tries to probe for
                         it automatically.""")
         op.add_argument("--vsync", version=FC3, help="""

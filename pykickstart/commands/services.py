@@ -56,7 +56,7 @@ class FC6_Services(KickstartCommand):
                             the disabled list will be disabled before the
                             services listed in the enabled list are enabled.
                             """, epilog="""
-                            One of --disabled or --enabled must be provided.
+                            One of ``--disabled`` or ``--enabled`` must be provided.
                             """, version=FC6)
         op.add_argument("--disabled", type=commaSplit, version=FC6,
                         metavar="<list>", help="""

@@ -51,7 +51,7 @@ class FC3_AutoPart(KickstartCommand):
 
     def _getParser(self):
         return KSOptionParser(prog="autopart", description="""
-                            Automatically create partitions -- a root (/) partition,
+                            Automatically create partitions -- a root (``/``) partition,
                             a swap partition, and an appropriate boot partition
                             for the architecture. On large enough drives, this
                             will also create a /home partition.
@@ -404,9 +404,9 @@ class F21_AutoPart(F20_AutoPart):
         op = F20_AutoPart._getParser(self)
         op.add_argument("--fstype", version=F21, help="""
                         Use the specified filesystem type on the partitions.
-                        Note that it cannot be used with --type=btrfs since
+                        Note that it cannot be used with ``--type=btrfs`` since
                         btrfs is both a partition scheme and a filesystem. eg.
-                        --fstype=ext4.""")
+                        ``--fstype=ext4``.""")
         return op
 
     def parse(self, args):
