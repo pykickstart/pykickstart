@@ -55,7 +55,7 @@ class FC3_RootPw(KickstartCommand):
         op = KSOptionParser(prog="rootpw", description="""
                             This required command sets the system's root
                             password.""", version=FC3)
-        op.add_argument('password', metavar='<password>', nargs='*', version=FC3,
+        op.add_argument('password', metavar='<password>', nargs=1, version=FC3,
                         help="The desired root password.")
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
                         default=False, version=FC3, help="""
