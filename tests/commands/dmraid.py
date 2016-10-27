@@ -53,7 +53,7 @@ class FC6_TestCase(CommandTest):
 
     def runTest(self):
         # pass
-        self.assert_parse("dmraid --name=onamai --dev=debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
+        self.assert_parse("dmraid --name=/dev/onamai --dev=debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
         self.assert_parse("dmraid --name onamai --dev debaisi", "dmraid --name=onamai --dev=\"debaisi\"\n")
         self.assert_parse("dmraid --dev=deb1,deb2 --name onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
         self.assert_parse("dmraid --dev \"deb1,deb2\" --name=onamai", "dmraid --name=onamai --dev=\"deb1,deb2\"\n")
