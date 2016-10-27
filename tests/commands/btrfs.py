@@ -19,17 +19,51 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
-from pykickstart.commands.btrfs import F17_BTRFSData
+from tests.baseclass import CommandTest, CommandSequenceTest
+from pykickstart.commands.btrfs import F17_BTRFSData, F23_BTRFSData
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
-
+from pykickstart.version import F17
 
 class BTRFS_TestCase(unittest.TestCase):
     def runTest(self):
-        data = F17_BTRFSData()
-        self.assertEqual(data.format, True)
-        self.assertEqual(data.preexist, False)
-        self.assertEqual(data.subvol, False)
+        data1 = F17_BTRFSData()
+        data2 = F17_BTRFSData()
+
+        # test default attribute values
+        self.assertEqual(data1.format, True)
+        self.assertEqual(data1.preexist, False)
+        self.assertEqual(data1.subvol, False)
+
+        # test that new objects are always equal
+        self.assertEqual(data1, data2)
+        self.assertNotEqual(data1, None)
+
+        # test for objects difference
+        for atr in ['mountpoint']:
+            setattr(data1, atr, '')
+            setattr(data2, atr, '/test')
+            # objects that differ in only one attribute
+            # are not equal
+            self.assertNotEqual(data1, data2)
+            self.assertNotEqual(data2, data1)
+            setattr(data1, atr, '')
+            setattr(data2, atr, '')
+
+        # test for attribute values based on prefered
+        # parameter names
+        for attr, attr_alt in [('data', 'dataLevel'),
+                               ('metadata', 'metaDataLevel')]:
+            for (v1, v2) in [(1, None), (None, 2), (1, 2)]:
+                kwargs = { attr: v1, attr_alt: v2 }
+                data = F17_BTRFSData(**kwargs)
+                self.assertEqual(getattr(data, attr_alt), v1 or v2)
+
+        for attr, attr_alt in [('mkfsoptions', 'mkfsopts')]:
+            for (v1, v2) in [(1, ''), ('', 2), (1, 2)]:
+                kwargs = { attr: v1, attr_alt: v2 }
+                data = F23_BTRFSData(**kwargs)
+                self.assertEqual(getattr(data, attr_alt), v1 or v2)
+
 
 class F17_TestCase(CommandTest):
     command = "btrfs"
@@ -89,7 +123,7 @@ class F17_TestCase(CommandTest):
         self.assert_parse_error("btrfs / --subvol --name=root")
 
         # bad level
-        self.assert_parse_error("btrfs / --data=47 btrfs.01")
+        self.assert_parse_error("btrfs / --data=47 btrfs.01", KickstartParseError, 'Invalid btrfs level: 47')
         self.assert_parse_error("btrfs / --metadata=47 btrfs.01")
 
         self.assert_parse("btrfs / --subvol --name=root LABEL=test",
@@ -131,6 +165,17 @@ class F17_TestCase(CommandTest):
         self.assertEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs / part.01"))
         self.assertEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs / part.02"))
         self.assertNotEqual(self.assert_parse("btrfs / part.01"), self.assert_parse("btrfs /home part.01"))
+
+class F17_Duplicate_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F17
+
+    def runTest(self):
+        self.assert_parse_error("""
+btrfs / --data=1 part.01 part.02
+btrfs / --data=1 part.01 part.02""",
+            UserWarning, 'A btrfs volume with the mountpoint / has already been defined.')
 
 class F23_TestCase(F17_TestCase):
     def runTest(self):

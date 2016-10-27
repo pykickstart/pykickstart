@@ -230,7 +230,7 @@ class F17_BTRFS(KickstartCommand):
 
         # Check for duplicates in the data list.
         if data in self.dataList():
-            warnings.warn(_("A btrfs volume with the mountpoint %s has already been defined.") % data.label, KickstartParseWarning)
+            warnings.warn(_("A btrfs volume with the mountpoint %s has already been defined.") % data.mountpoint, KickstartParseWarning)
 
         return data
 
