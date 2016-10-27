@@ -98,7 +98,9 @@ class F24_TestCase(FC6_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("dmraid")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
-        self.assertIsNotNone(parser._getParser())
+        parser = parser._getParser()
+        self.assertIsNotNone(parser)
+        self.assertTrue(parser.description.find('deprecated:: Fedora24') > -1)
 
 if __name__ == "__main__":
     unittest.main()
