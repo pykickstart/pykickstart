@@ -152,7 +152,7 @@ class FC3_VolGroup(KickstartCommand):
             if extra:
                 ns.partitions = extra
                 extra = []
-            elif len(ns.name) > 1:
+            elif ns.name:
                 ns.partitions = ns.name[1:]
                 ns.name = [ns.name[0]]
 
@@ -207,10 +207,10 @@ class F16_VolGroup(FC3_VolGroup):
         retval = FC3_VolGroup.parse(self, args)
 
         # Check that any reserved space options are in their valid ranges.
-        if getattr(retval, "reserved_space", None) and retval.reserved_space < 0:
+        if retval.reserved_space is not None and retval.reserved_space < 0:
             raise KickstartParseError("Volume group reserved space must be a positive integer.", lineno=self.lineno)
 
-        if getattr(retval, "reserved_percent", None) is not None and not 0 < retval.reserved_percent < 100:
+        if retval.reserved_percent is not None and not 0 < retval.reserved_percent < 100:
             raise KickstartParseError("Volume group reserved space percentage must be between 1 and 99.", lineno=self.lineno)
 
         # the volgroup command can't be used together with the autopart command

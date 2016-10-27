@@ -1,6 +1,6 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-from pykickstart.commands.volgroup import FC3_VolGroupData, F21_VolGroupData
+from pykickstart.commands.volgroup import FC3_VolGroupData, F16_VolGroupData, F21_VolGroupData
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.version import FC3
 
@@ -30,6 +30,13 @@ class VolGroup_TestCase(unittest.TestCase):
             self.assertNotEqual(data2, data1)
             setattr(data1, atr, '')
             setattr(data2, atr, '')
+
+        for attr_dash in ['reserved-space', 'reserved-percent']:
+            attr_under = attr_dash.replace('-', '_')
+            for (v1, v2) in [(1, None), (None, 2), (1, 2)]:
+                kwargs = { attr_dash: v1, attr_under: v2 }
+                data = F16_VolGroupData(**kwargs)
+                self.assertEqual(getattr(data, attr_under), v1 or v2)
 
 
 class FC3_TestCase(CommandTest):
@@ -96,7 +103,7 @@ volgroup vg.02 pv.01""")
 
         self.assert_parse_error("""
 volgroup vg.01 pv.01
-volgroup vg.01 pv.02""", KickstartParseWarning)
+volgroup vg.01 pv.02""", KickstartParseWarning, 'A volgroup with the name vg.01 has already been defined.')
 
 class F16_TestCase(FC3_TestCase):
     def runTest(self):
@@ -108,10 +115,10 @@ class F16_TestCase(FC3_TestCase):
             def_pesize_str = ""
 
         # Pass - correct usage.
-        self.assert_parse("volgroup vg.01 pv.01 --reserved-space=1000",
-                          "volgroup vg.01%s --reserved-space=1000 pv.01\n" % def_pesize_str)
-        self.assert_parse("volgroup vg.01 pv.01 --reserved-percent=50",
-                          "volgroup vg.01%s --reserved-percent=50 pv.01\n" % def_pesize_str)
+        self.assert_parse("volgroup vg.01 pv.01 --reserved-space=1",
+                          "volgroup vg.01%s --reserved-space=1 pv.01\n" % def_pesize_str)
+        self.assert_parse("volgroup vg.01 pv.01 --reserved-percent=1",
+                          "volgroup vg.01%s --reserved-percent=1 pv.01\n" % def_pesize_str)
 
         # Fail - missing required argument.
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space")
@@ -119,6 +126,7 @@ class F16_TestCase(FC3_TestCase):
 
         # Fail - incorrect values.
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1")
+        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=0")
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0")
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100")
 
