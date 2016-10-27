@@ -20,6 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartParseError
+from pykickstart.constants import DISPLAY_MODE_CMDLINE
 
 
 class FC3_TestCase(CommandTest):
@@ -53,9 +54,13 @@ class FC3_TestCase(CommandTest):
             cmd.displayMode = mode
             self.assertEqual(cmd.__str__(), "")
 
-        with self.assertRaises(KickstartParseError):
+        with self.assertRaises(KickstartParseError, msg="Unknown command None"):
             cmd.currentCmd = None
             cmd.parse([])
+
+        with self.assertRaises(KickstartParseError, msg="Kickstart command graphical does not take any arguments"):
+            cmd.currentCmd = DISPLAY_MODE_CMDLINE
+            cmd.parse(['--foo'])
 
 
 class F26_TestCase(FC3_TestCase):
