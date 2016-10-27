@@ -82,8 +82,8 @@ class FC6_DmRaid(KickstartCommand):
     def parse(self, args):
         dm = self.dataClass()   # pylint: disable=not-callable
         ns = self.op.parse_args(args=args, lineno=self.lineno)
-        dm.name = dm.name.split('/')[-1]
         self.set_to_obj(ns, dm)
+        dm.name = dm.name.split('/')[-1]
         dm.lineno = self.lineno
 
         # Check for duplicates in the data list.
