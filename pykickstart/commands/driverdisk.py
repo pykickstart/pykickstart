@@ -131,7 +131,7 @@ class FC3_DriverDisk(KickstartCommand):
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
-        if len(ns.partition) == 1 and ns.source:
+        if ns.partition and ns.source:
             raise KickstartParseError(_("Only one of --source and partition may be specified for driverdisk command."), lineno=self.lineno)
 
         if not ns.partition and not ns.source:
@@ -140,7 +140,7 @@ class FC3_DriverDisk(KickstartCommand):
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
-        if len(ns.partition) == 1:
+        if ns.partition:
             ddd.partition = ns.partition[0]
 
         return ddd
@@ -172,9 +172,9 @@ class FC4_DriverDisk(FC3_DriverDisk):
             mapping = {"command": "driverdisk", "options": extra}
             raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
-        if len(ns.partition) == 1 and ns.source:
+        if ns.partition and ns.source:
             raise KickstartParseError(_("Only one of --source and partition may be specified for driverdisk command."), lineno=self.lineno)
-        elif len(ns.partition) == 1 and ns.biospart:
+        elif ns.partition and ns.biospart:
             raise KickstartParseError(_("Only one of --biospart and partition may be specified for driverdisk command."), lineno=self.lineno)
         elif ns.source and ns.biospart:
             raise KickstartParseError(_("Only one of --biospart and --source may be specified for driverdisk command."), lineno=self.lineno)
@@ -185,7 +185,7 @@ class FC4_DriverDisk(FC3_DriverDisk):
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
         ddd.lineno = self.lineno
-        if len(ns.partition) == 1:
+        if ns.partition:
             ddd.partition = ns.partition[0]
 
         return ddd
