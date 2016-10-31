@@ -31,6 +31,8 @@ This module exports several important classes:
     KickstartParser - The kickstart file parser state machine.
 """
 
+from __future__ import print_function
+
 from collections import Iterator
 import os
 import six
