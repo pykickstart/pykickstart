@@ -35,7 +35,6 @@ class FC3_Monitor(KickstartCommand):
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
-        retval += "monitor"
 
         if self.hsync:
             retval += " --hsync=%s" % self.hsync
@@ -44,10 +43,10 @@ class FC3_Monitor(KickstartCommand):
         if self.vsync:
             retval += " --vsync=%s" % self.vsync
 
-        if retval != "monitor":
-            return retval + "\n"
-        else:
-            return ""
+        if retval:
+            retval = "monitor%s\n" % retval
+
+        return retval
 
     def _getParser(self):
         op = KSOptionParser(prog="monitor", description="""
@@ -87,7 +86,6 @@ class FC6_Monitor(FC3_Monitor):
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
-        retval += "monitor"
 
         if self.hsync:
             retval += " --hsync=%s" % self.hsync
@@ -98,10 +96,10 @@ class FC6_Monitor(FC3_Monitor):
         if self.vsync:
             retval += " --vsync=%s" % self.vsync
 
-        if retval != "monitor":
-            return retval + "\n"
-        else:
-            return ""
+        if retval:
+            retval = "monitor%s\n" % retval
+
+        return retval
 
     def _getParser(self):
         op = FC3_Monitor._getParser(self)
