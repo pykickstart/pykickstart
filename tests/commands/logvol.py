@@ -3,9 +3,9 @@ import unittest
 
 from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
-from pykickstart.commands.logvol import  RHEL5_LogVolData, RHEL6_LogVolData
-from pykickstart.commands.logvol import FC3_LogVolData, F9_LogVolData, \
-    F12_LogVolData, F17_LogVolData, F18_LogVolData, F20_LogVolData
+from pykickstart.commands.logvol import  RHEL5_LogVolData, RHEL6_LogVolData, RHEL7_LogVolData
+from pykickstart.commands.logvol import FC3_LogVolData, F9_LogVolData, F12_LogVolData, F17_LogVolData, F18_LogVolData, F20_LogVolData, F23_LogVolData
+from pykickstart.errors import KickstartParseError
 from pykickstart.version import FC3, RHEL6, F20
 
 if six.PY3:
@@ -55,6 +55,12 @@ class LogVol_TestCase(unittest.TestCase):
         self.assertEqual(f20_data.thin_pool, False)
         self.assertEqual(f20_data.thin_volume, False)
 
+        for cmd_class in [RHEL7_LogVolData, F23_LogVolData]:
+            for attr, attr_alt in [('mkfsoptions', 'mkfsopts')]:
+                for (v1, v2) in [(1, ''), ('', 2), (1, 2)]:
+                    kwargs = { attr: v1, attr_alt: v2 }
+                    data = cmd_class(**kwargs)
+                    self.assertEqual(getattr(data, attr_alt), v1 or v2)
 
 
 class FC3_TestCase(CommandTest):
@@ -507,7 +513,7 @@ class F23_TestCase(F21_TestCase):
         self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --cachepvs=pv.01,pv.02 --thin --poolname=POOLNAME")
 
         # invalid cache mode
-        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=bogus")
+        self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=bogus", KickstartParseError, 'Invalid cache mode given: bogus')
 
 class F29_TestCase(F23_TestCase):
     def runTest(self):
