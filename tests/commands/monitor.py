@@ -62,5 +62,9 @@ class F10_TestCase(FC6_TestCase):
         parser = self.getParser("monitor")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
+        parser = parser._getParser()
+        self.assertIsNotNone(parser)
+        self.assertTrue(parser.description.find('deprecated:: Fedora10') > -1)
+
 if __name__ == "__main__":
     unittest.main()
