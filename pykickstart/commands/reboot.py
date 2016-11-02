@@ -49,7 +49,7 @@ class FC3_Reboot(KickstartCommand):
     def parse(self, args):
         if self.currentCmd == "reboot":
             self.action = KS_REBOOT
-        else:
+        elif self.currentCmd in ["shutdown", "poweroff"]:
             self.action = KS_SHUTDOWN
 
         return self
