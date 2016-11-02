@@ -18,6 +18,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartParseError
 from pykickstart.commands.rootpw import FC3_RootPw, F8_RootPw
 
 class FC3_TestCase(CommandTest):
@@ -31,7 +32,7 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("rootpw --iscrypted secrethandshake", "rootpw --iscrypted secrethandshake\n")
 
         # fail
-        self.assert_parse_error("rootpw")
+        self.assert_parse_error("rootpw", KickstartParseError, 'A single argument is expected for the rootpw command')
         self.assert_parse_error("rootpw --iscrypted=OMGSEKRITZ")
         self.assert_parse_error("rootpw --iscrypted")
         self.assert_parse_error("rootpw pwd1 pwd2")
