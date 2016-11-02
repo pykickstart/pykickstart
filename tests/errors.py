@@ -1,8 +1,9 @@
 import unittest
+import unittest.mock as mock
 from tests.baseclass import ParserTest
 
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError, \
-    KickstartVersionError, _format_error_message
+    KickstartValueError, KickstartVersionError, _format_error_message
 
 
 class ErrorMessage_TestCase(ParserTest):
@@ -104,6 +105,11 @@ class Exception_TestCase(ParserTest):
             self.assertEqual(err.value, _format_error_message(msg="OH NO!", lineno=1))
             self.assertEqual(str(err), _format_error_message(msg="OH NO!", lineno=1))
 
+class KickstartValueError_TestCase(ParserTest):
+    def runTest(self):
+        with mock.patch('warnings.warn') as _warn:
+            self.assertEqual(str(KickstartValueError('TEST')), 'TEST')
+            self.assertEqual(_warn.call_count, 1)
 
 if __name__ == "__main__":
     unittest.main()
