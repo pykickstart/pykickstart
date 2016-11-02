@@ -62,7 +62,8 @@ class Load_To_File_TestCase(LoadTest):
         self.assertEqual(target_path, self._target_path)
         with open(self._target_path, 'r') as f:
             self.assertEqual(self._content, f.read())
-        self.assertRaises(KickstartError, load.load_to_file, "/tmp/foo", "/tmp/bar")
+        with self.assertRaises(KickstartError):
+            load.load_to_file("/tmp/foo", "/tmp/bar")
 
     def tearDown(self):
         super(Load_To_File_TestCase, self).tearDown()
@@ -111,10 +112,22 @@ class Load_From_URL_To_File_TestCase(Load_From_URL_Test):
         with open(self._target_path, 'r') as f:
             self.assertEqual(self._content, f.read())
         self.assertEqual(self._content, load.load_to_str(self._url))
-        self.assertRaises(KickstartError,
-                          load.load_to_file,
-                          self._url_https,
-                          self._target_path)
+
+        # raises SSLError in _load_url()
+        with self.assertRaises(KickstartError):
+            load.load_to_file(self._url_https, self._target_path)
+
+        # raises RequestException in _load_url()
+        with self.assertRaises(KickstartError):
+            load.load_to_file('http://test.local/ks.cfg', self._target_path)
+
+        # raises IOError in load_file()
+        with self.assertRaises(KickstartError):
+            load.load_to_file(self._url, '/no/exist')
+
+        # request.status_code == 404 in _load_url()
+        with self.assertRaises(KickstartError):
+            load.load_to_file(self._url+'.TEST', '/tmp/foo')
 
     def tearDown(self):
         super(Load_From_URL_To_File_TestCase, self).tearDown()
