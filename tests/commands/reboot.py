@@ -19,8 +19,34 @@
 #
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.commands.reboot import FC6_Reboot, F23_Reboot
+from pykickstart.commands.reboot import FC3_Reboot, FC6_Reboot, F18_Reboot, F23_Reboot
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN, KS_WAIT
+
+class Reboot_TestCase(unittest.TestCase):
+    def runTest(self):
+        for reboot_class in [FC3_Reboot, F18_Reboot]:
+            cmd = reboot_class()
+
+            for action in [-1, 9999]:
+                cmd.action = action
+                self.assertEqual(cmd.__str__(), "")
+
+            cmd.action = KS_REBOOT
+            self.assertEqual(cmd.__str__(), "# Reboot after installation\nreboot\n")
+
+            cmd.action = KS_SHUTDOWN
+            self.assertEqual(cmd.__str__(), "# Shutdown after installation\nshutdown\n")
+
+            if isinstance(cmd, F18_Reboot):
+                cmd.action = KS_WAIT
+                self.assertEqual(cmd.__str__(), "# Halt after installation\nhalt\n")
+
+            for currentCmd in ['aaaaa', 'zzzzz']:
+                cmd.currentCmd = currentCmd
+                cmd.action = None
+                cmd.parse([])
+                self.assertEqual(cmd.action, None)
+
 
 class FC3_TestCase(CommandTest):
     command = "reboot"
@@ -33,11 +59,6 @@ class FC3_TestCase(CommandTest):
         cmd = self.assert_parse("shutdown")
         self.assertEqual(cmd.action, KS_SHUTDOWN)
         self.assertEqual(str(cmd), "# Shutdown after installation\nshutdown\n")
-
-        cmd = self.assert_parse("halt")
-        # halt changed in F18
-        if self.__class__.__name__ in ("FC3_TestCase", "FC6_TestCase"):
-            self.assertEqual(cmd.action, KS_SHUTDOWN)
 
         cmd = self.assert_parse("poweroff")
         self.assertEqual(cmd.action, KS_SHUTDOWN)
@@ -67,6 +88,9 @@ class F18_TestCase(FC6_TestCase):
         cmd = self.assert_parse("halt --eject")
         self.assertEqual(cmd.eject, True)
         self.assertEqual(str(cmd), "# Halt after installation\nhalt --eject\n")
+
+        parser = cmd._getParser()
+        self.assertTrue(parser.description.find('versionchanged:: Fedora18') > -1)
 
 class F23_TestCase(F18_TestCase):
     def runTest(self):
