@@ -30,7 +30,7 @@ from pykickstart.i18n import _
 from pykickstart.version import DEVEL, makeVersion
 from pykickstart.errors import KickstartVersionError
 
-def parse_args():
+def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="kscfg", required=True,
                         help=_("Path to kickstart config file"))
@@ -39,13 +39,12 @@ def parse_args():
     parser.add_argument("-o", "--output", dest="output",
                         help=_("Write flattened config to OUTPUT"))
 
-    return parser.parse_args()
+    return parser.parse_args(argv)
 
-def main():
-    opts = parse_args()
+def main(argv=sys.argv[1:]):
+    opts = parse_args(argv)
     if not opts.kscfg:
-        print(_("Need to specify a config to flatten"), file=sys.stderr)
-        sys.exit(1)
+        return (1, _("Need to specify a config to flatten"))
 
     try:
         ksversion = makeVersion(opts.version)
@@ -57,23 +56,27 @@ def main():
     try:
         ksparser.readKickstart(opts.kscfg)
     except IOError as msg:
-        print(_("Failed to read kickstart file '%(filename)s' : %(error_msg)s") % {"filename": opts.kscfg, "error_msg": msg}, file=sys.stderr)
-        sys.exit(1)
+        return (1, _("Failed to read kickstart file '%(filename)s' : %(error_msg)s") % {"filename": opts.kscfg, "error_msg": msg})
     except pykickstart.errors.KickstartError as e:
-        print(_("Failed to parse kickstart file '%(filename)s' : %(error_msg)s") % {"filename": opts.kscfg, "error_msg": e}, file=sys.stderr)
-        sys.exit(1)
+        return (1, _("Failed to parse kickstart file '%(filename)s' : %(error_msg)s") % {"filename": opts.kscfg, "error_msg": e})
 
     if opts.output:
         try:
             f = open(opts.output, 'w')
         except IOError as msg:
-            print(_("Failed to open output file '%(filename)s' : %(error_msg)s") % {"filename": opts.output, "error_msg": msg}, file=sys.stderr)
-            sys.exit(1)
+            return (1, _("Failed to open output file '%(filename)s' : %(error_msg)s") % {"filename": opts.output, "error_msg": msg})
     else:
         f = sys.stdout
 
     f.write("%s" % ksparser.handler)
-    f.close()
+
+    if opts.output:
+        f.close()
+
+    return (0, '')
 
 if __name__ == "__main__":
-    main()
+    retval, msg = main()
+    if msg:
+        print(msg, file=sys.stderr)
+    sys.exit(retval)
