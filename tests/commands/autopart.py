@@ -19,13 +19,26 @@
 #
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-from pykickstart.commands.autopart import FC3_AutoPart, RHEL6_AutoPart
+from pykickstart.commands.autopart import FC3_AutoPart, RHEL6_AutoPart, F16_AutoPart, F17_AutoPart, F18_AutoPart, F21_AutoPart
 from pykickstart.version import RHEL6, RHEL7, F21, F23
+from pykickstart.constants import AUTOPART_TYPE_PLAIN
 
 class AutoPart_TestCase(unittest.TestCase):
     def runTest(self):
-        cmd = FC3_AutoPart()
-        self.assertEqual(cmd.__str__(), '')
+        for cmd_class in [FC3_AutoPart, F16_AutoPart, F17_AutoPart, F18_AutoPart, F21_AutoPart]:
+            cmd = cmd_class()
+            self.assertEqual(cmd.__str__(), '')
+
+        # this is very artificial but covers the following snippet
+        # which never executes during normal operation
+        # because self.typeMap['plain'] will match first
+        #    263         if retval == "partition":
+        #    264             retval = "plain"
+
+        cmd = F17_AutoPart()
+        del cmd.typeMap['plain']
+        cmd.type = AUTOPART_TYPE_PLAIN
+        self.assertEqual(cmd._typeAsStr(), 'plain')
 
 class FC3_TestCase(CommandTest):
     command = "autopart"
