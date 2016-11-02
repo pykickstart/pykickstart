@@ -20,11 +20,18 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartParseError
-from pykickstart.commands.timezone import FC3_Timezone, F18_Timezone
+from pykickstart.commands.timezone import FC3_Timezone, FC6_Timezone, F18_Timezone, F25_Timezone, RHEL7_Timezone
 
 
 class Timezone_TestCase(unittest.TestCase):
     def runTest(self):
+        for cmd_class in [FC6_Timezone, F25_Timezone, RHEL7_Timezone]:
+            cmd = cmd_class()
+            op = cmd._getParser()
+            for action in op._actions:
+                if '--isUtc' in action.option_strings:
+                    self.assertFalse(action.default)
+
         cmd = F18_Timezone()
         self.assertEqual(cmd.__str__(), '')
 
@@ -118,10 +125,10 @@ class RHEL7_TestCase(F18_TestCase):
         # unknown argument
         self.assert_parse_error("timezone --blah")
         # more than two timezone specs
-        self.assert_parse_error("timezone foo bar", exception=KickstartParseError)
+        self.assert_parse_error("timezone foo bar", KickstartParseError, 'One or zero arguments are expected for the timezone command')
         self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
         # just "timezone" without any arguments is also wrong as it really dosn't make sense
-        self.assert_parse_error("timezone")
+        self.assert_parse_error("timezone", KickstartParseError, 'At least one option and/or an argument are expected for the timezone command')
 
         # fail
         self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
@@ -138,10 +145,10 @@ class F25_TestCase(F23_TestCase):
         # unknown argument
         self.assert_parse_error("timezone --blah")
         # more than two timezone specs
-        self.assert_parse_error("timezone foo bar", exception=KickstartParseError)
+        self.assert_parse_error("timezone foo bar", KickstartParseError, 'One or zero arguments are expected for the timezone command')
         self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
         # just "timezone" without any arguments is also wrong as it really dosn't make sense
-        self.assert_parse_error("timezone")
+        self.assert_parse_error("timezone", KickstartParseError, 'At least one option and/or an argument are expected for the timezone command')
 
         # fail
         self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")

@@ -263,7 +263,7 @@ class RHEL7_Timezone(F18_Timezone):
         # just "timezone" without any arguments and timezone specification doesn't really make sense,
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
         if not args:
-            error_message = _("At least one option and/or an argument are expected for the  %s command") % "timezone"
+            error_message = _("At least one option and/or an argument are expected for the %s command") % "timezone"
             raise KickstartParseError(error_message, lineno=self.lineno)
 
         # To be able to support the timezone command being used without
@@ -338,7 +338,7 @@ class F25_Timezone(F23_Timezone):
         # just "timezone" without any arguments and timezone specification doesn't really make sense,
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
         if not args:
-            error_message = _("At least one option and/or an argument are expected for the  %s command") % "timezone"
+            error_message = _("At least one option and/or an argument are expected for the %s command") % "timezone"
             raise KickstartParseError(error_message, lineno=self.lineno)
 
         # To be able to support the timezone command being used without
