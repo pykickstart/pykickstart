@@ -52,19 +52,18 @@ def main(argv=sys.argv[1:]):
     if opts.listversions:
         for key in sorted(versionMap.keys()):
             print(key)
-
-        sys.exit(1)
+        return 0
 
     if not opts.f or not opts.t:
         print(_("You must specify two syntax versions."))
-        sys.exit(1)
+        return 1
 
     try:
         fromHandler = makeVersion(opts.f)
         toHandler = makeVersion(opts.t)
     except KickstartVersionError as exn:
         print(_("The version %s is not supported by pykickstart") % exn)
-        sys.exit(1)
+        return 1
 
     fromCmdSet = getCommandSet(fromHandler)
     toCmdSet = getCommandSet(toHandler)
@@ -79,11 +78,7 @@ def main(argv=sys.argv[1:]):
     print(_("The following commands were added in %s:") % opts.t)
     printList(sorted(toCmdSet - fromCmdSet))
 
-    print()
-
     for cmd in sorted(bothSet):
-        printed = False
-
         newOptList = []
         deprecatedOptList = []
         removedOptList = []
@@ -99,25 +94,21 @@ def main(argv=sys.argv[1:]):
 
         newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
         removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
-        deprecatedOptList = getOptSet([cmd for cmd in toOpt if cmd.deprecated == 1])
+        deprecatedOptList = getOptSet([cmd for cmd in toOpt if cmd.deprecated])
 
         if len(newOptList) > 0:
             print(_("The following options were added to the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
             printList(sorted(newOptList))
-            printed = True
 
         if len(deprecatedOptList) > 0:
             print(_("The following options were deprecated from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
             printList(sorted(deprecatedOptList))
-            printed = True
 
         if len(removedOptList) > 0:
             print(_("The following options were removed from the %(command_name)s command in %(version)s:") % {"command_name": cmd, "version": opts.t})
             printList(sorted(removedOptList))
-            printed = True
 
-        if printed:
-            print()
+    return 0
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
