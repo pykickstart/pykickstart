@@ -32,12 +32,14 @@ def getCommandSet(handler):
     return set(handler.commands.keys())
 
 def getOptSet(lst):
-    return set(map(lambda o: o.get_opt_string(), lst))
+    return set(map(lambda o: o.option_strings[0] if o.option_strings else '', lst))
 
 def printList(lst):
     print(' '.join(lst))
+    if lst:
+        print()
 
-def main():
+def main(argv=sys.argv[1:]):
     op = argparse.ArgumentParser()
     op.add_argument("-f", "--from", dest="f")
     op.add_argument("-t", "--to", dest="t")
@@ -45,7 +47,7 @@ def main():
                     default=False,
                     help=_("list the available versions of kickstart syntax"))
 
-    opts = op.parse_args(sys.argv[1:])
+    opts = op.parse_args(argv)
 
     if opts.listversions:
         for key in sorted(versionMap.keys()):
@@ -92,8 +94,8 @@ def main():
         if not hasattr(fromCmd, "op") or not hasattr(toCmd, "op"):
             continue
 
-        fromOpt = fromCmd.op.option_list
-        toOpt = toCmd.op.option_list
+        fromOpt = fromCmd.op._actions
+        toOpt = toCmd.op._actions
 
         newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
         removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
