@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.32
+Version:   2.33
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,15 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Nov 04 2016 Chris Lumens <clumens@redhat.com> - 2.33-1
+- Fix python2 compatibility when printing to stderr (jkonecny)
+- Remove duplicated kwargs.get displayMode variable (jkonecny)
+- Print errors to stderr when errors aren't fatal (jkonecny)
+- Add a type stub for the new F26 support. (clumens)
+- Fix and add tests for F26 and new displaymode (jkonecny)
+- Add non-interactive option to graphical and text modes (jkonecny)
+- Add Fedora 26 support (jkonecny)
+
 * Tue Sep 13 2016 Chris Lumens <clumens@redhat.com> - 2.32-1
 - replace assertEquals with assertEqual in network tests (#103) (rvykydal)
 - Fix F25 timezone should subclass F23 instead of F18 (#102) (jkonecny)
