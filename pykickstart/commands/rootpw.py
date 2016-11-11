@@ -55,7 +55,7 @@ class FC3_RootPw(KickstartCommand):
         op = KSOptionParser(prog="rootpw", description="""
                             This required command sets the system's root
                             password.""", version=FC3)
-        op.add_argument('password', metavar='<password>', nargs='*', version=FC3,
+        op.add_argument('password', metavar='<password>', nargs='?', version=FC3,
                         help="The desired root password.")
         op.add_argument("--iscrypted", dest="isCrypted", action="store_true",
                         default=False, version=FC3, help="""
@@ -72,14 +72,13 @@ class FC3_RootPw(KickstartCommand):
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
-        if len(ns.password) != 1:
+        if not ns.password:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
         elif extra:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
         self.set_to_self(ns)
-        self.password = ns.password[0]
         return self
 
 class F8_RootPw(FC3_RootPw):
@@ -107,7 +106,8 @@ class F8_RootPw(FC3_RootPw):
                         version=F8, help="""
                         If this is present, the root account is locked by
                         default. That is, the root user will not be able to
-                        login from the console.""")
+                        login from the console. When this option is present
+                        the <password> argument is not required.""")
         op.add_argument("--plaintext", dest="isCrypted", action="store_false",
                         version=F8, help="""
                         The password argument is assumed to not be encrypted.
@@ -128,17 +128,12 @@ class F18_RootPw(F8_RootPw):
 
     def parse(self, args):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-        self.set_to_self(ns)
 
-        if len(ns.password) != 1 and not self.lock:
+        if not (ns.password or ns.lock):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"))
         elif extra:
             mapping = {"command": "rootpw", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        if ns.password:
-            self.password = ns.password[0]
-        else:
-            self.password = ""
-
+        self.set_to_self(ns)
         return self
