@@ -50,9 +50,6 @@ docs:
 check:
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
-	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
-	@echo "*** Running type checks ***"
-	PYTHONPATH=. mypy pykickstart
 ifneq ($(PYTHON),python2)
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po $(PKGNAME).pot

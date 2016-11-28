@@ -22,7 +22,6 @@ BuildRequires: python-requests
 
 BuildRequires: python3-coverage
 BuildRequires: python3-devel
-BuildRequires: python3-mypy
 BuildRequires: python3-nose
 BuildRequires: python3-ordered-set
 BuildRequires: python3-requests
