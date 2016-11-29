@@ -238,3 +238,12 @@ texinfo_documents = [
 
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 #texinfo_show_urls = 'footnote'
+
+# run the makefile to generate/update the generated parts of the docs
+# if sphinx has not been started from the makefile
+# (this usually happens during a Read the Docs build)
+if not os.environ.get("STARTED_FROM_MAKEFILE") == "1":
+    print("The makefile needs to be run first.")
+    print("running the makefile")
+    os.system("make html")
+    print("makefile done")
