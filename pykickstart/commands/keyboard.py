@@ -177,7 +177,7 @@ class F18_Keyboard(FC3_Keyboard):
 
     # property for backwards compatibility
     # pylint: disable=method-hidden
-    @property   # type: ignore
+    @property
     def keyboard(self):
         if self.x_layouts:
             return self._keyboard or self.vc_keymap or self.x_layouts[0]
