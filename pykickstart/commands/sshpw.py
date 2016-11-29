@@ -147,7 +147,7 @@ class F13_SshPw(KickstartCommand):
                         If this is present, the new user account is locked by
                         default. That is, the user will not be able to login
                         from the console.""")
-        op.add_argument("password", metavar="<password>", nargs="*",
+        op.add_argument("password", metavar="<password>", nargs=1,
                         version=F13, help="""
                         The password string to use.""")
         return op
