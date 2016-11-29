@@ -425,7 +425,6 @@ class BaseHandler(KickstartObject):
         if cmdName not in self.commands:
             raise KeyError
 
-        # mypy does not understand this, so ignore it for now
         cmdObj = self.commands[cmdName].__class__()
 
         self._setCommand(cmdObj)

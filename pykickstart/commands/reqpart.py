@@ -23,7 +23,7 @@ from pykickstart.options import KSOptionParser
 
 import gettext
 # typeshed is missing the stub for ldgettext
-_ = lambda x: gettext.ldgettext("pykickstart", x)   # type: ignore
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords

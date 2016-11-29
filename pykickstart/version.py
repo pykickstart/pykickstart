@@ -45,14 +45,6 @@ This module also exports several functions:
 """
 import re, sys
 
-# import static typing information if available
-try:
-    from typing import Callable, Union, cast    # pylint: disable=unused-import
-    from pykickstart.base import BaseHandler    # pylint: disable=unused-import
-except ImportError:
-    cast = lambda ty, val: val
-
-# mypy doesn't handle conditional imports, so just skip this part
 import importlib
 
 from pykickstart.i18n import _
@@ -180,10 +172,10 @@ def returnClassForVersion(version=DEVEL):
     """
     try:
         version = int(version)
-        module = "%s" % versionToString(cast(int, version), skipDevel=True)
+        module = "%s" % versionToString(version, skipDevel=True)
     except ValueError:
         module = "%s" % version
-        version = stringToVersion(cast(str, version))
+        version = stringToVersion(version)
 
     module = module.lower()
 
