@@ -47,12 +47,6 @@ This module also exports several functions:
 """
 import os, re, sys
 
-try:
-    from typing import cast
-except ImportError:
-    cast = lambda ty, val: val
-
-# mypy doesn't handle conditional imports, so just skip this part
 import importlib
 
 from pykickstart.i18n import _
@@ -189,10 +183,10 @@ def returnClassForVersion(version=DEVEL):
     """
     try:
         version = int(version)
-        module = "%s" % versionToString(cast(int, version), skipDevel=True)
+        module = "%s" % versionToString(version, skipDevel=True)
     except ValueError:
         module = "%s" % version
-        version = stringToVersion(cast(str, version))
+        version = stringToVersion(version)
 
     module = module.lower()
 

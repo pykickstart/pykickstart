@@ -25,7 +25,6 @@ setup(cmdclass={"install_scripts": install_scripts},
       url='http://fedoraproject.org/wiki/pykickstart',
       scripts=['tools/ksvalidator.py', 'tools/ksflatten.py', 'tools/ksverdiff.py', 'tools/ksshell.py'],
       packages=['pykickstart', 'pykickstart.commands', 'pykickstart.handlers'],
-      package_data={'': ['*.pyi']},
       data_files=[('share/man/man1', ['docs/ksvalidator.1', 'docs/ksflatten.1', 'docs/ksverdiff.1',
                                       'docs/ksshell.1'])],
       classifiers=["Programming Language :: Python :: 3"])
