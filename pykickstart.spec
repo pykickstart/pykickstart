@@ -81,8 +81,6 @@ make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 popd
 
 %check
-make PYTHON=%{__python2} test
-
 pushd %{py3dir}
 make PYTHON=%{__python3} test
 popd

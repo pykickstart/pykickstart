@@ -13,22 +13,10 @@ PREFIX=/usr
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py
+NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1
 
-PYTHON?=python3
-
-ifeq ($(PYTHON),python3)
-  COVERAGE=coverage3
-  ifneq ($(TRAVIS),true)
-      # Coverage + multiprocessing does not work under python2.  Oh well, just don't use multiprocessing there.
-      # We default to python3 now so everyone else can just deal with the slowness.
-      NOSEARGS+=--processes=-1
-  endif
-  NOSEARGS+=$(tests)
-else
-  COVERAGE?=coverage
-  NOSEARGS+=$(filter-out tests/attrs.py tests/tools/ksvalidator.py,$(tests))
-endif
+COVERAGE=coverage3
+PYTHON?=/usr/bin/python3
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
@@ -48,19 +36,23 @@ docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
+ifneq ($(PYTHON),/usr/bin/python3)
+	$(error The check target is only supported for python3)
+endif
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
-ifneq ($(PYTHON),python2)
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po $(PKGNAME).pot
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/$(PKGNAME).pot
-endif
 	git checkout -- po/$(PKGNAME).pot || true
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
 
 coverage:
+ifneq ($(PYTHON),/usr/bin/python3)
+	$(error The coverage/test target is only supported for python3)
+endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
 	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
