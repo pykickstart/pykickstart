@@ -13,7 +13,7 @@ PREFIX=/usr
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1
+NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 $(tests)
 
 COVERAGE=coverage3
 PYTHON?=/usr/bin/python3
