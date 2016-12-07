@@ -145,7 +145,7 @@ class CommandTest(unittest.TestCase):
     def getParser(self, inputStr):
         '''Find a handler using the class name.  Return the requested command
         object.'''
-        args = shlex.split(inputStr)
+        args = shlex.split(inputStr, comments=True)
         cmd = args[0]
 
         parser = self.handler().commands[cmd]
@@ -155,11 +155,11 @@ class CommandTest(unittest.TestCase):
 
         return parser
 
-    def assert_parse(self, inputStr, expectedStr=None, ignoreComments=True):
+    def assert_parse(self, inputStr, expectedStr=None):
         '''KickstartParseError is not raised and the resulting string matches
         supplied value'''
         parser = self.getParser(inputStr)
-        args = shlex.split(inputStr)
+        args = shlex.split(inputStr, comments=True)
 
         # If expectedStr supplied, we want to ensure the parsed result matches
         if expectedStr is not None:
@@ -167,8 +167,7 @@ class CommandTest(unittest.TestCase):
             result = str(obj)
 
             # Strip any comment lines ... we only match on non-comments
-            if ignoreComments:
-                result = re.sub("^#[^\n]*\n", "", result)
+            result = re.sub("^#[^\n]*\n", "", result)
 
             # Ensure we parsed as expected
             self.assertEqual(result, expectedStr)
@@ -185,7 +184,7 @@ class CommandTest(unittest.TestCase):
         '''Assert that parsing the supplied string raises a
         KickstartParseError'''
         parser = self.getParser(inputStr)
-        args = shlex.split(inputStr)
+        args = shlex.split(inputStr, comments=True)
 
         with six.assertRaisesRegex(self, exception, regex):
             parser.parse(args[1:])
