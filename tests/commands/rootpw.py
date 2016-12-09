@@ -48,7 +48,8 @@ class F8_TestCase(FC3_TestCase):
         self.assert_parse("rootpw --lock --plaintext --iscrypted secrethandshake", "rootpw --iscrypted --lock secrethandshake\n")
         self.assert_parse("rootpw --plaintext --iscrypted --lock secrethandshake", "rootpw --iscrypted --lock secrethandshake\n")
         self.assert_parse("rootpw --iscrypted --plaintext --lock secrethandshake", "rootpw --lock --plaintext secrethandshake\n")
-        self.assert_parse("rootpw --plaintext comment#inpassword", "rootpw --plaintext comment#inpassword\n")
+        obj = self.assert_parse("rootpw --plaintext \"comment#inpassword\"", "rootpw --plaintext \"comment#inpassword\"\n")
+        self.assertEqual(obj.password, "comment#inpassword")
 
         # fail
         self.assert_parse_error("rootpw --plaintext=ISEEENGLAND secrethandshake", KickstartParseError)
