@@ -22,6 +22,7 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser, commaSplit
 
 import warnings
+import six
 from pykickstart.i18n import _
 
 class FC6_UserData(BaseData):
@@ -66,7 +67,12 @@ class FC6_UserData(BaseData):
         if self.name:
             retval += " --name=%s" % self.name
         if self.password:
-            retval += " --password=%s" % self.password
+            if isinstance(self.password, six.binary_type) and b'#' in self.password:
+                retval += " --password=\"%s\"" % self.password
+            elif not isinstance(self.password, six.binary_type) and u'#' in self.password:
+                retval += " --password=\"%s\"" % self.password
+            else:
+                retval += " --password=%s" % self.password
         if self.isCrypted:
             retval += " --iscrypted"
         if self.shell:

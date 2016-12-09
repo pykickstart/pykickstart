@@ -24,6 +24,8 @@ from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
 
+import six
+
 class FC3_RootPw(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -47,7 +49,14 @@ class FC3_RootPw(KickstartCommand):
         retval = KickstartCommand.__str__(self)
 
         if self.password:
-            retval += "# Root password\nrootpw%s %s\n" % (self._getArgsAsStr(), self.password)
+            if isinstance(self.password, six.binary_type) and b'#' in self.password:
+                password = '\"' + self.password + '\"'
+            elif not isinstance(self.password, six.binary_type) and u'#' in self.password:
+                password = '\"' + self.password + '\"'
+            else:
+                password = self.password
+
+            retval += "# Root password\nrootpw%s %s\n" % (self._getArgsAsStr(), password)
 
         return retval
 
