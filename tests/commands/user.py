@@ -25,6 +25,7 @@ class FC6_TestCase(CommandTest):
     def runTest(self):
         # pass
         self.assert_parse("user --name=user", "user --name=user\n")
+        self.assert_parse("user --name=user --password=\"comment#inpassword\"", "user --name=user --password=\"comment#inpassword\"\n")
         self.assert_parse("user --name=user --groups=grp1,grp2 --homedir=/home/user --shell=/bin/bash --uid=1000 --password=secret --iscrypted",
                           "user --groups=grp1,grp2 --homedir=/home/user --name=user --password=secret --iscrypted --shell=/bin/bash --uid=1000\n")
         self.assert_parse("user --name=user --groups=grp1", "user --groups=grp1 --name=user\n")

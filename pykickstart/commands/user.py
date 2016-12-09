@@ -64,7 +64,10 @@ class FC6_UserData(BaseData):
         if self.name:
             retval += " --name=%s" % self.name
         if self.password:
-            retval += " --password=%s" % self.password
+            if '#' in self.password:
+                retval += " --password=\"%s\"" % self.password
+            else:
+                retval += " --password=%s" % self.password
         if self.isCrypted:
             retval += " --iscrypted"
         if self.shell:

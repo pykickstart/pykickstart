@@ -46,8 +46,13 @@ class FC3_RootPw(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.password != "":
-            retval += "# Root password\nrootpw%s %s\n" % (self._getArgsAsStr(), self.password)
+        if self.password:
+            if '#' in self.password:
+                password = '\"' + self.password + '\"'
+            else:
+                password = self.password
+
+            retval += "# Root password\nrootpw%s %s\n" % (self._getArgsAsStr(), password)
 
         return retval
 
