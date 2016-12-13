@@ -167,8 +167,20 @@ pykickstart processes arguments to commands just like the shell does:
 
 Use the ``%include /path/to/file`` or ``%include <url>`` command
 to include the contents of another file in the kickstart file as though
-the contents were at the location of the %include command in the
+the contents were at the location of the ``%include`` command in the
 kickstart file.
+
+Note the semantics of most kickstart commands default to "last keyword
+wins", which means that for example if you have a
+``services --enable=foo,bar`` in one file, and `%include` that file
+and use ``services --enable=baz``, only the ``baz`` service will be
+enabled.
+
+The Kickstart documentation usually notes which commands support
+multiple instances - this is mostly multi-line commands such as
+``%packages`` and ``%post``.  Other exceptions include the ``user`` and
+``group`` commands.  Consult individual command documentation for
+semantics.
 
 
 %ksappend
