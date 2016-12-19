@@ -433,7 +433,7 @@ class PackageSection(Section):
                             Packages can be specified by group or by individual
                             package name. The installation program defines
                             several groups that contain related packages. Refer
-                            to the repodata/\\*comps.xml file on the first CD-ROM
+                            to the repodata/\\*comps\\*.xml file on the first CD-ROM
                             for a list of groups. Each group has an id, user
                             visibility value, name, description, and package
                             list. In the package list, the packages marked as
