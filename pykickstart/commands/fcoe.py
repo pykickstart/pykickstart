@@ -18,6 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import F12, F13, F28, RHEL7
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -139,7 +140,7 @@ class F12_Fcoe(KickstartCommand):
 
         # Check for duplicates in the data list.
         if zd in self.dataList():
-            warnings.warn(_("A FCOE device with the name %s has already been defined.") % zd.nic)
+            warnings.warn(_("A FCOE device with the name %s has already been defined.") % zd.nic, KickstartParseWarning)
 
         return zd
 

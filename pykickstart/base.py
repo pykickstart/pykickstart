@@ -42,7 +42,7 @@ from pykickstart.i18n import _
 
 import six
 import warnings
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.version import versionToString
 from pykickstart.parser import Packages
@@ -97,7 +97,7 @@ class KickstartCommand(KickstartObject):
         # If a subclass provides a removedKeywords list, warn if the user
         # continues to use some of the removed keywords
         for arg in (kw for kw in self.removedKeywords if kw in kwargs):
-            warnings.warn("The '%s' keyword has been removed." % arg, SyntaxWarning, stacklevel=2)
+            warnings.warn("The '%s' keyword has been removed." % arg, KickstartParseWarning, stacklevel=2)
 
     def __call__(self, *args, **kwargs):
         """Set multiple attributes on a subclass of KickstartCommand at once
@@ -203,7 +203,7 @@ class DeprecatedCommand(KickstartCommand):
     def parse(self, args):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
-        warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, DeprecationWarning)
+        warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, KickstartDeprecationWarning)
 
 ###
 ### HANDLERS
@@ -546,7 +546,7 @@ class BaseData(KickstartObject):
         # If a subclass provides a removedKeywords list, warn if the user
         # continues to use some of the removed keywords
         for arg in (kw for kw in self.removedKeywords if kw in kwargs):
-            warnings.warn("The '%s' keyword has been removed." % arg, SyntaxWarning, stacklevel=2)
+            warnings.warn("The '%s' keyword has been removed." % arg, KickstartParseWarning, stacklevel=2)
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""

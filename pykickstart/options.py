@@ -48,7 +48,7 @@ import textwrap
 from argparse import RawTextHelpFormatter, SUPPRESS
 from argparse import Action, ArgumentParser, ArgumentTypeError
 
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.version import versionToString, versionToLongString
 
 from pykickstart.i18n import _
@@ -187,7 +187,7 @@ class KSOptionParser(ArgumentParser):
                 self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
         elif action.deprecated is True or (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
             mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
-            warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, DeprecationWarning)
+            warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, KickstartDeprecationWarning)
 
         return option_tuple
 

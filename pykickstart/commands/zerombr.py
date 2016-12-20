@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 import warnings
+
+from pykickstart.errors import KickstartDeprecationWarning
 from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
@@ -57,7 +59,7 @@ class FC3_ZeroMbr(KickstartCommand):
         extra = self.op.parse_known_args(args=args, lineno=self.lineno)[1]
 
         if extra:
-            warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, DeprecationWarning)
+            warnings.warn(_("Ignoring deprecated option on line %s:  The zerombr command no longer takes any options.  In future releases, this will result in a fatal error from kickstart.  Please modify your kickstart file to remove any options.") % self.lineno, KickstartDeprecationWarning)
 
         self.zerombr = True
         return self

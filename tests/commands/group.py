@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.group import F12_GroupData
 from pykickstart.version import F12
@@ -86,7 +88,7 @@ group --name=othertest""")
 
         self.assert_parse_error("""
 group --name=test --gid=1000
-group --name=test --gid=1010""", UserWarning)
+group --name=test --gid=1010""", KickstartParseWarning)
 
 if __name__ == "__main__":
     unittest.main()

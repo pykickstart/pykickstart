@@ -42,7 +42,7 @@ import warnings
 from ordered_set import OrderedSet
 
 from pykickstart import constants, version
-from pykickstart.errors import KickstartError, KickstartParseError
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.options import KSOptionParser
@@ -755,7 +755,7 @@ class KickstartParser(object):
                             # NullSection for the header we just saw.  Then nothing else
                             # needs to change.  You can turn this warning into an error via
                             # ksvalidator, or the warnings module.
-                            warnings.warn(_("Potentially unknown section seen at line %(lineno)s: %(sectionName)s") % {"lineno": lineno, "sectionName": newSection})
+                            warnings.warn(_("Potentially unknown section seen at line %(lineno)s: %(sectionName)s") % {"lineno": lineno, "sectionName": newSection}, KickstartParseWarning)
                             self.registerSection(NullSection(self.handler, sectionOpen=newSection))
 
                     self._state = newSection

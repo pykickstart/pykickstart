@@ -23,7 +23,7 @@ from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
 from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 
 import warnings
 from pykickstart.i18n import _
@@ -475,7 +475,7 @@ class FC3_Network(KickstartCommand):
 
         # Check for duplicates in the data list.
         if nd in self.dataList():
-            warnings.warn(_("A network device with the name %s has already been defined.") % nd.device)
+            warnings.warn(_("A network device with the name %s has already been defined.") % nd.device, KickstartParseWarning)
 
         return nd
 

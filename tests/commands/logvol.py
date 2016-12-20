@@ -1,5 +1,7 @@
 import six
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.logvol import  RHEL5_LogVolData, RHEL6_LogVolData
 from pykickstart.commands.logvol import FC3_LogVolData, F9_LogVolData, \
@@ -159,7 +161,7 @@ logvol /home --size=1024 --name=nameA --vgname=vgB""")
 
         self.assert_parse_error("""
 logvol / --size=1024 --name=nameA --vgname=vgA
-logvol /home --size=1024 --name=nameA --vgname=vgA""", UserWarning)
+logvol /home --size=1024 --name=nameA --vgname=vgA""", KickstartParseWarning)
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):

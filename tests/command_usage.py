@@ -1,3 +1,4 @@
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandSequenceTest
 
 
@@ -79,4 +80,4 @@ part swap --size=2048 --fstype=swap""")
         # Two root partitions is not.
         self.assert_parse_error("""
 part / --size=1024 --fstype=ext4
-part / --size=2048 --fstype=ext4""", exception=UserWarning)
+part / --size=2048 --fstype=ext4""", exception=KickstartParseWarning)

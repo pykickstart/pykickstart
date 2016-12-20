@@ -20,7 +20,7 @@
 from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
 from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -413,7 +413,7 @@ class FC3_Partition(KickstartCommand):
 
         # Check for duplicates in the data list.
         if pd.mountpoint != "swap" and pd in self.dataList():
-            warnings.warn(_("A partition with the mountpoint %s has already been defined.") % pd.mountpoint)
+            warnings.warn(_("A partition with the mountpoint %s has already been defined.") % pd.mountpoint, KickstartParseWarning)
 
         return pd
 

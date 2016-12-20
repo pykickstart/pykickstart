@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.fcoe import F12_FcoeData
 from pykickstart.version import F12
@@ -79,7 +81,7 @@ fcoe --nic=eth1""")
 
         self.assert_parse_error("""
 fcoe --nic=eth0
-fcoe --nic=eth0""", UserWarning)
+fcoe --nic=eth0""", KickstartParseWarning)
 
 class F13_TestCase(F12_TestCase):
     def runTest(self):

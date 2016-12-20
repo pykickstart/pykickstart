@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 """
-Error handling classes and functions.
+Error and warning handling classes and functions.
 
 This module exports several exception classes:
 
@@ -31,6 +31,16 @@ This module exports several exception classes:
 
     KickstartVersionError - An exception for errors relating to unsupported
                             syntax versions.
+
+And some warning classes:
+
+    KickstartWarning - A generic warning class.
+
+    KickstartParseWarning - A class for warnings occurring during parsing.
+
+    KickstartDeprecationWarning - A class for warnings occurring during parsing
+                                  related to deprecated commands and options.
+
 """
 import warnings
 from pykickstart.i18n import _
@@ -103,5 +113,21 @@ class KickstartValueError(KickstartError):
 class KickstartVersionError(KickstartError):
     """An exception class for errors related to using an incorrect version of
        kickstart syntax.
+    """
+    pass
+
+class KickstartWarning(Warning):
+    """A generic warning class for unspecific conditions."""
+    pass
+
+class KickstartParseWarning(KickstartWarning, UserWarning):
+    """A class for warnings occurring during parsing an input file, such as
+       defining duplicate entries and setting removed keywords.
+    """
+    pass
+
+class KickstartDeprecationWarning(KickstartParseWarning, DeprecationWarning):
+    """A class for warnings occurring during parsing related to using deprecated
+       commands and options.
     """
     pass

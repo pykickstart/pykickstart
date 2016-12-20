@@ -18,6 +18,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.version import versionToLongString, FC6, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
 from pykickstart.options import KSOptionParser
@@ -87,7 +88,7 @@ class FC6_DmRaid(KickstartCommand):
 
         # Check for duplicates in the data list.
         if dm in self.dataList():
-            warnings.warn(_("A DM RAID device with the name %(name)s and devices %(devices)s has already been defined.") % {"name": dm.name, "devices": dm.devices})
+            warnings.warn(_("A DM RAID device with the name %(name)s and devices %(devices)s has already been defined.") % {"name": dm.name, "devices": dm.devices}, KickstartParseWarning)
 
         return dm
 

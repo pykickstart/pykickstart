@@ -19,7 +19,7 @@
 #
 from pykickstart.version import versionToLongString, FC3, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -153,7 +153,7 @@ class F8_Device(FC3_Device):
 
         # Check for duplicates in the data list.
         if dd in self.dataList():
-            warnings.warn(_("A module with the name %s has already been defined.") % dd.moduleName)
+            warnings.warn(_("A module with the name %s has already been defined.") % dd.moduleName, KickstartParseWarning)
 
         return dd
 

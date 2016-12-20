@@ -1,4 +1,6 @@
 import unittest
+
+from pykickstart.errors import KickstartDeprecationWarning
 from tests.baseclass import CommandTest
 
 
@@ -20,10 +22,10 @@ class F28_TestCase(FC3_TestCase):
     def runTest(self):
         super().runTest()
 
-        with self.assertWarns(DeprecationWarning):
+        with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("authconfig")
 
-        with self.assertWarns(DeprecationWarning):
+        with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("auth")
 
 

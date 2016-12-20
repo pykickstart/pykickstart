@@ -19,7 +19,7 @@
 #
 from pykickstart.version import F22
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 import warnings
 
@@ -106,7 +106,7 @@ class F22_SshKey(KickstartCommand):
         ud.lineno = self.lineno
 
         if ud in self.dataList():
-            warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username)
+            warnings.warn(_("An ssh user with the name %s has already been defined.") % ud.username, KickstartParseWarning)
 
         return ud
 
