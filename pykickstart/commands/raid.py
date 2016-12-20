@@ -21,7 +21,7 @@ from textwrap import dedent
 from pykickstart.version import versionToLongString, RHEL5, RHEL6, FC3, FC4, FC5
 from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25, RHEL8
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -423,7 +423,7 @@ class FC3_Raid(KickstartCommand):
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
-            warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device)
+            warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device, KickstartParseWarning)
 
         if not rd.preexist and not rd.level:
             raise KickstartParseError("RAID Partition defined without RAID level", lineno=self.lineno)

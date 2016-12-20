@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.version import F12
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
@@ -91,7 +92,7 @@ class F12_Group(KickstartCommand):
 
         # Check for duplicates in the data list.
         if gd in self.dataList():
-            warnings.warn(_("A group with the name %s has already been defined.") % gd.name)
+            warnings.warn(_("A group with the name %s has already been defined.") % gd.name, KickstartParseWarning)
 
         return gd
 

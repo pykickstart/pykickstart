@@ -21,7 +21,8 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.btrfs import F17_BTRFSData
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
+
 
 class BTRFS_TestCase(unittest.TestCase):
     def runTest(self):
@@ -122,7 +123,7 @@ class F17_TestCase(CommandTest):
         self.assertEqual(btrfs.__str__(), "btrfs btrfs --subvol --name=home /home\n")
 
         # check for duplicates in the btrfslist when parsing
-        with self.assertRaises(UserWarning):
+        with self.assertRaises(KickstartParseWarning):
             btrfs.parse("btrfs /home --subvol --name=home".split(" "))
 
         # equality

@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest
 
 from pykickstart.base import DeprecatedCommand
@@ -93,7 +95,7 @@ class F8_TestCase(CommandTest):
 
         # test if trying to define the same module again will raise
         # a warning
-        with self.assertRaises(UserWarning):
+        with self.assertRaises(KickstartParseWarning):
             device.parse(["MODNAME"])
 
         dd = self.handler().DeviceData()

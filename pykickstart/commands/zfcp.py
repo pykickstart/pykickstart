@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.version import FC3, F12, F14
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
@@ -116,7 +117,7 @@ class FC3_ZFCP(KickstartCommand):
 
         # Check for duplicates in the data list.
         if zd in self.dataList():
-            warnings.warn(_("A zfcp with this information has already been defined."))
+            warnings.warn(_("A zfcp with this information has already been defined."), KickstartParseWarning)
 
         return zd
 

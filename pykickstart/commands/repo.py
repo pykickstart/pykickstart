@@ -21,7 +21,7 @@ from textwrap import dedent
 from pykickstart.version import versionToLongString
 from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartError, KickstartParseError
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
 
 import warnings
@@ -264,7 +264,7 @@ class FC6_Repo(KickstartCommand):
 
         # Check for duplicates in the data list.
         if rd in self.dataList():
-            warnings.warn(_("A repo with the name %s has already been defined.") % rd.name)
+            warnings.warn(_("A repo with the name %s has already been defined.") % rd.name, KickstartParseWarning)
 
         return rd
 

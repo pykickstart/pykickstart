@@ -18,6 +18,8 @@
 #
 
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.dmraid import FC6_DmRaidData
 from pykickstart.base import DeprecatedCommand
@@ -89,7 +91,7 @@ dmraid --name=raidB --dev=deviceB""")
 
         self.assert_parse_error("""
 dmraid --name=raidA --dev=deviceA
-dmraid --name=raidA --dev=deviceA""", UserWarning)
+dmraid --name=raidA --dev=deviceA""", KickstartParseWarning)
 
 class F24_TestCase(FC6_TestCase):
     def runTest(self):

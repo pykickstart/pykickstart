@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.user import FC6_UserData
 from pykickstart.version import FC6
@@ -99,7 +101,7 @@ user --name=userB""")
         # fail - can't have two users with the same name
         self.assert_parse_error("""
 user --name=userA
-user --name=userA""", UserWarning)
+user --name=userA""", KickstartParseWarning)
 
 class F8_TestCase(FC6_TestCase):
     def runTest(self):

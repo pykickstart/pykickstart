@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F16, F21
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -177,7 +177,7 @@ class FC3_VolGroup(KickstartCommand):
 
         # Check for duplicates in the data list.
         if vg in self.dataList():
-            warnings.warn(_("A volgroup with the name %s has already been defined.") % vg.vgname)
+            warnings.warn(_("A volgroup with the name %s has already been defined.") % vg.vgname, KickstartParseWarning)
 
         return vg
 

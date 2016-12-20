@@ -20,7 +20,7 @@
 from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21
 from pykickstart.version import F23, RHEL5, RHEL6, RHEL7, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit
 
 import warnings
@@ -440,7 +440,7 @@ class FC3_LogVol(KickstartCommand):
 
         # Check for duplicates in the data list.
         if lvd in self.dataList():
-            warnings.warn(_("A logical volume with the name %(logical_volume_name)s has already been defined in volume group %(volume_group)s.") % {"logical_volume_name": lvd.name, "volume_group": lvd.vgname})
+            warnings.warn(_("A logical volume with the name %(logical_volume_name)s has already been defined in volume group %(volume_group)s.") % {"logical_volume_name": lvd.name, "volume_group": lvd.vgname}, KickstartParseWarning)
 
         return lvd
 

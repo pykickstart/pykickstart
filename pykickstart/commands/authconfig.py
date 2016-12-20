@@ -20,6 +20,7 @@
 import warnings
 from textwrap import dedent
 
+from pykickstart.errors import KickstartDeprecationWarning
 from pykickstart.version import FC3, versionToLongString, F28
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
@@ -67,7 +68,7 @@ class F28_Authconfig(FC3_Authconfig):
 
     def parse(self, args):
         warnings.warn("The authconfig command will be deprecated, use authselect "
-                      "instead.", DeprecationWarning)
+                      "instead.", KickstartDeprecationWarning)
 
         return super(F28_Authconfig, self).parse(args)
 

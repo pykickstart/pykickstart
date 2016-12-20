@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.volgroup import FC3_VolGroupData, F21_VolGroupData
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.version import FC3
 
 class VolGroup_TestCase(unittest.TestCase):
@@ -96,7 +96,7 @@ volgroup vg.02 pv.01""")
 
         self.assert_parse_error("""
 volgroup vg.01 pv.01
-volgroup vg.01 pv.02""", UserWarning)
+volgroup vg.01 pv.02""", KickstartParseWarning)
 
 class F16_TestCase(FC3_TestCase):
     def runTest(self):

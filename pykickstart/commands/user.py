@@ -17,6 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.version import FC6, F8, F12, F19, F24
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser, commaSplit
@@ -198,7 +199,7 @@ class FC6_User(KickstartCommand):
 
         # Check for duplicates in the data list.
         if ud in self.dataList():
-            warnings.warn(_("A user with the name %s has already been defined.") % ud.name)
+            warnings.warn(_("A user with the name %s has already been defined.") % ud.name, KickstartParseWarning)
 
         return ud
 

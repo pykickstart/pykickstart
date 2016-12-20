@@ -9,7 +9,8 @@ import six
 
 import importlib
 
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning, \
+    KickstartParseWarning
 from pykickstart.parser import KickstartParser
 from pykickstart.version import DEVEL, makeVersion, returnClassForVersion
 from pykickstart.i18n import _
@@ -83,8 +84,8 @@ class CommandSequenceTest(ParserTest):
         '''Perform any command setup'''
         ParserTest.setUp(self)
 
-        # turn warnings into errors so we can catch them
-        warnings.simplefilter("error", category=UserWarning)
+        # turn all parse warnings into errors so we can catch them
+        warnings.simplefilter("error", category=KickstartParseWarning)
 
     def tearDown(self):
         '''Undo anything performed by setUp(self)'''
@@ -108,11 +109,11 @@ class CommandTest(unittest.TestCase):
         '''Perform any command setup'''
         unittest.TestCase.setUp(self)
 
-        # turn warnings into errors so we can catch them
-        warnings.simplefilter("error", category=UserWarning)
+        # turn all parse warnings into errors so we can catch them
+        warnings.simplefilter("error", category=KickstartParseWarning)
 
-        # ignore DeprecationWarning
-        warnings.simplefilter("ignore", category=DeprecationWarning, append=0)
+        # ignore deprecation warnings
+        warnings.simplefilter("ignore", category=KickstartDeprecationWarning)
 
     def tearDown(self):
         '''Undo anything performed by setUp(self)'''

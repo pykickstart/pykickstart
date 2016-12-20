@@ -20,7 +20,7 @@
 
 import warnings
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE, \
     NVDIMM_ACTION_USE
@@ -145,10 +145,10 @@ class F28_Nvdimm(KickstartCommand):
         if nvdimm_data in self.dataList():
             if nvdimm_data.namespace:
                 warnings.warn(_("An action %(action)s on namespace %(namespace)s has already been defined.")
-                              % {"action": action, "namespace": nvdimm_data.namespace})
+                              % {"action": action, "namespace": nvdimm_data.namespace}, KickstartParseWarning)
             if nvdimm_data.blockdevs:
                 warnings.warn(_("An action %(action)s on devices %(blockdevs)s has already been defined.")
-                              % {"action": action, "blockdevs": nvdimm_data.blockdevs})
+                              % {"action": action, "blockdevs": nvdimm_data.blockdevs}, KickstartParseWarning)
 
         if action == NVDIMM_ACTION_RECONFIGURE:
             if not nvdimm_data.namespace:

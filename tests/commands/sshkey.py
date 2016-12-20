@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.sshkey import F22_SshKeyData
 from pykickstart.version import F22
@@ -83,7 +85,7 @@ sshkey --username=otherguy 'this is the key'""")
 
         self.assert_parse_error("""
 sshkey --username=someguy 'this is the key'
-sshkey --username=someguy 'this is the key'""", UserWarning)
+sshkey --username=someguy 'this is the key'""", KickstartParseWarning)
 
 if __name__ == "__main__":
     unittest.main()

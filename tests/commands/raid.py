@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.version import FC3, F20
 from pykickstart.commands.raid import FC3_RaidData
 
@@ -167,7 +167,7 @@ raid /usr --device=md1 --level=0 raid.01 raid.02
         self.assert_parse_error("""
 raid / --device=md0 --level=0 raid.01 raid.02
 raid / --device=md0 --level=0 raid.01 raid.02
-""", UserWarning)
+""", KickstartParseWarning)
 
 class FC4_TestCase(FC3_TestCase):
     def runTest(self):
