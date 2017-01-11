@@ -58,9 +58,14 @@ if not opts.f or not opts.t:
 
 try:
     fromHandler = makeVersion(opts.f)
+except KickstartVersionError:
+    print(_("The version %s is not supported by pykickstart") % opts.f)
+    sys.exit(1)
+
+try:
     toHandler = makeVersion(opts.t)
-except KickstartVersionError as exn:
-    print(_("The version %s is not supported by pykickstart") % exn)
+except KickstartVersionError:
+    print(_("The version %s is not supported by pykickstart") % opts.t)
     sys.exit(1)
 
 fromCmdSet = getCommandSet(fromHandler)

@@ -28,6 +28,7 @@ import pykickstart
 import pykickstart.parser
 from pykickstart.i18n import _
 from pykickstart.version import DEVEL, makeVersion
+from pykickstart.errors import KickstartVersionError
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -46,7 +47,12 @@ def main():
         print(_("Need to specify a config to flatten"), file=sys.stderr)
         sys.exit(1)
 
-    ksversion = makeVersion(opts.version)
+    try:
+        ksversion = makeVersion(opts.version)
+    except KickstartVersionError:
+        print(_("The version %s is not supported by pykickstart") % opts.version)
+        sys.exit(1)
+
     ksparser = pykickstart.parser.KickstartParser(ksversion)
     try:
         ksparser.readKickstart(opts.kscfg)
