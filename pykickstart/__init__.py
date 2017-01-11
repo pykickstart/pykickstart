@@ -3,4 +3,4 @@
 # for users of the code.
 import warnings
 warnings.filterwarnings("once", category=PendingDeprecationWarning)
-warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module="pykickstart")
+warnings.filterwarnings("ignore", category=PendingDeprecationWarning, module=".")
