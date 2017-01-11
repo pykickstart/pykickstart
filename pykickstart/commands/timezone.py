@@ -189,7 +189,7 @@ class RHEL7_Timezone(F18_Timezone):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         # just "timezone" without any arguments and timezone specification doesn't really make sense,
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
@@ -223,7 +223,7 @@ class F25_Timezone(F23_Timezone):
 
     def parse(self, args):
         (opts, extra) = self.op.parse_args(args=args, lineno=self.lineno)
-        self._setToSelf(self.op, opts)
+        self.set_to_self(self.op, opts)
 
         # just "timezone" without any arguments and timezone specification doesn't really make sense,
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
