@@ -5,6 +5,11 @@ Pykickstart is a Python 2 and Python 3 library consisting of a data
 representation of kickstart files, a parser to read files into that
 representation, and a writer to generate kickstart files.
 
+Online documentation
+--------------------
+
+Online documentation for kickstart and the Pykickstart library is available on Read the Docs:
+https://pykickstart.readthedocs.io
 
 How to generate the kickstart documentation
 -------------------------------------------
