@@ -57,8 +57,8 @@ coverage:
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
 	PYTHONPATH=. $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
-	$(COVERAGE) combine
-	$(COVERAGE) report -m | tee coverage-report.log
+	-$(COVERAGE) combine
+	-$(COVERAGE) report -m | tee coverage-report.log
 	@which mypy || (echo "*** Please install mypy (python3-mypy) ***"; exit 2)
 	@echo "*** Running type checks ***"
 	PYTHONPATH=. mypy pykickstart
