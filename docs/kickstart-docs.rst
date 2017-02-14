@@ -227,6 +227,9 @@ large enough drives, this will also create a /home partition.
     scheme and a filesystem. eg. --fstype=ext4. Added in
     anaconda-21.46-1
 
+``--nohome``
+
+    Do not create a /home partition.
 
 autostep
 --------
