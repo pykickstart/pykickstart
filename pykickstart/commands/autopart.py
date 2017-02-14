@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.version import versionToLongString, RHEL6
+from pykickstart.version import versionToLongString, RHEL6, RHEL7
 from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -441,6 +441,31 @@ class F23_AutoPart(F21_AutoPart):
         return retval
 
 class RHEL7_AutoPart(F21_AutoPart):
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F21_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.nohome = kwargs.get("nohome", False)
+
+    def __str__(self):
+        retval = F21_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
+        if self.nohome:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --nohome"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F21_AutoPart._getParser(self)
+        op.add_argument("--nohome", action="store_true", default=False,
+                        version=RHEL7, help="""
+                        Do not create a /home partition.""")
+        return op
+
     def parse(self, args):
         # call the overriden command to do its job first
         retval = F21_AutoPart.parse(self, args)

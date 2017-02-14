@@ -252,6 +252,16 @@ class RHEL7_TestCase(F21_TestCase):
     def runTest(self):
         F21_TestCase.runTest(self)
 
+        # pass
+        self.assert_parse("autopart --nohome",
+                          "autopart --nohome\n")
+
+        # fail
+        self.assert_parse_error("autopart --nohome=xxx")
+        self.assert_parse_error("autopart --nohome True")
+        self.assert_parse_error("autopart --nohome=1")
+        self.assert_parse_error("autopart --nohome 0")
+
 class RHEL7_Conflict_TestCase(CommandSequenceTest):
     def __init__(self, *args, **kwargs):
         CommandSequenceTest.__init__(self, *args, **kwargs)
