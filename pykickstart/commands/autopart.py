@@ -381,4 +381,28 @@ class F21_AutoPart(F20_AutoPart):
 
         return retval
 
-RHEL7_AutoPart = F21_AutoPart
+class RHEL7_AutoPart(F21_AutoPart):
+    removedKeywords = F21_AutoPart.removedKeywords
+    removedAttrs = F21_AutoPart.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F21_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.nohome = kwargs.get("nohome", False)
+
+    def __str__(self):
+        retval = F21_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
+        if self.nohome:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --nohome"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F21_AutoPart._getParser(self)
+        op.add_option("--nohome", dest="nohome", action="store_true", default=False)
+        return op

@@ -169,7 +169,19 @@ class F21_TestCase(F20_TestCase):
         self.assert_parse_error("autopart --fstype=btrfs")
         self.assert_parse_error("autopart --type=btrfs --fstype=xfs")
 
-RHEL7_TestCase = F21_TestCase
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --nohome",
+                          'autopart --nohome\n')
+
+        # fail
+        self.assert_parse_error("autopart --nohome=xxx")
+        self.assert_parse_error("autopart --nohome True", KickstartValueError)
+        self.assert_parse_error("autopart --nohome=1")
+        self.assert_parse_error("autopart --nohome 0", KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()
