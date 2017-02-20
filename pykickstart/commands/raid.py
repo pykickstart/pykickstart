@@ -274,7 +274,7 @@ class F25_RaidData(F23_RaidData):
 
         return retval
 
-class RHEL7_RaidData(F23_RaidData):
+class RHEL7_RaidData(F25_RaidData):
     pass
 
 class FC3_Raid(KickstartCommand):
@@ -690,9 +690,6 @@ class F23_Raid(F20_Raid):
 
         return retval
 
-class RHEL7_Raid(F23_Raid):
-    pass
-
 class F25_Raid(F23_Raid):
     removedKeywords = F23_Raid.removedKeywords
     removedAttrs = F23_Raid.removedAttrs
@@ -704,3 +701,6 @@ class F25_Raid(F23_Raid):
                         Specify the chunk size (in KiB) for this RAID array.
                         """)
         return op
+
+class RHEL7_Raid(F25_Raid):
+    pass

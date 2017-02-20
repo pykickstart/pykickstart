@@ -364,9 +364,9 @@ class F25_TestCase(F23_TestCase):
         self.assert_parse("raid / --device=md0 --level=1 --chunksize=512 raid.01 raid.02",
                           "raid / --device=0 --level=RAID1 --chunksize=512 raid.01 raid.02\n")
 
-class RHEL7_TestCase(F23_TestCase):
+class RHEL7_TestCase(F25_TestCase):
     def runTest(self):
-        F23_TestCase.runTest(self)
+        F25_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()
