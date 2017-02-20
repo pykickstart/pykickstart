@@ -265,7 +265,7 @@ class F25_RaidData(F23_RaidData):
 
         return retval
 
-RHEL7_RaidData = F23_RaidData
+RHEL7_RaidData = F25_RaidData
 
 class FC3_Raid(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -539,4 +539,4 @@ class F25_Raid(F23_Raid):
         op.add_option("--chunksize", type="int", dest="chunk_size")
         return op
 
-RHEL7_Raid = F23_Raid
+RHEL7_Raid = F25_Raid
