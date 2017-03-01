@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.10
+Version: 1.99.66.11
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,18 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Wed Mar 01 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.11-1
+- Document %%traceback and %%onerror. (clumens)
+  Related: rhbz#1412538
+- Add an %%onerror script section. (clumens)
+  Related: rhbz#1412538
+- Add more test coverage around Group and Script objects. (clumens)
+  Related: rhbz#1412538
+- Add --nohome option to autopart command. (#141) (vponcova)
+  Related: rhbz#663099
+- Add --chunksize option to raid command. (#140) (vponcova)
+  Related: rhbz#1332316
+
 * Thu Aug 18 2016 Chris Lumens <clumens@redhat.com> - 1.99.66.10-1
 - Support file URLs for ostree. (clumens)
   Resolves: rhbz#1367933
