@@ -93,7 +93,7 @@ class F37Handler(BaseHandler):
         "volgroup": commands.volgroup.F21_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
-        "zfcp": commands.zfcp.F14_ZFCP,
+        "zfcp": commands.zfcp.F37_ZFCP,
         "zipl": commands.zipl.F32_Zipl,
     }
 
@@ -120,5 +120,5 @@ class F37Handler(BaseHandler):
         "SshKeyData": commands.sshkey.F22_SshKeyData,
         "UserData": commands.user.F19_UserData,
         "VolGroupData": commands.volgroup.F21_VolGroupData,
-        "ZFCPData": commands.zfcp.F14_ZFCPData,
+        "ZFCPData": commands.zfcp.F37_ZFCPData,
     }
