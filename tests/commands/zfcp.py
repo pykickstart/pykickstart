@@ -131,5 +131,17 @@ class F14_TestCase(F12_TestCase):
         self.assert_removed("zfcp", "--scsiid")
         self.assert_removed("zfcp", "--scsilun")
 
+class RHEL9_TestCase(F14_TestCase):
+    def runTest(self):
+        F14_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("zfcp --devnum=1", "zfcp --devnum=1\n")
+
+        # fail
+        self.assert_parse_error("zfcp --wwpn=2 --fcplun=3")
+        self.assert_parse_error("zfcp --devnum=1 --wwpn=2")
+        self.assert_parse_error("zfcp --devnum=1 --fcplun=3")
+
 if __name__ == "__main__":
     unittest.main()
