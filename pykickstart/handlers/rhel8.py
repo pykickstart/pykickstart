@@ -96,7 +96,7 @@ class RHEL8Handler(BaseHandler):
         "volgroup": commands.volgroup.RHEL8_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
-        "zfcp": commands.zfcp.F14_ZFCP,
+        "zfcp": commands.zfcp.RHEL8_ZFCP,
         "zipl": commands.zipl.RHEL8_Zipl,
     }
 
@@ -122,5 +122,5 @@ class RHEL8Handler(BaseHandler):
         "SshKeyData": commands.sshkey.F22_SshKeyData,
         "UserData": commands.user.F19_UserData,
         "VolGroupData": commands.volgroup.RHEL8_VolGroupData,
-        "ZFCPData": commands.zfcp.F14_ZFCPData,
+        "ZFCPData": commands.zfcp.RHEL8_ZFCPData,
     }

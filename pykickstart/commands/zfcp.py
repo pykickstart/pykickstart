@@ -17,8 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.errors import KickstartParseWarning
-from pykickstart.version import FC3, F12, F14
+from textwrap import dedent
+
+from pykickstart.errors import KickstartParseWarning, KickstartParseError
+from pykickstart.version import FC3, F12, F14, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -83,6 +85,9 @@ class F12_ZFCPData(FC3_ZFCPData):
 class F14_ZFCPData(F12_ZFCPData):
     pass
 
+class RHEL8_ZFCPData(F14_ZFCPData):
+    pass
+
 class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -101,12 +106,19 @@ class FC3_ZFCP(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="zfcp", description="", version=FC3)
-        op.add_argument("--devnum", required=True, version=FC3, help="")
-        op.add_argument("--fcplun", required=True, version=FC3, help="")
-        op.add_argument("--scsiid", required=True, version=FC3, help="")
-        op.add_argument("--scsilun", required=True, version=FC3, help="")
-        op.add_argument("--wwpn", required=True, version=FC3, help="")
+        op = KSOptionParser(prog="zfcp", version=FC3, description="""
+                        Define a Fibre channel device. This option only applies
+                        on IBM System z.""")
+        op.add_argument("--devnum", required=True, version=FC3, help="""
+                        The device number (zFCP adaptor device bus ID).""")
+        op.add_argument("--fcplun", required=True, version=FC3, help="""
+                        The device's Logical Unit Number (LUN). Takes the form
+                        of a 16-digit number, preceded by 0x.""")
+        op.add_argument("--wwpn", required=True, version=FC3, help="""
+                        The device's World Wide Port Name (WWPN). Takes the form
+                        of a 16-digit number, preceded by 0x.""")
+        op.add_argument("--scsiid", required=True, version=FC3, help="SCSI ID")
+        op.add_argument("--scsilun", required=True, version=FC3, help="SCSI LUN")
         return op
 
     def parse(self, args):
@@ -151,3 +163,50 @@ class F14_ZFCP(F12_ZFCP):
         op.remove_argument("--scsiid", version=F14)
         op.remove_argument("--scsilun", version=F14)
         return op
+
+class RHEL8_ZFCP(F14_ZFCP):
+    removedKeywords = F14_ZFCP.removedKeywords
+    removedAttrs = F14_ZFCP.removedAttrs
+
+    def _getParser(self):
+        op = F14_ZFCP._getParser(self)
+        op.description += dedent("""
+
+            .. versionchanged:: %s
+
+            It is sufficient to specify an FCP device bus ID if automatic LUN scanning
+            is available. Otherwise all three parameters are required.
+
+            ``zfcp --devnum=<devnum> [--wwpn=<wwpn> --fcplun=<lun>]``
+
+            Automatic LUN scanning is available for FCP devices operating in NPIV mode
+            if it is not disabled through the `zfcp.allow_lun_scan` module parameter
+            (enabled by default). It provides access to all SCSI devices, that is, WWPNs
+            and FCP LUNs, found in the storage area network attached to the FCP device
+            with the specified bus ID.
+
+        """ % versionToLongString(RHEL8))
+
+        op.epilog += dedent("""
+        For example::
+
+            zfcp --devnum=0.0.6000
+            zfcp --devnum=0.0.4000 --wwpn=0x5005076300C213e9 --fcplun=0x5022000000000000
+
+        """)
+
+        op.add_argument("--wwpn", default="", required=False, version=RHEL8, help="""
+                        The argument is optional.""")
+        op.add_argument("--fcplun", default="", required=False, version=RHEL8, help="""
+                        The argument is optional.""")
+        return op
+
+    def parse(self, args):
+        data = F14_ZFCP.parse(self, args)
+
+        if not ((data.devnum and not data.wwpn and not data.fcplun)
+                or (data.devnum and data.wwpn and data.fcplun)):
+            msg = _("Only --devnum or --devnum with --wwpn and --fcplun are allowed.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return data
