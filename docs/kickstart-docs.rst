@@ -656,6 +656,6 @@ BTRFS <http://fedoraproject.org/wiki/Anaconda/Kickstart/ReinstallingFedoraWithKi
 `Kickstarting a Fedora Live
 installation <http://fedoraproject.org/wiki/Anaconda/Kickstart/KickstartingFedoraLiveInstallation>`__
 
-`JAKS <https://github.com/jas-/jaks`__ (Just Another Kickstart Script) - Generic kickstart script for all `anaconda` based installations.
+`JAKS <https://github.com/jas-/jaks>`__ (Just Another Kickstart Script) - Generic kickstart script for all `anaconda` based installations.
 Includes `jaks2iso` to assist with generating bootable ISO for UEFI/8086 boot rom good for DVD and/or USB installations.
 Also includes `%post` installation hooks through use of `jaks-post-config` toolkit.
