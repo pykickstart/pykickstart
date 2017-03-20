@@ -231,6 +231,15 @@ large enough drives, this will also create a /home partition.
 
     Do not create a /home partition.
 
+``--noboot``
+
+    Do not create a /boot partition.
+
+``--noswap``
+
+    Do not create a swap partition.
+
+
 autostep
 --------
 
