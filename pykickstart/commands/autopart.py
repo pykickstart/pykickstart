@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7
-from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -480,3 +480,51 @@ class RHEL7_AutoPart(F21_AutoPart):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         return retval
+
+class F26_AutoPart(F23_AutoPart):
+    removedKeywords = F23_AutoPart.removedKeywords
+    removedAttrs = F23_AutoPart.removedAttrs
+
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F23_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.nohome = kwargs.get("nohome", False)
+        self.noboot = kwargs.get("noboot", False)
+        self.noswap = kwargs.get("noswap", False)
+
+    def __str__(self):
+        retval = F23_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
+        if self.nohome:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --nohome"
+            retval += "\n"
+
+        if self.noboot:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --noboot"
+            retval += "\n"
+
+        if self.noswap:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --noswap"
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F23_AutoPart._getParser(self)
+        op.add_argument("--nohome", action="store_true", default=False,
+                        version=F26, help="""
+                        Do not create a /home partition.""")
+        op.add_argument("--noboot", action="store_true", default=False,
+                        version=F26, help="""
+                        Do not create a /boot partition.""")
+        op.add_argument("--noswap", action="store_true", default=False,
+                        version=F26, help="""
+                        Do not create a swap partition.""")
+        return op

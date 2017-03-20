@@ -272,5 +272,40 @@ class RHEL7_Conflict_TestCase(CommandSequenceTest):
 reqpart
 autopart""")
 
+
+class F26_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --nohome",
+                          'autopart --nohome\n')
+        self.assert_parse("autopart --noboot",
+                          'autopart --noboot\n')
+        self.assert_parse("autopart --noswap",
+                          'autopart --noswap\n')
+        self.assert_parse("autopart --nohome --noboot --noswap",
+                          'autopart --nohome --noboot --noswap\n')
+
+        # fail
+        self.assert_parse_error("autopart --nohome=xxx")
+        self.assert_parse_error("autopart --nohome True")
+        self.assert_parse_error("autopart --nohome=1")
+        self.assert_parse_error("autopart --nohome 0")
+
+        self.assert_parse_error("autopart --noboot=xxx")
+        self.assert_parse_error("autopart --noboot True")
+        self.assert_parse_error("autopart --noboot=1")
+        self.assert_parse_error("autopart --noboot 0")
+
+        self.assert_parse_error("autopart --noswap=xxx")
+        self.assert_parse_error("autopart --noswap True")
+        self.assert_parse_error("autopart --noswap=1")
+        self.assert_parse_error("autopart --noswap 0")
+
+class F26_Conflict_TestCase(F23_Conflict_TestCase):
+    def runTest(self):
+        F23_Conflict_TestCase.runTest(self)
+
 if __name__ == "__main__":
     unittest.main()
