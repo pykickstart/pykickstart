@@ -183,5 +183,36 @@ class RHEL7_TestCase(F21_TestCase):
         self.assert_parse_error("autopart --nohome=1")
         self.assert_parse_error("autopart --nohome 0", KickstartValueError)
 
+class F26_TestCase(F21_TestCase):
+    def runTest(self):
+        F21_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("autopart --nohome",
+                          'autopart --nohome\n')
+        self.assert_parse("autopart --noboot",
+                          'autopart --noboot\n')
+        self.assert_parse("autopart --noswap",
+                          'autopart --noswap\n')
+        self.assert_parse("autopart --nohome --noboot --noswap",
+                          'autopart --nohome --noboot --noswap\n')
+
+        # fail
+        self.assert_parse_error("autopart --nohome=xxx")
+        self.assert_parse_error("autopart --nohome True", KickstartValueError)
+        self.assert_parse_error("autopart --nohome=1")
+        self.assert_parse_error("autopart --nohome 0", KickstartValueError)
+
+        self.assert_parse_error("autopart --noboot=xxx")
+        self.assert_parse_error("autopart --noboot True", KickstartValueError)
+        self.assert_parse_error("autopart --noboot=1")
+        self.assert_parse_error("autopart --noboot 0", KickstartValueError)
+
+        self.assert_parse_error("autopart --noswap=xxx")
+        self.assert_parse_error("autopart --noswap True", KickstartValueError)
+        self.assert_parse_error("autopart --noswap=1")
+        self.assert_parse_error("autopart --noswap 0", KickstartValueError)
+
+
 if __name__ == "__main__":
     unittest.main()
