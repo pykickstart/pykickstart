@@ -1880,6 +1880,26 @@ the poweroff command. Normally, kickstart displays a message and waits
 for the user to press a key before rebooting.
 
 
+snapshot
+--------
+
+Create an LVM snapshot for devices on an LVM thin pool.
+
+``snapshot <vg/lv> --name=<snapshot_name> --when=<pre-install | post-install>``
+
+``--name=``
+
+    Name of the newly created snapshot.
+
+``--when=``
+
+    You can specify two possible values: ``pre-install`` and ``post-install``.
+    When the ``pre-install`` value is used the snapshot is created before
+    the installation but after the ``%pre`` section is run.
+    When the ``post-install`` value is used the snapshot is created after
+    the installation is done and after the ``%post`` section is run.
+
+
 sshkey
 ------
 
