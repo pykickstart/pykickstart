@@ -96,7 +96,7 @@ bumpver: po-pull
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	make -C po $(PKGNAME).pot ; \
-	zanata push $(TX_PUSH_ARGS)
+	zanata push $(ZANATA_PUSH_ARGS)
 
 scratch-bumpver: po-empty
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 4` + 1)) ; \

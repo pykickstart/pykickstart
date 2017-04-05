@@ -24,7 +24,7 @@ MSGFMT		= msgfmt --statistics --verbose
 # What do we need to do
 POFILES		= $(wildcard *.po)
 MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
-PYSRC		= $(wildcard ../pykickstart/*.py)
+PYSRC		= $(wildcard ../pykickstart/*.py) $(wildcard ../pykickstart/*/*.py)
 SRCFILES 	= $(PYSRC) $(wildcard ../tools/ks*)
 
 all::  update-po $(MOFILES)
