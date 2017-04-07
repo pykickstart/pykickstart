@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.33
+Version:   2.34
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,19 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Apr 07 2017 Chris Lumens <clumens@redhat.com> - 2.34-1
+- Ignore a couple false positives coming from the re module. (clumens)
+- Add --nohome, --noboot and --noswap options to autopart command. (vponcova)
+- Add --nohome option to autopart command to RHEL7. (vponcova)
+- Add support for --chunksize option to RHEL7. (vponcova)
+- Ignore errors from coverage tests (#138) (jkonecny)
+- Add --hibernation to the list of logvol size options (#1408666). (clumens)
+- Apply a different filter for warnings from pykickstart (#1408667). (clumens)
+- Rename a couple _setToSelf calls that snuck back in (#1408667). (clumens)
+- Handle KickstartVersionError in ksflatten (#1412249). (clumens)
+- Fix handling # in passwords. (clumens)
+- Pass comments=True to shlex.split calls in the test functions. (clumens)
+
 * Fri Nov 04 2016 Chris Lumens <clumens@redhat.com> - 2.33-1
 - Fix python2 compatibility when printing to stderr (jkonecny)
 - Remove duplicated kwargs.get displayMode variable (jkonecny)
