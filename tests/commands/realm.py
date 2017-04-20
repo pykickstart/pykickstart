@@ -49,6 +49,9 @@ class F19_TestCase(CommandTest):
         # Bad arguments, unsupported argument
         self.assert_parse_error("realm join --user=blah one.example.com")
 
+        # Domain must be the last argument
+        self.assert_parse_error("realm join test_domain --no-password")
+
 class F19_MultipleJoin_TestCase(CommandSequenceTest):
     def __init__(self, *args, **kwargs):
         CommandSequenceTest.__init__(self, *args, **kwargs)
