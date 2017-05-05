@@ -131,3 +131,7 @@ class RHEL7_Snapshot(KickstartCommand):
 
     def dataList(self):
         return self.snapshotList
+
+
+F26_SnapshotData = RHEL7_SnapshotData
+F26_Snapshot = RHEL7_Snapshot
