@@ -102,9 +102,9 @@ class F26_Snapshot(KickstartCommand):
                         required=True, help="""
                         You can specify two possible values: ``pre-install`` and ``post-install``.
                         When the ``pre-install`` value is used the snapshot is created before
-                        the installation but after the ``%pre`` section is run.
+                        the installation but after the ``%%pre`` section is run.
                         When the ``post-install`` value is used the snapshot is created after
-                        the installation is done and after the ``%post`` section is run.""")
+                        the installation is done and after the ``%%post`` section is run.""")
         return op
 
     def parse(self, args):
