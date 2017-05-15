@@ -139,5 +139,6 @@ rc-release: scratch-bumpver scratch
 
 ci:
 	$(MAKE) PYTHON=$(PYTHON) check coverage
+	$(MAKE) docs
 
 .PHONY: check clean install tag archive local docs release
