@@ -78,8 +78,8 @@ class F26_Snapshot(KickstartCommand):
     def __str__(self):
         retval = ""
 
-        for part in self.snapshotList:
-            retval += part.__str__()
+        for snapshot in self.snapshotList:
+            retval += snapshot.__str__()
 
         return retval
 
@@ -117,7 +117,7 @@ class F26_Snapshot(KickstartCommand):
             msg = _("Snapshot origin can be specified only once!")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
 
-        snap_data = self.dataClass
+        snap_data = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, snap_data)
         snap_data.lineno = self.lineno
         snap_data.origin = extra[0]
