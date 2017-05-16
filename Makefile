@@ -99,7 +99,7 @@ bumpver: po-pull docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
-	cl=`grep -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
+	cl=`grep -m 1 -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
 	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
