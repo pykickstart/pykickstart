@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.5
+Version:   3.6
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -119,6 +119,29 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue May 16 2017 Chris Lumens <clumens@redhat.com> - 3.6-1
+- Ignore errors from coverage tests (#138) (jkonecny)
+- Fix bumpver target when "changelog" is in the spec file more than once. (clumens)
+- Ignore a couple false positives coming from the re module. (clumens)
+- Fix snapshot command (jkonecny)
+- Generate documentation in ci tests (jkonecny)
+- Fix snapshot documentation (jkonecny)
+- Add tests for a new snapshot command (#1113207) (jkonecny)
+- Add support of --when param to snapshot command (#1113207) (jkonecny)
+- Add new snapshot KS command (#1113207) (jkonecny)
+- Add realm command test (jkonecny)
+- Add --nohome, --noboot and --noswap options to autopart command. (vponcova)
+- Add --nohome option to autopart command in RHEL7. (vponcova)
+- Add support for --chunksize option to RHEL7. (vponcova)
+- Add link to online docs to the README (#137) (martin.kolman)
+- Add --hibernation to the list of logvol size options (#1408666). (clumens)
+- Handle KickstartVersionError in ksflatten (#1412249). (clumens)
+- Fix the glob used to reference comps files in docs (#135). (clumens)
+- docs: Note under %include that most sections don't do merging (#134) (walters)
+- Fix handling # in passwords. (clumens)
+- Pass comments=True to shlex.split calls in the test functions. (clumens)
+- Don't forget to add tests to the NOSEARGS. (clumens)
+
 * Wed Nov 30 2016 Chris Lumens <clumens@redhat.com> - 3.5-1
 - Include README.rst in the MANIFEST.in again. (clumens)
 - Disable running "make coverage" or "make check" with python2. (clumens)
