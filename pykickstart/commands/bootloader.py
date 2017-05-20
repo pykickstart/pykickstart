@@ -112,7 +112,15 @@ class FC3_Bootloader(KickstartCommand):
                         are the following: mbr (the default), partition
                         (installs the boot loader on the first sector of the
                         partition containing the kernel), or none
-                        (do not install the boot loader).""")
+                        (do not install the boot loader).
+                        
+                         **Note** `bootloader --location=none` is different
+                         from `bootloader --disabled`. Both enable users to
+                         bypass the installation of the bootloader to MBR or
+                         ESP, but relevant packages will still be installed
+                         under `bootloader --location=none`. See
+                         https://bugzilla.redhat.com/show_bug.cgi?id=1074522
+                        """)
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
                         default=False, version=FC3, help="")
         op.add_argument("--password", default="", version=FC3, help="""
@@ -451,7 +459,16 @@ class F21_Bootloader(F19_Bootloader):
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
         op.add_argument("--disabled", action="store_true", default=False,
-                        version=F21, help="Do not install the boot loader.")
+                        version=F21, help="""
+                        Do not install the boot loader.
+                        
+                         **Note** `bootloader --location=none` is different
+                         from `bootloader --disabled`. Both enable users to
+                         bypass the installation of the bootloader to MBR or
+                         ESP, but relevant packages will still be installed
+                         under `bootloader --location=none`. See
+                         https://bugzilla.redhat.com/show_bug.cgi?id=1074522
+                        """)
         op.add_argument("--nombr", action="store_true", default=False,
                         version=F21, help="")
         return op
