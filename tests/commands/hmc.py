@@ -1,7 +1,7 @@
 #
-# Chris Lumens <clumens@redhat.com>
+# Vendula Poncova <vponcova@redhat.com>
 #
-# Copyright 2009, 2013 Red Hat, Inc.
+# Copyright 2017 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -15,13 +15,20 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
-from pykickstart.commands import \
-     authconfig, autopart, autostep, bootloader, btrfs, clearpart, cdrom, device, \
-     deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot, \
-     group, harddrive, hmc, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang, \
-     langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
-     mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, \
-     reqpart, rescue, rootpw, selinux, services, skipx, snapshot, sshpw, sshkey, timezone, \
-     updates, upgrade, url, user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
+
+import unittest
+from tests.baseclass import *
+
+class RHEL7_TestCase(CommandTest):
+    def runTest(self):
+        # pass
+        self.assert_parse("hmc", "hmc\n")
+
+        # fail
+        self.assert_parse_error("hmc --some-arg")
+        self.assert_parse_error("hmc somextracrud")
+
+if __name__ == "__main__":
+    unittest.main()

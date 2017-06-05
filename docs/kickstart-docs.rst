@@ -702,6 +702,14 @@ harddrive
         ``harddrive --partition=hdb2 --dir=/tmp/install-tree ``
 
 
+hmc
+~~~~~
+
+``hmc``
+
+    Install from an installation medium via SE/HMC on z Systems.
+
+
 liveimg
 ~~~~~~~
 
