@@ -36,6 +36,7 @@ from pykickstart.commands import (
      firstboot,
      group,
      harddrive,
+     hmc,
      ignoredisk,
      interactive,
      iscsi,
