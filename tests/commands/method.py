@@ -339,5 +339,30 @@ class F19_TestCase(F18_TestCase):
         self.assert_parse_error("liveimg --noverifyssl", KickstartValueError)
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba", KickstartValueError)
 
+class RHEL7_Proxy_TestCase(F19_Proxy_TestCase):
+    def runTest(self):
+        F19_Proxy_TestCase.runTest(self)
+
+        # Test command's attributes.
+        handler = self.handler()
+        self._set_hmc(handler)
+
+        # Try to switch between methods.
+        handler = self.handler()
+        self._set_cdrom(handler)
+        self._set_hmc(handler)
+        self._set_harddrive(handler)
+
+    def _set_hmc(self, handler):
+        handler.method.method = "hmc"
+        self._test_seen(handler, "hmc")
+
+class RHEL7_TestCase(F19_TestCase):
+    def runTest(self):
+        F19_TestCase.runTest(self)
+
+        # Test hmc.
+        self.assert_parse("hmc", "hmc\n")
+
 if __name__ == "__main__":
     unittest.main()
