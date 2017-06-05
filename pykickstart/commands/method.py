@@ -127,3 +127,9 @@ class F19_Method(FC3_Method):
     removedAttrs = FC3_Method.removedAttrs
 
     _methods = FC3_Method._methods + ["liveimg"]
+
+class RHEL7_Method(F19_Method):
+    removedKeywords = F19_Method.removedKeywords
+    removedAttrs = F19_Method.removedAttrs
+
+    _methods = F19_Method._methods + ["hmc"]
