@@ -31,48 +31,71 @@ class FC3_Method(KickstartCommand):
     _methods = ["cdrom", "harddrive", "nfs", "url"]
 
     def _clear_seen(self):
-        """ Reset all the method's seen attrs to False"""
+        """ Reset all the method's seen attributes to False"""
         for method in self._methods:
             setattr(getattr(self.handler, method), "seen", False)
 
-    def __getattr__(self, name):
-        if name in self.internals:
-            if name == "method":
-                for method in self._methods:
-                    if getattr(self.handler, method).seen:
-                        return method
-                return None
-            else:
-                return object.__getattribute__(self, name)
+    def _get_command(self, method):
+        """Get a command for the given method."""
+        if method is None:
+            # We use this to select the closest mirror option.
+            # TODO: Raise an error instead.
+            method = "url"
 
-        # Return name from first seen handler, or url
+        if method not in self._methods:
+            raise AttributeError("Unknown method %s.", method)
+
+        return getattr(self.handler, method)
+
+    @property
+    def method(self):
+        """Return the seen method or None."""
         for method in self._methods:
             if getattr(self.handler, method).seen:
-                return getattr(getattr(self.handler, method), name)
+                return method
 
-        return getattr(self.handler.url, name)
+        return None
+
+    @method.setter
+    def method(self, value):
+        """Set which method is seen."""
+        self._clear_seen()
+
+        if value is None:
+            return
+
+        self._get_command(value).seen = True
+
+    def __getattr__(self, name):
+        """Get the attribute in the seen command.
+
+        Called when an attribute lookup has not found
+        the attribute in the usual places.
+        """
+        # Prevent recursion in copy and deepcopy.
+        # See commit f5dbcfb for explanation.
+        if name in ["handler", "method", "_methods"]:
+            raise AttributeError()
+
+        command = self._get_command(self.method)
+        return getattr(command, name)
 
     def __setattr__(self, name, value):
+        """Set the attribute in the seen command.
+
+        Called when an attribute assignment is attempted.
+        """
         if name in self.internals:
-            if name == "method":
-                self._clear_seen()
-            if name == "method" and value == "cdrom":
-                setattr(self.handler.cdrom, "seen", True)
-            elif name == "method" and value == "harddrive":
-                setattr(self.handler.harddrive, "seen", True)
-            elif name == "method" and value == "nfs":
-                setattr(self.handler.nfs, "seen", True)
-            elif name == "method" and value == "url":
-                setattr(self.handler.url, "seen", True)
-            KickstartCommand.__setattr__(self, name, value)
-        elif self.handler.cdrom.seen:
-            setattr(self.handler.cdrom, name, value)
-        elif self.handler.harddrive.seen:
-            setattr(self.handler.harddrive, name, value)
-        elif self.handler.nfs.seen:
-            setattr(self.handler.nfs, name, value)
-        else:
-            setattr(self.handler.url, name, value)
+            super(FC3_Method, self).__setattr__(name, value)
+            return
+
+        command = self._get_command(self.method)
+        # Check if the kickstart command has the attribute.
+        # Instead of using hasattr, that calls getattr and catches the exception
+        # that we would have to raise again, we call getattr directly.
+        getattr(command, name)
+        # Set the attribute of the kickstart command.
+        command.__setattr__(name, value)
 
 # These are all just for compat.  Calling into the appropriate version-specific
 # method command will deal with making sure the right options are used.
@@ -91,28 +114,3 @@ class F19_Method(FC3_Method):
     removedAttrs = FC3_Method.removedAttrs
 
     _methods = FC3_Method._methods + ["liveimg"]
-
-    def __getattr__(self, name):
-        if name == "handler":
-            raise AttributeError()
-
-        if self.handler.liveimg.seen:
-            if name == "method":
-                return "liveimg"
-            else:
-                return getattr(self.handler.liveimg, name)
-        else:
-            return FC3_Method.__getattr__(self, name)
-
-    def __setattr__(self, name, value):
-        if name in self.internals:
-            if name == "method":
-                self._clear_seen()
-            if name == "method" and value == "liveimg":
-                setattr(self.handler.liveimg, "seen", True)
-            else:
-                FC3_Method.__setattr__(self, name, value)
-        elif self.handler.liveimg.seen:
-            setattr(self.handler.liveimg, name, value)
-        else:
-            FC3_Method.__setattr__(self, name, value)
