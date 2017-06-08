@@ -19,10 +19,163 @@
 #
 
 import unittest
+import copy
 from tests.baseclass import CommandTest
-from pykickstart.commands.method import FC3_Method, F19_Method
-from pykickstart.handlers.fc3 import FC3Handler
-from pykickstart.handlers.f19 import F19Handler
+
+class FC3_Proxy_TestCase(CommandTest):
+    command = "method"
+
+    def runTest(self):
+        # Test the default method.
+        handler = self.handler()
+        self._test_seen(handler, None)
+
+        # Try to access correct attribute.
+        handler = self.handler()
+        handler.method.method = "nfs"
+
+        setattr(handler.method, "server", "1.2.3.4")
+        handler.method.server = "1.2.3.4"
+        getattr(handler.method, "server")
+        if handler.method.server:
+            pass
+
+        # Try to access wrong attribute.
+        handler = self.handler()
+        handler.method.method = "url"
+
+        with self.assertRaises(AttributeError):
+            setattr(handler.method, "server", "1.2.3.4")
+
+        with self.assertRaises(AttributeError):
+            handler.method.server = "1.2.3.4"
+
+        with self.assertRaises(AttributeError):
+            getattr(handler.method, "server")
+
+        with self.assertRaises(AttributeError):
+            if handler.method.server:
+                pass
+
+        # Try to set a nonexistent method.
+        handler = self.handler()
+        with self.assertRaises(AttributeError):
+            handler.method.method = "???"
+
+        # Try to get and set a nonexistent attribute.
+        handler = self.handler()
+        handler.method.method = "url"
+
+        with self.assertRaises(AttributeError):
+            getattr(handler.method, "nonexistent_attribute")
+
+        with self.assertRaises(AttributeError):
+            if handler.method.nonexistent_attribute:
+                pass
+
+        with self.assertRaises(AttributeError):
+            setattr(handler.method, "nonexistent_attribute", "some_value")
+
+        with self.assertRaises(AttributeError):
+            handler.method.nonexistent_attribute = "some_value"
+
+        # Try to call a nonexistent method.
+        handler = self.handler()
+        with self.assertRaises(AttributeError):
+            handler.method.nonexistent_method()
+
+        # Test hasattr.
+        handler = self.handler()
+        self.assertEqual(hasattr(handler.method, "seen"), True)
+        self.assertEqual(hasattr(handler.method, "server"), False)
+        self.assertEqual(hasattr(handler.method, "nonexistent"), False)
+
+        handler.method.method = "nfs"
+        self.assertEqual(hasattr(handler.method, "seen"), True)
+        self.assertEqual(hasattr(handler.method, "server"), True)
+        self.assertEqual(hasattr(handler.method, "nonexistent"), False)
+
+        # Test copy and deepcopy.
+        handler = self.handler()
+        handler.method.method = "url"
+        handler.method.url = "http://domain.com"
+
+        method2 = copy.copy(handler.method)
+        self.assertEqual(method2.method, "url")
+        self.assertEqual(method2.url, "http://domain.com")
+
+        # TODO: Add test for copy.deepcopy.
+        # The test now fails somewhere outside of the method command.
+        # It should be fixed or anaconda should stop calling it.
+
+        # Test an internal attribute.
+        handler = self.handler()
+        handler.method.method = "url"
+        self.assertEqual(handler.method.lineno, 0)
+        self.assertEqual(handler.url.lineno, 0)
+
+        handler.method.lineno = 5
+        self.assertEqual(handler.method.lineno, 5)
+        self.assertEqual(handler.url.lineno, 0)
+
+        handler.url.lineno = 10
+        self.assertEqual(handler.method.lineno, 5)
+        self.assertEqual(handler.url.lineno, 10)
+
+        # Test command's attributes.
+        # Try to switch between methods.
+        handler = self.handler()
+        self._set_default(handler)
+        self._set_cdrom(handler)
+        self._set_url(handler)
+        self._set_nfs(handler)
+        self._set_harddrive(handler)
+
+    def _test_seen(self, handler, seen_method):
+        self.assertEqual(handler.method.method, seen_method)
+
+        for method in handler.method._methods:
+            self.assertEqual(getattr(handler, method).seen, method == seen_method)
+
+    def _set_default(self, handler):
+        handler.method.method = None
+        self._test_seen(handler, None)
+
+        handler.method.url = "http://domain.com"
+        self.assertEqual(handler.method.url, "http://domain.com")
+        self.assertEqual(handler.url.url, "http://domain.com")
+        self.assertEqual(getattr(handler.method, "url"), "http://domain.com")
+
+    def _set_cdrom(self, handler):
+        handler.method.method = "cdrom"
+        self._test_seen(handler, "cdrom")
+
+    def _set_url(self, handler):
+        handler.method.method = "url"
+        self._test_seen(handler, "url")
+
+        handler.method.url = "http://domain.com"
+        self.assertEqual(handler.method.url, "http://domain.com")
+        self.assertEqual(handler.url.url, "http://domain.com")
+        self.assertEqual(getattr(handler.method, "url"), "http://domain.com")
+
+    def _set_nfs(self, handler):
+        handler.method.method = "nfs"
+        self._test_seen(handler, "nfs")
+
+        handler.method.server = "1.2.3.4"
+        self.assertEqual(handler.method.server, "1.2.3.4")
+        self.assertEqual(handler.nfs.server, "1.2.3.4")
+        self.assertEqual(getattr(handler.method, "server"), "1.2.3.4")
+
+    def _set_harddrive(self, handler):
+        handler.method.method = "harddrive"
+        self._test_seen(handler, "harddrive")
+
+        handler.method.dir = "/install"
+        self.assertEqual(handler.method.dir, "/install")
+        self.assertEqual(handler.harddrive.dir, "/install")
+        self.assertEqual(getattr(handler.method, "dir"), "/install")
 
 class FC3_TestCase(CommandTest):
     command = "method"
@@ -72,40 +225,6 @@ class FC3_TestCase(CommandTest):
         # missing required option --url
         self.assert_parse_error("url")
         self.assert_parse_error("url --url")
-
-        # __getattr__ + __setattr__
-        method = FC3_Method()
-        handler = FC3Handler()
-        method.handler = handler
-        self.assertEqual(method.method, None)
-        for chosen_method in method._methods:
-            method.method = chosen_method
-            method.foo = chosen_method  # try to set an unused attribute
-            for unseen_method in [m for m in method._methods if m != chosen_method]:
-                self.assertFalse(getattr(method.handler, unseen_method).seen)
-                self.assertEqual(method.foo, chosen_method)
-            self.assertTrue(getattr(method.handler, chosen_method).seen)
-            self.assertEqual(method.method, chosen_method)
-        # last seen method should be returned when 'method' attribute doesn't exist
-        del method.method
-        self.assertEqual(method.method, method._methods[-1])
-
-        # trying to get attributes that don't exist raises an AttributeError
-        with self.assertRaises(AttributeError):
-            method.internals.append('method1')
-            getattr(method, 'method1')
-        method.internals.remove('method1')
-
-        with self.assertRaises(AttributeError):
-            method.internals.append('0method')
-            getattr(method, '0method')
-        method.internals.remove('0method')
-
-        # trying to set attributes with bogus values
-        for value in ['aaa', 'xxx']:
-            method.method = value
-            for m in method._methods:
-                self.assertFalse(getattr(method.handler, m).seen)
 
 class FC6_TestCase(FC3_TestCase):
     def runTest(self):
@@ -168,6 +287,29 @@ class F18_TestCase(F14_TestCase):
         # only one of --url or --mirrorlist may be specified
         self.assert_parse_error("url --url=www.wherever.com --mirrorlist=www.wherever.com")
 
+class F19_Proxy_TestCase(FC3_Proxy_TestCase):
+    def runTest(self):
+        FC3_Proxy_TestCase.runTest(self)
+
+        # Test command's attributes.
+        handler = self.handler()
+        self._set_liveimg(handler)
+
+        # Try to switch between methods.
+        handler = self.handler()
+        self._set_url(handler)
+        self._set_liveimg(handler)
+        self._set_nfs(handler)
+
+    def _set_liveimg(self, handler):
+        handler.method.method = "liveimg"
+        self._test_seen(handler, "liveimg")
+
+        handler.method.url = "http://someplace/somewhere"
+        self.assertEqual(handler.method.url, "http://someplace/somewhere")
+        self.assertEqual(handler.liveimg.url, "http://someplace/somewhere")
+        self.assertEqual(getattr(handler.liveimg, "url"), "http://someplace/somewhere")
+
 class F19_TestCase(F18_TestCase):
     def runTest(self):
         # run F18 test case.
@@ -194,24 +336,6 @@ class F19_TestCase(F18_TestCase):
         self.assert_parse_error("liveimg --proxy=http://someplace/somewhere")
         self.assert_parse_error("liveimg --noverifyssl")
         self.assert_parse_error("liveimg --checksum=e7a9fe500330a1cae4ca114833bb3df014e6d14e63ea9566896a848f3832d0ba")
-
-        # __getattr__ + __setattr__
-        method = F19_Method()
-        handler = F19Handler()
-        method.handler = handler
-        self.assertEqual(method.method, None)
-        method.method = "liveimg"
-        method.foo = "liveimg"  # try to set an unused attribute
-
-        for unseen_method in [m for m in method._methods if m != "liveimg"]:
-            self.assertFalse(getattr(method.handler, unseen_method).seen)
-            self.assertEqual(method.foo, "liveimg")
-        self.assertTrue(method.handler.liveimg.seen)    # pylint: disable=no-member
-        self.assertEqual(method.method, "liveimg")
-        # AttributeError should be raised when accessing nonexistent 'handler' attribute
-        del method.handler
-        self.assertRaises(AttributeError, getattr, method, "handler")
-
 
 if __name__ == "__main__":
     unittest.main()
