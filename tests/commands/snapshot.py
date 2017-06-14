@@ -34,7 +34,7 @@ class RHEL7_TestCase(CommandTest):
                                 exception=KickstartValueError)
         self.assert_parse_error("snapshot vg//lv --name test --when post-install",
                                 exception=KickstartValueError)
-        self.assert_parse_error("snapshot vg\lv --name test --when post-install",
+        self.assert_parse_error("snapshot vg\\lv --name test --when post-install",
                                 exception=KickstartValueError)
         self.assert_parse_error("snapshot vg=lv --name test --when post-install",
                                 exception=KickstartValueError)
