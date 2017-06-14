@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.34
+Version:   2.35
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,14 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Wed Jun 14 2017 Chris Lumens <clumens@redhat.com> - 2.35-1
+- Fix an ambiguous string in a snapshot command test. (clumens)
+- Snapshot command is also for Fedora 26 (jkonecny)
+- Add documentation for the snapshot feature (#1113207) (jkonecny)
+- Add tests for a new snapshot command (#1113207) (jkonecny)
+- Add support of --when param to snapshot command (#1113207) (jkonecny)
+- Add new snapshot KS command (#1113207) (jkonecny)
+
 * Fri Apr 07 2017 Chris Lumens <clumens@redhat.com> - 2.34-1
 - Ignore a couple false positives coming from the re module. (clumens)
 - Add --nohome, --noboot and --noswap options to autopart command. (vponcova)
