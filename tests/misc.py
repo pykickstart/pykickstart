@@ -22,6 +22,8 @@ class WritePriority_TestCase(unittest.TestCase):
                 cmd = command_class()
                 if issubclass(cmd.__class__, DeprecatedCommand):
                     self.assertEqual(None, cmd.writePriority, command_class)
+                elif _name in ['installclass']:
+                    self.assertEqual(-1, cmd.writePriority, command_class)
                 elif _name in ['rescue', 'upgrade', 'group', 'driverdisk', 'xconfig',
                     'keyboard', 'rootpw', 'url', 'lang', 'liveimg', 'method', 'realm',
                     'user', 'eula', 'firewall', 'ostreesetup', 'repo', 'sshkey', 'reboot',
