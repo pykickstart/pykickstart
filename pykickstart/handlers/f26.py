@@ -50,6 +50,7 @@ class F26Handler(BaseHandler):
         "harddrive": commands.harddrive.FC3_HardDrive,
         "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
         "install": commands.upgrade.F11_Upgrade,
+        "installclass": commands.installclass.F26_InstallClass,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.F18_Keyboard,
