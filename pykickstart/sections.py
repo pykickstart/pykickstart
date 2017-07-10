@@ -115,6 +115,8 @@ class NullSection(Section):
        it will raise an error.  Sometimes, you may want to simply ignore those
        sections instead.  This class is useful for that purpose.
     """
+    allLines = True
+
     def __init__(self, *args, **kwargs):
         """Create a new NullSection instance.  You must pass a sectionOpen
            parameter (including a leading '%') for the section you wish to
@@ -122,6 +124,26 @@ class NullSection(Section):
         """
         Section.__init__(self, *args, **kwargs)
         self.sectionOpen = kwargs.get("sectionOpen")
+        self._args = []
+        self._body = []
+
+    def handleHeader(self, lineno, args):
+        self._args = args
+
+    def handleLine(self, line):
+        self._body.append(line)
+
+    def finalize(self):
+        body = "\n".join(self._body)
+        if body:
+            s = "%s\n%s\n%%end" % (" ".join(self._args), body)
+        else:
+            s = "%s\n%%end" % " ".join(self._args)
+
+        self.handler._null_section_strings.append(s)
+
+        self._args = []
+        self._body = []
 
 class ScriptSection(Section):
     allLines = True
