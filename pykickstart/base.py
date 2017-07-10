@@ -285,6 +285,12 @@ class BaseHandler(KickstartObject):
         # it.
         self._writeOrder = {}
 
+        # Any sections that we do not understand but want to prevent causing errors
+        # are represented by a NullSection.  We want to preserve those on output, so
+        # keep a list of their string representations here.  This is likely to change
+        # in the future.  Don't rely on this exact implementation.
+        self._null_section_strings = []
+
         self._registerCommands(mapping, dataMapping, commandUpdates, dataUpdates)
 
     def __str__(self):
@@ -311,6 +317,12 @@ class BaseHandler(KickstartObject):
             if isinstance(script_str, six.text_type) and not six.PY3:
                 script_str = script_str.encode("utf-8")
             retval += script_str
+
+        if self._null_section_strings:
+            retval += "\n"
+
+            for s in self._null_section_strings:
+                retval += s
 
         retval += self.packages.__str__()
 
