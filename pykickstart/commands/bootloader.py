@@ -114,12 +114,16 @@ class FC3_Bootloader(KickstartCommand):
                         partition containing the kernel), or none
                         (do not install the boot loader).
                         
-                         **Note** `bootloader --location=none` is different
-                         from `bootloader --disabled`. Both enable users to
-                         bypass the installation of the bootloader to MBR or
-                         ESP, but relevant packages will still be installed
-                         under `bootloader --location=none`. See
-                         https://bugzilla.redhat.com/show_bug.cgi?id=1074522
+                         **Note** `bootloader --location=none` is different from
+                         `bootloader --location=none --disabled`.
+                         `--location=none` prevents extra installation steps
+                         that makes the target machine bootable, e.g. write to
+                         MBR on x86 BIOS systems. However, the corresponding RPM
+                         packages are still installed, and `--disabled` can be
+                         appended to prevent it. `bootloader --disabled` only
+                         not prevent the installation of the bootloader and
+                         Anaconda will complain if no other options are
+                         provided.
                         """)
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
                         default=False, version=FC3, help="")
@@ -462,12 +466,16 @@ class F21_Bootloader(F19_Bootloader):
                         version=F21, help="""
                         Do not install the boot loader.
                         
-                         **Note** `bootloader --location=none` is different
-                         from `bootloader --disabled`. Both enable users to
-                         bypass the installation of the bootloader to MBR or
-                         ESP, but relevant packages will still be installed
-                         under `bootloader --location=none`. See
-                         https://bugzilla.redhat.com/show_bug.cgi?id=1074522
+                         **Note** `bootloader --location=none` is different from
+                         `bootloader --location=none --disabled`.
+                         `--location=none` prevents extra installation steps
+                         that makes the target machine bootable, e.g. write to
+                         MBR on x86 BIOS systems. However, the corresponding RPM
+                         packages are still installed, and `--disabled` can be
+                         appended to prevent it. `bootloader --disabled` only
+                         not prevent the installation of the bootloader and
+                         Anaconda will complain if no other options are
+                         provided.
                         """)
         op.add_argument("--nombr", action="store_true", default=False,
                         version=F21, help="")
