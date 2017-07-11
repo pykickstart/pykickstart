@@ -121,7 +121,7 @@ class FC3_Bootloader(KickstartCommand):
                          MBR on x86 BIOS systems. However, the corresponding RPM
                          packages are still installed, and `--disabled` can be
                          appended to prevent it. `bootloader --disabled` only
-                         not prevent the installation of the bootloader and
+                         does not prevent the installation of the bootloader and
                          Anaconda will complain if no other options are
                          provided.
                         """)
@@ -473,7 +473,7 @@ class F21_Bootloader(F19_Bootloader):
                          MBR on x86 BIOS systems. However, the corresponding RPM
                          packages are still installed, and `--disabled` can be
                          appended to prevent it. `bootloader --disabled` only
-                         not prevent the installation of the bootloader and
+                         does not prevent the installation of the bootloader and
                          Anaconda will complain if no other options are
                          provided.
                         """)
