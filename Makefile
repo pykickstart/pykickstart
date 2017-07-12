@@ -8,9 +8,6 @@ TAG=r$(VERSION)-$(RELEASE)
 ZANATA_PULL_ARGS = --transdir ./po/
 ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 
-MANDIR=/usr/share/man
-PREFIX=/usr
-
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
 NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 $(tests)
@@ -26,10 +23,6 @@ all:
 po-pull:
 	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
-
-# Try to fetch the real .po files, but if that fails continue
-po-fallback:
-	$(MAKE) po-pull || :
 
 docs:
 	$(MAKE) -C docs html text
