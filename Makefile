@@ -68,6 +68,10 @@ tag:
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
 	$(MAKE) bumpver && $(MAKE) archive
+	@echo "*** Remember to run 'make pypi' afterwards ***"
+
+pypi:
+	twine upload dist/$(PKGNAME)-$(VERSION).tar.gz
 
 archive: check test tag docs
 	mkdir -p $(PKGNAME)-$(VERSION)
