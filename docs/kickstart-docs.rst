@@ -299,6 +299,15 @@ This required command specifies how the boot loader should be installed.
     the first sector of the partition containing the kernel), or none
     (do not install the boot loader).
 
+    **Note** ``bootloader --location=none`` is different from
+    ``bootloader --location=none --disabled``.  ``--location=none``
+    prevents extra installation steps that makes the target machine
+    bootable, e.g. write to MBR on x86 BIOS systems. However, the
+    corresponding RPM packages are still installed, and ``--disabled``
+    can be appended to prevent it. ``bootloader --disabled`` only
+    does not prevent the installation of the bootloader and anaconda
+    will complain if no other options are provided.
+
 ``--nombr``
 
     Install the boot loader configuration and support files, but do not
