@@ -112,7 +112,19 @@ class FC3_Bootloader(KickstartCommand):
                         are the following: mbr (the default), partition
                         (installs the boot loader on the first sector of the
                         partition containing the kernel), or none
-                        (do not install the boot loader).""")
+                        (do not install the boot loader).
+                        
+                         **Note** `bootloader --location=none` is different from
+                         `bootloader --location=none --disabled`.
+                         `--location=none` prevents extra installation steps
+                         that makes the target machine bootable, e.g. write to
+                         MBR on x86 BIOS systems. However, the corresponding RPM
+                         packages are still installed, and `--disabled` can be
+                         appended to prevent it. `bootloader --disabled` only
+                         does not prevent the installation of the bootloader and
+                         Anaconda will complain if no other options are
+                         provided.
+                        """)
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
                         default=False, version=FC3, help="")
         op.add_argument("--password", default="", version=FC3, help="""
@@ -451,7 +463,20 @@ class F21_Bootloader(F19_Bootloader):
     def _getParser(self):
         op = F19_Bootloader._getParser(self)
         op.add_argument("--disabled", action="store_true", default=False,
-                        version=F21, help="Do not install the boot loader.")
+                        version=F21, help="""
+                        Do not install the boot loader.
+                        
+                         **Note** `bootloader --location=none` is different from
+                         `bootloader --location=none --disabled`.
+                         `--location=none` prevents extra installation steps
+                         that makes the target machine bootable, e.g. write to
+                         MBR on x86 BIOS systems. However, the corresponding RPM
+                         packages are still installed, and `--disabled` can be
+                         appended to prevent it. `bootloader --disabled` only
+                         does not prevent the installation of the bootloader and
+                         Anaconda will complain if no other options are
+                         provided.
+                        """)
         op.add_argument("--nombr", action="store_true", default=False,
                         version=F21, help="")
         return op
