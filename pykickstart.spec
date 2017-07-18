@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.6
+Version:   3.7
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -119,6 +119,15 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Jul 18 2017 Chris Lumens <clumens@redhat.com> - 3.7-1
+- Add a Makefile target for uploading to pypi (#162). (clumens)
+- Remove some old, unneeded stuff from the Makefile. (clumens)
+- Add tests for method command (vponcova)
+- Rewrite the method command. (vponcova)
+- More documentation for bypassing the bootloader (#159) (amtlib-dot-dll)
+- Output any sections registered with NullSection (#154). (clumens)
+- Add new installclass command in master (vponcova)
+
 * Tue May 16 2017 Chris Lumens <clumens@redhat.com> - 3.6-1
 - Ignore errors from coverage tests (#138) (jkonecny)
 - Fix bumpver target when "changelog" is in the spec file more than once. (clumens)
