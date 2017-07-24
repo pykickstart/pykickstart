@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.35
+Version:   2.36
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,14 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jul 24 2017 Chris Lumens <clumens@redhat.com> - 2.36-1
+- Add a Makefile target for uploading to pypi (#162). (clumens)
+- Add tests for method command (vponcova)
+- Rewrite the method command. (vponcova)
+- More documentation for bypassing the bootloader (#159) (amtlib-dot-dll)
+- Output any sections registered with NullSection (#154). (clumens)
+- Add new installclass command. (vponcova)
+
 * Wed Jun 14 2017 Chris Lumens <clumens@redhat.com> - 2.35-1
 - Fix an ambiguous string in a snapshot command test. (clumens)
 - Snapshot command is also for Fedora 26 (jkonecny)
