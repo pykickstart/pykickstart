@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.36
+Version:   2.37
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -120,6 +120,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Jul 31 2017 Chris Lumens <clumens@redhat.com> - 2.37-1
+- Remove the type annotations (dshea)
+- Remove mypy checks. (dshea)
+
 * Mon Jul 24 2017 Chris Lumens <clumens@redhat.com> - 2.36-1
 - Add a Makefile target for uploading to pypi (#162). (clumens)
 - Add tests for method command (vponcova)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-04 09:40-0400\n"
+"POT-Creation-Date: 2017-07-31 13:18-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:435
+#: ../pykickstart/base.py:446
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -96,9 +96,9 @@ msgid "Potentially unknown section seen at line %(lineno)s: %(sectionName)s"
 msgstr ""
 
 #. If nothing else worked, we're out of options.
-#: ../pykickstart/version.py:128 ../pykickstart/version.py:137
-#: ../pykickstart/version.py:140 ../pykickstart/version.py:156
-#: ../pykickstart/version.py:199
+#: ../pykickstart/version.py:120 ../pykickstart/version.py:129
+#: ../pykickstart/version.py:132 ../pykickstart/version.py:148
+#: ../pykickstart/version.py:191
 #, python-format
 msgid "Unsupported version specified: %s"
 msgstr ""
@@ -150,11 +150,11 @@ msgstr ""
 msgid "Required flag set for option that doesn't take a value"
 msgstr ""
 
-#: ../pykickstart/sections.py:263
+#: ../pykickstart/sections.py:285
 msgid "--default and --nobase cannot be used together"
 msgstr ""
 
-#: ../pykickstart/sections.py:265
+#: ../pykickstart/sections.py:287
 msgid "--default and --nocore cannot be used together"
 msgstr ""
 
@@ -169,13 +169,6 @@ msgstr ""
 #: ../pykickstart/errors.py:49
 #, python-format
 msgid "There was a problem reading from line %s of the kickstart file"
-msgstr ""
-
-#: ../pykickstart/commands/firewall.py:117 ../pykickstart/commands/repo.py:183
-#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
-#: ../pykickstart/commands/xconfig.py:98
-#, python-format
-msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
 
 #: ../pykickstart/commands/realm.py:43
@@ -200,6 +193,40 @@ msgstr ""
 msgid "Specify only one realm to join"
 msgstr ""
 
+#: ../pykickstart/commands/snapshot.py:101
+msgid "Snapshot origin must be specified!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:104
+msgid "Snapshot origin can be specified only once!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:114
+#, python-format
+msgid "Snapshot with the name %s has been already defined!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:118
+msgid "Snapshot \"when\" parameter must be specified!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:123
+#, python-format
+msgid "Snapshot origin %s must be specified by VG/LV!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:128
+#, python-format
+msgid "Snapshot when param must have one of these values %s!"
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:183 ../pykickstart/commands/firewall.py:117
+#: ../pykickstart/commands/fcoe.py:115 ../pykickstart/commands/iscsi.py:144
+#: ../pykickstart/commands/xconfig.py:98
+#, python-format
+msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr ""
+
 #: ../pykickstart/commands/repo.py:188
 msgid ""
 "Only one of --baseurl and --mirrorlist may be specified for repo command."
@@ -219,10 +246,9 @@ msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
 #: ../pykickstart/commands/lilocheck.py:50 ../pykickstart/commands/cdrom.py:50
-#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/upgrade.py:56
-#: ../pykickstart/commands/upgrade.py:93 ../pykickstart/commands/eula.py:63
-#: ../pykickstart/commands/autopart.py:45
-#: ../pykickstart/commands/zerombr.py:66
+#: ../pykickstart/commands/skipx.py:50 ../pykickstart/commands/zerombr.py:66
+#: ../pykickstart/commands/upgrade.py:56 ../pykickstart/commands/upgrade.py:93
+#: ../pykickstart/commands/autopart.py:45 ../pykickstart/commands/eula.py:63
 #: ../pykickstart/commands/unsupported_hardware.py:51
 #: ../pykickstart/commands/displaymode.py:61
 #: ../pykickstart/commands/mediacheck.py:49
@@ -231,19 +257,32 @@ msgstr ""
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
-#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/mouse.py:62
-#: ../pykickstart/commands/keyboard.py:57 ../pykickstart/commands/lang.py:50
-#: ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/sshpw.py:127 ../pykickstart/commands/sshkey.py:89
+#: ../pykickstart/commands/keyboard.py:127 ../pykickstart/commands/rootpw.py:73
+#: ../pykickstart/commands/rootpw.py:120 ../pykickstart/commands/timezone.py:62
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr ""
+
+#: ../pykickstart/commands/sshpw.py:132 ../pykickstart/commands/sshkey.py:93
+#, python-format
+msgid "An ssh user with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/iscsiname.py:51 ../pykickstart/commands/key.py:59
+#: ../pykickstart/commands/keyboard.py:57 ../pykickstart/commands/mouse.py:62
+#: ../pykickstart/commands/lang.py:50
 #, python-format
 msgid "Kickstart command %s requires one argument"
 msgstr ""
 
-#: ../pykickstart/commands/logging.py:68
-msgid "Can't specify --port without --host."
-msgstr ""
-
 #: ../pykickstart/commands/harddrive.py:75
 msgid "One of biospart or partition options must be specified."
+msgstr ""
+
+#: ../pykickstart/commands/updates.py:53
+#, python-format
+msgid "Kickstart command %s only takes one argument"
 msgstr ""
 
 #: ../pykickstart/commands/ignoredisk.py:83
@@ -256,17 +295,12 @@ msgid ""
 "ignoredisk command."
 msgstr ""
 
-#: ../pykickstart/commands/sshkey.py:89 ../pykickstart/commands/timezone.py:62
-#: ../pykickstart/commands/sshpw.py:127
-#: ../pykickstart/commands/keyboard.py:127
-#: ../pykickstart/commands/rootpw.py:64 ../pykickstart/commands/rootpw.py:111
+#: ../pykickstart/commands/zerombr.py:53
 #, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/sshkey.py:93 ../pykickstart/commands/sshpw.py:132
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
 msgstr ""
 
 #: ../pykickstart/commands/volgroup.py:132
@@ -291,32 +325,10 @@ msgstr ""
 msgid "The volgroup and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/timezone.py:139
-#: ../pykickstart/commands/timezone.py:215
-#: ../pykickstart/commands/timezone.py:249
-msgid "Options --nontp and --ntpservers are mutually exclusive"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:197
-#: ../pykickstart/commands/timezone.py:231
-#, python-format
-msgid "At least one option and/or an argument are expected for the  %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:208
-#: ../pykickstart/commands/timezone.py:242
-#, python-format
-msgid "One or zero arguments are expected for the %s command"
-msgstr ""
-
 #: ../pykickstart/commands/upgrade.py:96
 #, python-format
 msgid ""
 "Kickstart command %(command)s does not accept empty parameter %(parameter)s"
-msgstr ""
-
-#: ../pykickstart/commands/eula.py:66
-msgid "Kickstart command eula expects the --agreed option"
 msgstr ""
 
 #. allow for translation of the error message
@@ -334,12 +346,9 @@ msgstr ""
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
-#: ../pykickstart/commands/zerombr.py:53
+#: ../pykickstart/commands/group.py:86
 #, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
+msgid "A group with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/monitor.py:66
@@ -347,11 +356,15 @@ msgstr ""
 msgid "Unexpected arguments to %(cmd)s command: %(options)s"
 msgstr ""
 
+#: ../pykickstart/commands/eula.py:66
+msgid "Kickstart command eula expects the --agreed option"
+msgstr ""
+
 #: ../pykickstart/commands/bootloader.py:247
 msgid "--boot-drive accepts only one argument"
 msgstr ""
 
-#: ../pykickstart/commands/user.py:169
+#: ../pykickstart/commands/user.py:175
 #, python-format
 msgid "A user with the name %s has already been defined."
 msgstr ""
@@ -369,6 +382,17 @@ msgstr ""
 
 #: ../pykickstart/commands/displaymode.py:101
 msgid "Kickstart command cmdline does not support --non-interactive parameter"
+msgstr ""
+
+#: ../pykickstart/commands/rescue.py:63
+msgid ""
+"Only one of --nomount and --romount may be specified for rescue command."
+msgstr ""
+
+#: ../pykickstart/commands/keyboard.py:132
+msgid ""
+"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
+"for the keyboard command"
 msgstr ""
 
 #: ../pykickstart/commands/driverdisk.py:116
@@ -498,7 +522,7 @@ msgstr ""
 #: ../pykickstart/commands/logvol.py:593
 msgid ""
 "No size given for logical volume. Use one of --useexisting, --noformat, --"
-"size, or --percent."
+"size, --percent, or --hibernation."
 msgstr ""
 
 #: ../pykickstart/commands/logvol.py:597
@@ -563,25 +587,8 @@ msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
 
-#: ../pykickstart/commands/rescue.py:63
-msgid ""
-"Only one of --nomount and --romount may be specified for rescue command."
-msgstr ""
-
-#: ../pykickstart/commands/updates.py:53
-#, python-format
-msgid "Kickstart command %s only takes one argument"
-msgstr ""
-
-#: ../pykickstart/commands/group.py:86
-#, python-format
-msgid "A group with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/keyboard.py:132
-msgid ""
-"One of --xlayouts, --vckeymap options with value(s) or argument is expected "
-"for the keyboard command"
+#: ../pykickstart/commands/logging.py:68
+msgid "Can't specify --port without --host."
 msgstr ""
 
 #: ../pykickstart/commands/network.py:385
@@ -650,6 +657,24 @@ msgstr ""
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
 msgstr ""
 
+#: ../pykickstart/commands/timezone.py:139
+#: ../pykickstart/commands/timezone.py:215
+#: ../pykickstart/commands/timezone.py:249
+msgid "Options --nontp and --ntpservers are mutually exclusive"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:197
+#: ../pykickstart/commands/timezone.py:231
+#, python-format
+msgid "At least one option and/or an argument are expected for the  %s command"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:208
+#: ../pykickstart/commands/timezone.py:242
+#, python-format
+msgid "One or zero arguments are expected for the %s command"
+msgstr ""
+
 #: ../tools/ksverdiff.py:45 ../tools/ksvalidator.py:58
 msgid "list the available versions of kickstart syntax"
 msgstr ""
@@ -658,74 +683,75 @@ msgstr ""
 msgid "You must specify two syntax versions."
 msgstr ""
 
-#: ../tools/ksverdiff.py:63 ../tools/ksvalidator.py:80 ../tools/ksshell.py:161
+#: ../tools/ksverdiff.py:62 ../tools/ksverdiff.py:68 ../tools/ksflatten.py:53
+#: ../tools/ksvalidator.py:80 ../tools/ksshell.py:161
 #, python-format
 msgid "The version %s is not supported by pykickstart"
 msgstr ""
 
-#: ../tools/ksverdiff.py:70
+#: ../tools/ksverdiff.py:75
 #, python-format
 msgid "The following commands were removed in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff.py:73
+#: ../tools/ksverdiff.py:78
 #, python-format
 msgid "The following commands were deprecated in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff.py:76
+#: ../tools/ksverdiff.py:81
 #, python-format
 msgid "The following commands were added in %s:"
 msgstr ""
 
-#: ../tools/ksverdiff.py:102
+#: ../tools/ksverdiff.py:107
 #, python-format
 msgid ""
 "The following options were added to the %(command_name)s command in "
 "%(version)s:"
 msgstr ""
 
-#: ../tools/ksverdiff.py:107
+#: ../tools/ksverdiff.py:112
 #, python-format
 msgid ""
 "The following options were deprecated from the %(command_name)s command in "
 "%(version)s:"
 msgstr ""
 
-#: ../tools/ksverdiff.py:112
+#: ../tools/ksverdiff.py:117
 #, python-format
 msgid ""
 "The following options were removed from the %(command_name)s command in "
 "%(version)s:"
 msgstr ""
 
-#: ../tools/ksflatten.py:35
+#: ../tools/ksflatten.py:36
 msgid "Path to kickstart config file"
 msgstr ""
 
-#: ../tools/ksflatten.py:37
+#: ../tools/ksflatten.py:38
 msgid "Kickstart version to use for interpreting config"
 msgstr ""
 
-#: ../tools/ksflatten.py:39
+#: ../tools/ksflatten.py:40
 msgid "Write flattened config to OUTPUT"
 msgstr ""
 
-#: ../tools/ksflatten.py:46
+#: ../tools/ksflatten.py:47
 msgid "Need to specify a config to flatten"
 msgstr ""
 
-#: ../tools/ksflatten.py:54
+#: ../tools/ksflatten.py:60
 #, python-format
 msgid "Failed to read kickstart file '%(filename)s' : %(error_msg)s"
 msgstr ""
 
-#: ../tools/ksflatten.py:57
+#: ../tools/ksflatten.py:63
 #, python-format
 msgid "Failed to parse kickstart file '%(filename)s' : %(error_msg)s"
 msgstr ""
 
-#: ../tools/ksflatten.py:64
+#: ../tools/ksflatten.py:70
 #, python-format
 msgid "Failed to open output file '%(filename)s' : %(error_msg)s"
 msgstr ""
