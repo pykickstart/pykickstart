@@ -667,6 +667,19 @@ installation method command must be on separate lines.
 **Note that from F18 onward, upgrades are no longer supported in anaconda and should be done with FedUp, the Fedora update tool.**
 
 
+installclass
+~~~~~~~~~~~~
+
+``installclass --name=<name>``
+
+    Require the specified install class to be used for the installation.
+    Otherwise, the best available install class will be used.
+
+    ``--name=``
+
+        Name of the required install class.
+
+
 cdrom
 ~~~~~
 
