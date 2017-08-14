@@ -41,5 +41,11 @@ class F26_TestCase(CommandTest):
         self.assert_parse_error("installclass --xyz", KickstartParseError)
         self.assert_parse_error("installclass --name=\"An Install Class\" --xyz", KickstartParseError)
 
+
+class RHEL7_TestCase(F26_TestCase):
+    def runTest(self):
+        F26_TestCase.runTest(self)
+
+
 if __name__ == "__main__":
     unittest.main()
