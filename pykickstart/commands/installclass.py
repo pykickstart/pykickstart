@@ -55,3 +55,7 @@ class F26_InstallClass(KickstartCommand):
         (opts, _) = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(self.op, opts)
         return self
+
+
+class RHEL7_InstallClass(F26_InstallClass):
+    pass
