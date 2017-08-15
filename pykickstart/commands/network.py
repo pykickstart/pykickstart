@@ -15,10 +15,10 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
+from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 
@@ -307,6 +307,7 @@ class RHEL7_NetworkData(F21_NetworkData):
         F21_NetworkData.__init__(self, *args, **kwargs)
         self.bridgeslaves = kwargs.get("bridgeslaves", "")
         self.bridgeopts = kwargs.get("bridgeopts", "")
+        self.bindto = kwargs.get("bindto", None)
 
     def _getArgsAsStr(self):
         retval = F21_NetworkData._getArgsAsStr(self)
@@ -316,6 +317,8 @@ class RHEL7_NetworkData(F21_NetworkData):
             retval += " --bridgeopts=%s" % self.bridgeopts
         if self.activate == False:
             retval += " --no-activate"
+        if self.bindto == BIND_TO_MAC:
+            retval += " --bindto=%s" % self.bindto
 
         return retval
 
@@ -635,6 +638,10 @@ def validate_network_interface_name(name):
     return None
 
 class RHEL7_Network(F21_Network):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        self.bind_to_choices = [BIND_TO_MAC]
+        F21_Network.__init__(self, writePriority, *args, **kwargs)
+
     def _getParser(self):
         op = F21_Network._getParser(self)
         op.add_option("--bridgeslaves", dest="bridgeslaves", action="store",
@@ -643,6 +650,8 @@ class RHEL7_Network(F21_Network):
                 default="")
         op.add_option("--no-activate", dest="activate", action="store_false",
                       default=None)
+        op.add_option("--bindto", dest="bindto", default=None,
+                      choices=self.bind_to_choices)
         return op
 
     def parse(self, args):
@@ -666,5 +675,10 @@ class RHEL7_Network(F21_Network):
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
                     raise KickstartValueError(msg)
+
+        if retval.bindto == BIND_TO_MAC:
+            if retval.vlanid and not retval.bondopts:
+                msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
+                raise KickstartValueError(msg)
 
         return retval
