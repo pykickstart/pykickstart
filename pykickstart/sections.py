@@ -34,8 +34,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24
-
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, RHEL7
 from pykickstart.i18n import _
 
 class Section(object):
@@ -603,6 +602,16 @@ class PackageSection(Section):
                         are packages linked to the selected package set by
                         Recommends and Supplements flags. By default weak
                         dependencies will be installed.""")
+        op.add_argument("--timeout", dest="timeout", type=int,
+                        default=None, introduced=RHEL7, help="""
+                        Set up yum's or dnf's timeout. It is a number of seconds
+                        to wait for a connection before timing out.""")
+        op.add_argument("--retries", dest="retries", type=int,
+                        default=None, introduced=RHEL7, help="""
+                        Set up yum's or dnf's retries. It is a number of times
+                        any attempt to retrieve a file should retry before
+                        returning an error.""")
+
         return op
 
     def handleHeader(self, lineno, args):
@@ -635,4 +644,6 @@ class PackageSection(Section):
         self.handler.packages.nocore = ns.nocore
         self.handler.packages.multiLib = ns.multiLib
         self.handler.packages.excludeWeakdeps = ns.excludeWeakdeps
+        self.handler.packages.timeout = ns.timeout
+        self.handler.packages.retries = ns.retries
         self.handler.packages.seen = True

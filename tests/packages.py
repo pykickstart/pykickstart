@@ -6,7 +6,8 @@ from tests.baseclass import ParserTest
 from pykickstart.constants import KS_MISSING_IGNORE
 from pykickstart.errors import KickstartParseError
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion
+from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7
+
 
 class DevelPackagesBase(ParserTest):
     @property
@@ -490,6 +491,40 @@ bash
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(str(self.handler.packages), "\n%packages\nbash\n\n")
+
+class Packages_Timeout_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL7
+        self.ks = """
+    %packages --timeout=60
+    bash
+    %end
+    """
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 0)
+            self.assertEqual(str(self.handler.packages), "\n%packages --timeout=60\nbash\n\n%end\n")
+
+class Packages_Retries_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL7
+        self.ks = """
+    %packages --retries=10
+    bash
+    %end
+    """
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 0)
+            self.assertEqual(str(self.handler.packages), "\n%packages --retries=10\nbash\n\n%end\n")
 
 if __name__ == "__main__":
     unittest.main()
