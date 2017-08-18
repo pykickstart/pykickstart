@@ -290,6 +290,10 @@ class Packages(KickstartObject):
                             %packages section.
            instLangs     -- A list of languages to install.
            multiLib      -- Whether to use yum's "all" multilib policy.
+           timeout       -- Number of seconds to wait for a connection before
+                            yum's timing out or None.
+           retries       -- Number of times yum's attempt to retrieve a file
+                            should retry before returning an error.
            seen          -- If %packages was ever used in the kickstart file,
                             this attribute will be set to True.
 
@@ -308,6 +312,8 @@ class Packages(KickstartObject):
         self.packageList = []
         self.instLangs = None
         self.multiLib = False
+        self.timeout = None
+        self.retries = None
         self.seen = False
 
     def __str__(self):
@@ -357,6 +363,10 @@ class Packages(KickstartObject):
             retval += " --instLangs=%s" % self.instLangs
         if self.multiLib:
             retval += " --multilib"
+        if self.timeout is not None:
+            retval += " --timeout=%d" % self.timeout
+        if self.retries is not None:
+            retval += " --retries=%d" % self.retries
 
         if ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"

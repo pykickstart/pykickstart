@@ -182,5 +182,36 @@ class GroupObj_TestCase(DevelPackagesBase):
         self.assertGreaterEqual(Group("B"), Group("A"))
         self.assertGreaterEqual(Group("B"), Group("B"))
 
+class Timeout_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.add(["test"])
+        pkgs.timeout = 60
+        self.assertEqual("""%packages --timeout=60
+test
+
+%end""", str(pkgs).strip())
+        pkgs.timeout = None
+        self.assertEqual("""%packages
+test
+
+%end""", str(pkgs).strip())
+
+class Retries_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.add(["test"])
+        pkgs.retries = 10
+        self.assertEqual("""%packages --retries=10
+test
+
+%end""", str(pkgs).strip())
+        pkgs.retries = None
+        self.assertEqual("""%packages
+test
+
+%end""", str(pkgs).strip())
+
+
 if __name__ == "__main__":
     unittest.main()

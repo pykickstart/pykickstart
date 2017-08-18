@@ -34,7 +34,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21
+from pykickstart.version import FC4, F7, F9, F18, F21, RHEL7
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -259,6 +259,10 @@ class PackageSection(Section):
                       default="", introduced=F9)
         op.add_option("--multilib", dest="multiLib", action="store_true",
                       default=False, introduced=F18)
+        op.add_option("--timeout", dest="timeout", type="int",
+                      default=None, introduced=RHEL7)
+        op.add_option("--retries", dest="retries", type="int",
+                      default=None, introduced=RHEL7)
 
         (opts, _extra) = op.parse_args(args=args[1:], lineno=lineno)
 
@@ -282,4 +286,6 @@ class PackageSection(Section):
 
         self.handler.packages.nocore = opts.nocore
         self.handler.packages.multiLib = opts.multiLib
+        self.handler.packages.timeout = opts.timeout
+        self.handler.packages.retries = opts.retries
         self.handler.packages.seen = True
