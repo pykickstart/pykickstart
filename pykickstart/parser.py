@@ -336,6 +336,10 @@ class Packages(KickstartObject):
            instLangs     -- A list of languages to install.
            multiLib      -- Whether to use yum's "all" multilib policy.
            excludeWeakdeps -- Whether to exclude weak dependencies.
+           timeout       -- Number of seconds to wait for a connection before
+                            yum's or dnf's timing out or None.
+           retries       -- Number of times yum's or dnf's attempt to retrieve
+                            a file should retry before returning an error.
            seen          -- If %packages was ever used in the kickstart file,
                             this attribute will be set to True.
 
@@ -355,6 +359,8 @@ class Packages(KickstartObject):
         self.instLangs = None
         self.multiLib = False
         self.excludeWeakdeps = False
+        self.timeout = None
+        self.retries = None
         self.seen = False
 
     def __str__(self):
@@ -406,6 +412,10 @@ class Packages(KickstartObject):
             retval += " --multilib"
         if self.excludeWeakdeps:
             retval += " --excludeWeakdeps"
+        if self.timeout is not None:
+            retval += " --timeout=%d" % self.timeout
+        if self.retries is not None:
+            retval += " --retries=%d" % self.retries
 
         if ver >= version.F8:
             return retval + "\n" + pkgs + "\n%end\n"
