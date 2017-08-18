@@ -393,5 +393,36 @@ class WeakDeps_TestCase(DevelPackagesBase):
 
 %end""", str(pkgs).strip())
 
+class Packages_Timeout_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.add(["test"])
+        pkgs.timeout = 60
+        self.assertEqual("""%packages --timeout=60
+test
+
+%end""", str(pkgs).strip())
+        pkgs.timeout = None
+        self.assertEqual("""%packages
+test
+
+%end""", str(pkgs).strip())
+
+class Packages_Retries_TestCase(DevelPackagesBase):
+    def runTest(self):
+        pkgs = Packages()
+        pkgs.add(["test"])
+        pkgs.retries = 10
+        self.assertEqual("""%packages --retries=10
+test
+
+%end""", str(pkgs).strip())
+        pkgs.retries = None
+        self.assertEqual("""%packages
+test
+
+%end""", str(pkgs).strip())
+
+
 if __name__ == "__main__":
     unittest.main()
