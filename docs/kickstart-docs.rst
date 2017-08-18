@@ -2372,6 +2372,16 @@ header:
         Enable yum's "all" multilib\_policy as opposed to the default of
         "best".
 
+    ``--timeout=``
+
+        Set up yum's timeout. It is a number of seconds to wait for a
+        connection before timing out.
+
+    ``--retries=``
+
+        Set up yum's retries. It is a number of times any attempt to
+        retrieve a file should retry before returning an error.
+
     ``--nocore``
 
         Do not install the @core group (installed by default,
