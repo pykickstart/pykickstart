@@ -667,19 +667,6 @@ installation method command must be on separate lines.
 **If using F21 or later, the DNF system-upgrade plugin is recommended instead.**
 
 
-installclass
-~~~~~~~~~~~~
-
-``installclass --name=<name>``
-
-    Require the specified install class to be used for the installation.
-    Otherwise, the best available install class will be used.
-
-    ``--name=``
-
-        Name of the required install class.
-
-
 cdrom
 ~~~~~
 
