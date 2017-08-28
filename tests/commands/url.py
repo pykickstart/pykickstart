@@ -115,5 +115,28 @@ class F18_TestCase(F14_TestCase):
         cmd.mirrorlist = None
         self.assertEqual(cmd.__str__(), "# Use network installation\n\n")
 
+class F27_TestCase(F18_TestCase):
+    def runTest(self):
+        # run F18 test case.
+        F18_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --metalink=http://www.wherever.com/metalink",
+                          "url --metalink=\"http://www.wherever.com/metalink\"\n")
+
+        self.assertTrue(self.assert_parse("url --metalink=https://domain.com") == \
+                        self.assert_parse("url --metalink=https://domain.com"))
+        self.assertFalse(self.assert_parse("url --url=https://domain.com") == \
+                         self.assert_parse("url --metalink=https://domain.com"))
+
+        # fail
+        self.assert_parse_error("url --metalink", KickstartParseError)
+
+        # only one of --url, --mirrorlist, or --metalink may be specified
+        self.assert_parse_error("url --url=www.wherever.com --metalink=www.wherever.com",
+                                KickstartValueError)
+        self.assert_parse_error("url --mirrorlist=www.wherever.com --metalink=www.wherever.com",
+                                KickstartValueError)
+
 if __name__ == "__main__":
     unittest.main()
