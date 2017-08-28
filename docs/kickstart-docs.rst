@@ -776,7 +776,7 @@ nfs
 url
 ~~~
 
-``url --url=<url>|--mirrorlist=<url> [--proxy=<proxy url>] [--noverifyssl]``
+``url --url=<url>|--mirrorlist=<url>|--metalink=<url> [--proxy=<proxy url>] [--noverifyssl]``
 
     Install from an installation tree on a remote server via FTP or
     HTTP.
@@ -790,6 +790,11 @@ url
 
         The mirror URL to install from. Variable substitution is done
         for $releasever and $basearch in the url (added in F19).
+
+    ``--metalink=``
+
+        The metalink URL to install from. Variable substitution is done
+        for $releasever and $basearch in the url (added in F27).
 
     ``--proxy=[protocol://][username[:password]@]host[:port]``
 
