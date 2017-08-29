@@ -160,6 +160,9 @@ class F21_TestCase(F15_TestCase):
         #fail
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah", KickstartParseError)
 
+        # only one of --baseurl --mirrorlist may be specified
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --mirrorlist=https://www.domain.com/mirror",
+                                KickstartValueError)
 
 if __name__ == "__main__":
     unittest.main()
