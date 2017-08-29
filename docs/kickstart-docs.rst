@@ -1757,7 +1757,7 @@ automatically. Providing a baseurl or mirrorlist URL will result in
 anaconda attempting to add another repo by the same name, which will
 cause a conflicting repo error.
 
-``repo --name=<name> [--baseurl=<url>|--mirrorlist=<url>]  [options]``
+``repo --name=<name> [--baseurl=<url>|--mirrorlist=<url>|--metalink=<url>]  [options]``
 
 ``--name=``
 
@@ -1770,22 +1770,31 @@ cause a conflicting repo error.
 
 ``--baseurl=``
 
-    The URL for the repository. The variables that may be used in yum
-    repo config files are not supported here. You may use one of either
-    this option or ``--mirrorlist``, not both. If an NFS repository is
-    specified, it should be of the form ``nfs://host:/path/to/repo``.
-    Note that there is a colon after the host--Anaconda passes
-    everything after "nfs://\ " directly to the mount command instead of
-    parsing URLs according to RFC 2224. Variable substitution is done
-    for $releasever and $basearch in the url (added in F19).
+    The URL for the repository. The variables that may be used in yum repo
+    config files are not supported here. You may use only one of the
+    ``--baseurl``, ``--mirrorlist``, or ``--metalink`` options.  If an NFS
+    repository is specified, it should be of the form
+    ``nfs://host:/path/to/repo``.  Note that there is a colon after the
+    host--Anaconda passes everything after "nfs://\ " directly to the mount
+    command instead of parsing URLs according to RFC 2224. Variable
+    substitution is done for $releasever and $basearch in the url (added in
+    F19).
 
 ``--mirrorlist=``
 
-    The URL pointing at a list of mirrors for the repository. The
-    variables that may be used in yum repo config files are not
-    supported here. You may use one of either this option or
-    ``--baseurl``, not both. Variable substitution is done for
-    $releasever and $basearch in the url (added in F19).
+    The URL pointing at a list of mirrors for the repository. The variables
+    that may be used in yum repo config files are not supported here. You may
+    use only one of the ``--baseurl``, ``--mirrorlist``, or ``--metalink``
+    options. Variable substitution is done for $releasever and $basearch in the
+    url (added in F19).
+
+``--metalink=``
+
+    The URL pointing at a metalink for the repository. The
+    variables that may be used in yum repo config files are not supported here.
+    You may use only one of the ``--baseurl``, ``--mirrorlist``, or
+    ``--metalink`` options. Variable substitution is done for $releasever and
+    $basearch in the url (added in F27).
 
 ``--cost=``
 
