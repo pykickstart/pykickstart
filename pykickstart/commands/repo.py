@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartValueError, formatErrorMsg
@@ -147,6 +147,22 @@ class F21_RepoData(F14_RepoData):
 
         return retval
 
+class F27_RepoData(F21_RepoData):
+    removedKeywords = F21_RepoData.removedKeywords
+    removedAttrs = F21_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_RepoData.__init__(self, *args, **kwargs)
+        self.metalink = kwargs.get("metalink", False)
+
+    def _getArgsAsStr(self):
+        retval = F21_RepoData._getArgsAsStr(self)
+
+        if self.metalink:
+            retval += " --metalink=%s" % self.metalink
+
+        return retval
+
 RHEL7_RepoData = F21_RepoData
 
 class FC6_Repo(KickstartCommand):
@@ -160,6 +176,8 @@ class FC6_Repo(KickstartCommand):
         self.op = self._getParser()
 
         self.repoList = kwargs.get("repoList", [])
+        self.exclusive_required_options = [("mirrorlist", "--mirrorlist"),
+                                           ("baseurl", "--baseurl")]
 
     def __str__(self):
         retval = ""
@@ -182,13 +200,15 @@ class FC6_Repo(KickstartCommand):
             mapping = {"command": "repo", "options": extra}
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        # This is lame, but I can't think of a better way to make sure only
-        # one of these two is specified.
-        if opts.baseurl and opts.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
-
-        if self.urlRequired and not opts.baseurl and not opts.mirrorlist:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
+        # Check that just one of exclusive required options is specified
+        used_options = [opt for attr, opt in self.exclusive_required_options
+                        if getattr(opts, attr, None)]
+        if self.urlRequired and not used_options:
+            mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for repo command.") % mapping))
+        if len(used_options) > 1:
+            mapping = {"options_list": ", ".join((opt for opt in used_options))}
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for repo command.") % mapping))
 
         rd = self.handler.RepoData()
         self.set_to_obj(self.op, opts, rd)
@@ -277,6 +297,19 @@ class F21_Repo(F15_Repo):
     def _getParser(self):
         op = F15_Repo._getParser(self)
         op.add_option("--install", action="store_true", default=False)
+        return op
+
+class F27_Repo(F21_Repo):
+    removedKeywords = F21_Repo.removedKeywords
+    removedAttrs = F21_Repo.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_Repo.__init__(self, *args, **kwargs)
+        self.exclusive_required_options.append(("metalink", "--metalink"))
+
+    def _getParser(self):
+        op = F21_Repo._getParser(self)
+        op.add_option("--metalink")
         return op
 
 RHEL7_Repo = F21_Repo
