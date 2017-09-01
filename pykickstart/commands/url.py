@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F13, F14, F18
+from pykickstart.version import FC3, F13, F14, F18, F27
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -143,6 +143,8 @@ class F18_Url(F14_Url):
     def __init__(self, *args, **kwargs):
         F14_Url.__init__(self, *args, **kwargs)
         self.mirrorlist = kwargs.get("mirrorlist", None)
+        self.exclusive_required_options = [("mirrorlist", "--mirrorlist"),
+                                           ("url", "--url")]
 
     def __eq__(self, other):
         if not F14_Url.__eq__(self, other):
@@ -183,10 +185,59 @@ class F18_Url(F14_Url):
     def parse(self, args):
         retval = F14_Url.parse(self, args)
 
-        if self.url and self.mirrorlist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --url and --mirrorlist may be specified for url command.")))
-
-        if not self.url and not self.mirrorlist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command.")))
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        # Check that just one of exclusive required options is specified
+        used_options = [opt for attr, opt in self.exclusive_required_options
+                        if getattr(ns, attr, None)]
+        if len(used_options) == 0:
+            mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for url command.") % mapping))
+        if len(used_options) > 1:
+            mapping = {"options_list": ", ".join((opt for opt in used_options))}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for url command.") % mapping))
 
         return retval
+
+class F27_Url(F18_Url):
+    removedKeywords = F18_Url.removedKeywords
+    removedAttrs = F18_Url.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F18_Url.__init__(self, *args, **kwargs)
+        self.metalink = kwargs.get("metalink", None)
+        self.exclusive_required_options.append(("metalink", "--metalink"))
+
+    def __eq__(self, other):
+        if not F18_Url.__eq__(self, other):
+            return False
+
+        return self.metalink == other.metalink
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+        if not self.seen:
+            return retval
+
+        retval += "# Use network installation\n"
+
+        if self.url:
+            retval += "url --url=\"%s\"" % self.url
+        elif self.mirrorlist:
+            retval += "url --mirrorlist=\"%s\"" % self.mirrorlist
+        elif self.metalink:
+            retval += "url --metalink=\"%s\"" % self.metalink
+
+        if self.proxy:
+            retval += " --proxy=\"%s\"" % self.proxy
+
+        if self.noverifyssl:
+            retval += " --noverifyssl"
+
+        return retval + "\n"
+
+    def _getParser(self):
+        op = F18_Url._getParser(self)
+        op.add_argument("--metalink", metavar="URL", version=F27, help="""
+                        The metalink URL to install from. Variable substitution
+                        is done for $releasever and $basearch in the url.""")
+        return op
