@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString
-from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21
+from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
@@ -152,6 +152,22 @@ class F21_RepoData(F15_RepoData):
 
         return retval
 
+class F27_RepoData(F21_RepoData):
+    removedKeywords = F21_RepoData.removedKeywords
+    removedAttrs = F21_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_RepoData.__init__(self, *args, **kwargs)
+        self.metalink = kwargs.get("metalink", False)
+
+    def _getArgsAsStr(self):
+        retval = F21_RepoData._getArgsAsStr(self)
+
+        if self.metalink:
+            retval += " --metalink=%s" % self.metalink
+
+        return retval
+
 class RHEL7_RepoData(F21_RepoData):
     pass
 
@@ -166,6 +182,8 @@ class FC6_Repo(KickstartCommand):
         self.op = self._getParser()
 
         self.repoList = kwargs.get("repoList", [])
+        self.exclusive_required_options = [("mirrorlist", "--mirrorlist"),
+                                           ("baseurl", "--baseurl")]
 
     def __str__(self):
         retval = ""
@@ -230,13 +248,15 @@ class FC6_Repo(KickstartCommand):
     def parse(self, args):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
 
-        # This is lame, but I can't think of a better way to make sure only
-        # one of these two is specified.
-        if ns.baseurl and ns.mirrorlist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --baseurl and --mirrorlist may be specified for repo command.")))
-
-        if self.urlRequired and not ns.baseurl and not ns.mirrorlist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --baseurl or --mirrorlist must be specified for repo command.")))
+        # Check that just one of exclusive required options is specified
+        used_options = [opt for attr, opt in self.exclusive_required_options
+                        if getattr(ns, attr, None)]
+        if self.urlRequired and not used_options:
+            mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for repo command.") % mapping))
+        if len(used_options) > 1:
+            mapping = {"options_list": ", ".join((opt for opt in used_options))}
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for repo command.") % mapping))
 
         rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)
@@ -373,6 +393,25 @@ class F21_Repo(F15_Repo):
                         default=False, help="""
                         Install this repository to the target system so that it
                         can be used after reboot.""")
+        return op
+
+class F27_Repo(F21_Repo):
+    removedKeywords = F21_Repo.removedKeywords
+    removedAttrs = F21_Repo.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_Repo.__init__(self, *args, **kwargs)
+        self.exclusive_required_options.append(("metalink", "--metalink"))
+
+    def _getParser(self):
+        op = F21_Repo._getParser(self)
+        op.add_argument("--metalink", version=F27, help="""
+                        The URL pointing at a metalink for the repository. The
+                        variables that may be used in yum repo config files are
+                        not supported here. You may use only one of the
+                        ``--baseurl``, ``--mirrorlist``, or ``--metalink``
+                        options. Variable substitution is done for $releasever
+                        and $basearch in the url.""")
         return op
 
 class RHEL7_Repo(F21_Repo):
