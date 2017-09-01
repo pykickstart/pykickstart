@@ -84,7 +84,7 @@ class F27Handler(BaseHandler):
         "timezone": commands.timezone.F25_Timezone,
         "updates": commands.updates.F7_Updates,
         "upgrade": commands.upgrade.F20_Upgrade,
-        "url": commands.url.F18_Url,
+        "url": commands.url.F27_Url,
         "user": commands.user.F24_User,
         "vnc": commands.vnc.F9_Vnc,
         "volgroup": commands.volgroup.F21_VolGroup,
