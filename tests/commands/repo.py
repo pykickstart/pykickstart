@@ -166,5 +166,15 @@ class F21_TestCase(F15_TestCase):
         # only one of --baseurl --mirrorlist may be specified
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --mirrorlist=https://www.domain.com/mirror")
 
+class F27_TestCase(F21_TestCase):
+    def runTest(self, urlRequired=False):
+        F21_TestCase.runTest(self, urlRequired=urlRequired)
+
+        self.assert_parse("repo --name=blah --metalink=https://www.domain.com/metalink")
+
+        # only one of --baseurl --mirrorlist --metalink may be specified
+        self.assert_parse_error("repo --name=blah --metalink=https://www.domain.com/metalink --mirrorlist=https://www.domain.com/mirror")
+        self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --metalink=https://www.domain.com/metalink")
+
 if __name__ == "__main__":
     unittest.main()
