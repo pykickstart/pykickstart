@@ -412,6 +412,15 @@ class F27_Repo(F21_Repo):
                         ``--baseurl``, ``--mirrorlist``, or ``--metalink``
                         options. Variable substitution is done for $releasever
                         and $basearch in the url.""")
+        for action in op._actions:
+            for option in ['--baseurl', '--mirrorlist']:
+                if option in action.option_strings:
+                    action.help += dedent("""
+
+                    .. versionchanged:: %s
+
+                    ``Another mutually exclusive option --metalink`` was added.
+                    """ % versionToLongString(F27))
         return op
 
 class RHEL7_Repo(F21_Repo):
