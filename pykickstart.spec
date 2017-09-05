@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.12
+Version: 1.99.66.13
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Sep 05 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.13-1
+- network: add network --bindto option (rvykydal)
+  Resolves: rhbz#1483981
+
 * Wed Apr 05 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.12-1
 - Add documentation for the snapshot feature (jkonecny)
   Related: rhbz#1113207
