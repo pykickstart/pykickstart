@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.37
+Version:   2.38
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -120,6 +120,14 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Sep 07 2017 Chris Lumens <clumens@redhat.com> - 2.38-1
+- Add url --metalink support (#1464843) (rvykydal)
+- Add repo --metalink support (#1464843) (rvykydal)
+- Add Fedora 27 support. (rvykydal)
+- Update Repo command tests. (rvykydal)
+- Split the import of commands to multiple lines (vponcova)
+- Move the installclass command to the %anaconda section (vponcova)
+
 * Mon Jul 31 2017 Chris Lumens <clumens@redhat.com> - 2.37-1
 - Remove the type annotations (dshea)
 - Remove mypy checks. (dshea)
