@@ -263,6 +263,20 @@ class F25_NetworkData(F22_NetworkData):
             retval += " --no-activate"
         return retval
 
+class F27_NetworkData(F25_NetworkData):
+    removedKeywords = F25_NetworkData.removedKeywords
+    removedAttrs = F25_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F25_NetworkData.__init__(self, *args, **kwargs)
+        self.bindto = kwargs.get("bindto", None)
+
+    def _getArgsAsStr(self):
+        retval = F25_NetworkData._getArgsAsStr(self)
+        if self.bindto == BIND_TO_MAC:
+            retval += " --bindto=%s" % self.bindto
+        return retval
+
 class RHEL4_NetworkData(FC3_NetworkData):
     removedKeywords = FC3_NetworkData.removedKeywords
     removedAttrs = FC3_NetworkData.removedAttrs
@@ -582,6 +596,31 @@ class F25_Network(F24_Network):
         op.add_option("--no-activate", dest="activate", action="store_false",
                       default=None)
         return op
+
+class F27_Network(F25_Network):
+    removedKeywords = F25_Network.removedKeywords
+    removedAttrs = F25_Network.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        self.bind_to_choices = [BIND_TO_MAC]
+        F25_Network.__init__(self, writePriority, *args, **kwargs)
+
+    def _getParser(self):
+        op = F25_Network._getParser(self)
+        op.add_option("--bindto", dest="bindto", default=None,
+                      choices=self.bind_to_choices)
+        return op
+
+    def parse(self, args):
+        # call the overridden command to do it's job first
+        retval = F25_Network.parse(self, args)
+
+        if retval.bindto == BIND_TO_MAC:
+            if retval.vlanid and not retval.bondopts:
+                msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
+                raise KickstartValueError(msg)
+
+        return retval
 
 class RHEL4_Network(FC3_Network):
     removedKeywords = FC3_Network.removedKeywords
