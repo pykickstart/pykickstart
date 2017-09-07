@@ -1196,6 +1196,43 @@ a device can be also explicitly required by ``--activate`` option.
     ``--device=`` option is missing. Make sure you specify this option for any
     network command beyond the first.
 
+``--bindto=``
+
+    Optional. Allows to specify how the connection configuration created for
+    the device should be bound. If the option is not used, the connection binds
+    to interface name (``DEVICE`` value in ifcfg file). For virtual devices
+    (bond, team, bridge) it configures binding of slaves. Not applicable to
+    vlan devices.
+
+    Note that this option is independent of how the ``--device`` is specified.
+
+    Currently only the value ``mac`` is suported. ``--bindto=mac`` will bind
+    the connection to MAC address of the device (``HWADDR`` value in ifcfg
+    file).
+
+    For example:
+
+      ::
+
+      network --device=01:23:45:67:89:ab --bootproto=dhcp --bindto=mac
+
+    will bind the configuration of the device specified by MAC address
+    ``01:23:45:67:89:ab`` to its MAC address.
+
+      ::
+
+      network --device=01:23:45:67:89:ab --bootproto=dhcp
+
+    will bind the configuration of the device specified by MAC address
+    ``01:23:45:67:89:ab`` to its interface name (eg ``ens3``).
+
+      ::
+
+      network --device=ens3 --bootproto=dhcp --bindto=mac
+
+    will bind the configuration of the device specified by interface name
+    ``ens3`` to its MAC address.
+
 ``--bootproto=[dhcp|static|ibft]``
 
     The method of IPv4 configuration. For IPv6 configuration use ``--ipv6`` option.
