@@ -337,6 +337,24 @@ class F25_TestCase(F24_TestCase):
         network_data = self.assert_parse("network --device eth0 --no-activate --activate")
         self.assertEqual(network_data.activate, True)
 
+class F27_TestCase(F25_TestCase):
+    def runTest(self):
+        F25_TestCase.runTest(self)
+
+        # binding the configuration to mac
+        network_data = self.assert_parse("network --device eth0 --bindto mac")
+        self.assertEqual(network_data.bindto, BIND_TO_MAC)
+        network_data = self.assert_parse("network --device eth0")
+        self.assertIsNone(network_data.bindto)
+        # not allowed for vlan device type
+        vlan_cmd = "network --device ens3 --vlanid 222 --bootproto dhcp"
+        self.assert_parse(vlan_cmd)
+        self.assert_parse_error(vlan_cmd + " --bindto mac")
+        # but allowed for vlan over bond defined by single command, binds bond slaves
+        vlan_over_bond_cmd = "network --device bond0 --bootproto static --ip 10.34.39.222 --netmask 255.255.255.0 --gateway 10.34.39.254 --bondslaves=ens4,ens5 --bondopts=mode=active-backup,miimon-100,primary=ens4 --activate --vlanid=222 --activate --onboot=no"
+        self.assert_parse(vlan_over_bond_cmd)
+        self.assert_parse(vlan_over_bond_cmd + " --bindto mac")
+
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
