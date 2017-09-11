@@ -21,7 +21,7 @@ from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
 from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25
-from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC
+from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 
@@ -318,6 +318,7 @@ class RHEL7_NetworkData(F21_NetworkData):
         F21_NetworkData.__init__(self, *args, **kwargs)
         self.bridgeslaves = kwargs.get("bridgeslaves", "")
         self.bridgeopts = kwargs.get("bridgeopts", "")
+        self.bindto = kwargs.get("bindto", None)
 
     def _getArgsAsStr(self):
         retval = F21_NetworkData._getArgsAsStr(self)
@@ -327,6 +328,8 @@ class RHEL7_NetworkData(F21_NetworkData):
             retval += " --bridgeopts=%s" % self.bridgeopts
         if self.activate == False:
             retval += " --no-activate"
+        if self.bindto == BIND_TO_MAC:
+            retval += " --bindto=%s" % self.bindto
 
         return retval
 
@@ -897,6 +900,10 @@ def validate_network_interface_name(name):
     return None
 
 class RHEL7_Network(F21_Network):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        self.bind_to_choices = [BIND_TO_MAC]
+        F21_Network.__init__(self, writePriority, *args, **kwargs)
+
     def _getParser(self):
         op = F21_Network._getParser(self)
         op.add_argument("--bridgeslaves", default="", version=RHEL7, help="""
@@ -920,6 +927,40 @@ class RHEL7_Network(F21_Network):
                 action="store_false", help="""
                 Use this option with first network command to prevent
                 activation of the device in istaller environment""")
+        op.add_argument("--bindto", dest="bindto", default=None, version=RHEL7,
+                        choices=self.bind_to_choices, help="""
+                        Optionally allows to specify how the connection
+                        configuration created for the device should be bound. If
+                        the option is not used, the connection binds to
+                        interface name (``DEVICE`` value in ifcfg file). For
+                        virtual devices (bond, team, bridge) it configures
+                        binding of slaves. Not applicable to vlan devices.
+
+                        Note that this option is independent of how the
+                        ``--device`` is specified.
+
+                        Currently only the value ``mac`` is suported.
+                        ``--bindto=mac`` will bind the connection to MAC address
+                        of the device (``HWADDR`` value in ifcfg file).
+
+                        For example::
+
+                            ``network --device=01:23:45:67:89:ab --bootproto=dhcp --bindto=mac``
+
+                        will bind the configuration of the device specified by
+                        MAC address ``01:23:45:67:89:ab`` to its MAC address.
+
+                            ``network --device=01:23:45:67:89:ab --bootproto=dhcp``
+
+                        will bind the configuration of the device specified by
+                        MAC address ``01:23:45:67:89:ab`` to its interface name
+                        (eg ``ens3``).
+
+                            ``network --device=ens3 --bootproto=dhcp --bindto=mac``
+
+                        will bind the configuration of the device specified by
+                        interface name ``ens3`` to its MAC address.
+                       """)
         return op
 
     def parse(self, args):
@@ -942,5 +983,10 @@ class RHEL7_Network(F21_Network):
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
                     raise KickstartParseError(msg)
+
+        if retval.bindto == BIND_TO_MAC:
+            if retval.vlanid and not retval.bondopts:
+                msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
+                raise KickstartParseError(msg)
 
         return retval
