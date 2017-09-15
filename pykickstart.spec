@@ -1,6 +1,6 @@
 Name:      pykickstart
-Version:   2.38
-Release:   2%{?dist}
+Version:   2.39
+Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
 Summary:   Python utilities for manipulating kickstart files.
@@ -122,6 +122,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Sep 15 2017 Chris Lumens <clumens@redhat.com> - 2.39-1
+- network: add network --bindto option (Fedora) (#1483981) (rvykydal)
+- network: add network --bindto option (RHEL) (#1483981) (rvykydal)
+
 * Fri Sep 15 2017 Jiri Konecny <jkonecny@redhat.com> - 2.38-2
 - Backport of the Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> from downstream spec
   Python 2 binary package renamed to python2-pykickstart
