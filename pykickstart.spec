@@ -1,6 +1,6 @@
 Name:      pykickstart
 Version:   2.38
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
 Summary:   Python utilities for manipulating kickstart files.
@@ -36,13 +36,15 @@ can be found in the packages python-kickstart and python3-kickstart
 respectively.
 
 # Python 2 library
-%package -n python-kickstart
+%package -n python2-kickstart
+%{?python_provide:%python_provide python2-kickstart}
+%{?python_provide:%python_provide python2-pykickstart}
 Summary:  Python 2 library for manipulating kickstart files.
 Requires: python-six
 Requires: python-requests
 Requires: python-ordered-set
 
-%description -n python-kickstart
+%description -n python2-kickstart
 Python 2 library for manipulating kickstart files.  The binaries are found in
 the pykickstart package.
 
@@ -97,7 +99,7 @@ popd
 %{_bindir}/ksshell
 %{_mandir}/man1/*
 
-%files -n python-kickstart
+%files -n python2-kickstart
 %defattr(-,root,root,-)
 %doc docs/2to3
 %doc docs/programmers-guide
@@ -120,6 +122,11 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Sep 15 2017 Jiri Konecny <jkonecny@redhat.com> - 2.38-2
+- Backport of the Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> from downstream spec
+  Python 2 binary package renamed to python2-pykickstart
+  See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3
+
 * Thu Sep 07 2017 Chris Lumens <clumens@redhat.com> - 2.38-1
 - Add url --metalink support (#1464843) (rvykydal)
 - Add repo --metalink support (#1464843) (rvykydal)
