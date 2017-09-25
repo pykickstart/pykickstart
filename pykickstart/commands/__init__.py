@@ -51,6 +51,7 @@ from pykickstart.commands import (
      mediacheck,
      method,
      monitor,
+     mount,
      mouse,
      multipath,
      network,

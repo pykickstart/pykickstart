@@ -194,7 +194,10 @@ class F20_VolGroup(FC16_VolGroup):
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
-
+        # the same applies to the 'mount' command
+        if hasattr(self.handler, "mount") and self.handler.mount.seen:
+            errorMsg = _("The volgroup and mount commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 class F21_VolGroup(F20_VolGroup):
