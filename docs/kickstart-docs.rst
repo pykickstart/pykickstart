@@ -1160,6 +1160,53 @@ manually configuring your monitor.
     Specifies the vertical sync frequency of the monitor.
 
 
+mount
+-----
+
+Assigns a mount point to a block device and optionally reformats it to a given
+format. It at least requires a device and a mount point where the mount point
+can be ``none`` in case the format on the device is not mountable or in case the
+device should just be reformatted.
+
+The difference between this command and the other commands for storage
+configuration (``part``, ``logvol``,...) is that it doesn't require the whole
+storage stack to be described in the kickstart file. The user just needs to make
+sure that the specified block device exists in the system. The installer doesn't
+necessarily have to know all the details about of the given device. If, on the
+other hand, the installer is supposed to **create** the storage stack with all
+the devices mounted at various places, the ``part``, ``logvol``, ``raid``,
+etc. commands have to be used.
+
+``--reformat=``
+
+  Specifies the new format (e.g. a file system) for the device.
+
+
+``--mkfsoptions=``
+
+  Specifies additional parameters to be passed to the program that makes a
+  filesystem on this partition. No processing is done on the list of arguments,
+  so they must be supplied in a format that can be passed directly to the mkfs
+  program.  This means multiple options should be comma-separated or surrounded
+  by double quotes, depending on the filesystem.
+
+``--mountoptions=``
+
+    Specifies a free form string of options to be used when mounting the
+    filesystem. This string will be copied into the /etc/fstab file of
+    the installed system and should be enclosed in quotes.
+
+Examples
+++++++++
+
+::
+   mount /dev/vda1 /boot --reformat=xfs
+   mount /dev/vda2 /     --reformat=xfs  # / must be reformatted!
+   mount /dev/disk/by-path/pci-0000:00:1f.2-ata-1-part3 /home
+   mount /dev/vda5 none  --reformat=swap # swap must be reformatted
+   mount /dev/vda6 /mnt/backup --mountoptions="noauto,discard"
+
+
 multipath
 ---------
 
