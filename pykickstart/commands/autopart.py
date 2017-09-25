@@ -360,6 +360,8 @@ class F20_AutoPart(F18_AutoPart):
             conflicting_command = "volgroup"
         elif self.handler.logvol.seen:
             conflicting_command = "logvol"
+        elif hasattr(self.handler, "mount") and self.handler.mount.seen:
+            conflicting_command = "mount"
 
         if conflicting_command:
             # allow for translation of the error message

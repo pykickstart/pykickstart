@@ -78,6 +78,10 @@ class F23_ReqPart(KickstartCommand):
             errorMsg = _("The %s and reqpart commands can't be used at the same time") % \
                          "autopart"
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        # the same applies to the 'mount' command
+        if hasattr(self.handler, "mount") and self.handler.mount.seen:
+            errorMsg = _("The mount and reqpart commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
