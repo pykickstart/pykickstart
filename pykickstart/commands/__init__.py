@@ -22,6 +22,6 @@ from pykickstart.commands import \
      deviceprobe, displaymode, dmraid, driverdisk, eula, fcoe, firewall, firstboot, \
      group, harddrive, hmc, ignoredisk, interactive, iscsi, iscsiname, key, keyboard, lang, \
      langsupport, lilocheck, liveimg, logging, logvol, mediacheck, method, monitor, \
-     mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, \
+     mount, mouse, multipath, network, nfs, ostreesetup, partition, raid, realm, reboot, repo, \
      reqpart, rescue, rootpw, selinux, services, skipx, snapshot, sshpw, sshkey, timezone, \
      updates, upgrade, url, user, unsupported_hardware, vnc, volgroup, xconfig, zerombr, zfcp
