@@ -508,6 +508,10 @@ class F20_Raid(F19_Raid):
         if self.handler.autopart.seen:
             errorMsg = _("The raid and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        # the same applies to the 'mount' command
+        if hasattr(self.handler, "mount") and self.handler.mount.seen:
+            errorMsg = _("The raid and mount commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
         return retval
 
 class F23_Raid(F20_Raid):

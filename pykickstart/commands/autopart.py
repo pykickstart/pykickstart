@@ -174,6 +174,8 @@ class RHEL6_AutoPart(F12_AutoPart):
             conflicting_command = "logvol"
         elif hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
             conflicting_command = "reqpart"
+        elif hasattr(self.handler, "mount") and self.handler.mount.seen:
+            conflicting_command = "mount"
 
         if conflicting_command:
             # allow for translation of the error message

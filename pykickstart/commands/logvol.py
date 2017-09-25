@@ -588,6 +588,10 @@ class F20_LogVol(F18_LogVol):
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        # the same applies to the 'mount' command
+        if hasattr(self.handler, "mount") and self.handler.mount.seen:
+            errorMsg = _("The logvol and mount commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         if not retval.preexist and not retval.percent and not retval.size and not retval.recommended and not retval.hibernation:
             errorMsg = _("No size given for logical volume. Use one of --useexisting, --noformat, --size, --percent, or --hibernation.")

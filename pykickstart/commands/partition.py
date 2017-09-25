@@ -463,6 +463,10 @@ class F20_Partition(F18_Partition):
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+        # the same applies to the 'mount' command
+        if hasattr(self.handler, "mount") and self.handler.mount.seen:
+            errorMsg = _("The part/partition and mount commands can't be used at the same time")
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
 
         # when using tmpfs, grow is not suported
         if retval.fstype == "tmpfs":
