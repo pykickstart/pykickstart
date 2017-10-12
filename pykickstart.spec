@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.39
+Version:   2.40
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -122,6 +122,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Oct 12 2017 Chris Lumens <clumens@redhat.com> - 2.40-1
+- Add a new 'mount' command (vpodzime)
+
 * Fri Sep 15 2017 Chris Lumens <clumens@redhat.com> - 2.39-1
 - network: add network --bindto option (Fedora) (#1483981) (rvykydal)
 - network: add network --bindto option (RHEL) (#1483981) (rvykydal)
