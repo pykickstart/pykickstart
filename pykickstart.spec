@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.40
+Version:   2.41
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -122,6 +122,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Oct 16 2017 Chris Lumens <clumens@redhat.com> - 2.41-1
+- Pylint fixes (vponcova)
+- Add command hmc to support SE/HMC file access in RHEL7 (vponcova)
+- Add timeout and retries options to %packages section in RHEL7 (vponcova)
+- Call the _ method from i18n.py (jkonecny)
+
 * Thu Oct 12 2017 Chris Lumens <clumens@redhat.com> - 2.40-1
 - Add a new 'mount' command (vpodzime)
 
