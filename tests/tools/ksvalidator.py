@@ -193,7 +193,7 @@ class List_Versions_TestCase(TestCase):
 
 class Raise_KickstartError_TestCase(TestCase):
     def setUp(self):
-        super(self.__class__, self).setUp()
+        super(Raise_KickstartError_TestCase, self).setUp()
         ks_content = "%ksappend /none.ks"
         self._ks_path = mktempfile(ks_content)
 
@@ -203,12 +203,12 @@ class Raise_KickstartError_TestCase(TestCase):
         self.assertTrue("General kickstart error" in " ".join(out))
 
     def tearDown(self):
-        super(self.__class__, self).tearDown()
+        super(Raise_KickstartError_TestCase, self).tearDown()
         os.unlink(self._ks_path)
 
 class Raise_Exception_TestCase(TestCase):
     def setUp(self):
-        super(self.__class__, self).setUp()
+        super(Raise_Exception_TestCase, self).setUp()
         ks_content = "text'"  # extra quote here
         self._ks_path = mktempfile(ks_content)
 
@@ -218,12 +218,12 @@ class Raise_Exception_TestCase(TestCase):
         self.assertTrue("General error in input file:  No closing quotation" in " ".join(out))
 
     def tearDown(self):
-        super(self.__class__, self).tearDown()
+        super(Raise_Exception_TestCase, self).tearDown()
         os.unlink(self._ks_path)
 
 class Raise_DeprecationWarning_TestCase(TestCase):
     def setUp(self):
-        super(self.__class__, self).setUp()
+        super(Raise_DeprecationWarning_TestCase, self).setUp()
         ks_content = "text"
         self._ks_path = mktempfile(ks_content)
 
@@ -235,5 +235,5 @@ class Raise_DeprecationWarning_TestCase(TestCase):
         self.assertTrue("File uses a deprecated option or command" in " ".join(out))
 
     def tearDown(self):
-        super(self.__class__, self).tearDown()
+        super(Raise_DeprecationWarning_TestCase, self).tearDown()
         os.unlink(self._ks_path)

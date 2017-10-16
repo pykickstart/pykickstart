@@ -157,7 +157,7 @@ class FC3_Lilo(FC3_Bootloader):
         Used only in FC3, RHEL3 and RHEL4.
     """
     def _getParser(self):
-        op = super(self.__class__, self)._getParser()
+        op = super(FC3_Lilo, self)._getParser()
         op.prog = "lilo"
         return op
 

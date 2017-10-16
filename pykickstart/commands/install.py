@@ -31,7 +31,7 @@ class F20_Install(F11_Upgrade):
         possible version of this class!
     """
     def _getParser(self):
-        op = super(self.__class__, self)._getParser()
+        op = super(F20_Install, self)._getParser()
         op.prog = "install"
         op.description = """
             Install a fresh system. You must specify the type of
@@ -48,7 +48,7 @@ class F20_Install(F11_Upgrade):
         return op
 
     def parse(self, args):
-        super(self.__class__, self).parse(args)
+        super(F20_Install, self).parse(args)
         # since F20 we always return False for upgrades
         self.upgrade = False
 

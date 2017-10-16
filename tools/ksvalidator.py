@@ -45,7 +45,7 @@ def cleanup(dest, fn=None, exitval=1):
 
     return exitval
 
-def main(argv=sys.argv[1:]):
+def main(argv):
     op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile", add_help=False)
     op.add_argument("ksfile", nargs="?",
                     help=_("filename or URL to read from"))
@@ -116,7 +116,7 @@ def main(argv=sys.argv[1:]):
                 [_("General error in input file:  %s") % e])
 
 if __name__ == "__main__":
-    retval, messages = main()
+    retval, messages = main(sys.argv[1:])
     for msg in messages:
         print(msg)
     sys.exit(retval)

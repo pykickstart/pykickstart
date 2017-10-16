@@ -148,7 +148,7 @@ class CommandTest(unittest.TestCase):
         args = shlex.split(inputStr, comments=True)
         cmd = args[0]
 
-        parser = self.handler().commands[cmd]
+        parser = self.handler().commands[cmd]  # pylint: disable=not-callable
         parser.currentLine = inputStr
         parser.currentCmd = args[0]
         parser.seen = True
