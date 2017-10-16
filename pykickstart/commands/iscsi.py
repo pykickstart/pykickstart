@@ -191,7 +191,7 @@ class RHEL6_Iscsi(F10_Iscsi):
 
 class F17_Iscsi(RHEL6_Iscsi):
     def _getParser(self):
-        op = super(self.__class__, self)._getParser()
+        op = super(F17_Iscsi, self)._getParser()
         for action in op._actions:
             # mark the fact that --iface is available since F17
             # while RHEL6 is based on F12

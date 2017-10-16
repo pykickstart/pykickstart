@@ -73,14 +73,14 @@ class KSHelpFormatter(RawTextHelpFormatter):
     """
 
     def _format_usage(self, usage, actions, groups, prefix):
-        return "::\n\n    %s" % super(self.__class__,
+        return "::\n\n    %s" % super(KSHelpFormatter,
                                       self)._format_usage(usage,
                                                           actions,
                                                           groups,
                                                           "").strip()
 
     def _format_action(self, action):
-        text = super(self.__class__, self)._format_action(action)
+        text = super(KSHelpFormatter, self)._format_action(action)
         parts = text.strip().split('\n')
         new_parts = []
         new_parts.append("\n``%s``\n" % parts[0].strip())
@@ -263,13 +263,13 @@ class KSOptionParser(ArgumentParser):
         # exit.  That's what raising exceptions is for.
         pass
 
-    def parse_args(self, *args, **kwargs):
+    def parse_args(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 
         return ArgumentParser.parse_args(self, *args, **kwargs)
 
-    def parse_known_args(self, *args, **kwargs):
+    def parse_known_args(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 
