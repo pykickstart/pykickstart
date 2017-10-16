@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.13
+Version: 1.99.66.14
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,12 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Oct 16 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.14-1
+- Add timeout and retries options to %packages section (#1482912) (vponcova)
+- Add command hmc to support SE/HMC file access (#1498829) (vponcova)
+- Add tests for method command (vponcova)
+- Rewrite the method command. (vponcova)
+
 * Tue Sep 05 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.13-1
 - network: add network --bindto option (rvykydal)
   Resolves: rhbz#1483981
