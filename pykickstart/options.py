@@ -107,7 +107,7 @@ class KSOptionParser(OptionParser):
 
         return OptionParser.add_option(self, *args, **kwargs)
 
-    def parse_args(self, *args, **kwargs):
+    def parse_args(self, *args, **kwargs):  # pylint: disable=arguments-differ
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 
