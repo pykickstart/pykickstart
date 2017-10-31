@@ -30,7 +30,7 @@ class WritePriority_TestCase(unittest.TestCase):
                     'selinux', 'skipx', 'mediacheck', 'logging', 'nfs', 'services', 'ignoredisk',
                     'interactive', 'cmdline', 'monitor', 'install', 'shutdown', 'halt',
                     'auth', 'poweroff', 'lilocheck', 'langsupport', 'mouse', 'key',
-                    'unsupported_hardware', 'hmc']:
+                    'unsupported_hardware', 'hmc', 'mount']:
                     self.assertEqual(0, cmd.writePriority, command_class)
                 elif _name in ['bootloader', 'lilo']:
                     self.assertEqual(10, cmd.writePriority, command_class)
