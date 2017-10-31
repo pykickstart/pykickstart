@@ -19,7 +19,7 @@
 #
 
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartValueError, KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 from pykickstart.version import F27
 
@@ -174,7 +174,7 @@ class F27_Mount(KickstartCommand):
             mapping = {"command": "mount", "options": extra}
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
 
-        md = self.dataClass()
+        md = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, md)
         md.lineno = self.lineno
         md.device = ns.device[0]
