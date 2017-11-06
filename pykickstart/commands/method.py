@@ -101,8 +101,12 @@ class FC3_Method(KickstartCommand):
 
     def _getParser(self):
         """Return a parser."""
-        return KSOptionParser(prog="method", description="""
-                            Proxy to the actual installation method.""", version=FC3)
+
+        description = "Proxy to the actual installation method. Valid installation methods are:\n\n"
+        for method in self._methods:
+            description += "* ``%s``\n" % method
+
+        return KSOptionParser(prog="method", description=description, version=FC3)
 
 
 # These are all just for compat.  Calling into the appropriate version-specific
