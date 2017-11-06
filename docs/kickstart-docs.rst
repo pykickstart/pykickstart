@@ -83,6 +83,10 @@ kickstart file:
    user would be prompted during a typical installation. Once the answer
    is given, the installation will continue unattended unless it finds
    another missing item.
+-  One installation source command from the list of commands in the ``method``
+   proxy command must be specified for the fully automated kickstart
+   installation. This is required even for Fedora -- the closest mirror can't
+   be chosen by the kickstart file.
 -  Lines starting with a pound sign (#) are treated as comments and are
    ignored.
 -  If deprecated commands, options, or syntax are used during a
