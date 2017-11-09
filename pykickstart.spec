@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.41
+Version:   2.42
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -122,6 +122,11 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Nov 09 2017 Chris Lumens <clumens@redhat.com> - 2.42-1
+- Add clearpart --cdl option. (sbueno+anaconda)
+- Add Fedora 28 support (vponcova)
+- Fix which Autopart class checks for the 'mount' command (vpodzime)
+
 * Mon Oct 16 2017 Chris Lumens <clumens@redhat.com> - 2.41-1
 - Pylint fixes (vponcova)
 - Add command hmc to support SE/HMC file access in RHEL7 (vponcova)
