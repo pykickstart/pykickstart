@@ -22,7 +22,8 @@ from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
-from pykickstart.i18n import _
+import gettext
+_ = lambda x: gettext.ldgettext("pykickstart", x)
 
 class RHEL7_MountData(BaseData):
     removedKeywords = BaseData.removedKeywords
