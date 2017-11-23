@@ -50,3 +50,6 @@ class RHEL7_Hmc(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
 
         return self
+
+class F28_Hmc(RHEL7_Hmc):
+    pass
