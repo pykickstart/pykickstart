@@ -31,5 +31,9 @@ class RHEL7_TestCase(CommandTest):
         self.assert_parse_error("hmc --some-arg")
         self.assert_parse_error("hmc somextracrud")
 
+class F28_TestCase(RHEL7_TestCase):
+    def runTest(self):
+        RHEL7_TestCase.runTest(self)
+
 if __name__ == "__main__":
     unittest.main()

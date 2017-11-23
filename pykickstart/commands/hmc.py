@@ -47,3 +47,6 @@ class RHEL7_Hmc(KickstartCommand):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
 
         return self
+
+class F28_Hmc(RHEL7_Hmc):
+    pass

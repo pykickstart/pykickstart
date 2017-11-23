@@ -362,5 +362,13 @@ class RHEL7_TestCase(F19_TestCase):
         # Test hmc.
         self.assert_parse("hmc", "hmc\n")
 
+class F28_Proxy_TestCase(RHEL7_Proxy_TestCase):
+    def runTest(self):
+        RHEL7_Proxy_TestCase.runTest(self)
+
+class F28_TestCase(RHEL7_TestCase):
+    def runTest(self):
+        RHEL7_TestCase.runTest(self)
+
 if __name__ == "__main__":
     unittest.main()
