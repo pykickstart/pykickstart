@@ -120,3 +120,6 @@ class RHEL7_Method(F19_Method):
     removedAttrs = F19_Method.removedAttrs
 
     _methods = F19_Method._methods + ["hmc"]
+
+class F28_Method(RHEL7_Method):
+    pass
