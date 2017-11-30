@@ -1,6 +1,6 @@
 Name:      pykickstart
-Version:   3.7
-Release:   2%{?dist}
+Version:   3.8
+Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
 Summary:   Python utilities for manipulating kickstart files.
@@ -121,6 +121,31 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Nov 30 2017 Chris Lumens <clumens@redhat.com> - 3.8-1
+- Add support for hmc command in Fedora (vponcova)
+- Commands for specifying base repo are mentioned in docs (jkonecny)
+- Add list of installation methods to the method doc (jkonecny)
+- Fix pylint warnings in the mount command (vponcova)
+- Fix test for the mount command (vponcova)
+- Add clearpart --cdl option. (sbueno+anaconda)
+- Add Fedora 28 support (vponcova)
+- Add a new 'mount' command (vpodzime)
+- Pylint fixes (vponcova)
+- Add command hmc to support SE/HMC file access in RHEL7 (vponcova)
+- Add timeout and retries options to %packages section in RHEL7 (vponcova)
+- Call the _ method from i18n.py (jkonecny)
+- Backport spec file changes from downstream (jkonecny)
+- network: add network --bindto option (Fedora) (#1483981) (rvykydal)
+- network: add network --bindto option (RHEL) (#1483981) (rvykydal)
+- Add url --metalink support (#1464843) (rvykydal)
+- Update doc of repo --mirrorlist and --baseurl with --metalink (#1464843) (rvykydal)
+- Add repo --metalink support (#1464843) (rvykydal)
+- Add Fedora 27 support. (rvykydal)
+- Update Repo command tests. (rvykydal)
+- Split the import of commands to multiple lines (vponcova)
+- Move the installclass command to the %anaconda section (vponcova)
+- Mention that repo name must not contain spaces (brunovern.a)
+
 * Fri Sep 15 2017 Jiri Konecny <jkonecny@redhat.com> - 3.7-2
 - Backport of the Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> from downstream spec
   Python 2 binary package renamed to python2-pykickstart
