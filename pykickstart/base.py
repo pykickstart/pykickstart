@@ -379,10 +379,14 @@ class BaseHandler(KickstartObject):
         else:
             dMap = dataMapping
 
+        # Apply the command and data updates, but do
+        # not modify the original command and data maps.
         if isinstance(commandUpdates, dict):
+            cMap = dict(cMap)
             cMap.update(commandUpdates)
 
         if isinstance(dataUpdates, dict):
+            dMap = dict(dMap)
             dMap.update(dataUpdates)
 
         for (cmdName, cmdClass) in list(cMap.items()):
