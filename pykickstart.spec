@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   2.42
+Version:   2.43
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -122,6 +122,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Wed Dec 06 2017 Chris Lumens <clumens@redhat.com> - 2.43-1
+- Don't modify the original command and data mappings. (vponcova)
+- Add support for hmc command in Fedora (vponcova)
+
 * Thu Nov 09 2017 Chris Lumens <clumens@redhat.com> - 2.42-1
 - Add clearpart --cdl option. (sbueno+anaconda)
 - Add Fedora 28 support (vponcova)
