@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.15
+Version: 1.99.66.16
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,10 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Dec 12 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.16-1
+- Pull in updated translations.
+  Resolves: rhbz#1481222
+
 * Fri Nov 10 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.15-1
 - Fix import in the mount command (vponcova)
   Related: rhbz#1450922

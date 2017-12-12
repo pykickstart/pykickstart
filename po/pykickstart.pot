@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-16 10:41-0400\n"
+"POT-Creation-Date: 2017-12-12 14:54-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,18 +150,6 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../pykickstart/commands/sshpw.py:128 ../pykickstart/commands/sshkey.py:90
-#: ../pykickstart/commands/keyboard.py:124 ../pykickstart/commands/rootpw.py:65
-#: ../pykickstart/commands/rootpw.py:112 ../pykickstart/commands/timezone.py:63
-#, python-format
-msgid "A single argument is expected for the %s command"
-msgstr ""
-
-#: ../pykickstart/commands/sshpw.py:133 ../pykickstart/commands/sshkey.py:94
-#, python-format
-msgid "An ssh user with the name %s has already been defined."
-msgstr ""
-
 #: ../pykickstart/commands/snapshot.py:101
 msgid "Snapshot origin must be specified!"
 msgstr ""
@@ -189,8 +177,8 @@ msgstr ""
 msgid "Snapshot when param must have one of these values %s!"
 msgstr ""
 
-#: ../pykickstart/commands/repo.py:184 ../pykickstart/commands/firewall.py:118
-#: ../pykickstart/commands/xconfig.py:99 ../pykickstart/commands/fcoe.py:116
+#: ../pykickstart/commands/repo.py:184 ../pykickstart/commands/xconfig.py:99
+#: ../pykickstart/commands/firewall.py:118 ../pykickstart/commands/fcoe.py:116
 #: ../pykickstart/commands/iscsi.py:145
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
@@ -214,16 +202,11 @@ msgstr ""
 msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
-#: ../pykickstart/commands/skipx.py:51 ../pykickstart/commands/upgrade.py:57
-#: ../pykickstart/commands/upgrade.py:94 ../pykickstart/commands/eula.py:64
-#: ../pykickstart/commands/autopart.py:46 ../pykickstart/commands/zerombr.py:67
-#: ../pykickstart/commands/unsupported_hardware.py:52
-#: ../pykickstart/commands/hmc.py:52 ../pykickstart/commands/displaymode.py:60
-#: ../pykickstart/commands/mediacheck.py:50
-#: ../pykickstart/commands/interactive.py:51
-#: ../pykickstart/commands/cdrom.py:51 ../pykickstart/commands/lilocheck.py:51
+#: ../pykickstart/commands/iscsiname.py:52
+#: ../pykickstart/commands/keyboard.py:52 ../pykickstart/commands/mouse.py:63
+#: ../pykickstart/commands/lang.py:51 ../pykickstart/commands/key.py:60
 #, python-format
-msgid "Kickstart command %s does not take any arguments"
+msgid "Kickstart command %s requires one argument"
 msgstr ""
 
 #: ../pykickstart/commands/logging.py:69
@@ -242,6 +225,18 @@ msgstr ""
 msgid ""
 "One of --drives , --only-use , or --interactive must be specified for "
 "ignoredisk command."
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:90 ../pykickstart/commands/timezone.py:63
+#: ../pykickstart/commands/keyboard.py:124 ../pykickstart/commands/rootpw.py:65
+#: ../pykickstart/commands/rootpw.py:112 ../pykickstart/commands/sshpw.py:128
+#, python-format
+msgid "A single argument is expected for the %s command"
+msgstr ""
+
+#: ../pykickstart/commands/sshkey.py:94 ../pykickstart/commands/sshpw.py:133
+#, python-format
+msgid "An ssh user with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/volgroup.py:133
@@ -266,43 +261,36 @@ msgstr ""
 msgid "The volgroup and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:314 ../pykickstart/commands/raid.py:322
-#: ../pykickstart/commands/logvol.py:350
+#: ../pykickstart/commands/volgroup.py:200
+msgid "The volgroup and mount commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:140
+#: ../pykickstart/commands/timezone.py:175
+msgid "Options --nontp and --ntpservers are mutually exclusive"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:157
 #, python-format
-msgid "Mount point required for %s"
+msgid "At least one option and/or an argument are expected for the  %s command"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:323
+#: ../pykickstart/commands/timezone.py:168
 #, python-format
-msgid "A partition with the mountpoint %s has already been defined."
+msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
-#: ../pykickstart/commands/partition.py:431
-#: ../pykickstart/commands/partition.py:478
-msgid "The part/partition and autopart commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:456
-msgid "--resize can only be used in conjunction with --onpart"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:459
-msgid "--resize requires --size to specify new size"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:484
-msgid ""
-"The --fstype=tmpfs option can't be used together with --grow or --maxsize"
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:503 ../pykickstart/commands/raid.py:507
-#: ../pykickstart/commands/logvol.py:565
-msgid "--mkfsoptions with --noformat has no effect."
-msgstr ""
-
-#: ../pykickstart/commands/partition.py:506 ../pykickstart/commands/raid.py:510
-#: ../pykickstart/commands/logvol.py:568
-msgid "--mkfsoptions and --fsprofile cannot be used together."
+#: ../pykickstart/commands/upgrade.py:57 ../pykickstart/commands/upgrade.py:94
+#: ../pykickstart/commands/eula.py:64 ../pykickstart/commands/autopart.py:46
+#: ../pykickstart/commands/zerombr.py:67
+#: ../pykickstart/commands/unsupported_hardware.py:52
+#: ../pykickstart/commands/hmc.py:52 ../pykickstart/commands/skipx.py:51
+#: ../pykickstart/commands/displaymode.py:60
+#: ../pykickstart/commands/mediacheck.py:50
+#: ../pykickstart/commands/interactive.py:51
+#: ../pykickstart/commands/cdrom.py:51 ../pykickstart/commands/lilocheck.py:51
+#, python-format
+msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
 #: ../pykickstart/commands/upgrade.py:97
@@ -316,24 +304,37 @@ msgstr ""
 
 #. allow for translation of the error message
 #: ../pykickstart/commands/autopart.py:181
-#: ../pykickstart/commands/autopart.py:339
+#: ../pykickstart/commands/autopart.py:341
 #, python-format
 msgid "The %s and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:377
+#: ../pykickstart/commands/autopart.py:379
 msgid "autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:381
+#: ../pykickstart/commands/autopart.py:383
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
-#: ../pykickstart/commands/key.py:60 ../pykickstart/commands/iscsiname.py:52
-#: ../pykickstart/commands/keyboard.py:52 ../pykickstart/commands/mouse.py:63
-#: ../pykickstart/commands/lang.py:51
+#. allow for translation of the error message
+#: ../pykickstart/commands/mount.py:124
 #, python-format
-msgid "Kickstart command %s requires one argument"
+msgid "The '%s' and 'mount' commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/mount.py:132
+#, python-format
+msgid "Device and mount point required for %s"
+msgstr ""
+
+#: ../pykickstart/commands/mount.py:136
+#, python-format
+msgid "Invalid mount point '%s' given"
+msgstr ""
+
+#: ../pykickstart/commands/mount.py:140
+msgid "'--mkfsoptions' requires --reformat"
 msgstr ""
 
 #: ../pykickstart/commands/zerombr.py:54
@@ -421,6 +422,12 @@ msgstr ""
 msgid "One of --url or --mirrorlist must be specified for url command."
 msgstr ""
 
+#: ../pykickstart/commands/raid.py:322 ../pykickstart/commands/logvol.py:350
+#: ../pykickstart/commands/partition.py:314
+#, python-format
+msgid "Mount point required for %s"
+msgstr ""
+
 #: ../pykickstart/commands/raid.py:325
 #, python-format
 msgid "Partitions required for %s"
@@ -437,6 +444,20 @@ msgstr ""
 
 #: ../pykickstart/commands/raid.py:447 ../pykickstart/commands/raid.py:489
 msgid "The raid and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:493
+msgid "The raid and mount commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:511 ../pykickstart/commands/logvol.py:569
+#: ../pykickstart/commands/partition.py:507
+msgid "--mkfsoptions with --noformat has no effect."
+msgstr ""
+
+#: ../pykickstart/commands/raid.py:514 ../pykickstart/commands/logvol.py:572
+#: ../pykickstart/commands/partition.py:510
+msgid "--mkfsoptions and --fsprofile cannot be used together."
 msgstr ""
 
 #: ../pykickstart/commands/device.py:98
@@ -485,34 +506,38 @@ msgid "--chunksize and --metadatasize are for thin pools only"
 msgstr ""
 
 #: ../pykickstart/commands/logvol.py:515
-msgid "Size required"
+msgid "The logvol and mount commands can't be used at the same time"
 msgstr ""
 
 #: ../pykickstart/commands/logvol.py:519
+msgid "Size required"
+msgstr ""
+
+#: ../pykickstart/commands/logvol.py:523
 msgid "Percentage must be between 0 and 100."
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:536
+#: ../pykickstart/commands/logvol.py:540
 msgid "--size and --percent cannot both be specified for the same logvol"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:572
+#: ../pykickstart/commands/logvol.py:576
 msgid "Adding a cache to an existing logical volume is not supported"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:576
+#: ../pykickstart/commands/logvol.py:580
 msgid "Thin volumes cannot be cached"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:580
+#: ../pykickstart/commands/logvol.py:584
 msgid "Cache needs to have a list of (fast) PVs specified"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:584
+#: ../pykickstart/commands/logvol.py:588
 msgid "Cache needs to have size specified"
 msgstr ""
 
-#: ../pykickstart/commands/logvol.py:588
+#: ../pykickstart/commands/logvol.py:592
 #, python-format
 msgid "Invalid cache mode given: %s"
 msgstr ""
@@ -525,6 +550,37 @@ msgstr ""
 #: ../pykickstart/commands/reqpart.py:60
 #, python-format
 msgid "The %s and reqpart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/reqpart.py:65
+msgid "The mount and reqpart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:323
+#, python-format
+msgid "A partition with the mountpoint %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:431
+#: ../pykickstart/commands/partition.py:478
+msgid "The part/partition and autopart commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:456
+msgid "--resize can only be used in conjunction with --onpart"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:459
+msgid "--resize requires --size to specify new size"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:482
+msgid "The part/partition and mount commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/partition.py:488
+msgid ""
+"The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
 
 #: ../pykickstart/commands/rescue.py:64
@@ -611,21 +667,6 @@ msgstr ""
 
 #: ../pykickstart/commands/btrfs.py:198
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:140
-#: ../pykickstart/commands/timezone.py:175
-msgid "Options --nontp and --ntpservers are mutually exclusive"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:157
-#, python-format
-msgid "At least one option and/or an argument are expected for the  %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:168
-#, python-format
-msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
 #: ../pykickstart/commands/realm.py:44
