@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F9, F10, F14, F20
+from pykickstart.version import FC3, F9, F10, F14, F20, F28
 from pykickstart.base import KickstartCommand
 from pykickstart.options import ExtendAction, ExtendConstAction, KSOptionParser, commaSplit
 
@@ -240,3 +240,25 @@ class F20_Firewall(F14_Firewall):
             return retval + "%s\n" % svcstr
         else:
             return retval
+
+class F28_Firewall(F20_Firewall):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F20_Firewall.__init__(self, writePriority, *args, **kwargs)
+        self.use_system_defaults = kwargs.get("use_system_defaults", None)
+
+    def _getParser(self):
+        op = F20_Firewall._getParser(self)
+        op.add_argument("--use-system-defaults", dest="use_system_defaults",
+                        action="store_true", default=False, version=F28, help="""
+                        Don't configure the firewall at all. This instructs anaconda
+                        to do nothing and allows the system to rely on the defaults
+                        that were provided with the package or ostree.  If this option
+                        is used with other options then all other options will be
+                        ignored.""")
+        return op
+
+    def __str__(self):
+        if self.use_system_defaults:
+            return "# Firewall configuration\nfirewall --use-system-defaults\n"
+        else:
+            return F20_Firewall.__str__(self)
