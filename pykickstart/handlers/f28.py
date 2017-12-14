@@ -42,7 +42,7 @@ class F28Handler(BaseHandler):
         "driverdisk": commands.driverdisk.F14_DriverDisk,
         "eula": commands.eula.F20_Eula,
         "fcoe": commands.fcoe.F13_Fcoe,
-        "firewall": commands.firewall.F20_Firewall,
+        "firewall": commands.firewall.F28_Firewall,
         "firstboot": commands.firstboot.FC3_Firstboot,
         "graphical": commands.displaymode.F26_DisplayMode,
         "group": commands.group.F12_Group,

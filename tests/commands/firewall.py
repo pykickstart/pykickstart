@@ -20,7 +20,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.commands.firewall import FC3_Firewall, F10_Firewall, F20_Firewall
+from pykickstart.commands.firewall import FC3_Firewall, F10_Firewall, F20_Firewall, F28_Firewall
 
 class Firewall_TestCase(unittest.TestCase):
     def runTest(self):
@@ -28,6 +28,7 @@ class Firewall_TestCase(unittest.TestCase):
         self.assertEqual(cmd.__str__(), '')
         self.assertEqual(F10_Firewall().__str__(), '')
         self.assertEqual(F20_Firewall().__str__(), '')
+        self.assertEqual(F28_Firewall().__str__(), '')
 
         op = cmd._getParser()
         for action in op._actions:
@@ -123,6 +124,14 @@ class F20_TestCase(F14_TestCase):
         # multiple remove & remove ssh
         self.assert_parse("firewall --service=mdns --remove-service=dhcpv6-client --remove-service=ssh",
                           "firewall --enabled --service=mdns --remove-service=dhcpv6-client,ssh\n")
+
+class F28_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
+
+        # use-system-defaults
+        self.assert_parse("firewall --use-system-defaults", "firewall --use-system-defaults\n")
+        self.assert_parse("firewall --enabled --service=ssh --use-system-defaults", "firewall --use-system-defaults\n")
 
 if __name__ == "__main__":
     unittest.main()
