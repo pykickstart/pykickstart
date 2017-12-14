@@ -234,3 +234,20 @@ class F20_Firewall(F14_Firewall):
             return retval + "%s\n" % svcstr
         else:
             return retval
+
+class F28_Firewall(F20_Firewall):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F20_Firewall.__init__(self, writePriority, *args, **kwargs)
+        self.use_system_defaults = kwargs.get("use_system_defaults", None)
+
+    def _getParser(self):
+        op = F20_Firewall._getParser(self)
+        op.add_option("--use-system-defaults", dest="use_system_defaults",
+                      action="store_true", default=False)
+        return op
+
+    def __str__(self):
+        if self.use_system_defaults:
+            return "# Firewall configuration\nfirewall --use-system-defaults\n"
+        else:
+            return F20_Firewall.__str__(self)
