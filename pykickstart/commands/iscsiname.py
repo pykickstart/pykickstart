@@ -58,7 +58,7 @@ class FC6_IscsiName(KickstartCommand):
 
         if extra:
             mapping = {"command": "iscsiname", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
 
         self.iscsiname = _ns.iqn[0]
         return self

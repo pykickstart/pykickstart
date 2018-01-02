@@ -78,7 +78,7 @@ class FC3_Timezone(KickstartCommand):
 
         if extra:
             mapping = {"command": "timezone", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
 
         self.timezone = ns.timezone[0]
         return self
@@ -168,7 +168,7 @@ class F18_Timezone(FC6_Timezone):
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
-            raise KickstartParseError(msg)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self
 
@@ -184,7 +184,7 @@ class F23_Timezone(F18_Timezone):
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
-            raise KickstartParseError(msg)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self
 
@@ -264,7 +264,7 @@ class RHEL7_Timezone(F18_Timezone):
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
         if not args:
             error_message = _("At least one option and/or an argument are expected for the  %s command") % "timezone"
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
 
         # To be able to support the timezone command being used without
         # a timezone specification:
@@ -277,11 +277,11 @@ class RHEL7_Timezone(F18_Timezone):
             self.timezone = ns.timezone[0]
         elif len(ns.timezone) > 1:
             error_message = _("One or zero arguments are expected for the %s command") % "timezone"
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
-            raise KickstartParseError(msg)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self
 
@@ -339,7 +339,7 @@ class F25_Timezone(F23_Timezone):
         # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
         if not args:
             error_message = _("At least one option and/or an argument are expected for the  %s command") % "timezone"
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
 
         # To be able to support the timezone command being used without
         # a timezone specification:
@@ -352,10 +352,10 @@ class F25_Timezone(F23_Timezone):
             self.timezone = ns.timezone[0]
         elif len(ns.timezone) > 1:
             error_message = _("One or zero arguments are expected for the %s command") % "timezone"
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
 
         if self.ntpservers and self.nontp:
             msg = formatErrorMsg(self.lineno, msg=_("Options --nontp and --ntpservers are mutually exclusive"))
-            raise KickstartParseError(msg)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self

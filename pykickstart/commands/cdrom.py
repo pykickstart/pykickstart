@@ -38,7 +38,7 @@ class FC3_Cdrom(KickstartCommand):
 
     def parse(self, args):
         if args:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd), lineno=self.lineno)
 
         return self
 

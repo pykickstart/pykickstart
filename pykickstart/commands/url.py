@@ -191,10 +191,10 @@ class F18_Url(F14_Url):
                         if getattr(ns, attr, None)]
         if len(used_options) == 0:
             mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for url command.") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for url command.") % mapping), lineno=self.lineno)
         if len(used_options) > 1:
             mapping = {"options_list": ", ".join((opt for opt in used_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for url command.") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for url command.") % mapping), lineno=self.lineno)
 
         return retval
 

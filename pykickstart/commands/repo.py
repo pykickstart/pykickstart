@@ -253,10 +253,10 @@ class FC6_Repo(KickstartCommand):
                         if getattr(ns, attr, None)]
         if self.urlRequired and not used_options:
             mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for repo command.") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for repo command.") % mapping), lineno=self.lineno)
         if len(used_options) > 1:
             mapping = {"options_list": ", ".join((opt for opt in used_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for repo command.") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for repo command.") % mapping), lineno=self.lineno)
 
         rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)

@@ -744,13 +744,13 @@ class F22_Network(F21_Network):
         if retval.bridgeopts:
             if not retval.bridgeslaves:
                 msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
-                raise KickstartParseError(msg)
+                raise KickstartParseError(msg, lineno=self.lineno)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
-                    raise KickstartParseError(msg)
+                    raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
 
@@ -832,7 +832,7 @@ class F27_Network(F25_Network):
         if retval.bindto == BIND_TO_MAC:
             if retval.vlanid and not retval.bondopts:
                 msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
-                raise KickstartParseError(msg)
+                raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
 
@@ -1042,22 +1042,22 @@ class RHEL7_Network(F21_Network):
         error_message = validate_network_interface_name(retval.interfacename)
         # something is wrong with the interface name
         if error_message:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
                 msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
-                raise KickstartParseError(msg)
+                raise KickstartParseError(msg, lineno=self.lineno)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
                     msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
-                    raise KickstartParseError(msg)
+                    raise KickstartParseError(msg, lineno=self.lineno)
 
         if retval.bindto == BIND_TO_MAC:
             if retval.vlanid and not retval.bondopts:
                 msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
-                raise KickstartParseError(msg)
+                raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval

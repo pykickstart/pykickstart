@@ -624,9 +624,9 @@ class PackageSection(Section):
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
         if ns.defaultPackages and ns.nobase:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")))
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")), lineno=lineno)
         elif ns.defaultPackages and ns.nocore:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")))
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")), lineno=lineno)
 
         self.handler.packages.excludeDocs = ns.excludedocs
         self.handler.packages.addBase = not ns.nobase

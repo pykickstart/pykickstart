@@ -62,12 +62,13 @@ class KickstartParseError(KickstartError):
     """An exception class for errors when processing the input file, such as
        unknown options, commands, or sections.
     """
-    def __init__(self, msg):
+    def __init__(self, msg, lineno=None):
         """Create a new KickstartParseError exception instance with the
            descriptive message msg.  msg should be the return value of
            formatErrorMsg.
         """
         KickstartError.__init__(self, msg)
+        self.lineno = lineno
 
     def __str__(self):
         return self.value

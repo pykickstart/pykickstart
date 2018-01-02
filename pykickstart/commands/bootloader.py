@@ -319,7 +319,7 @@ class F17_Bootloader(F15_Bootloader):
         retval = F15_Bootloader.parse(self, args)
 
         if "," in retval.bootDrive:     # pylint: disable=no-member
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")), lineno=self.lineno)
 
         return retval
 

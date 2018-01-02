@@ -61,7 +61,7 @@ class FC3_DisplayMode(KickstartCommand):
         elif self.currentCmd == "text":
             self.displayMode = DISPLAY_MODE_TEXT
         else:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unknown command %s") % self.currentCmd))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unknown command %s") % self.currentCmd), lineno=self.lineno)
 
         return self
 
@@ -106,6 +106,6 @@ class F26_DisplayMode(FC3_DisplayMode):
 
         if self.currentCmd == "cmdline" and self.nonInteractive:
             msg = _("Kickstart command cmdline does not support --non-interactive parameter")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg), lineno=self.lineno)
 
         return self

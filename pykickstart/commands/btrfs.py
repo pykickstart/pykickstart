@@ -126,7 +126,7 @@ class F17_BTRFS(KickstartCommand):
             if value.lower() in self.levelMap:
                 return self.levelMap[value.lower()]
             else:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid btrfs level: %s") % value))
+                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid btrfs level: %s") % value), lineno=self.lineno)
 
         op = KSOptionParser(prog="btrfs", description="""
                             Defines a BTRFS volume or subvolume. This command
@@ -212,21 +212,21 @@ class F17_BTRFS(KickstartCommand):
             data.format = False
 
         if not extra:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a mountpoint")), lineno=self.lineno)
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "btrfs", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
 
         data.mountpoint = extra[0]
         data.devices = extra[1:]
 
         if not any([data.devices, data.subvol]):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs must be given a list of partitions")), lineno=self.lineno)
         elif not data.devices:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvol requires specification of parent volume")), lineno=self.lineno)
 
         if data.subvol and not data.name:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("btrfs subvolume requires a name")), lineno=self.lineno)
 
         # Check for duplicates in the data list.
         if data in self.dataList():
@@ -261,7 +261,7 @@ class F23_BTRFS(F17_BTRFS):
         data = F17_BTRFS.parse(self, args)
 
         if (data.preexist or not data.format) and data.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")), lineno=self.lineno)
 
         return data
 

@@ -95,7 +95,7 @@ class FC6_MultiPath(KickstartCommand):
             for path in mpath.paths:
                 if path.device == dd.device:
                     mapping = {"device": path.device, "multipathdev": path.mpdev}
-                    raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping))
+                    raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping), lineno=self.lineno)
             if mpath.name == dd.mpdev:
                 parent = x
 

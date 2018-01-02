@@ -88,7 +88,7 @@ class F26_Snapshot(KickstartCommand):
             return self.whenMap[value.lower()]
         else:
             msg=_("Invalid snapshot when parameter: %s") % value
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
     def _getParser(self):
         op = KSOptionParser(prog="snapshot", version=F26, description="""
@@ -112,10 +112,10 @@ class F26_Snapshot(KickstartCommand):
 
         if len(extra) == 0:
             msg = _("Snapshot origin must be specified!")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
         elif len(extra) > 1:
             msg = _("Snapshot origin can be specified only once!")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
         snap_data = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, snap_data)
@@ -125,21 +125,21 @@ class F26_Snapshot(KickstartCommand):
         # Check for duplicates
         if snap_data.name in [snap.name for snap in self.dataList()]:
             msg = (_("Snapshot with the name %s has been already defined!") % snap_data.name)
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
         if snap_data.when is None:
             msg = _("Snapshot \"when\" parameter must be specified!")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
         groups = snap_data.origin.split('/')
         if len(groups) != 2 or len(groups[0]) == 0 or len(groups[1]) == 0:
             msg = (_("Snapshot origin %s must be specified by VG/LV!") % snap_data.origin)
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
         # Check if value in a '--when' param is valid
         if snap_data.when != "" and snap_data.when not in self.whenMap.values():
             msg = (_("Snapshot when param must have one of these values %s!") % self.whenMap.keys())
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
         return snap_data
 
     def dataList(self):

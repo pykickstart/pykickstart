@@ -62,9 +62,9 @@ class F20_Eula(KickstartCommand):
         self.set_to_self(ns)
 
         if extra:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "eula"), lineno=self.lineno)
 
         if not self.agreed:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command eula expects the --agreed option")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command eula expects the --agreed option")), lineno=self.lineno)
 
         return self

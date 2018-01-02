@@ -74,7 +74,7 @@ class FC6_Logging(KickstartCommand):
         self.set_to_self(ns)
 
         if self.port and not self.host:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")), lineno=self.lineno)
 
         self._levelProvided = bool(self.level) # b/c of mutation testing
         if not self._levelProvided:

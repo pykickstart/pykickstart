@@ -428,7 +428,7 @@ class FC3_LogVol(KickstartCommand):
 
         if extra:
             mapping = {"command": "logvol", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
 
         lvd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, lvd)
@@ -584,21 +584,21 @@ class RHEL6_LogVol(F12_LogVol):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         if retval.thin_volume and retval.thin_pool:
             errorMsg = _("--thin and --thinpool cannot both be specified for "
                          "the same logvol")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         if retval.thin_volume and not retval.pool_name:
             errorMsg = _("--thin requires --poolname to specify pool name")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         if (retval.chunk_size or retval.metadata_size) and \
            not retval.thin_pool:
             errorMsg = _("--chunksize and --metadatasize are for thin pools only")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         return retval
 
@@ -641,10 +641,10 @@ class F17_LogVol(F15_LogVol):
         retval = F15_LogVol.parse(self, args)
 
         if retval.resize and not retval.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize can only be used in conjunction with --useexisting")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize can only be used in conjunction with --useexisting")), lineno=self.lineno)
 
         if retval.resize and not retval.size:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to indicate new size")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to indicate new size")), lineno=self.lineno)
 
         return retval
 
@@ -700,38 +700,38 @@ class F20_LogVol(F18_LogVol):
             err = formatErrorMsg(self.lineno,
                                  msg=_("--thin and --thinpool cannot both be "
                                        "specified for the same logvol"))
-            raise KickstartParseError(err)
+            raise KickstartParseError(err, lineno=self.lineno)
 
         if retval.thin_volume and not retval.pool_name:
             err = formatErrorMsg(self.lineno,
                                  msg=_("--thin requires --poolname to specify "
                                        "pool name"))
-            raise KickstartParseError(err)
+            raise KickstartParseError(err, lineno=self.lineno)
 
         if (retval.chunk_size or retval.metadata_size) and \
            not retval.thin_pool:
             err = formatErrorMsg(self.lineno,
                                  msg=_("--chunksize and --metadatasize are "
                                        "for thin pools only"))
-            raise KickstartParseError(err)
+            raise KickstartParseError(err, lineno=self.lineno)
 
         # the logvol command can't be used together with the autopart command
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The logvol and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
         # the same applies to the 'mount' command
         if hasattr(self.handler, "mount") and self.handler.mount.seen:
             errorMsg = _("The logvol and mount commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         if not retval.preexist and not retval.percent and not retval.size and not retval.recommended and not retval.hibernation:
             errorMsg = _("No size given for logical volume. Use one of --useexisting, --noformat, --size, --percent, or --hibernation.")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         if retval.percent is not None and (retval.percent < 0 or retval.percent > 100):
             errorMsg = _("Percentage must be between 0 and 100.")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
 
         return retval
 
@@ -754,7 +754,7 @@ class F21_LogVol(F20_LogVol):
             err = formatErrorMsg(self.lineno,
                                  msg=_("--size and --percent cannot both be "
                                        "specified for the same logvol"))
-            raise KickstartParseError(err)
+            raise KickstartParseError(err, lineno=self.lineno)
 
         return retval
 
@@ -778,10 +778,10 @@ class RHEL7_LogVol(F21_LogVol):
         retval = F21_LogVol.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")), lineno=self.lineno)
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")), lineno=self.lineno)
 
         return retval
 
@@ -816,28 +816,28 @@ class F23_LogVol(F21_LogVol):
         if retval.cache_size or retval.cache_mode or retval.cache_pvs:
             if retval.preexist:
                 err = formatErrorMsg(self.lineno, msg=_("Adding a cache to an existing logical volume is not supported"))
-                raise KickstartParseError(err)
+                raise KickstartParseError(err, lineno=self.lineno)
 
             if retval.thin_volume:
                 err = formatErrorMsg(self.lineno, msg=_("Thin volumes cannot be cached"))
-                raise KickstartParseError(err)
+                raise KickstartParseError(err, lineno=self.lineno)
 
             if not retval.cache_pvs:
                 err = formatErrorMsg(self.lineno, msg=_("Cache needs to have a list of (fast) PVs specified"))
-                raise KickstartParseError(err)
+                raise KickstartParseError(err, lineno=self.lineno)
 
             if not retval.cache_size:
                 err = formatErrorMsg(self.lineno, msg=_("Cache needs to have size specified"))
-                raise KickstartParseError(err)
+                raise KickstartParseError(err, lineno=self.lineno)
 
             if retval.cache_mode and retval.cache_mode not in ("writeback", "writethrough"):
                 err = formatErrorMsg(self.lineno, msg=_("Invalid cache mode given: %s") % retval.cache_mode)
-                raise KickstartParseError(err)
+                raise KickstartParseError(err, lineno=self.lineno)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")), lineno=self.lineno)
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")), lineno=self.lineno)
 
         return retval

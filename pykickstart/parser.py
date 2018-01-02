@@ -87,7 +87,7 @@ def _preprocessStateMachine(lineIter):
         try:
             ksurl = ll.split(' ')[1]
         except:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll))
+            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll), lineno=lineno)
 
         try:
             contents = load_to_str(ksurl)
@@ -613,7 +613,7 @@ class KickstartParser(object):
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen))
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen), lineno=lineno)
 
                     self._finalize(obj)
             except StopIteration:
@@ -645,7 +645,7 @@ class KickstartParser(object):
                     break
                 elif args and args[0] == "%include":
                     if len(args) == 1 or not args[1]:
-                        raise KickstartParseError(formatErrorMsg(lineno))
+                        raise KickstartParseError(formatErrorMsg(lineno), lineno=lineno)
 
                     self._handleInclude(args[1])
                     continue
@@ -654,7 +654,7 @@ class KickstartParser(object):
                 elif args and self._validState(args[0]):
                     # This is an unterminated section.
                     if self.version >= version.F8:
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen))
+                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen), lineno=lineno)
 
                     # Finish up.  We do not process the header here because
                     # kicking back out to STATE_COMMANDS will ensure that happens.
@@ -733,7 +733,7 @@ class KickstartParser(object):
 
             if args[0] == "%include":
                 if len(args) == 1 or not args[1]:
-                    raise KickstartParseError(formatErrorMsg(lineno))
+                    raise KickstartParseError(formatErrorMsg(lineno), lineno=lineno)
 
                 self._handleInclude(args[1])
                 continue
@@ -749,7 +749,7 @@ class KickstartParser(object):
                     newSection = args[0]
                     if not self._validState(newSection):
                         if self.unknownSectionIsFatal:
-                            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection))
+                            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection), lineno=lineno)
                         else:
                             # If we are ignoring unknown section errors, just create a new
                             # NullSection for the header we just saw.  Then nothing else

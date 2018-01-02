@@ -44,7 +44,7 @@ class RHEL7_Hmc(KickstartCommand):
     def parse(self, args):
         if args:
             msg = _("Kickstart command %s does not take any arguments") % self.currentCmd
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
 
         return self
 

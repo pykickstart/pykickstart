@@ -101,7 +101,7 @@ class F11_Upgrade(FC3_Upgrade):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
 
         if ns.root_device == "":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}), lineno=self.lineno)
         else:
             self.root_device = ns.root_device
 

@@ -81,7 +81,7 @@ class F21_OSTreeSetup(KickstartCommand):
             self.remote = self.osname
 
         if not self.url.startswith(("file:", "http:", "https:")):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="ostree repos must use file, HTTP or HTTPS protocol."))
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg="ostree repos must use file, HTTP or HTTPS protocol."), lineno=self.lineno)
 
         return self
 
