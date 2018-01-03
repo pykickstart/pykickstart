@@ -103,5 +103,13 @@ class F20_TestCase(F14_TestCase):
         self.assert_parse("firewall --service=mdns --remove-service=dhcpv6-client --remove-service=ssh",
                           "firewall --enabled --service=mdns --remove-service=dhcpv6-client,ssh\n")
 
+class RHEL7_TestCase(F20_TestCase):
+    def runTest(self):
+        F20_TestCase.runTest(self)
+
+        # use-system-defaults
+        self.assert_parse("firewall --use-system-defaults", "firewall --use-system-defaults\n")
+        self.assert_parse("firewall --enabled --service=ssh --use-system-defaults", "firewall --use-system-defaults\n")
+
 if __name__ == "__main__":
     unittest.main()
