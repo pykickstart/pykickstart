@@ -235,7 +235,7 @@ class F20_Firewall(F14_Firewall):
         else:
             return retval
 
-class F28_Firewall(F20_Firewall):
+class RHEL7_Firewall(F20_Firewall):
     def __init__(self, writePriority=0, *args, **kwargs):
         F20_Firewall.__init__(self, writePriority, *args, **kwargs)
         self.use_system_defaults = kwargs.get("use_system_defaults", None)
