@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.17
+Version: 1.99.66.18
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,16 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 04 2018 Chris Lumens <clumens@redhat.com> - 1.99.66.18-1
+- Add tests for the new firewall option. (clumens)
+  Related: rhbz#1526486
+- Use RHEL7_Firewall instead of F28_Firewall. (clumens)
+  Related: rhbz#1526486
+- Port the F20 firewall test from master. (clumens)
+  Related: rhbz#1526486
+- firewall: add --use-system-defaults arg to command (dusty)
+  Resolves: rhbz#1526486
+
 * Tue Dec 19 2017 Chris Lumens <clumens@redhat.com> - 1.99.66.17-1
 - More updated translations.
   Related: rhbz#1481222
