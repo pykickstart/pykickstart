@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.8
+Version:   3.9
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,12 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Jan 04 2018 Chris Lumens <clumens@redhat.com> - 3.9-1
+- Fix directory ownership (lbalhar, #202). (clumens)
+- firewall: add --use-system-defaults arg to command (#1526486) (dusty)
+- Add lineno as an attribute on KickstartParseError. (clumens)
+- Don't modify the original command and data mappings. (vponcova)
+
 * Thu Nov 30 2017 Chris Lumens <clumens@redhat.com> - 3.8-1
 - Add support for hmc command in Fedora (vponcova)
 - Commands for specifying base repo are mentioned in docs (jkonecny)
