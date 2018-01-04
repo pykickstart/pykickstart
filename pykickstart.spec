@@ -105,9 +105,9 @@ popd
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.rst
 %{python2_sitelib}/pykickstart*egg*
-%{python2_sitelib}/pykickstart/*py*
-%{python2_sitelib}/pykickstart/commands/*py*
-%{python2_sitelib}/pykickstart/handlers/*py*
+%{python2_sitelib}/pykickstart/
+%{python2_sitelib}/pykickstart/commands/
+%{python2_sitelib}/pykickstart/handlers/
 %{python2_sitelib}/pykickstart/locale/
 
 %files -n python3-kickstart
@@ -116,9 +116,9 @@ popd
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.rst
 %{python3_sitelib}/pykickstart*egg*
-%{python3_sitelib}/pykickstart/*py*
-%{python3_sitelib}/pykickstart/commands/*py*
-%{python3_sitelib}/pykickstart/handlers/*py*
+%{python3_sitelib}/pykickstart/
+%{python3_sitelib}/pykickstart/commands/
+%{python3_sitelib}/pykickstart/handlers/
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
