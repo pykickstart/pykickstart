@@ -29,10 +29,10 @@ class RHEL8Handler(BaseHandler):
     commandMap = {
         "auth": commands.authconfig.FC3_Authconfig,
         "authconfig": commands.authconfig.FC3_Authconfig,
-        "autopart": commands.autopart.F26_AutoPart,
+        "autopart": commands.autopart.RHEL8_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
         "bootloader": commands.bootloader.F21_Bootloader,
-        "btrfs": commands.btrfs.F23_BTRFS,
+        "btrfs": commands.btrfs.RHEL8_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
         "clearpart": commands.clearpart.F28_ClearPart,
         "cmdline": commands.displaymode.F26_DisplayMode,

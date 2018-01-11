@@ -16,9 +16,9 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
@@ -199,5 +199,9 @@ class F23_BTRFS(F17_BTRFS):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat or --useexisting has no effect.")))
 
         return data
+
+class RHEL8_BTRFS(DeprecatedCommand):
+    def __init__(self):
+        DeprecatedCommand.__init__(self)
 
 RHEL7_BTRFS = F23_BTRFS
