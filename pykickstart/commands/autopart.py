@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
@@ -450,3 +450,19 @@ class F26_AutoPart(F21_AutoPart):
         op.add_option("--noboot", dest="noboot", action="store_true", default=False)
         op.add_option("--noswap", dest="noswap", action="store_true", default=False)
         return op
+
+
+class RHEL8_AutoPart(F26_AutoPart):
+    removedKeywords = F26_AutoPart.removedKeywords
+    removedAttrs = F26_AutoPart.removedAttrs
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F26_AutoPart.parse(self, args)
+
+        # btrfs is no more supported
+        if self._typeAsStr() == "btrfs":
+            raise KickstartParseError(formatErrorMsg(self.lineno,
+                    msg=_("autopart --type=btrfs is not supported")))
+
+        return retval

@@ -184,6 +184,8 @@ large enough drives, this will also create a /home partition.
     lvm, btrfs, plain, thinp. Plain means regular partitions with no
     btrfs or lvm.
 
+    Btrfs file system is not supported in RHEL8.
+
 ``--nolvm``
 
     Same as ``--type=plain``
@@ -226,6 +228,8 @@ large enough drives, this will also create a /home partition.
     cannot be used with --type=btrfs since btrfs is both a partition
     scheme and a filesystem. eg. --fstype=ext4. Added in
     anaconda-21.46-1
+
+    Btrfs file system is not supported in RHEL8.
 
 ``--nohome``
 
@@ -361,6 +365,8 @@ for subvolumes.
 The ``<partitions*>`` (which denotes that multiple partitions can be
 listed) lists the BTRFS identifiers to add to the BTRFS volume. For
 subvolumes, should be the identifier of the subvolume's parent volume.
+
+Btrfs file system is not supported in RHEL8.
 
 ``<mntpoint>``
 
@@ -986,6 +992,8 @@ Create a logical volume for Logical Volume Management (LVM).
     to enable other filesystems. Btrfs is a experimental filesystem. Do
     take regular backups if you are using it.
 
+    Btrfs file system is not supported in RHEL8.
+
 ``--fsoptions=``
 
     Specifies a free form string of options to be used when mounting the
@@ -1519,6 +1527,8 @@ one of the following forms:
 
         The partition will be used for BTRFS volume (refer to btrfs).
 
+        Btrfs file system is not supported in RHEL8.
+
     ``biosboot``
 
         The partition will be used for a BIOS Boot Partition. As of
@@ -1592,6 +1602,8 @@ one of the following forms:
     ext4, ext3, ext2, xfs, btrfs, swap, and vfat. Other filesystems may
     be valid depending on command line arguments passed to anaconda to
     enable other filesystems.
+
+    Btrfs file system is not supported in RHEL8.
 
 ``--fsoptions=``
 
@@ -1696,6 +1708,8 @@ Assembles a software RAID device. This command is of the form:
     ext4, ext3, ext2, btrfs, swap, and vfat. Other filesystems may be
     valid depending on command line arguments passed to anaconda to
     enable other filesystems.
+
+    Btrfs file system is not supported in RHEL8.
 
 ``--fsoptions=``
 
