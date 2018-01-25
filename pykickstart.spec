@@ -13,12 +13,12 @@ Source0:   %{name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: gettext
-BuildRequires: python-coverage
-BuildRequires: python-devel
-BuildRequires: python-nose
-BuildRequires: python-ordered-set
-BuildRequires: python-setuptools
-BuildRequires: python-requests
+BuildRequires: python2-coverage
+BuildRequires: python2-devel
+BuildRequires: python2-nose
+BuildRequires: python2-ordered-set
+BuildRequires: python2-setuptools
+BuildRequires: python2-requests
 
 BuildRequires: python3-coverage
 BuildRequires: python3-devel
@@ -41,9 +41,9 @@ respectively.
 %{?python_provide:%python_provide python2-kickstart}
 %{?python_provide:%python_provide python2-pykickstart}
 Summary:  Python 2 library for manipulating kickstart files.
-Requires: python-six
-Requires: python-requests
-Requires: python-ordered-set
+Requires: python2-six
+Requires: python2-requests
+Requires: python2-ordered-set
 
 %description -n python2-kickstart
 Python 2 library for manipulating kickstart files.  The binaries are found in
