@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-30 13:18-0500\n"
+"POT-Creation-Date: 2018-01-25 09:21-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgid ""
 "your kickstart file to remove this command."
 msgstr ""
 
-#: ../pykickstart/base.py:452
+#: ../pykickstart/base.py:456
 #, python-format
 msgid "Unknown command: %s"
 msgstr ""
@@ -213,16 +213,16 @@ msgstr ""
 #: ../pykickstart/commands/mount.py:175
 #: ../pykickstart/commands/langsupport.py:59
 #: ../pykickstart/commands/keyboard.py:59
-#: ../pykickstart/commands/keyboard.py:167
+#: ../pykickstart/commands/keyboard.py:167 ../pykickstart/commands/sshpw.py:163
 #: ../pykickstart/commands/driverdisk.py:132
 #: ../pykickstart/commands/driverdisk.py:173
 #: ../pykickstart/commands/raid.py:393 ../pykickstart/commands/device.py:118
 #: ../pykickstart/commands/device.py:147 ../pykickstart/commands/logvol.py:431
-#: ../pykickstart/commands/mouse.py:68 ../pykickstart/commands/partition.py:407
-#: ../pykickstart/commands/updates.py:67 ../pykickstart/commands/lang.py:71
-#: ../pykickstart/commands/btrfs.py:218 ../pykickstart/commands/rootpw.py:88
-#: ../pykickstart/commands/rootpw.py:145 ../pykickstart/commands/timezone.py:81
-#: ../pykickstart/commands/sshpw.py:163
+#: ../pykickstart/commands/partition.py:407
+#: ../pykickstart/commands/updates.py:67 ../pykickstart/commands/mouse.py:68
+#: ../pykickstart/commands/lang.py:71 ../pykickstart/commands/btrfs.py:218
+#: ../pykickstart/commands/rootpw.py:88 ../pykickstart/commands/rootpw.py:145
+#: ../pykickstart/commands/timezone.py:81
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
 msgstr ""
@@ -262,16 +262,16 @@ msgstr ""
 msgid "Members may not be specified for preexisting volgroup"
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:178
+#: ../pykickstart/commands/volgroup.py:177
 #, python-format
 msgid "A volgroup with the name %s has already been defined."
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:217
+#: ../pykickstart/commands/volgroup.py:216
 msgid "The volgroup and autopart commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/volgroup.py:221
+#: ../pykickstart/commands/volgroup.py:220
 msgid "The volgroup and mount commands can't be used at the same time"
 msgstr ""
 
@@ -294,8 +294,8 @@ msgstr ""
 #. allow for translation of the error message
 #: ../pykickstart/commands/autopart.py:212
 #: ../pykickstart/commands/autopart.py:368
-#: ../pykickstart/commands/autopart.py:440
-#: ../pykickstart/commands/autopart.py:481
+#: ../pykickstart/commands/autopart.py:438
+#: ../pykickstart/commands/autopart.py:479
 #, python-format
 msgid "The %s and autopart commands can't be used at the same time"
 msgstr ""
@@ -305,11 +305,11 @@ msgstr ""
 msgid "Invalid autopart type: %s"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:421
+#: ../pykickstart/commands/autopart.py:420
 msgid "autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead"
 msgstr ""
 
-#: ../pykickstart/commands/autopart.py:425
+#: ../pykickstart/commands/autopart.py:423
 msgid "autopart --fstype cannot be used with --type=btrfs"
 msgstr ""
 
@@ -325,12 +325,12 @@ msgstr ""
 msgid "The '%s' and 'mount' commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/mount.py:185
+#: ../pykickstart/commands/mount.py:184
 #, python-format
 msgid "Invalid mount point '%s' given"
 msgstr ""
 
-#: ../pykickstart/commands/mount.py:189
+#: ../pykickstart/commands/mount.py:187
 msgid "'--mkfsoptions' requires --reformat"
 msgstr ""
 
@@ -372,8 +372,8 @@ msgstr ""
 msgid "Kickstart command cmdline does not support --non-interactive parameter"
 msgstr ""
 
-#: ../pykickstart/commands/keyboard.py:163 ../pykickstart/commands/rootpw.py:85
-#: ../pykickstart/commands/rootpw.py:142 ../pykickstart/commands/sshpw.py:160
+#: ../pykickstart/commands/keyboard.py:163 ../pykickstart/commands/sshpw.py:160
+#: ../pykickstart/commands/rootpw.py:85 ../pykickstart/commands/rootpw.py:142
 #, python-format
 msgid "A single argument is expected for the %s command"
 msgstr ""
@@ -704,25 +704,25 @@ msgstr ""
 msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:44
+#: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:48
+#: ../pykickstart/commands/realm.py:46
 msgid "Missing realm command arguments"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:54
+#: ../pykickstart/commands/realm.py:51
 #, python-format
 msgid "Unsupported realm '%s' command"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:67
+#: ../pykickstart/commands/realm.py:63
 #, python-format
 msgid "Invalid realm arguments: %s"
 msgstr ""
 
-#: ../pykickstart/commands/realm.py:71
+#: ../pykickstart/commands/realm.py:66
 msgid "Specify only one realm to join"
 msgstr ""
 

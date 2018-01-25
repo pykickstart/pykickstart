@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.9
+Version:   3.10
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Jan 25 2018 Chris Lumens <clumens@redhat.com> - 3.10-1
+- Update Python 2 dependency declarations to new packaging standards
+
 * Thu Jan 04 2018 Chris Lumens <clumens@redhat.com> - 3.9-1
 - Fix directory ownership (lbalhar, #202). (clumens)
 - firewall: add --use-system-defaults arg to command (#1526486) (dusty)
