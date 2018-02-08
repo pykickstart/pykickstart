@@ -86,6 +86,7 @@ archive: check test tag docs
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 local: docs po-pull
+	cp docs/_build/text/*.txt docs/
 	@$(PYTHON) setup.py -q sdist --dist-dir .
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
