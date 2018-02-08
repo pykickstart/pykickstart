@@ -27,6 +27,7 @@ class FC6_TestCase(CommandTest):
     def runTest(self):
         cmd = FC6_Logging()
         self.assertEqual(cmd.__str__(), '\n')
+        self.assertEqual(cmd.level, "info")
 
         # pass
         self.assert_parse("logging", "logging --level=info\n")
@@ -39,6 +40,8 @@ class FC6_TestCase(CommandTest):
         self.assert_parse("logging --host=HOSTNAME --port=PORT", "logging --level=info --host=HOSTNAME --port=PORT\n")
 
         # fail
+        self.assert_parse_error("logging --level")
+        self.assert_parse_error("logging --level=''")
         self.assert_parse_error("logging --level=theprincessisinanothercastle")
         self.assert_parse_error("logging --host")
         self.assert_parse_error("logging --port")

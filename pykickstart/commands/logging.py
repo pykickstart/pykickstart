@@ -35,12 +35,15 @@ class FC6_Logging(KickstartCommand):
         self.host = kwargs.get("host", "")
         self.level = kwargs.get("level", "")
         self.port = kwargs.get("port", "")
-        self._levelProvided = False
+
+        self._level_provided = bool(self.level)
+        if not self._level_provided:
+            self.level = "info"
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if self.level and self._levelProvided:
+        if self.level and self._level_provided:
             retval += "# Installation logging level\nlogging --level=%s" % self.level
 
             if self.host:
@@ -61,7 +64,7 @@ class FC6_Logging(KickstartCommand):
         op.add_argument("--port", version=FC6, help="""
             If the remote syslogd process uses a port other than the default, it
             may be specified with this option.""")
-        op.add_argument("--level", version=FC6,
+        op.add_argument("--level", version=FC6, default="info",
                         choices=["debug", "info", "warning", "error", "critical"],
                         help="""
                         Specify the minimum level of messages that appear on tty3.
@@ -76,9 +79,5 @@ class FC6_Logging(KickstartCommand):
         if self.port and not self.host:
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")), lineno=self.lineno)
 
-        self._levelProvided = bool(self.level) # b/c of mutation testing
-        if not self._levelProvided:
-            self.level = "info"
-            self._levelProvided = bool(self.level)
-
+        self._level_provided = True
         return self
