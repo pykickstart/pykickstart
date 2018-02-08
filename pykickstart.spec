@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.10
+Version:   3.11
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,10 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Thu Feb 08 2018 Chris Lumens <clumens@redhat.com> - 3.11-1
+- Logging level should be always set (#1543194) (vponcova)
+- Copy txt files from _build folder on make local call (jkonecny)
+
 * Thu Jan 25 2018 Chris Lumens <clumens@redhat.com> - 3.10-1
 - Update Python 2 dependency declarations to new packaging standards
 
