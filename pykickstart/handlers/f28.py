@@ -27,8 +27,9 @@ class F28Handler(BaseHandler):
     version = F28
 
     commandMap = {
-        "auth": commands.authconfig.FC3_Authconfig,
-        "authconfig": commands.authconfig.FC3_Authconfig,
+        "auth": commands.authconfig.F28_Authconfig,
+        "authconfig": commands.authconfig.F28_Authconfig,
+        "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.F26_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
         "bootloader": commands.bootloader.F21_Bootloader,

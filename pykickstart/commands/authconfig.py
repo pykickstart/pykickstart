@@ -17,9 +17,13 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc. 
 #
-from pykickstart.version import FC3
+import warnings
+from textwrap import dedent
+
+from pykickstart.version import FC3, versionToLongString, F28
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
+
 
 class FC3_Authconfig(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -56,3 +60,26 @@ class FC3_Authconfig(KickstartCommand):
                         See ``man authconfig``.""", version=FC3)
         return op
 
+
+class F28_Authconfig(FC3_Authconfig):
+    removedKeywords = FC3_Authconfig.removedKeywords
+    removedAttrs = FC3_Authconfig.removedAttrs
+
+    def parse(self, args):
+        warnings.warn("The authconfig command will be deprecated, use authselect "
+                      "instead.", DeprecationWarning)
+
+        return super(F28_Authconfig, self).parse(args)
+
+    def _getParser(self):
+        op = super(F28_Authconfig, self)._getParser()
+        op.description += dedent("""
+
+            .. versionchanged:: %s
+
+            The authconfig program is deprecated. This command will use the
+            authconfig compatibility tool, but you should use the authselect
+            command instead.
+
+        """ % versionToLongString(F28))
+        return op

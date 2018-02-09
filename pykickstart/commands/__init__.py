@@ -19,6 +19,7 @@
 #
 from pykickstart.commands import (
      authconfig,
+     authselect,
      autopart,
      autostep,
      bootloader,
