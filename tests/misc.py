@@ -22,16 +22,6 @@ class WritePriority_TestCase(unittest.TestCase):
                 cmd = command_class()
                 if issubclass(cmd.__class__, DeprecatedCommand):
                     self.assertEqual(None, cmd.writePriority, command_class)
-                elif _name in ['rescue', 'upgrade', 'group', 'driverdisk', 'xconfig',
-                    'keyboard', 'rootpw', 'url', 'lang', 'liveimg', 'method', 'realm',
-                    'user', 'eula', 'firewall', 'ostreesetup', 'repo', 'sshkey', 'reboot',
-                    'timezone', 'network', 'sshpw', 'updates', 'device', 'vnc', 'authconfig',
-                    'autostep', 'cdrom', 'deviceprobe', 'text', 'graphical', 'firstboot', 'harddrive',
-                    'selinux', 'skipx', 'mediacheck', 'logging', 'nfs', 'services', 'ignoredisk',
-                    'interactive', 'cmdline', 'monitor', 'install', 'shutdown', 'halt',
-                    'auth', 'poweroff', 'lilocheck', 'langsupport', 'mouse', 'key',
-                    'unsupported_hardware', 'hmc', 'mount']:
-                    self.assertEqual(0, cmd.writePriority, command_class)
                 elif _name in ['bootloader', 'lilo']:
                     self.assertEqual(10, cmd.writePriority, command_class)
                 elif _name in ['multipath']:
@@ -59,7 +49,7 @@ class WritePriority_TestCase(unittest.TestCase):
                 elif _name in ['snapshot']:
                     self.assertEqual(140, cmd.writePriority, command_class)
                 else:
-                    self.fail("Unknown writePriority for %s:%s" % (_name, command_class))
+                    self.assertEqual(0, cmd.writePriority, command_class)
 
 if __name__ == "__main__":
     unittest.main()
