@@ -86,6 +86,7 @@ F25 = 23000
 F26 = 24000
 F27 = 25000
 F28 = 26000
+RHEL8 = 26100
 
 # This always points at the latest version and is the default.
 DEVEL = F28
@@ -99,7 +100,7 @@ versionMap = {
     "F19": F19, "F20": F20, "F21": F21, "F22": F22, "F23": F23,
     "F24": F24, "F25": F25, "F26": F26, "F27": F27, "F28": F28,
     "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
-    "RHEL7": RHEL7
+    "RHEL7": RHEL7, "RHEL8": RHEL8
 }
 
 def stringToVersion(s):
