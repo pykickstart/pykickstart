@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21
-from pykickstart.version import F23, RHEL5, RHEL6, RHEL7
+from pykickstart.version import F23, RHEL5, RHEL6, RHEL7, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser, commaSplit
@@ -841,3 +841,25 @@ class F23_LogVol(F21_LogVol):
             raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")), lineno=self.lineno)
 
         return retval
+
+class RHEL8_LogVol(F23_LogVol):
+    removedKeywords = F23_LogVol.removedKeywords
+    removedAttrs = F23_LogVol.removedAttrs
+
+    def parse(self, args):
+        retval = F23_LogVol.parse(self, args)
+        if retval.fstype == "btrfs":
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported")))
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F23_LogVol._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op

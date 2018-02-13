@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import RHEL5, RHEL6
+from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
 from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
@@ -656,3 +656,25 @@ class F23_Partition(F20_Partition):
 
 class RHEL7_Partition(F23_Partition):
     pass
+
+class RHEL8_Partition(F23_Partition):
+    removedKeywords = F23_Partition.removedKeywords
+    removedAttrs = F23_Partition.removedAttrs
+
+    def parse(self, args):
+        retval = F23_Partition.parse(self, args)
+        if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported")))
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F23_Partition._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op

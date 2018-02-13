@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString, RHEL5, RHEL6, FC3, FC4, FC5
-from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25
+from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25, RHEL8
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
@@ -708,3 +708,25 @@ class F25_Raid(F23_Raid):
 
 class RHEL7_Raid(F25_Raid):
     pass
+
+class RHEL8_Raid(F25_Raid):
+    removedKeywords = F25_Raid.removedKeywords
+    removedAttrs = F25_Raid.removedAttrs
+
+    def parse(self, args):
+        retval = F25_Raid.parse(self, args)
+        if retval.fstype == "btrfs":
+            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported")))
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F25_Raid._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op
