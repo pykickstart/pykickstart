@@ -18,8 +18,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import F17, F23
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.version import F17, F23, RHEL8, versionToLongString
+from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pykickstart.options import KSOptionParser
 
@@ -267,3 +267,12 @@ class F23_BTRFS(F17_BTRFS):
 
 class RHEL7_BTRFS(F23_BTRFS):
     pass
+
+class RHEL8_BTRFS(DeprecatedCommand, F23_BTRFS):
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F23_BTRFS._getParser(self)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(RHEL8)
+        return op
