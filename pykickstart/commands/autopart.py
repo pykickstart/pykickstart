@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.version import versionToLongString, RHEL6, RHEL7
+from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
 from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError, formatErrorMsg
