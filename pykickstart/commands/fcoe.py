@@ -86,6 +86,9 @@ class RHEL7_FcoeData(F13_FcoeData):
 
         return retval
 
+class RHEL8_FcoeData(F13_FcoeData):
+    pass
+
 class F12_Fcoe(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -146,3 +149,6 @@ class RHEL7_Fcoe(F13_Fcoe):
         op.add_argument("--autovlan", action="store_true", default=False,
                         help="", version=RHEL7)
         return op
+
+class RHEL8_Fcoe(F13_Fcoe):
+    pass

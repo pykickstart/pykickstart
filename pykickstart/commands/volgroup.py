@@ -92,6 +92,9 @@ class F21_VolGroupData(F16_VolGroupData):
 class RHEL7_VolGroupData(F21_VolGroupData):
     pass
 
+class RHEL8_VolGroupData(F21_VolGroupData):
+    pass
+
 class FC3_VolGroup(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -229,4 +232,7 @@ class F21_VolGroup(F16_VolGroup):
         return op
 
 class RHEL7_VolGroup(F21_VolGroup):
+    pass
+
+class RHEL8_VolGroup(F21_VolGroup):
     pass
