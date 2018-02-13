@@ -528,3 +528,37 @@ class F26_AutoPart(F23_AutoPart):
                         version=F26, help="""
                         Do not create a swap partition.""")
         return op
+
+
+class RHEL8_AutoPart(F26_AutoPart):
+    removedKeywords = F26_AutoPart.removedKeywords
+    removedAttrs = F26_AutoPart.removedAttrs
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F26_AutoPart.parse(self, args)
+
+        # btrfs is no more supported
+        if self._typeAsStr() == "btrfs":
+            raise KickstartParseError(formatErrorMsg(self.lineno,
+                    msg=_("autopart --type=btrfs is not supported")))
+
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F26_AutoPart._getParser(self)
+        for action in op._actions:
+            if "--type" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
+        return op
