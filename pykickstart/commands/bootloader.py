@@ -113,7 +113,7 @@ class FC3_Bootloader(KickstartCommand):
                         (installs the boot loader on the first sector of the
                         partition containing the kernel), or none
                         (do not install the boot loader).
-                        
+
                          **Note** `bootloader --location=none` is different from
                          `bootloader --location=none --disabled`.
                          `--location=none` prevents extra installation steps
@@ -465,7 +465,7 @@ class F21_Bootloader(F19_Bootloader):
         op.add_argument("--disabled", action="store_true", default=False,
                         version=F21, help="""
                         Do not install the boot loader.
-                        
+
                          **Note** `bootloader --location=none` is different from
                          `bootloader --location=none --disabled`.
                          `--location=none` prevents extra installation steps
@@ -482,4 +482,7 @@ class F21_Bootloader(F19_Bootloader):
         return op
 
 class RHEL7_Bootloader(F21_Bootloader):
+    pass
+
+class RHEL8_Bootloader(F21_Bootloader):
     pass
