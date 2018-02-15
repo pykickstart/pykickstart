@@ -208,40 +208,19 @@ class DeprecatedCommand(KickstartCommand):
 ###
 ### HANDLERS
 ###
-class BaseHandler(KickstartObject):
-    """Each version of kickstart syntax is provided by a subclass of this
-       class.  These subclasses are what users will interact with for parsing,
-       extracting data, and writing out kickstart files.  This is an abstract
-       class.
+class KickstartHandler(KickstartObject):
+    """An empty kickstart handler.
+
+       This handler doesn't handle anything by default.
 
        version -- The version this syntax handler supports.  This is set by
-                  a class attribute of a BaseHandler subclass and is used to
+                  a class attribute of a KickstartHandler subclass and is used to
                   set up the command dict.  It is for read-only use.
     """
     version = None
 
-    def __init__(self, mapping=None, dataMapping=None, commandUpdates=None,
-                 dataUpdates=None, *args, **kwargs):
-        """Create a new BaseHandler instance.  This method must be provided by
-           all subclasses, but subclasses must call BaseHandler.__init__ first.
-
-           mapping          -- A custom map from command strings to classes,
-                               useful when creating your own handler with
-                               special command objects.  It is otherwise unused
-                               and rarely needed.  If you give this argument,
-                               the mapping takes the place of the default one
-                               and so must include all commands you want
-                               recognized.
-           dataMapping      -- This is the same as mapping, but for data
-                               objects.  All the same comments apply.
-           commandUpdates   -- This is similar to mapping, but does not take
-                               the place of the defaults entirely.  Instead,
-                               this mapping is applied after the defaults and
-                               updates it with just the commands you want to
-                               modify.
-           dataUpdates      -- This is the same as commandUpdates, but for
-                               data objects.
-
+    def __init__(self, *args, **kwargs):
+        """Create a new KickstartHandler instance.
 
            Instance attributes:
 
@@ -253,27 +232,8 @@ class BaseHandler(KickstartObject):
                        manipulated internally and called through dispatcher.
            currentLine -- The current unprocessed line from the input file
                           that caused this handler to be run.
-           packages -- An instance of pykickstart.parser.Packages which
-                       describes the packages section of the input file.
-           platform -- A string describing the hardware platform, which is
-                       needed only by system-config-kickstart.
-           scripts  -- A list of pykickstart.parser.Script instances, which is
-                       populated by KickstartParser.addScript and describes the
-                       %pre/%pre-install/%post/%traceback script section of the
-                       input file.
         """
-
-        # We don't want people using this class by itself.
-        if self.__class__ is BaseHandler:
-            raise TypeError("BaseHandler is an abstract class.")
-
         KickstartObject.__init__(self, *args, **kwargs)
-
-        # This isn't really a good place for these, but it's better than
-        # everything else I can think of.
-        self.scripts = []
-        self.packages = Packages()
-        self.platform = ""
 
         # These will be set by the dispatcher.
         self.commands = {}
@@ -285,22 +245,9 @@ class BaseHandler(KickstartObject):
         # it.
         self._writeOrder = {}
 
-        # Any sections that we do not understand but want to prevent causing errors
-        # are represented by a NullSection.  We want to preserve those on output, so
-        # keep a list of their string representations here.  This is likely to change
-        # in the future.  Don't rely on this exact implementation.
-        self._null_section_strings = []
-
-        self._registerCommands(mapping, dataMapping, commandUpdates, dataUpdates)
-
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
         retval = ""
-
-        if self.platform:
-            retval += "#platform=%s\n" % self.platform
-
-        retval += "#version=%s\n" % versionToString(self.version)
 
         lst = list(self._writeOrder.keys())
         lst.sort()
@@ -311,20 +258,6 @@ class BaseHandler(KickstartObject):
                 if isinstance(obj_str, six.text_type) and not six.PY3:
                     obj_str = obj_str.encode("utf-8")
                 retval += obj_str
-
-        for script in self.scripts:
-            script_str = script.__str__()
-            if isinstance(script_str, six.text_type) and not six.PY3:
-                script_str = script_str.encode("utf-8")
-            retval += script_str
-
-        if self._null_section_strings:
-            retval += "\n"
-
-            for s in self._null_section_strings:
-                retval += s
-
-        retval += self.packages.__str__()
 
         return retval
 
@@ -364,6 +297,7 @@ class BaseHandler(KickstartObject):
 
         setattr(self, name.lower(), cmdObj)
 
+    def _sortCommand(self, cmdObj):
         # Also, add the object into the _writeOrder dict in the right place.
         if cmdObj.writePriority is not None:
             if cmdObj.writePriority in self._writeOrder:
@@ -371,58 +305,33 @@ class BaseHandler(KickstartObject):
             else:
                 self._writeOrder[cmdObj.writePriority] = [cmdObj]
 
-    def _registerCommands(self, mapping=None, dataMapping=None, commandUpdates=None,
-                          dataUpdates=None):
-        if mapping == {} or mapping is None:
-            from pykickstart.handlers.control import commandMap
-            cMap = commandMap[self.version]
-        else:
-            cMap = mapping
+    def registerCommand(self, cmdName, cmdClass):
+        # First make sure we haven't instantiated this command handler
+        # already.  If we have, we just need to make another mapping to
+        # it in self.commands.
+        # NOTE:  We can't use the resetCommand method here since that relies
+        # upon cmdClass already being instantiated.  We'll just have to keep
+        # these two code blocks in sync.
+        cmdObj = None
 
-        if dataMapping == {} or dataMapping is None:
-            from pykickstart.handlers.control import dataMap
-            dMap = dataMap[self.version]
-        else:
-            dMap = dataMapping
+        for (_key, val) in list(self.commands.items()):
+            if val.__class__.__name__ == cmdClass.__name__:
+                cmdObj = val
+                break
 
-        # Apply the command and data updates, but do
-        # not modify the original command and data maps.
-        if isinstance(commandUpdates, dict):
-            cMap = dict(cMap)
-            cMap.update(commandUpdates)
+        # If we didn't find an instance in self.commands, create one now.
+        if cmdObj is None:
+            cmdObj = cmdClass()
+            self._setCommand(cmdObj)
+            self._sortCommand(cmdObj)
 
-        if isinstance(dataUpdates, dict):
-            dMap = dict(dMap)
-            dMap.update(dataUpdates)
+        # Finally, add the mapping to the commands dict.
+        self.commands[cmdName] = cmdObj
+        self.commands[cmdName].handler = self
 
-        for (cmdName, cmdClass) in list(cMap.items()):
-            # First make sure we haven't instantiated this command handler
-            # already.  If we have, we just need to make another mapping to
-            # it in self.commands.
-            # NOTE:  We can't use the resetCommand method here since that relies
-            # upon cmdClass already being instantiated.  We'll just have to keep
-            # these two code blocks in sync.
-            cmdObj = None
-
-            for (_key, val) in list(self.commands.items()):
-                if val.__class__.__name__ == cmdClass.__name__:
-                    cmdObj = val
-                    break
-
-            # If we didn't find an instance in self.commands, create one now.
-            if cmdObj is None:
-                cmdObj = cmdClass()
-                self._setCommand(cmdObj)
-
-            # Finally, add the mapping to the commands dict.
-            self.commands[cmdName] = cmdObj
-            self.commands[cmdName].handler = self
-
+    def registerData(self, dataName, dataClass):
         # We also need to create attributes for the various data objects.
-        # No checks here because dMap is a bijection.  At least, that's what
-        # the comment says.  Hope no one screws that up.
-        for (dataName, dataClass) in list(dMap.items()):
-            setattr(self, dataName, dataClass)
+        setattr(self, dataName, dataClass)
 
     def resetCommand(self, cmdName):
         """Given the name of a command that's already been instantiated, create
@@ -474,6 +383,130 @@ class BaseHandler(KickstartObject):
                 lst.append(obj)
 
             return obj
+
+
+class BaseHandler(KickstartHandler):
+    """A base kickstart handler.
+
+       Each version of kickstart syntax is provided by a subclass of this
+       class. These subclasses are what users will interact with for parsing,
+       extracting data, and writing out kickstart files.  This is an abstract
+       class.
+    """
+
+    def __init__(self, mapping=None, dataMapping=None, commandUpdates=None,
+                 dataUpdates=None, *args, **kwargs):
+        """Create a new BaseHandler instance.  This method must be provided by
+           all subclasses, but subclasses must call BaseHandler.__init__ first.
+
+           mapping          -- A custom map from command strings to classes,
+                               useful when creating your own handler with
+                               special command objects.  It is otherwise unused
+                               and rarely needed.  If you give this argument,
+                               the mapping takes the place of the default one
+                               and so must include all commands you want
+                               recognized.
+           dataMapping      -- This is the same as mapping, but for data
+                               objects.  All the same comments apply.
+           commandUpdates   -- This is similar to mapping, but does not take
+                               the place of the defaults entirely.  Instead,
+                               this mapping is applied after the defaults and
+                               updates it with just the commands you want to
+                               modify.
+           dataUpdates      -- This is the same as commandUpdates, but for
+                               data objects.
+
+
+           Instance attributes:
+
+           packages -- An instance of pykickstart.parser.Packages which
+                       describes the packages section of the input file.
+           platform -- A string describing the hardware platform, which is
+                       needed only by system-config-kickstart.
+           scripts  -- A list of pykickstart.parser.Script instances, which is
+                       populated by KickstartParser.addScript and describes the
+                       %pre/%pre-install/%post/%traceback script section of the
+                       input file.
+        """
+
+        # We don't want people using this class by itself.
+        if self.__class__ is BaseHandler:
+            raise TypeError("BaseHandler is an abstract class.")
+
+        KickstartHandler.__init__(self, *args, **kwargs)
+
+        # This isn't really a good place for these, but it's better than
+        # everything else I can think of.
+        self.scripts = []
+        self.packages = Packages()
+        self.platform = ""
+
+        # Any sections that we do not understand but want to prevent causing errors
+        # are represented by a NullSection.  We want to preserve those on output, so
+        # keep a list of their string representations here.  This is likely to change
+        # in the future.  Don't rely on this exact implementation.
+        self._null_section_strings = []
+
+        self._registerCommands(mapping, dataMapping, commandUpdates, dataUpdates)
+
+    def __str__(self):
+        """Return a string formatted for output to a kickstart file."""
+        retval = ""
+
+        if self.platform:
+            retval += "#platform=%s\n" % self.platform
+
+        retval += "#version=%s\n" % versionToString(self.version)
+
+        retval += KickstartHandler.__str__(self)
+
+        for script in self.scripts:
+            script_str = script.__str__()
+            if isinstance(script_str, six.text_type) and not six.PY3:
+                script_str = script_str.encode("utf-8")
+            retval += script_str
+
+        if self._null_section_strings:
+            retval += "\n"
+
+            for s in self._null_section_strings:
+                retval += s
+
+        retval += self.packages.__str__()
+
+        return retval
+
+    def _registerCommands(self, mapping=None, dataMapping=None, commandUpdates=None,
+                          dataUpdates=None):
+        if mapping == {} or mapping is None:
+            from pykickstart.handlers.control import commandMap
+            cMap = commandMap[self.version]
+        else:
+            cMap = mapping
+
+        if dataMapping == {} or dataMapping is None:
+            from pykickstart.handlers.control import dataMap
+            dMap = dataMap[self.version]
+        else:
+            dMap = dataMapping
+
+        # Apply the command and data updates, but do
+        # not modify the original command and data maps.
+        if isinstance(commandUpdates, dict):
+            cMap = dict(cMap)
+            cMap.update(commandUpdates)
+
+        if isinstance(dataUpdates, dict):
+            dMap = dict(dMap)
+            dMap.update(dataUpdates)
+
+        for (cmdName, cmdClass) in list(cMap.items()):
+            self.registerCommand(cmdName, cmdClass)
+
+        # No checks here because dMap is a bijection.  At least, that's what
+        # the comment says.  Hope no one screws that up.
+        for (dataName, dataClass) in list(dMap.items()):
+            self.registerData(dataName, dataClass)
 
     def maskAllExcept(self, lst):
         """Set all entries in the commands dict to None, except the ones in
