@@ -4,15 +4,19 @@ import unittest
 import importlib
 import unittest.mock as mock
 from argparse import Namespace
+
 from tests.baseclass import ParserTest
-from pykickstart.parser import Script
+from pykickstart.parser import Script, KickstartParser
+from pykickstart.version import F25
 from pykickstart.handlers.f25 import F25Handler
 from pykickstart.constants import KS_SCRIPT_POST
 from pykickstart.errors import KickstartParseError
 from pykickstart.commands.zfcp import F14_ZFCPData
 from pykickstart.commands.autopart import F23_AutoPart
 from pykickstart.commands.btrfs import F17_BTRFS, F23_BTRFS, F23_BTRFSData
-from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand
+from pykickstart.commands.cdrom import FC3_Cdrom
+from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand, \
+    KickstartHandler
 
 
 class KickstartCommandWithRemovals(KickstartCommand):
@@ -143,6 +147,34 @@ class BaseClasses_TestCase(ParserTest):
         data.__call__(testAttr='test-me', missingAttr='missing')
         self.assertEqual(data.testAttr, 'test-me')
         self.assertFalse(hasattr(data, 'missingAttr'))
+
+class KickstartHandler_TestCase(unittest.TestCase):
+    def runTest(self):
+        handler = KickstartHandler()
+        self.assertEqual(str(handler), "")
+
+        handler = KickstartHandler()
+        handler.registerCommand('autopart', F23_AutoPart)
+        handler.registerCommand('btrfs', F17_BTRFS)
+        handler.registerData('BTRFSData', F23_BTRFSData)
+        handler.registerData('ZFCPData', F14_ZFCPData)
+
+        self.assertEqual(len(handler.commands.keys()), 2)
+        self.assertTrue(isinstance(handler.commands['autopart'], F23_AutoPart))
+        self.assertTrue(isinstance(handler.commands['btrfs'], F17_BTRFS))
+
+        self.assertTrue(hasattr(handler, 'BTRFSData'))
+        self.assertEqual(getattr(handler, 'BTRFSData'), F23_BTRFSData)
+        self.assertTrue(hasattr(handler, 'ZFCPData'))
+        self.assertEqual(getattr(handler, 'ZFCPData'), F14_ZFCPData)
+
+        handler = KickstartHandler()
+        handler.registerCommand('cdrom', FC3_Cdrom)
+        handler.version = F25
+
+        parser = KickstartParser(handler)
+        parser.readKickstartFromString("cdrom")
+        self.assertEqual(str(handler), "# Use CDROM installation media\ncdrom\n")
 
 class HandlerRegisterCommands_TestCase(unittest.TestCase):
     def runTest(self):
