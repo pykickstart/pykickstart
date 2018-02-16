@@ -23,7 +23,7 @@ from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
 from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 
 import warnings
 from pykickstart.i18n import _
@@ -743,13 +743,13 @@ class F22_Network(F21_Network):
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
-                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
+                msg = _("Option --bridgeopts requires --bridgeslaves to be specified")
                 raise KickstartParseError(msg, lineno=self.lineno)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
-                    msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
+                    msg = _("Bad format of --bridgeopts, expecting key=value options separated by ','")
                     raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
@@ -831,7 +831,7 @@ class F27_Network(F25_Network):
 
         if retval.bindto == BIND_TO_MAC:
             if retval.vlanid and not retval.bondopts:
-                msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
+                msg = _("--bindto=%s is not supported for this type of device") % BIND_TO_MAC
                 raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
@@ -1042,22 +1042,22 @@ class RHEL7_Network(F21_Network):
         error_message = validate_network_interface_name(retval.interfacename)
         # something is wrong with the interface name
         if error_message:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=error_message), lineno=self.lineno)
+            raise KickstartParseError(error_message, lineno=self.lineno)
 
         if retval.bridgeopts:
             if not retval.bridgeslaves:
-                msg = formatErrorMsg(self.lineno, msg=_("Option --bridgeopts requires --bridgeslaves to be specified"))
+                msg = _("Option --bridgeopts requires --bridgeslaves to be specified")
                 raise KickstartParseError(msg, lineno=self.lineno)
             opts = retval.bridgeopts.split(",")
             for opt in opts:
                 _key, _sep, value = opt.partition("=")
                 if not value or "=" in value:
-                    msg = formatErrorMsg(self.lineno, msg=_("Bad format of --bridgeopts, expecting key=value options separated by ','"))
+                    msg = _("Bad format of --bridgeopts, expecting key=value options separated by ','")
                     raise KickstartParseError(msg, lineno=self.lineno)
 
         if retval.bindto == BIND_TO_MAC:
             if retval.vlanid and not retval.bondopts:
-                msg = formatErrorMsg(self.lineno, msg=_("--bindto=%s is not supported for this type of device") % BIND_TO_MAC)
+                msg = _("--bindto=%s is not supported for this type of device") % BIND_TO_MAC
                 raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval

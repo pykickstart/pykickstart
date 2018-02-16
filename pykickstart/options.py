@@ -48,7 +48,7 @@ import textwrap
 from argparse import RawTextHelpFormatter, SUPPRESS
 from argparse import Action, ArgumentParser, ArgumentTypeError
 
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.version import versionToString, versionToLongString
 
 from pykickstart.i18n import _
@@ -254,7 +254,7 @@ class KSOptionParser(ArgumentParser):
     def error(self, message):
         # Overridden to turn errors into KickstartParseErrors.
         if self.lineno is not None:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message), lineno=self.lineno)
+            raise KickstartParseError(message, lineno=self.lineno)
         else:
             raise KickstartParseError(message)
 

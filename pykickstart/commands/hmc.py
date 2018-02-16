@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import RHEL7
 from pykickstart.i18n import _
@@ -44,7 +44,7 @@ class RHEL7_Hmc(KickstartCommand):
     def parse(self, args):
         if args:
             msg = _("Kickstart command %s does not take any arguments") % self.currentCmd
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=msg), lineno=self.lineno)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self
 

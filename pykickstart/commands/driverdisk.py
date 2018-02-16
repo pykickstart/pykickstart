@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, FC4, F12, F14
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -126,16 +126,16 @@ class FC3_DriverDisk(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(ns.partition) > 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one partition may be specified for driverdisk command."), lineno=self.lineno)
         elif extra:
             mapping = {"command": "driverdisk", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         if len(ns.partition) == 1 and ns.source:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of --source and partition may be specified for driverdisk command."), lineno=self.lineno)
 
         if not ns.partition and not ns.source:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source or partition must be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("One of --source or partition must be specified for driverdisk command."), lineno=self.lineno)
 
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)
@@ -167,20 +167,20 @@ class FC4_DriverDisk(FC3_DriverDisk):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(ns.partition) > 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one partition may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one partition may be specified for driverdisk command."), lineno=self.lineno)
         elif extra:
             mapping = {"command": "driverdisk", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         if len(ns.partition) == 1 and ns.source:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --source and partition may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of --source and partition may be specified for driverdisk command."), lineno=self.lineno)
         elif len(ns.partition) == 1 and ns.biospart:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and partition may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of --biospart and partition may be specified for driverdisk command."), lineno=self.lineno)
         elif ns.source and ns.biospart:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of --biospart and --source may be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of --biospart and --source may be specified for driverdisk command."), lineno=self.lineno)
 
         if not ns.partition and not ns.source and not ns.biospart:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --source, --biospart, or partition must be specified for driverdisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("One of --source, --biospart, or partition must be specified for driverdisk command."), lineno=self.lineno)
 
         ddd = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, ddd)

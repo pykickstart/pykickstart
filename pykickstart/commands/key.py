@@ -20,7 +20,7 @@
 from pykickstart.version import RHEL5
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import KS_INSTKEY_SKIP
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -58,10 +58,10 @@ class RHEL5_Key(KickstartCommand):
         if self.skip:
             self.key = KS_INSTKEY_SKIP
         elif len(extra) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "key"), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s requires one argument") % "key", lineno=self.lineno)
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "key", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
         else:
             self.key = extra[0]
 

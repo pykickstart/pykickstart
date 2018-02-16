@@ -21,7 +21,7 @@ from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
 from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -44,7 +44,7 @@ class FC3_AutoPart(KickstartCommand):
 
     def parse(self, args):
         if len(args) > 0:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % "autopart"), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s does not take any arguments") % "autopart", lineno=self.lineno)
 
         self.autopart = True
         return self
@@ -210,7 +210,7 @@ class RHEL6_AutoPart(F12_AutoPart):
         if conflicting_command:
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
 
@@ -282,7 +282,7 @@ class F17_AutoPart(F16_AutoPart):
         if value.lower() in self.typeMap:
             return self.typeMap[value.lower()]
         else:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid autopart type: %s") % value), lineno=self.lineno)
+            raise KickstartParseError(_("Invalid autopart type: %s") % value, lineno=self.lineno)
 
     def _getParser(self):
         op = F16_AutoPart._getParser(self)
@@ -366,7 +366,7 @@ class F20_AutoPart(F18_AutoPart):
         if conflicting_command:
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
     def _getParser(self):
@@ -417,10 +417,10 @@ class F21_AutoPart(F20_AutoPart):
 
         # btrfs is not a valid filesystem type
         if self.fstype == "btrfs":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead")), lineno=self.lineno)
+            raise KickstartParseError(_("autopart --fstype=btrfs is not valid fstype, use --type=btrfs instead"), lineno=self.lineno)
 
         if self._typeAsStr() == "btrfs" and self.fstype:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("autopart --fstype cannot be used with --type=btrfs")), lineno=self.lineno)
+            raise KickstartParseError(_("autopart --fstype cannot be used with --type=btrfs"), lineno=self.lineno)
 
         return retval
 
@@ -436,7 +436,7 @@ class F23_AutoPart(F21_AutoPart):
         if conflicting_command:
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
 
         return retval
 
@@ -477,7 +477,7 @@ class RHEL7_AutoPart(F21_AutoPart):
         if conflicting_command:
             # allow for translation of the error message
             errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
 
         return retval
 
@@ -540,8 +540,8 @@ class RHEL8_AutoPart(F26_AutoPart):
 
         # btrfs is no more supported
         if self._typeAsStr() == "btrfs":
-            raise KickstartParseError(formatErrorMsg(self.lineno,
-                    msg=_("autopart --type=btrfs is not supported")))
+            raise KickstartParseError(_("autopart --type=btrfs is not supported"),
+                                      lineno=self.lineno)
 
         return retval
 

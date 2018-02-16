@@ -20,7 +20,7 @@
 from pykickstart.version import F19
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 
 import getopt
 import pipes
@@ -40,15 +40,15 @@ class F19_Realm(KickstartCommand):
 
     def _parseArguments(self, string):
         if self.join_realm:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("The realm command 'join' should only be specified once")), lineno=self.lineno)
+            raise KickstartParseError(_("The realm command 'join' should only be specified once"), lineno=self.lineno)
         args = shlex.split(string)
         if not args:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Missing realm command arguments")), lineno=self.lineno)
+            raise KickstartParseError(_("Missing realm command arguments"), lineno=self.lineno)
         command = args.pop(0)
         if command == "join":
             self._parseJoin(args)
         else:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unsupported realm '%s' command") % command), lineno=self.lineno)
+            raise KickstartParseError(_("Unsupported realm '%s' command") % command, lineno=self.lineno)
 
     def _parseJoin(self, args):
         try:
@@ -60,10 +60,10 @@ class F19_Realm(KickstartCommand):
                                                        "no-password",
                                                        "computer-ou="))
         except getopt.GetoptError as ex:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid realm arguments: %s") % ex), lineno=self.lineno)
+            raise KickstartParseError(_("Invalid realm arguments: %s") % ex, lineno=self.lineno)
 
         if len(remaining) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Specify only one realm to join")), lineno=self.lineno)
+            raise KickstartParseError(_("Specify only one realm to join"), lineno=self.lineno)
 
         # Parse successful, just use this as the join command
         self.join_realm = remaining[0]

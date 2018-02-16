@@ -19,7 +19,7 @@
 #
 from pykickstart.version import F22
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 import warnings
 
@@ -99,7 +99,7 @@ class F22_SshKey(KickstartCommand):
 
         if extra:
             mapping = {"command": "sshkey", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_obj(ns, ud)
         ud.key = ns.sshkey[0]

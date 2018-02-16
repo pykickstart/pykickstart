@@ -32,7 +32,7 @@ parser.registerSection with an instance of your new class.
 from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
                                   KS_SCRIPT_PREINSTALL, KS_SCRIPT_ONERROR, \
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, RHEL7
 from pykickstart.i18n import _
@@ -624,9 +624,9 @@ class PackageSection(Section):
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
         if ns.defaultPackages and ns.nobase:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nobase cannot be used together")), lineno=lineno)
+            raise KickstartParseError(_("--default and --nobase cannot be used together"), lineno=lineno)
         elif ns.defaultPackages and ns.nocore:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("--default and --nocore cannot be used together")), lineno=lineno)
+            raise KickstartParseError(_("--default and --nocore cannot be used together"), lineno=lineno)
 
         self.handler.packages.excludeDocs = ns.excludedocs
         self.handler.packages.addBase = not ns.nobase

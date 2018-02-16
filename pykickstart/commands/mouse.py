@@ -19,7 +19,7 @@
 #
 from pykickstart.version import versionToLongString, RHEL3, FC3
 from pykickstart.base import DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -62,10 +62,10 @@ class RHEL3_Mouse(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "mouse"), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s requires one argument") % "mouse", lineno=self.lineno)
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "mouse", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_self(ns)
         self.mouse = extra[0]

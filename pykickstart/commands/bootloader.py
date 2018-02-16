@@ -20,7 +20,7 @@
 from pykickstart.version import RHEL5, RHEL6
 from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
@@ -319,7 +319,7 @@ class F17_Bootloader(F15_Bootloader):
         retval = F15_Bootloader.parse(self, args)
 
         if "," in retval.bootDrive:     # pylint: disable=no-member
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--boot-drive accepts only one argument")), lineno=self.lineno)
+            raise KickstartParseError(_("--boot-drive accepts only one argument"), lineno=self.lineno)
 
         return retval
 

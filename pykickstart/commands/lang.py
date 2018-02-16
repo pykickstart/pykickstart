@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F19
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
@@ -68,7 +68,7 @@ class FC3_Lang(KickstartCommand):
 
         if extra:
             mapping = {"command": "lang", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_self(ns)
         self.lang = ns.lang[0]

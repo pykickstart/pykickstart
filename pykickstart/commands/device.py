@@ -19,7 +19,7 @@
 #
 from pykickstart.version import versionToLongString, FC3, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -112,10 +112,10 @@ class FC3_Device(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 2:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("device command requires two arguments: module type and name")), lineno=self.lineno)
+            raise KickstartParseError(_("device command requires two arguments: module type and name"), lineno=self.lineno)
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "device", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.moduleOpts = ns.moduleOpts
         self.type = extra[0]
@@ -141,10 +141,10 @@ class F8_Device(FC3_Device):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(extra) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}), lineno=self.lineno)
+            raise KickstartParseError(_("%(command)s command requires a single argument: %(argument)s") % {"command": "device", "argument": "module name"}, lineno=self.lineno)
         elif any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "device", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         dd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, dd)

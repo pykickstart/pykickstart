@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
@@ -73,6 +73,6 @@ class FC6_Services(KickstartCommand):
         self.set_to_self(ns)
 
         if not (self.disabled or self.enabled):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --disabled or --enabled must be provided.")), lineno=self.lineno)
+            raise KickstartParseError(_("One of --disabled or --enabled must be provided."), lineno=self.lineno)
 
         return self
