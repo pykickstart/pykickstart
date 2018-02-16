@@ -21,7 +21,7 @@ from textwrap import dedent
 from pykickstart.version import versionToLongString, RHEL5, RHEL6, FC3, FC4, FC5
 from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25, RHEL8
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -313,7 +313,7 @@ class FC3_Raid(KickstartCommand):
             if value.upper() in self.levelMap:
                 return self.levelMap[value.upper()]
             else:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid raid level: %s") % value), lineno=self.lineno)
+                raise KickstartParseError(_("Invalid raid level: %s") % value, lineno=self.lineno)
 
         op = KSOptionParser(prog="raid", description="""
                             Assembles a software RAID device.""",
@@ -390,7 +390,7 @@ class FC3_Raid(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
         if any(arg for arg in extra if arg.startswith("-")):
             mapping = {"command": "raid", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         # because positional argumnets with variable number of values
         # don't parse very well
@@ -403,9 +403,9 @@ class FC3_Raid(KickstartCommand):
 
         assert len(ns.mntpoint) == 1
         if not ns.partitions and not ns.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Partitions required for %s") % "raid"), lineno=self.lineno)
+            raise KickstartParseError(_("Partitions required for %s") % "raid", lineno=self.lineno)
         elif ns.partitions and ns.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting RAID device")), lineno=self.lineno)
+            raise KickstartParseError(_("Members may not be specified for preexisting RAID device"), lineno=self.lineno)
 
         rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)
@@ -426,10 +426,10 @@ class FC3_Raid(KickstartCommand):
             warnings.warn(_("A RAID device with the name %s has already been defined.") % rd.device)
 
         if not rd.preexist and not rd.level:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="RAID Partition defined without RAID level"), lineno=self.lineno)
+            raise KickstartParseError("RAID Partition defined without RAID level", lineno=self.lineno)
 
         if rd.preexist and rd.device == "":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Device required for preexisting RAID device"), lineno=self.lineno)
+            raise KickstartParseError("Device required for preexisting RAID device", lineno=self.lineno)
 
         return rd
 
@@ -606,7 +606,7 @@ class RHEL6_Raid(F13_Raid):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The raid and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
 class F14_Raid(F13_Raid):
@@ -660,11 +660,11 @@ class F20_Raid(F19_Raid):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The raid and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         # the same applies to the 'mount' command
         if hasattr(self.handler, "mount") and self.handler.mount.seen:
             errorMsg = _("The raid and mount commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
 class F23_Raid(F20_Raid):
@@ -687,10 +687,10 @@ class F23_Raid(F20_Raid):
         retval = F20_Raid.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")), lineno=self.lineno)
+            raise KickstartParseError(_("--mkfsoptions with --noformat has no effect."), lineno=self.lineno)
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")), lineno=self.lineno)
+            raise KickstartParseError(_("--mkfsoptions and --fsprofile cannot be used together."), lineno=self.lineno)
 
         return retval
 
@@ -716,7 +716,7 @@ class RHEL8_Raid(F25_Raid):
     def parse(self, args):
         retval = F25_Raid.parse(self, args)
         if retval.fstype == "btrfs":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported")))
+            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
         return retval
 
     def _getParser(self):

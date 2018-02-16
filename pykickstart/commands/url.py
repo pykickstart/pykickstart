@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F13, F14, F18, F27
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -191,10 +191,10 @@ class F18_Url(F14_Url):
                         if getattr(ns, attr, None)]
         if len(used_options) == 0:
             mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for url command.") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("One of -%(options_list)s options must be specified for url command.") % mapping, lineno=self.lineno)
         if len(used_options) > 1:
             mapping = {"options_list": ", ".join((opt for opt in used_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for url command.") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of %(options_list)s options may be specified for url command.") % mapping, lineno=self.lineno)
 
         return retval
 

@@ -19,7 +19,7 @@
 #
 
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import F27
 
@@ -166,13 +166,13 @@ class F27_Mount(KickstartCommand):
             # allow for translation of the error message
             errorMsg = _("The '%s' and 'mount' commands can't be used at the same time") % \
                          conflicting_command
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
 
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if extra:
             mapping = {"command": "mount", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         md = self.dataClass()  # pylint: disable=not-callable
         self.set_to_obj(ns, md)
@@ -181,10 +181,10 @@ class F27_Mount(KickstartCommand):
         md.mount_point = ns.mntpoint[0]
 
         if md.mount_point.lower() != "none" and not md.mount_point.startswith("/"):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Invalid mount point '%s' given") % md.mount_point), lineno=self.lineno)
+            raise KickstartParseError(_("Invalid mount point '%s' given") % md.mount_point, lineno=self.lineno)
 
         if md.reformat is False and md.mkfs_opts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("'--mkfsoptions' requires --reformat")), lineno=self.lineno)
+            raise KickstartParseError(_("'--mkfsoptions' requires --reformat"), lineno=self.lineno)
 
         # The semantics is as follows:
         #   --reformat          -> just reformat with the same format as existing

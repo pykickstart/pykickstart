@@ -21,7 +21,7 @@ from pykickstart.version import FC3, F26
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_GRAPHICAL, \
                                   DISPLAY_MODE_TEXT
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -61,7 +61,7 @@ class FC3_DisplayMode(KickstartCommand):
         elif self.currentCmd == "text":
             self.displayMode = DISPLAY_MODE_TEXT
         else:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unknown command %s") % self.currentCmd), lineno=self.lineno)
+            raise KickstartParseError(_("Unknown command %s") % self.currentCmd, lineno=self.lineno)
 
         return self
 
@@ -106,6 +106,6 @@ class F26_DisplayMode(FC3_DisplayMode):
 
         if self.currentCmd == "cmdline" and self.nonInteractive:
             msg = _("Kickstart command cmdline does not support --non-interactive parameter")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg), lineno=self.lineno)
+            raise KickstartParseError(msg, lineno=self.lineno)
 
         return self

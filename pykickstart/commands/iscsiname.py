@@ -20,7 +20,7 @@
 #
 from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -58,7 +58,7 @@ class FC6_IscsiName(KickstartCommand):
 
         if extra:
             mapping = {"command": "iscsiname", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.iscsiname = _ns.iqn[0]
         return self

@@ -20,7 +20,7 @@
 from textwrap import dedent
 from pykickstart.base import KickstartCommand
 from pykickstart.version import FC3, F18, versionToLongString
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
@@ -53,10 +53,10 @@ class FC3_Keyboard(KickstartCommand):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(_ns.kbd) != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s requires one argument") % "keyboard"), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s requires one argument") % "keyboard", lineno=self.lineno)
         elif extra:
             mapping = {"command": "keyboard", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.keyboard = _ns.kbd[0]
         return self
@@ -161,14 +161,14 @@ class F18_Keyboard(FC3_Keyboard):
 
         if len(ns.kbd) > 1:
             message = _("A single argument is expected for the %s command") % "keyboard"
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message), lineno=self.lineno)
+            raise KickstartParseError(message, lineno=self.lineno)
         elif extra:
             mapping = {"command": "keyboard", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
         elif not any([ns.kbd, self.vc_keymap, self.x_layouts]):
             message = _("One of --xlayouts, --vckeymap options with value(s) "
                         "or argument is expected for the keyboard command")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=message), lineno=self.lineno)
+            raise KickstartParseError(message, lineno=self.lineno)
 
         if ns.kbd:
             self._keyboard = ns.kbd[0]

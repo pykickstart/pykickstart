@@ -19,7 +19,7 @@
 #
 from pykickstart.version import F13, F24
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 import warnings
 
@@ -157,10 +157,10 @@ class F13_SshPw(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if not ns.password:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "sshpw"), lineno=self.lineno)
+            raise KickstartParseError(_("A single argument is expected for the %s command") % "sshpw", lineno=self.lineno)
         if extra:
             mapping = {"command": "sshpw", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_obj(ns, ud)
         ud.password = " ".join(ns.password)

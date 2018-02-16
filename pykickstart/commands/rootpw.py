@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F8
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -82,10 +82,10 @@ class FC3_RootPw(KickstartCommand):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if not ns.password:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"), lineno=self.lineno)
+            raise KickstartParseError(_("A single argument is expected for the %s command") % "rootpw", lineno=self.lineno)
         elif extra:
             mapping = {"command": "rootpw", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_self(ns)
         return self
@@ -139,10 +139,10 @@ class F18_RootPw(F8_RootPw):
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if not (ns.password or ns.lock):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("A single argument is expected for the %s command") % "rootpw"), lineno=self.lineno)
+            raise KickstartParseError(_("A single argument is expected for the %s command") % "rootpw", lineno=self.lineno)
         elif extra:
             mapping = {"command": "rootpw", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         self.set_to_self(ns)
         return self

@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -38,7 +38,7 @@ class FC3_Cdrom(KickstartCommand):
 
     def parse(self, args):
         if args:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s does not take any arguments") % self.currentCmd), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s does not take any arguments") % self.currentCmd, lineno=self.lineno)
 
         return self
 

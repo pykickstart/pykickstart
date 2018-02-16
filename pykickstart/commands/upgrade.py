@@ -20,7 +20,7 @@
 from textwrap import dedent
 from pykickstart.version import versionToLongString, FC3, F11, F20
 from pykickstart.base import DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -101,7 +101,7 @@ class F11_Upgrade(FC3_Upgrade):
         ns = self.op.parse_args(args=args, lineno=self.lineno)
 
         if ns.root_device == "":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %(command)s does not accept empty parameter %(parameter)s") % {"command": "upgrade", "parameter": "--root-device"}, lineno=self.lineno)
         else:
             self.root_device = ns.root_device
 

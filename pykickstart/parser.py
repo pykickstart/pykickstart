@@ -42,7 +42,7 @@ import warnings
 from ordered_set import OrderedSet
 
 from pykickstart import constants, version
-from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.options import KSOptionParser
@@ -87,12 +87,12 @@ def _preprocessStateMachine(lineIter):
         try:
             ksurl = ll.split(' ')[1]
         except:
-            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Illegal url for %%ksappend: %s") % ll), lineno=lineno)
+            raise KickstartParseError(_("Illegal url for %%ksappend: %s") % ll, lineno=lineno)
 
         try:
             contents = load_to_str(ksurl)
         except KickstartError as e:
-            raise KickstartError(formatErrorMsg(lineno, msg=_("Unable to open %%ksappend file: %s") % str(e)))
+            raise KickstartError(_("Unable to open %%ksappend file: %s") % str(e), lineno=lineno)
 
         # If that worked, write the remote file to the output kickstart
         # file in one burst.  This allows multiple %ksappend lines to
@@ -120,7 +120,7 @@ def preprocessKickstartToString(f):
     try:
         contents = load_to_str(f)
     except KickstartError as e:
-        raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
+        raise KickstartError(_("Unable to open input kickstart file: %s") % str(e), lineno=0)
 
     return _preprocessStateMachine(iter(contents.splitlines(True)))
 
@@ -613,7 +613,7 @@ class KickstartParser(object):
                 if line == "" and self._includeDepth == 0:
                     # This section ends at the end of the file.
                     if self.version >= version.F8:
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen), lineno=lineno)
+                        raise KickstartParseError(_("Section %s does not end with %%end.") % obj.sectionOpen, lineno=lineno)
 
                     self._finalize(obj)
             except StopIteration:
@@ -645,7 +645,7 @@ class KickstartParser(object):
                     break
                 elif args and args[0] == "%include":
                     if len(args) == 1 or not args[1]:
-                        raise KickstartParseError(formatErrorMsg(lineno), lineno=lineno)
+                        raise KickstartParseError(lineno=lineno)
 
                     self._handleInclude(args[1])
                     continue
@@ -654,7 +654,7 @@ class KickstartParser(object):
                 elif args and self._validState(args[0]):
                     # This is an unterminated section.
                     if self.version >= version.F8:
-                        raise KickstartParseError(formatErrorMsg(lineno, msg=_("Section %s does not end with %%end.") % obj.sectionOpen), lineno=lineno)
+                        raise KickstartParseError(_("Section %s does not end with %%end.") % obj.sectionOpen, lineno=lineno)
 
                     # Finish up.  We do not process the header here because
                     # kicking back out to STATE_COMMANDS will ensure that happens.
@@ -733,7 +733,7 @@ class KickstartParser(object):
 
             if args[0] == "%include":
                 if len(args) == 1 or not args[1]:
-                    raise KickstartParseError(formatErrorMsg(lineno), lineno=lineno)
+                    raise KickstartParseError(lineno=lineno)
 
                 self._handleInclude(args[1])
                 continue
@@ -749,7 +749,7 @@ class KickstartParser(object):
                     newSection = args[0]
                     if not self._validState(newSection):
                         if self.unknownSectionIsFatal:
-                            raise KickstartParseError(formatErrorMsg(lineno, msg=_("Unknown kickstart section: %s") % newSection), lineno=lineno)
+                            raise KickstartParseError(_("Unknown kickstart section: %s") % newSection, lineno=lineno)
                         else:
                             # If we are ignoring unknown section errors, just create a new
                             # NullSection for the header we just saw.  Then nothing else
@@ -810,7 +810,7 @@ class KickstartParser(object):
         try:
             s = load_to_str(f)
         except KickstartError as e:
-            raise KickstartError(formatErrorMsg(0, msg=_("Unable to open input kickstart file: %s") % str(e)))
+            raise KickstartError(_("Unable to open input kickstart file: %s") % str(e), lineno=0)
 
         self.readKickstartFromString(s, reset=False)
 

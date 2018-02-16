@@ -19,7 +19,7 @@
 #
 from pykickstart.version import F7
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -61,10 +61,10 @@ class F7_Updates(KickstartCommand):
         (_ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if len(_ns.updates) > 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Kickstart command %s only takes one argument") % "updates"), lineno=self.lineno)
+            raise KickstartParseError(_("Kickstart command %s only takes one argument") % "updates", lineno=self.lineno)
         elif extra:
             mapping = {"command": "updates", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
         elif not _ns.updates:
             self.url = "floppy"
         else:

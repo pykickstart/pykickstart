@@ -21,7 +21,7 @@ from textwrap import dedent
 from pykickstart.version import versionToLongString
 from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartError, KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartError, KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
 
 import warnings
@@ -253,10 +253,10 @@ class FC6_Repo(KickstartCommand):
                         if getattr(ns, attr, None)]
         if self.urlRequired and not used_options:
             mapping = {"options_list": ", ".join((opt for attr, opt in self.exclusive_required_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of -%(options_list)s options must be specified for repo command.") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("One of -%(options_list)s options must be specified for repo command.") % mapping, lineno=self.lineno)
         if len(used_options) > 1:
             mapping = {"options_list": ", ".join((opt for opt in used_options))}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Only one of %(options_list)s options may be specified for repo command.") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Only one of %(options_list)s options may be specified for repo command.") % mapping, lineno=self.lineno)
 
         rd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, rd)
@@ -310,7 +310,7 @@ class F8_Repo(FC6_Repo):
 
     def methodToRepo(self):
         if not self.handler.method.url:
-            raise KickstartError(formatErrorMsg(self.handler.method.lineno, msg=_("Method must be a url to be added to the repo list.")))
+            raise KickstartError(_("Method must be a url to be added to the repo list."), lineno=self.handler.method.lineno)
         reponame = "ks-method-url"
         repourl = self.handler.method.url
         rd = self.handler.RepoData(name=reponame, baseurl=repourl)

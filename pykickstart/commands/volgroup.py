@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F16, F21
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -164,12 +164,12 @@ class FC3_VolGroup(KickstartCommand):
         vg.lineno = self.lineno
 
         if not ns.name:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a VG name")), lineno=self.lineno)
+            raise KickstartParseError(_("volgroup must be given a VG name"), lineno=self.lineno)
 
         if not any([ns.partitions, ns.preexist]):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("volgroup must be given a list of partitions")), lineno=self.lineno)
+            raise KickstartParseError(_("volgroup must be given a list of partitions"), lineno=self.lineno)
         elif ns.partitions and ns.preexist:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Members may not be specified for preexisting volgroup")), lineno=self.lineno)
+            raise KickstartParseError(_("Members may not be specified for preexisting volgroup"), lineno=self.lineno)
         vg.vgname = ns.name[0]
 
         if ns.partitions:
@@ -208,20 +208,20 @@ class F16_VolGroup(FC3_VolGroup):
 
         # Check that any reserved space options are in their valid ranges.
         if getattr(retval, "reserved_space", None) and retval.reserved_space < 0:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space must be a positive integer."), lineno=self.lineno)
+            raise KickstartParseError("Volume group reserved space must be a positive integer.", lineno=self.lineno)
 
         if getattr(retval, "reserved_percent", None) is not None and not 0 < retval.reserved_percent < 100:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="Volume group reserved space percentage must be between 1 and 99."), lineno=self.lineno)
+            raise KickstartParseError("Volume group reserved space percentage must be between 1 and 99.", lineno=self.lineno)
 
         # the volgroup command can't be used together with the autopart command
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The volgroup and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         # the same applies to the 'mount' command
         if hasattr(self.handler, "mount") and self.handler.mount.seen:
             errorMsg = _("The volgroup and mount commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
 class F21_VolGroup(F16_VolGroup):

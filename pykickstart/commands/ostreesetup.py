@@ -17,7 +17,7 @@
 #
 from pykickstart.version import F21
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 class F21_OSTreeSetup(KickstartCommand):
@@ -81,7 +81,7 @@ class F21_OSTreeSetup(KickstartCommand):
             self.remote = self.osname
 
         if not self.url.startswith(("file:", "http:", "https:")):
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg="ostree repos must use file, HTTP or HTTPS protocol."), lineno=self.lineno)
+            raise KickstartParseError("ostree repos must use file, HTTP or HTTPS protocol.", lineno=self.lineno)
 
         return self
 

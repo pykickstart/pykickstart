@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -85,6 +85,6 @@ class FC3_HardDrive(KickstartCommand):
 
         if self.biospart is None and self.partition is None or \
            self.biospart is not None and self.partition is not None:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of biospart or partition options must be specified.")), lineno=self.lineno)
+            raise KickstartParseError(_("One of biospart or partition options must be specified."), lineno=self.lineno)
 
         return self

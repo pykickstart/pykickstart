@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC3, F8, RHEL6
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.i18n import _
 from pykickstart.options import KSOptionParser, commaSplit
 
@@ -86,7 +86,7 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
             if self.onlyuse:
                 howmany += 1
             if howmany != 1:
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --drives or --only-use must be specified for ignoredisk command.")), lineno=self.lineno)
+                raise KickstartParseError(_("One of --drives or --only-use must be specified for ignoredisk command."), lineno=self.lineno)
 
 
         return retval
@@ -129,7 +129,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         if self.interactive:
             howmany += 1
         if howmany != 1:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command.")), lineno=self.lineno)
+            raise KickstartParseError(_("One of --drives , --only-use , or --interactive must be specified for ignoredisk command."), lineno=self.lineno)
 
         if self.interactive:
             self.ignoredisk = []

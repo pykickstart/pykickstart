@@ -19,7 +19,7 @@
 #
 from pykickstart.version import FC6
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -77,7 +77,7 @@ class FC6_Logging(KickstartCommand):
         self.set_to_self(ns)
 
         if self.port and not self.host:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Can't specify --port without --host.")), lineno=self.lineno)
+            raise KickstartParseError(_("Can't specify --port without --host."), lineno=self.lineno)
 
         self._level_provided = True
         return self

@@ -20,7 +20,7 @@
 from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
 from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -404,7 +404,7 @@ class FC3_Partition(KickstartCommand):
 
         if extra:
             mapping = {"command": "partition", "options": extra}
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Unexpected arguments to %(command)s command: %(options)s") % mapping), lineno=self.lineno)
+            raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
         pd = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, pd)
@@ -545,7 +545,7 @@ class RHEL6_Partition(F12_Partition):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         return retval
 
 class F14_Partition(F12_Partition):
@@ -576,10 +576,10 @@ class F17_Partition(F14_Partition):
         retval = F14_Partition.parse(self, args)
 
         if retval.resize and not retval.onPart:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize can only be used in conjunction with --onpart")), lineno=self.lineno)
+            raise KickstartParseError(_("--resize can only be used in conjunction with --onpart"), lineno=self.lineno)
 
         if retval.resize and not retval.size:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--resize requires --size to specify new size")), lineno=self.lineno)
+            raise KickstartParseError(_("--resize requires --size to specify new size"), lineno=self.lineno)
 
         return retval
 
@@ -611,17 +611,17 @@ class F20_Partition(F18_Partition):
         # due to the hard to debug behavior their combination introduces
         if self.handler.autopart.seen:
             errorMsg = _("The part/partition and autopart commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
         # the same applies to the 'mount' command
         if hasattr(self.handler, "mount") and self.handler.mount.seen:
             errorMsg = _("The part/partition and mount commands can't be used at the same time")
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+            raise KickstartParseError(errorMsg, lineno=self.lineno)
 
         # when using tmpfs, grow is not suported
         if retval.fstype == "tmpfs":
             if retval.grow or retval.maxSizeMB != 0:
                 errorMsg = _("The --fstype=tmpfs option can't be used together with --grow or --maxsize")
-                raise KickstartParseError(formatErrorMsg(self.lineno, msg=errorMsg), lineno=self.lineno)
+                raise KickstartParseError(errorMsg, lineno=self.lineno)
 
         return retval
 
@@ -647,10 +647,10 @@ class F23_Partition(F20_Partition):
         retval = F20_Partition.parse(self, args)
 
         if not retval.format and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions with --noformat has no effect.")), lineno=self.lineno)
+            raise KickstartParseError(_("--mkfsoptions with --noformat has no effect."), lineno=self.lineno)
 
         if retval.fsprofile and retval.mkfsopts:
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("--mkfsoptions and --fsprofile cannot be used together.")), lineno=self.lineno)
+            raise KickstartParseError(_("--mkfsoptions and --fsprofile cannot be used together."), lineno=self.lineno)
 
         return retval
 
@@ -664,7 +664,7 @@ class RHEL8_Partition(F23_Partition):
     def parse(self, args):
         retval = F23_Partition.parse(self, args)
         if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
-            raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Btrfs file system is not supported")))
+            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
         return retval
 
     def _getParser(self):

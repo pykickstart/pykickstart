@@ -20,7 +20,7 @@
 #
 from pykickstart.version import versionToLongString, FC6, F24
 from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
-from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -95,7 +95,7 @@ class FC6_MultiPath(KickstartCommand):
             for path in mpath.paths:
                 if path.device == dd.device:
                     mapping = {"device": path.device, "multipathdev": path.mpdev}
-                    raise KickstartParseError(formatErrorMsg(self.lineno, msg=_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping), lineno=self.lineno)
+                    raise KickstartParseError(_("Device '%(device)s' is already used in multipath '%(multipathdev)s'") % mapping, lineno=self.lineno)
             if mpath.name == dd.mpdev:
                 parent = x
 
