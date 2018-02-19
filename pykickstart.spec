@@ -1,6 +1,6 @@
 Name:      pykickstart
-Version:   3.11
-Release:   2%{?dist}
+Version:   3.12
+Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
 Summary:   Python utilities for manipulating kickstart files.
@@ -121,6 +121,18 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Mon Feb 19 2018 Chris Lumens <clumens@redhat.com> - 3.12-1
+- Sync spec file back up. (clumens)
+- Don't use deprecated formatErrorMsg (vponcova)
+- Handle error message formatting in KickstartError (vponcova)
+- Add the KickstartHandler class (vponcova)
+- Remove --fstype=btrfs support from LogVol, Raid and Part (rvykydal)
+- Remove btrfs support (rvykydal)
+- Create RHEL8 commands to pass handler using highest version test. (rvykydal)
+- Add RHEL8 handler (rvykydal)
+- Expect kickstart commands to have the default write priority. (vponcova)
+- Authconfig is replaced with authselect (vponcova)
+
 * Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 3.11-2
 - Escape macros in %%changelog
 
