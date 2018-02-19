@@ -1,6 +1,6 @@
 Name:      pykickstart
 Version:   3.11
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
 Summary:   Python utilities for manipulating kickstart files.
@@ -121,6 +121,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 3.11-2
+- Escape macros in %%changelog
+
 * Thu Feb 08 2018 Chris Lumens <clumens@redhat.com> - 3.11-1
 - Logging level should be always set (#1543194) (vponcova)
 - Copy txt files from _build folder on make local call (jkonecny)
@@ -145,7 +148,7 @@ popd
 - Add a new 'mount' command (vpodzime)
 - Pylint fixes (vponcova)
 - Add command hmc to support SE/HMC file access in RHEL7 (vponcova)
-- Add timeout and retries options to %packages section in RHEL7 (vponcova)
+- Add timeout and retries options to %%packages section in RHEL7 (vponcova)
 - Call the _ method from i18n.py (jkonecny)
 - Backport spec file changes from downstream (jkonecny)
 - network: add network --bindto option (Fedora) (#1483981) (rvykydal)
@@ -156,7 +159,7 @@ popd
 - Add Fedora 27 support. (rvykydal)
 - Update Repo command tests. (rvykydal)
 - Split the import of commands to multiple lines (vponcova)
-- Move the installclass command to the %anaconda section (vponcova)
+- Move the installclass command to the %%anaconda section (vponcova)
 - Mention that repo name must not contain spaces (brunovern.a)
 
 * Fri Sep 15 2017 Jiri Konecny <jkonecny@redhat.com> - 3.7-2
@@ -191,7 +194,7 @@ popd
 - Add --hibernation to the list of logvol size options (#1408666). (clumens)
 - Handle KickstartVersionError in ksflatten (#1412249). (clumens)
 - Fix the glob used to reference comps files in docs (#135). (clumens)
-- docs: Note under %include that most sections don't do merging (#134) (walters)
+- docs: Note under %%include that most sections don't do merging (#134) (walters)
 - Fix handling # in passwords. (clumens)
 - Pass comments=True to shlex.split calls in the test functions. (clumens)
 - Don't forget to add tests to the NOSEARGS. (clumens)
@@ -220,7 +223,7 @@ popd
 - Refactor lang and add more tests (atodorov)
 - Refactor iscsiname and more tests (atodorov)
 - Add short description for interactive command (atodorov)
-- Nuke all the pykickstart-2.x %changelog history. (clumens)
+- Nuke all the pykickstart-2.x %%changelog history. (clumens)
 - Update network command documentation also in option help strings. (rvykydal)
 - Retroactively fix checks for reqpart and autopart (atodorov)
 - More tests for zfcp (atodorov)
@@ -347,7 +350,7 @@ popd
 - Merge the most recent translation-canary changes. (dshea)
 - Squashed 'translation-canary/' changes from 5a45c19..840c2d6 (dshea)
 - Add documentation for --excludeWeakdeps (dshea)
-- Add support for --excludeWeakdeps option to %packages. (james)
+- Add support for --excludeWeakdeps option to %%packages. (james)
 - Numbers can be part of a kickstart command option. (clumens)
 - It's authconfig, not autoconfig (in the kickstart.vim file). (clumens)
 - Fix pylint no-member errors. (clumens)
@@ -359,8 +362,8 @@ popd
 * Thu Apr 14 2016 Chris Lumens <clumens@redhat.com> - 3.2-1
 - Fix a couple mistakes in the documentation. (clumens)
 - Correctly move scripts after they've been installed. (clumens)
-- Document %traceback and %onerror. (clumens)
-- Add a new %onerror script section (#74). (clumens)
+- Document %%traceback and %%onerror. (clumens)
+- Add a new %%onerror script section (#74). (clumens)
 - Enable coverage reporting for pykickstart tools (jikortus)
 - Fix really long lines in the documentation. (clumens)
 - Lots of documentation updates. (clumens)
@@ -413,7 +416,7 @@ popd
 - argparse error messages are different in python2 and python3. (clumens)
 - Add a document describing how to adapt your code to pykickstart-3. (clumens)
 - Promote _setToObj and _setToSelf to public functions. (clumens)
-- Increase test coverage to 96%. (clumens)
+- Increase test coverage to 96%%. (clumens)
 - Don't duplicate autopart+volgroup checks in the volgroup handlers. (clumens)
 - RHEL7 needs to use the correct version of FcoeData and Autopart. (clumens)
 - Replace required=1 and deprecated=1 with =True. (clumens)
