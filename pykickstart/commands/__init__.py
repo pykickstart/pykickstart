@@ -31,6 +31,7 @@ from pykickstart.commands import (
      displaymode,
      dmraid,
      driverdisk,
+     module,
      eula,
      fcoe,
      firewall,
