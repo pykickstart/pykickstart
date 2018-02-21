@@ -1,5 +1,4 @@
-PKGNAME=pykickstart
-SPECFILE=$(PKGNAME).spec
+SPECFILE=pykickstart.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
@@ -35,9 +34,9 @@ endif
 	@echo "*** Running pylint to verify source ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
 	@echo "*** Running tests on translatable strings ***"
-	$(MAKE) -C po $(PKGNAME).pot
-	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/$(PKGNAME).pot
-	git checkout -- po/$(PKGNAME).pot || true
+	$(MAKE) -C po pykickstart.pot
+	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
+	git checkout -- po/pykickstart.pot || true
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
@@ -71,24 +70,24 @@ release:
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
-	twine upload dist/$(PKGNAME)-$(VERSION).tar.gz
+	twine upload dist/pykickstart-$(VERSION).tar.gz
 
 archive: check test tag docs
-	mkdir -p $(PKGNAME)-$(VERSION)
-	git archive --format=tar --prefix=$(PKGNAME)-$(VERSION)/ $(TAG) | tar -xf -
-	cp -r po/*.po $(PKGNAME)-$(VERSION)/po/
-	$(MAKE) -C $(PKGNAME)-$(VERSION)/po
-	cp docs/_build/text/kickstart-docs.txt docs/programmers-guide $(PKGNAME)-$(VERSION)/docs/
-	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release $(PKGNAME)-$(VERSION)
-	( cd $(PKGNAME)-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
-	rm -rf $(PKGNAME)-$(VERSION)
-	git checkout -- po/$(PKGNAME).pot
-	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
+	mkdir -p pykickstart-$(VERSION)
+	git archive --format=tar --prefix=pykickstart-$(VERSION)/ $(TAG) | tar -xf -
+	cp -r po/*.po pykickstart-$(VERSION)/po/
+	$(MAKE) -C pykickstart-$(VERSION)/po
+	cp docs/_build/text/kickstart-docs.txt docs/programmers-guide pykickstart-$(VERSION)/docs/
+	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
+	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
+	rm -rf pykickstart-$(VERSION)
+	git checkout -- po/pykickstart.pot
+	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 local: docs po-pull
 	cp docs/_build/text/*.txt docs/
 	@$(PYTHON) setup.py -q sdist --dist-dir .
-	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
+	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
@@ -104,7 +103,7 @@ bumpver: po-pull docs
 	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
-	make -C po $(PKGNAME).pot ; \
+	make -C po pykickstart.pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
 scratch-bumpver: docs
@@ -119,16 +118,16 @@ scratch-bumpver: docs
 	sed -i "s/Release:   $(RELEASE)/Release:   $(RC_RELEASE)/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
-	make -C po $(PKGNAME).pot
+	make -C po pykickstart.pot
 
 scratch: docs
-	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
-	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
-	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
-	@cd /tmp/$(PKGNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
-	@cp /tmp/$(PKGNAME)-$(VERSION)/dist/$(PKGNAME)-$(VERSION).tar.gz .
-	@rm -rf /tmp/$(PKGNAME)-$(VERSION)
-	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
+	@rm -rf pykickstart-$(VERSION).tar.gz
+	@rm -rf /tmp/pykickstart-$(VERSION) /tmp/pykickstart
+	@dir=$$PWD; cp -a $$dir /tmp/pykickstart-$(VERSION)
+	@cd /tmp/pykickstart-$(VERSION) ; $(PYTHON) setup.py -q sdist
+	@cp /tmp/pykickstart-$(VERSION)/dist/pykickstart-$(VERSION).tar.gz .
+	@rm -rf /tmp/pykickstart-$(VERSION)
+	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
