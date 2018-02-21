@@ -1,4 +1,4 @@
-include COPYING Makefile pykickstart.spec README.rst
+include COPYING Makefile README.rst
 recursive-include data kickstart.vim
 recursive-include po *.po *.pot Makefile *.mo
 recursive-include docs 2to3 programmers-guide kickstart-docs.txt *.1
