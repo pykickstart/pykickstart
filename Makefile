@@ -1,4 +1,3 @@
-SPECFILE=pykickstart.spec
 VERSION=$(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ { print $$2 }' | tr -d \')
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG=r$(VERSION)
@@ -94,12 +93,6 @@ rpmlog:
 bumpver: po-pull docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
-	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
-	cl=`grep -m 1 -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
-	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
-	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
-	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
-	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	make -C po pykickstart.pot ; \
@@ -108,12 +101,6 @@ bumpver: po-pull docs
 scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
-	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-$(RC_RELEASE)"  ; \
-	cl=`grep -n %changelog $(SPECFILE) |cut -d : -f 1` ; \
-	tail --lines=+$$(($$cl + 1)) $(SPECFILE) > speclog ; \
-	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
-	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
-	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	make -C po pykickstart.pot
