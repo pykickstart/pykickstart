@@ -128,8 +128,9 @@ scratch: docs
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 rc-release: scratch-bumpver scratch
+	if [ -z "$(SPECFILE)" ]; then echo "SPECFILE must be set for this target" ; exit 1; fi
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
 
 ci:
