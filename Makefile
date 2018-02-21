@@ -1,8 +1,7 @@
 SPECFILE=pykickstart.spec
-VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
-RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
+VERSION=$(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ { print $$2 }' | tr -d \')
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-TAG=r$(VERSION)-$(RELEASE)
+TAG=r$(VERSION)
 
 ZANATA_PULL_ARGS = --transdir ./po/
 ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
@@ -115,7 +114,6 @@ scratch-bumpver: docs
 	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
 	sed -i "s/Version:   $(VERSION)/Version:   $$NEWVERSION/" $(SPECFILE) ; \
-	sed -i "s/Release:   $(RELEASE)/Release:   $(RC_RELEASE)/" $(SPECFILE) ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	make -C po pykickstart.pot
