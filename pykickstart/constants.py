@@ -68,3 +68,7 @@ GROUP_DEFAULT = 1
 GROUP_ALL = 2
 
 BIND_TO_MAC = "mac"
+
+NVDIMM_MODE_SECTOR = "sector"
+
+NVDIMM_ACTION_RECONFIGURE = "reconfigure"
