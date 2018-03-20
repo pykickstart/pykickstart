@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.12
+Version:   3.12.1
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,9 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Tue Mar 20 2018 Chris Lumens <clumens@redhat.com> - 3.12.1-1
+- Default to RHEL8 for the version.
+
 * Mon Feb 19 2018 Chris Lumens <clumens@redhat.com> - 3.12-1
 - Sync spec file back up. (clumens)
 - Don't use deprecated formatErrorMsg (vponcova)
