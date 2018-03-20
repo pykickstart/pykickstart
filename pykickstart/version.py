@@ -89,7 +89,7 @@ F28 = 26000
 RHEL8 = 26100
 
 # This always points at the latest version and is the default.
-DEVEL = F28
+DEVEL = RHEL8
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
