@@ -21,8 +21,9 @@
 import warnings
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError
-from pykickstart.options import KSOptionParser
-from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
+from pykickstart.options import KSOptionParser, commaSplit
+from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE, \
+    NVDIMM_ACTION_USE
 from pykickstart.version import F28
 
 from pykickstart.i18n import _
@@ -38,12 +39,14 @@ class F28_NvdimmData(BaseData):
         self.namespace = kwargs.get("namespace", "")
         self.mode = kwargs.get("mode", None)
         self.sectorsize = kwargs.get("sectorsize", None)
+        self.blockdevs = kwargs.get("blockdevs", [])
 
     def __eq__(self, y):
         if not y:
             return False
         return (self.action == y.action and
-                self.namespace == y.namespace)
+                self.namespace == y.namespace and
+                self.blockdevs == y.blockdevs)
 
     def __ne__(self, y):
         return not self == y
@@ -57,6 +60,11 @@ class F28_NvdimmData(BaseData):
                 retval += " --mode=%s" % NVDIMM_MODE_SECTOR
                 if self.sectorsize:
                     retval += " --sectorsize=%d" % self.sectorsize
+        elif self.action == NVDIMM_ACTION_USE:
+            if self.namespace:
+                retval += " --namespace=%s" % self.namespace
+            if self.blockdevs:
+                retval += " --blockdevs=%s" % ",".join(self.blockdevs)
 
         return retval
 
@@ -74,7 +82,7 @@ class F28_Nvdimm(KickstartCommand):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
 
         self.actionList = kwargs.get("actionList", [])
-        self.validActions = [NVDIMM_ACTION_RECONFIGURE]
+        self.validActions = [NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE]
         self.validModes = [NVDIMM_MODE_SECTOR]
 
         self.op = self._getParser()
@@ -96,14 +104,21 @@ class F28_Nvdimm(KickstartCommand):
         op.add_argument("action", choices=self.validActions, nargs=1, default=NVDIMM_ACTION_RECONFIGURE,
                         version=F28, help="""
                         The action to be performed on the device specified by further options.
-                        The device is specified by ``--namespace`` option.
+                        The device can be specified by ``--namespace`` or ``--blockdevs`` options,
+                        depending on the action.
 
                         Valid actions:
-                        - ``reconfigure``: Reconfigures the device into the mode specified by
-                                           ``--mode`` and (depending on the mode) ``--sectorisize`` options.
+                        - ``reconfigure``: Reconfigures the device specified by ``--namespace``
+                                           into the mode specified by ``--mode`` and (depending on the mode)
+                                           ``--sectorisize`` options. The device reconfigured into sector mode
+                                           will be allowed to be used for storage configuration.
+                        - ``use``: Allow the device to be used for storage configuration. By default nvdimm
+                                   devices are ignored. Only devices in sector mode can be used.
                         """)
-        op.add_argument("--namespace", metavar="<namespace>", required=True, version=F28,
+        op.add_argument("--namespace", metavar="<namespace>", version=F28,
                         help="""The device specification by namespace.""")
+        op.add_argument("--blockdevs", metavar="<devspec1>,<devspec2>,...,<devspecN>", type=commaSplit, version=F28,
+                        help="""Specification of devices by comma separated list of block device names.""")
         op.add_argument("--mode", choices=self.validModes, default=NVDIMM_MODE_SECTOR,
                         version=F28, help="""The mode specification.""")
         op.add_argument("--sectorsize", type=int, version=F28,
@@ -123,15 +138,29 @@ class F28_Nvdimm(KickstartCommand):
         action = ns.action[0]
         nvdimm_data.action = action
 
+        if nvdimm_data.namespace and nvdimm_data.blockdevs:
+            raise KickstartParseError(_("Only one of --namespace and --blockdevs device specifications can be used"))
+
         # Check for duplicates in the data list.
         if nvdimm_data in self.dataList():
-            warnings.warn(_("An action %(action)s on namespace %(namespace)s has already been defined.")
-                          % {"action": action, "namespace": nvdimm_data.namespace})
+            if nvdimm_data.namespace:
+                warnings.warn(_("An action %(action)s on namespace %(namespace)s has already been defined.")
+                              % {"action": action, "namespace": nvdimm_data.namespace})
+            if nvdimm_data.blockdevs:
+                warnings.warn(_("An action %(action)s on devices %(blockdevs)s has already been defined.")
+                              % {"action": action, "blockdevs": nvdimm_data.blockdevs})
 
-        if action == NVDIMM_ACTION_RECONFIGURE and nvdimm_data.mode == NVDIMM_MODE_SECTOR \
-                and not nvdimm_data.sectorsize:
-            raise KickstartParseError(_("Action %(action)s with mode %(mode)s requires --sectorsize argument to be set")
-                                      % {"action": action, "mode": nvdimm_data.mode})
+        if action == NVDIMM_ACTION_RECONFIGURE:
+            if not nvdimm_data.namespace:
+                raise KickstartParseError(_("Action %(action)s requires --namespace argument to be set")
+                                          % {"action": action})
+            if nvdimm_data.mode == NVDIMM_MODE_SECTOR and not nvdimm_data.sectorsize:
+                raise KickstartParseError(_("Action %(action)s with mode %(mode)s requires --sectorsize argument to be set")
+                                          % {"action": action, "mode": nvdimm_data.mode})
+        elif action == NVDIMM_ACTION_USE:
+            if not nvdimm_data.namespace and not nvdimm_data.blockdevs:
+                raise KickstartParseError(_("Action %(action)s requires --namespace or --blockdevs argument to be set")
+                                          % {"action": action})
 
         return nvdimm_data
 
