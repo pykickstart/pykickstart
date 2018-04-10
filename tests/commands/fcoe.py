@@ -95,5 +95,12 @@ class RHEL7_TestCase(F13_TestCase):
         self.assert_parse("fcoe --nic=eth0 --autovlan",
                           "fcoe --nic=eth0 --autovlan\n")
 
+class F28_TestCase(F13_TestCase):
+    def runTest(self):
+        F13_TestCase.runTest(self)
+
+        self.assert_parse("fcoe --nic=eth0 --autovlan",
+                          "fcoe --nic=eth0 --autovlan\n")
+
 if __name__ == "__main__":
     unittest.main()
