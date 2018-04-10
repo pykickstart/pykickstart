@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import F12, F13, RHEL7
+from pykickstart.version import F12, F13, F28, RHEL7
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -86,7 +86,23 @@ class RHEL7_FcoeData(F13_FcoeData):
 
         return retval
 
-class RHEL8_FcoeData(F13_FcoeData):
+class F28_FcoeData(F13_FcoeData):
+    removedKeywords = F13_FcoeData.removedKeywords
+    removedAttrs = F13_FcoeData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_FcoeData.__init__(self, *args, **kwargs)
+        self.autovlan = kwargs.get("autovlan", False)
+
+    def _getArgsAsStr(self):
+        retval = F13_FcoeData._getArgsAsStr(self)
+
+        if self.autovlan:
+            retval += " --autovlan"
+
+        return retval
+
+class RHEL8_FcoeData(F28_FcoeData):
     pass
 
 class F12_Fcoe(KickstartCommand):
@@ -150,5 +166,15 @@ class RHEL7_Fcoe(F13_Fcoe):
                         help="", version=RHEL7)
         return op
 
-class RHEL8_Fcoe(F13_Fcoe):
+class F28_Fcoe(F13_Fcoe):
+    removedKeywords = F13_Fcoe.removedKeywords
+    removedAttrs = F13_Fcoe.removedAttrs
+
+    def _getParser(self):
+        op = F13_Fcoe._getParser(self)
+        op.add_argument("--autovlan", action="store_true", default=False,
+                        help="", version=F28)
+        return op
+
+class RHEL8_Fcoe(F28_Fcoe):
     pass
