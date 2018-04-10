@@ -122,8 +122,12 @@ class F12_Fcoe(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="fcoe", description="", version=F12)
-        op.add_argument("--nic", required=True, version=F12, help="")
+        op = KSOptionParser(prog="fcoe", description="""
+                            Discover and attach FCoE storage devices accessible via
+                            specified network interface
+                            """, version=F12)
+        op.add_argument("--nic", required=True, version=F12, help="""
+                        Name of the network device connected to the FCoE switch""")
         return op
 
     def parse(self, args):
@@ -152,8 +156,13 @@ class F13_Fcoe(F12_Fcoe):
 
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
-        op.add_argument("--dcb", action="store_true", default=False, help="",
-                        version=F13)
+        op.add_argument("--dcb", action="store_true", default=False, version=F13, help="""
+                        Enable Data Center Bridging awareness in installer. This option
+                        should only be enabled for network interfaces that
+                        require a host-based DCBX client. Configurations on
+                        interfaces that implement a hardware DCBX client should
+                        not use it.
+                        """)
         return op
 
 class RHEL7_Fcoe(F13_Fcoe):
@@ -162,8 +171,10 @@ class RHEL7_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_argument("--autovlan", action="store_true", default=False,
-                        help="", version=RHEL7)
+        op.add_argument("--autovlan", action="store_true", default=False, version=RHEL7, help="""
+                        Perform automatic VLAN discovery and setup. This option is enabled
+                        by default.
+                        """)
         return op
 
 class F28_Fcoe(F13_Fcoe):
@@ -172,8 +183,10 @@ class F28_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_argument("--autovlan", action="store_true", default=False,
-                        help="", version=F28)
+        op.add_argument("--autovlan", action="store_true", default=False, version=F28, help="""
+                        Perform automatic VLAN discovery and setup. This option is enabled
+                        by default.
+                        """)
         return op
 
 class RHEL8_Fcoe(F28_Fcoe):
