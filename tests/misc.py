@@ -32,6 +32,8 @@ class WritePriority_TestCase(unittest.TestCase):
                     self.assertEqual(70, cmd.writePriority, command_class)
                 elif _name in ['fcoe', 'zfcp', 'iscsi']:
                     self.assertEqual(71, cmd.writePriority, command_class)
+                elif _name in ['nvdimm']:
+                    self.assertEqual(80, cmd.writePriority, command_class)
                 elif _name in ['autopart', 'reqpart']:
                     self.assertEqual(100, cmd.writePriority, command_class)
                 elif _name in ['zerombr']:
