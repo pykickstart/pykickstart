@@ -110,7 +110,7 @@ class F28_Nvdimm(KickstartCommand):
                         Valid actions:
                         - ``reconfigure``: Reconfigures the device specified by ``--namespace``
                                            into the mode specified by ``--mode`` and (depending on the mode)
-                                           ``--sectorisize`` options. The device reconfigured into sector mode
+                                           ``--sectorsize`` options. The device reconfigured into sector mode
                                            will be allowed to be used for storage configuration.
                         - ``use``: Allow the device to be used for storage configuration. By default nvdimm
                                    devices are ignored. Only devices in sector mode can be used.
