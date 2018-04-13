@@ -1,5 +1,5 @@
 Name:      pykickstart
-Version:   3.12.1
+Version:   3.12.2
 Release:   1%{?dist}
 License:   GPLv2 and MIT
 Group:     System Environment/Libraries
@@ -121,6 +121,16 @@ popd
 %{python3_sitelib}/pykickstart/locale/
 
 %changelog
+* Fri Apr 13 2018 Chris Lumens <clumens@redhat.com> - 3.12.2-1
+- Fix the writePriority test for the new nvdimm command. (clumens)
+  Related: rhbz#1499442
+- Fix a typo in the nvdimm command help output. (clumens)
+  Related: rhbz#1499442
+- Add use action to nvdimm command. (rvykydal)
+  Related: rhbz#1499442
+- Add nvdimm command (rvykydal)
+  Related: rhbz#1499442
+
 * Tue Mar 20 2018 Chris Lumens <clumens@redhat.com> - 3.12.1-1
 - Default to RHEL8 for the version.
 
