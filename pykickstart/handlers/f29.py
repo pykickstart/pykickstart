@@ -50,7 +50,7 @@ class F29Handler(BaseHandler):
         "halt": commands.reboot.F23_Reboot,
         "harddrive": commands.harddrive.FC3_HardDrive,
         "hmc" : commands.hmc.F28_Hmc,
-        "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
+        "ignoredisk": commands.ignoredisk.F29_IgnoreDisk,
         "install": commands.install.F29_Install,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,

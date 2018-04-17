@@ -84,5 +84,10 @@ class RHEL6_TestCase(F8_TestCase):
         self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb")
         self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive")
 
+class F29_TestCase(F8_TestCase):
+    def runTest(self):
+        F8_TestCase.runTest(self)
+        self.assert_deprecated("ignoredisk", "--interactive")
+
 if __name__ == "__main__":
     unittest.main()
