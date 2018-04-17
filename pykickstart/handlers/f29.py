@@ -87,7 +87,6 @@ class F29Handler(BaseHandler):
         "text": commands.displaymode.F26_DisplayMode,
         "timezone": commands.timezone.F25_Timezone,
         "updates": commands.updates.F7_Updates,
-        "upgrade": commands.upgrade.F20_Upgrade,
         "url": commands.url.F27_Url,
         "user": commands.user.F24_User,
         "vnc": commands.vnc.F9_Vnc,

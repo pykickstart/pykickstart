@@ -77,5 +77,10 @@ class F20_TestCase(F11_TestCase):
             parser.parse([])
             self.assertEqual(len(w), 1)
 
+class F29_TestCase(F20_TestCase):
+    def runTest(self):
+        # make sure that upgrade is removed
+        self.assertNotIn("upgrade", self.handler().commands)
+
 if __name__ == "__main__":
     unittest.main()
