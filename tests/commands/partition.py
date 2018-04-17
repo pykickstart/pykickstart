@@ -305,5 +305,11 @@ class RHEL7_TestCase(F23_TestCase):
     def runTest(self):
         F23_TestCase.runTest(self)
 
+class F29_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+        self.assert_deprecated("part", "--active")
+        self.assert_deprecated("partition", "--active")
+
 if __name__ == "__main__":
     unittest.main()
