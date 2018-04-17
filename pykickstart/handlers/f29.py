@@ -51,7 +51,7 @@ class F29Handler(BaseHandler):
         "harddrive": commands.harddrive.FC3_HardDrive,
         "hmc" : commands.hmc.F28_Hmc,
         "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
-        "install": commands.install.F20_Install,
+        "install": commands.install.F29_Install,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.F18_Keyboard,
