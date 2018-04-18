@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3
+from pykickstart.version import FC3, FC4, versionToLongString
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -40,6 +40,7 @@ class FC3_LiloCheck(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(prog="lilocheck", description="", version=FC3)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
         return op
 
     def parse(self, args):

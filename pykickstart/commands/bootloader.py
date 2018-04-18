@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import RHEL5, RHEL6
+from pykickstart.version import RHEL5, RHEL6, versionToLongString
 from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
@@ -159,6 +159,7 @@ class FC3_Lilo(FC3_Bootloader):
     def _getParser(self):
         op = super(FC3_Lilo, self)._getParser()
         op.prog = "lilo"
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
         return op
 
 
