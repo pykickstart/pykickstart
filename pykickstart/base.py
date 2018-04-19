@@ -196,6 +196,15 @@ class DeprecatedCommand(KickstartCommand):
         # Create a new DeprecatedCommand instance.
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
 
+    def dataList(self):
+        """Override the method of the deprecated command."""
+        return None
+
+    @property
+    def dataClass(self):
+        """Override the attribute of the deprecated command."""
+        return None
+
     def __str__(self):
         """Placeholder since DeprecatedCommands don't work anymore."""
         return ""
