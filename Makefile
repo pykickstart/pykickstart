@@ -7,7 +7,7 @@ ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 $(tests)
+NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
 
 COVERAGE=coverage3
 PYTHON?=/usr/bin/python3
