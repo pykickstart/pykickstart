@@ -68,7 +68,7 @@ release:
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
-	twine upload dist/pykickstart-$(VERSION).tar.gz
+	twine upload pykickstart-$(VERSION).tar.gz
 
 archive: check test tag docs
 	mkdir -p pykickstart-$(VERSION)
