@@ -64,13 +64,13 @@ tag:
 
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
-	$(MAKE) bumpver && $(MAKE) archive
+	$(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
 	twine upload pykickstart-$(VERSION).tar.gz
 
-archive: check test tag docs
+archive: docs
 	mkdir -p pykickstart-$(VERSION)
 	git archive --format=tar --prefix=pykickstart-$(VERSION)/ $(TAG) | tar -xf -
 	cp -r po/*.po pykickstart-$(VERSION)/po/
