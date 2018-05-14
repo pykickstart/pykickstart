@@ -68,7 +68,12 @@ release:
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
-	twine upload pykickstart-$(VERSION).tar.gz
+	@echo "***************************************************************************"
+	@echo "* Username and password are for your pypi.org login.                      *"
+	@echo "* NOTE: You must be a listed maintainer for pykickstart for this to work. *"
+	@echo "***************************************************************************"
+	@echo
+	twine upload --repository-url https://upload.pypi.org/legacy/ pykickstart-$(VERSION).tar.gz
 
 archive: docs
 	mkdir -p pykickstart-$(VERSION)
