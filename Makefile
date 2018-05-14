@@ -101,7 +101,7 @@ bumpver: po-pull docs
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	git add setup.py docs/conf.py ; \
-	git commit -m "Increment version to $$NEWVERSION" ; \
+	git commit -m "New release: $$NEWVERSION" ; \
 	make -C po pykickstart.pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
