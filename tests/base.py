@@ -232,6 +232,7 @@ class HandlerResetCommand_TestCase(ParserTest):
         self.assertTrue(self.handler.autopart.encrypted)
         self.assertEqual(self.handler.autopart.passphrase, "something")
         self.assertTrue(self.handler.autopart.bogus)
+        self.assertTrue("autopart" in str(self.handler))
 
         self.handler.resetCommand("autopart")
         self.assertFalse(self.handler.autopart.autopart)
@@ -239,6 +240,7 @@ class HandlerResetCommand_TestCase(ParserTest):
         self.assertFalse(self.handler.autopart.encrypted)
         self.assertEqual(self.handler.autopart.passphrase, "")
         self.assertNotIn("bogus", self.handler.autopart.__dict__)
+        self.assertFalse("autopart" in str(self.handler))
 
 class HandlerDispatch_TestCase(ParserTest):
     def runTest(self):

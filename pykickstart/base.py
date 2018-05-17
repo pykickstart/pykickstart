@@ -306,7 +306,6 @@ class KickstartHandler(KickstartObject):
 
         setattr(self, name.lower(), cmdObj)
 
-    def _sortCommand(self, cmdObj):
         # Also, add the object into the _writeOrder dict in the right place.
         if cmdObj.writePriority is not None:
             if cmdObj.writePriority in self._writeOrder:
@@ -332,7 +331,6 @@ class KickstartHandler(KickstartObject):
         if cmdObj is None:
             cmdObj = cmdClass()
             self._setCommand(cmdObj)
-            self._sortCommand(cmdObj)
 
         # Finally, add the mapping to the commands dict.
         self.commands[cmdName] = cmdObj
