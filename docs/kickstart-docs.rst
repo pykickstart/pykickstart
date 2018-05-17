@@ -781,6 +781,34 @@ nfs
         ``nfs --server=nfsserver.example.com --dir=/tmp/install-tree``
 
 
+nvdimm
+~~~~~~
+
+``nvdimm <action> [--namespace=<namespace>] [--mode=<mode>] [--sectorsize=<sectorsize>]``
+
+    Perform an action specified by <action> on an nvdimm device.  The device is
+    specified by ``--namespace`` option.
+
+    ``<action>``
+
+      ``reconfigure``
+
+        Reconfigures the device into the mode specified by ``--mode`` and
+        (depending on the mode) ``--sectorsize`` options.
+
+    ``--namespace=``
+
+        The device specification by namespace.
+
+    ``--mode=``
+
+        The mode specification.
+
+    ``--sectorsize=``
+
+        Size of a sector for sector mode.
+
+
 url
 ~~~
 
