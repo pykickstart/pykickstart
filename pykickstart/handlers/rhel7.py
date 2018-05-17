@@ -15,7 +15,7 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 __all__ = ["RHEL7Handler"]
 
@@ -64,6 +64,7 @@ class RHEL7Handler(BaseHandler):
         "multipath": commands.multipath.FC6_MultiPath,
         "network": commands.network.RHEL7_Network,
         "nfs": commands.nfs.FC6_NFS,
+        "nvdimm": commands.nvdimm.RHEL7_Nvdimm,
         "ostreesetup": commands.ostreesetup.RHEL7_OSTreeSetup,
         "part": commands.partition.RHEL7_Partition,
         "partition": commands.partition.RHEL7_Partition,
@@ -108,6 +109,7 @@ class RHEL7Handler(BaseHandler):
         "MountData": commands.mount.RHEL7_MountData,
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.RHEL7_NetworkData,
+        "NvdimmData": commands.nvdimm.RHEL7_NvdimmData,
         "PartData": commands.partition.RHEL7_PartData,
         "RaidData": commands.raid.RHEL7_RaidData,
         "RepoData": commands.repo.RHEL7_RepoData,
