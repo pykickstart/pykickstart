@@ -72,3 +72,4 @@ BIND_TO_MAC = "mac"
 NVDIMM_MODE_SECTOR = "sector"
 
 NVDIMM_ACTION_RECONFIGURE = "reconfigure"
+NVDIMM_ACTION_USE = "use"
