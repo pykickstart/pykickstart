@@ -786,19 +786,31 @@ nvdimm
 
 ``nvdimm <action> [--namespace=<namespace>] [--mode=<mode>] [--sectorsize=<sectorsize>]``
 
-    Perform an action specified by <action> on an nvdimm device.  The device is
-    specified by ``--namespace`` option.
+    Perform an action specified by <action> on an nvdimm device.  The device
+    can be specified by ``--namespace`` or ``--blockdevs`` options, depending
+    on the <action>
 
     ``<action>``
 
       ``reconfigure``
 
-        Reconfigures the device into the mode specified by ``--mode`` and
-        (depending on the mode) ``--sectorsize`` options.
+        Reconfigures the device specified by ``--namespace`` option into the
+        mode specified by ``--mode`` and (depending on the mode)
+        ``--sectorsize`` options.  The device reconfigured into sector mode
+        will be allowed to be used for storage configuration.
+
+      ``use``
+
+        Allow the device to be used for storage configuration.  By default
+        nvdimm devices are ignored.  Only devices in sector mode can be used.
 
     ``--namespace=``
 
         The device specification by namespace.
+
+    ``--blockdevs=``
+
+        Specification of devices by comma separated list of block device names.
 
     ``--mode=``
 

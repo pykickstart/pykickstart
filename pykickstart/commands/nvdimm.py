@@ -22,7 +22,8 @@ import warnings
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartValueError, formatErrorMsg
 from pykickstart.options import KSOptionParser
-from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE
+from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE, \
+    NVDIMM_ACTION_USE
 
 import gettext
 _ = lambda x: gettext.ldgettext("pykickstart", x)
@@ -38,12 +39,14 @@ class RHEL7_NvdimmData(BaseData):
         self.namespace = kwargs.get("namespace", "")
         self.mode = kwargs.get("mode", None)
         self.sectorsize = kwargs.get("sectorsize", None)
+        self.blockdevs = kwargs.get("blockdevs", [])
 
     def __eq__(self, y):
         if not y:
             return False
         return (self.action == y.action and
-                self.namespace == y.namespace)
+                self.namespace == y.namespace and
+                self.blockdevs == y.blockdevs)
 
     def __ne__(self, y):
         return not self == y
@@ -57,6 +60,11 @@ class RHEL7_NvdimmData(BaseData):
                 retval += " --mode=%s" % NVDIMM_MODE_SECTOR
                 if self.sectorsize:
                     retval += " --sectorsize=%d" % self.sectorsize
+        elif self.action == NVDIMM_ACTION_USE:
+            if self.namespace:
+                retval += " --namespace=%s" % self.namespace
+            if self.blockdevs:
+                retval += " --blockdevs=%s" % ",".join(self.blockdevs)
 
         return retval
 
@@ -74,7 +82,7 @@ class RHEL7_Nvdimm(KickstartCommand):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
 
         self.actionList = kwargs.get("actionList", [])
-        self.validActions = [NVDIMM_ACTION_RECONFIGURE]
+        self.validActions = [NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE]
         self.validModes = [NVDIMM_MODE_SECTOR]
 
         self.op = self._getParser()
@@ -91,8 +99,14 @@ class RHEL7_Nvdimm(KickstartCommand):
         return retval
 
     def _getParser(self):
+        def devs_cb (option, opt_str, value, parser):
+            for d in value.split(','):
+                parser.values.ensure_value(option.dest, []).append(d)
+
         op = KSOptionParser()
-        op.add_option("--namespace", dest="namespace", required=True)
+        op.add_option("--namespace", dest="namespace")
+        op.add_option("--blockdevs", metavar="<devspec1>,<devspec2>,...,<devspecN>",
+                      action="callback", callback=devs_cb, nargs=1, type="string")
         op.add_option("--mode", choices=self.validModes, default=NVDIMM_MODE_SECTOR, dest="mode")
         op.add_option("--sectorsize", type=int)
         return op
@@ -120,16 +134,33 @@ class RHEL7_Nvdimm(KickstartCommand):
         nvdimm_data.lineno = self.lineno
         nvdimm_data.action = action
 
+        if nvdimm_data.namespace and nvdimm_data.blockdevs:
+            message = _("Only one of --namespace and --blockdevs device specifications can be used")
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+
         # Check for duplicates in the data list.
         if nvdimm_data in self.dataList():
-            warnings.warn(_("An action %(action)s on namespace %(namespace)s has already been defined.")
-                          % {"action": action, "namespace": nvdimm_data.namespace})
+            if nvdimm_data.namespace:
+                warnings.warn(_("An action %(action)s on namespace %(namespace)s has already been defined.")
+                              % {"action": action, "namespace": nvdimm_data.namespace})
+            if nvdimm_data.blockdevs:
+                warnings.warn(_("An action %(action)s on devices %(blockdevs)s has already been defined.")
+                              % {"action": action, "blockdevs": nvdimm_data.blockdevs})
 
-        if action == NVDIMM_ACTION_RECONFIGURE and nvdimm_data.mode == NVDIMM_MODE_SECTOR \
-                and not nvdimm_data.sectorsize:
-            message = _("Action %(action)s with mode %(mode)s requires --sectorsize argument to be set") \
-                      % {"action": action, "mode": nvdimm_data.mode}
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+        if action == NVDIMM_ACTION_RECONFIGURE:
+            if not nvdimm_data.namespace:
+                message = _("Action %(action)s requires --namespace argument to be set") \
+                    % {"action": action}
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+            if nvdimm_data.mode == NVDIMM_MODE_SECTOR and not nvdimm_data.sectorsize:
+                message = _("Action %(action)s with mode %(mode)s requires --sectorsize argument to be set") \
+                    % {"action": action, "mode": nvdimm_data.mode}
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
+        elif action == NVDIMM_ACTION_USE:
+            if not nvdimm_data.namespace and not nvdimm_data.blockdevs:
+                message = _("Action %(action)s requires --namespace or --blockdevs argument to be set") \
+                    % {"action": action}
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=message))
 
         return nvdimm_data
 
