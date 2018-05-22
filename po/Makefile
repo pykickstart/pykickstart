@@ -12,8 +12,7 @@ INSTALL_NLS_DIR = $(DESTDIR)/`$(PYTHON) -c "from distutils.sysconfig import get_
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
-XGETTEXT	= ../translation-canary/xgettext_werror.sh --default-domain=$(NLSPACKAGE) \
-		  --add-comments
+XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --add-comments
 MSGFMT		= msgfmt --statistics --verbose
 
 # What do we need to do
