@@ -311,5 +311,8 @@ class F29_TestCase(F23_TestCase):
         self.assert_deprecated("part", "--active")
         self.assert_deprecated("partition", "--active")
 
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
