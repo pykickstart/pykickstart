@@ -661,28 +661,6 @@ class F23_Partition(F20_Partition):
 class RHEL7_Partition(F23_Partition):
     pass
 
-class RHEL8_Partition(F23_Partition):
-    removedKeywords = F23_Partition.removedKeywords
-    removedAttrs = F23_Partition.removedAttrs
-
-    def parse(self, args):
-        retval = F23_Partition.parse(self, args)
-        if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
-            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
-        return retval
-
-    def _getParser(self):
-        "Only necessary for the type change documentation"
-        op = F23_Partition._getParser(self)
-        for action in op._actions:
-            if "--fstype" in action.option_strings:
-                action.help += """
-
-                    .. versionchanged:: %s
-
-                    Btrfs support was removed.""" % versionToLongString(RHEL8)
-        return op
-
 class F29_Partition(F23_Partition):
     removedKeywords = F23_Partition.removedKeywords
     removedAttrs = F23_Partition.removedAttrs
@@ -691,4 +669,26 @@ class F29_Partition(F23_Partition):
         op = F23_Partition._getParser(self)
         op.add_argument("--active", action="store_true", default=False,
                         deprecated=F29, help="")
+        return op
+
+class RHEL8_Partition(F29_Partition):
+    removedKeywords = F29_Partition.removedKeywords
+    removedAttrs = F29_Partition.removedAttrs
+
+    def parse(self, args):
+        retval = F29_Partition.parse(self, args)
+        if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
+            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F29_Partition._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
         return op
