@@ -52,5 +52,8 @@ class F29_TestCase(F20_TestCase):
         # make sure we are still able to parse it
         self.assert_parse("install")
 
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
