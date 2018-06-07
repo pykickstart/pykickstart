@@ -40,5 +40,8 @@ class F29_TestCase(FC3_TestCase):
         # make sure we are still able to parse
         self.assert_parse("deviceprobe")
 
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
