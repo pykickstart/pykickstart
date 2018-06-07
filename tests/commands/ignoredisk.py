@@ -89,5 +89,8 @@ class F29_TestCase(F8_TestCase):
         F8_TestCase.runTest(self)
         self.assert_deprecated("ignoredisk", "--interactive")
 
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
