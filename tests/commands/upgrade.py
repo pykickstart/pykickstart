@@ -82,5 +82,8 @@ class F29_TestCase(F20_TestCase):
         # make sure that upgrade is removed
         self.assertNotIn("upgrade", self.handler().commands)
 
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
