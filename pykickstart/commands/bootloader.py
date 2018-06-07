@@ -485,9 +485,6 @@ class F21_Bootloader(F19_Bootloader):
 class RHEL7_Bootloader(F21_Bootloader):
     pass
 
-class RHEL8_Bootloader(F21_Bootloader):
-    pass
-
 class F29_Bootloader(F21_Bootloader):
     removedKeywords = F21_Bootloader.removedKeywords
     removedAttrs = F21_Bootloader.removedAttrs
@@ -497,3 +494,6 @@ class F29_Bootloader(F21_Bootloader):
         op.add_argument("--upgrade", action="store_true", default=False,
                         deprecated=F29, help="")
         return op
+
+class RHEL8_Bootloader(F29_Bootloader):
+    pass
