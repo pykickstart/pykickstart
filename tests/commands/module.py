@@ -53,3 +53,6 @@ class F29_TestCase(CommandTest):
         # unknown options are an error
         self.assert_parse_error('module --name=bar --stream=baz --uknown=stuff')
         self.assert_parse_error('module --name=bar --uknown=stuff')
+
+if __name__ == "__main__":
+    unittest.main()

@@ -45,7 +45,7 @@ class FC3_Method(KickstartCommand):
             method = "url"
 
         if method not in self._methods:
-            raise AttributeError("Unknown method %s.", method)
+            raise AttributeError("Unknown method: {}".format(method))
 
         return getattr(self.handler, method)
 
