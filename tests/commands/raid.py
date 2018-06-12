@@ -368,5 +368,31 @@ class RHEL7_TestCase(F25_TestCase):
     def runTest(self):
         F25_TestCase.runTest(self)
 
+class F29_TestCase(F25_TestCase):
+    def runTest(self):
+        F25_TestCase.runTest(self)
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --luks-version=luks2 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --luks-version=luks2 raid.01 raid.02\n")
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --pbkdf=argon2i raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --pbkdf=argon2i raid.01 raid.02\n")
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --pbkdf-memory=256 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --pbkdf-memory=256 raid.01 raid.02\n")
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --pbkdf-time=100 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --pbkdf-time=100 raid.01 raid.02\n")
+
+        self.assert_parse("raid / --device=md0 --level=1 --encrypted --pbkdf-iterations=1000 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --encrypted --pbkdf-iterations=1000 raid.01 raid.02\n")
+
+        self.assert_parse_error("raid / --device=md0 --level=1 --encrypted --pbkdf-time=100 --pbkdf-iterations=1000 raid.01 raid.02")
+
+class RHEL8_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse_error("raid / --device=md0 --level=1 --fstype=btrfs raid.01 raid.02")
+
 if __name__ == "__main__":
     unittest.main()

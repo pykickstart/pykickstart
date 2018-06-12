@@ -109,7 +109,7 @@ class RHEL8Handler(BaseHandler):
         "NetworkData": commands.network.F27_NetworkData,
         "NvdimmData": commands.nvdimm.F28_NvdimmData,
         "PartData": commands.partition.RHEL8_PartData,
-        "RaidData": commands.raid.F25_RaidData,
+        "RaidData": commands.raid.RHEL8_RaidData,
         "RepoData": commands.repo.F27_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
         "SshPwData": commands.sshpw.F24_SshPwData,
