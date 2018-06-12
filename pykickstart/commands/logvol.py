@@ -77,7 +77,12 @@ class FC3_LogVolData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
+
+        args = self._getArgsAsStr()
+        args += " --name=%s" % self.name
+        args += " --vgname=%s" % self.vgname
+
+        retval += "logvol %s%s\n" % (self.mountpoint, args)
         return retval
 
 class FC4_LogVolData(FC3_LogVolData):
