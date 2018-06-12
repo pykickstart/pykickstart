@@ -30,7 +30,7 @@ class F29Handler(BaseHandler):
         "auth": commands.authconfig.F28_Authconfig,
         "authconfig": commands.authconfig.F28_Authconfig,
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.F26_AutoPart,
+        "autopart": commands.autopart.F29_AutoPart,
         "autostep": commands.autostep.FC3_AutoStep,
         "bootloader": commands.bootloader.F29_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,

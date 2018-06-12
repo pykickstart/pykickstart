@@ -151,8 +151,10 @@ class F17_TestCase(F16_TestCase):
                           "autopart --type=plain\n")
         self.assert_parse("autopart --type=lvm",
                           "autopart --type=lvm\n")
-        self.assert_parse("autopart --type=btrfs",
-                          "autopart --type=btrfs\n")
+
+        if self.__class__.__name__ != "RHEL8_TestCase":
+            self.assert_parse("autopart --type=btrfs",
+                              "autopart --type=btrfs\n")
 
         self.assert_parse("autopart --nolvm",
                           "autopart --type=plain\n")
@@ -306,6 +308,32 @@ class F26_TestCase(F23_TestCase):
 class F26_Conflict_TestCase(F23_Conflict_TestCase):
     def runTest(self):
         F23_Conflict_TestCase.runTest(self)
+
+class F29_TestCase(F26_TestCase):
+    def runTest(self):
+        F26_TestCase.runTest(self)
+
+        self.assert_parse("autopart --encrypted --luks-version=luks2",
+                          "autopart --encrypted --luks-version=luks2\n")
+
+        self.assert_parse("autopart --encrypted --pbkdf=argon2i",
+                          "autopart --encrypted --pbkdf=argon2i\n")
+
+        self.assert_parse("autopart --encrypted --pbkdf-memory=256",
+                          "autopart --encrypted --pbkdf-memory=256\n")
+
+        self.assert_parse("autopart --encrypted --pbkdf-time=100",
+                          "autopart --encrypted --pbkdf-time=100\n")
+
+        self.assert_parse("autopart --encrypted --pbkdf-iterations=1000",
+                          "autopart --encrypted --pbkdf-iterations=1000\n")
+
+        self.assert_parse_error("autopart --encrypted --pbkdf-time=100 --pbkdf-iterations=1000")
+
+class RHEL8_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse_error("autopart --type=btrfs")
 
 if __name__ == "__main__":
     unittest.main()
