@@ -108,7 +108,7 @@ class RHEL8Handler(BaseHandler):
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.F27_NetworkData,
         "NvdimmData": commands.nvdimm.F28_NvdimmData,
-        "PartData": commands.partition.F23_PartData,
+        "PartData": commands.partition.RHEL8_PartData,
         "RaidData": commands.raid.F25_RaidData,
         "RepoData": commands.repo.F27_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
