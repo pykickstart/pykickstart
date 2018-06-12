@@ -509,5 +509,31 @@ class F23_TestCase(F21_TestCase):
         # invalid cache mode
         self.assert_parse_error("logvol /home --name=home --vgname=vg --size=500 --cachesize=250 --cachepvs=pv.01,pv.02 --cachemode=bogus")
 
+class F29_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+
+        self.assert_parse("logvol /  --size=4096 --encrypted --luks-version=luks2 --name=LVNAME --vgname=VGNAME",
+                          "logvol /  --size=4096 --encrypted --luks-version=luks2 --name=LVNAME --vgname=VGNAME\n")
+
+        self.assert_parse("logvol /  --size=4096 --encrypted --pbkdf=argon2i --name=LVNAME --vgname=VGNAME",
+                          "logvol /  --size=4096 --encrypted --pbkdf=argon2i --name=LVNAME --vgname=VGNAME\n")
+
+        self.assert_parse("logvol /  --size=4096 --encrypted --pbkdf-memory=256 --name=LVNAME --vgname=VGNAME",
+                          "logvol /  --size=4096 --encrypted --pbkdf-memory=256 --name=LVNAME --vgname=VGNAME\n")
+
+        self.assert_parse("logvol / --size=4096 --encrypted --pbkdf-time=100 --name=LVNAME --vgname=VGNAME",
+                          "logvol / --size=4096 --encrypted --pbkdf-time=100 --name=LVNAME --vgname=VGNAME\n")
+
+        self.assert_parse("logvol / --size=4096 --encrypted --pbkdf-iterations=1000 --name=LVNAME --vgname=VGNAME",
+                          "logvol / --size=4096 --encrypted --pbkdf-iterations=1000 --name=LVNAME --vgname=VGNAME\n")
+
+        self.assert_parse_error("logvol / --size=4096 --encrypted --pbkdf-time=100 --pbkdf-iterations=1000 --name=LVNAME --vgname=VGNAME")
+
+class RHEL8_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse_error("logvol / --size=4096 --name=LVNAME --vgname=VGNAME --fstype=btrfs")
+
 if __name__ == "__main__":
     unittest.main()
