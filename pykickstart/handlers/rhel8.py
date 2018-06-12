@@ -103,7 +103,7 @@ class RHEL8Handler(BaseHandler):
         "FcoeData": commands.fcoe.RHEL8_FcoeData,
         "GroupData": commands.group.F12_GroupData,
         "IscsiData": commands.iscsi.F17_IscsiData,
-        "LogVolData": commands.logvol.F23_LogVolData,
+        "LogVolData": commands.logvol.RHEL8_LogVolData,
         "MountData": commands.mount.F27_MountData,
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.F27_NetworkData,
