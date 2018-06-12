@@ -265,8 +265,36 @@ class F23_PartData(F18_PartData):
 class RHEL7_PartData(F23_PartData):
     pass
 
-
 class F29_PartData(F23_PartData):
+    def __init__(self, *args, **kwargs):
+        F23_PartData.__init__(self, *args, **kwargs)
+        self.luks_version = kwargs.get("luks_version", "")
+        self.pbkdf = kwargs.get("pbkdf", "")
+        self.pbkdf_memory = kwargs.get("pbkdf_memory", 0)
+        self.pbkdf_time = kwargs.get("pbkdf_time", 0)
+        self.pbkdf_iterations = kwargs.get("pbkdf_iterations", 0)
+
+    def _getArgsAsStr(self):
+        retval = F23_PartData._getArgsAsStr(self)
+
+        if self.encrypted and self.luks_version:
+            retval += " --luks-version=%s" % self.luks_version
+
+        if self.encrypted and self.pbkdf:
+            retval += " --pbkdf=%s" % self.pbkdf
+
+        if self.encrypted and self.pbkdf_memory:
+            retval += " --pbkdf-memory=%s" % self.pbkdf_memory
+
+        if self.encrypted and self.pbkdf_time:
+            retval += " --pbkdf-time=%s" % self.pbkdf_time
+
+        if self.encrypted and self.pbkdf_iterations:
+            retval += " --pbkdf-iterations=%s" % self.pbkdf_iterations
+
+        return retval
+
+class RHEL8_PartData(F29_PartData):
     pass
 
 class FC3_Partition(KickstartCommand):
@@ -669,7 +697,47 @@ class F29_Partition(F23_Partition):
         op = F23_Partition._getParser(self)
         op.add_argument("--active", action="store_true", default=False,
                         deprecated=F29, help="")
+        op.add_argument("--luks-version", dest="luks_version", version=F29, default="",
+                        help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which version of LUKS format should be used to encrypt
+                        the filesystem.""")
+        op.add_argument("--pbkdf", version=F29, default="", help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        Password-Based Key Derivation Function (PBKDF) algorithm
+                        for LUKS keyslot. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-memory", dest="pbkdf_memory", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the memory cost for PBKDF. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-time", dest="pbkdf_time", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of milliseconds to spend with PBKDF passphrase
+                        processing. See ``--iter-time`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
+        op.add_argument("--pbkdf-iterations", dest="pbkdf_iterations", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of iterations directly and avoids PBKDF benchmark.
+                        See ``--pbkdf-force-iterations`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
         return op
+
+    def parse(self, args):
+        retval = F23_Partition.parse(self, args)
+
+        if retval.pbkdf_time and retval.pbkdf_iterations:
+            msg = _("Only one of --pbkdf-time and --pbkdf-iterations can be specified.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
 
 class RHEL8_Partition(F29_Partition):
     removedKeywords = F29_Partition.removedKeywords
