@@ -107,13 +107,22 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         self.interactive = kwargs.get("interactive", False)
         if self.interactive:
             self.ignoredisk = []
+            
+        self.nonfatal = kwargs.get("nonfatal", False)
+        if self.nonfatal:
+            if not self.ignoredisk:
+                self.ignoredisk = []
 
     def __str__(self):
         retval = F8_IgnoreDisk.__str__(self)
 
         if self.interactive:
-            retval = "ignoredisk --interactive\n"
+            retval = "ignoredisk --interactive"
 
+        if self.nonfatal:
+            retval += " --nonfatal"
+
+        retval += "\n"
         return retval
 
     def parse(self, args):
@@ -134,6 +143,8 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
     def _getParser(self):
         op = F8_IgnoreDisk._getParser(self)
         op.add_option("--interactive", dest="interactive", action="store_true",
+                      default=False)
+        op.add_option("--nonfatal", dest="nonfatal", action="store_true",
                       default=False)
         return op
 
