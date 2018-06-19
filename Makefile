@@ -19,7 +19,7 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	rpm -qa | grep zanata 2>/dev/null | grep -q client 2>/dev/null &>/dev/null || ( echo "need to run: yum install /usr/bin/zanata"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
 po-empty:
