@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: http://fedoraproject.org/wiki/pykickstart
-Version: 1.99.66.18
+Version: 1.99.66.19
 Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
@@ -52,6 +52,11 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue Jun 19 2018 David Cantrell <dcantrell@redhat.com> - 1.99.66.19-1
+- Update po-pull target to work on more recent Fedora releases. (dcantrell)
+- Add use action to nvdimm command. (rvykydal)
+- Add nvdimm command (rvykydal)
+
 * Thu Jan 04 2018 Chris Lumens <clumens@redhat.com> - 1.99.66.18-1
 - Add tests for the new firewall option. (clumens)
   Related: rhbz#1526486
