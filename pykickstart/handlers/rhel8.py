@@ -85,6 +85,7 @@ class RHEL8Handler(BaseHandler):
         "snapshot": commands.snapshot.F26_Snapshot,
         "sshpw": commands.sshpw.F24_SshPw,
         "sshkey": commands.sshkey.F22_SshKey,
+        "syspurpose" : commands.syspurpose.RHEL8_Syspurpose,
         "text": commands.displaymode.F26_DisplayMode,
         "timezone": commands.timezone.F25_Timezone,
         "updates": commands.updates.F7_Updates,
