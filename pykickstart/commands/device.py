@@ -167,6 +167,7 @@ class F8_Device(FC3_Device):
 class F24_Device(DeprecatedCommand, F8_Device):
     def __init__(self):  # pylint: disable=super-init-not-called
         DeprecatedCommand.__init__(self)
+        F8_Device.__init__(self)
 
     def _getParser(self):
         op = F8_Device._getParser(self)
