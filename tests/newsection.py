@@ -4,7 +4,8 @@ import warnings
 from tests.baseclass import ParserTest
 
 from pykickstart import sections
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
+
 
 class RawSection(sections.Section):
     def __init__(self, handler, **kwargs):
@@ -66,7 +67,7 @@ whatever2
         # pykickstart recognizes these sections, but doesn't do anything with them.
         # Be as strict as possible by turning warnings into errors, to make sure we
         # don't even warn about them.
-        warnings.simplefilter("error", category=UserWarning)
+        warnings.simplefilter("error", category=KickstartParseWarning)
         self.parser.readKickstartFromString(self.ks)
         warnings.resetwarnings()
 

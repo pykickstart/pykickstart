@@ -20,7 +20,7 @@
 #
 from pykickstart.version import F17, F23, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -230,7 +230,7 @@ class F17_BTRFS(KickstartCommand):
 
         # Check for duplicates in the data list.
         if data in self.dataList():
-            warnings.warn(_("A btrfs volume with the mountpoint %s has already been defined.") % data.label)
+            warnings.warn(_("A btrfs volume with the mountpoint %s has already been defined.") % data.label, KickstartParseWarning)
 
         return data
 

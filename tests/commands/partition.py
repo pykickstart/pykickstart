@@ -305,5 +305,35 @@ class RHEL7_TestCase(F23_TestCase):
     def runTest(self):
         F23_TestCase.runTest(self)
 
+class F29_TestCase(F23_TestCase):
+    def runTest(self):
+        F23_TestCase.runTest(self)
+
+        self.assert_deprecated("part", "--active")
+        self.assert_deprecated("partition", "--active")
+
+        self.assert_parse("part / --encrypted --luks-version=luks2",
+                          "part / --encrypted --luks-version=luks2\n")
+
+        self.assert_parse("part / --encrypted --pbkdf=argon2i",
+                          "part / --encrypted --pbkdf=argon2i\n")
+
+        self.assert_parse("part / --encrypted --pbkdf-memory=256",
+                          "part / --encrypted --pbkdf-memory=256\n")
+
+        self.assert_parse("part / --encrypted --pbkdf-time=100",
+                          "part / --encrypted --pbkdf-time=100\n")
+
+        self.assert_parse("part / --encrypted --pbkdf-iterations=1000",
+                          "part / --encrypted --pbkdf-iterations=1000\n")
+
+        self.assert_parse_error("part / --encrypted --pbkdf-time=100 --pbkdf-iterations=1000")
+
+
+class RHEL8_TestCase(F29_TestCase):
+    def  runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse_error("part / --fstype=btrfs")
+
 if __name__ == "__main__":
     unittest.main()

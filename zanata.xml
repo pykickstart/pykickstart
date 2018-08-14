@@ -2,6 +2,6 @@
 <config xmlns="http://zanata.org/namespace/config/">
   <url>https://fedora.zanata.org</url>
   <project>pykickstart</project>
-  <project-version>master</project-version>
+  <project-version>rhel8-branch</project-version>
   <project-type>gettext</project-type>
 </config>

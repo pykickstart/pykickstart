@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.base import DeprecatedCommand
 from tests.baseclass import CommandTest
 
 class F20_TestCase(CommandTest):
@@ -41,6 +43,17 @@ class F20_TestCase(CommandTest):
         self.assert_parse_error("install --root-device")
         self.assert_parse_error("install --root-device=\"\"")
 
+class F29_TestCase(F20_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("install")
+        self.assertTrue(issubclass(parser.__class__, DeprecatedCommand))
+
+        # make sure we are still able to parse it
+        self.assert_parse("install")
+
+class RHEL8_TestCase(F29_TestCase):
+    pass
 
 if __name__ == "__main__":
     unittest.main()

@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.version import F12
 from pykickstart.commands.zfcp import FC3_ZFCP, FC3_ZFCPData, F12_ZFCPData
@@ -120,7 +122,7 @@ zfcp --devnum=10 --wwpn=20 --fcplun=30""")
 
         self.assert_parse_error("""
 zfcp --devnum=1 --wwpn=2 --fcplun=3
-zfcp --devnum=1 --wwpn=2 --fcplun=3""", UserWarning)
+zfcp --devnum=1 --wwpn=2 --fcplun=3""", KickstartParseWarning)
 
 class F14_TestCase(F12_TestCase):
     def runTest(self):

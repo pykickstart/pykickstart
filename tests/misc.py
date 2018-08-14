@@ -1,4 +1,8 @@
 import unittest
+import warnings
+
+from pykickstart.parser import KickstartParser
+from pykickstart.version import makeVersion
 from tests.baseclass import ParserTest
 from pykickstart.handlers import control
 from pykickstart.base import DeprecatedCommand
@@ -52,6 +56,23 @@ class WritePriority_TestCase(unittest.TestCase):
                     self.assertEqual(140, cmd.writePriority, command_class)
                 else:
                     self.assertEqual(0, cmd.writePriority, command_class)
+
+class DeprecatedCommandsParsing_TestCase(unittest.TestCase):
+    def runTest(self):
+        for version, command_map in control.commandMap.items():
+
+            handler = makeVersion(version)
+            parser = KickstartParser(handler)
+
+            for command_name, command_class in command_map.items():
+                if not issubclass(command_class, DeprecatedCommand):
+                    continue
+
+                with warnings.catch_warnings(record=True):
+                    # The deprecated commands should be ignored with
+                    # a warning when they are parsed. Make sure that
+                    # they will not cause any errors.
+                    parser.readKickstartFromString(command_name)
 
 if __name__ == "__main__":
     unittest.main()

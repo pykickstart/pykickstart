@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
-from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -529,14 +529,101 @@ class F26_AutoPart(F23_AutoPart):
                         Do not create a swap partition.""")
         return op
 
-
-class RHEL8_AutoPart(F26_AutoPart):
+class F29_AutoPart(F26_AutoPart):
     removedKeywords = F26_AutoPart.removedKeywords
     removedAttrs = F26_AutoPart.removedAttrs
 
+    def __init__(self, writePriority=100, *args, **kwargs):
+        F26_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
+        self.luks_version = kwargs.get("luks_version", "")
+        self.pbkdf = kwargs.get("pbkdf", "")
+        self.pbkdf_memory = kwargs.get("pbkdf_memory", 0)
+        self.pbkdf_time = kwargs.get("pbkdf_time", 0)
+        self.pbkdf_iterations = kwargs.get("pbkdf_iterations", 0)
+
+    def __str__(self):
+        retval = F26_AutoPart.__str__(self)
+        if not self.autopart:
+            return retval
+
+        if self.encrypted and self.luks_version:
+            retval = retval.strip()
+            retval += " --luks-version=%s" % self.luks_version
+            retval += "\n"
+
+        if self.encrypted and self.pbkdf:
+            retval = retval.strip()
+            retval += " --pbkdf=%s" % self.pbkdf
+            retval += "\n"
+
+        if self.encrypted and self.pbkdf_memory:
+            retval = retval.strip()
+            retval += " --pbkdf-memory=%s" % self.pbkdf_memory
+            retval += "\n"
+
+        if self.encrypted and self.pbkdf_time:
+            retval = retval.strip()
+            retval += " --pbkdf-time=%s" % self.pbkdf_time
+            retval += "\n"
+
+        if self.encrypted and self.pbkdf_iterations:
+            retval = retval.strip()
+            retval += " --pbkdf-iterations=%s" % self.pbkdf_iterations
+            retval += "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F26_AutoPart._getParser(self)
+        op.add_argument("--luks-version", dest="luks_version", version=F29, default="",
+                        help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which version of LUKS format should be used to encrypt
+                        the filesystem.""")
+        op.add_argument("--pbkdf", version=F29, default="", help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        Password-Based Key Derivation Function (PBKDF) algorithm
+                        for LUKS keyslot. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-memory", dest="pbkdf_memory", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the memory cost for PBKDF. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-time", dest="pbkdf_time", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of milliseconds to spend with PBKDF passphrase
+                        processing. See ``--iter-time`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
+        op.add_argument("--pbkdf-iterations", dest="pbkdf_iterations", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of iterations directly and avoids PBKDF benchmark.
+                        See ``--pbkdf-force-iterations`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
+        return op
+
+    def parse(self, args):
+        retval = F26_AutoPart.parse(self, args)
+
+        if self.pbkdf_time and self.pbkdf_iterations:
+            msg = _("Only one of --pbkdf-time and --pbkdf-iterations can be specified.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
+
+class RHEL8_AutoPart(F29_AutoPart):
+    removedKeywords = F29_AutoPart.removedKeywords
+    removedAttrs = F29_AutoPart.removedAttrs
+
     def parse(self, args):
         # call the overriden command to do it's job first
-        retval = F26_AutoPart.parse(self, args)
+        retval = F29_AutoPart.parse(self, args)
 
         # btrfs is no more supported
         if self._typeAsStr() == "btrfs":
@@ -547,7 +634,7 @@ class RHEL8_AutoPart(F26_AutoPart):
 
     def _getParser(self):
         "Only necessary for the type change documentation"
-        op = F26_AutoPart._getParser(self)
+        op = F29_AutoPart._getParser(self)
         for action in op._actions:
             if "--type" in action.option_strings:
                 action.help += """

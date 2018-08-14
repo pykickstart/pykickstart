@@ -17,10 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21
+from pykickstart.version import FC3, FC4, F9, F12, F14, F15, F17, F18, F20, F21, F29
 from pykickstart.version import F23, RHEL5, RHEL6, RHEL7, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit
 
 import warnings
@@ -77,7 +77,12 @@ class FC3_LogVolData(BaseData):
 
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "logvol %s %s --name=%s --vgname=%s\n" % (self.mountpoint, self._getArgsAsStr(), self.name, self.vgname)
+
+        args = self._getArgsAsStr()
+        args += " --name=%s" % self.name
+        args += " --vgname=%s" % self.vgname
+
+        retval += "logvol %s%s\n" % (self.mountpoint, args)
         return retval
 
 class FC4_LogVolData(FC3_LogVolData):
@@ -349,6 +354,38 @@ class F23_LogVolData(F21_LogVolData):
 
         return retval
 
+class F29_LogVolData(F23_LogVolData):
+    def __init__(self, *args, **kwargs):
+        F23_LogVolData.__init__(self, *args, **kwargs)
+        self.luks_version = kwargs.get("luks_version", "")
+        self.pbkdf = kwargs.get("pbkdf", "")
+        self.pbkdf_memory = kwargs.get("pbkdf_memory", 0)
+        self.pbkdf_time = kwargs.get("pbkdf_time", 0)
+        self.pbkdf_iterations = kwargs.get("pbkdf_iterations", 0)
+
+    def _getArgsAsStr(self):
+        retval = F23_LogVolData._getArgsAsStr(self)
+
+        if self.encrypted and self.luks_version:
+            retval += " --luks-version=%s" % self.luks_version
+
+        if self.encrypted and self.pbkdf:
+            retval += " --pbkdf=%s" % self.pbkdf
+
+        if self.encrypted and self.pbkdf_memory:
+            retval += " --pbkdf-memory=%s" % self.pbkdf_memory
+
+        if self.encrypted and self.pbkdf_time:
+            retval += " --pbkdf-time=%s" % self.pbkdf_time
+
+        if self.encrypted and self.pbkdf_iterations:
+            retval += " --pbkdf-iterations=%s" % self.pbkdf_iterations
+
+        return retval
+
+class RHEL8_LogVolData(F29_LogVolData):
+    pass
+
 class FC3_LogVol(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -440,7 +477,7 @@ class FC3_LogVol(KickstartCommand):
 
         # Check for duplicates in the data list.
         if lvd in self.dataList():
-            warnings.warn(_("A logical volume with the name %(logical_volume_name)s has already been defined in volume group %(volume_group)s.") % {"logical_volume_name": lvd.name, "volume_group": lvd.vgname})
+            warnings.warn(_("A logical volume with the name %(logical_volume_name)s has already been defined in volume group %(volume_group)s.") % {"logical_volume_name": lvd.name, "volume_group": lvd.vgname}, KickstartParseWarning)
 
         return lvd
 
@@ -834,19 +871,67 @@ class F23_LogVol(F21_LogVol):
 
         return retval
 
-class RHEL8_LogVol(F23_LogVol):
+class F29_LogVol(F23_LogVol):
     removedKeywords = F23_LogVol.removedKeywords
     removedAttrs = F23_LogVol.removedAttrs
 
+    def _getParser(self):
+        op = F23_LogVol._getParser(self)
+        op.add_argument("--luks-version", dest="luks_version", version=F29, default="",
+                        help="""
+                        Only relevant if ``--encrypted`` is specified. Specifies
+                        which version of LUKS format should be used to encrypt
+                        the filesystem.""")
+        op.add_argument("--pbkdf", version=F29, default="", help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        Password-Based Key Derivation Function (PBKDF) algorithm
+                        for LUKS keyslot. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-memory", dest="pbkdf_memory", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the memory cost for PBKDF. See ``man cryptsetup``.""")
+        op.add_argument("--pbkdf-time", dest="pbkdf_time", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of milliseconds to spend with PBKDF passphrase
+                        processing. See ``--iter-time`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
+        op.add_argument("--pbkdf-iterations", dest="pbkdf_iterations", type=int, default=0,
+                        version=F29, help="""
+                        Only relevant if ``--encrypted`` is specified. Sets
+                        the number of iterations directly and avoids PBKDF benchmark.
+                        See ``--pbkdf-force-iterations`` in ``man cryptsetup``.
+
+                        Only one of ``--pbkdf-time`` and ``--pbkdf-iterations``
+                        can be specified.
+                        """)
+        return op
+
     def parse(self, args):
         retval = F23_LogVol.parse(self, args)
+
+        if retval.pbkdf_time and retval.pbkdf_iterations:
+            msg = _("Only one of --pbkdf-time and --pbkdf-iterations can be specified.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
+
+class RHEL8_LogVol(F29_LogVol):
+    removedKeywords = F29_LogVol.removedKeywords
+    removedAttrs = F29_LogVol.removedAttrs
+
+    def parse(self, args):
+        retval = F29_LogVol.parse(self, args)
         if retval.fstype == "btrfs":
             raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
         return retval
 
     def _getParser(self):
         "Only necessary for the type change documentation"
-        op = F23_LogVol._getParser(self)
+        op = F29_LogVol._getParser(self)
         for action in op._actions:
             if "--fstype" in action.option_strings:
                 action.help += """

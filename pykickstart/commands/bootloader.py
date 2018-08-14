@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import RHEL5, RHEL6
-from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21
+from pykickstart.version import RHEL5, RHEL6, versionToLongString
+from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
@@ -159,6 +159,7 @@ class FC3_Lilo(FC3_Bootloader):
     def _getParser(self):
         op = super(FC3_Lilo, self)._getParser()
         op.prog = "lilo"
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
         return op
 
 
@@ -484,5 +485,15 @@ class F21_Bootloader(F19_Bootloader):
 class RHEL7_Bootloader(F21_Bootloader):
     pass
 
-class RHEL8_Bootloader(F21_Bootloader):
+class F29_Bootloader(F21_Bootloader):
+    removedKeywords = F21_Bootloader.removedKeywords
+    removedAttrs = F21_Bootloader.removedAttrs
+
+    def _getParser(self):
+        op = F21_Bootloader._getParser(self)
+        op.add_argument("--upgrade", action="store_true", default=False,
+                        deprecated=F29, help="")
+        return op
+
+class RHEL8_Bootloader(F29_Bootloader):
     pass

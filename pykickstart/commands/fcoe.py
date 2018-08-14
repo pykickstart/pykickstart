@@ -17,7 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import F12, F13, RHEL7
+from pykickstart.version import F12, F13, F28, RHEL7
+from pykickstart.errors import KickstartParseWarning
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -86,7 +87,23 @@ class RHEL7_FcoeData(F13_FcoeData):
 
         return retval
 
-class RHEL8_FcoeData(F13_FcoeData):
+class F28_FcoeData(F13_FcoeData):
+    removedKeywords = F13_FcoeData.removedKeywords
+    removedAttrs = F13_FcoeData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F13_FcoeData.__init__(self, *args, **kwargs)
+        self.autovlan = kwargs.get("autovlan", False)
+
+    def _getArgsAsStr(self):
+        retval = F13_FcoeData._getArgsAsStr(self)
+
+        if self.autovlan:
+            retval += " --autovlan"
+
+        return retval
+
+class RHEL8_FcoeData(F28_FcoeData):
     pass
 
 class F12_Fcoe(KickstartCommand):
@@ -106,8 +123,12 @@ class F12_Fcoe(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="fcoe", description="", version=F12)
-        op.add_argument("--nic", required=True, version=F12, help="")
+        op = KSOptionParser(prog="fcoe", description="""
+                            Discover and attach FCoE storage devices accessible via
+                            specified network interface
+                            """, version=F12)
+        op.add_argument("--nic", required=True, version=F12, help="""
+                        Name of the network device connected to the FCoE switch""")
         return op
 
     def parse(self, args):
@@ -119,7 +140,7 @@ class F12_Fcoe(KickstartCommand):
 
         # Check for duplicates in the data list.
         if zd in self.dataList():
-            warnings.warn(_("A FCOE device with the name %s has already been defined.") % zd.nic)
+            warnings.warn(_("A FCOE device with the name %s has already been defined.") % zd.nic, KickstartParseWarning)
 
         return zd
 
@@ -136,8 +157,13 @@ class F13_Fcoe(F12_Fcoe):
 
     def _getParser(self):
         op = F12_Fcoe._getParser(self)
-        op.add_argument("--dcb", action="store_true", default=False, help="",
-                        version=F13)
+        op.add_argument("--dcb", action="store_true", default=False, version=F13, help="""
+                        Enable Data Center Bridging awareness in installer. This option
+                        should only be enabled for network interfaces that
+                        require a host-based DCBX client. Configurations on
+                        interfaces that implement a hardware DCBX client should
+                        not use it.
+                        """)
         return op
 
 class RHEL7_Fcoe(F13_Fcoe):
@@ -146,9 +172,23 @@ class RHEL7_Fcoe(F13_Fcoe):
 
     def _getParser(self):
         op = F13_Fcoe._getParser(self)
-        op.add_argument("--autovlan", action="store_true", default=False,
-                        help="", version=RHEL7)
+        op.add_argument("--autovlan", action="store_true", default=False, version=RHEL7, help="""
+                        Perform automatic VLAN discovery and setup. This option is enabled
+                        by default.
+                        """)
         return op
 
-class RHEL8_Fcoe(F13_Fcoe):
+class F28_Fcoe(F13_Fcoe):
+    removedKeywords = F13_Fcoe.removedKeywords
+    removedAttrs = F13_Fcoe.removedAttrs
+
+    def _getParser(self):
+        op = F13_Fcoe._getParser(self)
+        op.add_argument("--autovlan", action="store_true", default=False, version=F28, help="""
+                        Perform automatic VLAN discovery and setup. This option is enabled
+                        by default.
+                        """)
+        return op
+
+class RHEL8_Fcoe(F28_Fcoe):
     pass

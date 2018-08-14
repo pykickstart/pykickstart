@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.sshpw import F13_SshPwData, F13_SshPw, F24_SshPwData
 from pykickstart.version import F13
@@ -114,7 +116,7 @@ sshpw --username=otherguy --iscrypted passwordA""")
 
         self.assert_parse_error("""
 sshpw --username=someguy --iscrypted passwordA
-sshpw --username=someguy --iscrypted passwordB""", UserWarning)
+sshpw --username=someguy --iscrypted passwordB""", KickstartParseWarning)
 
 class F24_TestCase(F13_TestCase):
     def runTest(self):

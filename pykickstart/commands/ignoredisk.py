@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F8, RHEL6
+from pykickstart.version import FC3, F8, RHEL6, F29
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.i18n import _
@@ -79,15 +79,14 @@ class F8_IgnoreDisk(FC3_IgnoreDisk):
     def parse(self, args):
         retval = FC3_IgnoreDisk.parse(self, args)
 
-        if not isinstance(self, RHEL6_IgnoreDisk):
-            howmany = 0
-            if self.ignoredisk:
-                howmany += 1
-            if self.onlyuse:
-                howmany += 1
-            if howmany != 1:
-                raise KickstartParseError(_("One of --drives or --only-use must be specified for ignoredisk command."), lineno=self.lineno)
-
+        howmany = 0
+        if self.ignoredisk:
+            howmany += 1
+        if self.onlyuse:
+            howmany += 1
+        if howmany != 1:
+            raise KickstartParseError(_("One of --drives or --only-use must be specified "
+                                        "for ignoredisk command."), lineno=self.lineno)
 
         return retval
 
@@ -119,7 +118,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
         return retval
 
     def parse(self, args):
-        retval = F8_IgnoreDisk.parse(self, args)
+        retval = FC3_IgnoreDisk.parse(self, args)
 
         howmany = 0
         if self.ignoredisk:
@@ -146,3 +145,18 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 
 class F14_IgnoreDisk(RHEL6_IgnoreDisk):
     pass
+
+class F29_IgnoreDisk(F14_IgnoreDisk):
+    removedKeywords = F14_IgnoreDisk.removedKeywords
+    removedAttrs = F14_IgnoreDisk.removedAttrs
+
+    def parse(self, args):
+        return F8_IgnoreDisk.parse(self, args)
+
+    def _getParser(self):
+        op = F14_IgnoreDisk._getParser(self)
+        op.add_argument("--interactive", action="store_true",
+                        default=False, deprecated=F29, help="""
+                        Allow the user manually navigate the advanced storage
+                        screen.""")
+        return op

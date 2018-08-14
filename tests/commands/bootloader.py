@@ -181,5 +181,13 @@ class RHEL7_TestCase(F21_TestCase):
     def runTest(self, iscrypted=False):
         F21_TestCase.runTest(self, iscrypted=iscrypted)
 
+class F29_TestCase(F21_TestCase):
+    def runTest(self, iscrypted=False):
+        F21_TestCase.runTest(self, iscrypted=iscrypted)
+        self.assert_deprecated("bootloader", "--upgrade")
+
+class RHEL8_TestCase(F29_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()

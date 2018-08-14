@@ -18,6 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+
+from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.network import FC3_NetworkData, FC4_NetworkData, \
     FC6_NetworkData, F16_NetworkData, F25_NetworkData, \
@@ -130,7 +132,7 @@ network --device=eth1""")
 
         self.assert_parse_error("""
 network --device=eth0
-network --device=eth0""", UserWarning)
+network --device=eth0""", KickstartParseWarning)
 
 class RHEL4_TestCase(FC3_TestCase):
     def runTest(self):

@@ -120,6 +120,9 @@ class StringToVersion_TestCase(CommandTest):
         # pass - F28
         self.assertEqual(stringToVersion("Fedora 28"), F28)
         self.assertEqual(stringToVersion("F28"), F28)
+        # pass - F29
+        self.assertEqual(stringToVersion("Fedora 29"), F29)
+        self.assertEqual(stringToVersion("F29"), F29)
 
         # pass - RHEL3
         self.assertEqual(stringToVersion("Red Hat Enterprise Linux 3"), RHEL3)
@@ -217,14 +220,15 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(F26, skipDevel=True), "F26")
         self.assertEqual(versionToString(F27, skipDevel=True), "F27")
         self.assertEqual(versionToString(F28, skipDevel=True), "F28")
+        self.assertEqual(versionToString(F29, skipDevel=True), "F29")
+        self.assertEqual(versionToString(F29, skipDevel=False), "DEVEL")
         # RHEL series
-        self.assertEqual(versionToString(RHEL3, skipDevel=True), "RHEL3")
-        self.assertEqual(versionToString(RHEL4, skipDevel=True), "RHEL4")
-        self.assertEqual(versionToString(RHEL5, skipDevel=True), "RHEL5")
-        self.assertEqual(versionToString(RHEL6, skipDevel=True), "RHEL6")
-        self.assertEqual(versionToString(RHEL7, skipDevel=True), "RHEL7")
-        self.assertEqual(versionToString(RHEL8, skipDevel=True), "RHEL8")
-        self.assertEqual(versionToString(RHEL8, skipDevel=False), "DEVEL")
+        self.assertEqual(versionToString(RHEL3), "RHEL3")
+        self.assertEqual(versionToString(RHEL4), "RHEL4")
+        self.assertEqual(versionToString(RHEL5), "RHEL5")
+        self.assertEqual(versionToString(RHEL6), "RHEL6")
+        self.assertEqual(versionToString(RHEL7), "RHEL7")
+        self.assertEqual(versionToString(RHEL8), "RHEL8")
 
         # fail
         self.assertRaises(KickstartVersionError, versionToString, 47)

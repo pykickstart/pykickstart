@@ -28,7 +28,8 @@ import warnings
 import tempfile
 import shutil
 from pykickstart.i18n import _
-from pykickstart.errors import KickstartError, KickstartParseError, KickstartVersionError
+from pykickstart.errors import KickstartError, KickstartParseError, KickstartVersionError,\
+    KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.load import load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
@@ -94,8 +95,8 @@ def main(argv):
     ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
                                errorsAreFatal=opts.firsterror)
 
-    # turn DeprecationWarnings into errors
-    warnings.filterwarnings("error")
+    # turn kickstart parse warnings into errors
+    warnings.filterwarnings(action="error", category=KickstartParseWarning)
 
     processedFile = None
 
@@ -103,7 +104,7 @@ def main(argv):
         processedFile = preprocessKickstart(f)
         ksparser.readKickstart(processedFile)
         return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
-    except DeprecationWarning as err:
+    except KickstartDeprecationWarning as err:
         return (cleanup(destdir, processedFile),
                 [_("File uses a deprecated option or command.\n%s") % err])
     except KickstartParseError as err:

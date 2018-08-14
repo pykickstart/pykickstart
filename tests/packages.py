@@ -4,7 +4,7 @@ import warnings
 from tests.baseclass import ParserTest
 
 from pykickstart.constants import KS_MISSING_IGNORE
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
 from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7
 
@@ -319,7 +319,7 @@ bash
             warnings.simplefilter("always")
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 1)
-            self.assertIsInstance(w[-1].message, DeprecationWarning)
+            self.assertIsInstance(w[-1].message, KickstartDeprecationWarning)
 
 class Packages_Contains_Nobase_2_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):

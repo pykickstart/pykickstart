@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartError
+from pykickstart.errors import KickstartError, KickstartParseWarning
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
@@ -78,7 +78,7 @@ repo --name=repoB --baseurl=http://www.domain.com""")
 
         self.assert_parse_error("""
 repo --name=repoA --baseurl=http://www.domain.com
-repo --name=repoA --baseurl=http://www.domain.com""", UserWarning)
+repo --name=repoA --baseurl=http://www.domain.com""", KickstartParseWarning)
 
 class F8_TestCase(FC6_TestCase):
     def runTest(self, urlRequired=True):

@@ -7,6 +7,7 @@ from tools import ksvalidator
 from pykickstart import parser
 from tests.tools.utils import mktempfile
 from pykickstart.version import versionMap
+from pykickstart.errors import KickstartDeprecationWarning
 
 class Remove_Non_Existing_File_TestCase(TestCase):
     def runTest(self):
@@ -229,7 +230,7 @@ class Raise_DeprecationWarning_TestCase(TestCase):
 
     @mock.patch.object(parser.KickstartParser, 'readKickstart')
     def runTest(self, _mock):
-        _mock.side_effect = DeprecationWarning('Raised by test')
+        _mock.side_effect = KickstartDeprecationWarning('Raised by test')
         retval, out = ksvalidator.main([self._ks_path, "-v", "F10"])
         self.assertNotEqual(retval, 0)
         self.assertTrue("File uses a deprecated option or command" in " ".join(out))

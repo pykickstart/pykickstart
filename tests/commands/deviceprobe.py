@@ -18,6 +18,8 @@
 #
 
 import unittest
+
+from pykickstart.base import DeprecatedCommand
 from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
@@ -28,6 +30,18 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("deviceprobe")
         self.assert_parse("deviceprobe --cheese", "deviceprobe --cheese\n")
         self.assert_parse("deviceprobe --cracker=CRUNCHY", "deviceprobe --cracker=CRUNCHY\n")
+
+class F29_TestCase(FC3_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("deviceprobe")
+        self.assertTrue(issubclass(parser.__class__, DeprecatedCommand))
+
+        # make sure we are still able to parse
+        self.assert_parse("deviceprobe")
+
+class RHEL8_TestCase(F29_TestCase):
+    pass
 
 if __name__ == "__main__":
     unittest.main()
