@@ -1,6 +1,7 @@
-VERSION=$(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ { print $$2 }' | tr -d \')
+VERSION     = $(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ { print $$2 }' | tr -d \')
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-TAG=r$(VERSION)
+TAG         = r$(VERSION)
+PREVTAG    := $(shell git tag --sort=-creatordate | head -n 2 | tail -n 1)
 
 ZANATA_PULL_ARGS = --transdir ./po/
 ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
@@ -93,7 +94,7 @@ local: docs po-pull
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" $(TAG).. |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
+	@git log --pretty="format:- %s (%ae)" $(PREVTAG)..$(TAG) |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
 
 bumpver: po-pull docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
