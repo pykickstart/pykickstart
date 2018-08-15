@@ -87,10 +87,10 @@ F26 = 24000
 F27 = 25000
 F28 = 26000
 F29 = 27000
-RHEL8 = 26100
+RHEL8 = 27100
 
 # This always points at the latest version and is the default.
-DEVEL = RHEL8
+DEVEL = F29
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
