@@ -54,6 +54,7 @@ class RHEL8_Syspurpose(KickstartCommand):
         if self.addons:
             for addon in self.addons:
                 retval+=' --addon="%s"' % addon
+        retval+='\n'
         return retval
 
     def _getParser(self):
