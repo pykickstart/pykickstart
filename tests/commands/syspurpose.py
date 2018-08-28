@@ -46,15 +46,15 @@ class RHEL8_TestCase(CommandTest):
 
         # test output kickstart generation
         self.assert_parse("syspurpose", "")
-        self.assert_parse('syspurpose --role="foo"', 'syspurpose --role="foo"')
-        self.assert_parse('syspurpose --sla="bar"', 'syspurpose --sla="bar"')
-        self.assert_parse('syspurpose --usage="baz"', 'syspurpose --usage="baz"')
-        self.assert_parse('syspurpose --role="foo" --sla="bar" --usage="baz"',
-                          'syspurpose --role="foo" --sla="bar" --usage="baz"')
-        self.assert_parse('syspurpose --addon="a" --addon="b" --addon="c"', 'syspurpose --addon="a" --addon="b" --addon="c"')
+        self.assert_parse('syspurpose --role="foo"', 'syspurpose --role="foo"\n')
+        self.assert_parse('syspurpose --sla="bar"', 'syspurpose --sla="bar"\n')
+        self.assert_parse('syspurpose --usage="baz"', 'syspurpose --usage="baz"\n')
+        self.assert_parse('syspurpose --role="foo" --sla="bar" --usage="baz"\n',
+                          'syspurpose --role="foo" --sla="bar" --usage="baz"\n')
+        self.assert_parse('syspurpose --addon="a" --addon="b" --addon="c"', 'syspurpose --addon="a" --addon="b" --addon="c"\n')
         # multi word handling
         self.assert_parse('syspurpose --role="foo a" --sla="bar b" --usage="baz c" --addon="a b" --addon="c d" --addon="e"',
-                          'syspurpose --role="foo a" --sla="bar b" --usage="baz c" --addon="a b" --addon="c d" --addon="e"')
+                          'syspurpose --role="foo a" --sla="bar b" --usage="baz c" --addon="a b" --addon="c d" --addon="e"\n')
 
 if __name__ == "__main__":
     unittest.main()
