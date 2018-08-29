@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-14 15:46-0400\n"
+"POT-Creation-Date: 2018-08-29 09:31-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -157,27 +157,8 @@ msgstr ""
 msgid "There was a problem reading from line %s of the kickstart file"
 msgstr ""
 
-#: ../pykickstart/commands/repo.py:256
-#, python-format
-msgid "One of -%(options_list)s options must be specified for repo command."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:259
-#, python-format
-msgid "Only one of %(options_list)s options may be specified for repo command."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:267
-#, python-format
-msgid "A repo with the name %s has already been defined."
-msgstr ""
-
-#: ../pykickstart/commands/repo.py:313
-msgid "Method must be a url to be added to the repo list."
-msgstr ""
-
 #: ../pykickstart/commands/iscsiname.py:61
-#: ../pykickstart/commands/sshkey.py:102 ../pykickstart/commands/key.py:64
+#: ../pykickstart/commands/sshkey.py:102 ../pykickstart/commands/timezone.py:81
 #: ../pykickstart/commands/mount.py:175
 #: ../pykickstart/commands/langsupport.py:59
 #: ../pykickstart/commands/keyboard.py:59
@@ -186,13 +167,18 @@ msgstr ""
 #: ../pykickstart/commands/driverdisk.py:173
 #: ../pykickstart/commands/raid.py:425 ../pykickstart/commands/device.py:118
 #: ../pykickstart/commands/device.py:147 ../pykickstart/commands/logvol.py:468
-#: ../pykickstart/commands/partition.py:439
-#: ../pykickstart/commands/updates.py:67 ../pykickstart/commands/mouse.py:68
-#: ../pykickstart/commands/lang.py:71 ../pykickstart/commands/btrfs.py:218
-#: ../pykickstart/commands/rootpw.py:88 ../pykickstart/commands/rootpw.py:145
-#: ../pykickstart/commands/timezone.py:81 ../pykickstart/commands/sshpw.py:163
+#: ../pykickstart/commands/mouse.py:68 ../pykickstart/commands/partition.py:439
+#: ../pykickstart/commands/updates.py:67 ../pykickstart/commands/lang.py:71
+#: ../pykickstart/commands/btrfs.py:218 ../pykickstart/commands/rootpw.py:88
+#: ../pykickstart/commands/rootpw.py:145 ../pykickstart/commands/key.py:64
+#: ../pykickstart/commands/sshpw.py:163
 #, python-format
 msgid "Unexpected arguments to %(command)s command: %(options)s"
+msgstr ""
+
+#: ../pykickstart/commands/group.py:95
+#, python-format
+msgid "A group with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/harddrive.py:88
@@ -239,9 +225,23 @@ msgstr ""
 msgid "The volgroup and mount commands can't be used at the same time"
 msgstr ""
 
-#: ../pykickstart/commands/rescue.py:77
-msgid ""
-"Only one of --nomount and --romount may be specified for rescue command."
+#: ../pykickstart/commands/timezone.py:170
+#: ../pykickstart/commands/timezone.py:186
+#: ../pykickstart/commands/timezone.py:283
+#: ../pykickstart/commands/timezone.py:358
+msgid "Options --nontp and --ntpservers are mutually exclusive"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:266
+#: ../pykickstart/commands/timezone.py:341
+#, python-format
+msgid "At least one option and/or an argument are expected for the  %s command"
+msgstr ""
+
+#: ../pykickstart/commands/timezone.py:279
+#: ../pykickstart/commands/timezone.py:354
+#, python-format
+msgid "One or zero arguments are expected for the %s command"
 msgstr ""
 
 #: ../pykickstart/commands/upgrade.py:104
@@ -250,85 +250,14 @@ msgid ""
 "Kickstart command %(command)s does not accept empty parameter %(parameter)s"
 msgstr ""
 
-#: ../pykickstart/commands/eula.py:65 ../pykickstart/commands/hmc.py:46
-#: ../pykickstart/commands/autopart.py:47 ../pykickstart/commands/cdrom.py:41
+#: ../pykickstart/commands/eula.py:65 ../pykickstart/commands/autopart.py:47
+#: ../pykickstart/commands/hmc.py:46 ../pykickstart/commands/cdrom.py:41
 #, python-format
 msgid "Kickstart command %s does not take any arguments"
 msgstr ""
 
 #: ../pykickstart/commands/eula.py:68
 msgid "Kickstart command eula expects the --agreed option"
-msgstr ""
-
-#: ../pykickstart/commands/key.py:61 ../pykickstart/commands/keyboard.py:56
-#: ../pykickstart/commands/mouse.py:65
-#, python-format
-msgid "Kickstart command %s requires one argument"
-msgstr ""
-
-#. allow for translation of the error message
-#: ../pykickstart/commands/mount.py:167
-#, python-format
-msgid "The '%s' and 'mount' commands can't be used at the same time"
-msgstr ""
-
-#: ../pykickstart/commands/mount.py:184
-#, python-format
-msgid "Invalid mount point '%s' given"
-msgstr ""
-
-#: ../pykickstart/commands/mount.py:187
-msgid "'--mkfsoptions' requires --reformat"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:90
-#, python-format
-msgid "Invalid snapshot when parameter: %s"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:114
-msgid "Snapshot origin must be specified!"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:117
-msgid "Snapshot origin can be specified only once!"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:127
-#, python-format
-msgid "Snapshot with the name %s has been already defined!"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:131
-msgid "Snapshot \"when\" parameter must be specified!"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:136
-#, python-format
-msgid "Snapshot origin %s must be specified by VG/LV!"
-msgstr ""
-
-#: ../pykickstart/commands/snapshot.py:141
-#, python-format
-msgid "Snapshot when param must have one of these values %s!"
-msgstr ""
-
-#: ../pykickstart/commands/zerombr.py:62
-#, python-format
-msgid ""
-"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
-"any options.  In future releases, this will result in a fatal error from "
-"kickstart.  Please modify your kickstart file to remove any options."
-msgstr ""
-
-#. pylint: disable=no-member
-#: ../pykickstart/commands/bootloader.py:323
-msgid "--boot-drive accepts only one argument"
-msgstr ""
-
-#: ../pykickstart/commands/user.py:202
-#, python-format
-msgid "A user with the name %s has already been defined."
 msgstr ""
 
 #. allow for translation of the error message
@@ -361,6 +290,47 @@ msgstr ""
 
 #: ../pykickstart/commands/autopart.py:630
 msgid "autopart --type=btrfs is not supported"
+msgstr ""
+
+#. allow for translation of the error message
+#: ../pykickstart/commands/mount.py:167
+#, python-format
+msgid "The '%s' and 'mount' commands can't be used at the same time"
+msgstr ""
+
+#: ../pykickstart/commands/mount.py:184
+#, python-format
+msgid "Invalid mount point '%s' given"
+msgstr ""
+
+#: ../pykickstart/commands/mount.py:187
+msgid "'--mkfsoptions' requires --reformat"
+msgstr ""
+
+#: ../pykickstart/commands/logging.py:80
+msgid "Can't specify --port without --host."
+msgstr ""
+
+#: ../pykickstart/commands/syspurpose.py:86
+msgid "The syspurpose command does not take positional arguments!"
+msgstr ""
+
+#: ../pykickstart/commands/zerombr.py:62
+#, python-format
+msgid ""
+"Ignoring deprecated option on line %s:  The zerombr command no longer takes "
+"any options.  In future releases, this will result in a fatal error from "
+"kickstart.  Please modify your kickstart file to remove any options."
+msgstr ""
+
+#. pylint: disable=no-member
+#: ../pykickstart/commands/bootloader.py:323
+msgid "--boot-drive accepts only one argument"
+msgstr ""
+
+#: ../pykickstart/commands/user.py:202
+#, python-format
+msgid "A user with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/services.py:76
@@ -419,6 +389,12 @@ msgstr ""
 #, python-format
 msgid ""
 "Action %(action)s requires --namespace or --blockdevs argument to be set"
+msgstr ""
+
+#: ../pykickstart/commands/keyboard.py:56 ../pykickstart/commands/mouse.py:65
+#: ../pykickstart/commands/key.py:61
+#, python-format
+msgid "Kickstart command %s requires one argument"
 msgstr ""
 
 #: ../pykickstart/commands/keyboard.py:163 ../pykickstart/commands/rootpw.py:85
@@ -651,18 +627,14 @@ msgid ""
 "The --fstype=tmpfs option can't be used together with --grow or --maxsize"
 msgstr ""
 
-#: ../pykickstart/commands/logging.py:80
-msgid "Can't specify --port without --host."
+#: ../pykickstart/commands/rescue.py:77
+msgid ""
+"Only one of --nomount and --romount may be specified for rescue command."
 msgstr ""
 
 #: ../pykickstart/commands/updates.py:64
 #, python-format
 msgid "Kickstart command %s only takes one argument"
-msgstr ""
-
-#: ../pykickstart/commands/group.py:95
-#, python-format
-msgid "A group with the name %s has already been defined."
 msgstr ""
 
 #: ../pykickstart/commands/network.py:478
@@ -742,25 +714,6 @@ msgstr ""
 msgid "--mkfsoptions with --noformat or --useexisting has no effect."
 msgstr ""
 
-#: ../pykickstart/commands/timezone.py:170
-#: ../pykickstart/commands/timezone.py:186
-#: ../pykickstart/commands/timezone.py:283
-#: ../pykickstart/commands/timezone.py:358
-msgid "Options --nontp and --ntpservers are mutually exclusive"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:266
-#: ../pykickstart/commands/timezone.py:341
-#, python-format
-msgid "At least one option and/or an argument are expected for the  %s command"
-msgstr ""
-
-#: ../pykickstart/commands/timezone.py:279
-#: ../pykickstart/commands/timezone.py:354
-#, python-format
-msgid "One or zero arguments are expected for the %s command"
-msgstr ""
-
 #: ../pykickstart/commands/realm.py:43
 msgid "The realm command 'join' should only be specified once"
 msgstr ""
@@ -781,6 +734,57 @@ msgstr ""
 
 #: ../pykickstart/commands/realm.py:66
 msgid "Specify only one realm to join"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:90
+#, python-format
+msgid "Invalid snapshot when parameter: %s"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:114
+msgid "Snapshot origin must be specified!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:117
+msgid "Snapshot origin can be specified only once!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:127
+#, python-format
+msgid "Snapshot with the name %s has been already defined!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:131
+msgid "Snapshot \"when\" parameter must be specified!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:136
+#, python-format
+msgid "Snapshot origin %s must be specified by VG/LV!"
+msgstr ""
+
+#: ../pykickstart/commands/snapshot.py:141
+#, python-format
+msgid "Snapshot when param must have one of these values %s!"
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:256
+#, python-format
+msgid "One of -%(options_list)s options must be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:259
+#, python-format
+msgid "Only one of %(options_list)s options may be specified for repo command."
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:267
+#, python-format
+msgid "A repo with the name %s has already been defined."
+msgstr ""
+
+#: ../pykickstart/commands/repo.py:313
+msgid "Method must be a url to be added to the repo list."
 msgstr ""
 
 #: ../tools/ksverdiff.py:45 ../tools/ksvalidator.py:60
