@@ -35,7 +35,7 @@ apidoc:
 
 html: apidoc
 	PYTHONPATH=.. ./gen_commands_docs > commands.rst
-	PYTHONPATH=.. ./gen_commands_docs RHEL7 > commands_rhel.rst
+	PYTHONPATH=.. ./gen_commands_docs RHEL8 > commands_rhel.rst
 	PYTHONPATH=.. ./gen_sections_docs > sections.rst
 	PYTHONPATH=. $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
