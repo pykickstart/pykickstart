@@ -87,7 +87,7 @@ class F26_Snapshot(KickstartCommand):
         if value.lower() in self.whenMap:
             return self.whenMap[value.lower()]
         else:
-            msg = _("Invalid snapshot when parameter: %s") % value
+            msg = _("Invalid parameter to --when= argument: %s") % value
             raise KickstartParseError(msg, lineno=self.lineno)
 
     def _getParser(self):
