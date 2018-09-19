@@ -21,7 +21,7 @@
 from pykickstart.version import F17, F23, RHEL8, versionToLongString
 from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, mountpoint
 
 import warnings
 from pykickstart.i18n import _
@@ -217,7 +217,7 @@ class F17_BTRFS(KickstartCommand):
             mapping = {"command": "btrfs", "options": extra}
             raise KickstartParseError(_("Unexpected arguments to %(command)s command: %(options)s") % mapping, lineno=self.lineno)
 
-        data.mountpoint = extra[0]
+        data.mountpoint = mountpoint(extra[0])
         data.devices = extra[1:]
 
         if not any([data.devices, data.subvol]):

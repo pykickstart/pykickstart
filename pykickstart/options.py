@@ -43,6 +43,7 @@ And it exports two functions:
     ksboolean - A function to be used as the type= argument to any arguments
                 that can take a boolean.
 """
+import os
 import warnings
 import textwrap
 from argparse import RawTextHelpFormatter, SUPPRESS
@@ -66,6 +67,12 @@ def ksboolean(value):
             raise ArgumentTypeError(_("invalid boolean value: %r") % value)
     except AttributeError:
         raise ArgumentTypeError(_("invalid boolean value: %r") % value)
+
+def mountpoint(value):
+    if value.startswith("/"):
+        return os.path.normpath(value)
+
+    return value
 
 class KSHelpFormatter(RawTextHelpFormatter):
     """

@@ -22,7 +22,7 @@ from pykickstart.version import versionToLongString, RHEL5, RHEL6, FC3, FC4, FC5
 from pykickstart.version import F7, F9, F12, F13, F14, F15, F18, F23, F25, RHEL8
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, mountpoint
 
 import warnings
 from pykickstart.i18n import _
@@ -371,8 +371,8 @@ class FC3_Raid(KickstartCommand):
                                 raid / --level=1 --device=md0 raid.01 raid.02 raid.03
                                 raid /usr --level=5 --device=md1 raid.11 raid.12 raid.13
                             """, version=FC3)
-        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=FC3,
-                        help="""
+        op.add_argument("mntpoint", metavar="<mntpoint>", type=mountpoint, nargs=1,
+                        version=FC3, help="""
                         Location where the RAID file system is mounted. If it
                         is /, the RAID level must be 1 unless a boot partition
                         (/boot) is present. If a boot partition is present, the
