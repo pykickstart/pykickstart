@@ -20,7 +20,7 @@
 
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, mountpoint
 from pykickstart.version import F27
 
 from pykickstart.i18n import _
@@ -115,8 +115,8 @@ class F27_Mount(KickstartCommand):
 
         op.add_argument("device", metavar="<device>", nargs=1, version=F27,
                         help="""The block device to mount""")
-        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=F27,
-                        help="""
+        op.add_argument("mntpoint", metavar="<mntpoint>", type=mountpoint, nargs=1,
+                        version=F27, help="""
                         The ``<mntpoint>`` is where the <device> will be
                         mounted.  Must be a valid mount point, for example
                         ``/``, ``/usr``, ``/home``, or ``none`` if the device

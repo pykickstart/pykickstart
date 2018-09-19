@@ -21,7 +21,7 @@ from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
 from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23, F29
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, mountpoint
 
 import warnings
 from pykickstart.i18n import _
@@ -334,8 +334,8 @@ class FC3_Partition(KickstartCommand):
                             If partitioning fails for any reason, diagnostic
                             messages will appear on virtual console 3.""",
                             version=FC3)
-        op.add_argument("mntpoint", metavar="<mntpoint>", nargs=1, version=FC3,
-                        help="""
+        op.add_argument("mntpoint", metavar="<mntpoint>", type=mountpoint, nargs=1,
+                        version=FC3, help="""
                         The ``<mntpoint>`` is where the partition will be mounted
                         and must be of one of the following forms:
 
