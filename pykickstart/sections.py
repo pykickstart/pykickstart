@@ -494,6 +494,38 @@ class PackageSection(Section):
                             with no additional characters (the dhcp line in the
                             example above is an individual package).
 
+                            The ``@`` prefix is also used to request installation
+                            of module streams in the following format::
+
+                                @<module name>:<stream name>/<profile name>
+
+                            Profile name is optional and multiple profiles can be
+                            installed by using multiple lines, one per profile.
+                            Stream name is only optional only if the given module
+                            has a default stream.
+
+                            If there are a module and a group named the same,
+                            and no stream name and profile are specified,
+                            module will be selected instead of a group.
+
+                            Requesting one module more than once with different
+                            streams or not specifying a stream name for a module
+                            without a default stream will result in an error.
+
+                            Here is an example %packages selection with modules::
+
+                                %packages
+                                @^Fedora Server Edition
+                                @nodejs:10
+                                @django:1.6
+                                @postgresql:9.6/server
+                                @mariadb:10.1/server
+                                @mysql:5.7/default
+                                @scala:2.10/default
+                                @gimp:2.10/devel
+                                vim
+                                %end
+
                             You can also specify environments using the ``@^``
                             prefix followed by full environment name as given in
                             the comps.xml file.  If multiple environments are
