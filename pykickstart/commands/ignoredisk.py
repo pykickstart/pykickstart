@@ -17,9 +17,11 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+import warnings
+
 from pykickstart.version import FC3, F8, RHEL6, F29
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.i18n import _
 from pykickstart.options import KSOptionParser, commaSplit
 
@@ -151,7 +153,29 @@ class F29_IgnoreDisk(F14_IgnoreDisk):
     removedAttrs = F14_IgnoreDisk.removedAttrs
 
     def parse(self, args):
-        return F8_IgnoreDisk.parse(self, args)
+        retval = FC3_IgnoreDisk.parse(self, args)
+
+        howmany = 0
+        if self.ignoredisk:
+            howmany += 1
+        if self.onlyuse:
+            howmany += 1
+        if self.interactive:
+            howmany += 1
+            warnings.warn(_("Ignoring deprecated option on line %s:  The ignoredisk command "
+                            "no longer supports --interactive option.  In future releases, "
+                            "this will result in a fatal error from kickstart. "
+                            "Please modify your kickstart file to remove the option.")
+                          % self.lineno, KickstartDeprecationWarning)
+        if howmany != 1:
+            if self.interactive:
+                raise KickstartParseError(_("--interactive option of ignoredisk command "
+                                            "is no longer supported."), lineno=self.lineno)
+            else:
+                raise KickstartParseError(_("One of --drives or --only-use must be specified "
+                                            "for ignoredisk command."), lineno=self.lineno)
+
+        return retval
 
     def _getParser(self):
         op = F14_IgnoreDisk._getParser(self)
