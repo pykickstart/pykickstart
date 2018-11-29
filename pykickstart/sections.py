@@ -34,7 +34,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, RHEL7
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, RHEL6, RHEL7
 from pykickstart.i18n import _
 
 class Section(object):
@@ -160,6 +160,7 @@ class ScriptSection(Section):
                             description=self._description,
                             epilog=self._epilog,
                             version=FC4)
+
         op.add_argument("--erroronfail", dest="errorOnFail", action="store_true",
                         default=False, help="""
                         If the error script fails, this option will cause an
@@ -577,6 +578,7 @@ class PackageSection(Section):
                                 also install the optional packages. This means all
                                 packages in the group will be installed.
                             """, version=FC4)
+
         op.add_argument("--excludedocs", action="store_true", default=False,
                         help="""
                         Do not install any of the documentation from any packages.
@@ -593,10 +595,55 @@ class PackageSection(Section):
                         continued. This option allows fully automated
                         installation even in the error case.""",
                         version=FC4)
+        op.add_argument("--ignoredeps", dest="resolveDeps", action="store_false",
+                        deprecated=FC4, help="")
+        op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true",
+                        deprecated=FC4, help="")
+
+        if self.version < F7:
+            return op
+
+        op.add_argument("--default", dest="defaultPackages", action="store_true",
+                        default=False, version=F7, help="""
+                        Install the default package set. This corresponds to the
+                        package set that would be installed if no other
+                        selections were made on the package customization screen
+                        during an interactive install.""")
+
+        if self.version < F9:
+            return op
+
+        op.remove_argument("--ignoredeps", version=F9)
+        op.remove_argument("--resolvedeps", version=F9)
+        op.add_argument("--instLangs", default=None, version=F9, help="""
+                        Specify the list of languages that should be installed.
+                        This is different from the package group level
+                        selections, though. This option does not specify what
+                        package groups should be installed. Instead, it controls
+                        which translation files from individual packages should
+                        be installed by setting RPM macros.""")
+
+        if self.version < RHEL6:
+            return op
+
         op.add_argument("--nobase", action="store_true", default=False,
-                        deprecated=F18, removed=F22, help="""
+                        version=RHEL6, help="""
                         Do not install the @base group (installed by default,
                         otherwise).""")
+
+        if self.version < F18:
+            return op
+
+        op.add_argument("--nobase", action="store_true", default=False,
+                        deprecated=F18)
+        op.add_argument("--multilib", dest="multiLib", action="store_true",
+                        default=False, version=F18, help="""
+                        Enable yum's "all" multilib_policy as opposed to the
+                        default of "best".""")
+
+        if self.version < F21:
+            return op
+
         op.add_argument("--nocore", action="store_true", default=False,
                         version=F21, help="""
                         Do not install the @core group (installed by default,
@@ -605,34 +652,10 @@ class PackageSection(Section):
                         **Omitting the core group can produce a system that is
                         not bootable or that cannot finish the install. Use
                         with caution.**""")
-        op.add_argument("--ignoredeps", dest="resolveDeps", action="store_false",
-                        deprecated=FC4, removed=F9, help="")
-        op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true",
-                        deprecated=FC4, removed=F9, help="")
-        op.add_argument("--default", dest="defaultPackages", action="store_true",
-                        default=False, version=F7, help="""
-                        Install the default package set. This corresponds to the
-                        package set that would be installed if no other
-                        selections were made on the package customization screen
-                        during an interactive install.""")
-        op.add_argument("--instLangs", default=None, version=F9, help="""
-                        Specify the list of languages that should be installed.
-                        This is different from the package group level
-                        selections, though. This option does not specify what
-                        package groups should be installed. Instead, it controls
-                        which translation files from individual packages should
-                        be installed by setting RPM macros.""")
-        op.add_argument("--multilib", dest="multiLib", action="store_true",
-                        default=False, version=F18, help="""
-                        Enable yum's "all" multilib_policy as opposed to the
-                        default of "best".""")
-        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
-                        action="store_true", default=False, version=F24,
-                        help="""
-                        Do not install packages from weak dependencies. These
-                        are packages linked to the selected package set by
-                        Recommends and Supplements flags. By default weak
-                        dependencies will be installed.""")
+
+        if self.version < RHEL7:
+            return op
+
         op.add_argument("--timeout", dest="timeout", type=int,
                         default=None, version=RHEL7, help="""
                         Set up yum's or dnf's timeout. It is a number of seconds
@@ -642,6 +665,22 @@ class PackageSection(Section):
                         Set up yum's or dnf's retries. It is a number of times
                         any attempt to retrieve a file should retry before
                         returning an error.""")
+
+        if self.version < F22:
+            return op
+
+        op.remove_argument("--nobase", version=F22)
+
+        if self.version < F24:
+            return op
+
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
+                        action="store_true", default=False, version=F24,
+                        help="""
+                        Do not install packages from weak dependencies. These
+                        are packages linked to the selected package set by
+                        Recommends and Supplements flags. By default weak
+                        dependencies will be installed.""")
 
         return op
 
@@ -654,27 +693,53 @@ class PackageSection(Section):
         op = self._getParser()
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
-        if ns.defaultPackages and ns.nobase:
-            raise KickstartParseError(_("--default and --nobase cannot be used together"), lineno=lineno)
-        elif ns.defaultPackages and ns.nocore:
-            raise KickstartParseError(_("--default and --nocore cannot be used together"), lineno=lineno)
-
+        self.handler.packages.seen = True
         self.handler.packages.excludeDocs = ns.excludedocs
-        self.handler.packages.addBase = not ns.nobase
         if ns.ignoremissing:
             self.handler.packages.handleMissing = KS_MISSING_IGNORE
         else:
             self.handler.packages.handleMissing = KS_MISSING_PROMPT
 
+        if self.version < F7:
+            return
+
         if ns.defaultPackages:
             self.handler.packages.default = True
+
+        if self.version < F9:
+            return
 
         if ns.instLangs is not None:
             self.handler.packages.instLangs = ns.instLangs
 
-        self.handler.packages.nocore = ns.nocore
+        if self.version < RHEL6:
+            return
+
+        if ns.defaultPackages and getattr(ns, "nobase", False):
+            raise KickstartParseError(_("--default and --nobase cannot be used together"), lineno=lineno)
+
+        self.handler.packages.addBase = not getattr(ns, "nobase", False)
+
+        if self.version < F18:
+            return
+
         self.handler.packages.multiLib = ns.multiLib
-        self.handler.packages.excludeWeakdeps = ns.excludeWeakdeps
+
+        if self.version < F21:
+            return
+
+        if ns.defaultPackages and ns.nocore:
+            raise KickstartParseError(_("--default and --nocore cannot be used together"), lineno=lineno)
+
+        self.handler.packages.nocore = ns.nocore
+
+        if self.version < RHEL7:
+            return
+
         self.handler.packages.timeout = ns.timeout
         self.handler.packages.retries = ns.retries
-        self.handler.packages.seen = True
+
+        if self.version < F24:
+            return
+
+        self.handler.packages.excludeWeakdeps = ns.excludeWeakdeps
