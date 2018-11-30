@@ -159,21 +159,20 @@ class ScriptSection(Section):
         op = KSOptionParser(prog=self.sectionOpen,
                             description=self._description,
                             epilog=self._epilog,
-                            version=self.version,
-                            addVersion=False)
+                            version=FC4)
         op.add_argument("--erroronfail", dest="errorOnFail", action="store_true",
                         default=False, help="""
                         If the error script fails, this option will cause an
                         error dialog to be displayed and will halt installation.
                         The error message will direct you to where the cause of
-                        the failure is logged.""", introduced=FC4)
+                        the failure is logged.""", version=FC4)
         op.add_argument("--interpreter", dest="interpreter", default="/bin/sh",
-                        introduced=FC4, metavar="/usr/bin/python", help="""
+                        version=FC4, metavar="/usr/bin/python", help="""
                         Allows you to specify a different scripting language,
                         such as Python. Replace /usr/bin/python with the
                         scripting language of your choice.
                         """)
-        op.add_argument("--log", "--logfile", dest="log", introduced=FC4,
+        op.add_argument("--log", "--logfile", dest="log", version=FC4,
                         help="""
                         Log all messages from the script to the given log file.
                         """)
@@ -369,7 +368,7 @@ class PostScriptSection(ScriptSection):
     def _getParser(self):
         op = ScriptSection._getParser(self)
         op.add_argument("--nochroot", dest="nochroot", action="store_true",
-                        default=False, introduced=FC4, help="""
+                        default=False, version=FC4, help="""
                         Allows you to specify commands that you would like to
                         run outside of the chroot environment.""")
         return op
@@ -577,14 +576,14 @@ class PackageSection(Section):
                                 In addition to the mandatory and default packages,
                                 also install the optional packages. This means all
                                 packages in the group will be installed.
-                            """, version=self.version, addVersion=False)
+                            """, version=FC4)
         op.add_argument("--excludedocs", action="store_true", default=False,
                         help="""
                         Do not install any of the documentation from any packages.
                         For the most part, this means files in /usr/share/doc*
                         will not get installed though it could mean other files
                         as well, depending on how the package was built.""",
-                        introduced=FC4)
+                        version=FC4)
         op.add_argument("--ignoremissing", action="store_true", default=False,
                         help="""
                         Ignore any packages or groups specified in the packages
@@ -593,13 +592,13 @@ class PackageSection(Section):
                         the user if the installation should be aborted or
                         continued. This option allows fully automated
                         installation even in the error case.""",
-                        introduced=FC4)
+                        version=FC4)
         op.add_argument("--nobase", action="store_true", default=False,
                         deprecated=F18, removed=F22, help="""
                         Do not install the @base group (installed by default,
                         otherwise).""")
         op.add_argument("--nocore", action="store_true", default=False,
-                        introduced=F21, help="""
+                        version=F21, help="""
                         Do not install the @core group (installed by default,
                         otherwise).
 
@@ -611,12 +610,12 @@ class PackageSection(Section):
         op.add_argument("--resolvedeps", dest="resolveDeps", action="store_true",
                         deprecated=FC4, removed=F9, help="")
         op.add_argument("--default", dest="defaultPackages", action="store_true",
-                        default=False, introduced=F7, help="""
+                        default=False, version=F7, help="""
                         Install the default package set. This corresponds to the
                         package set that would be installed if no other
                         selections were made on the package customization screen
                         during an interactive install.""")
-        op.add_argument("--instLangs", default=None, introduced=F9, help="""
+        op.add_argument("--instLangs", default=None, version=F9, help="""
                         Specify the list of languages that should be installed.
                         This is different from the package group level
                         selections, though. This option does not specify what
@@ -624,22 +623,22 @@ class PackageSection(Section):
                         which translation files from individual packages should
                         be installed by setting RPM macros.""")
         op.add_argument("--multilib", dest="multiLib", action="store_true",
-                        default=False, introduced=F18, help="""
+                        default=False, version=F18, help="""
                         Enable yum's "all" multilib_policy as opposed to the
                         default of "best".""")
         op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
-                        action="store_true", default=False, introduced=F24,
+                        action="store_true", default=False, version=F24,
                         help="""
                         Do not install packages from weak dependencies. These
                         are packages linked to the selected package set by
                         Recommends and Supplements flags. By default weak
                         dependencies will be installed.""")
         op.add_argument("--timeout", dest="timeout", type=int,
-                        default=None, introduced=RHEL7, help="""
+                        default=None, version=RHEL7, help="""
                         Set up yum's or dnf's timeout. It is a number of seconds
                         to wait for a connection before timing out.""")
         op.add_argument("--retries", dest="retries", type=int,
-                        default=None, introduced=RHEL7, help="""
+                        default=None, version=RHEL7, help="""
                         Set up yum's or dnf's retries. It is a number of times
                         any attempt to retrieve a file should retry before
                         returning an error.""")
