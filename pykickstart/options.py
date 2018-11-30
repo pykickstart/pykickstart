@@ -50,7 +50,7 @@ from argparse import RawTextHelpFormatter, SUPPRESS
 from argparse import Action, ArgumentParser, ArgumentTypeError
 
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
-from pykickstart.version import versionToString, versionToLongString
+from pykickstart.version import versionToLongString
 
 from pykickstart.i18n import _
 
@@ -128,8 +128,8 @@ class KSOptionParser(ArgumentParser):
 
            Instance attributes:
 
-           version -- The version of the kickstart syntax we are checking
-                      against.
+           version -- The version when the kickstart command was introduced.
+
         """
         # Overridden to allow for the version kwargs, to skip help option generation,
         # and to resolve conflicts instead of override earlier options.
@@ -137,6 +137,10 @@ class KSOptionParser(ArgumentParser):
         version = versionToLongString(int_version)
 
         # always document the version
+        if "addVersion" in kwargs:
+            warnings.warn("The option 'addVersion' will be removed in a future release.",
+                          PendingDeprecationWarning)
+
         addVersion = kwargs.pop('addVersion', True)
 
         # remove leading spaced from description and epilog.
@@ -168,39 +172,34 @@ class KSOptionParser(ArgumentParser):
         self.lineno = None
 
     def _parse_optional(self, arg_string):
-        def usedTooNew(action):
-            return action.introduced and action.introduced > self.version
-
-        def usedRemoved(action):
-            return action.removed and action.removed <= self.version
-
         option_tuple = ArgumentParser._parse_optional(self, arg_string)
         if option_tuple is None or option_tuple[0] is None:
             return option_tuple
 
         action = option_tuple[0]
+        option = action.option_strings[0]
 
-        if usedTooNew(action):
-            mapping = {"option": action.option_strings[0], "intro": versionToString(action.introduced),
-                       "version": versionToString(self.version)}
-            self.error(_("The %(option)s option was introduced in version %(intro)s, but you are using kickstart syntax version %(version)s.") % mapping)
-        elif usedRemoved(action):
-            mapping = {"option": action.option_strings[0], "removed": versionToString(action.removed),
-                       "version": versionToString(self.version)}
-
-            if action.removed == self.version:
-                self.error(_("The %(option)s option is no longer supported.") % mapping)
-            else:
-                self.error(_("The %(option)s option was removed in version %(removed)s, but you are using kickstart syntax version %(version)s.") % mapping)
-        elif action.deprecated is True or (self.version and type(action.deprecated) == int and self.version >= action.deprecated):
-            mapping = {"lineno": self.lineno, "option": action.option_strings[0]}
-            warnings.warn(_("Ignoring deprecated option on line %(lineno)s:  The %(option)s option has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this option.") % mapping, KickstartDeprecationWarning)
+        if action.deprecated:
+            warnings.warn(_("Ignoring deprecated option on line %(lineno)s: The %(option)s option "
+                            "has been deprecated and no longer has any effect. It may be removed "
+                            "from future releases, which will result in a fatal error from "
+                            "kickstart. Please modify your kickstart file to remove this option.")
+                          % {"lineno": self.lineno, "option": option}, KickstartDeprecationWarning)
 
         return option_tuple
 
     def add_argument(self, *args, **kwargs):
+        if "introduced" in kwargs:
+            warnings.warn("The option 'introduced' will be removed in a future release. "
+                          "Use 'version' instead.", PendingDeprecationWarning)
+
+        if "removed" in kwargs:
+            warnings.warn("The option 'removed' will be removed in a future release. "
+                          "Use 'remove_argument' instead.", PendingDeprecationWarning)
+
         introduced = kwargs.pop("introduced", None)
         deprecated = kwargs.pop("deprecated", False)
+
         if deprecated:
             version = versionToLongString(deprecated)
         else:
