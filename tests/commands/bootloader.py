@@ -19,6 +19,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartDeprecationWarning
 
 class FC3_TestCase(CommandTest):
     command = "bootloader"
@@ -185,6 +186,10 @@ class F29_TestCase(F21_TestCase):
     def runTest(self, iscrypted=False):
         F21_TestCase.runTest(self, iscrypted=iscrypted)
         self.assert_deprecated("bootloader", "--upgrade")
+
+        # deprecated options should also raise a deprecation warning - test that somewhere
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("bootloader --upgrade")
 
 class RHEL8_TestCase(F29_TestCase):
     pass
