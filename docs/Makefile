@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = STARTED_FROM_MAKEFILE=1 sphinx-build
-SPHINXAPIDOC  = sphinx-apidoc
+SPHINXAPIDOC  = sphinx-apidoc-3
 PAPER         =
 BUILDDIR      = _build
 SOURCEDIR     = ../pykickstart

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 import sys
 from pykickstart.handlers import control
 from pykickstart.version import DEVEL, stringToVersion, versionToString, \
