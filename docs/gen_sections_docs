@@ -29,8 +29,8 @@ if __name__ == "__main__":
         if not section.sectionOpen:
             continue
 
-        title = _format_title('Chapter %d. %s' % (chapter, section._title), '=')
-        print(title)
+        newtitle = _format_title('Chapter %d. %s' % (chapter, section._title), '=')
+        print(newtitle)
         op = section._getParser()
         op.print_help()
         chapter += 1
