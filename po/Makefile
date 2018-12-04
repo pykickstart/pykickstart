@@ -6,7 +6,7 @@ INSTALL_DATA	= $(INSTALL) -m 644
 INSTALL_DIR	= /usr/bin/install -d
 
 # destination directory
-PYTHON?=python
+PYTHON?=python3
 DESTDIR ?= $(RPM_BUILD_ROOT)
 INSTALL_NLS_DIR = $(DESTDIR)/`$(PYTHON) -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`/$(NLSPACKAGE)/locale
 
