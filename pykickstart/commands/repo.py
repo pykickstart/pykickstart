@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString
-from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27
+from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
@@ -165,6 +165,30 @@ class F27_RepoData(F21_RepoData):
 
         if self.metalink:
             retval += " --metalink=%s" % self.metalink
+
+        return retval
+
+class F30_RepoData(F27_RepoData):
+    removedKeywords = F27_RepoData.removedKeywords
+    removedAttrs = F27_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F27_RepoData.__init__(self, *args, **kwargs)
+        self.sslcacert = kwargs.get("sslcacert", None)
+        self.sslclientcert = kwargs.get("sslclientcert", None)
+        self.sslclientkey = kwargs.get("sslclientkey", None)
+
+    def _getArgsAsStr(self):
+        retval = F27_RepoData._getArgsAsStr(self)
+
+        if self.sslcacert:
+            retval += " --sslcacert=\"%s\"" % self.sslcacert
+
+        if self.sslclientcert:
+            retval += " --sslclientcert=\"%s\"" % self.sslclientcert
+
+        if self.sslclientkey:
+            retval += " --sslclientkey=\"%s\"" % self.sslclientkey
 
         return retval
 
@@ -421,6 +445,23 @@ class F27_Repo(F21_Repo):
 
                     ``Another mutually exclusive option --metalink`` was added.
                     """ % versionToLongString(F27))
+        return op
+
+class F30_Repo(F27_Repo):
+    removedKeywords = F27_Repo.removedKeywords
+    removedAttrs = F27_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F27_Repo._getParser(self)
+        op.add_argument("--sslcacert", version=F30, help="""
+                        Path to the file holding one or more SSL certificates
+                        to verify the repository host with.""")
+        op.add_argument("--sslclientcert", version=F30, help="""
+                        Path to the SSL client certificate (PEM file) which
+                        should be used to connect to the repository.""")
+        op.add_argument("--sslclientkey", version=F30, help="""
+                        Path to the private key file associated with the client
+                        certificate given with --sslclientcert.""")
         return op
 
 class RHEL7_Repo(F21_Repo):

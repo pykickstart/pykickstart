@@ -176,5 +176,22 @@ class F27_TestCase(F21_TestCase):
         self.assert_parse_error("repo --name=blah --metalink=https://www.domain.com/metalink --mirrorlist=https://www.domain.com/mirror")
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --metalink=https://www.domain.com/metalink")
 
+class F30_TestCase(F27_TestCase):
+    def runTest(self, urlRequired=False):
+        F27_TestCase.runTest(self, urlRequired=urlRequired)
+
+        # pass
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientcert=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslclientcert=\"file:///foo/bar\"\n")
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientkey=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslclientkey=\"file:///foo/bar\"\n")
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslcacert=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslcacert=\"file:///foo/bar\"\n")
+
+        # fail: all of these take arguments
+        self.assert_parse_error("repo --name=test --sslclientcert")
+        self.assert_parse_error("repo --name=test --sslclientkey")
+        self.assert_parse_error("repo --name=test --sslcacert")
+
 if __name__ == "__main__":
     unittest.main()

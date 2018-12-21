@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F13, F14, F18, F27
+from pykickstart.version import FC3, F13, F14, F18, F27, F30
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -240,4 +240,45 @@ class F27_Url(F18_Url):
         op.add_argument("--metalink", metavar="URL", version=F27, help="""
                         The metalink URL to install from. Variable substitution
                         is done for $releasever and $basearch in the url.""")
+        return op
+
+class F30_Url(F27_Url):
+    removedKeywords = F27_Url.removedKeywords
+    removedAttrs = F27_Url.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F27_Url.__init__(self, *args, **kwargs)
+        self.sslcacert = kwargs.get("sslcacert", None)
+        self.sslclientcert = kwargs.get("sslclientcert", None)
+        self.sslclientkey = kwargs.get("sslclientkey", None)
+
+    def __str__(self):
+        retval = F27_Url.__str__(self)
+        if not self.seen:
+            return retval
+
+        retval = retval[:-1]  # strip '\n'
+
+        if self.sslcacert:
+            retval += " --sslcacert=\"%s\"" % self.sslcacert
+
+        if self.sslclientcert:
+            retval += " --sslclientcert=\"%s\"" % self.sslclientcert
+
+        if self.sslclientkey:
+            retval += " --sslclientkey=\"%s\"" % self.sslclientkey
+
+        return retval + "\n"
+
+    def _getParser(self):
+        op = F27_Url._getParser(self)
+        op.add_argument("--sslcacert", version=F30, help="""
+                        Path to the file holding one or more SSL certificates
+                        to verify the repository host with.""")
+        op.add_argument("--sslclientcert", version=F30, help="""
+                        Path to the SSL client certificate (PEM file) which
+                        should be used to connect to the repository.""")
+        op.add_argument("--sslclientkey", version=F30, help="""
+                        Path to the private key file associated with the client
+                        certificate given with --sslclientcert.""")
         return op
