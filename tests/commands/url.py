@@ -155,5 +155,23 @@ class F27_TestCase(F18_TestCase):
         self.assert_parse_error("url --url=www.wherever.com --metalink=www.wherever.com")
         self.assert_parse_error("url --mirrorlist=www.wherever.com --metalink=www.wherever.com")
 
+class F30_TestCase(F27_TestCase):
+    def runTest(self):
+        # run F27 test case.
+        F27_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --url=http://example.com --sslclientcert=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslclientcert=\"file:///foo/bar\"\n")
+        self.assert_parse("url --url=http://example.com --sslclientkey=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslclientkey=\"file:///foo/bar\"\n")
+        self.assert_parse("url --url=http://example.com --sslcacert=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslcacert=\"file:///foo/bar\"\n")
+
+        # fail: all of these take arguments
+        self.assert_parse_error("url --url=http://example.com --sslclientcert")
+        self.assert_parse_error("url --url=http://example.com --sslclientkey")
+        self.assert_parse_error("url --url=http://example.com --sslcacert")
+
 if __name__ == "__main__":
     unittest.main()
