@@ -33,7 +33,7 @@ This module exports several important classes:
 
 from __future__ import print_function
 
-from collections import Iterator
+from collections.abc import Iterator
 import os
 import six
 import shlex
