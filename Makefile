@@ -11,7 +11,8 @@ tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
 
 COVERAGE=coverage3
-PYTHON?=/usr/bin/python3
+PYTHON?=python3
+PYTHON_VERSION=$(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
@@ -27,7 +28,7 @@ docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
-ifneq ($(PYTHON),/usr/bin/python3)
+ifneq ($(PYTHON_VERSION),3)
 	$(error The check target is only supported for python3)
 endif
 	@echo "*** Running pylint to verify source ***"
@@ -41,7 +42,7 @@ endif
 test: coverage
 
 coverage:
-ifneq ($(PYTHON),/usr/bin/python3)
+ifneq ($(PYTHON_VERSION),3)
 	$(error The coverage/test target is only supported for python3)
 endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
@@ -127,9 +128,5 @@ rc-release: scratch-bumpver scratch
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
 	mock -r $(MOCKCHROOT) --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
-
-ci:
-	$(MAKE) PYTHON=$(PYTHON) check coverage
-	$(MAKE) docs
 
 .PHONY: check clean install tag archive local docs release
