@@ -1,4 +1,10 @@
-from sphinx.locale import versionlabels
+
+# Sphinx 1.8 changed the location of versionlabels
+try:
+    from sphinx.domains.changeset import versionlabels
+except ImportError:
+    from sphinx.locale import versionlabels
+
 from sphinx.directives.other import VersionChange
 
 __version__ = '0.1.0'
