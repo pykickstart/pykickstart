@@ -126,7 +126,6 @@ class F16_TestCase(FC3_TestCase):
 
         # Fail - incorrect values.
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=-1")
-        self.assert_parse_error("volgroup vg.01 pv.01 --reserved-space=0")
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=0")
         self.assert_parse_error("volgroup vg.01 pv.01 --reserved-percent=100")
 
