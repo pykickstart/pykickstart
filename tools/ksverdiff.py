@@ -39,7 +39,7 @@ def printList(lst):
     if lst:
         print()
 
-def main(argv=sys.argv[1:]):
+def main(argv=None):
     op = argparse.ArgumentParser()
     op.add_argument("-f", "--from", dest="f")
     op.add_argument("-t", "--to", dest="t")
