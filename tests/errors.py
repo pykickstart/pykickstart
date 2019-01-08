@@ -1,5 +1,4 @@
 import unittest
-import unittest.mock as mock
 from tests.baseclass import ParserTest
 
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartParseError, \
