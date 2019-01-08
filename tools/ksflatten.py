@@ -41,7 +41,7 @@ def parse_args(argv):
 
     return parser.parse_args(argv)
 
-def main(argv=sys.argv[1:]):
+def main(argv=None):
     opts = parse_args(argv)
     if not opts.kscfg:
         return (1, _("Need to specify a config to flatten"))
