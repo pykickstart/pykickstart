@@ -55,7 +55,7 @@ class ValidKSFile_ToStdOut_TestCase(TestCase):
 
     def runTest(self):
         with capture(ksflatten.main, ['--version', 'F26', '--config', self._ks_path]) as output:
-            self.assertEqual(output, "#version=DEVEL\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
+            self.assertEqual(output, "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
 
 class ValidKSFile_TestCase(TestCase):
     def setUp(self):
@@ -76,7 +76,7 @@ class ValidKSFile_TestCase(TestCase):
         self.assertEqual(retval, 0)
         self.assertEqual(msg, "")
         output = open(self._output_path, 'r').read()
-        self.assertEqual(output, "#version=DEVEL\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
+        self.assertEqual(output, "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
 
 class FailsToOpenOutputFile_TestCase(TestCase):
     def setUp(self):
