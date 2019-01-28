@@ -66,7 +66,7 @@ tag:
 
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
-	$(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
+	$(MAKE) bumpver && $(MAKE) po-pull && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
