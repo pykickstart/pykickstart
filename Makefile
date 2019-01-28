@@ -66,7 +66,7 @@ tag:
 
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
-	$(MAKE) bumpver && $(MAKE) po-pull && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
+	$(MAKE) po-pull && $(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
@@ -97,7 +97,7 @@ local: docs po-pull
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(PREVTAG)..$(TAG) |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
 
-bumpver: po-pull docs
+bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
