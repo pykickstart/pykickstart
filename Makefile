@@ -92,6 +92,8 @@ archive: docs
 local: docs po-pull
 	cp docs/_build/text/*.txt docs/
 	@$(PYTHON) setup.py -q sdist --dist-dir .
+	@echo "# To create the signature, run this command:" > pykickstart-$(VERSION).tar.gz.asc
+	@echo "# gpg --detach-sign --armor pykickstart-$(VERSION).tar.gz" >> pykickstart-$(VERSION).tar.gz.asc
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 rpmlog:
