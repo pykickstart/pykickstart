@@ -1,0 +1,123 @@
+Contributing to pykickstart
+---------------------------
+
+INTRODUCTION
+
+pykickstart began life on October 5, 2005 on the anaconda team at Red Hat.
+That's the team responsible for the installation software used by Fedora Linux,
+Red Hat Enterprise Linux, CentOS, and many other distributions.  The idea for a
+Python module for the kickstart configuration file came from a few key problems
+the team was hitting:
+
+    * There was no formal specification for the configuration file format.
+    * The only documentation for kickstart was what was in the Red Hat
+      installation guides.
+    * The actual processing of the kickstart file was handled by two code
+      paths in the installer.
+
+What this led to is a reactive model for handling kickstart bug reports.  If a
+user felt something in kickstart should be possible, it would get added somehow
+to the installer and then have to be supported forever.  The team felt it was
+necessary to separate out the file format specification and processing to a
+separate project in order to establish the syntax and method for updating it.
+
+Oh, and if you have read this far and do not know what kickstart is, go read
+this:
+
+    https://pykickstart.readthedocs.io/en/latest/kickstart-docs.html
+
+TL;DR -- It's the system that lets you automate otherwise interactive
+installations.
+
+
+Kickstart the Language
+~~~~~~~~~~~~~~~~~~~~~~
+pykickstart provides a versioned language library for the kickstart file
+format.  It is possible to process a kickstart file from a specific RHEL or
+Fedora release or just use the latest default.  This allows the file format to
+deprecate commands and syntax over time as well as add new commands that do not
+apply to old releases.
+
+The ksvalidator and ksverdiff commands are available to administrators who want
+to see what has changed between kickstart revisions.
+
+Kickstart revisions are tied to distribution releases.  In the case of RHEL and
+CentOS, this refers to the major version number only.
+
+
+Kickstart the Library
+~~~~~~~~~~~~~~~~~~~~~
+pykickstart provides a Python module that lets your program parse and use data
+from kickstart files.  By separating it out from the installer, kickstart file
+handling has now found its way in to many other projects.
+
+
+CONTRIBUTING TO THE LIBRARY
+
+We welcome new features and bug fixes to pykickstart.  Please read below for
+some of the things you should keep in mind before sending in a contribution.
+
+* File format consistency and comaptibility is important.  For this reason,
+  please think long and hard before proposing a new command or options to an
+  existing command.  Is it very similar to an existing command or is it
+  something very new?  Is it a variation on an existing command?  What versions
+  of Fedora and RHEL does it need to work on?
+
+* Plan to support your new feature for 10+ years.  Part of what makes kickstart
+  successful is the longetivity of the file format.
+
+* Does it really need to be in kickstart?  Sometimes proposals are made for now
+  popular things that do not make it to the 10 year mark.  In those cases, it
+  may be better to make an anaconda addon which will allow you to supplement
+  kickstart syntax for automation purposes.
+
+With that in mind, here are some rules regarding contributions:
+
+* Please follow PEP8 Python coding standards, but also follow the coding style
+  of anything already there.
+
+* Do not break long lines just to maintain a strict right column boundary.  It
+  is perfectly ok for these lines to travel far past column 80.  (That said,
+  this file is wrapped.  ¯\_(ツ)_/¯)
+
+* Use separate pull requests for formatting fixes and functional changes.
+
+* One thing per pull request.  Fixing a bug and changing something else related
+  to that?  Two pull requests, please.
+
+* Absolutely all pull requests must pass the test suite.  New features and new
+  syntax must include new test cases.  These test cases must be complete and
+  your code must pass.
+
+* All pull requests are subject to code review.
+
+This list is not exhaustive either, but tries to capture the main ideas.
+
+
+EXAMPLES
+
+So what makes a good kickstart addition vs. a bad one?  Here are some lists:
+
+Good Contributions
+~~~~~~~~~~~~~~~~~~
+* The ksvalidator command crashes without an error if you specify an invalid
+  version on the command line.  It would be more helpful to display an error
+  and maybe tell the user how to list available versions.
+
+      This is a good contribution because it is fixing a legitimate bug.
+
+
+Bad Contributions
+~~~~~~~~~~~~~~~~~
+* At my company we have a problem with automated installations where the link
+  doesn't work unless you first have the system sleep for a few seconds after
+  it gets a DHCP lease.  Here's a patch to the 'network' command to add a
+  --after-dhcp-sleep=NUM option to handle these instances.
+
+      This is a bad contribution because nothing about the problem described is
+      the fault of kickstart.  It could be local network configuration, the
+      hardware, or a problem in operating system network stack.  Either way,
+      the solution described is a workaround for the actual problem and not
+      something that kickstart needs to capture and provide to programs using
+      it.
+
