@@ -86,7 +86,7 @@ class F22_SshKey(KickstartCommand):
                             kickstart ``user`` command.""", version=F22)
         op.add_argument("--username", required=True, metavar="<user>",
                         version=F22, help="""
-                        User for which to install the specified key.""")
+                        User for which to install the specified key. This option is required.""")
         op.add_argument('sshkey', metavar='"ssh key"', nargs=1,
                         version=F22, help="""
                         The content of the ssh key to install.""")
