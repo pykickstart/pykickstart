@@ -93,6 +93,9 @@ class F26_Snapshot(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser(prog="snapshot", version=F26, description="""
                             Create an LVM snapshot for devices on an LVM thin pool.""")
+        op.add_argument("origin", metavar="<originVG/originLV>", version=F26,
+                        help="""
+                        Origin of the snapshot. The origin is specified as ``<VG>/<LV>``.""")
         op.add_argument("--name", metavar="<snapshot_name>", version=F26, required=True,
                         help="""
                         Name of the newly created snapshot.""")
@@ -108,19 +111,11 @@ class F26_Snapshot(KickstartCommand):
         return op
 
     def parse(self, args):
-        (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
-
-        if len(extra) == 0:
-            msg = _("Snapshot origin must be specified!")
-            raise KickstartParseError(msg, lineno=self.lineno)
-        elif len(extra) > 1:
-            msg = _("Snapshot origin can be specified only once!")
-            raise KickstartParseError(msg, lineno=self.lineno)
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
 
         snap_data = self.dataClass()   # pylint: disable=not-callable
         self.set_to_obj(ns, snap_data)
         snap_data.lineno = self.lineno
-        snap_data.origin = extra[0]
 
         # Check for duplicates
         if snap_data.name in [snap.name for snap in self.dataList()]:
@@ -138,8 +133,10 @@ class F26_Snapshot(KickstartCommand):
 
         # Check if value in a '--when' param is valid
         if snap_data.when != "" and snap_data.when not in self.whenMap.values():
-            msg = (_("Snapshot when param must have one of these values %s!") % self.whenMap.keys())
+            msg = (_("Snapshot when param must have one of these values %s!") %
+                   self.whenMap.keys())
             raise KickstartParseError(msg, lineno=self.lineno)
+
         return snap_data
 
     def dataList(self):
