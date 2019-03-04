@@ -1,0 +1,17 @@
+specfile_path: pykickstart.spec.in
+synced_files:
+  - packit.yaml
+  - pykickstart.spec.in
+jobs:
+  - trigger: release
+    release_to:
+      - master
+  - trigger: pull_request
+    release_to:
+      - master
+upstream_project_name: pykickstart
+downstream_package_name: pykickstart
+dist_git_url: https://src.fedoraproject.org/rpms/pykickstart.git
+checks:
+  - name: simple-koji-ci
+  - name: Fedora CI
