@@ -39,7 +39,7 @@ class FC3_LiloCheck(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="lilocheck", description="", version=FC3)
+        op = KSOptionParser(prog="lilocheck", description="check LILO boot loader", version=FC3)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
         return op
 

@@ -39,8 +39,7 @@ class RHEL6_UnsupportedHardware(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="unsupported_hardware", description="",
-                            version=RHEL6)
+        op = KSOptionParser(prog="unsupported_hardware", description="allow installation to proceed on systems with tainted hardware", version=RHEL6)
         return op
 
     def parse(self, args):

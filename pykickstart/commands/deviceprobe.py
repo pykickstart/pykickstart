@@ -43,7 +43,7 @@ class FC3_DeviceProbe(KickstartCommand):
         return self
 
     def _getParser(self):
-        return KSOptionParser(prog="deviceprobe", version=FC3, description="")
+        return KSOptionParser(prog="deviceprobe", version=FC3, description="probe for devices")
 
 
 class F29_DeviceProbe(DeprecatedCommand, FC3_DeviceProbe):

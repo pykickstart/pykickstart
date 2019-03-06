@@ -73,7 +73,7 @@ class FC6_DmRaid(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="dmraid", description="", version=FC6)
+        op = KSOptionParser(prog="dmraid", description="define a software RAID device", version=FC6)
         op.add_argument("--name", required=True, version=FC6, help="")
         op.add_argument("--dev", dest="devices", action="append",
                         required=True, version=FC6, help="")

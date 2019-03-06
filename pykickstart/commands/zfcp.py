@@ -101,7 +101,7 @@ class FC3_ZFCP(KickstartCommand):
         return retval
 
     def _getParser(self):
-        op = KSOptionParser(prog="zfcp", description="", version=FC3)
+        op = KSOptionParser(prog="zfcp", description="define a zFCP storage device (IBM System z only)", version=FC3)
         op.add_argument("--devnum", required=True, version=FC3, help="")
         op.add_argument("--fcplun", required=True, version=FC3, help="")
         op.add_argument("--scsiid", required=True, version=FC3, help="")
