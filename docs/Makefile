@@ -3,8 +3,8 @@
 
 # You can set these variables from the command line.
 SPHINXOPTS    =
-SPHINXBUILD   = STARTED_FROM_MAKEFILE=1 sphinx-build-3
-SPHINXAPIDOC  = sphinx-apidoc-3
+SPHINXBUILD   = STARTED_FROM_MAKEFILE=1 sphinx-build
+SPHINXAPIDOC  = sphinx-apidoc
 PAPER         =
 BUILDDIR      = _build
 SOURCEDIR     = ../pykickstart
