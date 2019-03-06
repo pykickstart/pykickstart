@@ -75,11 +75,11 @@ class FC6_MultiPath(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(prog="multipath", description="define a multipath storage device", version=FC6)
-        op.add_argument("--name", required=True, version=FC6, help="")
+        op.add_argument("--name", required=True, version=FC6, help="multipath device name")
         op.add_argument("--device", required=True, notest=True,
-                        version=FC6, help="")
+                        version=FC6, help="multipath device node")
         op.add_argument("--rule", required=True, notest=True,
-                        version=FC6, help="")
+                        version=FC6, help="multipath device rule")
         return op
 
     def parse(self, args):

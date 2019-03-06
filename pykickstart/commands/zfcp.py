@@ -102,11 +102,11 @@ class FC3_ZFCP(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(prog="zfcp", description="define a zFCP storage device (IBM System z only)", version=FC3)
-        op.add_argument("--devnum", required=True, version=FC3, help="")
-        op.add_argument("--fcplun", required=True, version=FC3, help="")
-        op.add_argument("--scsiid", required=True, version=FC3, help="")
-        op.add_argument("--scsilun", required=True, version=FC3, help="")
-        op.add_argument("--wwpn", required=True, version=FC3, help="")
+        op.add_argument("--devnum", required=True, version=FC3, help="zFCP device number")
+        op.add_argument("--fcplun", required=True, version=FC3, help="zFCP LUN")
+        op.add_argument("--scsiid", required=True, version=FC3, help="SCSI ID")
+        op.add_argument("--scsilun", required=True, version=FC3, help="SCSI LUN")
+        op.add_argument("--wwpn", required=True, version=FC3, help="World Wide Port Name")
         return op
 
     def parse(self, args):

@@ -194,7 +194,7 @@ class F17_BTRFS(KickstartCommand):
                         version=F17, help="Create BTRFS subvolume.")
 
         # parent must be a device spec (LABEL, UUID, &c)
-        op.add_argument("--parent", default="", version=F17, help="")
+        op.add_argument("--parent", default="", version=F17, help="BTRFS parent device")
         op.add_argument("--name", default="", version=F17, help="""
                         Subvolume name.""")
         return op

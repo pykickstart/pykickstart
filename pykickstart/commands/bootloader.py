@@ -102,9 +102,9 @@ class FC3_Bootloader(KickstartCommand):
                         ``bootloader --location=mbr --append="hdd=ide-scsi ide=nodma"``
                         """)
         op.add_argument("--linear", action="store_true", default=True,
-                        version=FC3, help="")
+                        version=FC3, help="use linear mode to access hard disks (for LILO only)")
         op.add_argument("--nolinear", dest="linear", action="store_false",
-                        version=FC3, help="")
+                        version=FC3, help="do not use linear mode to access hard disks (for LILO only)")
         op.add_argument("--location", default="mbr", version=FC3,
                         choices=["mbr", "partition", "none", "boot"],
                         help="""
@@ -126,7 +126,7 @@ class FC3_Bootloader(KickstartCommand):
                          provided.
                         """)
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
-                        default=False, version=FC3, help="")
+                        default=False, version=FC3, help="force the use of LBA32 mode for hard disk access (LILO only)")
         op.add_argument("--password", default="", version=FC3, help="""
                         If using GRUB, sets the GRUB boot loader password. This
                         should be used to restrict access to the GRUB shell,
@@ -135,10 +135,10 @@ class FC3_Bootloader(KickstartCommand):
                         If using GRUB, similar to ``--password=`` except the
                         password should already be encrypted.""")
         op.add_argument("--upgrade", action="store_true", default=False,
-                        version=FC3, help="")
+                        version=FC3, help="upgrade the boot loader installed on disk")
         op.add_argument("--useLilo", action="store_true", default=False,
-                        version=FC3, help="")
-        op.add_argument("--driveorder", type=commaSplit, version=FC3, help="")
+                        version=FC3, help="force the use of LILO")
+        op.add_argument("--driveorder", type=commaSplit, version=FC3, help="define the explicit hard disk order the boot loader should use")
         return op
 
     def parse(self, args):
@@ -237,6 +237,7 @@ class F12_Bootloader(F8_Bootloader):
     def _getParser(self):
         op = F8_Bootloader._getParser(self)
         op.add_argument("--lba32", dest="forceLBA", action="store_true",
+                        help="force the use of LBA32 mode for hard disk access (LILO only)",
                         deprecated=F12)
         return op
 
@@ -372,7 +373,7 @@ class RHEL5_Bootloader(FC4_Bootloader):
         # todo: this is only in RHEL5 and nowhere else
         # possibly shadowed by the way we implement commands
         # inheritance
-        op.add_argument("--hvargs", dest="hvArgs", version=RHEL5, help="")
+        op.add_argument("--hvargs", dest="hvArgs", version=RHEL5, help="specify Xen hypervisor kernel arguments")
         return op
 
 class RHEL6_Bootloader(F12_Bootloader):
@@ -479,7 +480,7 @@ class F21_Bootloader(F19_Bootloader):
                          provided.
                         """)
         op.add_argument("--nombr", action="store_true", default=False,
-                        version=F21, help="")
+                        version=F21, help="do not install the boot loader to the MBR")
         return op
 
 class RHEL7_Bootloader(F21_Bootloader):
@@ -492,7 +493,7 @@ class F29_Bootloader(F21_Bootloader):
     def _getParser(self):
         op = F21_Bootloader._getParser(self)
         op.add_argument("--upgrade", action="store_true", default=False,
-                        deprecated=F29, help="")
+                        deprecated=F29, help="upgrade the boot loader installed on disk")
         return op
 
 class RHEL8_Bootloader(F29_Bootloader):
