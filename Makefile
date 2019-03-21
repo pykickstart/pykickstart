@@ -50,7 +50,7 @@ endif
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage pykickstart.spec
 	$(MAKE) -C po clean
 	$(PYTHON) setup.py -q clean --all
 
@@ -107,6 +107,10 @@ bumpver: docs
 	make -C po pykickstart.pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
+pykickstart.spec:
+	cp pykickstart.spec.in pykickstart.spec
+	sed -i "s/%%VERSION%%/$(VERSION)/" pykickstart.spec
+
 scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
@@ -123,7 +127,7 @@ scratch: docs
 	@rm -rf /tmp/pykickstart-$(VERSION)
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
-rc-release: scratch-bumpver scratch
+rc-release: scratch-bumpver scratch pykickstart.spec
 	if [ -z "$(SPECFILE)" ]; then echo "SPECFILE must be set for this target" ; exit 1; fi
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
 	mock -r $(MOCKCHROOT) --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
