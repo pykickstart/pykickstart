@@ -371,36 +371,8 @@ class Packages(KickstartObject):
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
-        pkgs = ""
-
-        if not self.default:
-            if self.environment:
-                pkgs += "@^%s\n" % self.environment
-
-            grps = self.groupList
-            grps.sort()
-            for grp in grps:
-                pkgs += "%s\n" % grp.__str__()
-
-            p = self.packageList
-            p.sort()
-            for pkg in p:
-                pkgs += "%s\n" % pkg
-
-            grps = self.excludedGroupList
-            grps.sort()
-            for grp in grps:
-                pkgs += "-%s\n" % grp.__str__()
-
-            p = self.excludedList
-            p.sort()
-            for pkg in p:
-                pkgs += "-%s\n" % pkg
-
-            if pkgs == "" and not self.seen:
-                return ""
-
-        retval = "\n%packages"
+        pkgs = self._processPackagesContent()
+        retval = ""
 
         if self.default:
             retval += " --default"
@@ -423,10 +395,42 @@ class Packages(KickstartObject):
         if self.retries is not None:
             retval += " --retries=%d" % self.retries
 
+        if retval == "" and pkgs == "" and not self.seen:
+            return ""
+
         if self._ver >= version.F8:
-            return retval + "\n" + pkgs + "\n%end\n"
+            return "\n%packages" + retval + "\n" + pkgs + "\n%end\n"
         else:
-            return retval + "\n" + pkgs + "\n"
+            return "\n%packages" + retval + "\n" + pkgs + "\n"
+
+    def _processPackagesContent(self):
+        pkgs = ""
+
+        if not self.default:
+            if self.environment:
+                pkgs += "@^%s\n" % self.environment
+
+        grps = self.groupList
+        grps.sort()
+        for grp in grps:
+            pkgs += "%s\n" % grp.__str__()
+
+        p = self.packageList
+        p.sort()
+        for pkg in p:
+            pkgs += "%s\n" % pkg
+
+        grps = self.excludedGroupList
+        grps.sort()
+        for grp in grps:
+            pkgs += "-%s\n" % grp.__str__()
+
+        p = self.excludedList
+        p.sort()
+        for pkg in p:
+            pkgs += "-%s\n" % pkg
+
+        return pkgs
 
     def _processGroup(self, line):
         op = KSOptionParser(prog="", description="", version=version.DEVEL)

@@ -605,7 +605,7 @@ class PackageSection(Section):
 
         op.add_argument("--default", dest="defaultPackages", action="store_true",
                         default=False, version=F7, help="""
-                        Install the default package set. This corresponds to the
+                        Install the default environment. This corresponds to the
                         package set that would be installed if no other
                         selections were made on the package customization screen
                         during an interactive install.""")
