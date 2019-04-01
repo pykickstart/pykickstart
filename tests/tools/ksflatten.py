@@ -75,7 +75,9 @@ class ValidKSFile_TestCase(TestCase):
                                       '--output', self._output_path])
         self.assertEqual(retval, 0)
         self.assertEqual(msg, "")
-        output = open(self._output_path, 'r').read()
+        f = open(self._output_path, 'r')
+        output = f.read()
+        f.close()
         self.assertEqual(output, "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
 
 class FailsToOpenOutputFile_TestCase(TestCase):
