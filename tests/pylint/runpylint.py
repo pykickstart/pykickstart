@@ -9,9 +9,7 @@ class PykickstartLintConfig(PocketLintConfig):
         PocketLintConfig.__init__(self)
 
         self.falsePositives = [
-            FalsePositive(r"^E1102.*: .*_TestCase.runTest: self.handler is not callable$"),
             FalsePositive(r"^W1113.*: Keyword argument before variable positional arguments list in the definition of __init__ function$"),
-            FalsePositive(r"^W0107.*: Unnecessary pass statement$"),
         ]
 
     @property
