@@ -15,7 +15,7 @@ install:
   - pip install https://github.com/rhinstaller/pocketlint/zipball/master
 
 script:
-  - travis_wait make check coverage docs COVERAGE=coverage NOSE_IGNORE_CONFIG_FILES=y
+  - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage
 
 notifications:
   email:
