@@ -2,19 +2,17 @@ VERSION     = $(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG         = r$(VERSION)
 PREVTAG    := $(shell git tag --sort=-creatordate | head -n 2 | tail -n 1)
+COVERAGE   ?= coverage3
+PYTHON     ?= python3
+MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
+NOSEARGS    = -s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
+
+PYTHON_VERSION = $(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
 
 ZANATA_PULL_ARGS = --transdir ./po/
 ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
-
-NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
-
-COVERAGE=coverage3
-PYTHON?=python3
-PYTHON_VERSION=$(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
-
-MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 all:
 	$(MAKE) -C po
@@ -36,7 +34,7 @@ endif
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po pykickstart.pot
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
-	git checkout -- po/pykickstart.pot || true
+	test -d .git && git checkout -- po/pykickstart.pot
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
