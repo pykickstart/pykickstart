@@ -20,4 +20,7 @@ if __name__ == "__main__":
     conf = PykickstartLintConfig()
     linter = PocketLinter(conf)
     rc = linter.run()
-    sys.exit(rc)
+    if rc in [0, 4]:
+        sys.exit(0)
+    else:
+        sys.exit(rc)
