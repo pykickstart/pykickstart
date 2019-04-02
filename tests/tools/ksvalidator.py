@@ -146,7 +146,7 @@ class Nonexistent_KS_File_TestCase(TestCase):
         self.assertNotEqual(retval, 0)
         self.assertTrue("No such file or directory" in " ".join(out))
 
-@unittest.skipIf(os.getuid() == 0)     # this test requires non-root access
+@unittest.skipUnless(os.getuid(), "test requires non-root access")
 class KS_With_Wrong_Permissions_TestCase(TestCase):
     def setUp(self):
         super(KS_With_Wrong_Permissions_TestCase, self).setUp()
