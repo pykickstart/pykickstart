@@ -3,6 +3,7 @@ import os
 import tempfile
 from unittest import TestCase
 import unittest.mock as mock
+import unittest.skipIf as skipIf
 from tools import ksvalidator
 from pykickstart import parser
 from tests.tools.utils import mktempfile
@@ -145,7 +146,7 @@ class Nonexistent_KS_File_TestCase(TestCase):
         self.assertNotEqual(retval, 0)
         self.assertTrue("No such file or directory" in " ".join(out))
 
-
+@skipIf(os.getuid() == 0)     # this test requires non-root access
 class KS_With_Wrong_Permissions_TestCase(TestCase):
     def setUp(self):
         super(KS_With_Wrong_Permissions_TestCase, self).setUp()
