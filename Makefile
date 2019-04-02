@@ -34,7 +34,7 @@ endif
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po pykickstart.pot
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
-	test -d .git && git checkout -- po/pykickstart.pot
+	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
@@ -84,7 +84,7 @@ archive: docs
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
 	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf pykickstart-$(VERSION)
-	git checkout -- po/pykickstart.pot
+	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 local: docs po-pull
