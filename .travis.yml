@@ -10,8 +10,8 @@ matrix:
       sudo: true
 
 install:
-  - pip install --upgrade pip setuptools
-  - pip install coverage nose ordered-set polib pylint requests six Sphinx unittest
+  - pip install --upgrade pip setuptools pytest
+  - pip install coverage nose ordered-set polib pylint requests six Sphinx
   - pip install https://github.com/rhinstaller/pocketlint/zipball/master
 
 script:
