@@ -11,7 +11,8 @@ matrix:
 
 install:
   - pip install --upgrade pip setuptools pytest
-  - pip install coverage nose ordered-set polib pylint requests six Sphinx
+  - pip install coverage nose ordered-set polib pylint requests six
+  - pip install Sphinx==1.7.6
   - pip install https://github.com/rhinstaller/pocketlint/zipball/master
 
 script:
