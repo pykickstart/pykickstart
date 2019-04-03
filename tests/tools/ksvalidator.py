@@ -1,6 +1,7 @@
 import re
 import os
 import tempfile
+import unittest
 from unittest import TestCase
 import unittest.mock as mock
 from tools import ksvalidator
@@ -146,6 +147,7 @@ class Nonexistent_KS_File_TestCase(TestCase):
         self.assertTrue("No such file or directory" in " ".join(out))
 
 
+@unittest.skipUnless(os.getuid(), "test requires non-root access")
 class KS_With_Wrong_Permissions_TestCase(TestCase):
     def setUp(self):
         super(KS_With_Wrong_Permissions_TestCase, self).setUp()
