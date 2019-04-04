@@ -109,9 +109,8 @@ bumpver: docs
 	make -C po pykickstart.pot ; \
 	zanata push $(ZANATA_PUSH_ARGS)
 
-pykickstart.spec:
-	cp pykickstart.spec.in pykickstart.spec
-	sed -i "s/%%VERSION%%/$(VERSION)/" pykickstart.spec
+pykickstart.spec: pykickstart.spec.in
+	sed -e "s/%%VERSION%%/$(VERSION)/" < $< > $@
 
 scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
