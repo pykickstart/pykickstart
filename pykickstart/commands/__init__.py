@@ -69,6 +69,7 @@ from pykickstart.commands import (
     reboot,
     repo,
     rescue,
+    rhsm,
     rootpw,
     selinux,
     services,
