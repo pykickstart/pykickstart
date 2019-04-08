@@ -77,6 +77,7 @@ class RHEL8Handler(BaseHandler):
         "repo": commands.repo.F30_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
+        "rhsm": commands.rhsm.RHEL8_RHSM,
         "rootpw": commands.rootpw.F18_RootPw,
         "selinux": commands.selinux.FC3_SELinux,
         "services": commands.services.FC6_Services,
