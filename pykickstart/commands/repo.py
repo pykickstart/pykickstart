@@ -321,15 +321,17 @@ class F8_Repo(FC6_Repo):
                         """)
         op.add_argument("--excludepkgs", type=commaSplit, version=F8, help="""
                         A comma-separated list of package names and globs that
-                        must not be pulled from this repository. This is useful
+                        must not be fetched from this repository. This is useful
                         if multiple repositories provide the same package and
-                        you want to make sure it comes from a particular
-                        repository.""")
+                        you want to make sure it is not fetched from a particular
+                        repository during installation.""")
         op.add_argument("--includepkgs", type=commaSplit, version=F8, help="""
                         A comma-separated list of package names and globs that
-                        must be pulled from this repository. This is useful if
-                        multiple repositories provide the same package and you
-                        want to make sure it comes from this repository.""")
+                        can be pulled from this repository. Any other packages
+                        provided by the repository not on this list will be ignored.
+                        This is useful if you want to install just a single package
+                        or set of packages from a repository while including all
+                        other packages the repository provides.""")
         return op
 
     def methodToRepo(self):
