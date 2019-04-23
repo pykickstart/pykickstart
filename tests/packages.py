@@ -102,11 +102,20 @@ class ExcludeGroups_TestCase(DevelPackagesBase):
         pkgs.add(["-@Conflicts"])
         pkgs.add(["-@Clustering"])
 
-        self.assertEqual("""%packages
+        pkgstr = strip(str(pkgs))
+
+        if pkgstr.endswith("%end"):
+            # handling kickstart version >= F8
+            self.assertEqual("""%packages
 -@Clustering
 -@Conflicts
 
-%end""", strip(str(pkgs)))
+%end""", pkgstr)
+
+        else:
+            self.assertEqual("""%packages
+-@Clustering
+-@Conflicts""", pkgstr)
 
 class ExcludePackage_TestCase(DevelPackagesBase):
     def runTest(self):
