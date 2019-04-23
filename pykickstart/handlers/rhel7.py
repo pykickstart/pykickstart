@@ -88,7 +88,7 @@ class RHEL7Handler(BaseHandler):
         "unsupported_hardware": commands.unsupported_hardware.RHEL6_UnsupportedHardware,
         "updates": commands.updates.F7_Updates,
         "upgrade": commands.upgrade.F20_Upgrade,
-        "url": commands.url.F18_Url,
+        "url": commands.url.RHEL7_Url,
         "user": commands.user.F19_User,
         "vnc": commands.vnc.RHEL7_Vnc,
         "volgroup": commands.volgroup.RHEL7_VolGroup,

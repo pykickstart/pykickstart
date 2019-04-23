@@ -173,3 +173,44 @@ class F18_Url(F14_Url):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=_("One of --url or --mirrorlist must be specified for url command.")))
 
         return retval
+
+class RHEL7_Url(F18_Url):
+    removedKeywords = F18_Url.removedKeywords
+    removedAttrs = F18_Url.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F18_Url.__init__(self, *args, **kwargs)
+        self.sslcacert = kwargs.get("sslcacert", None)
+        self.sslclientcert = kwargs.get("sslclientcert", None)
+        self.sslclientkey = kwargs.get("sslclientkey", None)
+
+    def __str__(self):
+        retval = F18_Url.__str__(self)
+        if not self.seen:
+            return retval
+
+        retval = retval[:-1]  # strip '\n'
+
+        if self.sslcacert:
+            retval += " --sslcacert=\"%s\"" % self.sslcacert
+
+        if self.sslclientcert:
+            retval += " --sslclientcert=\"%s\"" % self.sslclientcert
+
+        if self.sslclientkey:
+            retval += " --sslclientkey=\"%s\"" % self.sslclientkey
+
+        return retval + "\n"
+
+    def _getParser(self):
+        op = F18_Url._getParser(self)
+        op.add_option("--sslcacert", help="""
+                      Path to the file holding one or more SSL certificates
+                      to verify the repository host with.""")
+        op.add_option("--sslclientcert", help="""
+                      Path to the SSL client certificate (PEM file) which
+                      should be used to connect to the repository.""")
+        op.add_option("--sslclientkey", help="""
+                      Path to the private key file associated with the client
+                      certificate given with --sslclientcert.""")
+        return op

@@ -127,6 +127,24 @@ class F21_TestCase(F15_TestCase):
         #fail
         self.assert_parse_error("repo --name=blah --baseurl=https://www.domain.com --install=yeeeaah", KickstartParseError)
 
+class RHEL7_TestCase(F21_TestCase):
+    def runTest(self):
+        # run F21 test case.
+        F21_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientcert=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslclientcert=\"file:///foo/bar\"\n")
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientkey=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslclientkey=\"file:///foo/bar\"\n")
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslcacert=file:///foo/bar",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --sslcacert=\"file:///foo/bar\"\n")
+
+        # fail: all of these take arguments
+        self.assert_parse_error("repo --name=test --sslclientcert")
+        self.assert_parse_error("repo --name=test --sslclientkey")
+        self.assert_parse_error("repo --name=test --sslcacert")
+
 
 if __name__ == "__main__":
     unittest.main()

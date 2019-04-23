@@ -148,7 +148,29 @@ class F21_RepoData(F14_RepoData):
 
         return retval
 
-RHEL7_RepoData = F21_RepoData
+class RHEL7_RepoData(F21_RepoData):
+    removedKeywords = F21_RepoData.removedKeywords
+    removedAttrs = F21_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F21_RepoData.__init__(self, *args, **kwargs)
+        self.sslcacert = kwargs.get("sslcacert", None)
+        self.sslclientcert = kwargs.get("sslclientcert", None)
+        self.sslclientkey = kwargs.get("sslclientkey", None)
+
+    def _getArgsAsStr(self):
+        retval = F21_RepoData._getArgsAsStr(self)
+
+        if self.sslcacert:
+            retval += " --sslcacert=\"%s\"" % self.sslcacert
+
+        if self.sslclientcert:
+            retval += " --sslclientcert=\"%s\"" % self.sslclientcert
+
+        if self.sslclientkey:
+            retval += " --sslclientkey=\"%s\"" % self.sslclientkey
+
+        return retval
 
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -280,4 +302,19 @@ class F21_Repo(F15_Repo):
         op.add_option("--install", action="store_true", default=False)
         return op
 
-RHEL7_Repo = F21_Repo
+class RHEL7_Repo(F21_Repo):
+    removedKeywords = F21_Repo.removedKeywords
+    removedAttrs = F21_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F21_Repo._getParser(self)
+        op.add_option("--sslcacert", help="""
+                      Path to the file holding one or more SSL certificates
+                      to verify the repository host with.""")
+        op.add_option("--sslclientcert", help="""
+                      Path to the SSL client certificate (PEM file) which
+                      should be used to connect to the repository.""")
+        op.add_option("--sslclientkey", help="""
+                      Path to the private key file associated with the client
+                      certificate given with --sslclientcert.""")
+        return op
