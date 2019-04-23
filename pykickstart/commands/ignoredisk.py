@@ -114,7 +114,7 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
                 self.ignoredisk = []
 
     def __str__(self):
-        retval = F8_IgnoreDisk.__str__(self)
+        retval = F8_IgnoreDisk.__str__(self).strip()
 
         if self.interactive:
             retval = "ignoredisk --interactive"
