@@ -134,6 +134,24 @@ class F18_TestCase(F14_TestCase):
         cmd.mirrorlist = None
         self.assertEqual(cmd.__str__(), "# Use network installation\n\n")
 
+class RHEL7_TestCase(F18_TestCase):
+    def runTest(self):
+        # run F18 test case.
+        F18_TestCase.runTest(self)
+
+        # pass
+        self.assert_parse("url --url=http://example.com --sslclientcert=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslclientcert=\"file:///foo/bar\"\n")
+        self.assert_parse("url --url=http://example.com --sslclientkey=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslclientkey=\"file:///foo/bar\"\n")
+        self.assert_parse("url --url=http://example.com --sslcacert=file:///foo/bar",
+                          "url --url=\"http://example.com\" --sslcacert=\"file:///foo/bar\"\n")
+
+        # fail: all of these take arguments
+        self.assert_parse_error("url --url=http://example.com --sslclientcert")
+        self.assert_parse_error("url --url=http://example.com --sslclientkey")
+        self.assert_parse_error("url --url=http://example.com --sslcacert")
+
 class F27_TestCase(F18_TestCase):
     def runTest(self):
         # run F18 test case.
