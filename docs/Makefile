@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = STARTED_FROM_MAKEFILE=1 sphinx-build
-SPHINXAPIDOC  = sphinx-apidoc
+SPHINXAPIDOC ?= sphinx-apidoc
 PAPER         =
 BUILDDIR      = _build
 SOURCEDIR     = ../pykickstart
@@ -29,15 +29,13 @@ clean:
 	-rm -rf $(BUILDDIR)/* modules.rst pykickstart*.rst
 
 apidoc:
-	if [ -f /usr/bin/$(SPHINXAPIDOC) ]; then \
-		$(SPHINXAPIDOC) -o . $(SOURCEDIR) ; \
-	fi
+	$(SPHINXAPIDOC) -o . $(SOURCEDIR) ; \
 
 html: apidoc
-	PYTHONPATH=.. ./gen_commands_docs > commands.rst
-	PYTHONPATH=.. ./gen_commands_docs RHEL8 > commands_rhel.rst
-	PYTHONPATH=.. ./gen_sections_docs > sections.rst
-	PYTHONPATH=. $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	./gen_commands_docs > commands.rst
+	./gen_commands_docs RHEL8 > commands_rhel.rst
+	./gen_sections_docs > sections.rst
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
