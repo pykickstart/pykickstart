@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 import sys
+
+sys.path.append('../')
+
 from pykickstart.handlers import control
 from pykickstart.version import DEVEL, stringToVersion, versionToString, \
     getVersionFromCommandClass

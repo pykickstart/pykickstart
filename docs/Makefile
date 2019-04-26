@@ -32,10 +32,10 @@ apidoc:
 	$(SPHINXAPIDOC) -o . $(SOURCEDIR)
 
 html: apidoc
-	PYTHONPATH=.. ./gen_commands_docs > commands.rst
-	PYTHONPATH=.. ./gen_commands_docs RHEL8 > commands_rhel.rst
-	PYTHONPATH=.. ./gen_sections_docs > sections.rst
-	PYTHONPATH=. $(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+	./gen_commands_docs > commands.rst
+	./gen_commands_docs RHEL8 > commands_rhel.rst
+	./gen_sections_docs > sections.rst
+	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
