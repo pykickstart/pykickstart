@@ -1,23 +1,18 @@
 language: python
+dist: xenial
+sudo: true
 
 matrix:
   include:
     - name: "Python 3.5"
-      python: 3.5
-      sudo: true
+      python: "3.5"
     - name: "Python 3.6"
-      python: 3.6
-      sudo: true
+      python: "3.6"
     - name: "Python 3.7"
-      python: 3.7
-      dist: xenial
-      sudo: true
+      python: "3.7"
 
 install:
-  - pip install --upgrade pip setuptools pytest
-  - pip install coverage nose ordered-set polib pylint requests six
-  - pip install Sphinx==1.7.6
-  - pip install https://github.com/rhinstaller/pocketlint/zipball/master
+  - pip install -r requirements.txt
 
 script:
   - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage
