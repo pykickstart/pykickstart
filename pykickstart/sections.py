@@ -74,7 +74,6 @@ class Section(object):
         """This method is called when the %end tag for a section is seen.  It
            is not required to be provided.
         """
-        pass
 
     def handleLine(self, line):
         """This method is called for every line of a section.  Take whatever
@@ -85,7 +84,6 @@ class Section(object):
 
            line -- The complete line, with any trailing newline.
         """
-        pass
 
     # pylint: disable=unused-argument
     def handleHeader(self, lineno, args):
