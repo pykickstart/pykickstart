@@ -139,6 +139,7 @@ def preprocessKickstart (f):
 
 class PutBackIterator(Iterator):
     def __init__(self, iterable):
+        Iterator.__init__(iterable)
         self._iterable = iter(iterable)
         self._buf = None
 
