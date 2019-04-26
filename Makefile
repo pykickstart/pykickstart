@@ -34,7 +34,7 @@ docs:
 
 check:
 	@echo "*** Running pylint to verify source ***"
-	PYTHONPATH=. pylint tools/* pykickstart/*.py pykickstart/*/*.py --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' --rcfile=/dev/null -r n --disable=C,R --dummy-variables-rgx=_ --disable=deprecated-lambda,bad-builtin,star-args,protected-access,arguments-differ,fixme,global-statement,broad-except
+	PYTHONPATH=. pylint tools/* pykickstart/*.py pykickstart/*/*.py --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' --rcfile=/dev/null -r n --disable=C,R --dummy-variables-rgx=_ --disable=deprecated-lambda,bad-builtin,star-args,protected-access,arguments-differ,fixme,global-statement,broad-except,keyword-arg-before-vararg
 
 test:
 	@echo "*** Running unittests ***"
