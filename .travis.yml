@@ -1,32 +1,6 @@
 language: python
-dist: xenial
-sudo: true
-
-matrix:
-  include:
-    - name: "Python 2.7"
-      python: "2.7"
-      branches:
-        only:
-        - rhel7-branch
-    - name: "Python 3.5"
-      python: "3.5"
-      branches:
-        only:
-        - master
-        - rhel8-branch
-    - name: "Python 3.6"
-      python: "3.6"
-      branches:
-        only:
-        - master
-        - rhel8-branch
-    - name: "Python 3.7"
-      python: "3.7"
-      branches:
-        only:
-        - master
-        - rhel8-branch
+python:
+  - "2.7"
 
 install:
   - pip install -r requirements.txt
