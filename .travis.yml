@@ -4,6 +4,11 @@ sudo: true
 
 matrix:
   include:
+    - name: "Python 2.7"
+      python: "2.7"
+      branches:
+        only:
+        - rhel7-branch
     - name: "Python 3.5"
       python: "3.5"
       branches:
