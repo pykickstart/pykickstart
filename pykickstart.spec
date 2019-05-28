@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: https://github.com/dcantrell/pykickstart
-Version: 1.99.66.20
+Version: 1.99.66.21
 Release: 1%{?dist}
 Source0: https://github.com/dcantrell/pykickstart/releases/download/r%{version}-%{release}/%{name}-%{version}.tar.gz
 Source1: https://github.com/dcantrell/pykickstart/releases/download/r%{version}-%{release}/%{name}-%{version}.tar.gz.asc
@@ -50,13 +50,31 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Tue May 28 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.21-1
+- Update translations
+  Resolves: rhbz#1688255
+
 * Fri Apr 26 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.20-1
-- Add 'repo' and 'url' command SSL options (#1701035) (dcantrell)
+- Add 'repo' and 'url' command SSL options
+  Resolves: rhbz#1701035
+
+* Tue Jan 15 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.19-4
+- Fix test suite execution in the spec file
+  Resolves: rhbz#1495787
+
+* Wed Jan 02 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.19-3
+- ksvalidator - don't require KS file with -l option
+  Resolves: rhbz#1653778
+
+* Wed Aug 15 2018 David Cantrell <dcantrell@redhat.com> - 1.99.66.19-2
+- Updated Japanese translations
+  Resolves: rhbz#1569454
 
 * Tue Jun 19 2018 David Cantrell <dcantrell@redhat.com> - 1.99.66.19-1
-- Update po-pull target to work on more recent Fedora releases. (dcantrell)
 - Add use action to nvdimm command. (rvykydal)
+  Resolves: rhbz#1590319
 - Add nvdimm command (rvykydal)
+  Resolves: rhbz#1590319
 
 * Thu Jan 04 2018 Chris Lumens <clumens@redhat.com> - 1.99.66.18-1
 - Add tests for the new firewall option. (clumens)

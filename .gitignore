@@ -1,7 +1,8 @@
 *.pyc
 .*.swp
-po/*.po
-pykickstart*.tar.gz
-pykickstart*.tar.bz2
 /.coverage
 coverage-report.log
+docs/programmers-guide
+po/*.po
+pykickstart*.tar.bz2
+pykickstart*.tar.gz
