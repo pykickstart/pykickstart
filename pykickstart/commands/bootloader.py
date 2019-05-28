@@ -93,13 +93,14 @@ class FC3_Bootloader(KickstartCommand):
                             partition, adding a ``part biosboot`` option is
                             unnecessary.""", version=FC3)
         op.add_argument("--append", dest="appendLine", version=FC3, help="""
-                        Specifies kernel parameters. The default set of bootloader
-                        arguments is "rhgb quiet". You will get this set of
-                        arguments regardless of what parameters you pass to
-                        --append, or if you leave out --append entirely.
-                        For example::
+                        Specifies additional kernel parameters. For example:
 
                         ``bootloader --location=mbr --append="hdd=ide-scsi ide=nodma"``
+
+                        **Note** The installer will add the bootloader arguments ``rhgb
+                        quiet`` if plymouth is installed on the target system. You can
+                        disable these options with ``-plymouth`` in the ``%%packages``
+                        section.
                         """)
         op.add_argument("--linear", action="store_true", default=True,
                         version=FC3, help="use linear mode to access hard disks (for LILO only)")
