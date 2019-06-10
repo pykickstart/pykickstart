@@ -64,8 +64,7 @@ tag:
 	@echo "Tagged as $(TAG)"
 
 # Order matters, so run make twice instead of declaring them as dependencies
-release:
-	$(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
+release: check test bumpver docs tag archive
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
@@ -96,7 +95,7 @@ local: docs po-pull
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(PREVTAG)..$(TAG) |sed -e 's/@.*)/)/' | grep -v "Merge pull request"
 
-bumpver: po-pull docs
+bumpver: po-pull
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
