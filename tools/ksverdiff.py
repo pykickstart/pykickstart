@@ -32,7 +32,7 @@ def getCommandSet(handler):
     return set(handler.commands.keys())
 
 def getOptSet(lst):
-    return set(map(lambda o: o.get_opt_string(), lst))
+    return set(map(lambda o: o.option_strings[0] if o.option_strings else '', lst))
 
 def printList(lst):
     print(' '.join(lst))
@@ -96,8 +96,8 @@ for cmd in sorted(bothSet):
     if not hasattr(fromCmd, "op") or not hasattr(toCmd, "op"):
         continue
 
-    fromOpt = fromCmd.op.option_list
-    toOpt = toCmd.op.option_list
+    fromOpt = fromCmd.op._actions
+    toOpt = toCmd.op._actions
 
     newOptList = getOptSet(toOpt) - getOptSet(fromOpt)
     removedOptList = getOptSet(fromOpt) - getOptSet(toOpt)
