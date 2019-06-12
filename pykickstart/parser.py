@@ -39,8 +39,7 @@ import six
 import shlex
 import sys
 import warnings
-from ordered_set import OrderedSet
-
+from orderedset import OrderedSet
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
