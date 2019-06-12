@@ -39,7 +39,10 @@ import six
 import shlex
 import sys
 import warnings
-from orderedset import OrderedSet
+try:
+    from ordered_set import OrderedSet
+except ImportError:
+    from orderedset import OrderedSet
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.ko import KickstartObject
