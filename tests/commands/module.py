@@ -26,14 +26,14 @@ from tests.baseclass import CommandTest
 class F29_TestCase(CommandTest):
     def runTest(self):
         # basic parsing
-        self.assert_parse('module --name=nodejs --stream=6')
-        self.assert_parse('module --name=foo --stream=1337')
+        self.assert_parse('module --name=nodejs --stream=6', 'module --name=nodejs --stream=6\n')
+        self.assert_parse('module --name=foo --stream=1337', 'module --name=foo --stream=1337\n')
         # non integer stream ids should also be fine
-        self.assert_parse('module --name=bar --stream=baz')
+        self.assert_parse('module --name=bar --stream=baz', 'module --name=bar --stream=baz\n')
 
         # --stream is optional
         self.assert_parse_error('module')
-        self.assert_parse('module --name=foo')
+        self.assert_parse('module --name=foo', 'module --name=foo\n')
 
         # but name needs to be always present
         self.assert_parse_error('module --stream=bar')
@@ -53,6 +53,21 @@ class F29_TestCase(CommandTest):
         # unknown options are an error
         self.assert_parse_error('module --name=bar --stream=baz --uknown=stuff')
         self.assert_parse_error('module --name=bar --uknown=stuff')
+
+
+class RHEL8_TestCase(F29_TestCase):
+    def runTest(self):
+        # run F29 test case.
+        F29_TestCase.runTest(self)
+
+        # parse --disable
+        self.assert_parse('module --name=nodejs --stream=6 --disable', 'module --name=nodejs --stream=6 --disable\n')
+        self.assert_parse('module --name=foo --stream=1337 --disable', 'module --name=foo --stream=1337 --disable\n')
+
+        # no assignment to the --disable option
+        self.assert_parse_error('module --name=nodejs --stream=6 --disable=bar')
+        self.assert_parse_error('module --name=foo --stream=1337 --disable=bar')
+
 
 if __name__ == "__main__":
     unittest.main()
