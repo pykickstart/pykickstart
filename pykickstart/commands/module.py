@@ -21,7 +21,7 @@
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.version import F29
+from pykickstart.version import F29, RHEL8
 
 from pykickstart.i18n import _
 
@@ -43,10 +43,39 @@ class F29_ModuleData(BaseData):
     def __ne__(self, y):
         return not self == y
 
+
     def __str__(self):
         retval = BaseData.__str__(self)
-        retval += "module --name=%s --stream=%s" % (self.name, self.stream)
-        return retval.strip() + "\n"
+
+        args = self._getArgsAsStr()
+        if args:
+            retval += "module%s\n" % args
+
+        return retval
+
+    def _getArgsAsStr(self):
+        retval = " --name=%s" % self.name
+        # --stream is optional
+        if self.stream:
+            retval += " --stream=%s" % self.stream
+        return retval
+
+class RHEL8_ModuleData(F29_ModuleData):
+    removedKeywords = F29_ModuleData.removedKeywords
+    removedAttrs = F29_ModuleData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F29_ModuleData.__init__(self, *args, **kwargs)
+        self.enable = kwargs.get("enable", True)
+
+    def _getArgsAsStr(self):
+        retval = F29_ModuleData._getArgsAsStr(self)
+
+        # --disable is optional
+        if not self.enable:
+            retval += " --disable"
+
+        return retval
 
 
 class F29_Module(KickstartCommand):
@@ -117,3 +146,15 @@ class F29_Module(KickstartCommand):
     @property
     def dataClass(self):
         return self.handler.ModuleData
+
+class RHEL8_Module(F29_Module):
+    removedKeywords = F29_Module.removedKeywords
+    removedAttrs = F29_Module.removedAttrs
+
+    def _getParser(self):
+        op = F29_Module._getParser(self)
+        op.add_argument("--disable", version=RHEL8,
+                        action="store_false",
+                        dest="enable",
+                        help="Disable module.")
+        return op
