@@ -1,16 +1,16 @@
 # This Makefile is just for running the tests
 
-PYVER = $(shell python3 -c 'import sys; print("%d.%d" % (sys.version_info[0], sys.version_info[1]))')
+PIP_PATH = $(shell $(PYTHON) -m pip show ordered_set | grep Location: | cut -d ' ' -f 2)
 
 all:
 	@echo "nothing to build"
 
 check:
-	PYTHONPATH=.:$(HOME)/.local/lib/python$(PYVER)/site-packages tests/pylint/runpylint.py
+	PYTHONPATH=.:$(PIP_PATH) tests/pylint/runpylint.py
 	python3 -m unittest discover tests/unittests
 
 test-projects:
-	PYTHONPATH=.:$(HOME)/.local/lib/python$(PYVER)/site-packages tests/project-tests/test_projects.sh tests/project-tests/project_list.txt
+	PYTHONPATH=.:$(PIP_PATH) tests/project-tests/test_projects.sh tests/project-tests/project_list.txt
 
 ci:
 	$(MAKE) check
