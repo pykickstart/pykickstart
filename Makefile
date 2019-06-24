@@ -12,6 +12,7 @@ NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=6
 
 COVERAGE?=coverage3
 PYTHON?=python3
+PYVER = $(shell $(PYTHON) -c 'import sys; print("%d.%d" % (sys.version_info[0], sys.version_info[1]))')
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
@@ -31,10 +32,10 @@ ifneq ($(shell basename $(PYTHON)),python3)
 	$(error The check target is only supported for python3)
 endif
 	@echo "*** Running pylint to verify source ***"
-	PYTHONPATH=. tests/pylint/runpylint.py
+	PYTHONPATH=.:$(HOME)/.local/lib/python$(PYVER)/site-packages tests/pylint/runpylint.py
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po pykickstart.pot
-	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
+	PYTHONPATH=translation-canary:$(HOME)/.local/lib/python$(PYVER)/site-packages $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
 	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
@@ -46,7 +47,7 @@ ifneq ($(shell basename $(PYTHON)),python3)
 endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. NOSE_IGNORE_CONFIG_FILES=y $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
+	PYTHONPATH=.:$(HOME)/.local/lib/python$(PYVER)/site-packages NOSE_IGNORE_CONFIG_FILES=y $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
 	-$(COVERAGE) combine
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
@@ -81,7 +82,7 @@ archive: docs
 	cp -r po/*.po pykickstart-$(VERSION)/po/
 	$(MAKE) -C pykickstart-$(VERSION)/po
 	cp docs/_build/text/kickstart-docs.txt docs/programmers-guide pykickstart-$(VERSION)/docs/
-	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
+	PYTHONPATH=translation-canary:$(HOME)/.local/lib/python$(PYVER)/site-packages $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
 	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf pykickstart-$(VERSION)
 	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
