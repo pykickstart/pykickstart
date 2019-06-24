@@ -6,7 +6,7 @@ setuptools
 pytest
 coverage
 nose
-orderedset
+ordered-set
 polib
 pylint
 requests
