@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import sys
+import yaml
 
 from pocketlint import FalsePositive, PocketLintConfig, PocketLinter
 
@@ -14,7 +15,19 @@ class PykickstartLintConfig(PocketLintConfig):
 
     @property
     def ignoreNames(self):
-        return {"translation-canary", "travis"}
+        ignores = {"translation-canary"}
+
+        if os.path.isfile(".travis.yml"):
+            with open(".travis.yml", "r") as input:
+                data = yaml.safe_load(input)
+
+            if data.has_key("before_install"):
+                for line in data["before_install"]:
+                    if line.startswith("virtualenv "):
+                        ignores.add(line.split()[-1]
+                        break
+
+        return ignores
 
 if __name__ == "__main__":
     conf = PykickstartLintConfig()
