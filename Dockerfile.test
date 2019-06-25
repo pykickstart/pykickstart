@@ -4,5 +4,5 @@ RUN dnf -y install 'dnf-command(builddep)'
 
 # Add test dependencies
 COPY requirements.txt /requirements.txt
-RUN dnf -y install make git python3-pip
+RUN dnf -y install make git gettext python3-pip
 RUN pip-3 install -r requirements.txt
