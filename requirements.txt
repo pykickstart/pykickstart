@@ -12,7 +12,6 @@ pylint
 requests
 six
 Sphinx == 1.7.6
-PyYAML
 
 # Custom Red Hat module used to 
 https://github.com/rhinstaller/pocketlint/zipball/master
