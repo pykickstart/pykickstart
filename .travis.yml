@@ -7,6 +7,9 @@ matrix:
       python: "3.6"
 
 before_install:
+  - pip install virtualenv
+  - virtualenv travis
+  - . travis/env/activate
   - pip install -r requirements.txt
 
 script:
