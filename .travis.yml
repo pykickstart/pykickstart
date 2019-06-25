@@ -1,21 +1,23 @@
 language: python
-dist: xenial
+services:
+  - docker
 
-matrix:
-  include:
-    - name: "Python 3.6"
-      python: "3.6"
+# Run everything in a Fedora container (created in before_install) so that
+# we're not fighting with deps on two distros.
+# Use the same paths both inside and outside the container so that
+# the coverage stuff doesn't get confused.
+env:
+  DOCKER_RUN="docker run -v $PWD:$PWD --workdir $PWD pykickstart/test-env"
 
-install:
-  - pip install virtualenv
-  # the second argument of the next line ("travis") also appears in the
-  # tests/pylint/runpylint.py file--these must stay in sync
-  - virtualenv travis
-  - . travis/bin/activate
-  - pip install -r requirements.txt
+before_install:
+  - docker build -t pykickstart/test-env -f Dockerfile.test .
 
 script:
-  - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage SPHINXAPIDOC=sphinx-apidoc
+  # Stop after the first failure, to keep the output more readable
+  - |
+    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make check &&
+    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make coverage &&
+    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make docs
 
 notifications:
   email:
