@@ -6,13 +6,14 @@ matrix:
     - name: "Python 3.6"
       python: "3.6"
 
-before_install:
+install:
   - pip install virtualenv
   - virtualenv travis
   - . travis/bin/activate
   - pip install -r requirements.txt
 
 script:
+  - . travis/bin/activate
   - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage SPHINXAPIDOC=sphinx-apidoc
 
 notifications:
