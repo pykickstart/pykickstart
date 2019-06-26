@@ -15,9 +15,9 @@ before_install:
 script:
   # Stop after the first failure, to keep the output more readable
   - |
-    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make check &&
-    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make coverage &&
-    $DOCKER_RUN env NOSE_IGNORE_CONFIG_FILES=y make docs
+    $DOCKER_RUN make check &&
+    $DOCKER_RUN env LANG=C make coverage &&
+    $DOCKER_RUN make docs
 
 notifications:
   email:
