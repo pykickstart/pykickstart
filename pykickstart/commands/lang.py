@@ -55,9 +55,8 @@ class FC3_Lang(KickstartCommand):
             will continue in English though the running system will have the
             specified langauge by default.
 
-            The file ``/usr/share/system-config-language/locale-list`` provides a
-            list the valid language codes in the first column of each line and
-            is part of the system-config-languages package.""", version=FC3)
+            You can list the valid language codes by calling
+            ``localectl list-locales``.""", version=FC3)
         op.add_argument("lang", metavar="<lang>", nargs=1, version=FC3,
                         help="Language ID.")
         return op
