@@ -77,6 +77,9 @@ class RHEL8_ModuleData(F29_ModuleData):
 
         return retval
 
+class F31_ModuleData(RHEL8_ModuleData):
+    removedKeywords = RHEL8_ModuleData.removedKeywords
+    removedAttrs = RHEL8_ModuleData.removedAttrs
 
 class F29_Module(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -158,3 +161,7 @@ class RHEL8_Module(F29_Module):
                         dest="enable",
                         help="Disable module.")
         return op
+
+class F31_Module(RHEL8_Module):
+    removedKeywords = RHEL8_Module.removedKeywords
+    removedAttrs = RHEL8_Module.removedAttrs
