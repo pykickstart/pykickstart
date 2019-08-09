@@ -69,5 +69,11 @@ class RHEL8_TestCase(F29_TestCase):
         self.assert_parse_error('module --name=foo --stream=1337 --disable=bar')
 
 
+class F31_TestCase(RHEL8_TestCase):
+    def runTest(self):
+        # run RHEL8 test case.
+        RHEL8_TestCase.runTest(self)
+
+
 if __name__ == "__main__":
     unittest.main()
