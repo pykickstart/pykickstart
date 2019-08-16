@@ -177,6 +177,7 @@ class F30_RepoData(F27_RepoData):
         self.sslcacert = kwargs.get("sslcacert", None)
         self.sslclientcert = kwargs.get("sslclientcert", None)
         self.sslclientkey = kwargs.get("sslclientkey", None)
+        self.priority = kwargs.get("priority", None)
 
     def _getArgsAsStr(self):
         retval = F27_RepoData._getArgsAsStr(self)
@@ -189,6 +190,9 @@ class F30_RepoData(F27_RepoData):
 
         if self.sslclientkey:
             retval += " --sslclientkey=\"%s\"" % self.sslclientkey
+
+        if self.priority:
+            retval += " --priority=%s" % self.priority
 
         return retval
 
@@ -312,6 +316,14 @@ class F8_Repo(FC6_Repo):
 
     def _getParser(self):
         op = FC6_Repo._getParser(self)
+        op.add_argument("--priority", type=int, version=F30, help="""
+                        An integer value to assign a priority to this repository.
+                        The priority value of this repository, default is 99.
+                        If there is more than one candidate package for a
+                        particular operation, the one from a repo with the lowest
+                        priority value is picked, possibly despite being less
+                        convenient otherwise (e.g. by being a lower version).
+                        """)
         op.add_argument("--cost", type=int, version=F8, help="""
                         An integer value to assign a cost to this repository.
                         If multiple repositories provide the same packages,
