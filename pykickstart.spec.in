@@ -15,8 +15,8 @@ Release:   1%{?dist}
 License:   GPLv2 and MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
-Source0:   https://github.com/dcantrell/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz
-Source1:   https://github.com/dcantrell/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz.asc
+Source0:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz
+Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz.asc
 
 BuildArch: noarch
 
