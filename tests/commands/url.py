@@ -21,6 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.url import FC3_Url
+from pykickstart.errors import KickstartDeprecationWarning
 
 class Url_TestCase(unittest.TestCase):
     def runTest(self):
@@ -172,6 +173,19 @@ class F30_TestCase(F27_TestCase):
         self.assert_parse_error("url --url=http://example.com --sslclientcert")
         self.assert_parse_error("url --url=http://example.com --sslclientkey")
         self.assert_parse_error("url --url=http://example.com --sslcacert")
+
+class F31_TestCase(F30_TestCase):
+    def runTest(self):
+        F30_TestCase.runTest(self)
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("url --url=http://example.com --sslclientcert=file:///foo/bar")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("url --url=http://example.com --sslclientkey=file:///foo/bar")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("url --url=http://example.com --sslcacert=file:///foo/bar")
 
 if __name__ == "__main__":
     unittest.main()

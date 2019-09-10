@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F13, F14, F18, F27, F30
+from pykickstart.version import FC3, F13, F14, F18, F27, F30, F31
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -281,4 +281,16 @@ class F30_Url(F27_Url):
         op.add_argument("--sslclientkey", version=F30, help="""
                         Path to the private key file associated with the client
                         certificate given with --sslclientcert.""")
+        return op
+
+
+class F31_Url(F30_Url):
+    removedKeywords = F30_Url.removedKeywords
+    removedAttrs = F30_Url.removedAttrs
+
+    def _getParser(self):
+        op = F30_Url._getParser(self)
+        op.add_argument("--sslcacert", deprecated=F31)
+        op.add_argument("--sslclientcert", deprecated=F31)
+        op.add_argument("--sslclientkey", deprecated=F31)
         return op

@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString
-from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30
+from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30, F31
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
@@ -468,3 +468,14 @@ class F30_Repo(F27_Repo):
 
 class RHEL7_Repo(F21_Repo):
     pass
+
+class F31_Repo(F30_Repo):
+    removedKeywords = F30_Repo.removedKeywords
+    removedAttrs = F30_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F30_Repo._getParser(self)
+        op.add_argument("--sslcacert", deprecated=F31)
+        op.add_argument("--sslclientcert", deprecated=F31)
+        op.add_argument("--sslclientkey", deprecated=F31)
+        return op

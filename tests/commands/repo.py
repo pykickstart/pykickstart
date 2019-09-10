@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartError, KickstartParseWarning
+from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
@@ -192,6 +192,19 @@ class F30_TestCase(F27_TestCase):
         self.assert_parse_error("repo --name=test --sslclientcert")
         self.assert_parse_error("repo --name=test --sslclientkey")
         self.assert_parse_error("repo --name=test --sslcacert")
+
+class F31_TestCase(F30_TestCase):
+    def runTest(self, urlRequired=False):
+        F30_TestCase.runTest(self, urlRequired=urlRequired)
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientcert=file:///foo/bar")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslclientkey=file:///foo/bar")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("repo --name=test --baseurl=https://www.domain.com --sslcacert=file:///foo/bar")
 
 if __name__ == "__main__":
     unittest.main()
