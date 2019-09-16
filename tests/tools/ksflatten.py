@@ -7,6 +7,7 @@ except ImportError:
 from tools import ksflatten
 import unittest.mock as mock
 from unittest import TestCase
+from unittest import skipUnless
 from contextlib import contextmanager
 from tests.tools.utils import mktempfile
 
@@ -80,6 +81,7 @@ class ValidKSFile_TestCase(TestCase):
         f.close()
         self.assertEqual(output, "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
 
+@skipUnless(os.getuid(), "test requires non-root access")
 class FailsToOpenOutputFile_TestCase(TestCase):
     def setUp(self):
         self._include_path = mktempfile("text", prefix="ks-include")
