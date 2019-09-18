@@ -457,13 +457,25 @@ class F30_Repo(F27_Repo):
         op = F27_Repo._getParser(self)
         op.add_argument("--sslcacert", version=F30, help="""
                         Path to the file holding one or more SSL certificates
-                        to verify the repository host with.""")
+                        to verify the repository host with.
+
+                        **Note** Usage of this parameter is discouraged. It is
+                        designed for a specific image building tool use and
+                        there are plans for a replacement.""")
         op.add_argument("--sslclientcert", version=F30, help="""
                         Path to the SSL client certificate (PEM file) which
-                        should be used to connect to the repository.""")
+                        should be used to connect to the repository.
+
+                        **Note** Usage of this parameter is discouraged. It is
+                        designed for a specific image building tool use and
+                        there are plans for a replacement.""")
         op.add_argument("--sslclientkey", version=F30, help="""
                         Path to the private key file associated with the client
-                        certificate given with --sslclientcert.""")
+                        certificate given with --sslclientcert.
+
+                        **Note** Usage of this parameter is discouraged. It is
+                        designed for a specific image building tool use and
+                        there are plans for a replacement.""")
         return op
 
 class RHEL7_Repo(F21_Repo):
