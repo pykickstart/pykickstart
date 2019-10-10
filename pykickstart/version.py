@@ -89,6 +89,11 @@ F28 = 26000
 F29 = 27000
 RHEL8 = 27100
 
+# This is for commands backported from newer versions.
+F30 = RHEL8
+F31 = RHEL8
+F32 = RHEL8
+
 # This always points at the latest version and is the default.
 DEVEL = F29
 
