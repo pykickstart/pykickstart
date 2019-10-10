@@ -26,7 +26,7 @@ class WritePriority_TestCase(unittest.TestCase):
                 cmd = command_class()
                 if issubclass(cmd.__class__, DeprecatedCommand):
                     self.assertEqual(None, cmd.writePriority, command_class)
-                elif _name in ['bootloader', 'lilo']:
+                elif _name in ['bootloader', 'lilo', 'zipl']:
                     self.assertEqual(10, cmd.writePriority, command_class)
                 elif _name in ['multipath']:
                     self.assertEqual(50, cmd.writePriority, command_class)

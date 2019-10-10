@@ -96,6 +96,7 @@ class RHEL8Handler(BaseHandler):
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
         "zfcp": commands.zfcp.F14_ZFCP,
+        "zipl": commands.zipl.RHEL8_Zipl,
     }
 
     dataMap = {
