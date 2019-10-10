@@ -87,5 +87,6 @@ from pykickstart.commands import (
     volgroup,
     xconfig,
     zerombr,
-    zfcp
+    zfcp,
+    zipl,
 )
