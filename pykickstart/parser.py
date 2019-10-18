@@ -337,6 +337,9 @@ class Packages(KickstartObject):
            handleMissing -- If unknown packages are specified in the %packages
                             section, should it be ignored or not?  Values can
                             be KS_MISSING_* from pykickstart.constants.
+           handleBroken  -- If packages with conflicts are specified in the
+                            %packages section, should it be ignored or not?
+                            Values can be KS_BROKEN_* from pykickstart.constants.
            packageList   -- A list of all the packages specified in the
                             %packages section.
            instLangs     -- A list of languages to install.
@@ -361,6 +364,7 @@ class Packages(KickstartObject):
         self.excludeDocs = False
         self.groupList = []
         self.handleMissing = constants.KS_MISSING_PROMPT
+        self.handleBroken = constants.KS_BROKEN_REPORT
         self.packageList = []
         self.instLangs = None
         self.multiLib = False
@@ -384,6 +388,8 @@ class Packages(KickstartObject):
             retval += " --nocore"
         if self.handleMissing == constants.KS_MISSING_IGNORE:
             retval += " --ignoremissing"
+        if self.handleBroken == constants.KS_BROKEN_IGNORE:
+            retval += " --ignorebroken"
         if self.instLangs is not None:
             retval += " --instLangs=%s" % self.instLangs
         if self.multiLib:

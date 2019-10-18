@@ -31,10 +31,11 @@ parser.registerSection with an instance of your new class.
 """
 from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
                                   KS_SCRIPT_PREINSTALL, KS_SCRIPT_ONERROR, \
-                                  KS_MISSING_IGNORE, KS_MISSING_PROMPT
+                                  KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
+                                  KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, RHEL6, RHEL7
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, RHEL6, RHEL7
 from pykickstart.i18n import _
 
 class Section(object):
@@ -683,6 +684,21 @@ class PackageSection(Section):
                         Recommends and Supplements flags. By default weak
                         dependencies will be installed.""")
 
+        if self.version < F32:
+            return op
+
+        op.add_argument("--ignorebroken", action="store_true", default=False, version=F32,
+                        help="""
+                        Ignore any packages, groups or modules with conflicting files.
+                        This issue will disable the DNF `strict` option. The default behavior
+                        is to abort the installation with error message describing the
+                        conflicting files.
+
+                        **WARNING: Usage of this parameter is DISCOURAGED! The DNF
+                        strict option will NOT log any information about what packages
+                        were skipped. Using this option may result in an unusable system.**
+                        """)
+
         return op
 
     def handleHeader(self, lineno, args):
@@ -744,3 +760,11 @@ class PackageSection(Section):
             return
 
         self.handler.packages.excludeWeakdeps = ns.excludeWeakdeps
+
+        if self.version < F32:
+            return
+
+        if ns.ignorebroken:
+            self.handler.packages.handleBroken = KS_BROKEN_IGNORE
+        else:
+            self.handler.packages.handleBroken = KS_BROKEN_REPORT
