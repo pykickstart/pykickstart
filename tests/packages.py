@@ -3,7 +3,8 @@ import warnings
 
 from tests.baseclass import ParserTest
 
-from pykickstart.constants import KS_MISSING_IGNORE
+from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
+    KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
 from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7
@@ -229,7 +230,7 @@ class Packages_Options_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = """
-%packages --ignoremissing --default --instLangs="bg_BG" --excludedocs
+%packages --ignoremissing --default --instLangs="bg_BG" --excludedocs --ignorebroken
 %end
 """
 
@@ -240,11 +241,36 @@ class Packages_Options_TestCase(ParserTest):
         self.assertTrue(self.handler.packages.default)
         self.assertTrue(self.handler.packages.excludeDocs)
         self.assertEqual(self.handler.packages.handleMissing, KS_MISSING_IGNORE)
+        self.assertEqual(self.handler.packages.handleBroken, KS_BROKEN_IGNORE)
         self.assertEqual(self.handler.packages.instLangs, "bg_BG")
 
         # And then test that all those options would be printed out
         # correctly.
-        self.assertEqual(str(self.handler.packages), "\n%packages --default --excludedocs --ignoremissing --instLangs=bg_BG\n\n%end\n")
+        self.assertEqual(str(self.handler.packages), "\n%packages --default --excludedocs --ignoremissing --ignorebroken --instLangs=bg_BG\n\n%end\n")
+
+        # extra test coverage
+        self.assertTrue(self.parser._sections['%packages'].seen)
+
+class Packages_Options_Empty_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = """
+%packages
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+
+        # Verify that IgnoreMissing has a correct value
+        self.assertFalse(self.handler.packages.default)
+        self.assertFalse(self.handler.packages.excludeDocs)
+        self.assertEqual(self.handler.packages.handleMissing, KS_MISSING_PROMPT)
+        self.assertEqual(self.handler.packages.handleBroken, KS_BROKEN_REPORT)
+
+        # And then test that all those options would be printed out
+        # correctly.
+        self.assertEqual(str(self.handler.packages), "\n%packages\n\n%end\n")
 
         # extra test coverage
         self.assertTrue(self.parser._sections['%packages'].seen)
