@@ -16,6 +16,13 @@ install:
 script:
   - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage SPHINXAPIDOC=sphinx-apidoc
 
+after_success:
+  - |
+
+      pip install coverage coveralls
+      coverage combine
+      coveralls
+
 notifications:
   email:
     on_success: change
