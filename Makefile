@@ -9,6 +9,7 @@ NOSEARGS    = -s -v -I __init__.py -I baseclass.py --processes=-1 --process-time
 
 PYTHON_VERSION = $(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
 
+ZANATA=zanata
 ZANATA_PULL_ARGS = --transdir ./po/
 ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 
@@ -18,8 +19,8 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -q --whatprovides zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
-	zanata pull $(ZANATA_PULL_ARGS)
+	which $(ZANATA) &>/dev/null || ( echo "need to install zanata python client package"; exit 1 )
+	$(ZANATA) pull $(ZANATA_PULL_ARGS)
 
 docs:
 	$(MAKE) -C docs html text
@@ -105,7 +106,7 @@ bumpver: docs
 	git add setup.py docs/conf.py ; \
 	git commit -m "New release: $$NEWVERSION" ; \
 	make -C po pykickstart.pot ; \
-	zanata push $(ZANATA_PUSH_ARGS)
+	$(ZANATA) push $(ZANATA_PUSH_ARGS)
 
 pykickstart.spec: pykickstart.spec.in
 	sed -e "s/%%VERSION%%/$(VERSION)/" < $< > $@
