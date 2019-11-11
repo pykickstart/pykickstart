@@ -615,7 +615,7 @@ class PackageSection(Section):
 
         op.remove_argument("--ignoredeps", version=F9)
         op.remove_argument("--resolvedeps", version=F9)
-        op.add_argument("--instLangs", default=None, version=F9, help="""
+        op.add_argument("--instLangs", "--inst-langs", default=None, version=F9, help="""
                         Specify the list of languages that should be installed.
                         This is different from the package group level
                         selections, though. This option does not specify what
@@ -674,7 +674,7 @@ class PackageSection(Section):
         if self.version < F24:
             return op
 
-        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
+        op.add_argument("--excludeWeakdeps", "--exclude-weakdeps", dest="excludeWeakdeps",
                         action="store_true", default=False, version=F24,
                         help="""
                         Do not install packages from weak dependencies. These
