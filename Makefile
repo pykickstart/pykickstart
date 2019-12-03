@@ -60,7 +60,7 @@ install:
 	$(MAKE) -C po install
 
 tag:
-	git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	git tag -s -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
 # Order matters, so run make twice instead of declaring them as dependencies
