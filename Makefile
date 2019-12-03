@@ -85,7 +85,7 @@ archive: docs
 	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf pykickstart-$(VERSION)
 	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
-	gpg --armor --detach-sign pykickstart-$(VERSION).tar.gz
+	gpg --armor --detach-sign -u $(shell git config user.signingkey) pykickstart-$(VERSION).tar.gz
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 local: docs po-pull
