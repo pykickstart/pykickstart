@@ -7,7 +7,7 @@ from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
     KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7
+from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7, F32
 
 
 class DevelPackagesBase(ParserTest):
@@ -207,7 +207,7 @@ class WeakDeps_TestCase(DevelPackagesBase):
         pkgs = Packages()
         pkgs.default = True
         pkgs.excludeWeakdeps = True
-        self.assertEqual("""%packages --default --excludeWeakdeps
+        self.assertEqual("""%packages --default --exclude-weakdeps
 
 %end""", str(pkgs).strip())
 
@@ -230,7 +230,7 @@ class Packages_Options_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = """
-%packages --ignoremissing --default --instLangs="bg_BG" --excludedocs --ignorebroken
+%packages --ignoremissing --default --inst-langs="bg_BG" --excludedocs --ignorebroken
 %end
 """
 
@@ -246,7 +246,7 @@ class Packages_Options_TestCase(ParserTest):
 
         # And then test that all those options would be printed out
         # correctly.
-        self.assertEqual(str(self.handler.packages), "\n%packages --default --excludedocs --ignoremissing --ignorebroken --instLangs=bg_BG\n\n%end\n")
+        self.assertEqual(str(self.handler.packages), "\n%packages --default --excludedocs --ignoremissing --ignorebroken --inst-langs=bg_BG\n\n%end\n")
 
         # extra test coverage
         self.assertTrue(self.parser._sections['%packages'].seen)
@@ -279,7 +279,7 @@ class Packages_Options_Empty_InstLangs_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = """
-%packages --instLangs=
+%packages --inst-langs=
 %end
 """
 
@@ -290,7 +290,7 @@ class Packages_Options_Empty_InstLangs_TestCase(ParserTest):
         self.assertEqual(self.handler.packages.instLangs, "")
 
         # Verify that the empty instLangs comes back out
-        self.assertEqual(str(self.handler.packages).strip(), "%packages --instLangs=\n\n%end")
+        self.assertEqual(str(self.handler.packages).strip(), "%packages --inst-langs=\n\n%end")
 
 class Packages_Options_No_InstLangs_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
@@ -551,6 +551,20 @@ class Packages_Retries_TestCase(ParserTest):
             self.parser.readKickstartFromString(self.ks)
             self.assertEqual(len(w), 0)
             self.assertEqual(str(self.handler.packages), "\n%packages --retries=10\nbash\n\n%end\n")
+
+class Packages_Warn_CamelCase_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = F32
+        self.ks = "%packages --instLangs cs_CZ --excludeWeakdeps\nsomething\n\n%end\n"
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 2)
+            self.assertEqual(str(self.handler.packages),
+                "\n%packages --inst-langs=cs_CZ --exclude-weakdeps\nsomething\n\n%end\n")
 
 if __name__ == "__main__":
     unittest.main()

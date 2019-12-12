@@ -29,11 +29,12 @@ treated just the same as a predefined one by the kickstart parser.  All that
 is necessary is to create a new subclass of Section and call
 parser.registerSection with an instance of your new class.
 """
+import warnings
 from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACEBACK, \
                                   KS_SCRIPT_PREINSTALL, KS_SCRIPT_ONERROR, \
                                   KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
 from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, RHEL6, RHEL7
 from pykickstart.i18n import _
@@ -766,3 +767,12 @@ class PackageSection(Section):
             self.handler.packages.handleBroken = KS_BROKEN_IGNORE
         else:
             self.handler.packages.handleBroken = KS_BROKEN_REPORT
+
+        for option, new_option in \
+                {"--instLangs": "--inst-langs", "--excludeWeakdeps": "--exclude-weakdeps"}.items():
+            if option in args:
+                warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in"
+                                "future releases. Please modify your kickstart file to replace"
+                                "this option with its preferred alias %(new_option)s.")
+                              % {"option": option, "lineno": lineno, "new_option": new_option},
+                              KickstartDeprecationWarning)
