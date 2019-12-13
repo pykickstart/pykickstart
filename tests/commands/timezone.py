@@ -138,10 +138,12 @@ class F25_TestCase(F23_TestCase):
     def runTest(self):
         # since RHEL7 command version the timezone command can be used
         # without a timezone specification
-        self.assert_parse("timezone --utc")
-        self.assert_parse("timezone --isUtc")
-        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz")
-        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz")
+        self.assert_parse("timezone --utc", "timezone --isUtc\n")
+        self.assert_parse("timezone --isUtc", "timezone --isUtc\n")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz", "timezone --ntpservers=ntp.cesnet.cz\n")
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz", "timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz\n")
+        # normal usage
+        self.assert_parse("timezone Europe/Oslo --nontp", "timezone Europe/Oslo --nontp\n")
         # unknown argument
         self.assert_parse_error("timezone --blah")
         # more than two timezone specs
