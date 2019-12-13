@@ -84,7 +84,7 @@ class F32Handler(BaseHandler):
         "sshpw": commands.sshpw.F24_SshPw,
         "sshkey": commands.sshkey.F22_SshKey,
         "text": commands.displaymode.F26_DisplayMode,
-        "timezone": commands.timezone.F25_Timezone,
+        "timezone": commands.timezone.F32_Timezone,
         "updates": commands.updates.F7_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,

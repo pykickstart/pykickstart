@@ -18,8 +18,9 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
+import warnings
 from tests.baseclass import CommandTest
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.commands.timezone import FC3_Timezone, FC6_Timezone, F18_Timezone, F25_Timezone, RHEL7_Timezone
 
 
@@ -155,6 +156,45 @@ class F25_TestCase(F23_TestCase):
         # fail
         self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
 
+
+class F32_TestCase(F25_TestCase):
+    command = "timezone"
+
+    def setUp(self):
+        super().setUp()
+        warnings.simplefilter("error", category=KickstartDeprecationWarning)
+
+    def runTest(self):
+        # Failures
+        # unknown argument
+        self.assert_parse_error("timezone --blah")
+        # more than two timezone specs
+        self.assert_parse_error("timezone foo bar", KickstartParseError, 'One or zero arguments are expected for the timezone command')
+        self.assert_parse_error("timezone --utc foo bar", exception=KickstartParseError)
+        # no options
+        self.assert_parse_error("timezone", KickstartParseError, 'At least one option and/or an argument are expected for the timezone command')
+        # contradictory options
+        self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
+
+        # Successes
+        # normal contents
+        self.assert_parse("timezone Europe/Prague --ntpservers=ntp.cesnet.cz",
+                          "timezone Europe/Prague --ntpservers=ntp.cesnet.cz\n")
+        # no timezone spec
+        self.assert_parse("timezone --ntpservers=ntp.cesnet.cz",
+                          "timezone --ntpservers=ntp.cesnet.cz\n")
+        # no ntp wanted
+        self.assert_parse("timezone Europe/Oslo --nontp",
+                          "timezone Europe/Oslo --nontp\n")
+
+        # New in F32: any variant of UTC should be returned as --utc (again - was in FC3)
+        # --utc should result in no warnings
+        self.assert_parse("timezone --utc Europe/Bratislava",
+                          "timezone Europe/Bratislava --utc\n")
+        # but --isUtc should now give warning
+        self.assert_parse_error("timezone --isUtc Europe/Bratislava",
+                                KickstartDeprecationWarning,
+                                "The option --isUtc will be deprecated in future releases")
 
 if __name__ == "__main__":
     unittest.main()

@@ -17,9 +17,10 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
+import warnings
 from pykickstart.version import FC3, FC6, F18
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
@@ -383,5 +384,39 @@ class F25_Timezone(F23_Timezone):
         if self.ntpservers and self.nontp:
             msg = _("Options --nontp and --ntpservers are mutually exclusive")
             raise KickstartParseError(msg, lineno=self.lineno)
+
+        return self
+
+class F32_Timezone(F25_Timezone):
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F25_Timezone.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.timezone:
+            retval += " " + self.timezone
+
+        if self.isUtc:
+            retval += " --utc"
+
+        if self.nontp:
+            retval += " --nontp"
+
+        if self.ntpservers:
+            retval += " --ntpservers=" + ",".join(self.ntpservers)
+
+        return retval
+
+    def parse(self, args):
+        F25_Timezone.parse(self, args)
+
+        if "--isUtc" in args:
+            warnings.warn(_("The option --isUtc will be deprecated in future releases. Please "
+                            "modify your kickstart file to replace this option with its preferred "
+                            "alias --utc."),
+                          KickstartDeprecationWarning)
 
         return self
