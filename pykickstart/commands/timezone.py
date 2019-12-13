@@ -290,6 +290,32 @@ class F25_Timezone(F23_Timezone):
         F23_Timezone.__init__(self, writePriority, *args, **kwargs)
         self.op = self._getParser()
 
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+        args = self._getArgsAsStr()
+        if args:
+            retval += "# System timezone\n"
+            retval += "timezone" + args + "\n"
+
+        return retval
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.timezone:
+            retval += " " + self.timezone
+
+        if self.isUtc:
+            retval += " --isUtc"
+
+        if self.nontp:
+            retval += " --nontp"
+
+        if self.ntpservers:
+            retval += " --ntpservers=" + ",".join(self.ntpservers)
+
+        return retval
+
     def _getParser(self):
         op = KSOptionParser(prog="timezone", description="""
                             This required command sets the system time zone to
