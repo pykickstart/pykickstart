@@ -102,32 +102,26 @@ class KickstartParseError(KickstartError):
     """An exception class for errors when processing the input file, such as
        unknown options, commands, or sections.
     """
-    pass
 
 class KickstartValueError(KickstartError):
     """This exception class is no longer raised by pykickstart but is kept
        for backwards compatibility.
     """
-    pass
 
 class KickstartVersionError(KickstartError):
     """An exception class for errors related to using an incorrect version of
        kickstart syntax.
     """
-    pass
 
 class KickstartWarning(Warning):
     """A generic warning class for unspecific conditions."""
-    pass
 
 class KickstartParseWarning(KickstartWarning, UserWarning):
     """A class for warnings occurring during parsing an input file, such as
        defining duplicate entries and setting removed keywords.
     """
-    pass
 
 class KickstartDeprecationWarning(KickstartParseWarning, DeprecationWarning):
     """A class for warnings occurring during parsing related to using deprecated
        commands and options.
     """
-    pass

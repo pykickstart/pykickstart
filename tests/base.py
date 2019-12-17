@@ -102,7 +102,6 @@ class DeleteRemovedAttrs_TestCase(unittest.TestCase):
 
 class KickstartCommandNoParseMethod(KickstartCommand):
     """ The parse() method is not defined """
-    pass
 
 class TestDeprecatedCommand(DeprecatedCommand):
     pass

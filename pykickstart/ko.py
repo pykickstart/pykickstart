@@ -31,7 +31,6 @@ class KickstartObject(object):
         """Create a new KickstartObject instance.  All other classes in
            pykickstart should be derived from this one.  Instance attributes:
         """
-        pass
 
     def __str__(self):
         return ""
