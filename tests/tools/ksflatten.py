@@ -14,21 +14,25 @@ from tests.tools.utils import mktempfile
 
 @contextmanager
 def capture(command, *args, **kwargs):
-    out, sys.stdout = sys.stdout, StringIO()
+    stdout, sys.stdout = sys.stdout, StringIO()
+    stderr, sys.stderr = sys.stderr, StringIO()
     try:
-        command(*args, **kwargs)
+        retval = command(*args, **kwargs)
         sys.stdout.seek(0)
-        yield sys.stdout.read()
+        sys.stderr.seek(0)
+        yield (retval, sys.stdout.read(), sys.stderr.read())
     finally:
-        sys.stdout = out
+        sys.stdout = stdout
+        sys.stderr = stderr
 
 
 class NoConfigSpecified_TestCase(TestCase):
     @mock.patch('sys.exit', create=True)
     def runTest(self, _exit):
-        retval, msg = ksflatten.main([])
-        self.assertEqual(retval, 1)
-        self.assertEqual(msg, 'Need to specify a config to flatten')
+        with capture(ksflatten.main, []) as output:
+            retval, msg = output[0] 
+            self.assertEqual(retval, 1)
+            self.assertEqual(msg, 'Need to specify a config to flatten')
 
 class WrongKSPath_TestCase(TestCase):
     def runTest(self):
@@ -56,7 +60,7 @@ class ValidKSFile_ToStdOut_TestCase(TestCase):
 
     def runTest(self):
         with capture(ksflatten.main, ['--version', 'F26', '--config', self._ks_path]) as output:
-            self.assertEqual(output, "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
+            self.assertEqual(output[1], "#version=F26\n# Use text mode install\ntext\n\n# System bootloader configuration\nbootloader --location=none\nautopart\n")
 
 class ValidKSFile_TestCase(TestCase):
     def setUp(self):
