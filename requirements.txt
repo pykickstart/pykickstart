@@ -4,7 +4,8 @@
 pip
 setuptools
 pytest
-coverage
+# This requires a specific range of coverage versions, let the dependency be pulled in by coveralls
+coveralls
 nose
 ordered-set
 polib
@@ -13,5 +14,5 @@ requests
 six
 Sphinx == 1.7.6
 
-# Custom Red Hat module used to 
+# Custom Red Hat module used with pylint
 https://github.com/rhinstaller/pocketlint/zipball/master

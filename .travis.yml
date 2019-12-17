@@ -19,7 +19,6 @@ script:
 after_success:
   - |
 
-      pip install coverage coveralls
       coverage combine
       coveralls
 
