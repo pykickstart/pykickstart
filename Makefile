@@ -104,9 +104,9 @@ bumpver: docs
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	git add setup.py docs/conf.py ; \
-	git commit -m "New release: $$NEWVERSION" ; \
 	make -C po pykickstart.pot ; \
-	$(ZANATA) push $(ZANATA_PUSH_ARGS)
+	$(ZANATA) push $(ZANATA_PUSH_ARGS) ; \
+	git commit -m "New release: $$NEWVERSION"
 
 pykickstart.spec: pykickstart.spec.in
 	sed -e "s/%%VERSION%%/$(VERSION)/" < $< > $@
