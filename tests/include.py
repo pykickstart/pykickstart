@@ -188,7 +188,14 @@ ls /tmp
     def setUp(self):
         super(Include_URL_TestCase, self).setUp()
 
-        server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler)
+        # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
+        httphandler = six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler
+
+        def shutup(*args, **kwargs):
+            pass
+        httphandler.log_message = shutup
+
+        server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
         httpd_port = server.server_port
         self._httpd_pid = os.fork()
         if self._httpd_pid == 0:
