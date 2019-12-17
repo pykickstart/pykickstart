@@ -48,7 +48,7 @@ class Unknown_New_Section_2_TestCase(New_Section_TestCase):
         # it to ignore that.  There's not an "assertDoesntRaise" function,
         # so we just call it and if anything goes wrong it'll FAIL.
         self.parser.unknownSectionIsFatal = False
-        self.parser.readKickstartFromString(self.ks)
+        self.assertWarns(KickstartParseWarning, self.parser.readKickstartFromString, self.ks)
 
 class Ignored_Section_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
