@@ -69,16 +69,17 @@ class TestKSOptionParser(KSOptionParser):
         help attributes are empty.
     """
     def __init__(self, *args, **kwargs):
+        self._test_errors = []
         for arg_name in ['prog', 'version', 'description']:
-            if not kwargs.get(arg_name):
-                raise Exception("%s can't be blank" % arg_name)
+            if not kwargs.get(arg_name) and not kwargs.get("deprecated"):
+                self._test_errors.append("%s: %s can't be blank" % (args[0], arg_name))
 
         super(TestKSOptionParser, self).__init__(*args, **kwargs)
 
     def add_argument(self, *args, **kwargs):
         for arg_name in ['help', 'version']:
-            if not kwargs.get(arg_name):
-                raise Exception("%s can't be blank" % arg_name)
+            if not kwargs.get(arg_name) and not kwargs.get("deprecated"):
+                self._test_errors.append("%s: %s can't be blank" % (args[0], arg_name))
         return super(TestKSOptionParser, self).add_argument(*args, **kwargs)
 
 
@@ -130,19 +131,20 @@ class HelpAndDescription_TestCase(unittest.TestCase):
                     if command_module_name == 'install':
                         command_module_name = 'upgrade'
                     with mock.patch('%s.KSOptionParser' % command_module_name, new=TestKSOptionParser):
-                        try:
-                            # just construct the option parser
-                            # the wrapper class will raise an exception in case
-                            # there are empty help strings
-                            impl_class()._getParser()
-                        except Exception as e:      # pylint: disable=broad-except
-                            errors += 1
-                            message = "ERROR: In `%s` %s" % (impl_class, e)
-                            print(message)
+                        # just construct the option parser
+                        # the wrapper class will raise an exception in case
+                        # there are empty help strings
+                        klass = impl_class()
+                        op = klass._getParser()
+
+                        if hasattr(op, "_test_errors") and len(op._test_errors) > 0:
+                            errors += len(op._test_errors)
+                            print("ERROR: In `%s`" % impl_class)
+                            for err in op._test_errors:
+                                print(err)
 
         # assert for errors presence
-        # temporarily disabled
-        # self.assertEqual(0, errors)
+        self.assertEqual(0, errors)
 
 if __name__ == "__main__":
     unittest.main()
