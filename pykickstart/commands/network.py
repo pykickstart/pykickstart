@@ -843,7 +843,7 @@ class RHEL4_Network(FC3_Network):
     def _getParser(self):
         op = FC3_Network._getParser(self)
         op.add_argument("--notksdevice", action="store_true", default=False,
-                        version=RHEL4, help="")
+                        version=RHEL4, help="This network device is not used for kickstart.")
         return op
 
 class RHEL5_Network(FC6_Network):

@@ -107,16 +107,20 @@ class FC3_Firewall(KickstartCommand):
                         is needed, you can choose to allow specific services
                         through the firewall.""", version=FC3)
         op.add_argument("--ftp", dest="ports", action="append_const",
-                        const="21:tcp", version=FC3, help="")
+                        const="21:tcp", version=FC3,
+                        help="Open port 21:tcp")
         op.add_argument("--http", dest="ports", action=ExtendConstAction,
                         const=["80:tcp", "443:tcp"], nargs=0, version=FC3,
-                        help="")
+                        help="Open ports 80:tcp and 443:tcp")
         op.add_argument("--smtp", dest="ports", action="append_const",
-                        const="25:tcp", version=FC3, help="")
+                        const="25:tcp", version=FC3,
+                        help="Open port 25:tcp")
         op.add_argument("--ssh", dest="ports", action="append_const",
-                        const="22:tcp", version=FC3, help="")
+                        const="22:tcp", version=FC3,
+                        help="Open port 22:tcp")
         op.add_argument("--telnet", dest="ports", action="append_const",
-                        const="23:tcp", version=FC3, help="")
+                        const="23:tcp", version=FC3,
+                        help="Open port 23:tcp")
         op.add_argument("--high", deprecated=FC3, help="")
         op.add_argument("--medium", deprecated=FC3, help="")
         op.add_argument("--port", dest="ports", action=ExtendAction,
@@ -195,13 +199,13 @@ class F10_Firewall(F9_Firewall):
                         will provide a list of known service names.""",
                         version=F10)
         op.add_argument("--ftp", dest="services", action="append_const",
-                        const="ftp", version=F10, help="")
+                        const="ftp", version=F10, help="Open the ftp service port")
         op.add_argument("--http", dest="services", action="append_const",
-                        const="http", version=F10, help="")
+                        const="http", version=F10, help="Open the http service port")
         op.add_argument("--smtp", dest="services", action="append_const",
-                        const="smtp", version=F10, help="")
+                        const="smtp", version=F10, help="Open the smtp service port")
         op.add_argument("--ssh", dest="services", action="append_const",
-                        const="ssh", version=F10, help="")
+                        const="ssh", version=F10, help="Open the ssh service port")
         op.add_argument("--telnet", deprecated=F10)
         return op
 
@@ -221,7 +225,8 @@ class F20_Firewall(F14_Firewall):
 
     def _getParser(self):
         op = F14_Firewall._getParser(self)
-        op.add_argument("--remove-service", dest="remove_services", help="",
+        op.add_argument("--remove-service", dest="remove_services",
+                        help="Close ports for the comma-separated list of services",
                         action=ExtendAction, type=commaSplit, version=F20)
         return op
 

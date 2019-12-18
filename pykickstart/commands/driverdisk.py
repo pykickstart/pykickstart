@@ -119,7 +119,7 @@ class FC3_DriverDisk(KickstartCommand):
         op.add_argument("--source", version=FC3, help="""
                         Specify a URL for the driver disk. NFS locations can be
                         given with ``nfs:host:/path/to/img``.""")
-        op.add_argument("--type", version=FC3, help="")
+        op.add_argument("--type", version=FC3, help="REMOVED")
         return op
 
     def parse(self, args):

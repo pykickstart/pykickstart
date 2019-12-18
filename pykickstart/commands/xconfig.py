@@ -78,24 +78,24 @@ class FC3_XConfig(KickstartCommand):
                             not given, Anaconda will use X and attempt to
                             automatically configure. Please try this before
                             manually configuring your system.""", version=FC3)
-        op.add_argument("--card", version=FC3, help="")
+        op.add_argument("--card", version=FC3, help="REMOVED")
         op.add_argument("--defaultdesktop", metavar="GNOME|KDE", help="""
                         Specify either GNOME or KDE to set the default desktop
                         (assumes that GNOME Desktop Environment and/or KDE
                         Desktop Environment has been installed through
                         %%packages).""", version=FC3)
-        op.add_argument("--depth", type=int, version=FC3, help="")
-        op.add_argument("--hsync", version=FC3, help="")
-        op.add_argument("--monitor", version=FC3, help="")
+        op.add_argument("--depth", type=int, version=FC3, help="REMOVED")
+        op.add_argument("--hsync", version=FC3, help="REMOVED")
+        op.add_argument("--monitor", version=FC3, help="REMOVED")
         op.add_argument("--noprobe", dest="noProbe", action="store_true",
-                        default=False, version=FC3, help="")
-        op.add_argument("--resolution", version=FC3, help="")
-        op.add_argument("--server", version=FC3, help="")
+                        default=False, version=FC3, help="REMOVED")
+        op.add_argument("--resolution", version=FC3, help="REMOVED")
+        op.add_argument("--server", version=FC3, help="REMOVED")
         op.add_argument("--startxonboot", dest="startX", action="store_true",
                         default=False, version=FC3, help="""
                         Use a graphical login on the installed system.""")
-        op.add_argument("--videoram", dest="videoRam", version=FC3, help="")
-        op.add_argument("--vsync", version=FC3, help="")
+        op.add_argument("--videoram", dest="videoRam", version=FC3, help="REMOVED")
+        op.add_argument("--vsync", version=FC3, help="REMOVED")
         return op
 
     def parse(self, args):
@@ -137,7 +137,7 @@ class FC6_XConfig(FC3_XConfig):
     def _getParser(self):
         op = FC3_XConfig._getParser(self)
         op.add_argument("--card", deprecated=FC6)
-        op.add_argument("--driver", version=FC6, help="")
+        op.add_argument("--driver", version=FC6, help="REMOVED")
         op.add_argument("--hsync", deprecated=FC6)
         op.add_argument("--monitor", deprecated=FC6)
         op.add_argument("--noprobe", deprecated=FC6)

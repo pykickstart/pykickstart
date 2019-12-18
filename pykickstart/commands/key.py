@@ -48,7 +48,7 @@ class RHEL5_Key(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser(prog="key", description="set or skip the software installation key", version=RHEL5)
         op.add_argument("--skip", action="store_true", default=False,
-                        version=RHEL5, help="")
+                        version=RHEL5, help="Skip the software installation key")
         return op
 
     def parse(self, args):

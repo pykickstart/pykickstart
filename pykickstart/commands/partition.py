@@ -371,7 +371,7 @@ class FC3_Partition(KickstartCommand):
                         ``bootloader`` command.
                         """)
         op.add_argument("--active", action="store_true", default=False,
-                        version=FC3, help="")
+                        version=FC3, help="Set partition as active")
         op.add_argument("--asprimary", dest="primOnly", action="store_true",
                         default=False, version=FC3, help="""
                         Forces automatic allocation of the partition as a primary
@@ -380,8 +380,8 @@ class FC3_Partition(KickstartCommand):
                         **TIP:** The ``--asprimary`` option only makes sense
                         with the MBR partitioning scheme and is ignored when the
                         GPT partitioning scheme is used.""")
-        op.add_argument("--start", type=int, version=FC3, help="")
-        op.add_argument("--end", type=int, version=FC3, help="")
+        op.add_argument("--start", type=int, version=FC3, help="REMOVED")
+        op.add_argument("--end", type=int, version=FC3, help="REMOVED")
         op.add_argument("--fstype", "--type", dest="fstype", version=FC3,
                         help="""
                         Sets the file system type for the partition. Valid
