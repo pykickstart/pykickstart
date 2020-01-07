@@ -5,7 +5,7 @@ pip
 setuptools
 pytest
 # This requires a specific range of coverage versions, let the dependency be pulled in by coveralls
-coveralls
+coveralls < 1.10.0
 nose
 ordered-set
 polib
