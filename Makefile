@@ -3,8 +3,8 @@ RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG         = r$(VERSION)
 PREVTAG    := $(shell git tag --sort=-creatordate | head -n 2 | tail -n 1)
 
-ZANATA_PULL_ARGS = --transdir ./po/
-ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
+WEBLATE_REPO = git@github.com:pykickstart/weblate
+WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
@@ -19,8 +19,17 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -q --whatprovides python3-zanata-client &>/dev/null || ( echo "need to run: dnf install python3-zanata-client"; exit 1 )
-	zanata pull $(ZANATA_PULL_ARGS)
+	-rm -rf ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	cp ./weblate/*.po ./weblate/*.pot ./po/
+
+po-push:
+	make -C po pykickstart.pot
+	-rm -rf ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	cp po/pykickstart.pot ./weblate/
+	git -C ./weblate/ commit -m "Update pykickstart.pot" -- pykickstart.pot
+	git -C ./weblate/ push
 
 docs:
 	$(MAKE) -C docs html text
@@ -35,7 +44,6 @@ endif
 	@echo "*** Running tests on translatable strings ***"
 	$(MAKE) -C po pykickstart.pot
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translatable po/pykickstart.pot
-	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
 
 # Left here for backwards compability - in case anyone was running the test target.  Now you always get coverage.
 test: coverage
@@ -84,7 +92,6 @@ archive: docs
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
 	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf pykickstart-$(VERSION)
-	git checkout -- po/pykickstart.pot >/dev/null 2>&1 || :
 	gpg --armor --detach-sign pykickstart-$(VERSION).tar.gz
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
@@ -102,16 +109,13 @@ bumpver: po-pull
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	git add setup.py docs/conf.py ; \
-	git commit -m "New release: $$NEWVERSION" ; \
-	make -C po pykickstart.pot ; \
-	zanata push $(ZANATA_PUSH_ARGS)
+	git commit -m "New release: $$NEWVERSION"
 
 scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
-	make -C po pykickstart.pot
+	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py
 
 scratch: docs
 	@rm -rf pykickstart-$(VERSION).tar.gz
