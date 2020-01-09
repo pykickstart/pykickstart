@@ -1,5 +1,6 @@
 *.pyc
 .*.swp
+po/pykickstart.pot
 po/*.po
 po/*.mo
 pykickstart*.tar.gz
@@ -11,3 +12,4 @@ coverage-report.log
 docs/_build
 docs/modules.rst
 docs/pykickstart*.rst
+weblate/
