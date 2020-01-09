@@ -12,7 +12,7 @@ INSTALL_NLS_DIR = $(DESTDIR)/`$(PYTHON) -c "from distutils.sysconfig import get_
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
-XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --add-comments
+XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) --add-comments --sort-output
 MSGFMT		= msgfmt --statistics --verbose
 
 # What do we need to do
