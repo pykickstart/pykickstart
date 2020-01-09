@@ -5,8 +5,8 @@ RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g'
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG=r$(VERSION)-$(RELEASE)
 
-ZANATA_PULL_ARGS = --transdir ./po/
-ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
+WEBLATE_REPO = git@github.com:pykickstart/weblate
+WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
 MANDIR=/usr/share/man
 PREFIX=/usr
@@ -19,15 +19,17 @@ all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -qa | grep zanata 2>/dev/null | grep -q client 2>/dev/null &>/dev/null || ( echo "need to run: yum install /usr/bin/zanata"; exit 1 )
-	zanata pull $(ZANATA_PULL_ARGS)
+	-rm -rf ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	cp ./weblate/*.po ./weblate/*.pot ./po/
 
-po-empty:
-	for lingua in $$(gawk 'match($$0, /locale>(.*)<\/locale/, ary) {print ary[1]}' ./zanata.xml) ; do \
-		[ -f ./po/$$lingua.po ] || \
-		msginit -i ./po/$(PKGNAME).pot -o ./po/$$lingua.po --no-translator || \
-		exit 1 ; \
-	done
+po-push:
+	make -C po pykickstart.pot
+	-rm -rf ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	cp po/pykickstart.pot ./weblate/
+	git -C ./weblate/ commit -m "Update pykickstart.pot" -- pykickstart.pot
+	git -C ./weblate/ push
 
 docs:
 	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
@@ -69,7 +71,6 @@ archive: tag docs
 	tar -rf $(PKGNAME)-$(VERSION).tar $(PKGNAME)-$(VERSION)
 	gzip -9 $(PKGNAME)-$(VERSION).tar
 	rm -rf $(PKGNAME)-$(VERSION)
-	git checkout -- po/$(PKGNAME).pot
 	@echo "The archive is in $(PKGNAME)-$(VERSION).tar.gz"
 
 local: docs po-pull
@@ -94,11 +95,9 @@ bumpver: po-pull
 	(head -n $$cl $(SPECFILE) ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > $(SPECFILE).new ; \
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
-	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	make -C po $(PKGNAME).pot ; \
-	zanata push $(ZANATA_PUSH_ARGS)
+	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py
 
-scratch-bumpver: po-empty
+scratch-bumpver:
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 4` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,3,5` ; \
 	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-$(RC_RELEASE)"  ; \
@@ -108,10 +107,9 @@ scratch-bumpver: po-empty
 	mv $(SPECFILE).new $(SPECFILE) ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" $(SPECFILE) ; \
 	sed -i "s/Release: $(RELEASE)/Release: $(RC_RELEASE)/" $(SPECFILE) ; \
-	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	make -C po $(PKGNAME).pot
+	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py
 
-scratch: docs po-empty
+scratch: docs
 	@rm -rf $(PKGNAME)-$(VERSION).tar.gz
 	@rm -rf /tmp/$(PKGNAME)-$(VERSION) /tmp/$(PKGNAME)
 	@dir=$$PWD; cp -a $$dir /tmp/$(PKGNAME)-$(VERSION)
