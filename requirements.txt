@@ -4,7 +4,8 @@
 pip
 setuptools
 pytest
-# This requires a specific range of coverage versions, let the dependency be pulled in by coveralls
+# coverage 5.x.x does not work with nose/coverage, pin it at the last working version
+coverage < 5.0.0
 coveralls
 nose
 ordered-set
