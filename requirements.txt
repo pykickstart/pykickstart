@@ -4,7 +4,9 @@
 pip
 setuptools
 pytest
-coverage
+# coverage 5.x.x does not work with nose/coverage, pin it at the last working version
+coverage < 5.0.0
+coveralls
 nose
 ordered-set
 polib
@@ -13,5 +15,5 @@ requests
 six
 Sphinx == 1.7.6
 
-# Custom Red Hat module used to 
+# Custom Red Hat module used with pylint
 https://github.com/rhinstaller/pocketlint/zipball/master
