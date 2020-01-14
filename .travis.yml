@@ -14,7 +14,7 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - travis_wait env NOSE_IGNORE_CONFIG_FILES=y make check coverage docs COVERAGE=coverage SPHINXAPIDOC=sphinx-apidoc
+  - travis_wait make check coverage docs COVERAGE=coverage SPHINXAPIDOC=sphinx-apidoc
 
 after_success:
   - |

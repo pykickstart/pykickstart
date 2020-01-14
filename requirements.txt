@@ -3,11 +3,8 @@
 
 pip
 setuptools
-pytest
-# coverage 5.x.x does not work with nose/coverage, pin it at the last working version
-coverage < 5.0.0
+coverage
 coveralls
-nose
 ordered-set
 polib
 pylint

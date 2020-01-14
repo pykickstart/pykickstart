@@ -5,7 +5,6 @@ PREVTAG    := $(shell git tag --sort=-creatordate | head -n 2 | tail -n 1)
 COVERAGE   ?= coverage3
 PYTHON     ?= python3
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
-NOSEARGS    = -s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
 
 PYTHON_VERSION = $(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
 
@@ -53,7 +52,7 @@ ifneq ($(PYTHON_VERSION),3)
 endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. NOSE_IGNORE_CONFIG_FILES=y $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
+	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m unittest -v $(tests)
 	-$(COVERAGE) combine
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
