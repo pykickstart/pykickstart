@@ -195,17 +195,18 @@ ls /tmp
             pass
         httphandler.log_message = shutup
 
-        server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
-        httpd_port = server.server_port
+        self._server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
+        httpd_port = self._server.server_port
         self._httpd_pid = os.fork()
         if self._httpd_pid == 0:
             os.chdir(os.path.dirname(self._path))
-            server.serve_forever()
+            self._server.serve_forever()
 
         self._url = 'http://127.0.0.1:%d/%s' % (httpd_port, os.path.basename(self._path))
 
     def tearDown(self):
         super(Include_URL_TestCase, self).tearDown()
+        self._server.server_close()
 
         import signal
         os.kill(self._httpd_pid, signal.SIGTERM)
