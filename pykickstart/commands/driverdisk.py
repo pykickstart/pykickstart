@@ -115,7 +115,10 @@ class FC3_DriverDisk(KickstartCommand):
                             where to look for the driver disk.""",
                             version=FC3)
         op.add_argument("partition", nargs="*", version=FC3,
-                        help="Partition containing the driver disk.")
+                        help="""
+                        Partition containing the driver disk.
+                        This can be specified by device name, UUID=, or LABEL=
+                        just like the harddrive command may be.""")
         op.add_argument("--source", version=FC3, help="""
                         Specify a URL for the driver disk. NFS locations can be
                         given with ``nfs:host:/path/to/img``.""")
