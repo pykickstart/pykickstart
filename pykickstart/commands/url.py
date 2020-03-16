@@ -175,10 +175,10 @@ class F18_Url(F14_Url):
     def _getParser(self):
         op = F14_Url._getParser(self)
         op.add_argument("--url", version=F18, help="""
-                        This parameter is no longer required because you could
-                        use ``--mirrorlist`` instead.""")
+                        The URL to install from. Variable substitution is done
+                        for $releasever and $basearch in the url.""")
         op.add_argument("--mirrorlist", metavar="URL", version=F18, help="""
-                        The mirror URL to install from. Variable substitution
+                        The mirrorlist URL to install from. Variable substitution
                         is done for $releasever and $basearch in the url.""")
         return op
 
