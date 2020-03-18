@@ -175,8 +175,7 @@ class F18_Url(F14_Url):
     def _getParser(self):
         op = F14_Url._getParser(self)
         op.add_argument("--url", version=F18, help="""
-                        The URL to install from. Variable substitution is done
-                        for $releasever and $basearch in the url.""")
+                        Only one of the --url or --mirrorlist can be specified.""")
         op.add_argument("--mirrorlist", metavar="URL", version=F18, help="""
                         The mirrorlist URL to install from. Variable substitution
                         is done for $releasever and $basearch in the url.""")
@@ -237,6 +236,9 @@ class F27_Url(F18_Url):
 
     def _getParser(self):
         op = F18_Url._getParser(self)
+        op.add_argument("--url", version=F27, help="""
+                        Only one of the --url, --mirrorlist or --metalink can
+                        be specified.""")
         op.add_argument("--metalink", metavar="URL", version=F27, help="""
                         The metalink URL to install from. Variable substitution
                         is done for $releasever and $basearch in the url.""")
