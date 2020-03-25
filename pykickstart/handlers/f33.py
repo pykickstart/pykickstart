@@ -72,7 +72,7 @@ class F33Handler(BaseHandler):
         "raid": commands.raid.F29_Raid,
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F23_Reboot,
-        "repo": commands.repo.F30_Repo,
+        "repo": commands.repo.F33_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
         "rootpw": commands.rootpw.F18_RootPw,

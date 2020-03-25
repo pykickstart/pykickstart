@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartError, KickstartParseWarning
+from pykickstart.errors import KickstartError, KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
@@ -192,6 +192,15 @@ class F30_TestCase(F27_TestCase):
         self.assert_parse_error("repo --name=test --sslclientcert")
         self.assert_parse_error("repo --name=test --sslclientkey")
         self.assert_parse_error("repo --name=test --sslcacert")
+
+class F33_TestCase(F30_TestCase):
+    def runTest(self, urlRequired=False):
+        F30_TestCase.runTest(self, urlRequired=urlRequired)
+
+        self.assert_deprecated("repo", "--ignoregroups")
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("repo --name=blah --baseurl=www.domain.com --ignoregroups=true")
+
 
 if __name__ == "__main__":
     unittest.main()
