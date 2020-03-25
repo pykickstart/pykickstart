@@ -224,7 +224,8 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(F30, skipDevel=True), "F30")
         self.assertEqual(versionToString(F31, skipDevel=True), "F31")
         self.assertEqual(versionToString(F32, skipDevel=True), "F32")
-        self.assertEqual(versionToString(F32, skipDevel=False), "DEVEL")
+        self.assertEqual(versionToString(F33, skipDevel=True), "F33")
+        self.assertEqual(versionToString(F33, skipDevel=False), "DEVEL")
         # RHEL series
         self.assertEqual(versionToString(RHEL3), "RHEL3")
         self.assertEqual(versionToString(RHEL4), "RHEL4")

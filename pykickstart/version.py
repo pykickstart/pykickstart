@@ -90,10 +90,11 @@ F29 = 27000
 F30 = 30000
 F31 = 31000
 F32 = 32000
+F33 = 33000
 RHEL8 = 26100
 
 # This always points at the latest version and is the default.
-DEVEL = F32
+DEVEL = F33
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
@@ -103,7 +104,7 @@ versionMap = {
     "F14": F14, "F15": F15, "F16": F16, "F17": F17, "F18": F18,
     "F19": F19, "F20": F20, "F21": F21, "F22": F22, "F23": F23,
     "F24": F24, "F25": F25, "F26": F26, "F27": F27, "F28": F28,
-    "F29": F29, "F30": F30, "F31": F31, "F32": F32,
+    "F29": F29, "F30": F30, "F31": F31, "F32": F32, "F33": F33,
     "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
     "RHEL7": RHEL7, "RHEL8": RHEL8
 }
