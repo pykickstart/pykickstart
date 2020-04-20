@@ -46,7 +46,7 @@ project = u'Pykickstart'
 copyright = u'2016, Red Hat Installer Engineering Team' # pylint: disable=redefined-builtin
 
 # The short X.Y version.
-version = '3.16.10'
+version = '3.16.11'
 # The full version, including alpha/beta/rc tags.
 release = version
 
