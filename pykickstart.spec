@@ -3,7 +3,7 @@
 Summary:  A python library for manipulating kickstart files
 Name: pykickstart
 Url: https://github.com/dcantrell/pykickstart
-Version: 1.99.66.21
+Version: 1.99.66.22
 Release: 1%{?dist}
 Source0: https://github.com/dcantrell/pykickstart/releases/download/r%{version}-%{release}/%{name}-%{version}.tar.gz
 Source1: https://github.com/dcantrell/pykickstart/releases/download/r%{version}-%{release}/%{name}-%{version}.tar.gz.asc
@@ -50,6 +50,11 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Mon Apr 20 2020 Brian C. Lane <bcl@redhat.com> - 1.99.66.22-1
+- travis-ci: Install libgnutls28-dev for pycurl (bcl)
+- Switch to using Weblate for translations (bcl)
+- po: Remove pykickstart.pot (bcl)
+
 * Tue May 28 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.21-1
 - Update translations
   Resolves: rhbz#1688255
