@@ -52,8 +52,11 @@ make test
 %changelog
 * Mon Apr 20 2020 Brian C. Lane <bcl@redhat.com> - 1.99.66.22-1
 - travis-ci: Install libgnutls28-dev for pycurl (bcl)
+  Related: rhbz#1790572
 - Switch to using Weblate for translations (bcl)
+  Resolves: rhbz#1790572
 - po: Remove pykickstart.pot (bcl)
+  Related: rhbz#1790572
 
 * Tue May 28 2019 David Cantrell <dcantrell@redhat.com> - 1.99.66.21-1
 - Update translations
