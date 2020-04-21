@@ -8,6 +8,8 @@ MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 PYTHON_VERSION = $(shell ${PYTHON} -c "print(__import__('sys').version_info[0])")
 
+GPGKEY ?= $(shell git config user.signingkey)
+
 WEBLATE_REPO = git@github.com:pykickstart/weblate
 WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
@@ -66,12 +68,14 @@ install:
 	$(MAKE) -C po install
 
 tag:
-	git tag -s -m "Tag as $(TAG)" -f $(TAG)
+	git tag -u $(GPGKEY) -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
+	if [ -z "$(GPGKEY)" ]; then echo "ERROR: The git config user.signingkey must be set" ; exit 1; fi
 	$(MAKE) po-pull && $(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
+	gpg --armor --detach-sign -u $(GPGKEY) pykickstart-$(VERSION).tar.gz
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
