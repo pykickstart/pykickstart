@@ -32,7 +32,8 @@
 #   - .help (requires moving help text into each optionparser object?)
 #   - .save
 
-# pylint: disable=found-_-in-module-class
+# Disable found-_-in-module-class
+# pylint: disable=W9902
 
 import readline
 import argparse

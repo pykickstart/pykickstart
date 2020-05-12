@@ -19,7 +19,8 @@
 # with the express permission of Red Hat, Inc.
 #
 
-# pylint: disable=found-_-in-module-class
+# Disable found-_-in-module-class
+# pylint: disable=W9902
 
 import argparse
 import sys
