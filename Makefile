@@ -33,7 +33,6 @@ po-push:
 
 docs:
 	$(MAKE) -C docs html text
-	curl -A "programmers-guide" -o docs/programmers-guide "https://fedoraproject.org/w/index.php?title=PykickstartIntro&action=raw"
 
 check:
 ifneq ($(PYTHON_VERSION),3)
@@ -59,7 +58,7 @@ endif
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
 clean:
-	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc docs/programmers-guide *log .coverage pykickstart.spec
+	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc *log .coverage pykickstart.spec
 	$(MAKE) -C po clean
 	$(PYTHON) setup.py -q clean --all
 
