@@ -1,15 +1,2 @@
-# Requirements for automatic testing and building
-# Runtime requirements are described in the spec file
-
-pip
-setuptools
-coverage
-coveralls
-polib
-pylint
-requests
-six
-Sphinx == 1.7.6
-
-# Custom Red Hat module used with pylint
-https://github.com/rhinstaller/pocketlint/zipball/master
+# Installs all extras (for testing and documentation) in pykickstart.
+.[docs,test]
