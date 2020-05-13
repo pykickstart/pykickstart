@@ -182,7 +182,7 @@ class PutBackIterator(Iterator):
             return next(self._iterable)
 
     def __next__(self):
-        return self.next()
+        return self.next()                          # pylint: disable=not-callable
 
 ###
 ### SCRIPT HANDLING
