@@ -1,7 +1,7 @@
 #
 # Tomas Radej <tradej@redhat.com>
 #
-# Copyright 2015 Red Hat, Inc.
+# Copyright 2015-2020 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -27,22 +27,9 @@ def _find_locale_files():
 
     gettext.bindtextdomain("pykickstart", locale_path)
     gettext.textdomain("pykickstart")
+_find_locale_files()
 
 if six.PY3:
-    import sys
-
-    _find_locale_files()
-
-    def _(x):
-        if x == '':  # Workaround for gettext's behaviour on empty strings
-            return ''
-
-        result = gettext.lgettext(x)
-        if isinstance(result, bytes):
-            return result.decode(sys.getdefaultencoding())
-        else:
-            return result
+    _ = lambda x: gettext.gettext(x) if x else ''
 else:
-    _find_locale_files()
-
     _ = lambda x: gettext.lgettext(x) if x else ''
