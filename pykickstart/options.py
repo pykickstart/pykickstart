@@ -269,13 +269,13 @@ class KSOptionParser(ArgumentParser):
         # exit.  That's what raising exceptions is for.
         pass
 
-    def parse_args(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def parse_args(self, *args, **kwargs):  # pylint: disable=arguments-differ,signature-differs
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 
         return ArgumentParser.parse_args(self, *args, **kwargs)
 
-    def parse_known_args(self, *args, **kwargs):  # pylint: disable=arguments-differ
+    def parse_known_args(self, *args, **kwargs):  # pylint: disable=arguments-differ,signature-differs
         if "lineno" in kwargs:
             self.lineno = kwargs.pop("lineno")
 

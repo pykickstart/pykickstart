@@ -42,7 +42,7 @@ def cleanup(dest, fn=None, exitval=1):
     if fn is not None:
         try:
             os.remove(fn)
-        except Exception:
+        except FileNotFoundError:
             pass
 
     return exitval
@@ -113,7 +113,7 @@ def main(argv):
     except KickstartError:
         return (cleanup(destdir, processedFile),
                 [_("General kickstart error in input file")])
-    except Exception as e:
+    except Exception as e:                                      # pylint: disable=broad-except
         return (cleanup(destdir, processedFile),
                 [_("General error in input file:  %s") % e])
 
