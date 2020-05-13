@@ -388,17 +388,15 @@ class FC3_Network(KickstartCommand):
                         The default setting is ``dhcp``. To turn IPv4
                         configuration off use ``--noipv4`` option.
 
-                        - The ``dhcp`` method uses a DHCP server system to
-                          obtain its networking configuration.
+                        - The ``dhcp`` method uses a DHCP server system to obtain its networking configuration.
 
-                        - The ``static`` method requires that you specify at
-                          least IP address and netmask with ``--ip`` and
-                          ``--netmask`` options. For example::
+                        - The ``static`` method requires that you specify at least IP address and netmask with ``--ip`` and ``--netmask`` options.
+
+                        For example::
 
                               ``network --device=link --bootproto=static --ip=10.0.2.15 --netmask=255.255.255.0 --gateway=10.0.2.254 --nameserver=10.0.2.1``
 
-                        - ``ibft`` setting is for reading the configuration
-                          from iBFT table.""")
+                        - ``ibft`` setting is for reading the configuration from iBFT table.""")
         op.add_argument("--dhcpclass", version=FC3, help="""
                         Specifies the DHCP vendor class identifier. The dhcpd
                         service will see this value as vendor-class-identifier.""")
@@ -406,17 +404,12 @@ class FC3_Network(KickstartCommand):
                         Specifies the device to be configured (and eventually
                         activated in Anaconda) with the network command.
 
-                        You can specify a device to be activated in any of the
-                        following ways:
+                        You can specify a device to be activated in any of the following ways:
+
                         - the device name of the interface, for example, ``em1``
-                        - the MAC address of the interface, for example,
-                          ``01:23:45:67:89:ab``
-                        - the keyword ``link``, which specifies the first
-                          interface with its link in the up state
-                        - the keyword ``bootif``, which uses the MAC address
-                          that pxelinux set in the ``BOOTIF`` variable. Set
-                          ``IPAPPEND 2`` in your pxelinux.cfg file to have
-                          pxelinux set the ``BOOTIF`` variable.
+                        - the MAC address of the interface, for example, ``01:23:45:67:89:ab``
+                        - the keyword ``link``, which specifies the first interface with its link in the up state
+                        - the keyword ``bootif``, which uses the MAC address that pxelinux set in the ``BOOTIF`` variable. Set ``IPAPPEND 2`` in your pxelinux.cfg file to have pxelinux set the ``BOOTIF`` variable.
 
                         For example::
 
@@ -517,14 +510,9 @@ class F8_Network(FC6_Network):
         op = FC6_Network._getParser(self)
         op.add_argument("--ipv6", version=F8, help="""
                         IPv6 address for the interface. This can be:
-                        - the static address in form
-                          ``<IPv6 address>[/<prefix length>]``, e.g.
-                          ``3ffe:ffff:0:1::1/128``
-                          (if prefix is omitted 64 is assumed),
-                        - ``auto`` for stateless automatic address
-                          autoconfiguration, or
-                        - ``dhcp`` for DHCPv6-only configuration (no router
-                          advertisements).
+                        - the static address in form ``<IPv6 address>[/<prefix length>]``, e.g.  ``3ffe:ffff:0:1::1/128`` (if prefix is omitted 64 is assumed),
+                        - ``auto`` for stateless automatic address autoconfiguration, or
+                        - ``dhcp`` for DHCPv6-only configuration (no router advertisements).
                         """)
         return op
 
