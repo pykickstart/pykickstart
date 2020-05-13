@@ -147,7 +147,7 @@ class KSOptionParser(ArgumentParser):
         # fail fast if we forgot to add description
         kwargs['description'] = textwrap.dedent(kwargs.pop("description"))
         if addVersion:
-            kwargs['description'] = "\n.. versionadded:: %s\n%s" % (version,
+            kwargs['description'] = "\n.. versionadded:: %s\n\n%s" % (version,
                                                                     kwargs['description'])
         kwargs['epilog'] = textwrap.dedent(kwargs.pop("epilog", ""))
 
