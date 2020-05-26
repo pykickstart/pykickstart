@@ -296,3 +296,6 @@ class F30_Url(F27_Url):
                         designed for a specific image building tool use and
                         there are plans for a replacement.""")
         return op
+
+class RHEL8_Url(F30_Url):
+    pass
