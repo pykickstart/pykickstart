@@ -195,6 +195,9 @@ class F30_RepoData(F27_RepoData):
 class RHEL7_RepoData(F21_RepoData):
     pass
 
+class RHEL8_RepoData(F30_RepoData):
+    pass
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -488,4 +491,7 @@ class F33_Repo(F30_Repo):
         return op
 
 class RHEL7_Repo(F21_Repo):
+    pass
+
+class RHEL8_Repo(F30_Repo):
     pass
