@@ -73,7 +73,9 @@ tag:
 # Order matters, so run make twice instead of declaring them as dependencies
 release:
 	if [ -z "$(GPGKEY)" ]; then echo "ERROR: The git config user.signingkey must be set" ; exit 1; fi
-	$(MAKE) po-pull && $(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive
+	$(MAKE) po-pull && $(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive && $(MAKE) sign
+
+sign:
 	gpg --armor --detach-sign -u $(GPGKEY) pykickstart-$(VERSION).tar.gz
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
@@ -138,4 +140,4 @@ rc-release: scratch-bumpver scratch pykickstart.spec
 	mock -r $(MOCKCHROOT) --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
 	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
 
-.PHONY: check clean install tag archive local docs release
+.PHONY: check clean install tag archive local docs release sign
