@@ -420,3 +420,26 @@ class F32_Timezone(F25_Timezone):
                           KickstartDeprecationWarning)
 
         return self
+
+
+class F33_Timezone(F32_Timezone):
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F32_Timezone.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+
+    def parse(self, args):
+        F32_Timezone.parse(self, args)
+
+        if self.ntpservers:
+            warnings.warn(_("The option --ntpservers will be deprecated in future releases. Please "
+                            "modify your kickstart file to replace this option with "
+                            "timesource --ntp-server <server hostname> command invocation, "
+                            "one per NTP server."),
+                          KickstartDeprecationWarning)
+        if self.nontp:
+            warnings.warn(_("The option --nontp will be deprecated in future releases. Please "
+                            "modify your kickstart file to replace this option with "
+                            "timesource --ntp-disable command invocation."),
+                          KickstartDeprecationWarning)
+        return self
