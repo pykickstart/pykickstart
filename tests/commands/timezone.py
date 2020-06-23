@@ -162,7 +162,6 @@ class F32_TestCase(F25_TestCase):
 
     def setUp(self):
         super().setUp()
-        warnings.simplefilter("error", category=KickstartDeprecationWarning)
 
     def runTest(self):
         # Failures
@@ -192,9 +191,28 @@ class F32_TestCase(F25_TestCase):
         self.assert_parse("timezone --utc Europe/Bratislava",
                           "timezone Europe/Bratislava --utc\n")
         # but --isUtc should now give warning
-        self.assert_parse_error("timezone --isUtc Europe/Bratislava",
-                                KickstartDeprecationWarning,
-                                "The option --isUtc will be deprecated in future releases")
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("timezone --isUtc Europe/Bratislava")
+
+
+class F33_TestCase(F32_TestCase):
+    command = "timezone"
+
+    def setUp(self):
+        super().setUp()
+
+    def runTest(self):
+        F32_TestCase.runTest(self)
+        # As of Fedora 33 the --ntpservers and --nontp options are considered deprecated.
+
+        # Check using --ntpservers returns appropriate deprecation warning
+        with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("timezone --ntpservers foo,bar,baz")
+
+        # Check using --ntpservers returns appropriate deprecation warning
+        with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("timezone --nontp")
+
 
 if __name__ == "__main__":
     unittest.main()
