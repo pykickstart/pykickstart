@@ -18,7 +18,6 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-import warnings
 from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.commands.timezone import FC3_Timezone, FC6_Timezone, F18_Timezone, F25_Timezone, RHEL7_Timezone
@@ -160,9 +159,6 @@ class F25_TestCase(F23_TestCase):
 class F32_TestCase(F25_TestCase):
     command = "timezone"
 
-    def setUp(self):
-        super().setUp()
-
     def runTest(self):
         # Failures
         # unknown argument
@@ -198,20 +194,17 @@ class F32_TestCase(F25_TestCase):
 class F33_TestCase(F32_TestCase):
     command = "timezone"
 
-    def setUp(self):
-        super().setUp()
-
     def runTest(self):
         F32_TestCase.runTest(self)
         # As of Fedora 33 the --ntpservers and --nontp options are considered deprecated.
 
         # Check using --ntpservers returns appropriate deprecation warning
         with self.assertWarns(KickstartDeprecationWarning):
-                self.assert_parse("timezone --ntpservers foo,bar,baz")
+            self.assert_parse("timezone --ntpservers foo,bar,baz")
 
         # Check using --ntpservers returns appropriate deprecation warning
         with self.assertWarns(KickstartDeprecationWarning):
-                self.assert_parse("timezone --nontp")
+            self.assert_parse("timezone --nontp")
 
 
 if __name__ == "__main__":
