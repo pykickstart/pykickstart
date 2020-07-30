@@ -189,6 +189,31 @@ vim-enhanced
 
 %end""", str(pkgs).strip())
 
+class Mixed4_TestCase(DevelPackagesBase):
+    def runTest(self):
+        DevelPackagesBase.runTest(self)
+
+        pkgs = Packages()
+        pkgs.add(["vim-enhanced", "package-b", "package-c"])
+        pkgs.add(["-vim*"])
+
+        self.assertEqual("""%packages
+package-b
+package-c
+vim-enhanced
+-vim*
+
+%end""", str(pkgs).strip())
+
+        pkgs.add(["vim-enhanced", "-package-c"])
+        self.assertEqual("""%packages
+package-b
+vim-enhanced
+-package-c
+-vim*
+
+%end""", str(pkgs).strip())
+
 class MultiLib_TestCase(DevelPackagesBase):
     def runTest(self):
         DevelPackagesBase.runTest(self)
