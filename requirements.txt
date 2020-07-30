@@ -5,7 +5,6 @@ pip
 setuptools
 coverage
 coveralls
-ordered-set
 polib
 pylint
 requests

@@ -18,7 +18,6 @@ BuildRequires: gettext
 BuildRequires: python3-coverage
 BuildRequires: python3-devel
 BuildRequires: python3-nose
-BuildRequires: python3-ordered-set
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
@@ -33,7 +32,6 @@ Python utilities for manipulating kickstart files.
 Summary:  Python 3 library for manipulating kickstart files.
 Requires: python3-six
 Requires: python3-requests
-Requires: python3-ordered-set
 
 %description -n python3-kickstart
 Python 3 library for manipulating kickstart files.  The binaries are found in
