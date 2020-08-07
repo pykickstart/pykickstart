@@ -43,7 +43,6 @@ import six
 import shlex
 import sys
 import warnings
-from ordered_set import OrderedSet
 
 from pykickstart import constants, version
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
@@ -468,10 +467,10 @@ class Packages(KickstartObject):
         """Given a list of lines from the input file, strip off any leading
            symbols and add the result to the appropriate list.
         """
-        existingExcludedSet = OrderedSet(self.excludedList)
-        existingPackageSet = OrderedSet(self.packageList)
-        newExcludedSet = OrderedSet()
-        newPackageSet = OrderedSet()
+        existingExcludedSet = set(self.excludedList)
+        existingPackageSet = set(self.packageList)
+        newExcludedSet = set()
+        newPackageSet = set()
 
         excludedGroupList = []
 
@@ -511,8 +510,8 @@ class Packages(KickstartObject):
         existingExcludedSet = (existingExcludedSet - existingPackageSet) | newExcludedSet
 
         # FIXME: figure these types out
-        self.packageList = list(existingPackageSet)
-        self.excludedList = list(existingExcludedSet)
+        self.packageList = sorted(existingPackageSet)
+        self.excludedList = sorted(existingExcludedSet)
 
 ###
 ### PARSER

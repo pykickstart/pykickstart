@@ -16,9 +16,8 @@ How to generate the kickstart documentation
 
 The pykickstart documentation is generated dynamically from the source code with Sphinx.
 
-To generate the documentation first make sure you have the Python bindings for Sphinx
-and the ordered set Python module installed.
-At least on Fedora this means installing the ``python3-sphinx`` and ``python3-orderedset`` packages.
+To generate the documentation first make sure you have the Python bindings for Sphinx installed.
+At least on Fedora this means installing the ``python3-sphinx`` package.
 
 Then change directory to the ``docs`` folder:
 
