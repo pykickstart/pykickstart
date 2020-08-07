@@ -15,8 +15,6 @@ To execute the Pylint code analysis tool run::
 
     make check
 
-Running Pylint requires Python3 due to usage of pocket-lint.
-
 
 Test Suite Architecture
 ------------------------
