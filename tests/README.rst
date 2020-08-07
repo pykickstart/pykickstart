@@ -1,7 +1,7 @@
 Testing pykickstart
 ===================
 
-Pykickstart's test suite requires the nosetests Python package. To execute it
+To execute Pykickstart's test suite
 from inside the source directory run the command::
 
     make test
