@@ -47,7 +47,7 @@ class F33Handler(BaseHandler):
         "graphical": commands.displaymode.F26_DisplayMode,
         "group": commands.group.F12_Group,
         "halt": commands.reboot.F23_Reboot,
-        "harddrive": commands.harddrive.FC3_HardDrive,
+        "harddrive": commands.harddrive.F33_HardDrive,
         "hmc": commands.hmc.F28_Hmc,
         "ignoredisk": commands.ignoredisk.F29_IgnoreDisk,
         "install": commands.install.F29_Install,

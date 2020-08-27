@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3
+from pykickstart.version import FC3, F33
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -35,6 +35,8 @@ class FC3_HardDrive(KickstartCommand):
         self.dir = kwargs.get("dir", None)
 
         self.op = self._getParser()
+
+        self.deleteRemovedAttrs()
 
     def __eq__(self, other):
         if not other:
@@ -86,5 +88,42 @@ class FC3_HardDrive(KickstartCommand):
         if self.biospart is None and self.partition is None or \
            self.biospart is not None and self.partition is not None:
             raise KickstartParseError(_("One of biospart or partition options must be specified."), lineno=self.lineno)
+
+        return self
+
+
+class F33_HardDrive(FC3_HardDrive):
+    removedKeywords = KickstartCommand.removedKeywords + ["biospart"]
+    removedAttrs = KickstartCommand.removedAttrs + ["biospart"]
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        FC3_HardDrive.__init__(self, writePriority, *args, **kwargs)
+
+    def __eq__(self, other):
+        if not other:
+            return False
+
+        return self.partition == other.partition and self.dir == other.dir
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+        if not self.seen:
+            return retval
+
+        retval += "# Use hard drive installation media\n"
+        retval += "harddrive --dir=%s --partition=%s\n" % (self.dir, self.partition)
+
+        return retval
+
+    def _getParser(self):
+        op = FC3_HardDrive._getParser(self)
+        op.remove_argument("--biospart", version=F33)
+        op.add_argument("--partition", required=True, version=F33,
+                        help="Partition to install from (such as, sdb2).")
+        return op
+
+    def parse(self, args):
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
 
         return self
