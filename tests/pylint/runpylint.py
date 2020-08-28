@@ -10,6 +10,7 @@ class PykickstartLintConfig(PocketLintConfig):
 
         self.falsePositives = [
             FalsePositive(r"^W1113.*: Keyword argument before variable positional arguments list in the definition of __init__ function$"),
+            FalsePositive("W0707.*raise-missing-from"),
         ]
 
     @property
