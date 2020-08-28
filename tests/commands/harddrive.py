@@ -20,30 +20,37 @@
 
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.commands.harddrive import FC3_HardDrive
+from pykickstart.commands.harddrive import FC3_HardDrive, F33_HardDrive
+
+
+def attribute_test(test_class, data1, data2, compare_attrs):
+    # additional test coverage
+    test_class.assertEqual(data1.__str__(), '')
+
+    # test that new objects are always equal
+    test_class.assertEqual(data1, data2)
+    test_class.assertNotEqual(data1, None)
+
+    # test for objects difference
+    for atr in compare_attrs:
+        setattr(data1, atr, '')
+        setattr(data2, atr, 'test')
+        # objects that differ in only one attribute
+        # are not equal
+        test_class.assertNotEqual(data1, data2)
+        test_class.assertNotEqual(data2, data1)
+        setattr(data1, atr, '')
+        setattr(data2, atr, '')
+
 
 class HardDrive_TestCase(unittest.TestCase):
     def runTest(self):
         data1 = FC3_HardDrive()
         data2 = FC3_HardDrive()
 
-        # additional test coverage
-        self.assertEqual(data1.__str__(), '')
-
-        # test that new objects are always equal
-        self.assertEqual(data1, data2)
-        self.assertNotEqual(data1, None)
-
-        # test for objects difference
-        for atr in ['biospart', 'partition', 'dir']:
-            setattr(data1, atr, '')
-            setattr(data2, atr, 'test')
-            # objects that differ in only one attribute
-            # are not equal
-            self.assertNotEqual(data1, data2)
-            self.assertNotEqual(data2, data1)
-            setattr(data1, atr, '')
-            setattr(data2, atr, '')
+        attribute_test(self,
+                       data1, data2,
+                       ['biospart', 'partition', 'dir'])
 
 
 class FC3_TestCase(CommandTest):
@@ -72,6 +79,39 @@ class FC3_TestCase(CommandTest):
         # --biospart and --partition require argument
         self.assert_parse_error("harddrive --dir=/install --biospart")
         self.assert_parse_error("harddrive --dir=/install --partition")
+        # unknown option
+        self.assert_parse_error("harddrive --unknown=value")
+
+
+class F33HardDrive_TestCase(unittest.TestCase):
+    def runTest(self):
+        data1 = F33_HardDrive()
+        data2 = F33_HardDrive()
+
+        attribute_test(self,
+                       data1, data2,
+                       ['partition', 'dir'])
+
+
+class F33_TestCase(CommandTest):
+    def runTest(self):
+        # pass
+        self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
+        self.assertFalse(self.assert_parse("harddrive --dir=/install --partition=sda1") is None)
+        self.assertTrue(self.assert_parse("harddrive --dir=/install --partition=sda1") !=
+                        self.assert_parse("harddrive --dir=/install --partition=sda2"))
+
+        # fail
+        # Ensure these options have been removed.
+        self.assert_removed("harddrive", "--biospart")
+        # required option --dir missing
+        self.assert_parse_error("harddrive")
+        # required --dir argument missing
+        self.assert_parse_error("harddrive --dir")
+        # missing --partition option
+        self.assert_parse_error("harddrive --dir=/install")
+        # missing --dir option
+        self.assert_parse_error("harddrive --partition=sda1")
         # unknown option
         self.assert_parse_error("harddrive --unknown=value")
 
