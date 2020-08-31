@@ -114,7 +114,7 @@ bumpver: docs
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	sed -i "s/__version__ = '$(VERSION)'/__version__ = '$$NEWVERSION'/" pykickstart/__init__.py ; \
-	git add setup.py docs/conf.py ; \
+	git add setup.py docs/conf.py pykickstart/__init__.py; \
 	git commit -m "New release: $$NEWVERSION"
 
 pykickstart.spec: pykickstart.spec.in
