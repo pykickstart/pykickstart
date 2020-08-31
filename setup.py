@@ -1,7 +1,11 @@
+from distutils.command.install_scripts import install_scripts as _install_scripts
+from distutils.file_util import move_file
+import os
 from setuptools import setup
 
-import os
 
+# This is required so that the scripts are detected by code coverage during testing, but are
+# installed without their filename extensions
 class install_scripts(_install_scripts):
     def run(self):
         _install_scripts.run(self)
@@ -23,6 +27,7 @@ setup(cmdclass={"install_scripts": install_scripts},
       extras_require={
           "docs": ['Sphinx', 'ordered_set'],
           "test": ['coveralls', 'coverage', 'pocketlint', 'pylint']},
+      # These are installed by install_scripts() without their filename extensions
       scripts=['tools/ksvalidator.py', 'tools/ksflatten.py', 'tools/ksverdiff.py', 'tools/ksshell.py'],
       packages=['pykickstart', 'pykickstart.commands', 'pykickstart.handlers'],
       data_files=[('share/man/man1', ['docs/ksvalidator.1', 'docs/ksflatten.1', 'docs/ksverdiff.1',
