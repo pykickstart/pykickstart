@@ -136,7 +136,7 @@ def preprocessFromString(s):
     s = preprocessFromStringToString(s)
     if s:
         import tempfile
-        (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+        (outF, outName) = tempfile.mkstemp(suffix="-ks.cfg")
 
         os.write(outF, s)
         os.close(outF)
@@ -153,7 +153,7 @@ def preprocessKickstart(f):
     s = preprocessKickstartToString(f)
     if s:
         import tempfile
-        (outF, outName) = tempfile.mkstemp("-ks.cfg", "", "/tmp")
+        (outF, outName) = tempfile.mkstemp(suffix="-ks.cfg")
 
         os.write(outF, s)
         os.close(outF)
