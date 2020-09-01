@@ -80,9 +80,9 @@ def main(argv):
     if not opts.ksfile:
         return (1, op.format_usage().split("\n"))
 
-    destdir = tempfile.mkdtemp("", "ksvalidator-tmp-", "/tmp")
+    destdir = tempfile.mkdtemp(prefix="ksvalidator-tmp-")
     try:
-        f = load_to_file(opts.ksfile, "%s/ks.cfg" % destdir)
+        f = load_to_file(opts.ksfile, os.path.join(destdir, "ks.cfg"))
     except KickstartError as e:
         return (cleanup(destdir),
                 [_("Error reading %(filename)s:\n%(version)s") % {"filename": opts.ksfile, "version": e}])
