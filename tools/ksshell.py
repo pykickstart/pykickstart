@@ -95,18 +95,10 @@ class KickstartCompleter(object):
         if cStr.startswith(".") or not hasattr(cObj, "op"):
             return
 
-        for opt in cObj.op.option_list:
-            self.commands[cStr] += opt._short_opts + opt._long_opts
+        for opt in cObj.op._actions:
+            self.commands[cStr] += opt.option_strings
 
-    def complete(self, _text, state):
-        response = None
-
-        # This is the first time Tab has been pressed, so build up a list of matches.
-        if state == 0:
-            origline = readline.get_line_buffer()
-            begin = readline.get_begidx()
-            end = readline.get_endidx()
-
+    def _init_matches(self, origline, begin, end):
             beingCompleted = origline[begin:end]
             parts = origline.split()
 
@@ -131,6 +123,17 @@ class KickstartCompleter(object):
                 except (KeyError, IndexError):
                     self.currentCandidates = []
 
+    def complete(self, _text, state):
+        response = None
+
+        # This is the first time Tab has been pressed, so build up a list of matches.
+        if state == 0:
+            origline = readline.get_line_buffer()
+            begin = readline.get_begidx()
+            end = readline.get_endidx()
+
+            self._init_matches(origline, begin, end)
+
         try:
             response = self.currentCandidates[state]
         except IndexError:
@@ -138,7 +141,7 @@ class KickstartCompleter(object):
 
         return response
 
-def main():
+def main(argv=None):
 
     ##
     ## OPTION PROCESSING
@@ -152,7 +155,7 @@ def main():
     op.add_argument("-v", "--version", dest="version", default=DEVEL,
                     help=_("version of kickstart syntax to validate against"))
 
-    opts = op.parse_args(sys.argv[1:])
+    opts = op.parse_args(argv)
 
     ##
     ## SETTING UP PYKICKSTART
@@ -162,7 +165,7 @@ def main():
         kshandler = makeVersion(opts.version)
     except KickstartVersionError:
         print(_("The version %s is not supported by pykickstart") % opts.version)
-        sys.exit(1)
+        return 1
 
     ksparser = KickstartParser(kshandler, followIncludes=True, errorsAreFatal=False)
 
@@ -236,5 +239,7 @@ def main():
     else:
         print("\n" + str(ksparser.handler))
 
+    return 0
+
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
