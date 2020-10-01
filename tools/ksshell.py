@@ -99,29 +99,29 @@ class KickstartCompleter(object):
             self.commands[cStr] += opt.option_strings
 
     def _init_matches(self, origline, begin, end):
-            beingCompleted = origline[begin:end]
-            parts = origline.split()
+        beingCompleted = origline[begin:end]
+        parts = origline.split()
 
-            if not parts:
-                # Everything's a match for an empty string.
-                self.currentCandidates = sorted(self.commands.keys())
-            else:
-                try:
-                    # Ignore leading whitespace when trying to figure out
-                    # completions for a kickstart command.
-                    if begin == 0 or origline[:begin].strip() == "":
-                        # first word
-                        candidates = self.commands.keys()
-                    else:
-                        # later word
-                        candidates = self.commands[parts[0]]
+        if not parts:
+            # Everything's a match for an empty string.
+            self.currentCandidates = sorted(self.commands.keys())
+        else:
+            try:
+                # Ignore leading whitespace when trying to figure out
+                # completions for a kickstart command.
+                if begin == 0 or origline[:begin].strip() == "":
+                    # first word
+                    candidates = self.commands.keys()
+                else:
+                    # later word
+                    candidates = self.commands[parts[0]]
 
-                    if beingCompleted:
-                        self.currentCandidates = [w for w in candidates if w.startswith(beingCompleted)]
-                    else:
-                        self.currentCandidates = list(candidates)
-                except (KeyError, IndexError):
-                    self.currentCandidates = []
+                if beingCompleted:
+                    self.currentCandidates = [w for w in candidates if w.startswith(beingCompleted)]
+                else:
+                    self.currentCandidates = list(candidates)
+            except (KeyError, IndexError):
+                self.currentCandidates = []
 
     def complete(self, _text, state):
         response = None
