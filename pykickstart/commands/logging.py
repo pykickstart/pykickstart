@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC6
+from pykickstart.version import FC6, F34
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -81,3 +81,24 @@ class FC6_Logging(KickstartCommand):
 
         self._level_provided = True
         return self
+
+
+class F34_Logging(FC6_Logging):
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
+        if self.host:
+            retval += "# Installation logging level\nlogging --host=%s" % self.host
+
+            if self.port:
+                retval += " --port=%s" % self.port
+
+            retval = retval + "\n"
+
+        return retval
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument("--level", deprecated=F34)
+        return op

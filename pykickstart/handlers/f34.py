@@ -56,7 +56,7 @@ class F34Handler(BaseHandler):
         "keyboard": commands.keyboard.F18_Keyboard,
         "lang": commands.lang.F19_Lang,
         "liveimg": commands.liveimg.F19_Liveimg,
-        "logging": commands.logging.FC6_Logging,
+        "logging": commands.logging.F34_Logging,
         "logvol": commands.logvol.F29_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F28_Method,

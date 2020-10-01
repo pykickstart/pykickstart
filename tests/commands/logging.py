@@ -20,6 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.logging import FC6_Logging
+from pykickstart.errors import KickstartDeprecationWarning
+
 
 class FC6_TestCase(CommandTest):
     command = "logging"
@@ -46,6 +48,34 @@ class FC6_TestCase(CommandTest):
         self.assert_parse_error("logging --host")
         self.assert_parse_error("logging --port")
         self.assert_parse_error("logging --port=PORT")
+
+
+class F34_TestCase(CommandTest):
+    command = "logging"
+
+    def runTest(self):
+        # pass
+        self.assert_parse("logging", "")
+        self.assert_parse("logging --host=HOSTNAME", "logging --host=HOSTNAME\n")
+        self.assert_parse("logging --host=HOSTNAME --port=PORT", "logging --host=HOSTNAME --port=PORT\n")
+
+        # fail
+        self.assert_parse_error("logging --host")
+        self.assert_parse_error("logging --port")
+        self.assert_parse_error("logging --port=PORT")
+
+        # deprecated
+        self.assert_deprecated("logging", "--level")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("logging --level=info", "")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("logging --level=info --host=HOSTNAME", "logging --host=HOSTNAME\n")
+
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("logging --level=info --host=HOSTNAME --port=PORT", "logging --host=HOSTNAME --port=PORT\n")
+
 
 if __name__ == "__main__":
     unittest.main()
