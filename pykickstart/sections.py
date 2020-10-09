@@ -771,8 +771,8 @@ class PackageSection(Section):
         for option, new_option in \
                 {"--instLangs": "--inst-langs", "--excludeWeakdeps": "--exclude-weakdeps"}.items():
             if option in args:
-                warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in"
-                                "future releases. Please modify your kickstart file to replace"
+                warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in "
+                                "future releases. Please modify your kickstart file to replace "
                                 "this option with its preferred alias %(new_option)s.")
                               % {"option": option, "lineno": lineno, "new_option": new_option},
                               KickstartDeprecationWarning)
