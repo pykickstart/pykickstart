@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3
-from pykickstart.base import KickstartCommand
+from pykickstart.version import FC3, F34, versionToLongString
+from pykickstart.base import KickstartCommand, DeprecatedCommand
 from pykickstart.options import KSOptionParser
 
 class FC3_AutoStep(KickstartCommand):
@@ -64,3 +64,12 @@ class FC3_AutoStep(KickstartCommand):
         self.set_to_self(ns)
         self.autostep = True
         return self
+
+class F34_AutoStep(DeprecatedCommand, FC3_AutoStep):
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = FC3_AutoStep._getParser(self)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F34)
+        return op
