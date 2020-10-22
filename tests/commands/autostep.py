@@ -20,6 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.autostep import FC3_AutoStep
+from pykickstart.base import DeprecatedCommand
 
 class FC3_TestCase(CommandTest):
     command = "autostep"
@@ -31,6 +32,15 @@ class FC3_TestCase(CommandTest):
 
         # fail
         self.assert_parse_error("autostep --autoscreenshot=FOO")
+
+class RHEL8_TestCase(FC3_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("autostep")
+        self.assertTrue(issubclass(parser.__class__, DeprecatedCommand))
+
+        # make sure we are still able to parse it
+        self.assert_parse("autostep")
 
 class AutoStep_TestCase(unittest.TestCase):
     """

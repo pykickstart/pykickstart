@@ -31,7 +31,7 @@ class RHEL8Handler(BaseHandler):
         "authconfig": commands.authconfig.F28_Authconfig,
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.RHEL8_AutoPart,
-        "autostep": commands.autostep.FC3_AutoStep,
+        "autostep": commands.autostep.RHEL8_AutoStep,
         "bootloader": commands.bootloader.RHEL8_Bootloader,
         "btrfs": commands.btrfs.RHEL8_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
