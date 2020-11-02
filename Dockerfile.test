@@ -1,8 +1,11 @@
 # Set up an environment for running the tests.
-FROM fedora:29
-RUN dnf -y install 'dnf-command(builddep)'
+FROM centos:8
+RUN dnf -y install 'dnf-command(builddep)' https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm && \
+dnf config-manager --set-enabled PowerTools
 
 # Add test dependencies
-COPY requirements.txt /requirements.txt
-RUN dnf -y install make git gettext python3-pip python3-sphinx which
-RUN pip-3 install -r requirements.txt
+COPY test-packages .
+RUN dnf -y install $(cat test-packages)
+
+# pocketlint to modify pylint behavior, and Sphinx because it isn't in EPEL8
+RUN pip-3 install pocketlint
