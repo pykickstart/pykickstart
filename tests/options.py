@@ -1,7 +1,7 @@
 from argparse import ArgumentTypeError
 from tests.baseclass import ParserTest
 
-from pykickstart.options import ksboolean, mountpoint
+from pykickstart.options import ksboolean, mountpoint, uid_gid
 
 class Ksboolean_TestCase(ParserTest):
     def runTest(self):
@@ -39,3 +39,18 @@ class Mountpoint_TestCase(ParserTest):
         self.assertEqual(mountpoint("/home/"), "/home")
         self.assertEqual(mountpoint("/var"), "/var")
         self.assertEqual(mountpoint("/var/"), "/var")
+
+
+class Uid_gid_TestCase(ParserTest):
+    def runTest(self):
+        self.assertEqual(uid_gid("1"), 1)
+        self.assertEqual(uid_gid("1000"), 1000)
+        self.assertEqual(uid_gid("4294967295"), 4294967295)
+
+        self.assertRaises(ArgumentTypeError, uid_gid, "-1")
+        self.assertRaises(ArgumentTypeError, uid_gid, "0")
+        self.assertRaises(ArgumentTypeError, uid_gid, "4294967296")
+
+        self.assertRaises(ArgumentTypeError, uid_gid, "abc")
+        self.assertRaises(ArgumentTypeError, uid_gid, "")
+        self.assertRaises(ArgumentTypeError, uid_gid, None)

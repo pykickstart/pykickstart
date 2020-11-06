@@ -90,5 +90,18 @@ group --name=othertest""")
 group --name=test --gid=1000
 group --name=test --gid=1010""", KickstartParseWarning)
 
+class F34_TestCase(F12_TestCase):
+    def runTest(self):
+        # run F12 test case
+        F12_TestCase.runTest(self)
+
+        # pass
+
+        # --gid requires integer within 1..2**32-1
+        self.assert_parse_error("group --name=test --gid=4294967296")
+        self.assert_parse_error("group --name=test --gid=0")
+        self.assert_parse_error("group --name=test --gid=-5")
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -18,9 +18,9 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.errors import KickstartParseWarning
-from pykickstart.version import FC6, F8, F12, F19, F24
+from pykickstart.version import FC6, F8, F12, F19, F24, F34
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.options import KSOptionParser, commaSplit
+from pykickstart.options import KSOptionParser, commaSplit, uid_gid
 
 import warnings
 import six
@@ -261,4 +261,18 @@ class F24_User(F19_User):
         op.add_argument("--groups", type=commaSplit, version=F24, help="""
                         The group name can optionally be followed by a GID in
                         parenthesis, for example, ``newgroup(5002)``.""")
+        return op
+
+class F34_User(F24_User):
+    removedKeywords = F24_User.removedKeywords
+    removedAttrs = F24_User.removedAttrs
+
+    def _getParser(self):
+        op = F24_User._getParser(self)
+        op.add_argument("--gid", type=uid_gid, version=F34, help="""
+                        The GID value must fit into the available range, which is 1 to 2^32-1 
+                        (4294967295).""")
+        op.add_argument("--uid", type=uid_gid, version=F34, help="""
+                        The UID value must fit into the available range, which is 1 to 2^32-1
+                        (4294967295).""")
         return op

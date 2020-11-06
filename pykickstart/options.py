@@ -74,6 +74,16 @@ def mountpoint(value):
 
     return value
 
+def uid_gid(value):
+    try:
+        number = int(value)
+        if number > 2**32-1 or number < 1:
+            raise ArgumentTypeError(_("UID or GID value out of permitted range: %r") % value)
+        return number
+    except (ValueError, TypeError):
+        raise ArgumentTypeError(_("invalid integer value: %r") % value)
+
+
 class KSHelpFormatter(RawTextHelpFormatter):
     """
         Used in generating documentation

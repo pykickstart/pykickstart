@@ -18,9 +18,9 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.errors import KickstartParseWarning
-from pykickstart.version import F12
+from pykickstart.version import F12, F34
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, uid_gid
 
 import warnings
 from pykickstart.i18n import _
@@ -102,3 +102,14 @@ class F12_Group(KickstartCommand):
     @property
     def dataClass(self):
         return self.handler.GroupData
+
+class F34_Group(F12_Group):
+    removedKeywords = F12_Group.removedKeywords
+    removedAttrs = F12_Group.removedAttrs
+
+    def _getParser(self):
+        op = F12_Group._getParser(self)
+        op.add_argument("--gid", type=uid_gid, version=F34, help="""
+                        The GID value must fit into the available range, which is 1 to 2^32-1 
+                        (4294967295).""")
+        return op
