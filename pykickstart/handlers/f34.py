@@ -30,7 +30,7 @@ class F34Handler(BaseHandler):
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.F29_AutoPart,
         "autostep": commands.autostep.F34_AutoStep,
-        "bootloader": commands.bootloader.F29_Bootloader,
+        "bootloader": commands.bootloader.F34_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
         "clearpart": commands.clearpart.F28_ClearPart,
