@@ -43,5 +43,10 @@ class F29_TestCase(FC3_TestCase):
 class RHEL8_TestCase(F29_TestCase):
     pass
 
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        # make sure that deviceprobe is removed
+        self.assertNotIn("deviceprobe", self.handler().commands)
+
 if __name__ == "__main__":
     unittest.main()

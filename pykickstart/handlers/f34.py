@@ -36,7 +36,6 @@ class F34Handler(BaseHandler):
         "clearpart": commands.clearpart.F28_ClearPart,
         "cmdline": commands.displaymode.F26_DisplayMode,
         "device": commands.device.F24_Device,
-        "deviceprobe": commands.deviceprobe.F29_DeviceProbe,
         "dmraid": commands.dmraid.F24_DmRaid,
         "driverdisk": commands.driverdisk.F14_DriverDisk,
         "module": commands.module.F31_Module,
