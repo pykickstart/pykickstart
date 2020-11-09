@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6, versionToLongString
-from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29
+from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29, F34
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
@@ -499,3 +499,12 @@ class F29_Bootloader(F21_Bootloader):
 
 class RHEL8_Bootloader(F29_Bootloader):
     pass
+
+class F34_Bootloader(F29_Bootloader):
+    removedKeywords = F29_Bootloader.removedKeywords
+    removedAttrs = F29_Bootloader.removedAttrs
+
+    def _getParser(self):
+        op = F29_Bootloader._getParser(self)
+        op.remove_argument("--upgrade", version=F34)
+        return op

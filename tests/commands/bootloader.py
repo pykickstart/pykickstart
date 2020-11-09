@@ -49,7 +49,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("bootloader --password=blahblah", "bootloader %s--location=mbr --password=\"blahblah\"\n" % linear)
         if not iscrypted:
             self.assert_parse("bootloader --md5pass=blahblah", "bootloader %s--location=mbr --md5pass=\"blahblah\"\n" % linear)
-        self.assert_parse("bootloader --upgrade", "bootloader %s--location=mbr --upgrade\n" % linear)
+        if "--upgrade" in self.optionList:
+            self.assert_parse("bootloader --upgrade", "bootloader %s--location=mbr --upgrade\n" % linear)
         self.assert_parse("bootloader --driveorder=hda,sdb", "bootloader %s--location=mbr --driveorder=\"hda,sdb\"\n" % linear)
 
         if "--useLilo" in self.optionList:
@@ -185,14 +186,21 @@ class RHEL7_TestCase(F21_TestCase):
 class F29_TestCase(F21_TestCase):
     def runTest(self, iscrypted=False):
         F21_TestCase.runTest(self, iscrypted=iscrypted)
-        self.assert_deprecated("bootloader", "--upgrade")
 
-        # deprecated options should also raise a deprecation warning - test that somewhere
-        with self.assertWarns(KickstartDeprecationWarning):
-            self.assert_parse("bootloader --upgrade")
+        if "--upgrade" in self.optionList:
+            self.assert_deprecated("bootloader", "--upgrade")
+
+            # deprecated options should also raise a deprecation warning - test that somewhere
+            with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("bootloader --upgrade")
 
 class RHEL8_TestCase(F29_TestCase):
     pass
+
+class F34_TestCase(F29_TestCase):
+    def runTest(self, iscrypted=False):
+        F29_TestCase.runTest(self, iscrypted=iscrypted)
+        self.assert_removed("bootloader", "--upgrade")
 
 if __name__ == "__main__":
     unittest.main()
