@@ -55,5 +55,10 @@ class F29_TestCase(F20_TestCase):
 class RHEL8_TestCase(F29_TestCase):
     pass
 
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        # make sure that install is removed
+        self.assertNotIn("install", self.handler().commands)
+
 if __name__ == "__main__":
     unittest.main()
