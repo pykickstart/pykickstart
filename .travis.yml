@@ -11,6 +11,10 @@ jobs:
       python: "3.7"
     - name: "Python 3.8"
       python: "3.8"
+    - name: "Python 3.9"
+      python: "3.9"
+    - name: "Python 3.10-rc"
+      python: "3.10-rc"
     - name: "Python Nightly"
       python: "nightly"
   allow_failures:
