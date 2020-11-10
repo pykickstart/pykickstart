@@ -36,7 +36,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, RHEL6, RHEL7
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, RHEL6, RHEL7
 from pykickstart.i18n import _
 
 class Section(object):
@@ -435,6 +435,17 @@ class TracebackScriptSection(OnErrorScriptSection):
     def _resetScript(self):
         OnErrorScriptSection._resetScript(self)
         self._script["type"] = KS_SCRIPT_TRACEBACK
+
+    def handleHeader(self, lineno, args):
+        super().handleHeader(lineno, args)
+
+        if self.version < F34:
+            return
+
+        warnings.warn("The %traceback section has been deprecated. It may be removed in the "
+                      "future, which will result in a fatal error from kickstart. Please modify "
+                      "your kickstart file to use the %onerror section instead.",
+                      KickstartDeprecationWarning)
 
 class PackageSection(Section):
     sectionOpen = "%packages"
