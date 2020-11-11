@@ -21,6 +21,7 @@
 import unittest
 import copy
 from tests.baseclass import CommandTest
+from pykickstart.base import DeprecatedCommand
 
 class FC3_Proxy_TestCase(CommandTest):
     command = "method"
@@ -186,7 +187,8 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("cdrom", "cdrom\n")
 
         # harddrive
-        self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=/install --biospart=part\n")
+        if "biospart" not in self.handler.commandMap["harddrive"].removedKeywords:
+            self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=/install --biospart=part\n")
         self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
 
         # nfs
@@ -369,6 +371,14 @@ class F28_Proxy_TestCase(RHEL7_Proxy_TestCase):
 class F28_TestCase(RHEL7_TestCase):
     def runTest(self):
         RHEL7_TestCase.runTest(self)
+
+class F34_TestCase(F28_TestCase):
+    def runTest(self):
+        F28_TestCase.runTest(self)
+
+        # make sure we've been deprecated
+        parser = self.getParser("method")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()
