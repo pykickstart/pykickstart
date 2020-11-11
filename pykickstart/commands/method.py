@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3
-from pykickstart.base import KickstartCommand
+from pykickstart.version import FC3, F34, versionToLongString
+from pykickstart.base import KickstartCommand, DeprecatedCommand
 from pykickstart.options import KSOptionParser
 
 class FC3_Method(KickstartCommand):
@@ -140,3 +140,12 @@ class RHEL7_Method(F19_Method):
 
 class F28_Method(RHEL7_Method):
     pass
+
+class F34_Method(DeprecatedCommand, F19_Method):
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F19_Method._getParser(self)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F34)
+        return op
