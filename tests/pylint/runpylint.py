@@ -14,7 +14,7 @@ class PykickstartLintConfig(PocketLintConfig):
 
     @property
     def ignoreNames(self):
-        return {"translation-canary", "travis"}
+        return {"translation-canary", ".tox"}
 
 if __name__ == "__main__":
     conf = PykickstartLintConfig()

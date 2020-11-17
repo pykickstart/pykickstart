@@ -19,3 +19,4 @@ pykickstart*.tar.gz.asc
 pylint-log
 tests/pylint/.pylint.d/
 weblate/
+.tox/
