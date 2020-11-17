@@ -13,3 +13,4 @@ docs/_build
 docs/modules.rst
 docs/pykickstart*.rst
 weblate/
+.tox/
