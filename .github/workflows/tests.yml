@@ -1,0 +1,44 @@
+name: Tests and Coverage
+# Make sure only one action triggers the job, otherwise pushing to a
+# pull-request will run it twice.
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - master
+      - rhel8-branch
+      - rhel7-branch
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      max-parallel: 5
+      matrix:
+        python-version: [3.6, 3.7]
+        include:
+          - python-version: 3.6
+            tox-env: py36
+          - python-version: 3.7
+            tox-env: py37
+    steps:
+      - name: "Clone Repository"
+        uses: actions/checkout@v2
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install gettext
+        run: sudo apt-get install -y gettext
+      - name: Install tox and update pip
+        run: python -m pip install --upgrade pip tox
+      - name: Run check coverage and docs
+        run: tox -e ${{ matrix.tox-env }}
+      - name: Coveralls
+        if: ${{ matrix.python-version }} == 3.6
+        uses: AndreMiras/coveralls-python-action@develop
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
