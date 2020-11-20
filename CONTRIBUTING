@@ -121,3 +121,286 @@ Bad Contributions
       something that kickstart needs to capture and provide to programs using
       it.
 
+
+KICKSTART DEPRECATION
+
+Over time commands and arguments change. New ones are added and old ones are
+eventually removed.  At the time of this writing, version 3.31, a deprecated
+command means that it is no longer available to be used, but it can still be in
+the kickstart.  Its presence will generate a warning.  A command that has been
+removed will generate an error.
+
+This is different from the usual use of the term 'deprecated', so it can be a
+bit confusing.  Especially since command options that have been deprecated are
+still available, still parsed, and have their results available to the calling
+program (eg. Anaconda).  A warning will be generated, but there will be no
+other effect on behavior.
+
+
+'Deprecating' a kickstart command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* In pykickstart/commands/ add a new class based on the last version that
+  was implemented, and add DeprecatedCommand at the start of the class list.
+* Override __init__ method and call DeprecatedCommand.__init__(self) instead
+  of the superclass.
+* Override _getParser and extend the description with a ".. deprecated::"
+  entry. Sphinx will include this in the documentation.
+* Change the command in the pykickstart/handlers/ mapping so that it points
+  to the new class.
+* Add a test that makes sure the command can be parsed.
+* Add a check to make sure the parser is a subclass of DeprecatedCommand.
+
+Commit 1c89c8ecec865d66984d5b7e25f4133b71d634b2 which deprecates the autostep
+command is a good example to follow.
+
+Implement a new class in pykickstart/commands/autostep.py:
+
+    class F34_AutoStep(DeprecatedCommand, FC3_AutoStep):
+        def __init__(self):  # pylint: disable=super-init-not-called
+            DeprecatedCommand.__init__(self)
+
+        def _getParser(self):
+            op = FC3_AutoStep._getParser(self)
+            op.description += "\n\n.. deprecated:: %s" % versionToLongString(F34)
+            return op
+
+
+Change the handler mapping to point to it in pykickstart/handlers/f34.py:
+
+    "autostep": commands.autostep.F34_AutoStep,
+
+Add a test in tests/commands/autostep.py
+
+    class F34_TestCase(FC3_TestCase):
+        def runTest(self):
+            # make sure we've been deprecated
+            parser = self.getParser("autostep")
+            self.assertTrue(issubclass(parser.__class__, DeprecatedCommand))
+
+            # make sure we are still able to parse it
+            self.assert_parse("autostep")
+
+
+Removing a kickstart command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Commands can be removed after users have had sufficient time to adjust their
+kickstarts.  At least one release cycle should be allowed.  When creating the
+handler mapping for a new release, eg. F34.py, you can simply not add the
+command to the map.
+
+Do not remove any of the code or tests. pykickstart can select any of its
+previous releases to process a kickstart file, so the command's code needs to
+remain. It will only generate an error if it is used in a kickstart with the
+new release.
+
+
+Deprecating a Command Option
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Command option deprecation really does mean what you expect.  But it is a bit
+more complex to implement.  A deprecated option will generate a warning to the
+user, and it's state will still be available to Anaconda.  Output from
+ksflatten or anaconda may change depending on what the change is.  By setting
+the option parser's deprecated value to a release, eg. F34, Spinx will then
+include that information in the documentation so that users know what to
+expect.
+
+* In pykickstart/commands/ add a new class based on the last version that
+  was implemented. Do *not* add DeprecatedCommand to this class.
+* Override _getParser and add 'deprecated=F34' to the add_argument call used to
+  setup the option. This should match the previous call to add_argument, with
+  the addition of the deprecated release version.
+  If the add_argument is not the same it can result in unexpected behavior when
+  parsing the option.
+* If the output needs to change, override __str__ and modify it to fit the
+  situation. Make sure not to lose output of the non-deprecated options.
+  This may require copy and pasting much of the previous __str__ method.
+* Change the command in the pykickstart/handlers/ mapping so that it points
+  to the new class.
+* Add a test that makes sure the non-deprecated options still work, and that
+  the deprecated option generates a warning. Sometimes this can be done by
+  calling the previous tests, and other times requires copy and pasting
+  much of the previous one. It all depends on what changed and what the
+  expected output is.
+
+Commit 4a0e1e55d4837bc4637dcefb9811d48e7cafa357 which deprecates the logging
+--level argument is a good example to follow.
+
+    class F34_Logging(FC6_Logging):
+        def __str__(self):
+            retval = KickstartCommand.__str__(self)
+            if self.host:
+                retval += "# Installation logging level\nlogging --host=%s" % self.host
+                if self.port:
+                    retval += " --port=%s" % self.port
+                retval = retval + "\n"
+            return retval
+
+        def _getParser(self):
+            op = super()._getParser()
+            op.add_argument("--level", deprecated=F34)
+            return op
+
+Change the handler mapping to point to it in pykickstart/handlers/f34.py:
+
+    "logging": commands.logging.F34_Logging,
+
+Add a test in tests/commands/logging.py
+
+    class F34_TestCase(CommandTest):
+        command = "logging"
+
+        def runTest(self):
+            # deprecated
+            self.assert_deprecated("logging", "--level")
+
+            with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("logging --level=info", "")
+
+            with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("logging --level=info --host=HOSTNAME", "logging --host=HOSTNAME\n")
+
+            with self.assertWarns(KickstartDeprecationWarning):
+                self.assert_parse("logging --level=info --host=HOSTNAME --port=PORT", "logging --host=HOSTNAME --port=PORT\n")
+
+Depending on the type of tests performed, and the changes to the deprecated
+option, you may or may not want to call the superclass's tests.  In some cases
+you may need to copy and paste them to the new test class.
+
+Deprecating options like this results in a generic warning being printed:
+
+Ignoring deprecated option on line 16: The --level option has been deprecated
+and no longer has any effect. It may be removed from future releases, which
+will result in a fatal error from kickstart. Please modify your kickstart file
+to remove this option.
+
+
+Custom Option Deprecation Message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+In some situations you may want to direct the user to use a different command
+or argument. The current solution for that is to not set the deprecated value
+for the option, and instead to do the following:
+
+* In pykickstart/commands/ add a new class, based on the last version that
+  was implemented. Do *not* add DeprecatedCommand to this class.
+* Override the parse method, and call the superclass's parse()
+* Add checks to this new parse method and call warnings.warn with the category
+  set to KickstartDeprecationWarning
+* Change the command in the pykickstart/handlers/ mapping so that it points
+  to the new class.
+* Add a test that runs all of the previous tests, and also checks to make
+  sure that warnings are generated for the deprecated options.
+
+This deprecation method isn't ideal though.  It doesn't set the option's
+deprecated value, so Sphinx doesn't have any way to note that in the
+documentation.  Users will only see the warning output from ksvalidator
+and in the Anaconda logs.
+
+An example of this method is the deprecation of the timezone --ntpservers and
+--nontp options in commit 5f7c0dd57a8b7422bf4fee8c85df1ab82d722f3e
+
+Add a new class in pykickstart/commands/timezone.py
+
+class F33_Timezone(F32_Timezone):
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F32_Timezone.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+
+    def parse(self, args):
+        F32_Timezone.parse(self, args)
+
+        if self.ntpservers:
+            warnings.warn(_("The option --ntpservers will be deprecated in future releases. Please "
+                            "modify your kickstart file to replace this option with "
+                            "timesource --ntp-server <server hostname> command invocation, "
+                            "one per NTP server."),
+                          KickstartDeprecationWarning)
+        if self.nontp:
+            warnings.warn(_("The option --nontp will be deprecated in future releases. Please "
+                            "modify your kickstart file to replace this option with "
+                            "timesource --ntp-disable command invocation."),
+                          KickstartDeprecationWarning)
+        return self
+
+Change the handler mapping to point to it in pykickstart/handlers/f33.py:
+
+    "timezone": commands.timezone.F33_Timezone,
+
+Add a test in tests/commands/timezone.py
+
+    class F33_TestCase(F32_TestCase):
+        command = "timezone"
+
+        def setUp(self):
+            super().setUp()
+
+        def runTest(self):
+            F32_TestCase.runTest(self)
+            # As of Fedora 33 the --ntpservers and --nontp options are considered deprecated.
+
+            # Check using --ntpservers returns appropriate deprecation warning
+            with self.assertWarns(KickstartDeprecationWarning):
+                    self.assert_parse("timezone --ntpservers foo,bar,baz")
+
+            # Check using --ntpservers returns appropriate deprecation warning
+            with self.assertWarns(KickstartDeprecationWarning):
+                    self.assert_parse("timezone --nontp")
+
+
+Removing a Command Option
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+When an option has spent enough time being deprecated, at least one release
+cycle, it can be removed.  It will then generate an error when found in the
+kickstart.
+
+* In pykickstart/commands/ add a new class, based on the last version that
+  was implemented. Do *not* add DeprecatedCommand to this class.
+* Override _getParser, can call remove_argument() on the argument, passing in
+  the version it was removed in.
+* Change the command in the pykickstart/handlers/ mapping so that it points
+  to the new class.
+* Add a new test to make sure that the option had been removed
+* Adjust other test cases as needed. The presence of the option can be checked
+  in self.optionList to distinguish between deprecation and removal.
+
+Commit dc808179dd403b109bac112a2c35305ba396ce6b which removes the bootloader
+--upgrade option is a good example of this:
+
+Add a new class in pykickstart/commands/bootloader.py
+
+class F34_Bootloader(F29_Bootloader):
+    removedKeywords = F29_Bootloader.removedKeywords
+    removedAttrs = F29_Bootloader.removedAttrs
+
+    def _getParser(self):
+        op = F29_Bootloader._getParser(self)
+        op.remove_argument("--upgrade", version=F34)
+        return op
+
+Change the handler mapping to point to it in pykickstart/handlers/f34.py:
+
+    "bootloader": commands.bootloader.F34_Bootloader,
+
+Adjust the existing tests in tests/commands/bootloader.py to account for
+--upgrade possibly being removed:
+
+    if "--upgrade" in self.optionList:
+        self.assert_parse("bootloader --upgrade", "bootloader %s--location=mbr --upgrade\n" % linear)
+
+    if "--upgrade" in self.optionList:
+        self.assert_deprecated("bootloader", "--upgrade")
+
+        # deprecated options should also raise a deprecation warning - test that somewhere
+        with self.assertWarns(KickstartDeprecationWarning):
+            self.assert_parse("bootloader --upgrade")
+
+Add a new class to test to make sure it has been removed:
+
+    class F34_TestCase(F29_TestCase):
+        def runTest(self, iscrypted=False):
+            F29_TestCase.runTest(self, iscrypted=iscrypted)
+            self.assert_removed("bootloader", "--upgrade")
