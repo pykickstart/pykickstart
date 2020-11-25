@@ -68,7 +68,7 @@ class FC3_TestCase(CommandTest):
                               "part raid.1 --active --asprimary --end=10 --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
             self.assert_parse("partition raid.1 --start=1 --end=10",
                               "part raid.1 --end=10 --start=1%s\n" % self.bytesPerInode)
-        else:
+        elif "--active" in self.optionList:
             self.assert_parse("partition raid.1 --active --asprimary --fstype=ext3 --noformat",
                               "part raid.1 --active --asprimary --fstype=\"ext3\" --noformat%s\n" % self.bytesPerInode)
 
@@ -80,8 +80,9 @@ class FC3_TestCase(CommandTest):
         self.assert_parse("part swap --grow --maxsize=100", "part swap --grow --maxsize=100%s\n" % self.bytesPerInode)
 
         # does not remove the /dev/ part
-        self.assert_parse("part /usr --ondisk=/dev/sda --recommended --noformat --active",
-                          "part /usr --active --noformat --ondisk=/dev/sda --recommended%s\n" % self.bytesPerInode)
+        if "--active" in self.optionList:
+            self.assert_parse("part /usr --ondisk=/dev/sda --recommended --noformat --active",
+                              "part /usr --active --noformat --ondisk=/dev/sda --recommended%s\n" % self.bytesPerInode)
 
         # fail
         # missing mountpoint
@@ -309,8 +310,9 @@ class F29_TestCase(F23_TestCase):
     def runTest(self):
         F23_TestCase.runTest(self)
 
-        self.assert_deprecated("part", "--active")
-        self.assert_deprecated("partition", "--active")
+        if "--active" in self.optionList:
+            self.assert_deprecated("part", "--active")
+            self.assert_deprecated("partition", "--active")
 
         self.assert_parse("part / --encrypted --luks-version=luks2",
                           "part / --encrypted --luks-version=luks2\n")
@@ -334,6 +336,12 @@ class RHEL8_TestCase(F29_TestCase):
     def  runTest(self):
         F29_TestCase.runTest(self)
         self.assert_parse_error("part / --fstype=btrfs")
+
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_removed("part", "--active")
+        self.assert_removed("partition", "--active")
 
 if __name__ == "__main__":
     unittest.main()

@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
-from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23, F29
+from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23, F29, F34
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, mountpoint
@@ -759,4 +759,13 @@ class RHEL8_Partition(F29_Partition):
                     .. versionchanged:: %s
 
                     Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op
+
+class F34_Partition(F29_Partition):
+    removedKeywords = F29_Partition.removedKeywords
+    removedAttrs = F29_Partition.removedAttrs
+
+    def _getParser(self):
+        op = F29_Partition._getParser(self)
+        op.remove_argument("--active", version=F34)
         return op
