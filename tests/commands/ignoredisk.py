@@ -73,16 +73,18 @@ class RHEL6_TestCase(F8_TestCase):
         F8_TestCase.runTest(self)
 
         # pass
-        self.assert_parse("ignoredisk --interactive", "ignoredisk --interactive\n")
+        if "--interactive" in self.optionList:
+            self.assert_parse("ignoredisk --interactive", "ignoredisk --interactive\n")
 
         # fail
         # both options provided
         self.assert_parse_error("ignoredisk --drives=sda --interactive")
         self.assert_parse_error("ignoredisk --interactive --drives=sda")
         self.assert_parse_error("ignoredisk --only-use=sda --interactive")
-        self.assert_parse_error("ignoredisk --interactive --only-use=sda")
-        self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb")
-        self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive")
+        if "--interactive" in self.optionList:
+            self.assert_parse_error("ignoredisk --interactive --only-use=sda")
+            self.assert_parse_error("ignoredisk --interactive --drives=sda --only-use=sdb")
+            self.assert_parse_error("ignoredisk --only-use=sda --drives=sdb --interactive")
 
 class F29_TestCase(F8_TestCase):
     def runTest(self):
@@ -91,6 +93,11 @@ class F29_TestCase(F8_TestCase):
 
 class RHEL8_TestCase(F29_TestCase):
     pass
+
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_removed("ignoredisk", "--interactive")
 
 if __name__ == "__main__":
     unittest.main()

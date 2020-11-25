@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F8, RHEL6, F29
+from pykickstart.version import FC3, F8, RHEL6, F29, F34
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.i18n import _
@@ -159,4 +159,13 @@ class F29_IgnoreDisk(F14_IgnoreDisk):
                         default=False, deprecated=F29, help="""
                         Allow the user manually navigate the advanced storage
                         screen.""")
+        return op
+
+class F34_IgnoreDisk(F29_IgnoreDisk):
+    removedKeywords = F29_IgnoreDisk.removedKeywords
+    removedAttrs = F29_IgnoreDisk.removedAttrs
+
+    def _getParser(self):
+        op = F29_IgnoreDisk._getParser(self)
+        op.remove_argument("--interactive", version=F34)
         return op
