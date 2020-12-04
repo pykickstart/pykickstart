@@ -22,7 +22,7 @@ import unittest
 from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest
 
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 
 class FC3_TestCase(CommandTest):
     command = "device"
@@ -107,6 +107,12 @@ class F24_TestCase(F8_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("device")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+class F34_TestCase(F24_TestCase):
+    def runTest(self):
+        # make sure that device is removed
+        cmd = self.handler().commands["device"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
