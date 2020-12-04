@@ -61,7 +61,7 @@ class F34Handler(BaseHandler):
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F34_Method,
         "mount": commands.mount.F27_Mount,
-        "multipath": commands.multipath.F24_MultiPath,
+        "multipath": commands.multipath.F34_MultiPath,
         "network": commands.network.F27_Network,
         "nfs": commands.nfs.FC6_NFS,
         "nvdimm": commands.nvdimm.F28_Nvdimm,
