@@ -15,8 +15,8 @@ from pykickstart.commands.zfcp import F14_ZFCPData
 from pykickstart.commands.autopart import F23_AutoPart
 from pykickstart.commands.btrfs import F17_BTRFS, F23_BTRFS, F23_BTRFSData
 from pykickstart.commands.cdrom import FC3_Cdrom
-from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand, \
-    KickstartHandler
+from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand
+from pykickstart.base import KickstartHandler, RemovedCommand
 
 
 class KickstartCommandWithRemovals(KickstartCommand):
@@ -87,7 +87,7 @@ class DeleteRemovedAttrs_TestCase(unittest.TestCase):
                         continue
 
                     # skip base classes as well
-                    if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand']:
+                    if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand', 'RemovedCommand']:
                         continue
 
                     if impl_class.removedAttrs:
@@ -106,6 +106,9 @@ class KickstartCommandNoParseMethod(KickstartCommand):
 class TestDeprecatedCommand(DeprecatedCommand):
     pass
 
+class TestRemovedCommand(RemovedCommand):
+    pass
+
 class TestBaseData(BaseData):
     def __init__(self, *args, **kwargs):
         BaseData.__init__(self, *args, **kwargs)
@@ -116,6 +119,7 @@ class BaseClasses_TestCase(ParserTest):
         # fail - can't instantiate these directly
         self.assertRaises(TypeError, KickstartCommand, (100, ))
         self.assertRaises(TypeError, DeprecatedCommand, (100, ))
+        self.assertRaises(TypeError, RemovedCommand, (100, ))
         self.assertRaises(TypeError, BaseHandler, (100, ))
         self.assertRaises(TypeError, BaseData, (100, ))
 
@@ -138,6 +142,11 @@ class BaseClasses_TestCase(ParserTest):
         with mock.patch('warnings.warn') as _warn:
             dep_cmd.parse(['test'])
             self.assertEqual(_warn.call_count, 1)
+
+        removed_cmd = TestRemovedCommand()
+        self.assertEqual(removed_cmd.__str__(), '')
+        with self.assertRaises(KickstartParseError):
+            removed_cmd.parse(['test'])
 
 
         self.assertEqual(TestBaseData().__str__(), '')

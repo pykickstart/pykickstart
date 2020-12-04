@@ -25,7 +25,7 @@
 import argparse
 import sys
 from pykickstart.i18n import _
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.errors import KickstartVersionError
 from pykickstart.version import makeVersion, versionMap
 
@@ -71,7 +71,8 @@ def main(argv=None):
     bothSet = fromCmdSet & toCmdSet
 
     print(_("The following commands were removed in %s:") % opts.t)
-    printList(sorted(fromCmdSet - toCmdSet))
+    removed = [cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], RemovedCommand)]
+    printList(sorted(removed + list(fromCmdSet - toCmdSet)))
 
     print(_("The following commands were deprecated in %s:") % opts.t)
     printList(sorted([cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], DeprecatedCommand)]))

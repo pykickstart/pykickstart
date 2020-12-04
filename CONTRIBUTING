@@ -188,7 +188,12 @@ Removing a kickstart command
 Commands can be removed after users have had sufficient time to adjust their
 kickstarts.  At least one release cycle should be allowed.  When creating the
 handler mapping for a new release, eg. F34.py, you can simply not add the
-command to the map.
+command to the map. Or you can add a new version of the command that subclasses
+RemovedCommand. It should append ..versionremoved: to the description with the
+version that it is being removed in so that it is included in the
+documentation.  When it is just removed from the handler the docs do not have
+any note about removal. Only ksvalidator and ksverdiff will say anything about
+it.
 
 Do not remove any of the code or tests. pykickstart can select any of its
 previous releases to process a kickstart file, so the command's code needs to

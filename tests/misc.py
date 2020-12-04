@@ -5,7 +5,8 @@ from pykickstart.parser import KickstartParser
 from pykickstart.version import makeVersion
 from tests.baseclass import ParserTest
 from pykickstart.handlers import control
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
+from pykickstart.errors import KickstartParseError
 
 class Platform_Comment_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
@@ -25,6 +26,8 @@ class WritePriority_TestCase(unittest.TestCase):
             for _name, command_class in _map.items():
                 cmd = command_class()
                 if issubclass(cmd.__class__, DeprecatedCommand):
+                    self.assertEqual(None, cmd.writePriority, command_class)
+                elif issubclass(cmd.__class__, RemovedCommand):
                     self.assertEqual(None, cmd.writePriority, command_class)
                 elif _name in ['bootloader', 'lilo', 'zipl']:
                     self.assertEqual(10, cmd.writePriority, command_class)
@@ -72,6 +75,21 @@ class DeprecatedCommandsParsing_TestCase(unittest.TestCase):
                     # The deprecated commands should be ignored with
                     # a warning when they are parsed. Make sure that
                     # they will not cause any errors.
+                    parser.readKickstartFromString(command_name)
+
+class RemovedCommandsParsing_TestCase(unittest.TestCase):
+    def runTest(self):
+        for version, command_map in control.commandMap.items():
+
+            handler = makeVersion(version)
+            parser = KickstartParser(handler)
+
+            for command_name, command_class in command_map.items():
+                if not issubclass(command_class, RemovedCommand):
+                    continue
+
+                # Make sure that using the removed command raises an error
+                with self.assertRaises(KickstartParseError):
                     parser.readKickstartFromString(command_name)
 
 if __name__ == "__main__":

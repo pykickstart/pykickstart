@@ -34,6 +34,11 @@ This module exports several important base classes:
                         a subclass is used, a warning message will be
                         printed.
 
+    RemovedCommand - an abstract subclass of KickstartCommand that should
+                     be subclassed to update the description with the version
+                     it was removed in.
+                     Any use of the command will raise an error.
+
     KickstartCommand - The base abstract class for all kickstart commands.
                        Command objects are contained within a BaseHandler
                        object.
@@ -214,6 +219,37 @@ class DeprecatedCommand(KickstartCommand):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, KickstartDeprecationWarning)
+
+class RemovedCommand(KickstartCommand):
+    """Specify that a command has been removed and no longer has any function.
+       Any command that is removed should be subclassed from this class, and
+       should set its description to add the version that the command was removed in.
+       This is an abstract class.
+    """
+    def __init__(self, writePriority=None, *args, **kwargs):
+        # We don't want people using this class by itself.
+        if self.__class__ is RemovedCommand:
+            raise TypeError("RemovedCommand is an abstract class.")
+
+        # Create a new RemovedCommand instance.
+        KickstartCommand.__init__(self, writePriority, *args, **kwargs)
+
+    def dataList(self):
+        """Override the method of the removed command."""
+        return None
+
+    @property
+    def dataClass(self):
+        """Override the attribute of the removed command."""
+        return None
+
+    def __str__(self):
+        """Placeholder since RemovedCommands don't work anymore."""
+        return ""
+
+    def parse(self, args):
+        """Raise an error if the command is found in the input file"""
+        raise KickstartParseError(_("%s has been removed.") % self.currentCmd, lineno=self.lineno)
 
 ###
 ### HANDLERS

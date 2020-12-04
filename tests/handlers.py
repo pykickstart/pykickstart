@@ -38,7 +38,7 @@ class HandlerMappingTestCase(unittest.TestCase):
                         continue
 
                     # skip base classes as well
-                    if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand']:
+                    if impl_class.__name__ in ['KickstartCommand', 'DeprecatedCommand', 'RemovedCommand']:
                         continue
 
                     # version of this particular implementation
