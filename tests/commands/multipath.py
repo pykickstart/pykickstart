@@ -20,7 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.multipath import FC6_MultiPath
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.version import FC6
 
 class FC6_TestCase(CommandTest):
@@ -75,6 +75,12 @@ class F24_TestCase(FC6_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("multipath")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+class F34_TestCase(F24_TestCase):
+    def runTest(self):
+        # make sure that dmraid is removed
+        cmd = self.handler().commands["multipath"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
