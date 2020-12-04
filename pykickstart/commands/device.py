@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import versionToLongString, FC3, F24
-from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
+from pykickstart.version import versionToLongString, FC3, F24, F34
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser
 
@@ -171,4 +171,10 @@ class F24_Device(DeprecatedCommand, F8_Device):
     def _getParser(self):
         op = F8_Device._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(F24)
+        return op
+
+class F34_Device(RemovedCommand, F24_Device):
+    def _getParser(self):
+        op = F24_Device._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F34)
         return op
