@@ -48,6 +48,7 @@ class F15Handler(BaseHandler):
         "harddrive": commands.harddrive.FC3_HardDrive,
         "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
         "install": commands.upgrade.F11_Upgrade,
+        "interactive": commands.interactive.F15_Interactive,        # RemovedCommand
         "iscsi": commands.iscsi.F10_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.FC3_Keyboard,
