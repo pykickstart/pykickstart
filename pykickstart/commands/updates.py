@@ -17,7 +17,9 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import F7
+from textwrap import dedent
+
+from pykickstart.version import F7, F34, versionToLongString
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -70,4 +72,46 @@ class F7_Updates(KickstartCommand):
         else:
             self.url = _ns.updates[0]
 
+        return self
+
+
+class F34_Updates(F7_Updates):
+    removedKeywords = F7_Updates.removedKeywords
+    removedAttrs = F7_Updates.removedAttrs
+
+    def __str__(self):
+        retval = KickstartCommand.__str__(self)
+
+        if self.url:
+            retval += "updates %s\n" % self.url
+
+        return retval
+
+    def _getParser(self):
+        op = KSOptionParser(
+            prog="updates", version=F7, description="""
+            Specify the location of an updates.img for use in installation.
+            """
+        )
+        url_action = op.add_argument(
+            "url", metavar="[URL]", version=F7, help="""
+            If present, the URL for an updates image.
+
+            If not present, anaconda will attempt to load from a floppy disk.
+            """
+        )
+        url_action.help += dedent(
+            """
+
+            .. versionchanged:: %s
+
+            The URL for an updates image is required. Anaconda no longer supports
+            updates on a floppy disk.
+            """ % versionToLongString(F34)
+        )
+        return op
+
+    def parse(self, args):
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
         return self
