@@ -22,7 +22,7 @@ import unittest
 from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.dmraid import FC6_DmRaidData
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.version import FC6
 
 class DmRaid_TestCase(unittest.TestCase):
@@ -101,6 +101,12 @@ class F24_TestCase(FC6_TestCase):
         parser = parser._getParser()
         self.assertIsNotNone(parser)
         self.assertTrue(parser.description.find('deprecated:: Fedora24') > -1)
+
+class F34_TestCase(F24_TestCase):
+    def runTest(self):
+        # make sure that dmraid is removed
+        cmd = self.handler().commands["dmraid"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()

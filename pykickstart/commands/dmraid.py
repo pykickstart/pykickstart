@@ -19,8 +19,8 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.errors import KickstartParseWarning
-from pykickstart.version import versionToLongString, FC6, F24
-from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
+from pykickstart.version import versionToLongString, FC6, F24, F34
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.options import KSOptionParser
 
 import warnings
@@ -106,4 +106,10 @@ class F24_DmRaid(DeprecatedCommand, FC6_DmRaid):
     def _getParser(self):
         op = FC6_DmRaid._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(F24)
+        return op
+
+class F34_DmRaid(RemovedCommand, F24_DmRaid):
+    def _getParser(self):
+        op = F24_DmRaid._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F34)
         return op
