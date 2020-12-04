@@ -86,7 +86,7 @@ class F34Handler(BaseHandler):
         "sshkey": commands.sshkey.F22_SshKey,
         "text": commands.displaymode.F26_DisplayMode,
         "timezone": commands.timezone.F33_Timezone,
-        "updates": commands.updates.F7_Updates,
+        "updates": commands.updates.F34_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,
         "vnc": commands.vnc.F9_Vnc,
