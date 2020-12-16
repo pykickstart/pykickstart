@@ -70,6 +70,8 @@ class DeprecatedCommandsParsing_TestCase(unittest.TestCase):
             for command_name, command_class in command_map.items():
                 if not issubclass(command_class, DeprecatedCommand):
                     continue
+                if issubclass(command_class, RemovedCommand):
+                    continue
 
                 with warnings.catch_warnings(record=True):
                     # The deprecated commands should be ignored with
