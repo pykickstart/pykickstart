@@ -20,7 +20,7 @@
 
 import unittest
 
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from tests.baseclass import CommandTest
 
 class F20_TestCase(CommandTest):
@@ -54,6 +54,12 @@ class F29_TestCase(F20_TestCase):
 
 class RHEL8_TestCase(F29_TestCase):
     pass
+
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        # make sure that install is removed
+        cmd = self.handler().commands["install"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
