@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.base import DeprecatedCommand
-from pykickstart.version import F20, F29, versionToLongString
+from pykickstart.base import DeprecatedCommand, RemovedCommand
+from pykickstart.version import F20, F29, F34, versionToLongString
 from pykickstart.commands.upgrade import F11_Upgrade
 
 
@@ -63,4 +63,11 @@ class F29_Install(DeprecatedCommand, F20_Install):
     def _getParser(self):
         op = F20_Install._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(F29)
+        return op
+
+
+class F34_Install(RemovedCommand, F29_Install):
+    def _getParser(self):
+        op = F29_Install._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F34)
         return op

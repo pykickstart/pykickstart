@@ -50,7 +50,7 @@ class F34Handler(BaseHandler):
         "harddrive": commands.harddrive.F33_HardDrive,
         "hmc": commands.hmc.F28_Hmc,
         "ignoredisk": commands.ignoredisk.F34_IgnoreDisk,
-        "install": commands.install.F29_Install,
+        "install": commands.install.F34_Install,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.F18_Keyboard,
