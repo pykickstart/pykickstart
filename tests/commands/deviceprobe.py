@@ -19,7 +19,7 @@
 
 import unittest
 
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from tests.baseclass import CommandTest
 
 class FC3_TestCase(CommandTest):
@@ -42,6 +42,12 @@ class F29_TestCase(FC3_TestCase):
 
 class RHEL8_TestCase(F29_TestCase):
     pass
+
+class F34_TestCase(F29_TestCase):
+    def runTest(self):
+        # make sure that deviceprobe is removed
+        cmd = self.handler().commands["deviceprobe"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
