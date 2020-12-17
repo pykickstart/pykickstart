@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, FC5, versionToLongString
-from pykickstart.base import DeprecatedCommand, KickstartCommand
+from pykickstart.version import FC3, FC5, F7, versionToLongString
+from pykickstart.base import DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.i18n import _
 from pykickstart.options import KSOptionParser
@@ -69,4 +69,10 @@ class FC5_LangSupport(DeprecatedCommand, FC3_LangSupport):
     def _getParser(self):
         op = FC3_LangSupport._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC5)
+        return op
+
+class F7_LangSupport(RemovedCommand, FC5_LangSupport):
+    def _getParser(self):
+        op = FC5_LangSupport._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F7)
         return op
