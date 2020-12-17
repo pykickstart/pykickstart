@@ -51,6 +51,7 @@ class F7Handler(BaseHandler):
         "iscsiname": commands.iscsiname.FC6_IscsiName,
         "keyboard": commands.keyboard.FC3_Keyboard,
         "lang": commands.lang.FC3_Lang,
+        "langsupport": commands.langsupport.F7_LangSupport,  # RemovedCommand
         "logging": commands.logging.FC6_Logging,
         "logvol": commands.logvol.FC4_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,

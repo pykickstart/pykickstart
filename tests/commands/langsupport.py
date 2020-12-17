@@ -20,6 +20,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.base import RemovedCommand
 
 class FC3_TestCase(CommandTest):
     command = "langsupport"
@@ -41,6 +42,12 @@ class FC3_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.deflang = None
         self.assertEqual(cmd.__str__(), "\n")
+
+class F7_TestCase(CommandTest):
+    def runTest(self):
+        # make sure that langsupport is removed
+        cmd = self.handler().commands["langsupport"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
