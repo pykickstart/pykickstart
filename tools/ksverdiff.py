@@ -71,11 +71,15 @@ def main(argv=None):
     bothSet = fromCmdSet & toCmdSet
 
     print(_("The following commands were removed in %s:") % opts.t)
-    removed = [cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], RemovedCommand)]
+    removed = [cmd for cmd in bothSet if
+               isinstance(toHandler.commands[cmd], RemovedCommand) and
+               not isinstance(fromHandler.commands[cmd], RemovedCommand)]
     printList(sorted(removed + list(fromCmdSet - toCmdSet)))
 
     print(_("The following commands were deprecated in %s:") % opts.t)
-    printList(sorted([cmd for cmd in bothSet if isinstance(toHandler.commands[cmd], DeprecatedCommand)]))
+    printList(sorted([cmd for cmd in bothSet if
+                      isinstance(toHandler.commands[cmd], DeprecatedCommand) and
+                      not isinstance(toHandler.commands[cmd], RemovedCommand)]))
 
     print(_("The following commands were added in %s:") % opts.t)
     printList(sorted(toCmdSet - fromCmdSet))
