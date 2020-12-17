@@ -21,7 +21,7 @@
 import unittest
 import warnings
 from tests.baseclass import CommandTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.commands.upgrade import FC3_Upgrade
 
 class Upgrade_TestCase(unittest.TestCase):
@@ -80,10 +80,13 @@ class F20_TestCase(F11_TestCase):
 class F29_TestCase(F20_TestCase):
     def runTest(self):
         # make sure that upgrade is removed
-        self.assertNotIn("upgrade", self.handler().commands)
+        cmd = self.handler().commands["upgrade"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
-class RHEL8_TestCase(F29_TestCase):
-    pass
+class RHEL8_TestCase(F20_TestCase):
+    def runTest(self):
+        # make sure that upgrade is removed
+        self.assertNotIn("upgrade", self.handler().commands)
 
 if __name__ == "__main__":
     unittest.main()
