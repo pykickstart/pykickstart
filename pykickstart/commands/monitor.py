@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, FC6, F10, versionToLongString
-from pykickstart.base import DeprecatedCommand, KickstartCommand
+from pykickstart.version import FC3, FC6, F10, F18, versionToLongString
+from pykickstart.base import DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.options import KSOptionParser
 
 class FC3_Monitor(KickstartCommand):
@@ -115,4 +115,10 @@ class F10_Monitor(DeprecatedCommand, FC6_Monitor):
     def _getParser(self):
         op = FC6_Monitor._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(F10)
+        return op
+
+class F18_Monitor(RemovedCommand, F10_Monitor):
+    def _getParser(self):
+        op = F10_Monitor._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F18)
         return op

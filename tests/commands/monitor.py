@@ -20,7 +20,7 @@
 import unittest
 
 from tests.baseclass import CommandTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.commands.monitor import FC6_Monitor
 
 class FC3_TestCase(CommandTest):
@@ -65,6 +65,12 @@ class F10_TestCase(FC6_TestCase):
         parser = parser._getParser()
         self.assertIsNotNone(parser)
         self.assertTrue(parser.description.find('deprecated:: Fedora10') > -1)
+
+class F18_TestCase(F10_TestCase):
+    def runTest(self):
+        # make sure that monitor is removed
+        cmd = self.handler().commands["monitor"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
