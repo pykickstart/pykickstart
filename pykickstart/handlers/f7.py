@@ -56,6 +56,7 @@ class F7Handler(BaseHandler):
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.FC6_Method,
         "monitor": commands.monitor.FC6_Monitor,
+        "mouse": commands.mouse.F7_Mouse,  # RemovedCommand
         "multipath": commands.multipath.FC6_MultiPath,
         "network": commands.network.FC6_Network,
         "nfs": commands.nfs.FC6_NFS,

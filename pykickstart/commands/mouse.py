@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import versionToLongString, RHEL3, FC3
-from pykickstart.base import DeprecatedCommand, KickstartCommand
+from pykickstart.version import versionToLongString, RHEL3, FC3, F7
+from pykickstart.base import DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
@@ -78,4 +78,10 @@ class FC3_Mouse(DeprecatedCommand, RHEL3_Mouse):
     def _getParser(self):
         op = RHEL3_Mouse._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC3)
+        return op
+
+class F7_Mouse(RemovedCommand, FC3_Mouse):
+    def _getParser(self):
+        op = FC3_Mouse._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F7)
         return op

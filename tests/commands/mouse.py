@@ -21,6 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.mouse import RHEL3_Mouse
+from pykickstart.base import RemovedCommand
 
 class Mouse_TestCase(unittest.TestCase):
     def runTest(self):
@@ -52,6 +53,12 @@ class RHEL3_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.mouse = False
         self.assertEqual(cmd.__str__(), "")
+
+class F7_Mouse_TestCase(CommandTest):
+    def runTest(self):
+        # make sure that mouse is removed
+        cmd = self.handler().commands["mouse"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
