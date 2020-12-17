@@ -18,8 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 from textwrap import dedent
-from pykickstart.version import versionToLongString, FC3, F11, F20
-from pykickstart.base import DeprecatedCommand, KickstartCommand
+from pykickstart.version import versionToLongString, FC3, F11, F20, F29
+from pykickstart.base import DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
@@ -127,4 +127,10 @@ class F20_Upgrade(DeprecatedCommand, F11_Upgrade):
                         tool. Starting with F21, the DNF system-upgrade plugin is
                         recommended instead.  Therefore, the upgrade command
                         essentially does nothing.""" % versionToLongString(F20))
+        return op
+
+class F29_Upgrade(RemovedCommand, F20_Upgrade):
+    def _getParser(self):
+        op = F20_Upgrade._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F29)
         return op
