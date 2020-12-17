@@ -57,6 +57,7 @@ class F18Handler(BaseHandler):
         "logvol": commands.logvol.F18_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F18_Method,
+        "monitor": commands.monitor.F18_Monitor,  # RemovedCommand
         "multipath": commands.multipath.FC6_MultiPath,
         "network": commands.network.F18_Network,
         "nfs": commands.nfs.FC6_NFS,
