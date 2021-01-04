@@ -20,6 +20,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.errors import KickstartDeprecationWarning
+from pykickstart.base import RemovedCommand
 
 class FC3_TestCase(CommandTest):
     command = "bootloader"
@@ -80,6 +81,12 @@ class FC4_TestCase(FC3_TestCase):
         self.assert_removed("bootloader", "--linear")
         self.assert_removed("bootloader", "--nolinear")
         self.assert_removed("bootloader", "--useLilo")
+
+class FC4_Lilo_TestCase(CommandTest):
+    def runTest(self):
+        # make sure that lilo is removed
+        cmd = self.handler().commands["lilo"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 class F8_TestCase(FC4_TestCase):
     def runTest(self, iscrypted=False):

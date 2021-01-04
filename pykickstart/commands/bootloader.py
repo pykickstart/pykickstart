@@ -19,7 +19,7 @@
 #
 from pykickstart.version import RHEL5, RHEL6, versionToLongString
 from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29, F34
-from pykickstart.base import KickstartCommand
+from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
 
@@ -160,7 +160,12 @@ class FC3_Lilo(FC3_Bootloader):
     def _getParser(self):
         op = super(FC3_Lilo, self)._getParser()
         op.prog = "lilo"
-        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
+        return op
+
+class FC4_Lilo(RemovedCommand, FC3_Lilo):
+    def _getParser(self):
+        op = FC3_Lilo._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(FC4)
         return op
 
 
