@@ -21,6 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.lilocheck import FC3_LiloCheck
+from pykickstart.base import RemovedCommand
 
 class FC3_TestCase(CommandTest):
     command = "lilocheck"
@@ -37,6 +38,12 @@ class FC3_TestCase(CommandTest):
         cmd = self.handler().commands[self.command]
         cmd.check = False
         self.assertEqual(cmd.__str__(), "")
+
+class FC4_TestCase(CommandTest):
+    def runTest(self):
+        # make sure that lilocheck is removed
+        cmd = self.handler().commands["lilocheck"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 class LiloCheck_TestCase(unittest.TestCase):
     def runTest(self):

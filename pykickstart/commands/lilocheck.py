@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import FC3, FC4, versionToLongString
-from pykickstart.base import KickstartCommand
+from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.options import KSOptionParser
 
 class FC3_LiloCheck(KickstartCommand):
@@ -40,10 +40,15 @@ class FC3_LiloCheck(KickstartCommand):
 
     def _getParser(self):
         op = KSOptionParser(prog="lilocheck", description="check LILO boot loader", version=FC3)
-        op.description += "\n\n.. deprecated:: %s" % versionToLongString(FC4)
         return op
 
     def parse(self, args):
         self.op.parse_args(args=args, lineno=self.lineno)
         self.check = True
         return self
+
+class FC4_LiloCheck(RemovedCommand, FC3_LiloCheck):
+    def _getParser(self):
+        op = FC3_LiloCheck._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(FC4)
+        return op
