@@ -18,7 +18,7 @@
 #
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from pykickstart.commands.interactive import FC3_Interactive
 
 class FC3_TestCase(CommandTest):
@@ -44,6 +44,12 @@ class F14_TestCase(FC3_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("interactive")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+class F15_TestCase(F14_TestCase):
+    def runTest(self):
+        # make sure that interactive is removed
+        cmd = self.handler().commands["interactive"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 class Interactive_TestCase(unittest.TestCase):
     def runTest(self):
