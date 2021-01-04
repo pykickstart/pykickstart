@@ -49,6 +49,7 @@ class FC4Handler(BaseHandler):
         "keyboard": commands.keyboard.FC3_Keyboard,
         "lang": commands.lang.FC3_Lang,
         "langsupport": commands.langsupport.FC3_LangSupport,
+        "lilocheck": commands.lilocheck.FC4_LiloCheck,  # RemovedCommand
         "logvol": commands.logvol.FC4_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.FC3_Method,
