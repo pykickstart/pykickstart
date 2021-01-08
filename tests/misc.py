@@ -6,7 +6,8 @@ from pykickstart.version import makeVersion
 from tests.baseclass import ParserTest
 from pykickstart.handlers import control
 from pykickstart.base import DeprecatedCommand, RemovedCommand
-from pykickstart.errors import KickstartParseError
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
+
 
 class Platform_Comment_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
@@ -77,7 +78,12 @@ class DeprecatedCommandsParsing_TestCase(unittest.TestCase):
                     # The deprecated commands should be ignored with
                     # a warning when they are parsed. Make sure that
                     # they will not cause any errors.
-                    parser.readKickstartFromString(command_name)
+                    with self.assertWarns(KickstartDeprecationWarning) as cm:
+                        parser.readKickstartFromString(command_name)
+
+                    # Check the warning message.
+                    expected = " {} command has been deprecated ".format(command_name)
+                    self.assertIn(expected, str(cm.warning))
 
 class RemovedCommandsParsing_TestCase(unittest.TestCase):
     def runTest(self):
