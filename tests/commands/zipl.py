@@ -19,7 +19,7 @@ import unittest
 from tests.baseclass import CommandTest
 
 
-class _F32_TestCase(CommandTest):
+class RHEL8_TestCase(CommandTest):
     command = "zipl"
 
     def runTest(self):
@@ -32,10 +32,6 @@ class _F32_TestCase(CommandTest):
         self.assert_parse_error("zipl --secure-boot=")
         self.assert_parse_error("zipl --no-secure-boot=")
         self.assert_parse_error("zipl --force-secure-boot=")
-
-
-class RHEL8_TestCase(_F32_TestCase):
-    pass
 
 
 if __name__ == "__main__":
