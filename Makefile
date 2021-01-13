@@ -8,8 +8,6 @@ WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
-NOSEARGS=-s -v -I __init__.py -I baseclass.py --processes=-1 --process-timeout=60 $(tests)
-
 COVERAGE?=coverage3
 PYTHON?=python3
 
@@ -54,7 +52,7 @@ ifneq ($(shell basename $(PYTHON)),python3)
 endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. NOSE_IGNORE_CONFIG_FILES=y $(PYTHON) -m nose --with-coverage --cover-erase --cover-branches --cover-package=pykickstart --cover-package=tools $(NOSEARGS)
+	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m unittest -v $(tests)
 	-$(COVERAGE) combine
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
