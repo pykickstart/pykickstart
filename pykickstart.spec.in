@@ -15,12 +15,17 @@ Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/
 BuildArch: noarch
 
 BuildRequires: gettext
-BuildRequires: python3-coverage
 BuildRequires: python3-devel
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: python3-six
+BuildRequires: make
+
+# Only required when building with runtests
+%if %{with runtests}
+BuildRequires: python3-coverage
 BuildRequires: python3-sphinx
+%endif
 
 Requires: python3-kickstart = %{version}-%{release}
 
