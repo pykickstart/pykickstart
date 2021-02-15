@@ -25,6 +25,7 @@ from pykickstart.version import F27
 
 from pykickstart.i18n import _
 
+
 class F27_MountData(BaseData):
     removedKeywords = BaseData.removedKeywords
     removedAttrs = BaseData.removedAttrs
@@ -69,6 +70,19 @@ class F27_MountData(BaseData):
         retval = BaseData.__str__(self)
         retval += "mount %s\n" % self._getArgsAsStr()
         return retval
+
+
+class F34_MountData(F27_MountData):
+    removedKeywords = F27_MountData.removedKeywords
+    removedAttrs = F27_MountData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F27_MountData.__init__(self, *args, **kwargs)
+        if self.format == "btrfs":
+            if not "compress" in self.mount_opts:
+                opts = set(self.mount_opts.split(","))
+                opts.add("compress=zstd:1")
+                self.mount_opts = ",".join(opts)
 
 
 class F27_Mount(KickstartCommand):

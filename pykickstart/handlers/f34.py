@@ -108,7 +108,7 @@ class F34Handler(BaseHandler):
         "GroupData": commands.group.F12_GroupData,
         "IscsiData": commands.iscsi.F17_IscsiData,
         "LogVolData": commands.logvol.F29_LogVolData,
-        "MountData": commands.mount.F27_MountData,
+        "MountData": commands.mount.F34_MountData,
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.F27_NetworkData,
         "NvdimmData": commands.nvdimm.F28_NvdimmData,
