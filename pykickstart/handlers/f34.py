@@ -76,7 +76,7 @@ class F34Handler(BaseHandler):
         "repo": commands.repo.F33_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
-        "rootpw": commands.rootpw.F18_RootPw,
+        "rootpw": commands.rootpw.F34_RootPw,
         "selinux": commands.selinux.FC3_SELinux,
         "services": commands.services.FC6_Services,
         "shutdown": commands.reboot.F23_Reboot,

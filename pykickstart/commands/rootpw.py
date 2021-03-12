@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F8
+from pykickstart.version import FC3, F8, F34
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -146,3 +146,29 @@ class F18_RootPw(F8_RootPw):
 
         self.set_to_self(ns)
         return self
+
+class F34_RootPw(F18_RootPw):
+    removedKeywords = F18_RootPw.removedKeywords
+    removedAttrs = F18_RootPw.removedAttrs
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F18_RootPw.__init__(self, writePriority, *args, **kwargs)
+        self.sshlogin = kwargs.get("sshlogin", False)
+
+    def __str__(self):
+        retval = F18_RootPw.__str__(self)
+
+        if self.sshlogin:
+            retval = retval.rstrip('\n')
+            retval += " --sshlogin\n"
+
+        return retval
+
+    def _getParser(self):
+        op = F18_RootPw._getParser(self)
+        op.add_argument("--sshlogin", action="store_true", default=False,
+                        version=F34, help="""
+                        If this is present, it sets sshd configuration to allow
+                        root account log in via ssh. If the root account is
+                        locked, it can not log in via ssh either.""")
+        return op
