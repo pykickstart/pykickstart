@@ -1,5 +1,4 @@
 import os
-import six
 import tempfile
 from tests.baseclass import ParserTest
 
@@ -24,9 +23,7 @@ autopart
         self._processedPath = None
 
         (handle, self._path) = tempfile.mkstemp(prefix="ks-", text=True)
-        s = self.ks
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ks.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -73,9 +70,7 @@ timezone America/New_York
         self._processedPath = None
 
         (handle, self._ksappendPath) = tempfile.mkstemp(prefix="ksappend-", text=True)
-        s = self.ksappend
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ksappend.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -84,8 +79,7 @@ timezone America/New_York
         # %ksappend line.
         (handle, self._path) = tempfile.mkstemp(prefix="ks-", text=True)
         s = self.ks + "%ksappend " + self._ksappendPath
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = s.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -171,9 +165,7 @@ timezone America/New_York
         self._path = None
 
         (handle, self._ksappendPath) = tempfile.mkstemp(prefix="ksappend-", text=True)
-        s = self.ksappend
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ksappend.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -206,9 +198,7 @@ autopart
         ParserTest.setUp(self)
 
         (handle, self._path) = tempfile.mkstemp(prefix="ks-", text=True)
-        s = self.ks
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ks.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -255,9 +245,7 @@ timezone America/New_York
         ParserTest.setUp(self)
 
         (handle, self._ksappendPath) = tempfile.mkstemp(prefix="ksappend-", text=True)
-        s = self.ksappend
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ksappend.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -266,8 +254,7 @@ timezone America/New_York
         # %ksappend line.
         (handle, self._path) = tempfile.mkstemp(prefix="ks-", text=True)
         s = self.ks + "%ksappend " + self._ksappendPath
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = s.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)
@@ -328,9 +315,7 @@ timezone America/New_York
         ParserTest.setUp(self)
 
         (handle, self._ksappendPath) = tempfile.mkstemp(prefix="ksappend-", text=True)
-        s = self.ksappend
-        if six.PY3:
-            s = s.encode('utf-8')
+        s = self.ksappend.encode('utf-8')
 
         os.write(handle, s)
         os.close(handle)

@@ -19,7 +19,6 @@
 #
 import gettext
 import os
-import six
 
 def _find_locale_files():
     module_path = os.path.abspath(__file__)
@@ -29,7 +28,4 @@ def _find_locale_files():
     gettext.textdomain("pykickstart")
 _find_locale_files()
 
-if six.PY3:
-    _ = lambda x: gettext.gettext(x) if x else ''
-else:
-    _ = lambda x: gettext.lgettext(x) if x else ''
+_ = lambda x: gettext.gettext(x) if x else ''

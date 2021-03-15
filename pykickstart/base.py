@@ -45,7 +45,6 @@ This module exports several important base classes:
 """
 from pykickstart.i18n import _
 
-import six
 import warnings
 from pykickstart import __version__
 from pykickstart.errors import KickstartParseError, KickstartParseWarning, KickstartDeprecationWarning
@@ -300,10 +299,7 @@ class KickstartHandler(KickstartObject):
 
         for prio in lst:
             for obj in self._writeOrder[prio]:
-                obj_str = obj.__str__()
-                if isinstance(obj_str, six.text_type) and not six.PY3:
-                    obj_str = obj_str.encode("utf-8")
-                retval += obj_str
+                retval += obj.__str__()
 
         return retval
 
@@ -334,12 +330,8 @@ class KickstartHandler(KickstartObject):
         # off the version part from the front of the name.
         if cmdObj.__class__.__name__.find("_") != -1:
             name = cmdObj.__class__.__name__.split("_", 1)[1]
-            if not six.PY3:
-                name = unicode(name)    # pylint: disable=undefined-variable
         else:
             name = cmdObj.__class__.__name__.lower()
-            if not six.PY3:
-                name = unicode(name)    # pylint: disable=undefined-variable
 
         setattr(self, name.lower(), cmdObj)
 
@@ -505,10 +497,7 @@ class BaseHandler(KickstartHandler):
         retval += KickstartHandler.__str__(self)
 
         for script in self.scripts:
-            script_str = script.__str__()
-            if isinstance(script_str, six.text_type) and not six.PY3:
-                script_str = script_str.encode("utf-8")
-            retval += script_str
+            retval += script.__str__()
 
         if self._null_section_strings:
             retval += "\n"

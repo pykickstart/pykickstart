@@ -5,7 +5,6 @@ import shlex
 import glob
 import warnings
 import re
-import six
 
 import importlib
 
@@ -59,7 +58,7 @@ class ParserTest(unittest.TestCase):
         By default the KickstartParseError is expected.
         """
 
-        with six.assertRaisesRegex(self, exception, regex):
+        with self.assertRaisesRegex(exception, regex):
             self.parser.readKickstartFromString(ks_string)
 
     def assert_parse(self, ks_string):
@@ -187,7 +186,7 @@ class CommandTest(unittest.TestCase):
         parser = self.getParser(inputStr)
         args = shlex.split(inputStr, comments=True)
 
-        with six.assertRaisesRegex(self, exception, regex):
+        with self.assertRaisesRegex(exception, regex):
             parser.parse(args[1:])
 
     def assert_deprecated(self, cmd, opt):

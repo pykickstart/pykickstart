@@ -39,7 +39,6 @@ except ImportError:  # python2 compatibility
     from collections import Iterator
 
 import os
-import six
 import shlex
 import sys
 import warnings
@@ -63,8 +62,7 @@ def _preprocessStateMachine(lineIter):
     lineno = 0
     retval = ""
 
-    if six.PY3:
-        retval = retval.encode(sys.getdefaultencoding())
+    retval = retval.encode(sys.getdefaultencoding())
 
     while True:
         try:
@@ -81,9 +79,7 @@ def _preprocessStateMachine(lineIter):
 
         ll = l.strip()
         if not ll.startswith("%ksappend"):
-            if six.PY3:
-                l = l.encode(sys.getdefaultencoding())
-            retval += l
+            retval += l.encode(sys.getdefaultencoding())
             continue
 
         # Try to pull down the remote file.

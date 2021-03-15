@@ -1,7 +1,7 @@
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import unittest
 import os
 import tempfile
-import six
 
 from pykickstart import load
 from pykickstart.errors import KickstartError
@@ -74,13 +74,13 @@ class Load_From_URL_Test(LoadTest):
         super(Load_From_URL_Test, self).setUp()
 
         # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
-        httphandler = six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler
+        httphandler = SimpleHTTPRequestHandler
 
         def shutup(*args, **kwargs):
             pass
         httphandler.log_message = shutup
 
-        self._server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
+        self._server = HTTPServer(('127.0.0.1', 0), httphandler)
         httpd_port = self._server.server_port
         self._httpd_pid = os.fork()
         if self._httpd_pid == 0:

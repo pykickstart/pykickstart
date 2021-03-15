@@ -1,5 +1,5 @@
+from http.server import HTTPServer, SimpleHTTPRequestHandler
 import os
-import six
 import unittest
 import tempfile
 from tests.baseclass import ParserTest
@@ -16,9 +16,7 @@ class Base_Include(ParserTest):
         ParserTest.setUp(self)
 
         (handle, self._path) = tempfile.mkstemp(prefix="include-", text=True)
-        ks = self.includeKS
-        if six.PY3:
-            ks = ks.encode('utf-8')
+        ks = self.includeKS.encode('utf-8')
 
         os.write(handle, ks)
         os.close(handle)
@@ -189,13 +187,13 @@ ls /tmp
         super(Include_URL_TestCase, self).setUp()
 
         # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
-        httphandler = six.moves.SimpleHTTPServer.SimpleHTTPRequestHandler
+        httphandler = SimpleHTTPRequestHandler
 
         def shutup(*args, **kwargs):
             pass
         httphandler.log_message = shutup
 
-        self._server = six.moves.BaseHTTPServer.HTTPServer(('127.0.0.1', 0), httphandler)
+        self._server = HTTPServer(('127.0.0.1', 0), httphandler)
         httpd_port = self._server.server_port
         self._httpd_pid = os.fork()
         if self._httpd_pid == 0:
@@ -222,7 +220,7 @@ ls /tmp
 class Include_Bad_URL_TestCase(Include_URL_TestCase):
     def runTest(self):
         # Add some garbage to the end of the URL and ensure it breaks
-        six.assertRaisesRegex(self, KickstartError, "Error accessing URL",
+        self.assertRaisesRegex(KickstartError, "Error accessing URL",
                               self.parser.readKickstartFromString, self.ks % (self._url + "-garbage"))
 
 if __name__ == "__main__":

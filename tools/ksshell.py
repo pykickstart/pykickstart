@@ -37,7 +37,8 @@
 
 import readline
 import argparse
-import os, six, sys
+import os
+import sys
 
 from pykickstart.i18n import _
 from pykickstart.errors import KickstartError, KickstartVersionError
@@ -202,7 +203,7 @@ def main(argv=None):
 
     while True:
         try:
-            line = six.moves.input("ks> ")  # pylint: disable=no-member
+            line = input("ks> ")
         except EOFError:
             # ^D was hit, time to quit.
             break

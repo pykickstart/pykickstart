@@ -1,4 +1,3 @@
-import six
 import unittest
 
 from pykickstart.errors import KickstartParseWarning
@@ -8,10 +7,7 @@ from pykickstart.commands.logvol import FC3_LogVolData, F9_LogVolData, F12_LogVo
 from pykickstart.errors import KickstartParseError
 from pykickstart.version import FC3, RHEL6, F20
 
-if six.PY3:
-    requiredError = "arguments are required: %s"
-else:
-    requiredError = "argument %s is required"
+requiredError = "arguments are required: %s"
 
 class LogVol_TestCase(unittest.TestCase):
     def runTest(self):
@@ -132,16 +128,10 @@ class FC3_TestCase(CommandTest):
         self.assert_parse_error("logvol / --vgname=NAME", regex=requiredError % "--name")
 
         # fail - missing a mountpoint
-        if six.PY3:
-            self.assert_parse_error("logvol", regex=requiredError % "<mntpoint>, --name, --vgname")
-            self.assert_parse_error("logvol --name=NAME", regex=requiredError % "<mntpoint>, --vgname")
-            self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "<mntpoint>, --name")
-            self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex=requiredError % "<mntpoint>")
-        else:
-            self.assert_parse_error("logvol", regex="too few arguments")
-            self.assert_parse_error("logvol --name=NAME", regex="too few arguments")
-            self.assert_parse_error("logvol --vgname=NAME", regex="too few arguments")
-            self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex="too few arguments")
+        self.assert_parse_error("logvol", regex=requiredError % "<mntpoint>, --name, --vgname")
+        self.assert_parse_error("logvol --name=NAME", regex=requiredError % "<mntpoint>, --vgname")
+        self.assert_parse_error("logvol --vgname=NAME", regex=requiredError % "<mntpoint>, --name")
+        self.assert_parse_error("logvol --name=NAME --vgname=NAME", regex=requiredError % "<mntpoint>")
 
         # fail - unknown options
         self.assert_parse_error("logvol / --name=NAME --vgname=VGNAME --bogus-option")

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import os
-import six
 import unittest
 import tempfile
 import locale
@@ -18,12 +17,6 @@ echo áááááá
 %end
 """
 
-    def get_encoded_str(self, string, force_encode=False):
-        if force_encode or not six.PY3:
-            return string.encode("utf-8")
-        else:
-            return string
-
     def runTest(self):
         unicode_str1 = u"ááááááááá"
         unicode_str2 = u"áááááá"
@@ -40,28 +33,25 @@ echo áááááá
         # original non-ascii strings as utf-8 encoded byte strings and
         # str(self.handler) should not fail -- i.e. self.handler.__str__()
         # should return byte string not unicode string
-        self.assertIn(self.get_encoded_str(unicode_str1), str(self.handler))
-        self.assertIn(self.get_encoded_str(unicode_str2), str(self.handler))
+        self.assertIn(unicode_str1, str(self.handler))
+        self.assertIn(unicode_str2, str(self.handler))
 
         # set root password to unicode string
         self.handler.rootpw.password = unicode_str1
 
         # str(handler) should not cause traceback and should contain the
         # original unicode string as utf-8 encoded byte string
-        self.assertIn(self.get_encoded_str(unicode_str1), str(self.handler))
+        self.assertIn(unicode_str1, str(self.handler))
 
         # set root password to encoded string
-        self.handler.rootpw.password = self.get_encoded_str(unicode_str1, force_encode=True)
+        self.handler.rootpw.password = unicode_str1
 
         # str(handler) should not cause traceback and should contain the
         # original unicode string as utf-8 encoded byte string
-        self.assertIn(str(self.get_encoded_str(unicode_str1, force_encode=True)), str(self.handler))
+        self.assertIn(str(unicode_str1), str(self.handler))
 
         (fd, name) = tempfile.mkstemp(prefix="ks-", suffix=".cfg", dir="/tmp", text=True)
-        if six.PY3:
-            buf = self.ks.encode("utf-8")
-        else:
-            buf = self.ks
+        buf = self.ks.encode("utf-8")
         os.write(fd, buf)
         os.close(fd)
 
@@ -73,11 +63,7 @@ echo áááááá
             # original non-ascii strings as utf-8 encoded byte strings and
             # str(self.handler) should not fail -- i.e. self.handler.__str__()
             # should return byte string not unicode string
-            self.assertIn(self.get_encoded_str(unicode_str1), str(self.handler))
-            self.assertIn(self.get_encoded_str(unicode_str2), str(self.handler))
+            self.assertIn(unicode_str1, str(self.handler))
+            self.assertIn(unicode_str2, str(self.handler))
         finally:
             os.unlink(name)
-
-if __name__ == "__main__":
-    if not six.PY3:
-        unittest.main()

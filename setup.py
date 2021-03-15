@@ -24,7 +24,7 @@ setup(cmdclass={"install_scripts": install_scripts},
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='http://fedoraproject.org/wiki/pykickstart',
-      install_requires=['six', 'requests'],
+      install_requires=['requests'],
       extras_require={
           "docs": ['Sphinx'],
           "test": ['coveralls', 'coverage', 'pocketlint', 'pylint']},
