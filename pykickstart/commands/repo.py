@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.version import versionToLongString
-from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30, F33
+from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30, F33, F35
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit, ksboolean
@@ -189,6 +189,22 @@ class F30_RepoData(F27_RepoData):
 
         if self.sslclientkey:
             retval += " --sslclientkey=\"%s\"" % self.sslclientkey
+
+        return retval
+
+class F35_RepoData(F30_RepoData):
+    removedKeywords = F30_RepoData.removedKeywords
+    removedAttrs = F30_RepoData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F30_RepoData.__init__(self, *args, **kwargs)
+        self.moduleshotfixes = kwargs.get("moduleshotfixes", None)
+
+    def _getArgsAsStr(self):
+        retval = F30_RepoData._getArgsAsStr(self)
+
+        if self.moduleshotfixes:
+            retval += " --moduleshotfixes=true"
 
         return retval
 
@@ -488,6 +504,22 @@ class F33_Repo(F30_Repo):
     def _getParser(self):
         op = F30_Repo._getParser(self)
         op.add_argument("--ignoregroups", type=ksboolean, deprecated=F33)
+
+        return op
+
+class F35_Repo(F33_Repo):
+    removedKeywords = F33_Repo.removedKeywords
+    removedAttrs = F33_Repo.removedAttrs
+
+    def _getParser(self):
+        op = F33_Repo._getParser(self)
+        op.add_argument("--moduleshotfixes", type=ksboolean, version=F35, help="""
+                        Set this to True to disable module RPM filtering and
+                        make all RPMs from the repository available. The default is
+                        False.  This allows user to  create  a  repository  with
+                        cherry-picked hotfixes that are included in a package set on
+                        a modular system.
+                        """)
         return op
 
 class RHEL7_Repo(F21_Repo):

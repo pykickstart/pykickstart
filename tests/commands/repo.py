@@ -201,6 +201,18 @@ class F33_TestCase(F30_TestCase):
         with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("repo --name=blah --baseurl=www.domain.com --ignoregroups=true")
 
+class F35_TestCase(F33_TestCase):
+    def runTest(self, urlRequired=False):
+        F33_TestCase.runTest(self, urlRequired=urlRequired)
+
+        # pass
+        for val in ("1", "true", "on"):
+            self.assert_parse("repo --name=test --baseurl=https://www.domain.com --moduleshotfixes=%s" % val,
+                              "repo --name=\"test\" --baseurl=https://www.domain.com --moduleshotfixes=true\n")
+        for val in ("0", "false", "off"):
+            self.assert_parse("repo --name=test --baseurl=https://www.domain.com --moduleshotfixes=%s" % val,
+                              "repo --name=\"test\" --baseurl=https://www.domain.com\n")
+
 
 if __name__ == "__main__":
     unittest.main()
