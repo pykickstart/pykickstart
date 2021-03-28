@@ -241,12 +241,12 @@ class FC6_Repo(KickstartCommand):
                             cause a conflicting repo error.""",
                             version=FC6)
         op.add_argument("--name", required=True, version=FC6, help="""
-                        The repo id. This option is required. The RepoId must 
+                        The repo id. This option is required. The RepoId must
                         not contain spaces (do not confuse with the optional name
-                        used by yum). If a repo has a name that conflicts with a 
-                        previously added one, the new repo will be ignored. 
-                        Because anaconda has a populated list of repos when it 
-                        starts, this means that users cannot create new repos 
+                        used by yum). If a repo has a name that conflicts with a
+                        previously added one, the new repo will be ignored.
+                        Because anaconda has a populated list of repos when it
+                        starts, this means that users cannot create new repos
                         that override these names.
                         Please check /etc/anaconda.repos.d from the operating
                         system you wish to install to see what names are not
