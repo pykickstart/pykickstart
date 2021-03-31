@@ -206,12 +206,18 @@ class F35_TestCase(F33_TestCase):
         F33_TestCase.runTest(self, urlRequired=urlRequired)
 
         # pass
+        self.assert_parse("repo --name=test --baseurl=https://www.domain.com --priority=99",
+                          "repo --name=\"test\" --baseurl=https://www.domain.com --priority=99\n")
         for val in ("1", "true", "on"):
             self.assert_parse("repo --name=test --baseurl=https://www.domain.com --moduleshotfixes=%s" % val,
                               "repo --name=\"test\" --baseurl=https://www.domain.com --moduleshotfixes=true\n")
         for val in ("0", "false", "off"):
             self.assert_parse("repo --name=test --baseurl=https://www.domain.com --moduleshotfixes=%s" % val,
                               "repo --name=\"test\" --baseurl=https://www.domain.com\n")
+
+        # fail
+        # --priority argument not integer
+        self.assert_parse_error("repo --name=blah --baseurl=www.domain.com --priority=high")
 
 
 if __name__ == "__main__":

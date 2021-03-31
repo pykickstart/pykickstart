@@ -198,11 +198,14 @@ class F35_RepoData(F30_RepoData):
 
     def __init__(self, *args, **kwargs):
         F30_RepoData.__init__(self, *args, **kwargs)
+        self.priority = kwargs.get("priority", None)
         self.moduleshotfixes = kwargs.get("moduleshotfixes", None)
 
     def _getArgsAsStr(self):
         retval = F30_RepoData._getArgsAsStr(self)
 
+        if self.priority:
+            retval += " --priority=%s" % self.priority
         if self.moduleshotfixes:
             retval += " --moduleshotfixes=true"
 
@@ -513,6 +516,14 @@ class F35_Repo(F33_Repo):
 
     def _getParser(self):
         op = F33_Repo._getParser(self)
+        op.add_argument("--priority", type=int, version=F35, help="""
+                        The  priority value of this repository, default is 99.
+                        If there is more than one candidate package for a
+                        particular operation, the one from a repo with the
+                        lowest priority value is picked, possibly despite being
+                        less convenient otherwise (e.g. by being a lower
+                        version)
+                        """)
         op.add_argument("--moduleshotfixes", type=ksboolean, version=F35, help="""
                         Set this to True to disable module RPM filtering and
                         make all RPMs from the repository available. The default is
