@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F17, F21, F28
+from pykickstart.version import FC3, F17, F21, F25, F28
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_LIST, CLEARPART_TYPE_NONE
 from pykickstart.options import KSOptionParser, commaSplit
@@ -151,7 +151,43 @@ class F21_ClearPart(F17_ClearPart):
                         and gpt for x86_64 but not dasd.""")
         return op
 
-class F28_ClearPart(F21_ClearPart):
+class F25_ClearPart(F21_ClearPart):
+    def _getParser(self):
+        op = super(F25_ClearPart, self)._getParser()
+        op.add_argument("--drives", type=commaSplit, version=F25, help="""
+                        The following clears the partitions on the first
+                        two drives on the system:
+
+                        ``clearpart --drives=sda,sdb``
+
+                        or clear as many drives as it could and skip the missing
+                        (at least one must be matched):
+
+                        ``clearpart --drives=sda|sdb1``
+
+                        or clear all virtio drives and only first scsi device if
+                        exists
+
+                        ``clearpart --drives=sda|vd*``""")
+        op.add_argument("--list", dest="devices", type=commaSplit,
+                        version=F25, help="""
+                        The following clears the partitions on the first
+                        two drives on the system:
+
+                        ``clearpart --list=sda,sdb``
+
+                        or clear as many drives as it could and skip the missing
+                        (at least one must be matched):
+
+                        ``clearpart --list=sda|sdb1``
+
+                        or clear all virtio drives and only first scsi device if
+                        exists
+
+                        ``clearpart --list=sda|vd*``""")
+        return op
+
+class F28_ClearPart(F25_ClearPart):
     def __init__(self, *args, **kwargs):
         super(F28_ClearPart, self).__init__(*args, **kwargs)
         self.cdl = kwargs.get("cdl", False)
