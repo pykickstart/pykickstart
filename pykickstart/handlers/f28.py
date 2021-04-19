@@ -50,7 +50,7 @@ class F28Handler(BaseHandler):
         "halt": commands.reboot.F23_Reboot,
         "harddrive": commands.harddrive.FC3_HardDrive,
         "hmc" : commands.hmc.F28_Hmc,
-        "ignoredisk": commands.ignoredisk.F14_IgnoreDisk,
+        "ignoredisk": commands.ignoredisk.F25_IgnoreDisk,
         "install": commands.install.F20_Install,
         "iscsi": commands.iscsi.F17_Iscsi,
         "iscsiname": commands.iscsiname.FC6_IscsiName,

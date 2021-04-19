@@ -130,6 +130,14 @@ You could use an entry similar to the following:
 
 ``ignoredisk --drives=/dev/disk/by-path/pci-0000:00:05.0-scsi-*``
 
+However, the installation will fail if the  ``*`` pattern does not match
+a device. For ``clearpart`` and ``ignoredisk`` commands specifically you
+can also use ``|`` to solve this issue. For example to match ``vda`` and/or
+``hda`` you can use ``vda|hda`` which would match ``vda`` or ``hda`` or both.
+But if neither ``vda`` or ``hda`` are available the installation will fail.
+If you want to match any ``vd`` or ``hd`` disks you could combine ``*`` and
+``|`` to match any drive of either: ``vd*|hd*``.
+
 Finally, anywhere you want to refer to an existing partition or
 filesystem (say, in the ``part --ondisk=``) option, you may also refer
 to the device by its filesystem label or UUID. This is done as follows:

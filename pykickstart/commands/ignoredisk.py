@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F8, RHEL6, F29, F34
+from pykickstart.version import FC3, F8, RHEL6, F25, F29, F34
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.i18n import _
@@ -146,15 +146,56 @@ class RHEL6_IgnoreDisk(F8_IgnoreDisk):
 class F14_IgnoreDisk(RHEL6_IgnoreDisk):
     pass
 
-class F29_IgnoreDisk(F14_IgnoreDisk):
+class F25_IgnoreDisk(F14_IgnoreDisk):
     removedKeywords = F14_IgnoreDisk.removedKeywords
     removedAttrs = F14_IgnoreDisk.removedAttrs
+
+    def _getParser(self):
+        op = F14_IgnoreDisk._getParser(self)
+        op.add_argument("--drives", dest="ignoredisk", version=F25,
+                        type=commaSplit, help="""
+                        The following ignores the partitions on the first
+                        two drives on the system:
+
+                        ``ignoredisk --drives=sda,sdb``
+
+                        or ignores as many drives as it could and skip the missing
+                        (at least one must be matched):
+
+                        ``ignoredisk --drives=sda|sdb1``
+
+                        or ignores all virtio drives and only first scsi device if
+                        exists
+
+                        ``ignoredisk --drives=sda|vd*``""")
+        op.add_argument("--only-use", dest="onlyuse",
+                        type=commaSplit, version=F25, help="""
+                        The following ignores the partitions on the first
+                        two drives on the system:
+
+                        ``ignoredisk --only-use=sda,sdb``
+
+                        or ignores as many drives as it could and skip the missing
+                        (at least one must be matched):
+
+                        ``ignoredisk --only-use=sda|sdb1``
+
+                        or ignores all virtio drives and only first scsi device if
+                        exists
+
+                        ``ignoredisk --only-use=sda|vd*``""")
+        return op
+
+
+class F29_IgnoreDisk(F25_IgnoreDisk):
+    removedKeywords = F25_IgnoreDisk.removedKeywords
+    removedAttrs = F25_IgnoreDisk.removedAttrs
 
     def parse(self, args):
         return F8_IgnoreDisk.parse(self, args)
 
     def _getParser(self):
-        op = F14_IgnoreDisk._getParser(self)
+        op = F25_IgnoreDisk._getParser(self)
         op.add_argument("--interactive", action="store_true",
                         default=False, deprecated=F29, help="""
                         Allow the user manually navigate the advanced storage
