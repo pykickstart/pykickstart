@@ -105,7 +105,7 @@ device node name (such as ``sda``). The Linux kernel has moved to a more
 dynamic method where device names are not guaranteed to be consistent
 across reboots, so this can complicate usage in Kickstart scripts. To
 accommodate stable device naming, you can use any item from
-``/dev/disk`` in place of a device node name. For example, instead of:
+``/dev/disk/by-id`` in place of a device node name. For example, instead of:
 
 ``part / --fstype=ext4 --onpart=sda1``
 
@@ -113,8 +113,8 @@ You could use an entry similar to one of the following:
 
 ::
 
-    part / --fstype=ext4 --onpart=/dev/disk/by-path/pci-0000:00:05.0-scsi-0:0:0:0-part1
-    part / --fstype=ext4 --onpart=/dev/disk/by-id/ata-ST3160815AS_6RA0C882-part1
+    part / --fstype=ext4 --onpart=/dev/disk/by-id/wwn-0x60022480de06a1c36a0f1e345393b224-part1
+    part / --fstype=ext4 --onpart=/dev/disk/by-id/scsi-360022480de06a1c36a0f1e345393b224-part1
 
 This provides a consistent way to refer to disks that is more meaningful
 than just ``sda``. This is especially useful in large storage
@@ -138,15 +138,53 @@ But if neither ``vda`` or ``hda`` are available the installation will fail.
 If you want to match any ``vd`` or ``hd`` disks you could combine ``*`` and
 ``|`` to match any drive of either: ``vd*|hd*``.
 
+Please note that ``/dev/disk/by-path`` identifiers are not 100%
+reliable as they can vary if the host bus adapter is physically moved,
+a new host bus adapter is added, or if the drivers are loaded or probed in a
+different order.
+
 Finally, anywhere you want to refer to an existing partition or
 filesystem (say, in the ``part --ondisk=``) option, you may also refer
-to the device by its filesystem label or UUID. This is done as follows:
+to the device by its filesystem label, UUID, or UUID path. This is done as follows:
 
 ::
 
     part /data --ondisk=LABEL=data
     part /misc --ondisk=UUID=819ff6de-0bd6-4bf4-8b72-dbe41033a85b
+    part /db   --ondisk=/dev/disk/by-uuid/03596c0c-47e2-45e1-a4fd-212ba320f64e
 
+When automating disk selection in kickstart for physical machines or virtual
+machines where the disk configuration is consistent, consider the following:
+
+- If only one disk exists, you can simply use the device node name.
+- If the configuration has multiple disks, each of which are the same size, you
+  can use the device node names as it doesn't matter which disk is which.
+- If you have different size disks, it may be helpful to select the disk based
+  on size.  An example ``%pre`` section which does this:
+
+::
+
+
+    # Partition information is created during install using the %pre section
+    %pre --interpreter /bin/bash --log /tmp/ks_pre.log
+
+        # Dump whole SCSI/IDE disks out sorted from smallest to largest
+        # ouputting just the name
+        disks=(`lsblk -n -o NAME -l -b -x SIZE -d -I 8,3`) || exit 1
+
+        # We are assuming we have 3 disks which will be used
+        # and we will create some variables to represent
+        d0=${disks[0]}
+        d1=${disks[1]}
+        d2=${disks[2]}
+
+        echo "part /home --fstype="xfs" --ondisk=$d2 --grow" >> /tmp/disks
+        echo "part swap --fstype="swap" --ondisk=$d0 --size=4096" >> /tmp/disks
+        echo "part / --fstype="xfs" --ondisk=$d1 --grow" >> /tmp/disks
+        echo "part /boot --fstype="xfs" --ondisk=$d1 --size=1024" >> /tmp/disks
+    %end
+
+Leverage ``%include /tmp/disks`` in the kickstart file to utilize.
 
 Chapter 2. Kickstart Commands in Fedora
 =======================================
