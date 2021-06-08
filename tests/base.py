@@ -6,6 +6,7 @@ import unittest.mock as mock
 from argparse import Namespace
 
 from tests.baseclass import ParserTest
+import pykickstart
 from pykickstart.parser import Script, KickstartParser
 from pykickstart.version import F25
 from pykickstart.handlers.f25 import F25Handler
@@ -61,7 +62,7 @@ class DeleteRemovedAttrs_TestCase(unittest.TestCase):
     """
     def runTest(self):
         errors = []
-        commands_dir = os.path.join(os.path.dirname(__file__), "..", "pykickstart", "commands")
+        commands_dir = os.path.join(os.path.dirname(pykickstart.__file__), "commands")
         commands_dir = os.path.abspath(commands_dir)
 
         self.assertTrue(os.path.exists(commands_dir))
