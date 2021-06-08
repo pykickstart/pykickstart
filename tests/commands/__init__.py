@@ -3,6 +3,7 @@ import sys
 import unittest
 import importlib
 from unittest import mock
+import pykickstart
 from pykickstart.options import KSOptionParser
 from pykickstart.base import KickstartCommand, BaseData
 
@@ -22,7 +23,7 @@ class ClassDefinitionTestCase(unittest.TestCase):
     """
     def runTest(self):
         errors = 0
-        commands_dir = os.path.join(os.path.dirname(__file__), "..", "..", "pykickstart", "commands")
+        commands_dir = os.path.join(os.path.dirname(pykickstart.__file__), "commands")
         commands_dir = os.path.abspath(commands_dir)
 
         self.assertTrue(os.path.exists(commands_dir))
@@ -90,7 +91,7 @@ class HelpAndDescription_TestCase(unittest.TestCase):
 
     def runTest(self):
         errors = 0
-        commands_dir = os.path.join(os.path.dirname(__file__), "..", "..", "pykickstart", "commands")
+        commands_dir = os.path.join(os.path.dirname(pykickstart.__file__), "commands")
         commands_dir = os.path.abspath(commands_dir)
 
         self.assertTrue(os.path.exists(commands_dir))
