@@ -48,8 +48,8 @@ def cleanup(dest, fn=None, exitval=1):
     return exitval
 
 def main(argv):
-    op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile", add_help=False)
-    op.add_argument("ksfile", nargs="?",
+    op = argparse.ArgumentParser(usage="%(prog)s [options] ksfile [ksfile...]", add_help=False)
+    op.add_argument("ksfile", nargs="*",
                     help=_("filename or URL to read from"))
     op.add_argument("-e", "--firsterror", dest="firsterror", action="store_true",
                     default=False, help=_("halt after the first error or warning"))
@@ -80,44 +80,52 @@ def main(argv):
     if not opts.ksfile:
         return (1, op.format_usage().split("\n"))
 
-    destdir = tempfile.mkdtemp(prefix="ksvalidator-tmp-")
-    try:
-        f = load_to_file(opts.ksfile, os.path.join(destdir, "ks.cfg"))
-    except KickstartError as e:
-        return (cleanup(destdir),
-                [_("Error reading %(filename)s:\n%(version)s") % {"filename": opts.ksfile, "version": e}])
+    rc = 0
+    retmsg = []
 
-    try:
-        handler = makeVersion(opts.version)
-    except KickstartVersionError:
-        return (cleanup(destdir),
-                [_("The version %s is not supported by pykickstart") % opts.version])
+    with tempfile.TemporaryDirectory(prefix="ksvalidator-tmp-") as destdir:
+        for ksfile in opts.ksfile:
+            print(_("\nChecking kickstart file %(filename)s\n" % {"filename": ksfile}))
 
-    ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
-                               errorsAreFatal=opts.firsterror)
+            try:
+                f = load_to_file(ksfile, os.path.join(destdir, "ks.cfg"))
+            except KickstartError as e:
+                rc += 1
+                retmsg.append(_("Error reading %(filename)s:\n%(version)s") % {"filename": ksfile, "version": e})
 
-    # turn kickstart parse warnings into errors
-    warnings.filterwarnings(action="error", category=KickstartParseWarning)
+            try:
+                handler = makeVersion(opts.version)
+            except KickstartVersionError:
+                # return immediately because bad version is fatal for all files
+                return (1, [_("The version %s is not supported by pykickstart") % opts.version])
 
-    processedFile = None
+            # turn kickstart parse warnings into errors
+            warnings.filterwarnings(action="error", category=KickstartParseWarning)
 
-    try:
-        processedFile = preprocessKickstart(f)
-        if processedFile is None:
-            raise RuntimeError("Empty file")
-        ksparser.readKickstart(processedFile)
-        return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
-    except KickstartDeprecationWarning as err:
-        return (cleanup(destdir, processedFile),
-                [_("File uses a deprecated option or command.\n%s") % err])
-    except KickstartParseError as err:
-        return (cleanup(destdir, processedFile), [str(err)])
-    except KickstartError:
-        return (cleanup(destdir, processedFile),
-                [_("General kickstart error in input file")])
-    except Exception as e:                                      # pylint: disable=broad-except
-        return (cleanup(destdir, processedFile),
-                [_("General error in input file:  %s") % e])
+            ksparser = KickstartParser(handler, followIncludes=opts.followincludes,
+                                       errorsAreFatal=opts.firsterror)
+
+            try:
+                processedFile = preprocessKickstart(f)
+                if processedFile is None:
+                    raise RuntimeError("Empty file")
+                ksparser.readKickstart(processedFile)
+                rc += ksparser.errorsCount
+            except KickstartDeprecationWarning as err:
+                rc += 1
+                retmsg.append(_("File uses a deprecated option or command.\n%s") % err)
+            except KickstartParseError as err:
+                rc += 1
+                retmsg.append(str(err))
+            except KickstartError:
+                rc += 1
+                retmsg.append(_("General kickstart error in input file"))
+            except Exception as e:        # pylint: disable=broad-except
+                rc += 1
+                retmsg.append(_("General error in input file:  %s") % e)
+
+    return rc, retmsg
+
 
 if __name__ == "__main__":
     retval, messages = main(sys.argv[1:])
