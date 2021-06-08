@@ -144,7 +144,7 @@ class Nonexistent_KS_File_TestCase(TestCase):
     def runTest(self):
         retval, out = ksvalidator.main(["/foo/bar/baz/ks.cfg"])
         self.assertNotEqual(retval, 0)
-        self.assertTrue("No such file or directory" in " ".join(out))
+        self.assertTrue("No files match the patterns" in " ".join(out))
 
 @unittest.skipUnless(os.getuid(), "test requires non-root access")
 class KS_With_Wrong_Permissions_TestCase(TestCase):

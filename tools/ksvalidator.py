@@ -28,10 +28,11 @@ import sys
 import warnings
 import tempfile
 import shutil
+import glob
 from pykickstart.i18n import _
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartVersionError,\
     KickstartParseWarning, KickstartDeprecationWarning
-from pykickstart.load import load_to_file
+from pykickstart.load import is_url, load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import DEVEL, makeVersion, versionMap
 
@@ -83,8 +84,21 @@ def main(argv):
     rc = 0
     retmsg = []
 
+    # unpack any globs
+    ksfiles = []
+    for inksfile in opts.ksfile:
+        if is_url(inksfile):
+            ksfiles.append(inksfile)
+        else:
+            ksfiles.extend(glob.glob(inksfile))
+
+    # check if there are any files to check
+    if not ksfiles:
+        return (1, ["No files match the patterns."])
+
+    # iterate over files to check them
     with tempfile.TemporaryDirectory(prefix="ksvalidator-tmp-") as destdir:
-        for ksfile in opts.ksfile:
+        for ksfile in ksfiles:
             print(_("\nChecking kickstart file %(filename)s\n" % {"filename": ksfile}))
 
             try:
