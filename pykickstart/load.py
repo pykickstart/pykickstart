@@ -24,7 +24,7 @@ from pykickstart.errors import KickstartError
 from pykickstart.i18n import _
 from requests.exceptions import SSLError, RequestException
 
-_is_url = lambda location: '://' in location  # RFC 3986
+is_url = lambda location: '://' in location  # RFC 3986
 
 SSL_VERIFY = True
 
@@ -38,7 +38,7 @@ def load_to_str(location):
     Returns: string with contents
     Raises: KickstartError on error reading'''
 
-    if _is_url(location):
+    if is_url(location):
         return _load_url(location)
     else:
         return _load_file(location)
@@ -54,7 +54,7 @@ def load_to_file(location, destination):
     Returns: file name with contents
     Raises: KickstartError on error reading or writing'''
 
-    if _is_url(location):
+    if is_url(location):
         contents = _load_url(location)
 
         # Write to file
