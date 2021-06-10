@@ -942,3 +942,6 @@ class RHEL8_LogVol(F29_LogVol):
 
                     Btrfs support was removed.""" % versionToLongString(RHEL8)
         return op
+
+class RHEL9_LogVol(RHEL8_LogVol):
+    pass
