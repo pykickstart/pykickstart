@@ -649,3 +649,8 @@ class RHEL8_AutoPart(F29_AutoPart):
 
                     Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
         return op
+
+
+class RHEL9_AutoPart(RHEL8_AutoPart):
+    pass
+
