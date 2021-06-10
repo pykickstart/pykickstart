@@ -513,3 +513,6 @@ class F34_Bootloader(F29_Bootloader):
         op = F29_Bootloader._getParser(self)
         op.remove_argument("--upgrade", version=F34)
         return op
+
+class RHEL9_Bootloader(F34_Bootloader):
+    pass
