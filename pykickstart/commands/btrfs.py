@@ -276,3 +276,6 @@ class RHEL8_BTRFS(DeprecatedCommand, F23_BTRFS):
         op = F23_BTRFS._getParser(self)
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(RHEL8)
         return op
+
+class RHEL9_BTRFS(RHEL8_BTRFS):
+    pass

@@ -343,5 +343,10 @@ class F34_TestCase(F29_TestCase):
         self.assert_removed("part", "--active")
         self.assert_removed("partition", "--active")
 
+class RHEL9_TestCase(F29_TestCase):
+    def  runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse_error("part / --fstype=btrfs")
+
 if __name__ == "__main__":
     unittest.main()

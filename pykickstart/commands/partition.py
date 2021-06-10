@@ -769,3 +769,26 @@ class F34_Partition(F29_Partition):
         op = F29_Partition._getParser(self)
         op.remove_argument("--active", version=F34)
         return op
+
+
+class RHEL9_Partition(F34_Partition):
+    removedKeywords = F34_Partition.removedKeywords
+    removedAttrs = F34_Partition.removedAttrs
+
+    def parse(self, args):
+        retval = F34_Partition.parse(self, args)
+        if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
+            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F34_Partition._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op
