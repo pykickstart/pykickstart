@@ -191,6 +191,13 @@ class StringToVersion_TestCase(CommandTest):
             self.assertEqual(stringToVersion("Red Hat Enterprise Linux 8.%s" % MINOR), RHEL8)
         self.assertEqual(stringToVersion("RHEL8"), RHEL8)
 
+        # pass - RHEL9
+        self.assertEqual(stringToVersion("Red Hat Enterprise Linux 9"), RHEL9)
+        for MINOR in range(1,10):
+            self.assertEqual(stringToVersion("Red Hat Enterprise Linux 9.%s" % MINOR), RHEL9)
+        self.assertEqual(stringToVersion("RHEL9"), RHEL9)
+
+
 class VersionToString_TestCase(CommandTest):
     def runTest(self):
 
@@ -249,6 +256,7 @@ class VersionToString_TestCase(CommandTest):
         self.assertEqual(versionToString(RHEL6), "RHEL6")
         self.assertEqual(versionToString(RHEL7), "RHEL7")
         self.assertEqual(versionToString(RHEL8), "RHEL8")
+        self.assertEqual(versionToString(RHEL9), "RHEL9")
 
         # fail
         self.assertRaises(KickstartVersionError, versionToString, 47)
