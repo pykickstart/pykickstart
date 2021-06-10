@@ -810,3 +810,6 @@ class RHEL8_Raid(F29_Raid):
 
                     Btrfs support was removed.""" % versionToLongString(RHEL8)
         return op
+
+class RHEL9_Raid(RHEL8_Raid):
+    pass
