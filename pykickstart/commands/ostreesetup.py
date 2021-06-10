@@ -90,3 +90,6 @@ class RHEL7_OSTreeSetup(F21_OSTreeSetup):
 
 class RHEL8_OSTreeSetup(F21_OSTreeSetup):
     pass
+
+class RHEL9_OSTreeSetup(F21_OSTreeSetup):
+    pass
