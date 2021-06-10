@@ -106,6 +106,9 @@ class F28_FcoeData(F13_FcoeData):
 class RHEL8_FcoeData(F28_FcoeData):
     pass
 
+class RHEL9_FcoeData(F28_FcoeData):
+    pass
+
 class F12_Fcoe(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -191,4 +194,7 @@ class F28_Fcoe(F13_Fcoe):
         return op
 
 class RHEL8_Fcoe(F28_Fcoe):
+    pass
+
+class RHEL9_Fcoe(F28_Fcoe):
     pass
