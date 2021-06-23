@@ -146,6 +146,24 @@ class Nonexistent_KS_File_TestCase(TestCase):
         self.assertNotEqual(retval, 0)
         self.assertTrue("No files match the patterns" in " ".join(out))
 
+
+class URL_KS_File_TestCase(TestCase):
+    def setUp(self):
+        super(URL_KS_File_TestCase, self).setUp()
+        ks_content = "text\n"
+        self._ks_path = mktempfile(ks_content)
+
+    @mock.patch("tools.ksvalidator.load_to_file")
+    def runTest(self, load_mock):
+        load_mock.return_value = self._ks_path
+        retval, out = ksvalidator.main(["http://example.com/some.kickstart/is/online"])
+        print(locals())
+        self.assertEqual(retval, 0)
+
+    def tearDown(self):
+        super(URL_KS_File_TestCase, self).tearDown()
+        os.unlink(self._ks_path)
+
 @unittest.skipUnless(os.getuid(), "test requires non-root access")
 class KS_With_Wrong_Permissions_TestCase(TestCase):
     def setUp(self):
