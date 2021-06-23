@@ -218,6 +218,7 @@ class DeprecatedCommand(KickstartCommand):
         """Print a warning message if the command is seen in the input file."""
         mapping = {"lineno": self.lineno, "cmd": self.currentCmd}
         warnings.warn(_("Ignoring deprecated command on line %(lineno)s:  The %(cmd)s command has been deprecated and no longer has any effect.  It may be removed from future releases, which will result in a fatal error from kickstart.  Please modify your kickstart file to remove this command.") % mapping, KickstartDeprecationWarning)
+        return None
 
 class RemovedCommand(KickstartCommand):
     """Specify that a command has been removed and no longer has any function.
