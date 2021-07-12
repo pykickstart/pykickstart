@@ -1,5 +1,6 @@
 import unittest
 
+from pykickstart.base import RemovedCommand
 from pykickstart.errors import KickstartDeprecationWarning
 from tests.baseclass import CommandTest
 
@@ -27,6 +28,18 @@ class F28_TestCase(FC3_TestCase):
 
         with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("auth")
+
+
+class F35_TestCase(F28_TestCase):
+
+    def runTest(self):
+        # make sure that auth is removed
+        cmd = self.handler().commands["auth"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
+
+        # make sure that authconfig is removed
+        cmd = self.handler().commands["authconfig"]
+        self.assertTrue(issubclass(cmd.__class__, RemovedCommand))
 
 
 if __name__ == "__main__":

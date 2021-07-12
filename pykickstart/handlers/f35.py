@@ -25,8 +25,8 @@ class F35Handler(BaseHandler):
     version = F35
 
     commandMap = {
-        "auth": commands.authconfig.F28_Authconfig,
-        "authconfig": commands.authconfig.F28_Authconfig,
+        "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
+        "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.F29_AutoPart,
         "autostep": commands.autostep.F34_AutoStep,
