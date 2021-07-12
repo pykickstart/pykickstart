@@ -15,14 +15,14 @@
 # Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.  Any Red Hat
 # trademarks that are incorporated in the source code or documentation are not
 # subject to the GNU General Public License and may only be used or replicated
-# with the express permission of Red Hat, Inc. 
+# with the express permission of Red Hat, Inc.
 #
 import warnings
 from textwrap import dedent
 
 from pykickstart.errors import KickstartDeprecationWarning
-from pykickstart.version import FC3, versionToLongString, F28
-from pykickstart.base import KickstartCommand
+from pykickstart.version import FC3, versionToLongString, F28, F35
+from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.options import KSOptionParser
 
 
@@ -83,4 +83,10 @@ class F28_Authconfig(FC3_Authconfig):
             command instead.
 
         """ % versionToLongString(F28))
+        return op
+
+class F35_Authconfig(RemovedCommand, F28_Authconfig):
+    def _getParser(self):
+        op = F28_Authconfig._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F35)
         return op
