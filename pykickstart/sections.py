@@ -387,7 +387,7 @@ class OnErrorScriptSection(ScriptSection):
     a bug in the installer.  Some examples of these situations include errors in
     packages that have been requested to be installed, failures when starting VNC
     when requested, and error when scanning storage.  When these situations happen,
-    installaton cannot continue.  The installer will run all %onerror scripts in
+    installation cannot continue.  The installer will run all %onerror scripts in
     the order they are provided in the kickstart file.
 
     In addition, %onerror scripts will be run on a traceback as well.  To be exact,
