@@ -239,7 +239,7 @@ class PreScriptSection(ScriptSection):
 
         .. note::
 
-            The pre-install script is not run in the chroot environment.
+            The pre-installation script is not run in the chroot environment.
     """
     _epilog = """
     Example
