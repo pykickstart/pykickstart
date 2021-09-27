@@ -181,6 +181,15 @@ timezone America/New_York
         with open(self._path) as f:
             self.assertEqual(f.read(), self.ks + self.ksappend)
 
+class PFS_Ksappend_Empty(PFS_No_Ksappend):
+    def __init__(self, *args, **kwargs):
+        PFS_No_Ksappend.__init__(self, *args, **kwargs)
+
+    def runTest(self):
+        self.assertEqual(preprocessFromString(""), None)
+        self.assertEqual(preprocessFromString(" "), None)
+        self.assertEqual(preprocessFromString("  \n  \n       \n\n  "), None)
+
 ###
 ### TESTING preprocessKickstartToString
 ###

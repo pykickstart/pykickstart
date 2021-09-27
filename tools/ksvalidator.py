@@ -103,6 +103,8 @@ def main(argv):
 
     try:
         processedFile = preprocessKickstart(f)
+        if processedFile is None:
+            raise RuntimeError("Empty file")
         ksparser.readKickstart(processedFile)
         return (cleanup(destdir, processedFile, exitval=ksparser.errorsCount), [])
     except KickstartDeprecationWarning as err:

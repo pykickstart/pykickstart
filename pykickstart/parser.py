@@ -124,7 +124,7 @@ def preprocessFromString(s):
        run.  Returns the location of the complete kickstart file.
     """
     s = preprocessFromStringToString(s)
-    if s:
+    if s.strip():
         import tempfile
         (outF, outName) = tempfile.mkstemp(suffix="-ks.cfg")
 
@@ -141,7 +141,7 @@ def preprocessKickstart(f):
        run.  Returns the location of the complete kickstart file.
     """
     s = preprocessKickstartToString(f)
-    if s:
+    if s.strip():
         import tempfile
         (outF, outName) = tempfile.mkstemp(suffix="-ks.cfg")
 
