@@ -3,6 +3,7 @@
 import sys
 
 from pocketlint import FalsePositive, PocketLintConfig, PocketLinter
+import pylint
 
 class PykickstartLintConfig(PocketLintConfig):
     def __init__(self):
@@ -10,7 +11,9 @@ class PykickstartLintConfig(PocketLintConfig):
 
         self.falsePositives = [
             FalsePositive(r"^W1113.*: Keyword argument before variable positional arguments list in the definition of __init__ function$"),
-            FalsePositive("W0707.*raise-missing-from"),
+            FalsePositive(r"W0707.*raise-missing-from"),
+            FalsePositive(r"W1406.*redundant-u-string-prefix"),
+            FalsePositive(r"W1514.*unspecified-encoding"),
         ]
 
     @property
@@ -18,6 +21,7 @@ class PykickstartLintConfig(PocketLintConfig):
         return {"translation-canary", ".tox"}
 
 if __name__ == "__main__":
+    print("INFO: Using pylint v%s" % pylint.__version__)
     conf = PykickstartLintConfig()
     linter = PocketLinter(conf)
     rc = linter.run()
