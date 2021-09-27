@@ -73,7 +73,7 @@ def main(argv=None):
     return (0, '')
 
 if __name__ == "__main__":
-    retval, msg = main()
-    if msg:
-        print(msg, file=sys.stderr)
+    retval, retmsg = main()
+    if retmsg:
+        print(retmsg, file=sys.stderr)
     sys.exit(retval)
