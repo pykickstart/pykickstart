@@ -30,13 +30,7 @@ This module exports several important classes:
 
     KickstartParser - The kickstart file parser state machine.
 """
-
-from __future__ import print_function
-
-try:
-    from collections.abc import Iterator
-except ImportError:  # python2 compatibility
-    from collections import Iterator
+from collections.abc import Iterator
 
 import os
 import shlex
