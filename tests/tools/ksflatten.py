@@ -41,6 +41,12 @@ class WrongKSPath_TestCase(TestCase):
         self.assertEqual(retval, 1)
         self.assertTrue(msg.find('Failed to parse kickstart file') > -1)
 
+class WrongVersion_TestCase(TestCase):
+    def runTest(self):
+        retval, msg = ksflatten.main(['--version', 'A1', '--config', '/non/existing'])
+        self.assertEqual(retval, 1)
+        self.assertTrue(msg.find('The version A1 is not supported by pykickstart') > -1)
+
 class ReadKickstartIOError_TestCase(TestCase):
     @mock.patch('pykickstart.parser.KickstartParser.readKickstart')
     def runTest(self, _readKickstart):

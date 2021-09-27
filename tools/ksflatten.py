@@ -46,8 +46,7 @@ def main(argv=None):
     try:
         ksversion = makeVersion(opts.version)
     except KickstartVersionError:
-        print(_("The version %s is not supported by pykickstart") % opts.version)
-        sys.exit(1)
+        return (1, _("The version %s is not supported by pykickstart") % opts.version)
 
     ksparser = pykickstart.parser.KickstartParser(ksversion)
     try:
