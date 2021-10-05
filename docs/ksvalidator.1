@@ -3,7 +3,7 @@
 ksvalidator \(em verify the syntax of a kickstart file
 .SH "SYNOPSIS"
 .PP
-\fBksvalidator\fR [\fB\-e\fR | \fB\-\-firsterror\fP]  [\fB\-i\fR | \fB\-\-followincludes\fP]  [\fB\-l\fR | \fB\-\-listversions\fP]  [\fB\-v\fR | \fB\-\-version VERSION\fP]  INFILE
+\fBksvalidator\fR [\fB\-e\fR | \fB\-\-firsterror\fP]  [\fB\-i\fR | \fB\-\-followincludes\fP]  [\fB\-l\fR | \fB\-\-listversions\fP]  [\fB\-v\fR | \fB\-\-version VERSION\fP]  INFILE [INFILE...]
 .SH "DESCRIPTION"
 .PP
 \fBksvalidator\fR is a program that takes an input kickstart file and attempts to verify that it is syntactically correct.  This
@@ -17,7 +17,7 @@ file will install properly, because it does not understand the complexities of p
 on disk.
 .SH "EXIT STATUS"
 .PP
-\fBksvalidator\fR returns 0 on success, and 1 if INFILE does not exist or there is an error parsing the kickstart file.
+\fBksvalidator\fR returns 0 on success, and a value equal to amount of errors if some INFILEs do not exist or there are errors parsing the kickstart files.
 .SH "OPTIONS"
 .IP "\fB\-e\fP, \fB\-\-firsterror\fP" 10
 Stop on the first warning or error.  By default, \fBksvalidator\fR will attempt to process the entire file, potentially raising
