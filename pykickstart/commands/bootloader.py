@@ -280,9 +280,8 @@ class F15_Bootloader(F14_Bootloader):
                         If given, the password specified by ``--password=`` is
                         already encrypted and should be passed to the bootloader
                         configuration without additional modification.""")
-        op.add_argument("--md5pass", dest="_md5pass", version=F15, help="""
-                        If using GRUB, similar to ``--password=`` except the password
-                        should already be encrypted.""")
+        op.add_argument("--md5pass", dest="_md5pass", metavar="MD5PASS", version=F15,
+                        help="Alias for ``--password=MD5PASS --iscrypted``.")
         return op
 
     def parse(self, args):
@@ -406,9 +405,8 @@ class RHEL6_Bootloader(F12_Bootloader):
                         If given, the password specified by ``--password=`` is
                         already encrypted and should be passed to the bootloader
                         configuration without additional modification.""")
-        op.add_argument("--md5pass", dest="_md5pass", version=RHEL6, help="""
-                        If using GRUB, similar to ``--password=`` except the
-                        password should already be encrypted.""")
+        op.add_argument("--md5pass", dest="_md5pass", metavar="MD5PASS", version=RHEL6,
+                        help="Alias for ``--password=MD5PASS --iscrypted``.")
         return op
 
     def parse(self, args):
