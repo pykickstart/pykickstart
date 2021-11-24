@@ -198,6 +198,12 @@ class RHEL7_RepoData(F21_RepoData):
 class RHEL8_RepoData(F30_RepoData):
     pass
 
+class RHEL9_RepoData(F30_RepoData):
+    def __str__(self):
+        retval = BaseData.__str__(self)
+        retval += "inst.repo --name=\"%s\" %s\n" % (self.name, self._getArgsAsStr())
+        return retval
+
 class FC6_Repo(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -494,4 +500,7 @@ class RHEL7_Repo(F21_Repo):
     pass
 
 class RHEL8_Repo(F30_Repo):
+    pass
+
+class RHEL9_Repo(F33_Repo):
     pass
