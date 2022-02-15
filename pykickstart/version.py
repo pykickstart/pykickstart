@@ -96,9 +96,10 @@ F34 = 34000
 RHEL9 = 34100
 F35 = 35000
 F36 = 36000
+F37 = 37000
 
 # This always points at the latest version and is the default.
-DEVEL = F36
+DEVEL = F37
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
@@ -109,7 +110,7 @@ versionMap = {
     "F19": F19, "F20": F20, "F21": F21, "F22": F22, "F23": F23,
     "F24": F24, "F25": F25, "F26": F26, "F27": F27, "F28": F28,
     "F29": F29, "F30": F30, "F31": F31, "F32": F32, "F33": F33,
-    "F34": F34, "F35": F35, "F36": F36,
+    "F34": F34, "F35": F35, "F36": F36, "F37": F37,
     "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
     "RHEL7": RHEL7, "RHEL8": RHEL8, "RHEL9": RHEL9
 }
