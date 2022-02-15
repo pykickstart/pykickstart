@@ -156,7 +156,7 @@ class URL_KS_File_TestCase(TestCase):
     @mock.patch("tools.ksvalidator.load_to_file")
     def runTest(self, load_mock):
         load_mock.return_value = self._ks_path
-        retval, out = ksvalidator.main(["http://example.com/some.kickstart/is/online"])
+        retval, _ = ksvalidator.main(["http://example.com/some.kickstart/is/online"])
         print(locals())
         self.assertEqual(retval, 0)
 
@@ -256,4 +256,38 @@ class Raise_DeprecationWarning_TestCase(TestCase):
 
     def tearDown(self):
         super(Raise_DeprecationWarning_TestCase, self).tearDown()
+        os.unlink(self._ks_path)
+
+class PackagesSectionCamelCase_TestCase(TestCase):
+    def setUp(self):
+        super(PackagesSectionCamelCase_TestCase, self).setUp()
+        ks_content = "%packages --instLangs=en\n%end\n"
+        self._ks_path = mktempfile(ks_content)
+
+    def runTest(self):
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F9"])
+        self.assertEqual(retval, 0)
+
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F32"])
+        self.assertNotEqual(retval, 0)
+
+    def tearDown(self):
+        super(PackagesSectionCamelCase_TestCase, self).tearDown()
+        os.unlink(self._ks_path)
+
+class PackagesSectionLowerCase_TestCase(TestCase):
+    def setUp(self):
+        super(PackagesSectionLowerCase_TestCase, self).setUp()
+        ks_content = "%packages --inst-langs=en\n%end\n"
+        self._ks_path = mktempfile(ks_content)
+
+    def runTest(self):
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F9"])
+        self.assertNotEqual(retval, 0)
+
+        retval, out = ksvalidator.main([self._ks_path, "-v", "F32"])
+        self.assertEqual(retval, 0)
+
+    def tearDown(self):
+        super(PackagesSectionLowerCase_TestCase, self).tearDown()
         os.unlink(self._ks_path)
