@@ -99,7 +99,7 @@ def main(argv):
     # iterate over files to check them
     with tempfile.TemporaryDirectory(prefix="ksvalidator-tmp-") as destdir:
         for ksfile in ksfiles:
-            print(_("\nChecking kickstart file %(filename)s\n" % {"filename": ksfile}))
+            print(_("\nChecking kickstart file %(filename)s\n") % {"filename": ksfile})
 
             try:
                 f = load_to_file(ksfile, os.path.join(destdir, "ks.cfg"))

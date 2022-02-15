@@ -627,7 +627,7 @@ class PackageSection(Section):
 
         op.remove_argument("--ignoredeps", version=F9)
         op.remove_argument("--resolvedeps", version=F9)
-        op.add_argument("--instLangs", "--inst-langs", default=None, version=F9, help="""
+        op.add_argument("--instLangs", default=None, version=F9, help="""
                         Specify the list of languages that should be installed.
                         This is different from the package group level
                         selections, though. This option does not specify what
@@ -686,7 +686,7 @@ class PackageSection(Section):
         if self.version < F24:
             return op
 
-        op.add_argument("--excludeWeakdeps", "--exclude-weakdeps", dest="excludeWeakdeps",
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
                         action="store_true", default=False, version=F24,
                         help="""
                         Do not install packages from weak dependencies. These
@@ -696,6 +696,13 @@ class PackageSection(Section):
 
         if self.version < F32:
             return op
+
+        op.add_argument("--instLangs", "--inst-langs", dest="instLangs", default=None,
+                        version=F32, help="Added ``--inst-langs`` alias")
+
+        op.add_argument("--excludeWeakdeps", "--exclude-weakdeps", dest="excludeWeakdeps",
+                        action="store_true", default=False, version=F32,
+                        help="Added ``--exclude-weakdeps`` alias")
 
         op.add_argument("--ignorebroken", action="store_true", default=False, version=F32,
                         help="""
@@ -779,11 +786,12 @@ class PackageSection(Section):
         else:
             self.handler.packages.handleBroken = KS_BROKEN_REPORT
 
-        for option, new_option in \
+        for arg in args:
+            for option, new_option in \
                 {"--instLangs": "--inst-langs", "--excludeWeakdeps": "--exclude-weakdeps"}.items():
-            if option in args:
-                warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in "
-                                "future releases. Please modify your kickstart file to replace "
-                                "this option with its preferred alias %(new_option)s.")
-                              % {"option": option, "lineno": lineno, "new_option": new_option},
-                              KickstartDeprecationWarning)
+                if option in arg:
+                    warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in "
+                                    "future releases. Please modify your kickstart file to replace "
+                                    "this option with its preferred alias %(new_option)s.")
+                                  % {"option": option, "lineno": lineno, "new_option": new_option},
+                                  KickstartDeprecationWarning)
