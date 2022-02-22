@@ -36,7 +36,8 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, RHEL6, RHEL7
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, RHEL6, RHEL7, RHEL9, \
+    isRHEL
 from pykickstart.i18n import _
 
 class Section(object):
@@ -716,6 +717,10 @@ class PackageSection(Section):
                         were skipped. Using this option may result in an unusable system.**
                         """)
 
+        if isRHEL(self.version):
+            # The --ignorebroken feature is not supported on RHEL.
+            op.remove_argument("--ignorebroken", version=RHEL9)
+
         return op
 
     def handleHeader(self, lineno, args):
@@ -781,7 +786,7 @@ class PackageSection(Section):
         if self.version < F32:
             return
 
-        if ns.ignorebroken:
+        if getattr(ns, "ignorebroken", False):
             self.handler.packages.handleBroken = KS_BROKEN_IGNORE
         else:
             self.handler.packages.handleBroken = KS_BROKEN_REPORT

@@ -7,7 +7,7 @@ from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
     KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7, F32
+from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7, F32, RHEL9
 
 
 class DevelPackagesBase(ParserTest):
@@ -590,6 +590,19 @@ class Packages_Warn_CamelCase_TestCase(ParserTest):
             self.assertEqual(len(w), 2)
             self.assertEqual(str(self.handler.packages),
                 "\n%packages --inst-langs=cs_CZ --exclude-weakdeps\nsomething\n\n%end\n")
+
+class Packages_IgnoreBroken_RHEL_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL9
+        self.ks = "%packages --ignorebroken\n%end\n"
+
+    def runTest(self):
+        with self.assertRaises(KickstartParseError) as cm:
+            self.parser.readKickstartFromString(self.ks)
+
+        expected = "unrecognized arguments: --ignorebroken"
+        self.assertIn(expected, str(cm.exception))
 
 if __name__ == "__main__":
     unittest.main()
