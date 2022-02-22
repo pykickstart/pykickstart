@@ -228,3 +228,6 @@ def makeVersion(version=DEVEL):
 
 def getVersionFromCommandClass(cls):
     return versionMap[cls.__name__.split('_')[0]]
+
+def isRHEL(version):
+    return "RHEL" in versionToString(version, skipDevel=True)

@@ -272,6 +272,20 @@ class VersionToString_TestCase(CommandTest):
         # fail
         self.assertRaises(KickstartVersionError, versionToString, 47)
 
+class IsRHEL_TestCase(CommandTest):
+    def runTest(self):
+        self.assertFalse(isRHEL(DEVEL))
+
+        self.assertFalse(isRHEL(F32))
+        self.assertFalse(isRHEL(F33))
+        self.assertFalse(isRHEL(F34))
+        self.assertFalse(isRHEL(F35))
+
+        self.assertTrue(isRHEL(RHEL6))
+        self.assertTrue(isRHEL(RHEL7))
+        self.assertTrue(isRHEL(RHEL8))
+        self.assertTrue(isRHEL(RHEL9))
+
 class returnClassForVersion_TestCase(CommandTest):
     def runTest(self):
 
