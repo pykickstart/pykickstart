@@ -318,14 +318,14 @@ class versionFromFile_TestCase(CommandTest):
             os.close(fd)
             return name
 
-        # no version specified
+        # no version specified (on RHEL9 this defaults to RHEL9)
         ks_cfg = '''
 # This is a sample kickstart file
 rootpw testing123
 cdrom
 '''
         ks_cfg = write_ks_cfg(ks_cfg)
-        self.assertEqual(versionFromFile(ks_cfg), DEVEL)
+        self.assertEqual(versionFromFile(ks_cfg), RHEL9)
         os.unlink(ks_cfg)
 
         # proper format ... DEVEL
@@ -350,7 +350,7 @@ cdrom
         self.assertEqual(versionFromFile(ks_cfg), RHEL3)
         os.unlink(ks_cfg)
 
-        # improper format ... fallback to DEVEL
+        # improper format ... fallback to DEVEL (on RHEL9 falls back to RHEL9)
         ks_cfg = '''
 # This is a sample kickstart file
 # version: FC3
@@ -358,7 +358,7 @@ rootpw testing123
 cdrom
 '''
         ks_cfg = write_ks_cfg(ks_cfg)
-        self.assertEqual(versionFromFile(ks_cfg), DEVEL)
+        self.assertEqual(versionFromFile(ks_cfg), RHEL9)
         os.unlink(ks_cfg)
 
         # unknown version specified ... raise exception

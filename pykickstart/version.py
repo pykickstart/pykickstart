@@ -174,7 +174,7 @@ def versionFromFile(f):
     """Given a file or URL, look for a line starting with #version= and
        return the version number.  If no version is found, return DEVEL.
     """
-    v = DEVEL
+    v = RHEL9
 
     contents = load_to_str(f)
 
@@ -188,7 +188,7 @@ def versionFromFile(f):
 
     return v
 
-def returnClassForVersion(version=DEVEL):
+def returnClassForVersion(version=RHEL9):
     """Return the class of the syntax handler for version.  version can be
        either a string or the matching constant.  Raises KickstartVersionError
        if version does not match anything.
@@ -213,7 +213,7 @@ def returnClassForVersion(version=DEVEL):
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def makeVersion(version=DEVEL):
+def makeVersion(version=RHEL9):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of
