@@ -33,7 +33,7 @@ from pykickstart.errors import KickstartError, KickstartParseError, KickstartVer
     KickstartParseWarning, KickstartDeprecationWarning
 from pykickstart.load import load_to_file
 from pykickstart.parser import KickstartParser, preprocessKickstart
-from pykickstart.version import DEVEL, makeVersion, versionMap
+from pykickstart.version import RHEL9, makeVersion, versionMap
 
 def cleanup(dest, fn=None, exitval=1):
     shutil.rmtree(dest)
@@ -59,7 +59,7 @@ def main(argv):
     op.add_argument("-l", "--listversions", dest="listversions", action="store_true",
                     default=False,
                     help=_("list the available versions of kickstart syntax"))
-    op.add_argument("-v", "--version", dest="version", default=DEVEL,
+    op.add_argument("-v", "--version", dest="version", default=RHEL9,
                     help=_("version of kickstart syntax to validate against"))
     op.add_argument("-h", "--help", dest="help", action="store_true", default=False,
                     help=_("show this help message and exit"))

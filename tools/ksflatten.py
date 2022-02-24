@@ -27,14 +27,14 @@ import argparse
 import pykickstart
 import pykickstart.parser
 from pykickstart.i18n import _
-from pykickstart.version import DEVEL, makeVersion
+from pykickstart.version import RHEL9, makeVersion
 from pykickstart.errors import KickstartVersionError
 
 def parse_args(argv):
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--config", dest="kscfg", required=True,
                         help=_("Path to kickstart config file"))
-    parser.add_argument("-v", "--version", dest="version", default=DEVEL,
+    parser.add_argument("-v", "--version", dest="version", default=RHEL9,
                         help=_("Kickstart version to use for interpreting config"))
     parser.add_argument("-o", "--output", dest="output",
                         help=_("Write flattened config to OUTPUT"))
