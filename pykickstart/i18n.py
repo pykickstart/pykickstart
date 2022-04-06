@@ -25,7 +25,6 @@ def _find_locale_files():
     locale_path = os.path.join(os.path.dirname(module_path), 'locale')
 
     gettext.bindtextdomain("pykickstart", locale_path)
-    gettext.textdomain("pykickstart")
 _find_locale_files()
 
-_ = lambda x: gettext.gettext(x) if x else ''
+_ = lambda x: gettext.translation("pykickstart", fallback=True).gettext(x) if x != "" else ""
