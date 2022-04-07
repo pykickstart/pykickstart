@@ -100,5 +100,11 @@ class RemovedCommandsParsing_TestCase(unittest.TestCase):
                 with self.assertRaises(KickstartParseError):
                     parser.readKickstartFromString(command_name)
 
+class ClosingQuote_TestCase(ParserTest):
+    """Missing closing quotes should raise a ValueError"""
+    def runTest(self):
+        self.assert_parse_error('autopart --passphrase="lots of words', ValueError)
+
+
 if __name__ == "__main__":
     unittest.main()
