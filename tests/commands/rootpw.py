@@ -76,5 +76,16 @@ class F18_TestCase(F8_TestCase):
 
         self.assert_parse("rootpw --lock", "rootpw --lock\n")
 
+class F37_TestCase(F18_TestCase):
+    def runTest(self):
+        F18_TestCase.runTest(self)
+
+        obj = self.assert_parse("rootpw --plaintext --allow-ssh secrethandshake", "rootpw --plaintext --allow-ssh secrethandshake\n")
+        self.assertTrue(obj.allow_ssh)
+        obj = self.assert_parse("rootpw --iscrypted --lock --allow-ssh secrethandshake", "rootpw --iscrypted --lock --allow-ssh secrethandshake\n")
+        self.assertTrue(obj.allow_ssh)
+        obj = self.assert_parse("rootpw --iscrypted secrethandshake", "rootpw --iscrypted secrethandshake\n")
+        self.assertFalse(obj.allow_ssh)
+
 if __name__ == "__main__":
     unittest.main()
