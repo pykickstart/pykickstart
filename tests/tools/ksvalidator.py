@@ -47,7 +47,7 @@ class Show_Param_Help_TestCase(TestCase):
             if line == "positional arguments:":
                 pos = True
                 continue
-            if line == "optional arguments:":
+            if line in ("optional arguments:", "options:"):
                 pos = False
                 opt = True
                 continue
