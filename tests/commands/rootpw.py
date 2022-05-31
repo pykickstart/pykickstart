@@ -76,7 +76,7 @@ class F18_TestCase(F8_TestCase):
 
         self.assert_parse("rootpw --lock", "rootpw --lock\n")
 
-class F37_TestCase(F18_TestCase):
+class RHEL9_TestCase(F18_TestCase):
     def runTest(self):
         F18_TestCase.runTest(self)
 

@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, F8, F37
+from pykickstart.version import FC3, F8, RHEL9
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -147,7 +147,7 @@ class F18_RootPw(F8_RootPw):
         self.set_to_self(ns)
         return self
 
-class F37_RootPw(F18_RootPw):
+class RHEL9_RootPw(F18_RootPw):
     removedKeywords = F18_RootPw.removedKeywords
     removedAttrs = F18_RootPw.removedAttrs
 
@@ -166,7 +166,7 @@ class F37_RootPw(F18_RootPw):
     def _getParser(self):
         op = F18_RootPw._getParser(self)
         op.add_argument("--allow-ssh", action="store_true", default=False,
-                        version=F37, help="""
+                        version=RHEL9, help="""
                         This will allow remote root logins via ssh using only
                         the password. Only use as a last resort.""")
         return op

@@ -79,7 +79,7 @@ class RHEL9Handler(BaseHandler):
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
         "rhsm": commands.rhsm.RHEL8_RHSM,
-        "rootpw": commands.rootpw.F37_RootPw,
+        "rootpw": commands.rootpw.RHEL9_RootPw,
         "selinux": commands.selinux.FC3_SELinux,
         "services": commands.services.FC6_Services,
         "shutdown": commands.reboot.F23_Reboot,
