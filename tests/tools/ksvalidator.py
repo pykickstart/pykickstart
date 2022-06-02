@@ -130,7 +130,7 @@ class KS_With_Include_TestCase(TestCase):
         self.assertEqual(retval, 0)
 
         # included snippet has errors
-        retval, out = ksvalidator.main(["-i", self._ks_path])
+        retval, _out = ksvalidator.main(["-i", self._ks_path])
         self.assertEqual(_print.call_count, 1)
         self.assertNotEqual(retval, 0)
 
@@ -265,10 +265,10 @@ class PackagesSectionCamelCase_TestCase(TestCase):
         self._ks_path = mktempfile(ks_content)
 
     def runTest(self):
-        retval, out = ksvalidator.main([self._ks_path, "-v", "F9"])
+        retval, _out = ksvalidator.main([self._ks_path, "-v", "F9"])
         self.assertEqual(retval, 0)
 
-        retval, out = ksvalidator.main([self._ks_path, "-v", "F32"])
+        retval, _out = ksvalidator.main([self._ks_path, "-v", "F32"])
         self.assertNotEqual(retval, 0)
 
     def tearDown(self):
@@ -282,10 +282,10 @@ class PackagesSectionLowerCase_TestCase(TestCase):
         self._ks_path = mktempfile(ks_content)
 
     def runTest(self):
-        retval, out = ksvalidator.main([self._ks_path, "-v", "F9"])
+        retval, _out = ksvalidator.main([self._ks_path, "-v", "F9"])
         self.assertNotEqual(retval, 0)
 
-        retval, out = ksvalidator.main([self._ks_path, "-v", "F32"])
+        retval, _out = ksvalidator.main([self._ks_path, "-v", "F32"])
         self.assertEqual(retval, 0)
 
     def tearDown(self):
