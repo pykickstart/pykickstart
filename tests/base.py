@@ -16,6 +16,9 @@ from pykickstart.commands.zfcp import F14_ZFCPData
 from pykickstart.commands.autopart import F23_AutoPart
 from pykickstart.commands.btrfs import F17_BTRFS, F23_BTRFS, F23_BTRFSData
 from pykickstart.commands.cdrom import FC3_Cdrom
+from pykickstart.commands.rootpw import F37_RootPw
+from pykickstart.commands.user import F24_User
+from pykickstart.commands.firewall import F28_Firewall
 from pykickstart.base import BaseData, BaseHandler, DeprecatedCommand, KickstartCommand
 from pykickstart.base import KickstartHandler, RemovedCommand
 
@@ -184,6 +187,20 @@ class KickstartHandler_TestCase(unittest.TestCase):
         parser = KickstartParser(handler)
         parser.readKickstartFromString("cdrom")
         self.assertEqual(str(handler), "# Use CDROM installation media\ncdrom\n")
+
+class KickstartHandlerOrder_TestCase(unittest.TestCase):
+    def runTest(self):
+        handler = KickstartHandler()
+        self.assertEqual(str(handler), "")
+
+        handler = KickstartHandler()
+        handler.registerCommand('user', F24_User)
+        handler.registerCommand('firewall', F28_Firewall)
+        handler.registerCommand('rootpw', F37_RootPw)
+
+        # Test the order in the internal _writeOrder lists
+        lst = [cls.__class__.__name__ for cls in handler._writeOrder[0]]
+        self.assertEqual(lst, ["F28_Firewall", "F37_RootPw", "F24_User"])
 
 class HandlerRegisterCommands_TestCase(unittest.TestCase):
     def runTest(self):
