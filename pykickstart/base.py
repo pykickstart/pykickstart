@@ -308,6 +308,12 @@ class KickstartHandler(KickstartObject):
         return retval
 
     def _insertSorted(self, lst, obj):
+        def cmdName(cmdObj):
+            if cmdObj.__class__.__name__.find("_") != -1:
+                return cmdObj.__class__.__name__.split("_", 1)[1]
+            else:
+                return cmdObj.__class__.__name__
+
         length = len(lst)
         i = 0
 
@@ -315,12 +321,12 @@ class KickstartHandler(KickstartObject):
             # If the two classes have the same name, it's because we are
             # overriding an existing class with one from a later kickstart
             # version, so remove the old one in favor of the new one.
-            if obj.__class__.__name__ > lst[i].__class__.__name__:
+            if cmdName(obj) > cmdName(lst[i]):
                 i += 1
-            elif obj.__class__.__name__ == lst[i].__class__.__name__:
+            elif cmdName(obj) == cmdName(lst[i]):
                 lst[i] = obj
                 return
-            elif obj.__class__.__name__ < lst[i].__class__.__name__:
+            elif cmdName(obj) < cmdName(lst[i]):
                 break
 
         if i >= length:
