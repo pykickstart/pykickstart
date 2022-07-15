@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    Kickstart documentation <kickstart-docs>
+   Kickstart examples <kickstart-examples>
    Testing pykickstart <testing>
 
 Indices and tables
