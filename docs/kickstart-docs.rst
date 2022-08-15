@@ -234,6 +234,11 @@ pykickstart processes arguments to commands just like the shell does:
    If quotes, spaces, or other special characters need to be added to the
    arguments list, they must be escaped.
 
+.. note::
+    Documentation for RHEL 8 commands can be `found here <commands_rhel8.html>`_
+
+Commands for RHEL 9:
+
 .. include:: commands_rhel.rst
 
 
