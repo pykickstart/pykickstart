@@ -1,7 +1,6 @@
-from distutils.command.install_scripts import install_scripts as _install_scripts
-from distutils.file_util import move_file
-import os
 from setuptools import setup
+from setuptools.command.install_scripts import install_scripts as _install_scripts
+import os
 
 
 # This is required so that the scripts are detected by code coverage during testing, but are
@@ -16,7 +15,7 @@ class install_scripts(_install_scripts):
             # the existing copy to accomplish the same thing.
             if os.path.isfile(new) and os.path.exists(new):
                 os.unlink(new)
-            move_file(old, new)
+            os.rename(old, new)
 
 
 setup(cmdclass={"install_scripts": install_scripts},
