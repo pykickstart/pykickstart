@@ -112,6 +112,7 @@ bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" pyproject.toml ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	sed -i "s/__version__ = '$(VERSION)'/__version__ = '$$NEWVERSION'/" pykickstart/__init__.py ; \
 	git add setup.py docs/conf.py pykickstart/__init__.py; \
@@ -124,6 +125,7 @@ scratch-bumpver: docs
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" pyproject.toml ; \
 	sed -i "s/version = '$(VERSION)'/version = '$$NEWVERSION'/" docs/conf.py ; \
 	sed -i "s/__version__ = '$(VERSION)'/__version__ = '$$NEWVERSION'/" pykickstart/__init__.py
 

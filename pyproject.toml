@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=59.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'pykickstart'
+version = '3.41'
+authors = [
+    {name='Chris Lumens', email='clumens@redhat.com'},
+]
+maintainers = [
+    {name='Brian C. Lane', email='bcl@redhat.com'},
+]
+description = 'Python module for manipulating kickstart files'
+readme = "README.rst"
+license = { file="COPYING" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://fedoraproject.org/wiki/pykickstart"
+"Bug Tracker" = "https://github.com/pykickstart/pykickstart/issues"

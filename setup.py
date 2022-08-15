@@ -23,7 +23,8 @@ setup(cmdclass={"install_scripts": install_scripts},
       name='pykickstart', version='3.41',
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
-      url='http://fedoraproject.org/wiki/pykickstart',
+      url='https://fedoraproject.org/wiki/pykickstart',
+      license='COPYING',
       install_requires=['requests'],
       extras_require={
           "docs": ['Sphinx'],
@@ -33,4 +34,8 @@ setup(cmdclass={"install_scripts": install_scripts},
       packages=['pykickstart', 'pykickstart.commands', 'pykickstart.handlers'],
       data_files=[('share/man/man1', ['docs/ksvalidator.1', 'docs/ksflatten.1', 'docs/ksverdiff.1',
                                       'docs/ksshell.1'])],
-      classifiers=["Programming Language :: Python :: 3"])
+      classifiers=[
+            "Programming Language :: Python :: 3",
+            "License :: OSI Approved :: GNU General Public License (GPL)",
+            "Operating System :: OS Independent",
+      ])
