@@ -348,5 +348,12 @@ class RHEL8_TestCase(F29_TestCase):
         F29_TestCase.runTest(self)
         self.assert_parse_error("autopart --type=btrfs")
 
+class F38_TestCase(F29_TestCase):
+    def runTest(self):
+        F29_TestCase.runTest(self)
+        self.assert_parse("autopart --hibernation",
+                          "autopart --hibernation\n")
+        self.assert_parse_error("autopart --hibernation --noswap")
+
 if __name__ == "__main__":
     unittest.main()
