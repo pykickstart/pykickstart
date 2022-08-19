@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
-from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29, F38
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -526,7 +526,8 @@ class F26_AutoPart(F23_AutoPart):
                         Do not create a /boot partition.""")
         op.add_argument("--noswap", action="store_true", default=False,
                         version=F26, help="""
-                        Do not create a swap partition.""")
+                        Do not create a swap partition. Only one of ``--noswap``
+                        and ``--hibernation`` can be specified.""")
         return op
 
 class F29_AutoPart(F26_AutoPart):
@@ -654,3 +655,35 @@ class RHEL8_AutoPart(F29_AutoPart):
 class RHEL9_AutoPart(RHEL8_AutoPart):
     pass
 
+
+class F38_AutoPart(F29_AutoPart):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hibernation = kwargs.get("hibernation", False)
+
+    def __str__(self):
+        retval = super().__str__()
+        if self.autopart and self.hibernation:
+            # remove any trailing newline
+            retval = retval.strip()
+            retval += " --hibernation"
+            retval += "\n"
+        return retval
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument("--hibernation", action="store_true", default=False,
+                        version=F38, help="""
+                        Create a swap partition with an automatically determined
+                        size that's big enough for hibernation. Only one of
+                        ``--noswap`` and ``--hibernation`` can be specified.""")
+        return op
+
+    def parse(self, args):
+        retval = super().parse(args)
+
+        if self.hibernation and self.noswap:
+            msg = _("Only one of --noswap and --hibernation can be specified.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
