@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       max-parallel: 5
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9, "3.10"]
+        python-version: [3.6, 3.7, 3.8, 3.9, "3.10", "3.11.0-rc.1"]
         include:
           - python-version: 3.6
             tox-env: py36
@@ -31,6 +31,8 @@ jobs:
             tox-env: py39
           - python-version: "3.10"
             tox-env: py310
+          - python-version: "3.11.0-rc.1"
+            tox-env: py311
     steps:
       - name: "Clone Repository"
         uses: actions/checkout@v2
@@ -45,7 +47,7 @@ jobs:
       - name: Run check coverage and docs
         run: tox -e ${{ matrix.tox-env }}
       - name: Coveralls
-        if: matrix.python-version == 3.9
+        if: matrix.python-version == 3.10
         uses: AndreMiras/coveralls-python-action@develop
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
