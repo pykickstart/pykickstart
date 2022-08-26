@@ -58,6 +58,17 @@ class F22_SshKeyData(BaseData):
         retval += ' "%s"' % self.key
         return retval
 
+class RHEL9_SshKeyData(F22_SshKeyData):
+    removedKeywords = BaseData.removedKeywords
+    removedAttrs = BaseData.removedAttrs
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        retval += " --username=%s" % self.username
+        retval += ' "%s"' % self.key.replace('"', r'\"')
+        return retval
+
 class F22_SshKey(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs

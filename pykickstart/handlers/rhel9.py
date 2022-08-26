@@ -121,7 +121,7 @@ class RHEL9Handler(BaseHandler):
         "RepoData": commands.repo.F30_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
         "SshPwData": commands.sshpw.F24_SshPwData,
-        "SshKeyData": commands.sshkey.F22_SshKeyData,
+        "SshKeyData": commands.sshkey.RHEL9_SshKeyData,
         "UserData": commands.user.F19_UserData,
         "VolGroupData": commands.volgroup.RHEL9_VolGroupData,
         "ZFCPData": commands.zfcp.RHEL9_ZFCPData,
