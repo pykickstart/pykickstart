@@ -87,5 +87,13 @@ sshkey --username=otherguy 'this is the key'""")
 sshkey --username=someguy 'this is the key'
 sshkey --username=someguy 'this is the key'""", KickstartParseWarning)
 
+class F38_Quotes_TestCase(CommandTest):
+    key='\\"/usr/bin/rrsync /home/user/public_html/\\",no-agent-forwarding,no-port-forwarding,no-pty,no-user-rc,no-X11-forwarding ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBJGDmFSzIWSvnFYhExf+FbzSiZxsoohJdrKlmPKQhdts8nSg5PH7jyG5X+w6RgWhSetlD3WouKoo3zFOR5nCYq4= bcl@notae.us'
+
+    def runTest(self):
+        # pass
+        self.assert_parse('sshkey --username=root "%s"' % self.key, 'sshkey --username=root "%s"\n' % self.key)
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -117,7 +117,7 @@ class F38Handler(BaseHandler):
         "RepoData": commands.repo.F30_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
         "SshPwData": commands.sshpw.F24_SshPwData,
-        "SshKeyData": commands.sshkey.F22_SshKeyData,
+        "SshKeyData": commands.sshkey.F38_SshKeyData,
         "UserData": commands.user.F19_UserData,
         "VolGroupData": commands.volgroup.F21_VolGroupData,
         "ZFCPData": commands.zfcp.F37_ZFCPData,
