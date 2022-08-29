@@ -21,6 +21,9 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 
+## These are still in setup.py because tox doesn't know how to read pyproject.toml
+dynamic = ['dependencies', 'optional-dependencies']
+
 [project.urls]
 "Homepage" = "https://fedoraproject.org/wiki/pykickstart"
 "Bug Tracker" = "https://github.com/pykickstart/pykickstart/issues"
