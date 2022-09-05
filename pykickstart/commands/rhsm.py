@@ -96,9 +96,9 @@ class RHEL8_RHSM(KickstartCommand):
                         ``--proxy=[protocol://][username[:password]@]host[:port]``
                         """)
         op.add_argument("--server-hostname", metavar="<subscription_service_server_url>", version=RHEL8, required=False,
-                        help="Red Hat subscription service server URL.")
+                        help="Red Hat Satellite server URL (registration to Satellite is supported since RHEL 9.0).")
         op.add_argument("--rhsm-baseurl", metavar="<content_base_url>", version=RHEL8, required=False,
-                        help="Content base URL.")
+                        help="Content base URL. Set automatically when registering to Red Hat Satellite.")
         return op
 
     def parse(self, args):
