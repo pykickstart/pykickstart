@@ -155,7 +155,7 @@ class F18_Timezone(FC6_Timezone):
                         package to be automatically installed then use ``-chrony``
                         in package selection. For example::
 
-                        ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
+                        timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague
                         """)
         return op
 
@@ -253,7 +253,7 @@ class RHEL7_Timezone(F18_Timezone):
                         package to be automatically installed then use ``-chrony``
                         in package selection. For example::
 
-                        ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
+                        timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague
                         """)
         return op
 
@@ -354,7 +354,7 @@ class F25_Timezone(F23_Timezone):
                         package to be automatically installed then use ``-chrony``
                         in package selection. For example::
 
-                        ``timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague``
+                        timezone --ntpservers=ntp.cesnet.cz,tik.nic.cz Europe/Prague
                         """)
         return op
 
