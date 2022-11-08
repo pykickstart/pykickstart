@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6, versionToLongString
-from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29, F34
+from pykickstart.version import FC3, FC4, F8, F12, F14, F15, F17, F18, F19, F21, F29, F34, F39
 from pykickstart.base import KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser, commaSplit
@@ -514,3 +514,31 @@ class F34_Bootloader(F29_Bootloader):
 
 class RHEL9_Bootloader(F34_Bootloader):
     pass
+
+class F39_Bootloader(F34_Bootloader):
+    removedKeywords = F34_Bootloader.removedKeywords
+    removedAttrs = F34_Bootloader.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F34_Bootloader.__init__(self, *args, **kwargs)
+        self.sdboot = kwargs.get("sdboot", False)
+
+    def _getArgsAsStr(self):
+        if self.disabled:
+            return " --disabled"
+
+        ret = F21_Bootloader._getArgsAsStr(self)
+
+        if self.sdboot:
+            ret += " --sdboot"
+
+        return ret
+
+
+    def _getParser(self):
+        op = F34_Bootloader._getParser(self)
+        op.add_argument("--sdboot", action="store_true", default=False,
+                        version=F39, help="""
+                        Use systemd-boot as the bootloader instead of
+                        grub2. This option only works on EFI machines.""")
+        return op
