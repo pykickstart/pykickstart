@@ -209,5 +209,14 @@ class F34_TestCase(F29_TestCase):
         F29_TestCase.runTest(self, iscrypted=iscrypted)
         self.assert_removed("bootloader", "--upgrade")
 
+class F39_TestCase(F34_TestCase):
+    def runTest(self, iscrypted=False):
+        F34_TestCase.runTest(self, iscrypted=iscrypted)
+
+        self.assert_parse("bootloader --location=none --sdboot", "bootloader --location=none --sdboot\n")
+
+        # All test cases following F21 need to verify that newly added options are cleared by --disabled
+        self.assert_parse("bootloader --sdboot --disabled", "bootloader --disabled\n")
+
 if __name__ == "__main__":
     unittest.main()
