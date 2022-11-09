@@ -25,9 +25,6 @@ setup(cmdclass={"install_scripts": install_scripts},
       url='https://fedoraproject.org/wiki/pykickstart',
       license='COPYING',
       install_requires=['requests'],
-      extras_require={
-          "docs": ['Sphinx'],
-          "test": ['coveralls', 'coverage', 'pocketlint', 'pylint']},
       # These are installed by install_scripts() without their filename extensions
       scripts=['tools/ksvalidator.py', 'tools/ksflatten.py', 'tools/ksverdiff.py', 'tools/ksshell.py'],
       packages=['pykickstart', 'pykickstart.commands', 'pykickstart.handlers'],

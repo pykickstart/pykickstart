@@ -1,2 +1,5 @@
-# Installs all extras (for testing and documentation) in pykickstart.
-.[docs,test]
+Sphinx
+coveralls
+coverage
+pocketlint
+pylint
