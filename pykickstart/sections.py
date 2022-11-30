@@ -360,11 +360,20 @@ class PostScriptSection(ScriptSection):
     installed::
 
         %post --nochroot
-        cp /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+        if [ ! -e /mnt/sysimage/etc/resolf.conf ]; then
+            cp -P /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
+        fi
+        %end
+
+        %post
+        # do some stuff
+        rm /etc/resolv.conf
         %end
 
     **If your kickstart is being interpreted by the livecd-creator tool, you should
     replace /mnt/sysimage above with $INSTALL_ROOT.**
+
+    `Also see Anaconda's documentation. <https://anaconda-installer.readthedocs.io/en/latest/common-bugs.html#missing-etc-resolv-conf-for-post-scripts>`__
     """
 
     def _getParser(self):
