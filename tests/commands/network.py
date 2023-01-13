@@ -357,6 +357,54 @@ class F27_TestCase(F25_TestCase):
         self.assert_parse(vlan_over_bond_cmd)
         self.assert_parse(vlan_over_bond_cmd + " --bindto mac")
 
+class F38_TestCase(F27_TestCase):
+    def runTest(self):
+        F27_TestCase.runTest(self)
+
+        # dns search
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-dns-search example.com")
+        self.assertEqual(network_data.ipv4_dns_search, "example.com")
+        self.assertIsNone(network_data.ipv6_dns_search)
+
+        network_data = self.assert_parse("network --device eth0 --ipv6-dns-search fedoraproject.org")
+        self.assertEqual(network_data.ipv6_dns_search, "fedoraproject.org")
+        self.assertIsNone(network_data.ipv4_dns_search)
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-dns-search example.com --ipv6-dns-search fedoraproject.org")
+        self.assertEqual(network_data.ipv4_dns_search, "example.com")
+        self.assertEqual(network_data.ipv6_dns_search, "fedoraproject.org")
+
+        network_data = self.assert_parse("network --device eth0")
+        self.assertIsNone(network_data.ipv4_dns_search)
+        self.assertIsNone(network_data.ipv6_dns_search)
+
+        self.assert_parse_error("network --ipv4-dns-search example.com")
+        self.assert_parse_error("network --ipv6-dns-search fedoraproject.org")
+        self.assert_parse_error("network --ipv4-dns-search example.com --ipv6-dns-search fedoraproject.org")
+
+        # disable auto dns
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-ignore-auto-dns")
+        self.assertTrue(network_data.ipv4_ignore_auto_dns)
+        self.assertFalse(network_data.ipv6_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0 --ipv6-ignore-auto-dns")
+        self.assertTrue(network_data.ipv6_ignore_auto_dns)
+        self.assertFalse(network_data.ipv4_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-ignore-auto-dns --ipv6-ignore-auto-dns")
+        self.assertTrue(network_data.ipv6_ignore_auto_dns)
+        self.assertTrue(network_data.ipv4_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0")
+        self.assertFalse(network_data.ipv4_ignore_auto_dns)
+        self.assertFalse(network_data.ipv6_ignore_auto_dns)
+
+        self.assert_parse_error("network --ipv4-ignore-auto-dns")
+        self.assert_parse_error("network --ipv6-ignore-auto-dns")
+        self.assert_parse_error("network --ipv4-ignore-auto-dns --ipv6-ignore-auto-dns")
+
 class RHEL7_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
