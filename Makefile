@@ -55,7 +55,7 @@ endif
 	@echo "*** Running unittests with coverage ***"
 	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m unittest -v $(tests)
 	-$(COVERAGE) combine
-	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
+	-$(COVERAGE) report -m | tee coverage-report.log
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc *log .coverage pykickstart.spec
