@@ -52,7 +52,7 @@ class WritePriority_TestCase(unittest.TestCase):
                     self.assertEqual(130, cmd.writePriority, command_class)
                 elif _name in ['raid']:
                     self.assertEqual(131, cmd.writePriority, command_class)
-                elif _name in ['volgroup', 'btrfs']:
+                elif _name in ['volgroup', 'btrfs', 'stratispool']:
                     self.assertEqual(132, cmd.writePriority, command_class)
                 elif _name in ['logvol']:
                     self.assertEqual(133, cmd.writePriority, command_class)
