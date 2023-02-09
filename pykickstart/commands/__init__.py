@@ -62,6 +62,7 @@ from pykickstart.commands import (
     nfs,
     nvdimm,
     timesource,
+    ostreecontainer,
     ostreesetup,
     partition,
     raid,
