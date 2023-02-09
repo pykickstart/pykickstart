@@ -66,6 +66,7 @@ class F38Handler(BaseHandler):
         "nfs": commands.nfs.FC6_NFS,
         "nvdimm": commands.nvdimm.F28_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
+        "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F21_OSTreeSetup,
         "part": commands.partition.F34_Partition,
         "partition": commands.partition.F34_Partition,
