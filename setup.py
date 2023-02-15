@@ -19,7 +19,7 @@ class install_scripts(_install_scripts):
 
 
 setup(cmdclass={"install_scripts": install_scripts},
-      name='pykickstart', version='3.43',
+      name='pykickstart', version='3.44',
       description='Python module for manipulating kickstart files',
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='https://fedoraproject.org/wiki/pykickstart',
