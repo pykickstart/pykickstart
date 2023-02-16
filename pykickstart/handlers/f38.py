@@ -67,7 +67,7 @@ class F38Handler(BaseHandler):
         "nvdimm": commands.nvdimm.F28_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
-        "ostreesetup": commands.ostreesetup.F21_OSTreeSetup,
+        "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
         "part": commands.partition.F34_Partition,
         "partition": commands.partition.F34_Partition,
         "poweroff": commands.reboot.F23_Reboot,
