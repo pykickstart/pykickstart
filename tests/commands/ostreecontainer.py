@@ -17,8 +17,9 @@
 #
 
 import unittest
-from tests.baseclass import CommandTest
+from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.ostreecontainer import RHEL9_OSTreeContainer
+from pykickstart.version import RHEL9
 
 class OSTreeContainer_TestCase(unittest.TestCase):
     def runTest(self):
@@ -57,3 +58,15 @@ class RHEL9_TestCase(CommandTest):
         self.assert_parse_error("ostreecontainer --no-signature-verification")
         self.assert_parse_error("ostreecontainer --remote=\"sweet\"")
         self.assert_parse_error("ostreecontainer --transport=\"test\"")
+
+class RHEL9_Conflict_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL9
+
+    def runTest(self):
+        #fail - ostreecontainer and ostreesetup can't be used together
+        self.assert_parse_error("""
+        ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core
+        ostreecontainer --url=quay.io/fedora/silverblue:stable
+        """)
