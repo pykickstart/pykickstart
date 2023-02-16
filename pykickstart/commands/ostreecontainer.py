@@ -22,6 +22,7 @@ from pykickstart.options import KSOptionParser
 class F38_OSTreeContainer(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
+    conflictingCommands = ["ostreesetup"]
 
     def __init__(self, *args, **kwargs):
         KickstartCommand.__init__(self, *args, **kwargs)
@@ -64,7 +65,7 @@ class F38_OSTreeContainer(KickstartCommand):
                             for more information about OSTree.
 
                             **Experimental. Use on your own risk.**
-                            """, version=F38)
+                            """, version=F38, conflicts=self.conflictingCommands)
         # Rename the osname to stateroot and set default as proposed by
         # https://github.com/ostreedev/ostree/issues/2794
         op.add_argument("--stateroot", version=F38, help="""

@@ -63,7 +63,7 @@ class F21_OSTreeSetup(KickstartCommand):
                             Used for OSTree installations. See
                             https://wiki.gnome.org/action/show/Projects/OSTree
                             for more information about OSTree.
-                            """, version=F21)
+                            """, version=F21, conflicts=self.conflictingCommands)
         op.add_argument("--osname", required=True, version=F21, help="""
                         Management root for OS installation.""")
         op.add_argument("--remote", version=F21, help="""
@@ -95,3 +95,8 @@ class RHEL8_OSTreeSetup(F21_OSTreeSetup):
 
 class RHEL9_OSTreeSetup(F21_OSTreeSetup):
     pass
+
+class F38_OSTreeSetup(F21_OSTreeSetup):
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+    conflictingCommands = ["ostreecontainer"]
