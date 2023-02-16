@@ -35,6 +35,8 @@ class F21_OSTreeSetup(KickstartCommand):
 
     def __str__(self):
         retval = KickstartCommand.__str__(self)
+        if not self.seen:
+            return retval
 
         if self.osname:
             retval += "# OSTree setup\n"
