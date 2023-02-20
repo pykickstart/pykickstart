@@ -2,6 +2,7 @@
 # at the moment, but can run locally.  To build and run tests, do:
 #     rpmbuild -ba --with runtests pykickstart.spec
 %bcond_with runtests
+%bcond_with signed
 
 Name:      pykickstart
 Version:   %%VERSION%%
@@ -10,7 +11,9 @@ License:   GPLv2 and MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
 Source0:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz
+%if %{with signed}
 Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz.asc
+%endif
 
 BuildArch: noarch
 
