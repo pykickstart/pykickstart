@@ -133,6 +133,7 @@ scratch: docs
 	@rm -rf pykickstart-$(VERSION).tar.gz
 	@rm -rf /tmp/pykickstart-$(VERSION) /tmp/pykickstart
 	@dir=$$PWD; cp -a $$dir /tmp/pykickstart-$(VERSION)
+	@cp /tmp/pykickstart-$(VERSION)/docs/_build/text/kickstart-docs.txt /tmp/pykickstart-$(VERSION)/docs
 	@cd /tmp/pykickstart-$(VERSION) ; $(PYTHON) setup.py -q sdist
 	@cp /tmp/pykickstart-$(VERSION)/dist/pykickstart-$(VERSION).tar.gz .
 	@rm -rf /tmp/pykickstart-$(VERSION)
