@@ -75,3 +75,5 @@ make PYTHON=%{__python3} test
 %doc docs/kickstart-docs.txt
 %{python3_sitelib}/pykickstart
 %{python3_sitelib}/pykickstart*.egg-info
+
+%changelog
