@@ -144,7 +144,7 @@ scratch: docs
 rc-release: scratch-bumpver scratch pykickstart.spec
 	if [ -z "$(SPECFILE)" ]; then echo "SPECFILE must be set for this target" ; exit 1; fi
 	mock -r $(MOCKCHROOT) --scrub all || exit 1
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
-	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
+	mock -r $(MOCKCHROOT) --without signed --buildsrpm  --spec $(SPECFILE) --sources . --resultdir $(shell pwd) || exit 1
+	mock -r $(MOCKCHROOT) --without signed --rebuild *src.rpm --resultdir $(shell pwd)  || exit 1
 
 .PHONY: check clean install tag archive local docs release sign
