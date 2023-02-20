@@ -13,6 +13,8 @@ GPGKEY ?= $(shell git config user.signingkey)
 WEBLATE_REPO = git@github.com:pykickstart/weblate
 WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
+SPECFILE ?= pykickstart.spec
+
 tests := $(wildcard tests/*py tests/commands/*py tests/tools/*py)
 
 all:
