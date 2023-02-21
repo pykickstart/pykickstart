@@ -23,7 +23,7 @@ from pykickstart.errors import KickstartParseWarning
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.network import FC3_NetworkData, FC4_NetworkData, \
     FC6_NetworkData, F16_NetworkData, F25_NetworkData, \
-    RHEL4_NetworkData, RHEL6_NetworkData, RHEL7_NetworkData
+    RHEL4_NetworkData, RHEL6_NetworkData, RHEL7_NetworkData, RHEL8_NetworkData
 from pykickstart.constants import BIND_TO_MAC
 from pykickstart.version import FC3
 
@@ -436,6 +436,54 @@ class RHEL7_TestCase(F20_TestCase):
         vlan_over_bond_cmd = "network --device bond0 --bootproto static --ip 10.34.39.222 --netmask 255.255.255.0 --gateway 10.34.39.254 --bondslaves=ens4,ens5 --bondopts=mode=active-backup,miimon-100,primary=ens4 --activate --vlanid=222 --activate --onboot=no"
         self.assert_parse(vlan_over_bond_cmd)
         self.assert_parse(vlan_over_bond_cmd + " --bindto mac")
+
+class RHEL8_TestCase(F27_TestCase):
+    def runTest(self):
+        F27_TestCase.runTest(self)
+
+        # dns search
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-dns-search example.com")
+        self.assertEqual(network_data.ipv4_dns_search, "example.com")
+        self.assertIsNone(network_data.ipv6_dns_search)
+
+        network_data = self.assert_parse("network --device eth0 --ipv6-dns-search fedoraproject.org")
+        self.assertEqual(network_data.ipv6_dns_search, "fedoraproject.org")
+        self.assertIsNone(network_data.ipv4_dns_search)
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-dns-search example.com --ipv6-dns-search fedoraproject.org")
+        self.assertEqual(network_data.ipv4_dns_search, "example.com")
+        self.assertEqual(network_data.ipv6_dns_search, "fedoraproject.org")
+
+        network_data = self.assert_parse("network --device eth0")
+        self.assertIsNone(network_data.ipv4_dns_search)
+        self.assertIsNone(network_data.ipv6_dns_search)
+
+        self.assert_parse_error("network --ipv4-dns-search example.com")
+        self.assert_parse_error("network --ipv6-dns-search fedoraproject.org")
+        self.assert_parse_error("network --ipv4-dns-search example.com --ipv6-dns-search fedoraproject.org")
+
+        # disable auto dns
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-ignore-auto-dns")
+        self.assertTrue(network_data.ipv4_ignore_auto_dns)
+        self.assertFalse(network_data.ipv6_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0 --ipv6-ignore-auto-dns")
+        self.assertTrue(network_data.ipv6_ignore_auto_dns)
+        self.assertFalse(network_data.ipv4_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0 --ipv4-ignore-auto-dns --ipv6-ignore-auto-dns")
+        self.assertTrue(network_data.ipv6_ignore_auto_dns)
+        self.assertTrue(network_data.ipv4_ignore_auto_dns)
+
+        network_data = self.assert_parse("network --device eth0")
+        self.assertFalse(network_data.ipv4_ignore_auto_dns)
+        self.assertFalse(network_data.ipv6_ignore_auto_dns)
+
+        self.assert_parse_error("network --ipv4-ignore-auto-dns")
+        self.assert_parse_error("network --ipv6-ignore-auto-dns")
+        self.assert_parse_error("network --ipv4-ignore-auto-dns --ipv6-ignore-auto-dns")
 
 if __name__ == "__main__":
     unittest.main()

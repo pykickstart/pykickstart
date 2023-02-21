@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
+from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7, RHEL8
 from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
@@ -345,6 +345,29 @@ class RHEL7_NetworkData(F21_NetworkData):
         if self.bindto == BIND_TO_MAC:
             retval += " --bindto=%s" % self.bindto
 
+        return retval
+
+class RHEL8_NetworkData(F27_NetworkData):
+    removedKeywords = F27_NetworkData.removedKeywords
+    removedAttrs = F27_NetworkData.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F27_NetworkData.__init__(self, *args, **kwargs)
+        self.ipv4_dns_search = kwargs.get("ipv4_dns_search", None)
+        self.ipv6_dns_search = kwargs.get("ipv6_dns_search", None)
+        self.ipv4_ignore_auto_dns = kwargs.get("ipv4_ignore_auto_dns", None)
+        self.ipv6_ignore_auto_dns = kwargs.get("ipv6_ignore_auto_dns", None)
+
+    def _getArgsAsStr(self):
+        retval = F27_NetworkData._getArgsAsStr(self)
+        if self.ipv4_dns_search:
+            retval += " --ipv4-dns-search=%s" % self.ipv4_dns_search
+        if self.ipv6_dns_search:
+            retval += " --ipv6-dns-search=%s" % self.ipv6_dns_search
+        if self.ipv4_ignore_auto_dns:
+            retval += " --ipv4-ignore-auto-dns"
+        if self.ipv6_ignore_auto_dns:
+            retval += " --ipv6-ignore-auto-dns"
         return retval
 
 class FC3_Network(KickstartCommand):
@@ -1058,6 +1081,49 @@ class RHEL7_Network(F21_Network):
         if retval.bindto == BIND_TO_MAC:
             if retval.vlanid and not retval.bondopts:
                 msg = _("--bindto=%s is not supported for this type of device") % BIND_TO_MAC
+                raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
+
+class RHEL8_Network(F27_Network):
+    removedKeywords = F27_Network.removedKeywords
+    removedAttrs = F27_Network.removedAttrs
+
+    def _getParser(self):
+        op = F27_Network._getParser(self)
+        op.add_argument("--ipv4-dns-search", default=None, version=RHEL8, dest="ipv4_dns_search",
+                        help="""
+                        Use this option to set IPv4 search domains. For example: ``--ipv4-dns-search domain1.example.com,domain2.example.com``
+                        Requires ``--device`` to be specified.""")
+        op.add_argument("--ipv6-dns-search", default=None, version=RHEL8, dest="ipv6_dns_search",
+                        help="""
+                        Use this option to set IPv6 search domains. For example: ``--ipv6-dns-search domain1.example.com,domain2.example.com``
+                        Requires ``--device`` to be specified.""")
+        op.add_argument("--ipv4-ignore-auto-dns", action="store_true", version=RHEL8,
+                        dest="ipv4_ignore_auto_dns", help="""
+                        Use this option to ignore IPv4 automatic DNS.
+                        Requires ``--device`` to be specified.""")
+        op.add_argument("--ipv6-ignore-auto-dns", action="store_true", version=RHEL8,
+                        dest="ipv6_ignore_auto_dns", help="""
+                        Use this option to ignore IPv6 automatic DNS.
+                        Requires ``--device`` to be specified.""")
+        return op
+
+    def parse(self, args):
+        retval = F27_Network.parse(self, args)
+
+        if not retval.device:
+            if retval.ipv4_dns_search:
+                msg = _("Option --ipv4-dns-search requires --device to be specified")
+                raise KickstartParseError(msg, lineno=self.lineno)
+            if retval.ipv6_dns_search:
+                msg = _("Option --ipv6-dns-search requires --device to be specified")
+                raise KickstartParseError(msg, lineno=self.lineno)
+            if retval.ipv4_ignore_auto_dns:
+                msg = _("Option --ipv4-ignore-auto-dns requires --device to be specified")
+                raise KickstartParseError(msg, lineno=self.lineno)
+            if retval.ipv6_ignore_auto_dns:
+                msg = _("Option --ipv6-ignore-auto-dns requires --device to be specified")
                 raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
