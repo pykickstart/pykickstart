@@ -54,11 +54,8 @@ class FC3_AutoPart(KickstartCommand):
                             Automatically create partitions -- a root (``/``) partition,
                             a swap partition, and an appropriate boot partition
                             for the architecture. On large enough drives, this
-                            will also create a /home partition.
-
-                            The ``autopart`` command can't be used with the logvol,
-                            part/partition, raid, reqpart, or volgroup in the same
-                            kickstart file.""", version=FC3)
+                            will also create a /home partition.""",
+                              version=FC3, conflicts=self.conflictingCommands)
 
 class F9_AutoPart(FC3_AutoPart):
     removedKeywords = FC3_AutoPart.removedKeywords
@@ -157,6 +154,7 @@ class F12_AutoPart(F9_AutoPart):
 class RHEL6_AutoPart(F12_AutoPart):
     removedKeywords = F12_AutoPart.removedKeywords
     removedAttrs = F12_AutoPart.removedAttrs
+    conflictingCommands = ["partition", "raid", "volgroup", "logvol"]
 
     def __init__(self, writePriority=100, *args, **kwargs):
         F12_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
@@ -182,6 +180,17 @@ class RHEL6_AutoPart(F12_AutoPart):
                         which encryption algorithm should be used to encrypt the
                         filesystem.""")
         return op
+
+    def parse(self, args):
+        # call the overriden command to do its job first
+        retval = F12_AutoPart.parse(self, args)
+
+        # Using autopart together with other partitioning command such as
+        # part/partition, raid, logvol or volgroup can lead to hard to debug
+        # behavior that might among other result into an unbootable system.
+        self._checkConflictingCommands(_("The %s and autopart commands can't be used at the same time"))
+        return retval
+
 
 class F16_AutoPart(F12_AutoPart):
     removedKeywords = F12_AutoPart.removedKeywords
@@ -302,9 +311,21 @@ class F18_AutoPart(F17_AutoPart):
         return op
 
 class F20_AutoPart(F18_AutoPart):
+    conflictingCommands = ["partition", "raid", "volgroup", "logvol"]
+
     def __init__(self, writePriority=100, *args, **kwargs):
         F18_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
+
+    def parse(self, args):
+        # call the overriden command to do its job first
+        retval = F18_AutoPart.parse(self, args)
+
+        # Using autopart together with other partitioning command such as
+        # part/partition, raid, logvol or volgroup can lead to hard to debug
+        # behavior that might among other result into an unbootable system.
+        self._checkConflictingCommands(_("The %s and autopart commands can't be used at the same time"))
+        return retval
 
     def _getParser(self):
         "Only necessary for the type change documentation"
@@ -362,22 +383,10 @@ class F21_AutoPart(F20_AutoPart):
         return retval
 
 class F23_AutoPart(F21_AutoPart):
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F21_AutoPart.parse(self, args)
-
-        conflicting_command = ""
-        if hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-
-        return retval
+    conflictingCommands = ["partition", "raid", "volgroup", "logvol", "reqpart"]
 
 class RHEL7_AutoPart(F21_AutoPart):
+    conflictingCommands = ["partition", "raid", "volgroup", "logvol", "reqpart"]
 
     def __init__(self, writePriority=100, *args, **kwargs):
         F21_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
@@ -402,21 +411,6 @@ class RHEL7_AutoPart(F21_AutoPart):
                         version=RHEL7, help="""
                         Do not create a /home partition.""")
         return op
-
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F21_AutoPart.parse(self, args)
-
-        conflicting_command = ""
-        if hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-
-        return retval
 
 class F26_AutoPart(F23_AutoPart):
     removedKeywords = F23_AutoPart.removedKeywords

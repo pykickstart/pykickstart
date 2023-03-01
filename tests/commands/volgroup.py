@@ -106,6 +106,21 @@ volgroup vg.02 pv.01""")
 volgroup vg.01 pv.01
 volgroup vg.01 pv.02""", KickstartParseWarning, 'A volgroup with the name vg.01 has already been defined.')
 
+class F16_AutopartVolGroup_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = F16
+
+    def runTest(self):
+        # fail - can't use both autopart and volgroup
+        self.assert_parse_error("""
+autopart
+volgroup vg.01 pv.01 --reserved-space=1""")
+
+        self.assert_parse_error("""
+mount /dev/sda1 /boot
+volgroup vg.01 pv.01 --reserved-space=1""")
+
 class F16_TestCase(FC3_TestCase):
     def runTest(self):
         FC3_TestCase.runTest(self)

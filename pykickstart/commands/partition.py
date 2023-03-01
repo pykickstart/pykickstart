@@ -333,7 +333,7 @@ class FC3_Partition(KickstartCommand):
                             """, epilog="""
                             If partitioning fails for any reason, diagnostic
                             messages will appear on virtual console 3.""",
-                            version=FC3)
+                            version=FC3, conflicts=self.conflictingCommands)
         op.add_argument("mntpoint", metavar="<mntpoint>", type=mountpoint, nargs=1,
                         version=FC3, help="""
                         The ``<mntpoint>`` is where the partition will be mounted
@@ -556,6 +556,7 @@ class F12_Partition(F11_Partition):
 class RHEL6_Partition(F12_Partition):
     removedKeywords = F12_Partition.removedKeywords
     removedAttrs = F12_Partition.removedAttrs
+    conflictingCommands = ["autopart"]
 
     def _getParser(self):
         op = F12_Partition._getParser(self)
@@ -570,6 +571,14 @@ class RHEL6_Partition(F12_Partition):
                         """)
         return op
 
+    def parse(self, args):
+        # first call the overriden command
+        retval = F12_Partition.parse(self, args)
+        # the part command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        self._checkConflictingCommands(_("The part/partition and %s commands can't be used at the same time"))
+
+        return retval
 
 class F14_Partition(F12_Partition):
     removedKeywords = F12_Partition.removedKeywords
@@ -626,10 +635,14 @@ class F18_Partition(F17_Partition):
 class F20_Partition(F18_Partition):
     removedKeywords = F18_Partition.removedKeywords
     removedAttrs = F18_Partition.removedAttrs
+    conflictingCommands = ["autopart", "mount"]
 
     def parse(self, args):
         # first call the overriden command
         retval = F18_Partition.parse(self, args)
+        # the part command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        self._checkConflictingCommands(_("The part/partition and %s commands can't be used at the same time"))
 
         # when using tmpfs, grow is not suported
         if retval.fstype == "tmpfs":

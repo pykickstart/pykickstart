@@ -73,6 +73,7 @@ class F27_MountData(BaseData):
 
 class F27_Mount(KickstartCommand):
     """The 'mount' kickstart command"""
+    conflictingCommands = ["autopart", "partition", "raid", "volgroup", "logvol", "reqpart"]
 
     def __init__(self, *args, **kwargs):
         KickstartCommand.__init__(self, *args, **kwargs)
@@ -111,7 +112,7 @@ class F27_Mount(KickstartCommand):
                             storage stack with all the devices mounted at
                             various places, the ``part``, ``logvol``, ``raid``,
                             etc. commands have to be used.
-                            """, version=F27)
+                            """, version=F27, conflicts=self.conflictingCommands)
 
         op.add_argument("device", metavar="<device>", nargs=1, version=F27,
                         help="""The block device to mount""")
@@ -143,6 +144,7 @@ class F27_Mount(KickstartCommand):
         return op
 
     def parse(self, args):
+        self._checkConflictingCommands(_("The mount and %s commands can't be used at the same time"))
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if extra:

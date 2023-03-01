@@ -414,7 +414,7 @@ class FC3_LogVol(KickstartCommand):
                                 part pv.01 --size 3000
                                 volgroup myvg pv.01
                                 logvol / --vgname=myvg --size=2000 --name=rootvol
-                            """)
+                            """, conflicts=self.conflictingCommands)
         op.add_argument("mntpoint", metavar="<mntpoint>", type=mountpoint, nargs=1,
                         version=FC3, help="""
                         Mountpoint for this logical volume or 'none'.
@@ -579,6 +579,7 @@ class F12_LogVol(F9_LogVol):
 class RHEL6_LogVol(F12_LogVol):
     removedKeywords = F12_LogVol.removedKeywords
     removedAttrs = F12_LogVol.removedAttrs
+    conflictingCommands = ["autopart"]
 
     def _getParser(self):
         op = F12_LogVol._getParser(self)
@@ -619,6 +620,9 @@ class RHEL6_LogVol(F12_LogVol):
     def parse(self, args):
         # call the overriden method
         retval = F12_LogVol.parse(self, args)
+        # the logvol command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        self._checkConflictingCommands(_("The logvol and %s commands can't be used at the same time"))
 
         if retval.thin_volume and retval.thin_pool:
             errorMsg = _("--thin and --thinpool cannot both be specified for "
@@ -703,6 +707,7 @@ class F18_LogVol(F17_LogVol):
 class F20_LogVol(F18_LogVol):
     removedKeywords = F18_LogVol.removedKeywords
     removedAttrs = F18_LogVol.removedAttrs
+    conflictingCommands = ["autopart", "mount"]
 
     def _getParser(self):
         op = F18_LogVol._getParser(self)
@@ -742,6 +747,10 @@ class F20_LogVol(F18_LogVol):
            not retval.thin_pool:
             err = _("--chunksize and --metadatasize are for thin pools only")
             raise KickstartParseError(err, lineno=self.lineno)
+
+        # the logvol command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        self._checkConflictingCommands(_("The logvol and %s commands can't be used at the same time"))
 
         if not retval.preexist and not retval.percent and not retval.size and not retval.recommended and not retval.hibernation:
             errorMsg = _("No size given for logical volume. Use one of --useexisting, --noformat, --size, --percent, or --hibernation.")

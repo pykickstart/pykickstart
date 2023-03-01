@@ -351,6 +351,11 @@ autopart
 raid / --device=md0 --level=0 raid.01 raid.02
 """)
 
+        self.assert_parse_error("""
+mount /dev/sda1 /boot
+raid / --device=md0 --level=0 raid.01 raid.02
+""")
+
 class F23_TestCase(F19_TestCase):
     def runTest(self):
         F19_TestCase.runTest(self)

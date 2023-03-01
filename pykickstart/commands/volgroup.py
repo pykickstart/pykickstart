@@ -126,7 +126,7 @@ class FC3_VolGroup(KickstartCommand):
                                 part pv.01 --size 3000
                                 volgroup myvg pv.01
                                 logvol / --vgname=myvg --size=2000 --name=rootvol
-                            """, version=FC3)
+                            """, version=FC3, conflicts=self.conflictingCommands)
         op.add_argument("name", metavar="<name>", nargs="*", version=FC3, help="""
                         Name given to the volume group. The (which denotes that
                         multiple partitions can be listed) lists the identifiers
@@ -192,6 +192,8 @@ class FC3_VolGroup(KickstartCommand):
         return self.handler.VolGroupData
 
 class F16_VolGroup(FC3_VolGroup):
+    conflictingCommands = ["autopart", "mount"]
+
     def _getParser(self):
         op = FC3_VolGroup._getParser(self)
         op.add_argument("--reserved-space", dest="reserved_space", type=int,
@@ -216,6 +218,9 @@ class F16_VolGroup(FC3_VolGroup):
         if retval.reserved_percent is not None and not 0 < retval.reserved_percent < 100:
             raise KickstartParseError("Volume group reserved space percentage must be between 1 and 99.", lineno=self.lineno)
 
+        # the volgroup command can't be used together with the autopart command
+        # due to the hard to debug behavior their combination introduces
+        self._checkConflictingCommands(_("The volgroup and %s commands can't be used at the same time"))
         return retval
 
 class F21_VolGroup(F16_VolGroup):

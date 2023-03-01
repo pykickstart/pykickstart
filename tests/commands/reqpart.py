@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 import unittest
-from pykickstart.version import F23
+from pykickstart.version import F23, RHEL7
 from pykickstart.commands.reqpart import F23_ReqPart
 from tests.baseclass import CommandTest, CommandSequenceTest
 
@@ -48,6 +48,15 @@ class F23_AutopartReqpart_TestCase(CommandSequenceTest):
         self.assert_parse_error("""
 autopart
 reqpart""")
+
+        self.assert_parse_error("""
+mount /dev/sda1 /boot
+reqpart""")
+
+class RHEL7_AutopartReqpart_TestCase(F23_AutopartReqpart_TestCase):
+    def __init__(self, *args, **kwargs):
+        F23_AutopartReqpart_TestCase.__init__(self, *args, **kwargs)
+        self.version = RHEL7
 
 class RHEL7_TestCase(F23_TestCase):
     def runTest(self):

@@ -19,12 +19,12 @@
 #
 from pykickstart.version import F23
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
+    conflictingCommands = ["autopart", "mount"]
 
     def __init__(self, writePriority=100, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
@@ -62,7 +62,7 @@ class F23_ReqPart(KickstartCommand):
                             ``autopart``, this command only creates
                             platform-specific partitions and leaves the rest of
                             the drive empty, allowing you to create a custom
-                            layout.""", version=F23)
+                            layout.""", version=F23, conflicts=self.conflictingCommands)
         op.add_argument("--add-boot", action="store_true", version=F23,
                         dest="addBoot", default=False, help="""
                         Create a separate ``/boot`` partition in addition to the
@@ -71,6 +71,8 @@ class F23_ReqPart(KickstartCommand):
         return op
 
     def parse(self, args):
+        self._checkConflictingCommands(_("The reqpart and %s commands can't be used at the same time"))
+
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
         self.reqpart = True
