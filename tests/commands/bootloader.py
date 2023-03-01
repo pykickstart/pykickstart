@@ -213,10 +213,22 @@ class F39_TestCase(F34_TestCase):
     def runTest(self, iscrypted=False):
         F34_TestCase.runTest(self, iscrypted=iscrypted)
 
-        self.assert_parse("bootloader --location=none --sdboot", "bootloader --location=none --sdboot\n")
+        self.assert_parse(
+            "bootloader --location=none --sdboot",
+            "bootloader --location=none --sdboot\n"
+        )
 
-        # All test cases following F21 need to verify that newly added options are cleared by --disabled
-        self.assert_parse("bootloader --sdboot --disabled", "bootloader --disabled\n")
+        self.assert_parse_error(
+            "bootloader --location=none --sdboot --extlinux",
+            regex="one of --sdboot and --extlinux may be specified"
+        )
+
+        # All test cases following F21 need to verify that
+        # newly added options are cleared by --disabled.
+        self.assert_parse(
+            "bootloader --sdboot --disabled",
+            "bootloader --disabled\n"
+        )
 
 if __name__ == "__main__":
     unittest.main()
