@@ -73,6 +73,7 @@ class F27_MountData(BaseData):
 
 class F27_Mount(KickstartCommand):
     """The 'mount' kickstart command"""
+    conflictingCommands = ["autopart", "partition", "raid", "volgroup", "logvol", "reqpart"]
 
     def __init__(self, *args, **kwargs):
         KickstartCommand.__init__(self, *args, **kwargs)
@@ -111,7 +112,7 @@ class F27_Mount(KickstartCommand):
                             storage stack with all the devices mounted at
                             various places, the ``part``, ``logvol``, ``raid``,
                             etc. commands have to be used.
-                            """, version=F27)
+                            """, version=F27, conflicts=self.conflictingCommands)
 
         op.add_argument("device", metavar="<device>", nargs=1, version=F27,
                         help="""The block device to mount""")
@@ -143,31 +144,7 @@ class F27_Mount(KickstartCommand):
         return op
 
     def parse(self, args):
-        # the 'mount' command can't be used together with any other
-        # partitioning-related command
-        conflicting_command = None
-
-        # seen indicates that the corresponding
-        # command has been seen in kickstart
-        if self.handler.autopart.seen:
-            conflicting_command = "autopart"
-        if self.handler.partition.seen:
-            conflicting_command = "part/partition"
-        elif self.handler.raid.seen:
-            conflicting_command = "raid"
-        elif self.handler.volgroup.seen:
-            conflicting_command = "volgroup"
-        elif self.handler.logvol.seen:
-            conflicting_command = "logvol"
-        elif hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The '%s' and 'mount' commands can't be used at the same time") % \
-                         conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-
+        self._checkConflictingCommands(_("The mount and %s commands can't be used at the same time"))
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if extra:

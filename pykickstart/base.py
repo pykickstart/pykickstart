@@ -59,6 +59,7 @@ class KickstartCommand(KickstartObject):
     """The base class for all kickstart commands.  This is an abstract class."""
     removedKeywords = []
     removedAttrs = []
+    conflictingCommands = []
 
     def __init__(self, writePriority=0, *args, **kwargs):
         """Create a new KickstartCommand instance.  This method must be
@@ -186,6 +187,15 @@ class KickstartCommand(KickstartObject):
     def _setToObj(self, namespace, obj):
         warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_obj(namespace, obj)
+
+    # Check for conflicting commands and raise an error
+    def _checkConflictingCommands(self, msg):
+        for cmd in self.conflictingCommands:
+            if not hasattr(self.handler, cmd) or not getattr(self.handler, cmd).seen:
+                continue
+
+            raise KickstartParseError(msg % cmd, lineno=self.lineno)
+
 
 class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.

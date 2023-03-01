@@ -19,7 +19,6 @@
 #
 from pykickstart.version import F23
 from pykickstart.base import KickstartCommand
-from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
 from pykickstart.i18n import _
@@ -27,6 +26,7 @@ from pykickstart.i18n import _
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
+    conflictingCommands = ["autopart", "mount"]
 
     def __init__(self, writePriority=100, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
@@ -64,7 +64,7 @@ class F23_ReqPart(KickstartCommand):
                             ``autopart``, this command only creates
                             platform-specific partitions and leaves the rest of
                             the drive empty, allowing you to create a custom
-                            layout.""", version=F23)
+                            layout.""", version=F23, conflicts=self.conflictingCommands)
         op.add_argument("--add-boot", action="store_true", version=F23,
                         dest="addBoot", default=False, help="""
                         Create a separate ``/boot`` partition in addition to the
@@ -73,15 +73,7 @@ class F23_ReqPart(KickstartCommand):
         return op
 
     def parse(self, args):
-        # Using reqpart and autopart at the same time is not allowed.
-        if self.handler.autopart.seen:
-            errorMsg = _("The %s and reqpart commands can't be used at the same time") % \
-                         "autopart"
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        # the same applies to the 'mount' command
-        if hasattr(self.handler, "mount") and self.handler.mount.seen:
-            errorMsg = _("The mount and reqpart commands can't be used at the same time")
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
+        self._checkConflictingCommands(_("The reqpart and %s commands can't be used at the same time"))
 
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
