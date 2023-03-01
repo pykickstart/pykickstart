@@ -154,6 +154,11 @@ class KSOptionParser(ArgumentParser):
         # fail fast if we forgot to add prog
         kwargs['prog'] = kwargs.pop("prog")
 
+        # Add text about conflicting commands
+        conflicts = kwargs.pop("conflicts", None)
+        if conflicts:
+            kwargs['description'] += "\n\n.. note:: ``%s`` cannot be used with the following commands: %s" % (kwargs["prog"], ", ".join(conflicts))
+
         # remove leading spaced from description and epilog.
         # fail fast if we forgot to add description
         kwargs['description'] = textwrap.dedent(kwargs.pop("description"))
