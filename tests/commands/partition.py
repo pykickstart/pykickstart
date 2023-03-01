@@ -288,6 +288,10 @@ class F20_Conflict_TestCase(CommandSequenceTest):
 autopart
 part / --size=1024 --fstype=ext4""")
 
+        self.assert_parse_error("""
+mount /dev/sda1 /boot
+part / --size=1024 --fstype=ext4""")
+
 class F23_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)

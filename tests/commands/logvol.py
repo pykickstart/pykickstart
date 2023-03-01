@@ -456,6 +456,10 @@ class F20_AutopartLogVol_TestCase(CommandSequenceTest):
 autopart
 logvol / --size=1024 --name=lv --vgname=vg""")
 
+        self.assert_parse_error("""
+mount /dev/sda1 /boot
+logvol / --size=1024 --name=lv --vgname=vg""")
+
 class F21_TestCase(F20_TestCase):
     def runTest(self):
         F20_TestCase.runTest(self)
