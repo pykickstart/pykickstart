@@ -542,3 +542,12 @@ class F39_Bootloader(F34_Bootloader):
                         Use systemd-boot as the bootloader instead of
                         grub2. This option only works on EFI machines.""")
         return op
+
+    def parse(self, args):
+        retval = F34_Bootloader.parse(self, args)
+
+        if self.sdboot and self.extlinux:
+            msg = _("Only one of --sdboot and --extlinux may be specified for bootloader command.")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
