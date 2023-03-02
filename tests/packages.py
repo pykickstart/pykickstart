@@ -7,7 +7,8 @@ from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
     KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F7, F21, RHEL6, returnClassForVersion, RHEL7, F32, RHEL9
+from pykickstart.version import DEVEL, F7, F21, RHEL6, RHEL7, RHEL8, F32, RHEL9
+from pykickstart.version import returnClassForVersion
 
 
 class DevelPackagesBase(ParserTest):
@@ -590,6 +591,22 @@ class Packages_Warn_CamelCase_TestCase(ParserTest):
             self.assertEqual(len(w), 2)
             self.assertEqual(str(self.handler.packages),
                 "\n%packages --inst-langs=cs_CZ --exclude-weakdeps\nsomething\n\n%end\n")
+
+# Old versions without support for the new form should not warn, and should output
+# the old --instLangs and --excludeWeakdeps options
+class Packages_OldVersion_CamelCase_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL8
+        self.ks = "%packages --instLangs cs_CZ --excludeWeakdeps\nsomething\n\n%end\n"
+
+    def runTest(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter("always")
+            self.parser.readKickstartFromString(self.ks)
+            self.assertEqual(len(w), 0)
+            self.assertEqual(str(self.handler.packages),
+                "\n%packages --instLangs=cs_CZ --excludeWeakdeps\nsomething\n\n%end\n")
 
 class Packages_IgnoreBroken_RHEL_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):

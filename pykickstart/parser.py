@@ -380,11 +380,17 @@ class Packages(KickstartObject):
         if self.handleBroken == constants.KS_BROKEN_IGNORE:
             retval += " --ignorebroken"
         if self.instLangs is not None:
-            retval += " --inst-langs=%s" % self.instLangs
+            if self._ver < version.F32:
+                retval += " --instLangs=%s" % self.instLangs
+            else:
+                retval += " --inst-langs=%s" % self.instLangs
         if self.multiLib:
             retval += " --multilib"
         if self.excludeWeakdeps:
-            retval += " --exclude-weakdeps"
+            if self._ver < version.F32:
+                retval += " --excludeWeakdeps"
+            else:
+                retval += " --exclude-weakdeps"
         if self.timeout is not None:
             retval += " --timeout=%d" % self.timeout
         if self.retries is not None:
