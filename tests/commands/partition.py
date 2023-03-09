@@ -19,8 +19,7 @@
 #
 
 import unittest
-from pykickstart.version import F20
-from pykickstart.errors import KickstartParseError
+from pykickstart.version import F20, RHEL6
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.partition import FC3_PartData, FC3_Partition
 
@@ -224,10 +223,21 @@ class RHEL6_TestCase(F12_TestCase):
         self.assert_parse("part swap --hibernation", "part swap --hibernation\n")
         self.assert_parse("part swap --recommended --hibernation")
 
-        with self.assertRaises(KickstartParseError):
-            parser = self.handler().commands["part"]
-            parser.handler.autopart.seen = True
-            parser.parse(["autopart"])
+class RHEL6_Conflict_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL6
+
+    def runTest(self):
+        self.assert_parse_error("""
+autopart
+part / --size=1024 --fstype=ext4
+""")
+
+        self.assert_parse_error("""
+part / --size=1024 --fstype=ext4
+autopart
+""")
 
 class F14_TestCase(F12_TestCase):
     def runTest(self):
@@ -277,20 +287,24 @@ class F20_TestCase(F18_TestCase):
         self.assert_parse_error("part /tmp --fstype=tmpfs --grow")
         self.assert_parse_error("part /tmp --fstype=tmpfs --maxsize=10")
 
-
-class F20_Conflict_TestCase(CommandSequenceTest):
+class F20_Conflict_TestCase(RHEL6_Conflict_TestCase):
     def __init__(self, *args, **kwargs):
-        CommandSequenceTest.__init__(self, *args, **kwargs)
+        RHEL6_Conflict_TestCase.__init__(self, *args, **kwargs)
         self.version = F20
 
     def runTest(self):
-        self.assert_parse_error("""
-autopart
-part / --size=1024 --fstype=ext4""")
+        RHEL6_Conflict_TestCase.runTest(self)
 
         self.assert_parse_error("""
 mount /dev/sda1 /boot
-part / --size=1024 --fstype=ext4""")
+part / --size=1024 --fstype=ext4
+""")
+
+        self.assert_parse_error("""
+part / --size=1024 --fstype=ext4
+mount /dev/sda1 /boot
+""")
+
 
 class F23_TestCase(F20_TestCase):
     def runTest(self):

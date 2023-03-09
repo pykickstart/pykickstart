@@ -1,8 +1,9 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.volgroup import FC3_VolGroupData, F16_VolGroupData, F21_VolGroupData
-from pykickstart.errors import KickstartParseError, KickstartParseWarning
-from pykickstart.version import FC3, F16
+from pykickstart.errors import KickstartParseWarning
+from pykickstart.version import FC3, F16, RHEL6
+
 
 class VolGroup_TestCase(unittest.TestCase):
     def runTest(self):
@@ -147,14 +148,16 @@ class F16_TestCase(FC3_TestCase):
 class RHEL6_TestCase(F16_TestCase):
     def runTest(self):
         F16_TestCase.runTest(self)
+
         # extra test coverage
         cmd = self.handler().commands[self.command]
         cmd.parse(["volgroup", "vg.02", "pv.01"])
         self.assertEqual(cmd.__str__(), "")
-        cmd.handler.autopart.seen = True
-        with self.assertRaises(KickstartParseError):
-            cmd.parse(["volgroup", "vg.02", "pv.01"])
-        cmd.handler.autopart.seen = False
+
+class RHEL6_Conflict_TestCase(F16_AutopartVolGroup_TestCase):
+    def __init__(self, *args, **kwargs):
+        F16_AutopartVolGroup_TestCase.__init__(self, *args, **kwargs)
+        self.version = RHEL6
 
 class F21_TestCase(F16_TestCase):
     def runTest(self):
