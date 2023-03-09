@@ -189,14 +189,6 @@ class KickstartCommand(KickstartObject):
         warnings.warn("_setToObj has been renamed to set_to_obj.  The old name will be removed in a future release.", PendingDeprecationWarning, stacklevel=2)
         self.set_to_obj(namespace, obj)
 
-    # Check for conflicting commands and raise an error
-    def _checkConflictingCommands(self, msg):
-        for cmd in self.conflictingCommands:
-            if not hasattr(self.handler, cmd) or not getattr(self.handler, cmd).seen:
-                continue
-
-            raise KickstartParseError(msg % cmd, lineno=self.lineno)
-
 
 class DeprecatedCommand(KickstartCommand):
     """Specify that a command is deprecated and no longer has any function.
@@ -429,6 +421,10 @@ class KickstartHandler(KickstartObject):
             self.commands[cmd].lineno = lineno
             self.commands[cmd].seen = True
 
+            # Check for conflicting commands.
+            conflicting_cmds = self.commands[cmd].conflictingCommands
+            self._checkConflictingCommands(cmd, conflicting_cmds, lineno=lineno)
+
             # The parser returns the data object that was modified.  This is either
             # the command handler object itself (a KickstartCommand object), or it's
             # a BaseData subclass instance that should be put into the command's
@@ -443,6 +439,23 @@ class KickstartHandler(KickstartObject):
                 lst.append(obj)
 
             return obj
+
+    def _checkConflictingCommands(self, cmd, conflicting_cmds, lineno=None):
+        """Check for conflicting commands and raise an error."""
+        for conflicting_cmd in conflicting_cmds:
+            if conflicting_cmd not in self.commands:
+                continue
+
+            if self.commands[conflicting_cmd] is None:
+                continue
+
+            if not self.commands[conflicting_cmd].seen:
+                continue
+
+            raise KickstartParseError(
+                _("The %s and %s commands can't be used at the same time.")
+                % (cmd, conflicting_cmd), lineno=lineno
+            )
 
 
 class BaseHandler(KickstartHandler):

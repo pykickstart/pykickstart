@@ -21,8 +21,6 @@ from pykickstart.version import F23
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
-from pykickstart.i18n import _
-
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -73,8 +71,6 @@ class F23_ReqPart(KickstartCommand):
         return op
 
     def parse(self, args):
-        self._checkConflictingCommands(_("The reqpart and %s commands can't be used at the same time"))
-
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
         self.reqpart = True
