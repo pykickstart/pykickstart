@@ -143,31 +143,6 @@ class F27_Mount(KickstartCommand):
         return op
 
     def parse(self, args):
-        # the 'mount' command can't be used together with any other
-        # partitioning-related command
-        conflicting_command = None
-
-        # seen indicates that the corresponding
-        # command has been seen in kickstart
-        if self.handler.autopart.seen:
-            conflicting_command = "autopart"
-        if self.handler.partition.seen:
-            conflicting_command = "part/partition"
-        elif self.handler.raid.seen:
-            conflicting_command = "raid"
-        elif self.handler.volgroup.seen:
-            conflicting_command = "volgroup"
-        elif self.handler.logvol.seen:
-            conflicting_command = "logvol"
-        elif hasattr(self.handler, "reqpart") and self.handler.reqpart.seen:
-            conflicting_command = "reqpart"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The '%s' and 'mount' commands can't be used at the same time") % \
-                         conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if extra:

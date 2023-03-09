@@ -631,16 +631,6 @@ class RHEL6_Raid(F13_Raid):
                         filesystem.""")
         return op
 
-    def parse(self, args):
-        # first call the overriden method
-        retval = F13_Raid.parse(self, args)
-        # the raid command can't be used together with the autopart command
-        # due to the hard to debug behavior their combination introduces
-        if self.handler.autopart.seen:
-            errorMsg = _("The raid and autopart commands can't be used at the same time")
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        return retval
-
 class F14_Raid(F13_Raid):
     removedKeywords = F13_Raid.removedKeywords
     removedAttrs = F13_Raid.removedAttrs
@@ -684,20 +674,6 @@ class F19_Raid(F18_Raid):
 class F20_Raid(F19_Raid):
     removedKeywords = F19_Raid.removedKeywords
     removedAttrs = F19_Raid.removedAttrs
-
-    def parse(self, args):
-        # first call the overriden method
-        retval = F19_Raid.parse(self, args)
-        # the raid command can't be used together with the autopart command
-        # due to the hard to debug behavior their combination introduces
-        if self.handler.autopart.seen:
-            errorMsg = _("The raid and autopart commands can't be used at the same time")
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        # the same applies to the 'mount' command
-        if hasattr(self.handler, "mount") and self.handler.mount.seen:
-            errorMsg = _("The raid and mount commands can't be used at the same time")
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        return retval
 
 class F23_Raid(F20_Raid):
     removedKeywords = F20_Raid.removedKeywords

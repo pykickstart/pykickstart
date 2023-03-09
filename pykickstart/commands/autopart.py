@@ -183,37 +183,6 @@ class RHEL6_AutoPart(F12_AutoPart):
                         filesystem.""")
         return op
 
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F12_AutoPart.parse(self, args)
-
-        # Using autopart together with other partitioning command such as
-        # part/partition, raid, logvol or volgroup can lead to hard to debug
-        # behavior that might among other result into an unbootable system.
-        #
-        # Therefore if any of those commands is detected in the same kickstart
-        # together with autopart, an error is raised and installation is
-        # aborted.
-        conflicting_command = ""
-
-        # seen indicates that the corresponding
-        # command has been seen in kickstart
-        if self.handler.partition.seen:
-            conflicting_command = "part/partition"
-        elif self.handler.raid.seen:
-            conflicting_command = "raid"
-        elif self.handler.volgroup.seen:
-            conflicting_command = "volgroup"
-        elif self.handler.logvol.seen:
-            conflicting_command = "logvol"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        return retval
-
-
 class F16_AutoPart(F12_AutoPart):
     removedKeywords = F12_AutoPart.removedKeywords
     removedAttrs = F12_AutoPart.removedAttrs
@@ -336,38 +305,6 @@ class F20_AutoPart(F18_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
         F18_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
-
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F18_AutoPart.parse(self, args)
-
-        # Using autopart together with other partitioning command such as
-        # part/partition, raid, logvol or volgroup can lead to hard to debug
-        # behavior that might among other result into an unbootable system.
-        #
-        # Therefore if any of those commands is detected in the same kickstart
-        # together with autopart, an error is raised and installation is
-        # aborted.
-        conflicting_command = ""
-
-        # seen indicates that the corresponding
-        # command has been seen in kickstart
-        if self.handler.partition.seen:
-            conflicting_command = "part/partition"
-        elif self.handler.raid.seen:
-            conflicting_command = "raid"
-        elif self.handler.volgroup.seen:
-            conflicting_command = "volgroup"
-        elif self.handler.logvol.seen:
-            conflicting_command = "logvol"
-        elif hasattr(self.handler, "mount") and self.handler.mount.seen:
-            conflicting_command = "mount"
-
-        if conflicting_command:
-            # allow for translation of the error message
-            errorMsg = _("The %s and autopart commands can't be used at the same time") % conflicting_command
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        return retval
 
     def _getParser(self):
         "Only necessary for the type change documentation"

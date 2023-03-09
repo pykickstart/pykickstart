@@ -22,8 +22,6 @@ from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 
-from pykickstart.i18n import _
-
 class F23_ReqPart(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -73,16 +71,6 @@ class F23_ReqPart(KickstartCommand):
         return op
 
     def parse(self, args):
-        # Using reqpart and autopart at the same time is not allowed.
-        if self.handler.autopart.seen:
-            errorMsg = _("The %s and reqpart commands can't be used at the same time") % \
-                         "autopart"
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-        # the same applies to the 'mount' command
-        if hasattr(self.handler, "mount") and self.handler.mount.seen:
-            errorMsg = _("The mount and reqpart commands can't be used at the same time")
-            raise KickstartParseError(errorMsg, lineno=self.lineno)
-
         ns = self.op.parse_args(args=args, lineno=self.lineno)
         self.set_to_self(ns)
         self.reqpart = True
