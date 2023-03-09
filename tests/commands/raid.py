@@ -21,8 +21,8 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 
-from pykickstart.errors import KickstartParseError, KickstartParseWarning
-from pykickstart.version import FC3, F20
+from pykickstart.errors import KickstartParseWarning
+from pykickstart.version import FC3, F20, RHEL6
 from pykickstart.commands.raid import FC3_RaidData
 
 class Raid_TestCase(unittest.TestCase):
@@ -286,11 +286,21 @@ class RHEL6_TestCase(F13_TestCase):
 
         self.assert_parse_error("raid / --cipher --device=md0 --level=1 raid.01 raid.02")
 
-        cmd = self.handler().commands[self.command]
-        cmd.handler.autopart.seen = True
-        with self.assertRaises(KickstartParseError):
-            cmd.parse(["raid", "/", "--device=md0", "--level=0", "raid.01", "raid.02"])
-        cmd.handler.autopart.seen = False
+class RHEL6_Conflict_TestCase(CommandSequenceTest):
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL6
+
+    def runTest(self):
+        self.assert_parse_error("""
+autopart
+raid / --device=md0 --level=0 raid.01 raid.02
+""")
+
+        self.assert_parse_error("""
+raid / --device=md0 --level=0 raid.01 raid.02
+autopart
+""")
 
 class F14_TestCase(F13_TestCase):
     def runTest(self):
@@ -329,12 +339,13 @@ class F19_TestCase(F18_TestCase):
         # empty device name is not allowed
         self.assert_parse_error("raid / --level=0 --useexisting --device=''")
 
-class F20_Autopart_TestCase(CommandSequenceTest):
+class F20_Autopart_TestCase(RHEL6_Conflict_TestCase):
     def __init__(self, *args, **kwargs):
-        CommandSequenceTest.__init__(self, *args, **kwargs)
+        RHEL6_Conflict_TestCase.__init__(self, *args, **kwargs)
         self.version = F20
 
     def runTest(self):
+        RHEL6_Conflict_TestCase.runTest(self)
         self.assert_parse_error("""
 autopart
 raid / --device=md0 --level=0 raid.01 raid.02
