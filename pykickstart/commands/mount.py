@@ -144,7 +144,6 @@ class F27_Mount(KickstartCommand):
         return op
 
     def parse(self, args):
-        self._checkConflictingCommands(_("The mount and %s commands can't be used at the same time"))
         (ns, extra) = self.op.parse_known_args(args=args, lineno=self.lineno)
 
         if extra:

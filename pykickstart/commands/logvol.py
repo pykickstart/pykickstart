@@ -620,9 +620,6 @@ class RHEL6_LogVol(F12_LogVol):
     def parse(self, args):
         # call the overriden method
         retval = F12_LogVol.parse(self, args)
-        # the logvol command can't be used together with the autopart command
-        # due to the hard to debug behavior their combination introduces
-        self._checkConflictingCommands(_("The logvol and %s commands can't be used at the same time"))
 
         if retval.thin_volume and retval.thin_pool:
             errorMsg = _("--thin and --thinpool cannot both be specified for "
@@ -747,10 +744,6 @@ class F20_LogVol(F18_LogVol):
            not retval.thin_pool:
             err = _("--chunksize and --metadatasize are for thin pools only")
             raise KickstartParseError(err, lineno=self.lineno)
-
-        # the logvol command can't be used together with the autopart command
-        # due to the hard to debug behavior their combination introduces
-        self._checkConflictingCommands(_("The logvol and %s commands can't be used at the same time"))
 
         if not retval.preexist and not retval.percent and not retval.size and not retval.recommended and not retval.hibernation:
             errorMsg = _("No size given for logical volume. Use one of --useexisting, --noformat, --size, --percent, or --hibernation.")
