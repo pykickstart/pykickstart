@@ -181,17 +181,6 @@ class RHEL6_AutoPart(F12_AutoPart):
                         filesystem.""")
         return op
 
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F12_AutoPart.parse(self, args)
-
-        # Using autopart together with other partitioning command such as
-        # part/partition, raid, logvol or volgroup can lead to hard to debug
-        # behavior that might among other result into an unbootable system.
-        self._checkConflictingCommands(_("The %s and autopart commands can't be used at the same time"))
-        return retval
-
-
 class F16_AutoPart(F12_AutoPart):
     removedKeywords = F12_AutoPart.removedKeywords
     removedAttrs = F12_AutoPart.removedAttrs
@@ -316,16 +305,6 @@ class F20_AutoPart(F18_AutoPart):
     def __init__(self, writePriority=100, *args, **kwargs):
         F18_AutoPart.__init__(self, writePriority=writePriority, *args, **kwargs)
         self.typeMap["thinp"] = AUTOPART_TYPE_LVM_THINP
-
-    def parse(self, args):
-        # call the overriden command to do its job first
-        retval = F18_AutoPart.parse(self, args)
-
-        # Using autopart together with other partitioning command such as
-        # part/partition, raid, logvol or volgroup can lead to hard to debug
-        # behavior that might among other result into an unbootable system.
-        self._checkConflictingCommands(_("The %s and autopart commands can't be used at the same time"))
-        return retval
 
     def _getParser(self):
         "Only necessary for the type change documentation"

@@ -218,9 +218,6 @@ class F16_VolGroup(FC3_VolGroup):
         if retval.reserved_percent is not None and not 0 < retval.reserved_percent < 100:
             raise KickstartParseError("Volume group reserved space percentage must be between 1 and 99.", lineno=self.lineno)
 
-        # the volgroup command can't be used together with the autopart command
-        # due to the hard to debug behavior their combination introduces
-        self._checkConflictingCommands(_("The volgroup and %s commands can't be used at the same time"))
         return retval
 
 class F21_VolGroup(F16_VolGroup):
