@@ -68,10 +68,12 @@ class FC3_DisplayMode(KickstartCommand):
     def _getParser(self):
         op = KSOptionParser(prog="graphical|text|cmdline", version=FC3,
                             description="""
-                            Controls which display mode will be used during
-                            installation. If ``cmdline`` is chosen all required
-                            installation options must be configured via kickstart
-                            otherwise the installation will fail.""")
+                            Controls which display mode will be used for the
+                            installation and for the installed system. If ``text``
+                            or ``cmdline`` is chosen the system will boot in text
+                            mode. And when ``cmdline`` is used all required installation
+                            options must be configured via kickstart, otherwise the 
+                            installation will fail.""")
         return op
 
 class F26_DisplayMode(FC3_DisplayMode):
