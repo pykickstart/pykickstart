@@ -357,7 +357,7 @@ class F27_TestCase(F25_TestCase):
         self.assert_parse(vlan_over_bond_cmd)
         self.assert_parse(vlan_over_bond_cmd + " --bindto mac")
 
-class F38_TestCase(F27_TestCase):
+class F39_TestCase(F27_TestCase):
     def runTest(self):
         F27_TestCase.runTest(self)
 

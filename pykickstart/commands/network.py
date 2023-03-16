@@ -20,7 +20,7 @@
 from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
-from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27, F38
+from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27, F39
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
@@ -280,7 +280,7 @@ class F27_NetworkData(F25_NetworkData):
             retval += " --bindto=%s" % self.bindto
         return retval
 
-class F38_NetworkData(F27_NetworkData):
+class F39_NetworkData(F27_NetworkData):
     removedKeywords = F27_NetworkData.removedKeywords
     removedAttrs = F27_NetworkData.removedAttrs
 
@@ -847,28 +847,28 @@ class F27_Network(F25_Network):
 
         return retval
 
-class F38_Network(F27_Network):
+class F39_Network(F27_Network):
     removedKeywords = F27_Network.removedKeywords
     removedAttrs = F27_Network.removedAttrs
 
     def _getParser(self):
         op = F27_Network._getParser(self)
-        op.add_argument("--ipv4-dns-search", default=None, version=F38, dest="ipv4_dns_search",
+        op.add_argument("--ipv4-dns-search", default=None, version=F39, dest="ipv4_dns_search",
                         help="""
                         Use this option to set IPv4 search domains. For example: ``--ipv4-dns-search domain1.example.com,domain2.example.com``
 
                         Requires ``--device`` to be specified.""")
-        op.add_argument("--ipv6-dns-search", default=None, version=F38, dest="ipv6_dns_search",
+        op.add_argument("--ipv6-dns-search", default=None, version=F39, dest="ipv6_dns_search",
                         help="""
                         Use this option to set IPv6 search domains. For example: ``--ipv6-dns-search domain1.example.com,domain2.example.com``
 
                         Requires ``--device`` to be specified.""")
-        op.add_argument("--ipv4-ignore-auto-dns", action="store_true", version=F38,
+        op.add_argument("--ipv4-ignore-auto-dns", action="store_true", version=F39,
                         dest="ipv4_ignore_auto_dns", help="""
                         Use this option to ignore IPv4 automatic DNS.
 
                         Requires ``--device`` to be specified.""")
-        op.add_argument("--ipv6-ignore-auto-dns", action="store_true", version=F38,
+        op.add_argument("--ipv6-ignore-auto-dns", action="store_true", version=F39,
                         dest="ipv6_ignore_auto_dns", help="""
                         Use this option to ignore IPv6 automatic DNS.
 
