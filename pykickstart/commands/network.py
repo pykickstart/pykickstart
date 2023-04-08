@@ -451,7 +451,10 @@ class FC3_Network(KickstartCommand):
                         command beyond the first.
                         """)
         op.add_argument("--essid", version=FC3,
-                        help="The network ID for wireless networks.")
+                        help="""
+                        The network ID for wireless networks.
+                        Needs additonal support by installation programm. This 
+                        is currently not the case for anaconda.""")
         op.add_argument("--ethtool", version=FC3, help="""
                         Specifies additional low-level settings for the network
                         device which will be passed to the ethtool program.""")
