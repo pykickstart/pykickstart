@@ -174,11 +174,17 @@ class FC6_User(KickstartCommand):
                         password argument is assumed to already be encrypted.
                         ``--plaintext`` has the opposite effect - the password
                         argument is assumed to not be encrypted. To create an
-                        encrypted password you can use python::
+                        encrypted password you can use::
 
-                        ``python -c 'import crypt; print(crypt.crypt("My Password", "$6$My Sault"))'``
+                        mkpasswd -m yescrypt
+                        
+                        This will generate a yescrypt hash of your password using
+                        a random salt. As a fallback for older distributions or
+                        in case mkpasswd is not available you can use::
+                        
+                        python -c 'import crypt; print(crypt.crypt("My Password", "$6$MySalt"))'
 
-                        This will generate sha512 crypt of your password using
+                        This will generate a SHA-512 hash of your password using
                         your provided salt.""")
         op.add_argument("--shell", version=FC6, help="""
                         The user's login shell. If not provided, this defaults
