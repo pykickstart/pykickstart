@@ -13,6 +13,8 @@ PYTHON?=python3
 
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
+GPGKEY ?= $(shell git config user.signingkey)
+
 all:
 	$(MAKE) -C po
 
@@ -66,11 +68,16 @@ install:
 	$(MAKE) -C po install
 
 tag:
-	git tag -a -m "Tag as $(TAG)" -f $(TAG)
+	git tag -u $(GPGKEY) -m "Tag as $(TAG)" -f $(TAG)
 	@echo "Tagged as $(TAG)"
 
 # Order matters, so run make twice instead of declaring them as dependencies
-release: check test bumpver docs tag archive
+release:
+	if [ -z "$(GPGKEY)" ]; then echo "ERROR: The git config user.signingkey must be set" ; exit 1; fi
+	$(MAKE) po-pull && $(MAKE) bumpver && $(MAKE) check && $(MAKE) test && $(MAKE) tag && $(MAKE) archive && $(MAKE) sign
+
+sign:
+	gpg --armor --detach-sign -u $(GPGKEY) pykickstart-$(VERSION).tar.gz
 	@echo "*** Remember to run 'make pypi' afterwards ***"
 
 pypi:
@@ -90,7 +97,6 @@ archive: docs
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
 	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
 	rm -rf pykickstart-$(VERSION)
-	gpg --armor --detach-sign pykickstart-$(VERSION).tar.gz
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 local: docs po-pull
@@ -134,4 +140,4 @@ ci:
 	$(MAKE) PYTHON=$(PYTHON) check coverage
 	$(MAKE) docs
 
-.PHONY: check clean install tag archive local docs release
+.PHONY: check clean install tag archive local docs release sign
