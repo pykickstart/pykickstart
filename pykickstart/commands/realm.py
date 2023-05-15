@@ -23,7 +23,6 @@ from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartParseError
 
 import getopt
-import pipes
 import shlex
 
 from pykickstart.i18n import _
@@ -81,7 +80,7 @@ class F19_Realm(KickstartCommand):
     def _getCommandsAsStrings(self):
         commands = []
         if self.join_args:
-            args = [pipes.quote(arg) for arg in self.join_args]
+            args = [shlex.quote(arg) for arg in self.join_args]
             commands.append("realm join " + " ".join(args))
         return commands
 
