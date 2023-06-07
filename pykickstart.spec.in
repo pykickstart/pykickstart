@@ -23,7 +23,6 @@ BuildRequires: make
 
 # Only required when building with runtests
 %if %{with runtests}
-BuildRequires: python3-coverage
 BuildRequires: python3-sphinx
 %endif
 
@@ -52,7 +51,7 @@ make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 
 %check
 %if %{with runtests}
-make PYTHON=%{__python3} test
+make PYTHON=%{__python3} test-no-coverage
 %endif
 
 %files

@@ -57,6 +57,10 @@ endif
 	-$(COVERAGE) combine
 	-$(COVERAGE) report -m --include="pykickstart/*,tools/*" | tee coverage-report.log
 
+test-no-coverage:
+	@echo "*** Running unittests without coverage ***"
+	PYTHONPATH=. $(PYTHON) -m unittest -v $(tests)
+
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc *log .coverage pykickstart.spec
 	$(MAKE) -C po clean
