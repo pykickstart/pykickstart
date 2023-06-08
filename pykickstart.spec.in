@@ -1,13 +1,12 @@
-# Disable tests by default because they fail to run inside mock builds
-# at the moment, but can run locally.  To build and run tests, do:
-#     rpmbuild -ba --with runtests pykickstart.spec
-%bcond_with runtests
+# Enable tests by default. To disable them use:
+#     rpmbuild -ba --without runtests pykickstart.spec
+%bcond_without runtests
 %bcond_with signed
 
 Name:      pykickstart
 Version:   %%VERSION%%
 Release:   1%{?dist}
-License:   GPLv2 and MIT
+License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
 Source0:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/%{name}-%{version}.tar.gz
@@ -52,7 +51,7 @@ make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 
 %check
 %if %{with runtests}
-make PYTHON=%{__python3} test-no-coverage
+LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %endif
 
 %files
