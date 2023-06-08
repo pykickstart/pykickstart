@@ -91,7 +91,7 @@ pypi:
 	@echo "* NOTE: You must be a listed maintainer for pykickstart for this to work. *"
 	@echo "***************************************************************************"
 	@echo
-	twine upload --repository-url https://upload.pypi.org/legacy/ pykickstart-$(VERSION).tar.gz
+	twine upload --repository pykickstart pykickstart-$(VERSION).tar.gz
 
 archive: docs
 	mkdir -p pykickstart-$(VERSION)
