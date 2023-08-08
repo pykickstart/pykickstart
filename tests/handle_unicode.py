@@ -23,7 +23,7 @@ echo áááááá
         # pylint: disable=environment-modify
         # Make sure the locale is reset so that the traceback could happen
         del os.environ["LANG"]
-        locale.resetlocale()
+        locale.setlocale(locale.LC_ALL, "")
 
         # parser should parse string including non-ascii characters
         self.parser.readKickstartFromString(self.ks)
