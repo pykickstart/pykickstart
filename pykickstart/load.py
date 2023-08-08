@@ -73,7 +73,7 @@ def _load_url(location):
     '''Load a location (URL or filename) and return contents as string'''
 
     try:
-        request = requests.get(location, verify=SSL_VERIFY)
+        request = requests.get(location, verify=SSL_VERIFY, timeout=120)
     except SSLError as e:
         raise KickstartError(_('Error securely accessing URL "%s"') % location + ': {e}'.format(e=str(e)))
     except RequestException as e:
