@@ -69,6 +69,7 @@ class RHEL9Handler(BaseHandler):
         "nvdimm": commands.nvdimm.F28_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
         "ostreesetup": commands.ostreesetup.RHEL9_OSTreeSetup,
+        "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
         "part": commands.partition.RHEL9_Partition,
         "partition": commands.partition.RHEL9_Partition,
         "poweroff": commands.reboot.F23_Reboot,
