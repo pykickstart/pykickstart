@@ -226,8 +226,7 @@ class PreScriptSection(ScriptSection):
     _description = """
         You can add commands to run on the system immediately after the ks.cfg
         has been parsed and the lang, keyboard, and url options have been
-        processed. This section must be at the end of the kickstart file (after
-        the commands) and must start with the %pre command. You can access the
+        processed. This section must start with the %pre command. You can access the
         network in the %pre section; however, name service has not been
         configured at this point, so only IP addresses will work.
 
@@ -315,10 +314,9 @@ class PostScriptSection(ScriptSection):
     _title = "Post-installation Script"
     _description="""
     You have the option of adding commands to run on the system once the
-    installation is complete. This section must be at the end of the
-    kickstart file and must start with the %post command. This section is
-    useful for functions such as installing additional software and
-    configuring an additional nameserver.
+    installation is complete. This section must start with the %post command.
+    This section is useful for functions such as installing additional software
+    and configuring an additional nameserver.
 
     You may have more than one %post section, which can be useful for cases
     where some post-installation scripts need to be run in the chroot and
