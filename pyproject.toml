@@ -20,10 +20,11 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License (GPL)",
     "Operating System :: OS Independent",
 ]
-dependencies = [
-    "requests"
-]
+dynamic = ["dependencies"]
 
 [project.urls]
 "Homepage" = "https://fedoraproject.org/wiki/pykickstart"
 "Bug Tracker" = "https://github.com/pykickstart/pykickstart/issues"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.pip.txt"]}
