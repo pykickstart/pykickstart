@@ -24,6 +24,7 @@ setup(cmdclass={"install_scripts": install_scripts},
       author='Chris Lumens', author_email='clumens@redhat.com',
       url='https://fedoraproject.org/wiki/pykickstart',
       license='COPYING',
+      ## These are still in setup.py because tox doesn't know how to read pyproject.toml
       install_requires=['requests'],
       # These are installed by install_scripts() without their filename extensions
       scripts=['tools/ksvalidator.py', 'tools/ksflatten.py', 'tools/ksverdiff.py', 'tools/ksshell.py'],

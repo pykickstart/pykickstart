@@ -20,9 +20,9 @@ classifiers = [
     "License :: OSI Approved :: GNU General Public License (GPL)",
     "Operating System :: OS Independent",
 ]
-
-## These are still in setup.py because tox doesn't know how to read pyproject.toml
-dynamic = ['dependencies', 'optional-dependencies']
+dependencies = [
+    "requests"
+]
 
 [project.urls]
 "Homepage" = "https://fedoraproject.org/wiki/pykickstart"
