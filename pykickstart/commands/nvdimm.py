@@ -19,12 +19,12 @@
 #
 
 import warnings
-from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE, \
     NVDIMM_ACTION_USE
-from pykickstart.version import F28
+from pykickstart.version import F28, F40, versionToLongString
 
 from pykickstart.i18n import _
 
@@ -78,13 +78,12 @@ class F28_Nvdimm(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
 
+    validActions = [NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE]
+    validModes = [NVDIMM_MODE_SECTOR]
+
     def __init__(self, writePriority=80, *args, **kwargs):
         KickstartCommand.__init__(self, writePriority, *args, **kwargs)
-
         self.actionList = kwargs.get("actionList", [])
-        self.validActions = [NVDIMM_ACTION_RECONFIGURE, NVDIMM_ACTION_USE]
-        self.validModes = [NVDIMM_MODE_SECTOR]
-
         self.op = self._getParser()
 
     def __str__(self):
@@ -170,3 +169,13 @@ class F28_Nvdimm(KickstartCommand):
     @property
     def dataClass(self):
         return self.handler.NvdimmData
+
+
+class F40_Nvdimm(DeprecatedCommand, F28_Nvdimm):
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F28_Nvdimm._getParser(self)
+        op.description += "\n\n.. deprecated:: %s" % versionToLongString(F40)
+        return op

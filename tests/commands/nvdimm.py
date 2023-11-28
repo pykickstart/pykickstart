@@ -19,6 +19,8 @@
 #
 
 import unittest
+
+from pykickstart.base import DeprecatedCommand
 from tests.baseclass import CommandTest
 
 
@@ -54,6 +56,16 @@ class F28_TestCase(CommandTest):
         self.assert_parse_error("nvdimm use --namespace=namespace0.0 --blockdevs=pmem0s1 --mode=sector")
         # Only --namespace is allowed for reconfigure action
         self.assert_parse_error("nvdimm reconfigure --blockdev=pmem0s1 --mode=sector")
+
+
+class F40_TestCase(F28_TestCase):
+    def runTest(self):
+        # make sure we've been deprecated
+        parser = self.getParser("nvdimm")
+        self.assertTrue(issubclass(parser.__class__, DeprecatedCommand))
+
+        # make sure we are still able to parse it
+        self.assert_parse("nvdimm use --namespace=whatever")
 
 
 if __name__ == "__main__":
