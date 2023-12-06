@@ -206,6 +206,16 @@ class F33_TestCase(F32_TestCase):
         with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("timezone --nontp")
 
+class F40_TestCase(F33_TestCase):
+    command = "timezone"
+
+    def runTest(self):
+        F33_TestCase.runTest(self)
+
+        # deprecated
+        self.assert_deprecated("timezone", "--isUtc")
+        self.assert_deprecated("timezone", "--ntpservers")
+        self.assert_deprecated("timezone", "--nontp")
 
 if __name__ == "__main__":
     unittest.main()
