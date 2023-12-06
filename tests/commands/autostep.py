@@ -20,7 +20,8 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.autostep import FC3_AutoStep
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
+
 
 class FC3_TestCase(CommandTest):
     command = "autostep"
@@ -41,6 +42,14 @@ class F34_TestCase(FC3_TestCase):
 
         # make sure we are still able to parse it
         self.assert_parse("autostep")
+
+class F40_TestCase(F34_TestCase):
+
+    def runTest(self):
+        # make sure that autostep is removed
+        parser = self.getParser("autostep")
+        self.assertTrue(issubclass(parser.__class__, RemovedCommand))
+
 
 class AutoStep_TestCase(unittest.TestCase):
     """
