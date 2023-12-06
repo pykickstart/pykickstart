@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 import warnings
-from pykickstart.version import FC3, FC6, F18
+from pykickstart.version import FC3, FC6, F18, F40
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser, commaSplit
@@ -328,7 +328,7 @@ class F25_Timezone(F23_Timezone):
                         This is optional but at least one of the options needs
                         to be used if no timezone is specified.
                         """)
-        op.add_argument("--utc", "--isUtc", dest="isUtc", action="store_true",
+        op.add_argument("--utc", dest="isUtc", action="store_true",
                         default=False, version=FC6, help="""
                         If present, the system assumes the hardware clock is set
                         to UTC (Greenwich Mean) time.
@@ -338,6 +338,10 @@ class F25_Timezone(F23_Timezone):
                         http://vpodzime.fedorapeople.org/timezones_list.py or
                         look at this list:
                         http://vpodzime.fedorapeople.org/timezones_list.txt*
+                        """)
+        op.add_argument("--isUtc", dest="isUtc", action="store_true",
+                        default=False, version=FC6, help="""
+                        This is an alias for the ``--utc`` option.
                         """)
         op.add_argument("--nontp", action="store_true", default=False,
                         version=F18, help="""
@@ -443,3 +447,24 @@ class F33_Timezone(F32_Timezone):
                             "timesource --ntp-disable command invocation."),
                           KickstartDeprecationWarning)
         return self
+
+
+class F40_Timezone(F33_Timezone):
+
+    def _getParser(self):
+        op = super()._getParser()
+
+        # Deprecate options.
+        op.add_argument("--isUtc", dest="isUtc", action="store_true",
+                        default=False, deprecated=F40)
+        op.add_argument("--nontp", action="store_true", default=False,
+                        deprecated=F40)
+        op.add_argument("--ntpservers", dest="ntpservers", type=commaSplit,
+                        metavar="<server1>,<server2>,...,<serverN>",
+                        deprecated=F40)
+
+        return op
+
+    def parse(self, args):
+        # Skip future deprecation warnings.
+        return F25_Timezone.parse(self, args)
