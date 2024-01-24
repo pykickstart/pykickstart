@@ -76,6 +76,22 @@ class F34_TestCase(CommandTest):
         with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("logging --level=info --host=HOSTNAME --port=PORT", "logging --host=HOSTNAME --port=PORT\n")
 
+class F40_TestCase(CommandTest):
+    command = "logging"
+
+    def runTest(self):
+        # pass
+        self.assert_parse("logging", "")
+        self.assert_parse("logging --host=HOSTNAME", "logging --host=HOSTNAME\n")
+        self.assert_parse("logging --host=HOSTNAME --port=PORT", "logging --host=HOSTNAME --port=PORT\n")
+
+        # fail
+        self.assert_parse_error("logging --host")
+        self.assert_parse_error("logging --port")
+        self.assert_parse_error("logging --port=PORT")
+
+        # removed
+        self.assert_removed("logging", "--level")
 
 if __name__ == "__main__":
     unittest.main()
