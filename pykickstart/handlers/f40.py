@@ -56,7 +56,7 @@ class F40Handler(BaseHandler):
         "keyboard": commands.keyboard.F18_Keyboard,
         "lang": commands.lang.F19_Lang,
         "liveimg": commands.liveimg.F19_Liveimg,
-        "logging": commands.logging.F34_Logging,
+        "logging": commands.logging.F40_Logging,
         "logvol": commands.logvol.F29_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
         "method": commands.method.F40_Method, # RemovedCommand

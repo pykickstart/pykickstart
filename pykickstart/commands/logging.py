@@ -17,7 +17,7 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC6, F34
+from pykickstart.version import FC6, F34, F40
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -101,4 +101,14 @@ class F34_Logging(FC6_Logging):
     def _getParser(self):
         op = super()._getParser()
         op.add_argument("--level", deprecated=F34)
+        return op
+
+
+class F40_Logging(F34_Logging):
+    removedKeywords = F34_Logging.removedKeywords + ["level"]
+    removedAttrs = KickstartCommand.removedAttrs + ["level"]
+
+    def _getParser(self):
+        op = F34_Logging._getParser(self)
+        op.remove_argument("--level", version=F40)
         return op
