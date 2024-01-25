@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from textwrap import dedent
-from pykickstart.version import versionToLongString
+from pykickstart.version import versionToLongString, F40
 from pykickstart.version import FC6, F8, F11, F13, F14, F15, F21, F27, F30, F33
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartError, KickstartParseError, KickstartParseWarning
@@ -495,3 +495,12 @@ class RHEL7_Repo(F21_Repo):
 
 class RHEL8_Repo(F30_Repo):
     pass
+
+class F40_Repo(F33_Repo):
+    removedKeywords = F33_Repo.removedKeywords + ["ignoregroups"]
+    removedAttrs = F33_Repo.removedAttrs + ["ignoregroups"]
+
+    def _getParser(self):
+        op = F33_Repo._getParser(self)
+        op.remove_argument("--ignoregroups", version=F40)
+        return op

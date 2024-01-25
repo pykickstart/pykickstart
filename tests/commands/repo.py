@@ -114,6 +114,9 @@ class F11_TestCase(F8_TestCase):
         # run F8 test case
         F8_TestCase.runTest(self, urlRequired=urlRequired)
 
+        if "--ignoregroups" not in self.optionList:
+            return
+
         # pass
         for val in ("1", "true", "on"):
             self.assert_parse("repo --name=blah --baseurl=www.domain.com --cost=10 --excludepkgs=pkg1,pkg2 --includepkgs=pkg3,pkg4 --ignoregroups=%s" % val,
@@ -200,6 +203,11 @@ class F33_TestCase(F30_TestCase):
         self.assert_deprecated("repo", "--ignoregroups")
         with self.assertWarns(KickstartDeprecationWarning):
             self.assert_parse("repo --name=blah --baseurl=www.domain.com --ignoregroups=true")
+
+class F40_TestCase(F30_TestCase):
+    def runTest(self, urlRequired=False):
+        F30_TestCase.runTest(self, urlRequired=urlRequired)
+        self.assert_removed("repo", "--ignoregroups")
 
 
 if __name__ == "__main__":

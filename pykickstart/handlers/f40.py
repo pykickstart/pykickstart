@@ -74,7 +74,7 @@ class F40Handler(BaseHandler):
         "raid": commands.raid.F29_Raid,
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F23_Reboot,
-        "repo": commands.repo.F33_Repo,
+        "repo": commands.repo.F40_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
         "rootpw": commands.rootpw.F37_RootPw,
