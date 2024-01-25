@@ -59,7 +59,7 @@ class F40Handler(BaseHandler):
         "logging": commands.logging.F34_Logging,
         "logvol": commands.logvol.F29_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
-        "method": commands.method.F34_Method,
+        "method": commands.method.F40_Method, # RemovedCommand
         "mount": commands.mount.F27_Mount,
         "multipath": commands.multipath.F34_MultiPath,
         "network": commands.network.F39_Network,

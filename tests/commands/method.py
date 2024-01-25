@@ -21,7 +21,8 @@
 import unittest
 import copy
 from tests.baseclass import CommandTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
+
 
 class FC3_Proxy_TestCase(CommandTest):
     command = "method"
@@ -379,6 +380,13 @@ class F34_TestCase(F28_TestCase):
         # make sure we've been deprecated
         parser = self.getParser("method")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+class F40_TestCase(F34_TestCase):
+
+    def runTest(self):
+        # make sure that method is removed
+        parser = self.getParser("method")
+        self.assertTrue(issubclass(parser.__class__, RemovedCommand))
 
 if __name__ == "__main__":
     unittest.main()
