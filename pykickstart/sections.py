@@ -37,7 +37,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
 from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, RHEL6, RHEL7, RHEL9, \
-    isRHEL
+    isRHEL, F40
 from pykickstart.i18n import _
 
 class Section(object):
@@ -705,12 +705,29 @@ class PackageSection(Section):
         if self.version < F32:
             return op
 
-        op.add_argument("--instLangs", "--inst-langs", dest="instLangs", default=None,
+        op.add_argument("--instLangs", dest="instLangs", default=None,
                         version=F32, help="Added ``--inst-langs`` alias")
 
-        op.add_argument("--excludeWeakdeps", "--exclude-weakdeps", dest="excludeWeakdeps",
+        op.add_argument("--inst-langs", dest="instLangs", default=None,
+                        version=F32, help="""
+                        Specify the list of languages that should be installed.
+                        This is different from the package group level
+                        selections, though. This option does not specify what
+                        package groups should be installed. Instead, it controls
+                        which translation files from individual packages should
+                        be installed by setting RPM macros.""")
+
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps",
                         action="store_true", default=False, version=F32,
                         help="Added ``--exclude-weakdeps`` alias")
+
+        op.add_argument("--exclude-weakdeps", dest="excludeWeakdeps",
+                        action="store_true", default=False, version=F32,
+                        help="""
+                        Do not install packages from weak dependencies. These
+                        are packages linked to the selected package set by
+                        Recommends and Supplements flags. By default weak
+                        dependencies will be installed.""")
 
         op.add_argument("--ignorebroken", action="store_true", default=False, version=F32,
                         help="""
@@ -727,6 +744,13 @@ class PackageSection(Section):
         if isRHEL(self.version):
             # The --ignorebroken feature is not supported on RHEL.
             op.remove_argument("--ignorebroken", version=RHEL9)
+
+        if self.version < F40:
+            return op
+
+        op.add_argument("--instLangs", dest="instLangs", default=None, deprecated=F40)
+        op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps", action="store_true",
+                        default=False, deprecated=F40)
 
         return op
 
@@ -798,12 +822,22 @@ class PackageSection(Section):
         else:
             self.handler.packages.handleBroken = KS_BROKEN_REPORT
 
-        for arg in args:
-            for option, new_option in \
-                {"--instLangs": "--inst-langs", "--excludeWeakdeps": "--exclude-weakdeps"}.items():
-                if option in arg:
-                    warnings.warn(_("The %(option)s option on line %(lineno)s will be deprecated in "
-                                    "future releases. Please modify your kickstart file to replace "
-                                    "this option with its preferred alias %(new_option)s.")
-                                  % {"option": option, "lineno": lineno, "new_option": new_option},
-                                  KickstartDeprecationWarning)
+        if self.version < F40 and self._contains_option(args, "--instLangs"):
+            self._warn_alias_future_deprecation("--instLangs", "--inst-langs", lineno)
+
+        if self.version < F40 and self._contains_option(args, "--excludeWeakdeps"):
+            self._warn_alias_future_deprecation("--excludeWeakdeps", "--exclude-weakdeps", lineno)
+
+    def _contains_option(self, arguments, option):
+        """Check if the option is used in the argument."""
+        return any(arg == option or arg.startswith(option + "=") for arg in arguments)
+
+    def _warn_alias_future_deprecation(self, option, new_option, lineno):
+        """Show a warning about a future deprecation of the specified alias."""
+        warnings.warn(_(
+            "The %(option)s option on line %(lineno)s will be deprecated in "
+            "future releases. Please modify your kickstart file to replace "
+            "this option with its preferred alias %(new_option)s."
+        ) % {"option": option, "lineno": lineno, "new_option": new_option},
+            KickstartDeprecationWarning
+        )
