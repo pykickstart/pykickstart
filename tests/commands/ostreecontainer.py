@@ -49,6 +49,8 @@ class F38_TestCase(CommandTest):
         self.assert_parse(cmdstr, cmdstr + "\n")
         cmdstr = "ostreecontainer --stateroot=\"fedora-silverblue\" --remote=\"test-remote\" --no-signature-verification --transport=\"repository\" --url=\"quay.io/test/test_c:stable\""
         self.assert_parse(cmdstr, cmdstr + "\n")
+        cmdstr = "ostreecontainer --stateroot=\"someroot\" --remote=\"unused\" --no-signature-verification --transport=\"oci\" --url=\"/path/to/oci:cached\" --target-transport=\"registry\" --target-url=\"quay.io/test/example:latest\""
+        self.assert_parse(cmdstr, cmdstr + "\n")
 
         # fail - we have required arguments
         self.assert_parse_error("ostreecontainer")
