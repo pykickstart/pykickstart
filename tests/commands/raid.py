@@ -305,7 +305,7 @@ autopart
 class F14_TestCase(F13_TestCase):
     def runTest(self):
         F13_TestCase.runTest(self)
-        self.assert_removed("raid", "bytes-per-inode")
+        self.assert_removed("raid", "--bytes-per-inode")
 
 class F15_TestCase(F14_TestCase):
     def runTest(self):
