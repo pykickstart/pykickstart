@@ -53,7 +53,7 @@ class F9_TestCase(FC6_TestCase):
         FC6_TestCase.runTest(self)
 
         # Ensure --connect has been removed
-        self.assert_removed("vnc", "connect")
+        self.assert_removed("vnc", "--connect")
 
         # Any --connect use should raise KickstartParseError
         self.assert_parse_error("vnc --host=HOSTNAME --connect=HOSTNAME --password=PASSWORD")

@@ -201,7 +201,7 @@ class CommandTest(unittest.TestCase):
         '''Ensure that the provided option is not present in option_list'''
         parser = self.getParser(cmd)
         for action in parser.op._get_optional_actions():
-            self.assertNotEqual(action.dest, opt)
+            self.assertNotIn(opt, action.option_strings)
 
     def assert_required(self, cmd, opt):
         '''Ensure that the provided option is labelled as required in
