@@ -3,3 +3,4 @@ coveralls
 coverage
 pocketlint
 pylint
+setuptools
