@@ -28,7 +28,7 @@ class F39Handler(BaseHandler):
         "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.F38_AutoPart,
+        "autopart": commands.autopart.F39_AutoPart,
         "autostep": commands.autostep.F34_AutoStep,
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
@@ -85,6 +85,8 @@ class F39Handler(BaseHandler):
         "snapshot": commands.snapshot.F26_Snapshot,
         "sshpw": commands.sshpw.F24_SshPw,
         "sshkey": commands.sshkey.F22_SshKey,
+        "stratisfs": commands.stratisfs.F39_StratisFs,
+        "stratispool": commands.stratispool.F39_StratisPool,
         "text": commands.displaymode.F26_DisplayMode,
         "timezone": commands.timezone.F33_Timezone,
         "updates": commands.updates.F34_Updates,
@@ -119,6 +121,8 @@ class F39Handler(BaseHandler):
         "SnapshotData": commands.snapshot.F26_SnapshotData,
         "SshPwData": commands.sshpw.F24_SshPwData,
         "SshKeyData": commands.sshkey.F38_SshKeyData,
+        "StratisFsData": commands.stratisfs.F39_StratisFsData,
+        "StratisPoolData": commands.stratispool.F39_StratisPoolData,
         "UserData": commands.user.F19_UserData,
         "VolGroupData": commands.volgroup.F21_VolGroupData,
         "ZFCPData": commands.zfcp.F37_ZFCPData,

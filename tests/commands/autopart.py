@@ -355,5 +355,12 @@ class F38_TestCase(F29_TestCase):
                           "autopart --hibernation\n")
         self.assert_parse_error("autopart --hibernation --noswap")
 
+class F39_TestCase(F38_TestCase):
+    def runTest(self):
+        F38_TestCase.runTest(self)
+
+        self.assert_parse("autopart --type=stratis",
+                          "autopart --type=stratis\n")
+
 if __name__ == "__main__":
     unittest.main()
