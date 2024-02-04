@@ -230,6 +230,7 @@ class FC6_Repo(KickstartCommand):
                             of repos in this directory changes from release to
                             release and cannot be listed here. There will
                             likely always be a repo named "updates".
+                            Fedora uses the name "fedora-updates" instead.
 
                             Note: If you want to enable one of the repos in
                             /etc/anaconda.repos.d that is disabled by default
