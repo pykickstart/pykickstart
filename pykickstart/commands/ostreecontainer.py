@@ -15,7 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.version import F38
+from pykickstart.version import F38, F40
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -30,6 +30,8 @@ class F38_OSTreeContainer(KickstartCommand):
         self.stateroot = kwargs.get('stateroot', None)
         self.url = kwargs.get('url', None)
         self.transport = kwargs.get("transport", None)
+        self.target_transport = kwargs.get("target_transport", None)
+        self.target_url = kwargs.get("target_url", None)
         self.remote = kwargs.get("remote", self.stateroot)
         self.noSignatureVerification = kwargs.get('noSignatureVerification', False)
 
@@ -56,6 +58,10 @@ class F38_OSTreeContainer(KickstartCommand):
             retcmd.append('--transport="%s"' % self.transport)
         if self.url:
             retcmd.append('--url="%s"' % self.url)
+        if self.target_transport:
+            retcmd.append('--target-transport="%s"' % self.target_transport)
+        if self.target_url:
+            retcmd.append('--target-url="%s"' % self.target_url)
         return ' '.join(retcmd)
 
     def _getParser(self):
@@ -75,6 +81,12 @@ class F38_OSTreeContainer(KickstartCommand):
                         Name of the container image; for the `registry` transport.
                         This would be e.g. `quay.io/exampleos/foo:latest`.""")
         op.add_argument("--transport", version=F38, help="""
+                        The transport; e.g. registry, oci, oci-archive.
+                        The default is `registry`.""")
+        op.add_argument("--target-url", version=F40, help="""
+                        Name of the target container image to configure for subsequent updates; this is useful when
+                        installing from an offline cache..""")
+        op.add_argument("--target-transport", version=F40, help="""
                         The transport; e.g. registry, oci, oci-archive.
                         The default is `registry`.""")
         op.add_argument("--remote", version=F38, help="""
