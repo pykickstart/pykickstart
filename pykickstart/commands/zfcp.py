@@ -88,6 +88,9 @@ class F14_ZFCPData(F12_ZFCPData):
 class F37_ZFCPData(F14_ZFCPData):
     pass
 
+class RHEL9_ZFCPData(F14_ZFCPData):
+    pass
+
 class FC3_ZFCP(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -210,3 +213,6 @@ class F37_ZFCP(F14_ZFCP):
             raise KickstartParseError(msg, lineno=self.lineno)
 
         return data
+
+class RHEL9_ZFCP(F37_ZFCP):
+    pass
