@@ -776,3 +776,6 @@ class RHEL9_Partition(F34_Partition):
 
                     Btrfs support was removed.""" % versionToLongString(RHEL8)
         return op
+
+class RHEL10_Partition(RHEL9_Partition):
+    pass

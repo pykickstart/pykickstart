@@ -791,3 +791,6 @@ class RHEL8_Raid(F29_Raid):
 
 class RHEL9_Raid(RHEL8_Raid):
     pass
+
+class RHEL10_Raid(RHEL8_Raid):
+    pass
