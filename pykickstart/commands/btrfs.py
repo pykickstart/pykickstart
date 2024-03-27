@@ -279,3 +279,6 @@ class RHEL8_BTRFS(DeprecatedCommand, F23_BTRFS):
 
 class RHEL9_BTRFS(RHEL8_BTRFS):
     pass
+
+class RHEL10_BTRFS(RHEL8_BTRFS):
+    pass
