@@ -932,3 +932,6 @@ class RHEL8_LogVol(F29_LogVol):
 
 class RHEL9_LogVol(RHEL8_LogVol):
     pass
+
+class RHEL10_LogVol(RHEL8_LogVol):
+    pass
