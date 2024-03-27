@@ -12,17 +12,16 @@ on:
       - rhel8-branch
       - rhel7-branch
 
-env:
-  branch_matrix:
-    master: [3.7, 3.8, 3.9, "3.10", "3.11", "3.12.2"]
-    rhel7-branch: [3.6]
-    rhel8-branch: [3.6]
-    rhel9-branch: [3.9, "3.11", "3.12.2"]
-    rhel10-branch: ["3.12.2"]
-
 jobs:
   unit-tests:
     runs-on: ubuntu-20.04
+    env:
+      branch_matrix:
+        master: [3.7, 3.8, 3.9, "3.10", "3.11", "3.12.2"]
+        rhel7-branch: [3.6]
+        rhel8-branch: [3.6]
+        rhel9-branch: [3.9, "3.11", "3.12.2"]
+        rhel10-branch: ["3.12.2"]
     strategy:
       fail-fast: false
       max-parallel: 5
