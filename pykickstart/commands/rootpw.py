@@ -167,3 +167,6 @@ class F37_RootPw(F18_RootPw):
                         This will allow remote root logins via ssh using only
                         the password. Only use as a last resort.""")
         return op
+
+class RHEL9_RootPw(F37_RootPw):
+    pass
