@@ -370,6 +370,9 @@ class RHEL7_NetworkData(F21_NetworkData):
 
         return retval
 
+class RHEL9_NetworkData(F39_NetworkData):
+    pass
+
 class FC3_Network(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
@@ -1119,3 +1122,6 @@ class RHEL7_Network(F21_Network):
                 raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
+
+class RHEL9_Network(F39_Network):
+    pass

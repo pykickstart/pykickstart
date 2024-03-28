@@ -69,6 +69,9 @@ class F38_SshKeyData(F22_SshKeyData):
         retval += ' "%s"' % self.key.replace('"', r'\"')
         return retval
 
+class RHEL9_SshKeyData(F38_SshKeyData):
+    pass
+
 class F22_SshKey(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
