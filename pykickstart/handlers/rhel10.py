@@ -1,7 +1,5 @@
 #
-# Martin Kolman <mkolman@redhat.com>
-#
-# Copyright 2021 Red Hat, Inc.
+# Copyright 2024 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use, modify,
 # copy, or redistribute it subject to the terms and conditions of the GNU
@@ -17,23 +15,23 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-__all__ = ["RHEL9Handler"]
+__all__ = ["RHEL10Handler"]
 
 from pykickstart import commands
 from pykickstart.base import BaseHandler
-from pykickstart.version import RHEL9
+from pykickstart.version import RHEL10
 
-class RHEL9Handler(BaseHandler):
-    version = RHEL9
+class RHEL10Handler(BaseHandler):
+    version = RHEL10
 
     commandMap = {
-        "auth": commands.authconfig.F28_Authconfig,
-        "authconfig": commands.authconfig.F28_Authconfig,
+        "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
+        "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.RHEL9_AutoPart,
-        "autostep": commands.autostep.F34_AutoStep,
-        "bootloader": commands.bootloader.RHEL9_Bootloader,
-        "btrfs": commands.btrfs.RHEL9_BTRFS,
+        "autopart": commands.autopart.F38_AutoPart,
+        "autostep": commands.autostep.F40_Autostep, # RemovedCommand
+        "bootloader": commands.bootloader.F39_Bootloader,
+        "btrfs": commands.btrfs.RHEL10_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
         "clearpart": commands.clearpart.F28_ClearPart,
         "cmdline": commands.displaymode.F26_DisplayMode,
@@ -43,7 +41,7 @@ class RHEL9Handler(BaseHandler):
         "driverdisk": commands.driverdisk.F14_DriverDisk,
         "module": commands.module.F31_Module,
         "eula": commands.eula.F20_Eula,
-        "fcoe": commands.fcoe.RHEL9_Fcoe,
+        "fcoe": commands.fcoe.RHEL10_Fcoe,
         "firewall": commands.firewall.F28_Firewall,
         "firstboot": commands.firstboot.FC3_Firstboot,
         "graphical": commands.displaymode.F26_DisplayMode,
@@ -58,29 +56,28 @@ class RHEL9Handler(BaseHandler):
         "keyboard": commands.keyboard.F18_Keyboard,
         "lang": commands.lang.F19_Lang,
         "liveimg": commands.liveimg.F19_Liveimg,
-        "logging": commands.logging.F34_Logging,
-        "logvol": commands.logvol.RHEL9_LogVol,
+        "logging": commands.logging.F40_Logging,
+        "logvol": commands.logvol.RHEL10_LogVol,
         "mediacheck": commands.mediacheck.FC4_MediaCheck,
-        "method": commands.method.F34_Method,
+        "method": commands.method.F40_Method, # RemovedCommand
         "mount": commands.mount.F27_Mount,
         "multipath": commands.multipath.F34_MultiPath,
-        "network": commands.network.RHEL9_Network,
+        "network": commands.network.F39_Network,
         "nfs": commands.nfs.FC6_NFS,
-        "nvdimm": commands.nvdimm.F28_Nvdimm,
+        "nvdimm": commands.nvdimm.F40_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
-        "ostreesetup": commands.ostreesetup.RHEL9_OSTreeSetup,
-        "ostreecontainer": commands.ostreecontainer.RHEL9_OSTreeContainer,
-        "part": commands.partition.RHEL9_Partition,
-        "partition": commands.partition.RHEL9_Partition,
+        "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
+        "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
+        "part": commands.partition.RHEL10_Partition,
+        "partition": commands.partition.RHEL10_Partition,
         "poweroff": commands.reboot.F23_Reboot,
-        "raid": commands.raid.RHEL9_Raid,
+        "raid": commands.raid.RHEL10_Raid,
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F23_Reboot,
-        "repo": commands.repo.F33_Repo,
+        "repo": commands.repo.F40_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
         "rescue": commands.rescue.F10_Rescue,
-        "rhsm": commands.rhsm.RHEL8_RHSM,
-        "rootpw": commands.rootpw.RHEL9_RootPw,
+        "rootpw": commands.rootpw.F37_RootPw,
         "selinux": commands.selinux.FC3_SELinux,
         "services": commands.services.FC6_Services,
         "shutdown": commands.reboot.F23_Reboot,
@@ -88,17 +85,16 @@ class RHEL9Handler(BaseHandler):
         "snapshot": commands.snapshot.F26_Snapshot,
         "sshpw": commands.sshpw.F24_SshPw,
         "sshkey": commands.sshkey.F22_SshKey,
-        "syspurpose" : commands.syspurpose.RHEL8_Syspurpose,
         "text": commands.displaymode.F26_DisplayMode,
-        "timezone": commands.timezone.F33_Timezone,
+        "timezone": commands.timezone.F40_Timezone,
         "updates": commands.updates.F34_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,
         "vnc": commands.vnc.F9_Vnc,
-        "volgroup": commands.volgroup.RHEL9_VolGroup,
+        "volgroup": commands.volgroup.RHEL10_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
-        "zfcp": commands.zfcp.RHEL9_ZFCP,
+        "zfcp": commands.zfcp.F37_ZFCP,
         "zipl": commands.zipl.F32_Zipl,
     }
 
@@ -109,21 +105,21 @@ class RHEL9Handler(BaseHandler):
         "DmRaidData": commands.dmraid.FC6_DmRaidData,
         "ModuleData": commands.module.F31_ModuleData,
         "TimesourceData": commands.timesource.F33_TimesourceData,
-        "FcoeData": commands.fcoe.RHEL9_FcoeData,
+        "FcoeData": commands.fcoe.RHEL10_FcoeData,
         "GroupData": commands.group.F12_GroupData,
         "IscsiData": commands.iscsi.F17_IscsiData,
         "LogVolData": commands.logvol.F29_LogVolData,
         "MountData": commands.mount.F27_MountData,
         "MultiPathData": commands.multipath.FC6_MultiPathData,
-        "NetworkData": commands.network.RHEL9_NetworkData,
+        "NetworkData": commands.network.F39_NetworkData,
         "NvdimmData": commands.nvdimm.F28_NvdimmData,
         "PartData": commands.partition.F29_PartData,
         "RaidData": commands.raid.F29_RaidData,
         "RepoData": commands.repo.F30_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
         "SshPwData": commands.sshpw.F24_SshPwData,
-        "SshKeyData": commands.sshkey.RHEL9_SshKeyData,
+        "SshKeyData": commands.sshkey.F38_SshKeyData,
         "UserData": commands.user.F19_UserData,
-        "VolGroupData": commands.volgroup.RHEL9_VolGroupData,
-        "ZFCPData": commands.zfcp.RHEL9_ZFCPData,
+        "VolGroupData": commands.volgroup.RHEL10_VolGroupData,
+        "ZFCPData": commands.zfcp.F37_ZFCPData,
     }

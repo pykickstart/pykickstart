@@ -93,3 +93,6 @@ class F38_OSTreeContainer(KickstartCommand):
             self.remote = self.stateroot
 
         return self
+
+class RHEL9_OSTreeContainer(F38_OSTreeContainer):
+    pass
