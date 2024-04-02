@@ -165,7 +165,7 @@ class F17_TestCase(F16_TestCase):
         self.assert_parse("autopart --type=lvm",
                           "autopart --type=lvm\n")
 
-        if self.__class__.__name__ != "RHEL8_TestCase":
+        if self.__class__.__name__ not in ["RHEL8_TestCase", "RHEL10_TestCase"]:
             self.assert_parse("autopart --type=btrfs",
                               "autopart --type=btrfs\n")
 
@@ -354,6 +354,11 @@ class F38_TestCase(F29_TestCase):
         self.assert_parse("autopart --hibernation",
                           "autopart --hibernation\n")
         self.assert_parse_error("autopart --hibernation --noswap")
+
+class RHEL10_TestCase(F38_TestCase):
+    def runTest(self):
+        F38_TestCase.runTest(self)
+        self.assert_parse_error("autopart --type=btrfs")
 
 if __name__ == "__main__":
     unittest.main()

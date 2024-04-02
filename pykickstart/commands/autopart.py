@@ -597,3 +597,36 @@ class F38_AutoPart(F29_AutoPart):
             raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
+
+class RHEL10_AutoPart(F38_AutoPart):
+    removedKeywords = F38_AutoPart.removedKeywords
+    removedAttrs = F38_AutoPart.removedAttrs
+
+    def parse(self, args):
+        # call the overriden command to do it's job first
+        retval = F38_AutoPart.parse(self, args)
+
+        # btrfs is no more supported
+        if self._typeAsStr() == "btrfs":
+            raise KickstartParseError(_("autopart --type=btrfs is not supported"),
+                                      lineno=self.lineno)
+
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F38_AutoPart._getParser(self)
+        for action in op._actions:
+            if "--type" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
+        return op
