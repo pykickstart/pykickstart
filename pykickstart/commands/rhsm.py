@@ -110,3 +110,6 @@ class RHEL8_RHSM(KickstartCommand):
 
         self.set_to_self(ns)
         return self
+
+class RHEL10_RHSM(RHEL8_RHSM):
+    pass

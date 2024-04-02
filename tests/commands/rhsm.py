@@ -71,5 +71,8 @@ class RHEL8_TestCase(CommandTest):
         self.assert_parse('rhsm --organization="12345" --activation-key="abcd" --proxy="http://username:password@proxy.com:9001"',
                           'rhsm --organization="12345" --activation-key="abcd" --proxy="http://username:password@proxy.com:9001"\n')
 
+class RHEL10_TestCase(RHEL8_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
