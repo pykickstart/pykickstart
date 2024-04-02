@@ -88,3 +88,6 @@ class RHEL8_Syspurpose(KickstartCommand):
 
         self.set_to_self(ns)
         return self
+
+class RHEL10_Syspurpose(RHEL8_Syspurpose):
+    pass

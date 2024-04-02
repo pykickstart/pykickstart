@@ -58,3 +58,6 @@ class RHEL8_TestCase(CommandTest):
 
 if __name__ == "__main__":
     unittest.main()
+
+class RHEL10_TestCase(RHEL8_TestCase):
+    pass
