@@ -34,7 +34,8 @@ apidoc:
 html: apidoc
 	./gen_commands_docs > commands.rst
 	./gen_commands_docs RHEL8 > commands_rhel8.rst
-	./gen_commands_docs RHEL9 > commands_rhel.rst
+	./gen_commands_docs RHEL9 > commands_rhel9.rst
+	./gen_commands_docs RHEL10 > commands_rhel.rst
 	./gen_sections_docs > sections.rst
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
