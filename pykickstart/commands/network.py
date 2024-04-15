@@ -19,7 +19,7 @@
 #
 from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7
+from pykickstart.version import versionToLongString, RHEL4, RHEL5, RHEL6, RHEL7, RHEL10
 from pykickstart.version import FC3, FC4, FC6, F8, F9, F16, F19, F20, F21, F22, F25, F27, F39
 from pykickstart.constants import BOOTPROTO_BOOTP, BOOTPROTO_DHCP, BOOTPROTO_IBFT, BOOTPROTO_QUERY, BOOTPROTO_STATIC, BIND_TO_MAC
 from pykickstart.options import KSOptionParser, ksboolean
@@ -639,49 +639,49 @@ class F19_Network(F18_Network):
 
 class F20_Network(F19_Network):
 
+    # see the tests for teamslaves option
+    def _teamslaves_cb(self, value):
+        # value is of: "<DEV1>['<JSON_CONFIG1>'],<DEV2>['<JSON_CONFIG2>'],..."
+        # for example: "eth1,eth2'{"prio": 100}',eth3"
+        teamslaves = []
+        if value:
+            # Although slaves, having optional config, are separated by ","
+            # first extract json configs because they can contain the ","
+            parts = value.split("'")
+            # parts == ['eth1,eth2', '{"prio": 100}', ',eth3']
+            # ensure the list has even number of items for further zipping,
+            # for odd number of items
+            if len(parts) % 2 == 1:
+                # if the list ends with an empty string which must be a leftover
+                # from splitting string not ending with device eg
+                # "eth1,eth2'{"prio":100}'"
+                if not parts[-1]:
+                    # just remove it
+                    parts = parts[:-1]
+                # if not (our example), add empty config for the last device
+                else:
+                    parts.append('')
+                    # parts == ['eth1,eth2', '{"prio": 100}', ',eth3', '']
+            # zip devices with their configs
+            it = iter(parts)
+            for devs, cfg in zip(it, it):
+                # first loop:
+                # devs == "eth1,eth2", cfg == '{"prio": 100}'
+                devs = devs.strip(',').split(',')
+                # devs == ["eth1", "eth2"]
+                # initialize config of all devs but the last one to empty
+                for d in devs[:-1]:
+                    teamslaves.append((d, ''))
+                # teamslaves == [("eth1", '')]
+                # and set config of the last device
+                teamslaves.append((devs[-1], cfg))
+                # teamslaves == [('eth1', ''), ('eth2', '{"prio": 100}']
+
+        return teamslaves
+
     def _getParser(self):
-        # see the tests for teamslaves option
-        def teamslaves_cb(value):
-            # value is of: "<DEV1>['<JSON_CONFIG1>'],<DEV2>['<JSON_CONFIG2>'],..."
-            # for example: "eth1,eth2'{"prio": 100}',eth3"
-            teamslaves = []
-            if value:
-                # Although slaves, having optional config, are separated by ","
-                # first extract json configs because they can contain the ","
-                parts = value.split("'")
-                # parts == ['eth1,eth2', '{"prio": 100}', ',eth3']
-                # ensure the list has even number of items for further zipping,
-                # for odd number of items
-                if len(parts) % 2 == 1:
-                    # if the list ends with an empty string which must be a leftover
-                    # from splitting string not ending with device eg
-                    # "eth1,eth2'{"prio":100}'"
-                    if not parts[-1]:
-                        # just remove it
-                        parts = parts[:-1]
-                    # if not (our example), add empty config for the last device
-                    else:
-                        parts.append('')
-                        # parts == ['eth1,eth2', '{"prio": 100}', ',eth3', '']
-                # zip devices with their configs
-                it = iter(parts)
-                for devs, cfg in zip(it, it):
-                    # first loop:
-                    # devs == "eth1,eth2", cfg == '{"prio": 100}'
-                    devs = devs.strip(',').split(',')
-                    # devs == ["eth1", "eth2"]
-                    # initialize config of all devs but the last one to empty
-                    for d in devs[:-1]:
-                        teamslaves.append((d, ''))
-                    # teamslaves == [("eth1", '')]
-                    # and set config of the last device
-                    teamslaves.append((devs[-1], cfg))
-                    # teamslaves == [('eth1', ''), ('eth2', '{"prio": 100}']
-
-            return teamslaves
-
         op = F19_Network._getParser(self)
-        op.add_argument("--teamslaves", type=teamslaves_cb, version=F20,
+        op.add_argument("--teamslaves", type=self._teamslaves_cb, version=F20,
                         help="""
                         Team device with name specified by ``--device`` option
                         will be created using slaves specified in this option.
@@ -1125,3 +1125,12 @@ class RHEL7_Network(F21_Network):
 
 class RHEL9_Network(F39_Network):
     pass
+
+class RHEL10_Network(F39_Network):
+    def _getParser(self):
+        op = super()._getParser()
+
+        # Deprecate options.
+        op.add_argument("--teamslaves", type=self._teamslaves_cb, deprecated=RHEL10)
+        op.add_argument("--teamconfig", default="", deprecated=RHEL10)
+        return op
