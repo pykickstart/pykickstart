@@ -485,5 +485,13 @@ class RHEL7_TestCase(F20_TestCase):
         self.assert_parse(vlan_over_bond_cmd)
         self.assert_parse(vlan_over_bond_cmd + " --bindto mac")
 
+class RHEL10_TestCase(F39_TestCase):
+    def runTest(self):
+        F39_TestCase.runTest(self)
+
+        # deprecated
+        self.assert_deprecated("network", "--teamslaves")
+        self.assert_deprecated("network", "--teamconfig")
+
 if __name__ == "__main__":
     unittest.main()
