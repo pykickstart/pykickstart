@@ -62,7 +62,7 @@ class RHEL10Handler(BaseHandler):
         "method": commands.method.F40_Method, # RemovedCommand
         "mount": commands.mount.F27_Mount,
         "multipath": commands.multipath.F34_MultiPath,
-        "network": commands.network.F39_Network,
+        "network": commands.network.RHEL10_Network,
         "nfs": commands.nfs.FC6_NFS,
         "nvdimm": commands.nvdimm.F40_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
