@@ -43,7 +43,7 @@ import sys
 from pykickstart.i18n import _
 from pykickstart.errors import KickstartError, KickstartVersionError
 from pykickstart.parser import KickstartParser, preprocessKickstart
-from pykickstart.version import DEVEL, makeVersion
+from pykickstart.version import DEFAULT_VERSION, makeVersion
 
 ##
 ## INTERNAL COMMANDS
@@ -153,7 +153,7 @@ def main(argv=None):
                     help=_("a basis file to use for seeding the kickstart data (optional)"))
     op.add_argument("-o", "--output", dest="output",
                     help=_("the location to write the finished kickstart file, or stdout if not given"))
-    op.add_argument("-v", "--version", dest="version", default=DEVEL,
+    op.add_argument("-v", "--version", dest="version", default=DEFAULT_VERSION,
                     help=_("version of kickstart syntax to validate against"))
 
     opts = op.parse_args(argv)

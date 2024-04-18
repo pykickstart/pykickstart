@@ -105,6 +105,10 @@ RHEL10 = 40100
 # This always points at the latest version and is the default.
 DEVEL = F40
 
+# On Fedora this points to DEVEL
+# On RHEL it points to the RHEL version that should be the default when no version is passed
+DEFAULT_VERSION = DEVEL
+
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
     "DEVEL": DEVEL,
@@ -180,9 +184,10 @@ def versionToLongString(version):
 
 def versionFromFile(f):
     """Given a file or URL, look for a line starting with #version= and
-       return the version number.  If no version is found, return DEVEL.
+       return the version number.  If no version is found, return the
+       default version (DEVEL on Fedora and RHELx on RHEL).
     """
-    v = DEVEL
+    v = DEFAULT_VERSION
 
     contents = load_to_str(f)
 
@@ -196,7 +201,7 @@ def versionFromFile(f):
 
     return v
 
-def returnClassForVersion(version=DEVEL):
+def returnClassForVersion(version=DEFAULT_VERSION):
     """Return the class of the syntax handler for version.  version can be
        either a string or the matching constant.  Raises KickstartVersionError
        if version does not match anything.
@@ -221,7 +226,7 @@ def returnClassForVersion(version=DEVEL):
     except:
         raise KickstartVersionError(_("Unsupported version specified: %s") % version)
 
-def makeVersion(version=DEVEL):
+def makeVersion(version=DEFAULT_VERSION):
     """Return a new instance of the syntax handler for version.  version can be
        either a string or the matching constant.  This function is useful for
        standalone programs which just need to handle a specific version of
