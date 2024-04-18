@@ -107,7 +107,7 @@ DEVEL = F40
 
 # On Fedora this points to DEVEL
 # On RHEL it points to the RHEL version that should be the default when no version is passed
-DEFAULT_VERSION = DEVEL
+DEFAULT_VERSION = RHEL10
 
 # A one-to-one mapping from string representations to version numbers.
 versionMap = {
