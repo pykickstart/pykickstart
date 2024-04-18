@@ -2,7 +2,7 @@
 import sys
 sys.path.insert(0, "../")
 from pykickstart import sections
-from pykickstart.version import returnClassForVersion, DEVEL
+from pykickstart.version import returnClassForVersion
 
 def _format_title(title, underline = '-'):
     t = title.replace('|', ' or ')
@@ -10,7 +10,7 @@ def _format_title(title, underline = '-'):
 
 if __name__ == "__main__":
     chapter = 4
-    handler = returnClassForVersion(DEVEL)
+    handler = returnClassForVersion()
     for _, section_class in sections.__dict__.items():
         # skip everything which isn't a class
         if type(section_class) is not type:

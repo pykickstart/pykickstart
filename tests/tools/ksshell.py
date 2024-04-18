@@ -2,7 +2,7 @@ from tools import ksshell
 import unittest.mock as mock
 from unittest import TestCase
 
-from pykickstart.version import DEVEL, makeVersion
+from pykickstart.version import makeVersion
 
 
 class InvalidKSVersion_Test(TestCase):
@@ -14,7 +14,7 @@ class InvalidKSVersion_Test(TestCase):
 
 class KickstartCompleter_Test(TestCase):
     def runTest(self):
-        kshandler = makeVersion(DEVEL)
+        kshandler = makeVersion()
         self.assertIsNotNone(kshandler)
 
         # Did it add the commands, and is there at least one (part) that should be present?
