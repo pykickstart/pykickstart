@@ -20,7 +20,7 @@
 
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import RemovedCommand
 from pykickstart.commands.btrfs import F17_BTRFSData, F23_BTRFSData
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.version import F17
@@ -201,9 +201,9 @@ class RHEL7_TestCase(F23_TestCase):
 
 class RHEL10_TestCase(RHEL7_TestCase):
     def runTest(self):
-        # make sure we've been deprecated
+        # make sure we've been removed
         parser = self.getParser("btrfs")
-        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+        self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
 
 if __name__ == "__main__":
     unittest.main()
