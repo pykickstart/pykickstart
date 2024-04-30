@@ -21,6 +21,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
+from pykickstart.errors import KickstartDeprecationWarning
 
 
 class F29_TestCase(CommandTest):
@@ -74,6 +75,11 @@ class F31_TestCase(RHEL8_TestCase):
         # run RHEL8 test case.
         RHEL8_TestCase.runTest(self)
 
+class RHEL10_TestCase(RHEL8_TestCase):
+    def runTest(self):
+        # RHEL10 warns about deprecation
+        with self.assertWarns(KickstartDeprecationWarning):
+            RHEL8_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()
