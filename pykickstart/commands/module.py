@@ -18,11 +18,14 @@
 # with the express permission of Red Hat, Inc.
 #
 
-from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError
-from pykickstart.options import KSOptionParser
-from pykickstart.version import F29, RHEL8
+from textwrap import dedent
 
+from pykickstart.base import BaseData, KickstartCommand
+from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
+from pykickstart.options import KSOptionParser
+from pykickstart.version import versionToLongString, F29, RHEL8, RHEL10
+
+import warnings
 from pykickstart.i18n import _
 
 
@@ -165,3 +168,23 @@ class RHEL8_Module(F29_Module):
 class F31_Module(RHEL8_Module):
     removedKeywords = RHEL8_Module.removedKeywords
     removedAttrs = RHEL8_Module.removedAttrs
+
+class RHEL10_Module(RHEL8_Module):
+    removedKeywords = RHEL8_Module.removedKeywords
+    removedAttrs = RHEL8_Module.removedAttrs
+
+    def parse(self, args):
+        warnings.warn("The module command is deprecated.", KickstartDeprecationWarning)
+
+        return super(RHEL8_Module, self).parse(args)
+
+    def _getParser(self):
+        op = RHEL8_Module._getParser(self)
+        op.description += dedent("""
+
+            .. deprecated:: %s
+
+            The module command is deprecated and might be removed in the future.
+
+        """ % versionToLongString(RHEL10))
+        return op
