@@ -18,8 +18,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import F17, F23, RHEL8, versionToLongString
-from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand
+from pykickstart.version import F17, F23, RHEL8, RHEL10, versionToLongString
+from pykickstart.base import BaseData, KickstartCommand, DeprecatedCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, mountpoint
 
@@ -280,5 +280,8 @@ class RHEL8_BTRFS(DeprecatedCommand, F23_BTRFS):
 class RHEL9_BTRFS(RHEL8_BTRFS):
     pass
 
-class RHEL10_BTRFS(RHEL8_BTRFS):
-    pass
+class RHEL10_BTRFS(RemovedCommand, RHEL8_BTRFS):
+    def _getParser(self):
+        op = RHEL8_BTRFS._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(RHEL10)
+        return op
