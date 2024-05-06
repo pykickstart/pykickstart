@@ -75,11 +75,16 @@ class F31_TestCase(RHEL8_TestCase):
         # run RHEL8 test case.
         RHEL8_TestCase.runTest(self)
 
-class RHEL10_TestCase(RHEL8_TestCase):
+class F41_TestCase(F31_TestCase):
     def runTest(self):
-        # RHEL10 warns about deprecation
+        # F41 warns about deprecation
         with self.assertWarns(KickstartDeprecationWarning):
-            RHEL8_TestCase.runTest(self)
+            F31_TestCase.runTest(self)
+
+class RHEL10_TestCase(F41_TestCase):
+    def runTest(self):
+        # run F41 test case.
+        F41_TestCase.runTest(self)
 
 if __name__ == "__main__":
     unittest.main()

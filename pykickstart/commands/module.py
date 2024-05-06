@@ -23,7 +23,7 @@ from textwrap import dedent
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import versionToLongString, F29, RHEL8, RHEL10
+from pykickstart.version import versionToLongString, F29, RHEL8, F41
 
 import warnings
 from pykickstart.i18n import _
@@ -169,22 +169,26 @@ class F31_Module(RHEL8_Module):
     removedKeywords = RHEL8_Module.removedKeywords
     removedAttrs = RHEL8_Module.removedAttrs
 
-class RHEL10_Module(RHEL8_Module):
-    removedKeywords = RHEL8_Module.removedKeywords
-    removedAttrs = RHEL8_Module.removedAttrs
+class F41_Module(F31_Module):
+    removedKeywords = F31_Module.removedKeywords
+    removedAttrs = F31_Module.removedAttrs
 
     def parse(self, args):
         warnings.warn("The module command is deprecated.", KickstartDeprecationWarning)
 
-        return super(RHEL8_Module, self).parse(args)
+        return super(F31_Module, self).parse(args)
 
     def _getParser(self):
-        op = RHEL8_Module._getParser(self)
+        op = F31_Module._getParser(self)
         op.description += dedent("""
 
             .. deprecated:: %s
 
             The module command is deprecated and might be removed in the future.
 
-        """ % versionToLongString(RHEL10))
+        """ % versionToLongString(F41))
         return op
+
+class RHEL10_Module(F41_Module):
+    removedKeywords = F41_Module.removedKeywords
+    removedAttrs = F41_Module.removedAttrs
