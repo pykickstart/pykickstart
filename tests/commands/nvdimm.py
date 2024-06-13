@@ -20,7 +20,7 @@
 
 import unittest
 
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 from tests.baseclass import CommandTest
 
 
@@ -66,6 +66,13 @@ class F40_TestCase(F28_TestCase):
 
         # make sure we are still able to parse it
         self.assert_parse("nvdimm use --namespace=whatever")
+
+
+class RHEL10_TestCase(F40_TestCase):
+    def runTest(self):
+        # make sure we've been removed
+        parser = self.getParser("nvdimm")
+        self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
 
 
 if __name__ == "__main__":

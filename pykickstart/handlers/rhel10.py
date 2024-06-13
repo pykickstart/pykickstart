@@ -64,7 +64,7 @@ class RHEL10Handler(BaseHandler):
         "multipath": commands.multipath.F34_MultiPath,
         "network": commands.network.RHEL10_Network,
         "nfs": commands.nfs.FC6_NFS,
-        "nvdimm": commands.nvdimm.F40_Nvdimm,
+        "nvdimm": commands.nvdimm.RHEL10_Nvdimm, # RemovedCommand
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
