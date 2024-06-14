@@ -7,7 +7,8 @@ from pykickstart.constants import KS_MISSING_IGNORE, KS_MISSING_PROMPT, \
     KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.parser import Group, Packages
-from pykickstart.version import DEVEL, F7, F21, RHEL6, RHEL7, RHEL8, F32, RHEL9, F40
+from pykickstart.version import DEVEL, F7, F21, F32, F40
+from pykickstart.version import RHEL6, RHEL7, RHEL8, RHEL9, RHEL10
 from pykickstart.version import returnClassForVersion
 
 
@@ -647,6 +648,22 @@ class Packages_Deprecated_CamelCase_TestCase(ParserTest):
 
         expected = " {} option has been deprecated ".format(option_name)
         self.assertIn(expected, str(cm.warning))
+
+class Packages_RHEL10_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.version = RHEL10
+
+    def runTest(self):
+        opts = ["--instLangs en", "--excludeWeakdeps"]
+        for opt in opts:
+            ks_in = f"%packages {opt}\n\n%end\n"
+            with self.assertRaises(KickstartParseError) as cm:
+                self.parser.readKickstartFromString(ks_in)
+
+            expected = "unrecognized arguments:"
+            self.assertIn(expected, str(cm.exception))
+
 
 if __name__ == "__main__":
     unittest.main()
