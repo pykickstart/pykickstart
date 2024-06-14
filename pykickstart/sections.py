@@ -36,8 +36,8 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, RHEL6, RHEL7, RHEL9, \
-    isRHEL, F40
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40
+from pykickstart.version import isRHEL, RHEL6, RHEL7, RHEL9, RHEL10
 from pykickstart.i18n import _
 
 class Section(object):
@@ -751,6 +751,11 @@ class PackageSection(Section):
         op.add_argument("--instLangs", dest="instLangs", default=None, deprecated=F40)
         op.add_argument("--excludeWeakdeps", dest="excludeWeakdeps", action="store_true",
                         default=False, deprecated=F40)
+
+        # --instLangs and --excludeWeakdeps are removed in RHEL10 and later
+        if isRHEL(self.version) and self.version >= RHEL10:
+            op.remove_argument("--instLangs", version=RHEL10)
+            op.remove_argument("--excludeWeakdeps", version=RHEL10)
 
         return op
 
