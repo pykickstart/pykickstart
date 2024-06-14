@@ -88,7 +88,7 @@ class RHEL10Handler(BaseHandler):
         "sshkey": commands.sshkey.F22_SshKey,
         "syspurpose" : commands.syspurpose.RHEL10_Syspurpose,
         "text": commands.displaymode.F26_DisplayMode,
-        "timezone": commands.timezone.F40_Timezone,
+        "timezone": commands.timezone.RHEL10_Timezone,
         "updates": commands.updates.F34_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,
