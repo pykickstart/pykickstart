@@ -19,6 +19,7 @@
 #
 import warnings
 from pykickstart.version import FC3, FC6, F18, F40
+from pykickstart.version import RHEL10
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser, commaSplit
@@ -468,3 +469,57 @@ class F40_Timezone(F33_Timezone):
     def parse(self, args):
         # Skip future deprecation warnings.
         return F25_Timezone.parse(self, args)
+
+# This is based on timezone before the deprecations and warnings
+class RHEL10_Timezone(F32_Timezone):
+    removedKeywords = F32_Timezone.removedKeywords + ["nontp", "ntpservers"]
+    removedAttrs = F32_Timezone.removedAttrs + ["nontp", "ntpservers"]
+
+    def __init__(self, writePriority=0, *args, **kwargs):
+        F32_Timezone.__init__(self, writePriority, *args, **kwargs)
+        self.op = self._getParser()
+        self.deleteRemovedAttrs()
+
+    def _getParser(self):
+        op = F32_Timezone._getParser(self)
+        op.remove_argument("--nontp", version=RHEL10)
+        op.remove_argument("--ntpservers", version=RHEL10)
+        op.remove_argument("--isUtc", version=RHEL10)
+        return op
+
+    def _getArgsAsStr(self):
+        retval = ""
+
+        if self.timezone:
+            retval += " " + self.timezone
+
+        if self.isUtc:
+            retval += " --utc"
+
+        return retval
+
+    # override parse to remove the self.nontp and self.ntpservers checks
+    def parse(self, args):
+        ns = self.op.parse_args(args=args, lineno=self.lineno)
+        self.set_to_self(ns)
+
+        # just "timezone" without any arguments and timezone specification doesn't really make sense,
+        # so throw an error when we see it (it might even be an indication of an incorrect machine generated kickstart)
+        if not args:
+            error_message = _("At least one option and/or an argument are expected for the %s command") % "timezone"
+            raise KickstartParseError(error_message, lineno=self.lineno)
+
+        # To be able to support the timezone command being used without
+        # a timezone specification:
+        # - we don't call the parse() method of the ancestors
+        # -> due to the FC3 parse() method that would be eventually called,
+        #    which throws an exception if no timezone specification is provided
+        # - we implement the relevant functionality of the ancestor methods here
+
+        if len(ns.timezone) == 1:
+            self.timezone = ns.timezone[0]
+        elif len(ns.timezone) > 1:
+            error_message = _("One or zero arguments are expected for the %s command") % "timezone"
+            raise KickstartParseError(error_message, lineno=self.lineno)
+
+        return self

@@ -159,7 +159,7 @@ class F25_TestCase(F23_TestCase):
 class F32_TestCase(F25_TestCase):
     command = "timezone"
 
-    def runTest(self):
+    def failures(self):
         # Failures
         # unknown argument
         self.assert_parse_error("timezone --blah")
@@ -170,6 +170,9 @@ class F32_TestCase(F25_TestCase):
         self.assert_parse_error("timezone", KickstartParseError, 'At least one option and/or an argument are expected for the timezone command')
         # contradictory options
         self.assert_parse_error("timezone Europe/Sofia --nontp --ntpservers=0.fedora.pool.ntp.org,1.fedora.pool.ntp.org")
+
+    def runTest(self):
+        self.failures()
 
         # Successes
         # normal contents
@@ -216,6 +219,23 @@ class F40_TestCase(F33_TestCase):
         self.assert_deprecated("timezone", "--isUtc")
         self.assert_deprecated("timezone", "--ntpservers")
         self.assert_deprecated("timezone", "--nontp")
+
+class RHEL10_TestCase(F32_TestCase):
+    command = "timezone"
+
+    def runTest(self):
+        # removed
+        self.assert_removed("timezone", "--isUtc")
+        self.assert_removed("timezone", "--ntpservers")
+        self.assert_removed("timezone", "--nontp")
+
+        # Test failures
+        F32_TestCase.failures(self)
+
+        self.assert_parse("timezone --utc Europe/Bratislava",
+                          "timezone Europe/Bratislava --utc\n")
+        self.assert_parse("timezone --utc", "timezone --utc\n")
+        self.assert_parse("timezone Pacific", "timezone Pacific\n")
 
 if __name__ == "__main__":
     unittest.main()
