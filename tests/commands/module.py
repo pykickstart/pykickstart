@@ -21,8 +21,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.errors import KickstartDeprecationWarning
-
+from pykickstart.base import DeprecatedCommand
 
 class F29_TestCase(CommandTest):
     def runTest(self):
@@ -77,9 +76,13 @@ class F31_TestCase(RHEL8_TestCase):
 
 class F41_TestCase(F31_TestCase):
     def runTest(self):
-        # F41 warns about deprecation
-        with self.assertWarns(KickstartDeprecationWarning):
-            F31_TestCase.runTest(self)
+        # make sure we've been deprecated
+        parser = self.getParser("module")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+        parser = parser._getParser()
+        self.assertIsNotNone(parser)
+        self.assertTrue(parser.description.find('deprecated:: Fedora41') > -1)
+
 
 class RHEL10_TestCase(F41_TestCase):
     def runTest(self):
