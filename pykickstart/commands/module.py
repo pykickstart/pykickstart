@@ -20,8 +20,8 @@
 
 from textwrap import dedent
 
-from pykickstart.base import BaseData, KickstartCommand
-from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
+from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import versionToLongString, F29, RHEL8, F41
 
@@ -169,14 +169,12 @@ class F31_Module(RHEL8_Module):
     removedKeywords = RHEL8_Module.removedKeywords
     removedAttrs = RHEL8_Module.removedAttrs
 
-class F41_Module(F31_Module):
+class F41_Module(DeprecatedCommand, F31_Module):
     removedKeywords = F31_Module.removedKeywords
     removedAttrs = F31_Module.removedAttrs
 
-    def parse(self, args):
-        warnings.warn("The module command is deprecated.", KickstartDeprecationWarning)
-
-        return super(F31_Module, self).parse(args)
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
 
     def _getParser(self):
         op = F31_Module._getParser(self)
