@@ -17,8 +17,8 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, FC6, F9
-from pykickstart.base import KickstartCommand
+from pykickstart.version import FC3, FC6, F9, RHEL10, versionToLongString
+from pykickstart.base import KickstartCommand, DeprecatedCommand
 from pykickstart.options import KSOptionParser
 
 class FC3_Vnc(KickstartCommand):
@@ -139,4 +139,13 @@ class F9_Vnc(FC6_Vnc):
     def _getParser(self):
         op = FC6_Vnc._getParser(self)
         op.remove_argument("--connect", version=F9)
+        return op
+
+class RHEL10_Vnc(DeprecatedCommand, F9_Vnc):
+    def __init__(self):  # pylint: disable=super-init-not-called
+        DeprecatedCommand.__init__(self)
+
+    def _getParser(self):
+        op = F9_Vnc._getParser(self)
+        op.description += "\nPlease use the ``inst.rdp`` boot option instead.\n\n.. deprecated:: %s" % versionToLongString(RHEL10)
         return op
