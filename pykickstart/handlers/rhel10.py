@@ -92,7 +92,7 @@ class RHEL10Handler(BaseHandler):
         "updates": commands.updates.F34_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,
-        "vnc": commands.vnc.F9_Vnc,
+        "vnc": commands.vnc.RHEL10_Vnc,
         "volgroup": commands.volgroup.RHEL10_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
