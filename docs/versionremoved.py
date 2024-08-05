@@ -11,7 +11,12 @@ try:
 except ImportError:
     versionlabel_classes = None
 
-from sphinx.directives.other import VersionChange
+# Sphinx 8.0.0 removed the alias from .directives.other
+# https://www.sphinx-doc.org/en/master/changes/8.0.html#incompatible-changes
+try:
+    from sphinx.domains.changeset import VersionChange
+except ImportError:
+    from sphinx.directives.other import VersionChange
 
 __version__ = '0.1.0'
 
