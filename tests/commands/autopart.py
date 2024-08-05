@@ -355,6 +355,12 @@ class F38_TestCase(F29_TestCase):
                           "autopart --hibernation\n")
         self.assert_parse_error("autopart --hibernation --noswap")
 
+class F41_TestCase(F38_TestCase):
+    def runTest(self):
+        F38_TestCase.runTest(self)
+        self.assert_parse("autopart --erase / --reuse /home --remove /boot,biosboot",
+                          "autopart --reuse=/home --erase=/ --remove=/boot,biosboot\n")
+
 class RHEL10_TestCase(F38_TestCase):
     def runTest(self):
         F38_TestCase.runTest(self)
