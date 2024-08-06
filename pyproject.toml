@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = 'pykickstart'
-version = '3.52.4'
+version = '3.52.5'
 authors = [
     {name='Chris Lumens', email='clumens@redhat.com'},
 ]
