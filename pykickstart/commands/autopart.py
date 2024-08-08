@@ -19,10 +19,10 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
-from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29, F38
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29, F38, F41
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError
-from pykickstart.options import KSOptionParser
+from pykickstart.options import KSOptionParser, commaSplit
 
 from pykickstart.i18n import _
 
@@ -597,6 +597,69 @@ class F38_AutoPart(F29_AutoPart):
             raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
+
+
+class F41_AutoPart(F38_AutoPart):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.reuse = kwargs.get("reuse", [])
+        self.erase = kwargs.get("erase", [])
+        self.remove = kwargs.get("remove", [])
+
+    def __str__(self):
+        retval = super().__str__()
+        if not self.autopart:
+            return retval
+
+        if retval and self.reuse:
+            retval = retval.rstrip()
+            retval += " --reuse=" + ",".join(self.reuse)
+        if retval and self.erase:
+            retval = retval.rstrip()
+            retval += " --erase=" + ",".join(self.erase)
+        if retval and self.remove:
+            retval = retval.rstrip()
+            retval += " --remove=" + ",".join(self.remove)
+
+            retval += "\n"
+        return retval
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument("--reuse", dest="reuse", type=commaSplit,
+                        version=F41, help="""
+                        Specifies which existing mountpoins should be
+                        reused.
+
+                        Single device must exist for given mountpoint.
+
+                        ``autopart --reuse=/home``""")
+        op.add_argument("--erase", dest="erase", type=commaSplit,
+                        version=F41, help="""
+                        Specifies which existing mountpoins should be
+                        erased and reused. This might be required in
+                        cases where the mountpoint device can't
+                        be removed and recreated by autopartitioning.
+                        For example a btrfs subvolume or a logical
+                        volume.
+
+                        Single device must exist for given mountpoint.
+
+                        ``autopart --erase=/``""")
+        op.add_argument("--remove", dest="remove", type=commaSplit,
+                        version=F41, help="""
+                        Specifies mountpoints of existing devices that
+                        should be removed.
+
+                        Single device must exist for given mountpoint.
+                        If no device is found the request is ignored.
+
+                        Special values for devices which are not mount:
+                        "biosboot".
+
+                        ``autopart --remove=/boot,biosboot``""")
+        return op
+
 
 class RHEL10_AutoPart(F38_AutoPart):
     removedKeywords = F38_AutoPart.removedKeywords

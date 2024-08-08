@@ -28,7 +28,7 @@ class F41Handler(BaseHandler):
         "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.F38_AutoPart,
+        "autopart": commands.autopart.F41_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
