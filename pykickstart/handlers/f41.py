@@ -28,7 +28,7 @@ class F41Handler(BaseHandler):
         "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.F38_AutoPart,
+        "autopart": commands.autopart.F41_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
@@ -68,8 +68,8 @@ class F41Handler(BaseHandler):
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
-        "part": commands.partition.F34_Partition,
-        "partition": commands.partition.F34_Partition,
+        "part": commands.partition.F41_Partition,
+        "partition": commands.partition.F41_Partition,
         "poweroff": commands.reboot.F23_Reboot,
         "raid": commands.raid.F29_Raid,
         "realm": commands.realm.F19_Realm,
@@ -113,7 +113,7 @@ class F41Handler(BaseHandler):
         "MultiPathData": commands.multipath.FC6_MultiPathData,
         "NetworkData": commands.network.F39_NetworkData,
         "NvdimmData": commands.nvdimm.F28_NvdimmData,
-        "PartData": commands.partition.F29_PartData,
+        "PartData": commands.partition.F41_PartData,
         "RaidData": commands.raid.F29_RaidData,
         "RepoData": commands.repo.F30_RepoData,
         "SnapshotData": commands.snapshot.F26_SnapshotData,
