@@ -366,5 +366,15 @@ class RHEL9_TestCase(F29_TestCase):
         F29_TestCase.runTest(self)
         self.assert_parse_error("part / --fstype=btrfs")
 
+class F41_TestCase(F34_TestCase):
+    def runTest(self):
+        F34_TestCase.runTest(self)
+
+        self.assert_parse("part / --encrypted --passphrase=\"test\" --luks-version=luks2-hw-opal --hw-passphrase=\"testhw\"",
+                          "part / --encrypted --passphrase=\"test\" --luks-version=luks2-hw-opal --hw-passphrase=\"testhw\"\n")
+
+        self.assert_parse_error("part / --passphrase=\"test\" --hw-passphrase=\"testhw\"")
+        self.assert_parse_error("part / --encrypted --passphrase=\"test\" --luks-version=luks1 --hw-passphrase=\"testhw\"")
+
 if __name__ == "__main__":
     unittest.main()

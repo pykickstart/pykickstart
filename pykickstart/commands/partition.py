@@ -18,7 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import RHEL5, RHEL6, RHEL8, versionToLongString
-from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23, F29, F34
+from pykickstart.version import FC3, FC4, F9, F11, F12, F14, F17, F18, F23, F29, F34, F41
 from pykickstart.base import BaseData, KickstartCommand
 from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, mountpoint
@@ -296,6 +296,19 @@ class F29_PartData(F23_PartData):
 
 class RHEL8_PartData(F29_PartData):
     pass
+
+class F41_PartData(F29_PartData):
+    def __init__(self, *args, **kwargs):
+        F29_PartData.__init__(self, *args, **kwargs)
+        self.hw_passphrase = kwargs.get("hw_passphrase", "")
+
+    def _getArgsAsStr(self):
+        retval = F29_PartData._getArgsAsStr(self)
+
+        if self.encrypted and self.hw_passphrase:
+            retval += " --hw-passphrase=\"%s\"" % self.hw_passphrase
+
+        return retval
 
 class FC3_Partition(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -779,3 +792,24 @@ class RHEL9_Partition(F34_Partition):
 
 class RHEL10_Partition(RHEL9_Partition):
     pass
+
+class F41_Partition(F34_Partition):
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument("--hw-passphrase", dest="hw_passphrase", version=F41, default="",
+                        help="""
+                        Only relevant if ``--encrypted`` is specified and ``--luks-version``
+                        is set to either `luks2-hw-opal` or `luks2-hw-opal-only`.
+
+                        OPAL administrator passphrase needed to create a new OPAL locking range.""")
+        return op
+
+    def parse(self, args):
+        retval = super().parse(args)
+
+        if retval.hw_passphrase and (not retval.encrypted or not retval.luks_version.startswith("luks2-")):
+            msg = _("hw-passphrase may be specified only with LUKSv2 HW-OPAL encrypted devices")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval

@@ -360,5 +360,13 @@ class RHEL10_TestCase(F38_TestCase):
         F38_TestCase.runTest(self)
         self.assert_parse_error("autopart --type=btrfs")
 
+class F41_TestCase(F38_TestCase):
+    def runTest(self):
+        F38_TestCase.runTest(self)
+        self.assert_parse("autopart --encrypted --passphrase=\"test\" --luks-version=luks2-hw-opal --hw-passphrase=\"testhw\"",
+                          "autopart --encrypted --passphrase=\"test\" --luks-version=luks2-hw-opal --hw-passphrase=\"testhw\"\n")
+        self.assert_parse_error("autopart --passphrase=\"test\" --hw-passphrase=\"testhw\"")
+        self.assert_parse_error("autopart --encrypted --passphrase=\"test\" --luks-version=luks1 --hw-passphrase=\"testhw\"")
+
 if __name__ == "__main__":
     unittest.main()

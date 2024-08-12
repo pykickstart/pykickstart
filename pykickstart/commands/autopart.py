@@ -19,7 +19,7 @@
 #
 from pykickstart.base import KickstartCommand
 from pykickstart.version import versionToLongString, RHEL6, RHEL7, RHEL8
-from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29, F38
+from pykickstart.version import FC3, F9, F12, F16, F17, F18, F20, F21, F26, F29, F38, F41
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
@@ -630,3 +630,38 @@ class RHEL10_AutoPart(F38_AutoPart):
 
                     Partitioning scheme 'btrfs' was removed.""" % versionToLongString(RHEL8)
         return op
+
+class F41_AutoPart(F38_AutoPart):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.hw_passphrase = kwargs.get("hw_passphrase", "")
+
+    def __str__(self):
+        retval = super().__str__()
+        if not self.autopart:
+            return retval
+
+        if self.encrypted and self.hw_passphrase:
+            retval = retval.strip()
+            retval += " --hw-passphrase=\"%s\"" % self.hw_passphrase
+            retval += "\n"
+        return retval
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument("--hw-passphrase", dest="hw_passphrase", version=F41, default="",
+                        help="""
+                        Only relevant if ``--encrypted`` is specified and ``--luks-version``
+                        is set to either `luks2-hw-opal` or `luks2-hw-opal-only`.
+
+                        OPAL administrator passphrase needed to create a new OPAL locking range.""")
+        return op
+
+    def parse(self, args):
+        retval = super().parse(args)
+
+        if self.hw_passphrase and (not self.encrypted or not self.luks_version.startswith("luks2-")):
+            msg = _("hw-passphrase may be specified only with LUKSv2 HW-OPAL encrypted devices")
+            raise KickstartParseError(msg, lineno=self.lineno)
+
+        return retval
