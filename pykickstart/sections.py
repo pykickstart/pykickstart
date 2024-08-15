@@ -402,6 +402,9 @@ class OnErrorScriptSection(ScriptSection):
     all %onerror scripts will be run and then all %traceback scripts will be run
     afterwards.
 
+    To force %onerror execution for any error (not just fatal) use non interactive
+    installation (inst.cmdline in kernel command line options).
+
     Each %onerror script is required to be closed with a corresponding %end.
 
     .. note::
