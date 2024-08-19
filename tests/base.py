@@ -143,12 +143,16 @@ class BaseClasses_TestCase(ParserTest):
 
         dep_cmd = TestDeprecatedCommand()
         self.assertEqual(dep_cmd.__str__(), '')
+        self.assertEqual(dep_cmd.dataList(), [])
+        self.assertEqual(dep_cmd.dataClass, None)
         with mock.patch('warnings.warn') as _warn:
             dep_cmd.parse(['test'])
             self.assertEqual(_warn.call_count, 1)
 
         removed_cmd = TestRemovedCommand()
         self.assertEqual(removed_cmd.__str__(), '')
+        self.assertEqual(removed_cmd.dataList(), [])
+        self.assertEqual(removed_cmd.dataClass, None)
         with self.assertRaises(KickstartParseError):
             removed_cmd.parse(['test'])
 

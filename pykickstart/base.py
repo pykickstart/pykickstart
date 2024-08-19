@@ -205,7 +205,7 @@ class DeprecatedCommand(KickstartCommand):
 
     def dataList(self):
         """Override the method of the deprecated command."""
-        return None
+        return []
 
     @property
     def dataClass(self):
@@ -238,7 +238,7 @@ class RemovedCommand(KickstartCommand):
 
     def dataList(self):
         """Override the method of the removed command."""
-        return None
+        return []
 
     @property
     def dataClass(self):
