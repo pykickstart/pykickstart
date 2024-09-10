@@ -70,5 +70,11 @@ class RHEL10_TestCase(F9_TestCase):
         parser = self.getParser("vnc")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
 
+class F42_TestCase(F9_TestCase):
+    def runTest(self):
+        # make sure the vnc command has been deprecated on Fedora 42
+        parser = self.getParser("vnc")
+        self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
 if __name__ == "__main__":
     unittest.main()
