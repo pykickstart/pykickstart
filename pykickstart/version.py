@@ -102,9 +102,10 @@ F39 = 39000
 F40 = 40000
 RHEL10 = 40100
 F41 = 41000
+F42 = 42000
 
 # This always points at the latest version and is the default.
-DEVEL = F41
+DEVEL = F42
 
 # On Fedora this points to DEVEL
 # On RHEL it points to the RHEL version that should be the default when no version is passed
@@ -120,7 +121,7 @@ versionMap = {
     "F24": F24, "F25": F25, "F26": F26, "F27": F27, "F28": F28,
     "F29": F29, "F30": F30, "F31": F31, "F32": F32, "F33": F33,
     "F34": F34, "F35": F35, "F36": F36, "F37": F37, "F38": F38,
-    "F39": F39, "F40": F40, "F41": F41,
+    "F39": F39, "F40": F40, "F41": F41, "F42": F42,
     "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
     "RHEL7": RHEL7, "RHEL8": RHEL8, "RHEL9": RHEL9, "RHEL10": RHEL10,
 }
