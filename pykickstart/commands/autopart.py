@@ -603,7 +603,7 @@ class F41_AutoPart(F38_AutoPart):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.reuse = kwargs.get("reuse", [])
-        self.erase = kwargs.get("erase", [])
+        self.reformat = kwargs.get("reformat", [])
         self.remove = kwargs.get("remove", [])
 
     def __str__(self):
@@ -614,9 +614,9 @@ class F41_AutoPart(F38_AutoPart):
         if retval and self.reuse:
             retval = retval.rstrip()
             retval += " --reuse=" + ",".join(self.reuse)
-        if retval and self.erase:
+        if retval and self.reformat:
             retval = retval.rstrip()
-            retval += " --erase=" + ",".join(self.erase)
+            retval += " --reformat=" + ",".join(self.reformat)
         if retval and self.remove:
             retval = retval.rstrip()
             retval += " --remove=" + ",".join(self.remove)
@@ -634,10 +634,10 @@ class F41_AutoPart(F38_AutoPart):
                         Single device must exist for given mountpoint.
 
                         ``autopart --reuse=/home``""")
-        op.add_argument("--erase", dest="erase", type=commaSplit,
+        op.add_argument("--reformat", dest="reformat", type=commaSplit,
                         version=F41, help="""
                         Specifies which existing mountpoins should be
-                        erased and reused. This might be required in
+                        reformatted and reused. This might be required in
                         cases where the mountpoint device can't
                         be removed and recreated by autopartitioning.
                         For example a btrfs subvolume or a logical
@@ -645,7 +645,7 @@ class F41_AutoPart(F38_AutoPart):
 
                         Single device must exist for given mountpoint.
 
-                        ``autopart --erase=/``""")
+                        ``autopart --reformat=/``""")
         op.add_argument("--remove", dest="remove", type=commaSplit,
                         version=F41, help="""
                         Specifies mountpoints of existing devices that

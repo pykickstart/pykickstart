@@ -358,8 +358,8 @@ class F38_TestCase(F29_TestCase):
 class F41_TestCase(F38_TestCase):
     def runTest(self):
         F38_TestCase.runTest(self)
-        self.assert_parse("autopart --erase / --reuse /home --remove /boot,biosboot",
-                          "autopart --reuse=/home --erase=/ --remove=/boot,biosboot\n")
+        self.assert_parse("autopart --reformat / --reuse /home --remove /boot,biosboot",
+                          "autopart --reuse=/home --reformat=/ --remove=/boot,biosboot\n")
 
 class RHEL10_TestCase(F38_TestCase):
     def runTest(self):
