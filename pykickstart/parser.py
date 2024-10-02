@@ -24,6 +24,8 @@ Main kickstart file processing module.
 
 This module exports several important classes:
 
+    Certificate - Representation of a single %certificate section.
+
     Script - Representation of a single %pre, %pre-install, %post, or %traceback script.
 
     Packages - Representation of the %packages section.
@@ -42,7 +44,8 @@ from pykickstart.errors import KickstartError, KickstartParseError, KickstartPar
 from pykickstart.ko import KickstartObject
 from pykickstart.load import load_to_str
 from pykickstart.options import KSOptionParser
-from pykickstart.sections import PackageSection, PreScriptSection, PreInstallScriptSection, \
+from pykickstart.sections import CertificateSection, PackageSection, \
+                                 PreScriptSection, PreInstallScriptSection, \
                                  PostScriptSection, TracebackScriptSection, OnErrorScriptSection, \
                                  NullSection
 
@@ -172,6 +175,38 @@ class PutBackIterator(Iterator):
 
     def __next__(self):
         return self.next()                          # pylint: disable=not-callable
+
+###
+### CERTIFICATE HANDLING
+###
+class Certificate(KickstartObject):
+    """A class representing a single %certificate section."""
+    def __init__(self, *args, **kwargs):
+        """Create a new Certificate instance.  Instance attributes:
+
+           :keyword cert: The certificate to be used.
+           :keyword filename: The file name of the certificate.
+           :keyword dir: The directory where the certificate should be stored.
+        """
+        KickstartObject.__init__(self, *args, **kwargs)
+        self.cert = kwargs.get("cert", None)
+        self.filename = kwargs.get("filename", None)
+        self.dir = kwargs.get("dir", None)
+
+    def __str__(self):
+        """Return a string formatted for output to a kickstart file."""
+        if not self.cert:
+            return ""
+
+        retval = "\n%certificate"
+
+        retval += " --filename=%s" % self.filename
+
+        if self.dir:
+            retval += " --dir=%s\n" % self.dir
+
+        return retval + self.cert + "\n%end\n"
+
 
 ###
 ### SCRIPT HANDLING
@@ -831,6 +866,7 @@ class KickstartParser(object):
         self._sections = {}
 
         # Install the sections all kickstart files support.
+        self.registerSection(CertificateSection(self.handler, dataObj=Certificate))
         self.registerSection(PreScriptSection(self.handler, dataObj=Script))
         self.registerSection(PreInstallScriptSection(self.handler, dataObj=Script))
         self.registerSection(PostScriptSection(self.handler, dataObj=Script))
