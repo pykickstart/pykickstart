@@ -485,6 +485,7 @@ class BaseHandler(KickstartHandler):
 
            Instance attributes:
 
+           certificates -- A list of pykickstart.parser.Certificate instances
            packages -- An instance of pykickstart.parser.Packages which
                        describes the packages section of the input file.
            platform -- A string describing the hardware platform, which is
@@ -503,6 +504,7 @@ class BaseHandler(KickstartHandler):
 
         # This isn't really a good place for these, but it's better than
         # everything else I can think of.
+        self.certificates = []
         self.scripts = []
         self.packages = Packages()
         self.platform = ""
@@ -536,6 +538,9 @@ class BaseHandler(KickstartHandler):
                 retval += s
 
         retval += self.packages.__str__()
+
+        for cert in self.certificates:
+            retval += cert.__str__()
 
         return retval
 

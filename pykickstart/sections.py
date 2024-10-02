@@ -36,7 +36,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40, F42
 from pykickstart.version import isRHEL, RHEL6, RHEL7, RHEL9, RHEL10
 from pykickstart.i18n import _
 
@@ -849,3 +849,82 @@ class PackageSection(Section):
         ) % {"option": option, "lineno": lineno, "new_option": new_option},
             KickstartDeprecationWarning
         )
+
+class CertificateSection(Section):
+    sectionOpen = "%certificate"
+    _title = "Certificate"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._certificate = {
+            "name": None,
+            "path": "/etc/pki/ca-trust/source/anchors/",
+            "cert": []
+        }
+
+    def _getParser(self):
+        op = KSOptionParser(prog=self.sectionOpen, description="""
+                            The %certificate section is used to specify a
+                            certificate to be installed on the system.
+
+                            Example:
+
+                            %certificate --name custom_certificate.pem --path /etc/pki/ca-trust/source/anchors/
+                            -----BEGIN CERTIFICATE-----
+                            MIIDkDCCAnigAwIBAgIUFfTKU02DB4Nz4u3pRk1ShpRvn0AwDQYJKoZIhvcNAQEL
+                            BQAwVTELMAkGA1UEBhMCVVMxGzAZBgNVBAgTElNvbWUgU3RhdGUgb3IgUHJvdmlu
+                            Y2UxEjAQBgNVBAcTCVJvYWxkIE9uZTEVMBMGA1UEChMMRXhhbXBsZSBPcmcgTjAw
+                            HhcNMjEwNzI2MDg0NDIxWhcNMjIwNzI2MDg0NDIxWjBVMQswCQYDVQQGEwJVUzEb
+                            MBkGA1UECBMSU29tZSBTdGF0ZSBvciBQcm92aW5jZTESMBAGA1UEBxMJUm9hbGQg
+                            T25lMRUwEwYDVQQKEwxFeGFtcGxlIE9yZyBObzAwggEiMA0GCSqGSIb3DQEBAQUA
+                            A4IBDwAwggEKAoIBAQC4/SDsn8RQk0Euh6ZTKq5/Mz34K6QlnrxmAF7B8QGbDiK6
+                            ...
+                            -----END CERTIFICATE-----
+                            %end
+                            """, version=F42)
+
+        op.add_argument("--name", dest="name", required=True, version=F42,
+                        help="""The name of the certificate file.""")
+
+        op.add_argument("--path", dest="path", default=None, version=F42, help="""
+                        The path where the certificate should be installed.
+                        The default path is /etc/pki/ca-trust/source/anchors/.""")
+
+        return op
+
+    def handleHeader(self, lineno, args):
+        """Parse the header of the %certificate section for the name and path arguments."""
+
+        Section.handleHeader(self, lineno, args)
+        op = self._getParser()
+
+        ns = op.parse_args(args=args[1:], lineno=lineno)
+
+        self._certificate["name"] = ns.name
+
+        if ns.path:
+            self._certificate["path"] = ns.path
+
+    def handleLine(self, line):
+        """Collect lines between %certificate and %end."""
+        self._certificate["cert"].append(line.strip())
+
+    def finalize(self):
+        """Create a certificate object and add it to the handler."""
+        if " ".join(self._certificate["cert"]).strip() == "":
+            raise KickstartParseError(_("The %certificate section is empty"))
+
+        kwargs = {
+            "cert": self._certificate["cert"],
+            "name": self._certificate["name"],
+            "path": self._certificate["path"],
+        }
+
+        if self.dataObj is not None:
+            s = self.dataObj({}, **kwargs)
+            self._certificate = {
+                "cert": [],
+                "name": None,
+                "path": "/etc/pki/ca-trust/source/anchors/",
+            }
+            self.handler.certificates.append(s)
