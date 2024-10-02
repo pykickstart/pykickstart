@@ -177,9 +177,23 @@ class KSOptionParser(ArgumentParser):
         self.lineno = None
 
     def _parse_optional(self, arg_string):
-        option_tuple = ArgumentParser._parse_optional(self, arg_string)
+        # Before 3.13 and 3.12.7, this returned None or a single
+        # option tuple. From 3.13 / 3.12.7 onwards it returns None
+        # or a *list* of option tuples
+        option_tuple_or_tuples = ArgumentParser._parse_optional(self, arg_string)
+        # all we want to do here is a custom warning if the action is
+        # deprecated. we can only safely do this if there's exactly
+        # one matching action
+        if isinstance(option_tuple_or_tuples, list):
+            if len(option_tuple_or_tuples) == 1:
+                option_tuple = option_tuple_or_tuples[0]
+            else:
+                return option_tuple_or_tuples
+        else:
+            option_tuple = option_tuple_or_tuples
+
         if option_tuple is None or option_tuple[0] is None:
-            return option_tuple
+            return option_tuple_or_tuples
 
         action = option_tuple[0]
         option = action.option_strings[0]
@@ -191,7 +205,7 @@ class KSOptionParser(ArgumentParser):
                             "kickstart. Please modify your kickstart file to remove this option.")
                           % {"lineno": self.lineno, "option": option}, KickstartDeprecationWarning)
 
-        return option_tuple
+        return option_tuple_or_tuples
 
     def add_argument(self, *args, **kwargs):
         if "introduced" in kwargs:
