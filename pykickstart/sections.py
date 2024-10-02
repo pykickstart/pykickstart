@@ -36,7 +36,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40, F42
 from pykickstart.version import isRHEL, RHEL6, RHEL7, RHEL9, RHEL10
 from pykickstart.i18n import _
 
@@ -849,3 +849,86 @@ class PackageSection(Section):
         ) % {"option": option, "lineno": lineno, "new_option": new_option},
             KickstartDeprecationWarning
         )
+
+class CertificateSection(Section):
+    sectionOpen = "%certificate"
+    _title = "Certificate"
+    allLines = True
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._certificate = {
+            "filename": None,
+            "dir": None,
+            "cert": []
+        }
+
+    def _getParser(self):
+        op = KSOptionParser(prog=self.sectionOpen, description="""
+                            The %certificate section is used to specify a
+                            certificate to be installed on the system.
+
+                            Example:
+
+                            %certificate --filename custom_certificate.pem --dir /etc/pki/dns/
+                            -----BEGIN CERTIFICATE-----
+                            MIIDkDCCAnigAwIBAgIUFfTKU02DB4Nz4u3pRk1ShpRvn0AwDQYJKoZIhvcNAQEL
+                            BQAwVTELMAkGA1UEBhMCVVMxGzAZBgNVBAgTElNvbWUgU3RhdGUgb3IgUHJvdmlu
+                            Y2UxEjAQBgNVBAcTCVJvYWxkIE9uZTEVMBMGA1UEChMMRXhhbXBsZSBPcmcgTjAw
+                            HhcNMjEwNzI2MDg0NDIxWhcNMjIwNzI2MDg0NDIxWjBVMQswCQYDVQQGEwJVUzEb
+                            MBkGA1UECBMSU29tZSBTdGF0ZSBvciBQcm92aW5jZTESMBAGA1UEBxMJUm9hbGQg
+                            T25lMRUwEwYDVQQKEwxFeGFtcGxlIE9yZyBObzAwggEiMA0GCSqGSIb3DQEBAQUA
+                            A4IBDwAwggEKAoIBAQC4/SDsn8RQk0Euh6ZTKq5/Mz34K6QlnrxmAF7B8QGbDiK6
+                            ...
+                            -----END CERTIFICATE-----
+                            %end
+                            """, version=F42)
+
+        op.add_argument("--filename", dest="filename", required=True, version=F42,
+                        help="""The name of the certificate file.""")
+
+        op.add_argument("--dir", dest="dir", default=None, version=F42, help="""
+                        The directory where the certificate should be installed.""")
+
+        return op
+
+    def handleHeader(self, lineno, args):
+        """Parse the header of the %certificate section for the arguments."""
+
+        Section.handleHeader(self, lineno, args)
+        op = self._getParser()
+
+        ns = op.parse_args(args=args[1:], lineno=lineno)
+
+        self._certificate["filename"] = ns.filename
+
+        if ns.dir:
+            self._certificate["dir"] = ns.dir
+
+    def handleLine(self, line):
+        """Collect lines between %certificate and %end."""
+        self._certificate["cert"].append(line)
+
+    def finalize(self):
+        """Create a certificate object and add it to the handler."""
+        cert = "".join(self._certificate["cert"])
+        # Remove the newline preceding %end if there is one
+        if cert and cert[-1] == '\n':
+            cert = cert[:-1]
+        if cert.strip() == "":
+            raise KickstartParseError(_("The %certificate section is empty"))
+
+        kwargs = {
+            "cert": cert,
+            "filename": self._certificate["filename"],
+            "dir": self._certificate["dir"],
+        }
+
+        if self.dataObj is not None:
+            s = self.dataObj({}, **kwargs)
+            self._certificate = {
+                "cert": [],
+                "filename": None,
+                "dir": None,
+            }
+            self.handler.certificates.append(s)
