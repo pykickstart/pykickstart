@@ -185,7 +185,7 @@ class KSOptionParser(ArgumentParser):
         # deprecated. we can only safely do this if there's exactly
         # one matching action
         if isinstance(option_tuple_or_tuples, list):
-            if len(option_tuple_or_tuples == 1):
+            if len(option_tuple_or_tuples) == 1:
                 option_tuple = option_tuple_or_tuples[0]
             else:
                 return option_tuple_or_tuples
