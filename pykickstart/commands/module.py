@@ -25,7 +25,6 @@ from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
 from pykickstart.version import versionToLongString, F29, RHEL8, F41
 
-import warnings
 from pykickstart.i18n import _
 
 
