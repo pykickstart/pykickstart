@@ -205,8 +205,6 @@ class Certificate(KickstartObject):
         if self.path:
             retval += " --path=%s\n" % self.path
 
-        pkgs = self._processCertificateBody()
-
         return retval + self.cert + "\n%end\n"
 
 
