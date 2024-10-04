@@ -195,6 +195,9 @@ class Certificate(KickstartObject):
 
     def __str__(self):
         """Return a string formatted for output to a kickstart file."""
+        if not self.cert:
+            return ""
+
         retval = "\n%certificate"
 
         retval += " --name=%s" % self.name
