@@ -30,5 +30,19 @@ class Simple_Header_TestCase(ParserTest):
         self.assertEqual(cert.path, "/etc/pki/ca-trust/source/anchors/")
         self.assertEqual(cert.cert, CERT_CONTENT)
 
+class Missing_Certificate_Body_Fails_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --name=custom_certificate.pem --path /etc/pki/ca-trust/source/anchors/
+%end
+"""
+
+    def runTest(self):
+        with self.assertRaises(KickstartParseError) as context:
+            self.parser.readKickstartFromString(self.ks)
+
+        self.assertRaises(KickstartParseError, self.parser.readKickstartFromString, self.ks)
+
 if __name__ == "__main__":
     unittest.main()

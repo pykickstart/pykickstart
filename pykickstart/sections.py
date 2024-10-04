@@ -912,7 +912,7 @@ class CertificateSection(Section):
     def finalize(self):
         """Create a certificate object and add it to the handler."""
         if " ".join(self._certificate["body"]).strip() == "":
-            return
+            raise KickstartParseError(_("The %certificate section is empty"))
 
         kwargs = {
             "name": self._certificate["name"],
