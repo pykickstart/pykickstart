@@ -75,7 +75,7 @@ kickstart file:
       These sections can be in any order and are not required. Refer to
       Chapter 4, Chapter 5, and Chapter 6  for details.
 
--  The %packages, %pre, %pre-install, %post, %onerror, and %traceback sections
+-  The %certificate, %packages, %pre, %pre-install, %post, %onerror, and %traceback sections
    are all required to be closed with %end
 -  Items that are not required can be omitted.
 -  Omitting any required item will result in the installation program
