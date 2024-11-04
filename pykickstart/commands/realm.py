@@ -18,6 +18,7 @@
 # with the express permission of Red Hat, Inc.
 #
 from pykickstart.version import F19
+from pykickstart.version import F42
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 from pykickstart.errors import KickstartParseError
@@ -57,7 +58,8 @@ class F19_Realm(KickstartCommand):
                                                        "membership-software=",
                                                        "one-time-password=",
                                                        "no-password",
-                                                       "computer-ou="))
+                                                       "computer-ou=",
+                                                       "computer-name="))
         except getopt.GetoptError as ex:
             raise KickstartParseError(_("Invalid realm arguments: %s") % ex, lineno=self.lineno)
 
@@ -101,3 +103,37 @@ class F19_Realm(KickstartCommand):
 
     def _getParser(self):
         return KSOptionParser(prog="realm", description="define an Active Directory realm to join", version=F19)
+
+
+class F42_Realm(F19_Realm):
+    removedKeywords = KickstartCommand.removedKeywords
+    removedAttrs = KickstartCommand.removedAttrs
+
+    def _parseJoin(self, args):
+        try:
+            # We only support these args
+            opts, remaining = getopt.getopt(args, "", ("client-software=",
+                                                       "server-software=",
+                                                       "membership-software=",
+                                                       "one-time-password=",
+                                                       "no-password",
+                                                       "computer-ou=",
+                                                       "computer-name=",))
+        except getopt.GetoptError as ex:
+            raise KickstartParseError(_("Invalid realm arguments: %s") % ex, lineno=self.lineno)
+
+        if len(remaining) != 1:
+            raise KickstartParseError(_("Specify only one realm to join"), lineno=self.lineno)
+
+        # Parse successful, just use this as the join command
+        self.join_realm = remaining[0]
+        self.join_args = args
+
+        # Build a discovery command
+        self.discover_options = []
+        supported_discover_options = ("--client-software",
+                                      "--server-software",
+                                      "--membership-software")
+        for (o, a) in opts:
+            if o in supported_discover_options:
+                self.discover_options.append("%s=%s" % (o, a))
