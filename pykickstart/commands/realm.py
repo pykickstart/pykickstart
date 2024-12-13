@@ -58,8 +58,7 @@ class F19_Realm(KickstartCommand):
                                                        "membership-software=",
                                                        "one-time-password=",
                                                        "no-password",
-                                                       "computer-ou=",
-                                                       "computer-name="))
+                                                       "computer-ou="))
         except getopt.GetoptError as ex:
             raise KickstartParseError(_("Invalid realm arguments: %s") % ex, lineno=self.lineno)
 
@@ -124,6 +123,11 @@ class F42_Realm(F19_Realm):
 
         if len(remaining) != 1:
             raise KickstartParseError(_("Specify only one realm to join"), lineno=self.lineno)
+        
+        for (o, a) in opts:
+          if o == "--computer-name":
+              if len(a) == 0:
+                  raise KickstartParseError(_("Argument --computer-name must have an argument"), lineno=self.lineno)
 
         # Parse successful, just use this as the join command
         self.join_realm = remaining[0]

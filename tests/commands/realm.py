@@ -68,11 +68,13 @@ class F42_TestCase(F19_TestCase):
         F19_TestCase.runTest(self)
 
         # Support the --computer-name option
-        self.assert_parse("""realm join --computer-name=blee blah2""")
+        self.assert_parse("""realm join --computer-name=blee domain.example.com""")
 
         # Support the --computer-name option alongside another supported argument 
-        self.assert_parse("""realm join --computer-name=blee --computer-ou=OU=blah blah2""")
+        self.assert_parse("""realm join --computer-name=blee --computer-ou=OU=blah domain.example.com""")
 
+        # fail - computer name must have argument
+        self.assert_parse_error("""realm join --computer-name= domain.example.com""")
 
 if __name__ == "__main__":
     unittest.main()
