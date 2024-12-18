@@ -2,6 +2,7 @@
 
 import sys
 
+import astroid
 from pocketlint import FalsePositive, PocketLintConfig, PocketLinter
 import pylint
 
@@ -21,7 +22,7 @@ class PykickstartLintConfig(PocketLintConfig):
         return {"translation-canary", ".tox"}
 
 if __name__ == "__main__":
-    print("INFO: Using pylint v%s" % pylint.__version__)
+    print("INFO: Using pylint v%s, astroid v%s" % (pylint.version, astroid.version))
     conf = PykickstartLintConfig()
     linter = PocketLinter(conf)
     rc = linter.run()
