@@ -72,7 +72,7 @@ class F42Handler(BaseHandler):
         "partition": commands.partition.F41_Partition,
         "poweroff": commands.reboot.F23_Reboot,
         "raid": commands.raid.F29_Raid,
-        "realm": commands.realm.F19_Realm,
+        "realm": commands.realm.F42_Realm,
         "reboot": commands.reboot.F23_Reboot,
         "repo": commands.repo.F40_Repo,
         "reqpart": commands.reqpart.F23_ReqPart,
