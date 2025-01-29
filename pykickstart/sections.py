@@ -884,7 +884,7 @@ class CertificateSection(Section):
         op.add_argument("--filename", dest="filename", required=True, version=RHEL10,
                         help="""The name of the certificate file.""")
 
-        op.add_argument("--dir", dest="dir", default=None, version=RHEL10, help="""
+        op.add_argument("--dir", dest="dir", required=True, version=RHEL10, help="""
                         The directory where the certificate should be installed.""")
 
         return op
