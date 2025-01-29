@@ -85,15 +85,47 @@ class Simple_Header_TestCase(ParserTest):
         self.assertEqual(cert.dir, "/etc/pki/ca-trust/source/anchors/")
         self.assertEqual(cert.cert, CERT_CONTENT)
 
+class Missing_Dir_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom_certificate.pem
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        with self.assertRaises(KickstartParseError) as cm:
+            self.parser.readKickstartFromString(self.ks)
+
+        expected = "the following arguments are required: --dir"
+        self.assertIn(expected, str(cm.exception))
+
+class Missing_Filename_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        with self.assertRaises(KickstartParseError) as cm:
+            self.parser.readKickstartFromString(self.ks)
+
+        expected = "the following arguments are required: --filename"
+        self.assertIn(expected, str(cm.exception))
+
 class Multiple_Terminated_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = f"""
-%certificate --filename=custom_certificate_1.pem
+%certificate --filename=custom_certificate_1.pem --dir /etc/pki/edns
 {CERT_CONTENT}
 %end
 
-%certificate --filename=custom_certificate_2.pem
+%certificate --filename=custom_certificate_2.pem --dir /etc/pki/edns
 {CERT_CONTENT_2}
 %end
 """
@@ -116,10 +148,10 @@ class Multiple_Unterminated_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = f"""
-%certificate --filename=custom_certificate_1.pem
+%certificate --filename=custom_certificate_1.pem --dir /etc/pki/edns
 {CERT_CONTENT}
 
-%certificate --filename=custom_certificate_2.pem
+%certificate --filename=custom_certificate_2.pem --dir /etc/pki/edns
 {CERT_CONTENT_2}
 """
 
@@ -141,11 +173,11 @@ class Cert_Content_Empty_Line_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = f"""
-%certificate --filename=custom_certificate_1.pem
+%certificate --filename=custom_certificate_1.pem --dir /etc/pki/edns
 {CERT_CONTENT_WITH_EMPTY_LINE}
 %end
 
-%certificate --filename=custom_certificate_2.pem
+%certificate --filename=custom_certificate_2.pem --dir /etc/pki/edns
 {CERT_CONTENT_WITH_TRAILING_NEWLINE}
 %end
 """
