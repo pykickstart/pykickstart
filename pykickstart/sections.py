@@ -868,6 +868,10 @@ class CertificateSection(Section):
                             The %certificate section is used to specify a
                             certificate to be installed on the system.
 
+                            The certificate content should be in a Base64 ASCII enconding
+                            format. It will be written into a file specified by the
+                            --dir and --filename options.
+
                             Example:
 
                             %certificate --filename custom_certificate.pem --dir /etc/pki/dns/
