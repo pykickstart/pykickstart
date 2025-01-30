@@ -862,23 +862,32 @@ class CertificateSection(Section):
 
     def _getParser(self):
         op = KSOptionParser(prog=self.sectionOpen, description="""
-                            The %certificate section is used to specify a
-                            certificate to be installed on the system.
+                            The %certificate section is used to specify certificates to be
+                            installed on the system.
+
+                            The certificate content should be in a Base64 ASCII enconding
+                            format. It will be written into a file specified by the
+                            --dir and --filename options.
 
                             Example:
 
-                            %certificate --filename custom_certificate.pem --dir /etc/pki/dns/
-                            -----BEGIN CERTIFICATE-----
-                            MIIDkDCCAnigAwIBAgIUFfTKU02DB4Nz4u3pRk1ShpRvn0AwDQYJKoZIhvcNAQEL
-                            BQAwVTELMAkGA1UEBhMCVVMxGzAZBgNVBAgTElNvbWUgU3RhdGUgb3IgUHJvdmlu
-                            Y2UxEjAQBgNVBAcTCVJvYWxkIE9uZTEVMBMGA1UEChMMRXhhbXBsZSBPcmcgTjAw
-                            HhcNMjEwNzI2MDg0NDIxWhcNMjIwNzI2MDg0NDIxWjBVMQswCQYDVQQGEwJVUzEb
-                            MBkGA1UECBMSU29tZSBTdGF0ZSBvciBQcm92aW5jZTESMBAGA1UEBxMJUm9hbGQg
-                            T25lMRUwEwYDVQQKEwxFeGFtcGxlIE9yZyBObzAwggEiMA0GCSqGSIb3DQEBAQUA
-                            A4IBDwAwggEKAoIBAQC4/SDsn8RQk0Euh6ZTKq5/Mz34K6QlnrxmAF7B8QGbDiK6
-                            ...
-                            -----END CERTIFICATE-----
-                            %end
+                                %certificate --filename custom_certificate.pem --dir /etc/pki/dns/
+                                -----BEGIN CERTIFICATE-----
+                                MIIBjTCCATOgAwIBAgIUWR5HO3v/0I80Ne0jQWVZFODuWLEwCgYIKoZIzj0EAwIw
+                                FDESMBAGA1UEAwwJUlZURVNUIENBMB4XDTI0MTEyMDEzNTk1N1oXDTM0MTExODEz
+                                NTk1N1owFDESMBAGA1UEAwwJUlZURVNUIENBMFkwEwYHKoZIzj0CAQYIKoZIzj0D
+                                AQcDQgAELghFKGEgS8+5/2nx50W0xOqTrKc2Jz/rD/jfL0m4z4fkeAslCOkIKv74
+                                0wfBXMngxi+OF/b3Vh8FmokuNBQO5qNjMGEwHQYDVR0OBBYEFOJarl9Xkd13sLzI
+                                mHqv6aESlvuCMB8GA1UdIwQYMBaAFOJarl9Xkd13sLzImHqv6aESlvuCMA8GA1Ud
+                                EwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMAoGCCqGSM49BAMCA0gAMEUCIAet
+                                7nyre42ReoRKoyHWLDsQmQDzoyU3FQdC0cViqOtrAiEAxYIL+XTTp7Xy9RNE4Xg7
+                                yNWXfdraC/AfMM8fqsxlVJM=
+                                -----END CERTIFICATE-----
+                                %end
+
+                            A certificate bundle can be installed as a content of a single
+                            %certificate section.
+
                             """, version=RHEL10)
 
         op.add_argument("--filename", dest="filename", required=True, version=RHEL10,
