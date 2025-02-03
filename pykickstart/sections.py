@@ -872,7 +872,7 @@ class CertificateSection(Section):
                             format. It will be written into a file specified by the
                             --dir and --filename options.
 
-                            Example:
+                            Example::
 
                                 %certificate --filename custom_certificate.pem --dir /etc/pki/dns/
                                 -----BEGIN CERTIFICATE-----
