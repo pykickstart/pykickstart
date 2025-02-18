@@ -410,5 +410,13 @@ class RHEL8_TestCase(F29_TestCase):
         F29_TestCase.runTest(self)
         self.assert_parse_error("raid / --device=md0 --level=1 --fstype=btrfs raid.01 raid.02")
 
+class RHEL10_TestCase(RHEL8_TestCase):
+    def runTest(self):
+        self.assert_parse("raid / --device=md0 --level=0 raid.01",
+                          "raid / --device=md0 --level=RAID0 raid.01\n")
+
+        self.assert_parse("raid / --device=md_test --level=1 raid.01 raid.02",
+                          "raid / --device=md_test --level=RAID1 raid.01 raid.02\n")
+
 if __name__ == "__main__":
     unittest.main()

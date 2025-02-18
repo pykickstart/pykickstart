@@ -334,19 +334,19 @@ class FC3_Raid(KickstartCommand):
 
         return retval
 
+    def _device_cb(self, value):
+        if value[0:2] == "md":
+            return value[2:]
+        else:
+            return value
+
+    def _level_cb(self, value):
+        if value.upper() in self.levelMap:
+            return self.levelMap[value.upper()]
+        else:
+            raise KickstartParseError(_("Invalid raid level: %s") % value, lineno=self.lineno)
+
     def _getParser(self):
-        def device_cb(value):
-            if value[0:2] == "md":
-                return value[2:]
-            else:
-                return value
-
-        def level_cb(value):
-            if value.upper() in self.levelMap:
-                return self.levelMap[value.upper()]
-            else:
-                raise KickstartParseError(_("Invalid raid level: %s") % value, lineno=self.lineno)
-
         op = KSOptionParser(prog="raid", description="""
                             Assembles a software RAID device.""",
                             epilog="""
@@ -382,7 +382,7 @@ class FC3_Raid(KickstartCommand):
                         version=FC3, help="""
                         The software raid partitions lists the RAID identifiers
                         to add to the RAID array.""")
-        op.add_argument("--device", type=device_cb, required=True,
+        op.add_argument("--device", type=self._device_cb, required=True,
                         version=FC3, help="""
                         Name of the RAID device to use (such as 'fedora-root'
                         or 'home'). As of Fedora 19, RAID devices are no longer
@@ -396,7 +396,7 @@ class FC3_Raid(KickstartCommand):
                         Other filesystems may be valid depending on command
                         line arguments passed to anaconda to enable other
                         filesystems.""")
-        op.add_argument("--level", type=level_cb, version=FC3, help="""
+        op.add_argument("--level", type=self._level_cb, version=FC3, help="""
                         RAID level to use %s.""" % set(self.levelMap.values()))
         op.add_argument("--noformat", dest="format", action="store_false",
                         default=True, version=FC3, help="""
@@ -793,4 +793,9 @@ class RHEL9_Raid(RHEL8_Raid):
     pass
 
 class RHEL10_Raid(RHEL8_Raid):
-    pass
+    removedKeywords = RHEL8_Raid.removedKeywords
+    removedAttrs = RHEL8_Raid.removedAttrs
+
+    def _device_cb(self, value):
+        # do not remove the "md" prefix from array name in RHEL10 and later
+        return value
