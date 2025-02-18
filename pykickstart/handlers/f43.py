@@ -71,7 +71,7 @@ class F43Handler(BaseHandler):
         "part": commands.partition.F41_Partition,
         "partition": commands.partition.F41_Partition,
         "poweroff": commands.reboot.F23_Reboot,
-        "raid": commands.raid.F29_Raid,
+        "raid": commands.raid.F43_Raid,
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F23_Reboot,
         "repo": commands.repo.F40_Repo,
