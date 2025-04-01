@@ -866,7 +866,7 @@ class CertificateSection(Section):
     def _getParser(self):
         op = KSOptionParser(prog=self.sectionOpen, description="""
                             The %certificate section is used to specify certificates to be
-                            installed on the system.
+                            installed into the installer environment and the installed system.
 
                             The certificate content should be in a Base64 ASCII enconding
                             format. It will be written into a file specified by the
