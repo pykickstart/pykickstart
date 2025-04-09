@@ -30,6 +30,7 @@ class RHEL10Handler(BaseHandler):
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.RHEL10_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
+        "bootc": commands.bootc.RHEL10_Bootc,
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.RHEL10_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,

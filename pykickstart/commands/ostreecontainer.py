@@ -22,7 +22,7 @@ from pykickstart.options import KSOptionParser
 class F38_OSTreeContainer(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
     removedAttrs = KickstartCommand.removedAttrs
-    conflictingCommands = ["ostreesetup"]
+    conflictingCommands = ["ostreesetup", "bootc"]
 
     def __init__(self, *args, **kwargs):
         KickstartCommand.__init__(self, *args, **kwargs)

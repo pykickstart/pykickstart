@@ -21,7 +21,7 @@
 import unittest
 from tests.baseclass import CommandTest, CommandSequenceTest
 from pykickstart.commands.ostreesetup import F21_OSTreeSetup
-from pykickstart.version import F38
+from pykickstart.version import F38, RHEL10
 
 class OSTreeSetup_TestCase(unittest.TestCase):
     def runTest(self):
@@ -82,6 +82,30 @@ class F38_Conflict_TestCase(CommandSequenceTest):
         self.assert_parse_error("""
         ostreecontainer --url=quay.io/fedora/fcos:stable
         ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core""")
+
+        #fail - ostreesetup and bootc can't be used together
+        self.assert_parse_error("""
+        ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core
+        bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9
+        """)
+
+class RHEL10_Conflict_TestCase(CommandSequenceTest):
+
+    def __init__(self, *args, **kwargs):
+        CommandSequenceTest.__init__(self, *args, **kwargs)
+        self.version = RHEL10
+
+    def runTest(self):
+        #fail - ostreecontainer and ostreesetup can't be used together
+        self.assert_parse_error("""
+        ostreecontainer --url=quay.io/fedora/fcos:stable
+        ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core""")
+
+        #fail - ostreesetup and bootc can't be used together
+        self.assert_parse_error("""
+        ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core
+        bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9
+        """)
 
 if __name__ == "__main__":
     unittest.main()
