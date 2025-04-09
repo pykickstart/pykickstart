@@ -83,5 +83,11 @@ class F38_Conflict_TestCase(CommandSequenceTest):
         ostreecontainer --url=quay.io/fedora/fcos:stable
         ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core""")
 
+        #fail - ostreesetup and bootc can't be used together
+        self.assert_parse_error("""
+        ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core
+        bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9
+        """)
+
 if __name__ == "__main__":
     unittest.main()
