@@ -30,6 +30,7 @@ class F43Handler(BaseHandler):
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.F41_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
+        "bootc": commands.bootc.F43_Bootc,
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
@@ -66,8 +67,8 @@ class F43Handler(BaseHandler):
         "nfs": commands.nfs.FC6_NFS,
         "nvdimm": commands.nvdimm.F40_Nvdimm,
         "timesource": commands.timesource.F33_Timesource,
-        "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
-        "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
+        "ostreecontainer": commands.ostreecontainer.F43_OSTreeContainer,
+        "ostreesetup": commands.ostreesetup.F43_OSTreeSetup,
         "part": commands.partition.F41_Partition,
         "partition": commands.partition.F41_Partition,
         "poweroff": commands.reboot.F23_Reboot,
