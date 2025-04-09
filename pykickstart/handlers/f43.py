@@ -68,6 +68,7 @@ class F43Handler(BaseHandler):
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
+        "bootc": commands.bootc.F43_Bootc,
         "part": commands.partition.F41_Partition,
         "partition": commands.partition.F41_Partition,
         "poweroff": commands.reboot.F23_Reboot,

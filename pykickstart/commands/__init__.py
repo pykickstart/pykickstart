@@ -64,6 +64,7 @@ from pykickstart.commands import (
     timesource,
     ostreecontainer,
     ostreesetup,
+    bootc,
     partition,
     raid,
     reqpart,
