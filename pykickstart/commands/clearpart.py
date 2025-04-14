@@ -84,9 +84,8 @@ class FC3_ClearPart(KickstartCommand):
         op.add_argument("--initlabel", dest="initAll", action="store_true",
                         default=False, version=FC3, help="""
                         Initializes the disk label to the default for your
-                        architecture (for example msdos for x86 and gpt for
-                        Itanium). This is only meaningful in combination with
-                        the '--all' option.""")
+                        architecture (for example gpt for x86). This is only
+                        meaningful in combination with the '--all' option.""")
         op.add_argument("--linux", dest="type", action="store_const",
                         const=CLEARPART_TYPE_LINUX, version=FC3,
                         help="Erases all Linux partitions.")
