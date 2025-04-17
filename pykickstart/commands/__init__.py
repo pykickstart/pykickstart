@@ -22,6 +22,7 @@ from pykickstart.commands import (
     authselect,
     autopart,
     autostep,
+    bootc,
     bootloader,
     btrfs,
     clearpart,
