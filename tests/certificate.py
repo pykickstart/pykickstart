@@ -1,7 +1,6 @@
 import unittest
 from tests.baseclass import ParserTest
 
-from pykickstart import constants
 from pykickstart.errors import KickstartParseError
 from pykickstart import version         # pylint: disable=unused-import
 
