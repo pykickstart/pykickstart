@@ -100,4 +100,8 @@ class F19_Realm(KickstartCommand):
         return self
 
     def _getParser(self):
-        return KSOptionParser(prog="realm", description="define an Active Directory realm to join", version=F19)
+        op = KSOptionParser(prog="realm join", version=F19,
+                              description="Define an Active Directory realm to join")
+        op.add_argument("options", metavar="[options]", version=F19,
+                        help="See ``man realm`` join section.")
+        return op
