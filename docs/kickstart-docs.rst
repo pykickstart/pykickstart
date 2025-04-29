@@ -283,7 +283,7 @@ scripts, while ``%include`` does not.
 .. include:: sections.rst
 
 
-Chapter 10. Making the Kickstart File Available
+Chapter 11. Making the Kickstart File Available
 ===============================================
 
 A kickstart file must be placed in one of the following locations:
@@ -412,7 +412,7 @@ and
 Prior to Fedora 17 and Red Hat Enterprise Linux 7, these options were
 named ``kssendmac`` and ``kssendsn``.
 
-Chapter 11. Making the Installation Tree Available
+Chapter 12. Making the Installation Tree Available
 ==================================================
 
 The kickstart installation needs to access an installation tree. An
@@ -433,7 +433,7 @@ the Preparing for a Network Installation section of the Red Hat
 Enterprise Linux Installation Guide for details.
 
 
-Chapter 12. Starting a Kickstart Installation
+Chapter 13. Starting a Kickstart Installation
 =============================================
 
 To begin a kickstart installation, you must boot the system from a
