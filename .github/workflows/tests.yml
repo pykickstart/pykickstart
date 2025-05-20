@@ -19,14 +19,8 @@ jobs:
       fail-fast: false
       max-parallel: 5
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.9]
         include:
-          - python-version: 3.6
-            tox-env: py36
-          - python-version: 3.7
-            tox-env: py37
-          - python-version: 3.8
-            tox-env: py38
           - python-version: 3.9
             tox-env: py39
     steps:
@@ -43,7 +37,7 @@ jobs:
       - name: Run check coverage and docs
         run: tox -e ${{ matrix.tox-env }}
       - name: Coveralls
-        if: matrix.python-version == 3.9
+        if: ${{ matrix.python-version == '3.9' }}
         uses: AndreMiras/coveralls-python-action@develop
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
