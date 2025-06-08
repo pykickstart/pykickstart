@@ -72,6 +72,7 @@ class RHEL10Handler(BaseHandler):
         "partition": commands.partition.RHEL10_Partition,
         "poweroff": commands.reboot.F23_Reboot,
         "raid": commands.raid.RHEL10_Raid,
+        "rdp": commands.rdp.RHEL10_RDP,
         "realm": commands.realm.F19_Realm,
         "reboot": commands.reboot.F23_Reboot,
         "repo": commands.repo.F40_Repo,
