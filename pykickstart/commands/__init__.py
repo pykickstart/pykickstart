@@ -67,6 +67,7 @@ from pykickstart.commands import (
     ostreesetup,
     partition,
     raid,
+    rdp,
     reqpart,
     realm,
     reboot,
