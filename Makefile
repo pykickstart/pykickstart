@@ -66,10 +66,9 @@ test-no-coverage:
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc *log .coverage pykickstart.spec
 	$(MAKE) -C po clean
-	$(PYTHON) setup.py -q clean --all
 
 install:
-	$(PYTHON) setup.py install --root=$(DESTDIR)
+	$(PYTHON) -m pip install --no-build-isolation --root=$(DESTDIR) .
 	$(MAKE) -C po install
 
 tag:
@@ -100,13 +99,13 @@ archive: docs
 	$(MAKE) -C pykickstart-$(VERSION)/po
 	cp docs/_build/text/kickstart-docs.txt docs/programmers-guide pykickstart-$(VERSION)/docs/
 	PYTHONPATH=translation-canary $(PYTHON) -m translation_canary.translated --release pykickstart-$(VERSION)
-	( cd pykickstart-$(VERSION) && $(PYTHON) setup.py -q sdist --dist-dir .. )
+	( cd pykickstart-$(VERSION) && $(PYTHON) -m build --no-isolation --sdist --outdir .. )
 	rm -rf pykickstart-$(VERSION)
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
 
 local: docs po-pull
 	cp docs/_build/text/*.txt docs/
-	@$(PYTHON) setup.py -q sdist --dist-dir .
+	@$(PYTHON) -m build --no-isolation --sdist --outdir .
 	@echo "# To create the signature, run this command:" > pykickstart-$(VERSION).tar.gz.asc
 	@echo "# gpg --detach-sign --armor pykickstart-$(VERSION).tar.gz" >> pykickstart-$(VERSION).tar.gz.asc
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"
@@ -140,7 +139,7 @@ scratch: docs
 	@rm -rf /tmp/pykickstart-$(VERSION) /tmp/pykickstart
 	@dir=$$PWD; cp -a $$dir /tmp/pykickstart-$(VERSION)
 	@cp /tmp/pykickstart-$(VERSION)/docs/_build/text/kickstart-docs.txt /tmp/pykickstart-$(VERSION)/docs
-	@cd /tmp/pykickstart-$(VERSION) ; $(PYTHON) setup.py -q sdist
+	@cd /tmp/pykickstart-$(VERSION) ; $(PYTHON) -m build --no-isolation --sdist
 	@cp /tmp/pykickstart-$(VERSION)/dist/pykickstart-$(VERSION).tar.gz .
 	@rm -rf /tmp/pykickstart-$(VERSION)
 	@echo "The archive is in pykickstart-$(VERSION).tar.gz"

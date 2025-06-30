@@ -17,7 +17,9 @@ Source1:   https://github.com/pykickstart/%{name}/releases/download/r%{version}/
 BuildArch: noarch
 
 BuildRequires: gettext
+BuildRequires: python3-build
 BuildRequires: python3-devel
+BuildRequires: python3-pip
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
@@ -72,6 +74,6 @@ LC_ALL=C make PYTHON=%{__python3} test-no-coverage
 %doc docs/programmers-guide
 %doc docs/kickstart-docs.txt
 %{python3_sitelib}/pykickstart
-%{python3_sitelib}/pykickstart*.egg-info
+%{python3_sitelib}/pykickstart-%{version}.dist-info
 
 %changelog

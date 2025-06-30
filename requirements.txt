@@ -4,3 +4,4 @@ coverage
 pocketlint
 pylint
 setuptools
+build
