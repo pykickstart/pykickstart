@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=59.0"]
+requires = ["setuptools>=77.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -13,7 +13,7 @@ maintainers = [
 ]
 description = 'Python module for manipulating kickstart files'
 readme = "README.rst"
-license = { file="COPYING" }
+license-files = ["COPYING"]
 requires-python = ">=3.6"
 classifiers = [
     "Programming Language :: Python :: 3",
