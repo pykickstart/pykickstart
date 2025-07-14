@@ -18,7 +18,7 @@ class PykickstartLintConfig(PocketLintConfig):
 
     @property
     def ignoreNames(self):
-        return {"translation-canary", ".tox"}
+        return {"translation-canary", ".tox", ".git"}
 
 if __name__ == "__main__":
     print("INFO: Using pylint v%s" % pylint.__version__)
