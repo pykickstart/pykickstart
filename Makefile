@@ -55,13 +55,13 @@ ifneq ($(PYTHON_VERSION),3)
 endif
 	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m unittest -v $(tests)
+	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m pytest -v $(tests)
 	-$(COVERAGE) combine
 	-$(COVERAGE) report -m | tee coverage-report.log
 
 test-no-coverage:
 	@echo "*** Running unittests without coverage ***"
-	PYTHONPATH=. $(PYTHON) -m unittest -v $(tests)
+	PYTHONPATH=. $(PYTHON) -m pytest -v $(tests)
 
 clean:
 	-rm *.tar.gz pykickstart/*.pyc pykickstart/*/*.pyc tests/*.pyc tests/*/*.pyc *log .coverage pykickstart.spec

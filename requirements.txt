@@ -5,3 +5,4 @@ pocketlint
 pylint
 setuptools
 build
+pytest
