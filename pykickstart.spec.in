@@ -22,6 +22,7 @@ BuildRequires: python3-pip
 BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
+BuildRequires: python3-pytest
 
 # Only required when building with runtests
 %if %{with runtests}
