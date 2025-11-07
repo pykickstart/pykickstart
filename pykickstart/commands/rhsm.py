@@ -19,7 +19,7 @@
 from pykickstart.base import KickstartCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.version import RHEL8
+from pykickstart.version import RHEL8, RHEL10
 
 from pykickstart.i18n import _
 
@@ -42,9 +42,7 @@ class RHEL8_RHSM(KickstartCommand):
     def __str__(self):
         retval = KickstartCommand.__str__(self)
 
-        if not retval and not any([self.organization, self.activation_keys,
-                                   self.proxy, self.server_hostname,
-                                   self.rhsm_baseurl]):
+        if not retval and not self._has_options():
             return ""
 
         retval += '# Red Hat Subscription Manager\nrhsm'
@@ -64,6 +62,17 @@ class RHEL8_RHSM(KickstartCommand):
             retval+=' --rhsm-baseurl="%s"' % self.rhsm_baseurl
         retval+='\n'
         return retval
+
+    def _has_options(self):
+        return any(
+            [
+                self.organization,
+                self.activation_keys,
+                self.proxy,
+                self.server_hostname,
+                self.rhsm_baseurl,
+            ]
+        )
 
     def _getParser(self):
         op = KSOptionParser(prog="rhsm", description="""
@@ -112,4 +121,29 @@ class RHEL8_RHSM(KickstartCommand):
         return self
 
 class RHEL10_RHSM(RHEL8_RHSM):
-    pass
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.flatpak_registry_url = kwargs.get("flatpak_registry_url", None)
+
+    def __str__(self):
+        retval = super().__str__()
+        if not retval:
+            return ""
+        retval = retval.strip()
+        if self.flatpak_registry_url:
+            retval += ' --flatpak-registry-url="%s"' % self.flatpak_registry_url
+        return retval + "\n"
+
+    def _has_options(self):
+        return super()._has_options() or self.flatpak_registry_url
+
+    def _getParser(self):
+        op = super()._getParser()
+        op.add_argument(
+            "--flatpak-registry-url",
+            metavar="<flatpak_registry_url>",
+            version=RHEL10,
+            required=False,
+            help="Flatpak registry URL.",
+        )
+        return op
