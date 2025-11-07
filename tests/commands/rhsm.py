@@ -72,7 +72,43 @@ class RHEL8_TestCase(CommandTest):
                           'rhsm --organization="12345" --activation-key="abcd" --proxy="http://username:password@proxy.com:9001"\n')
 
 class RHEL10_TestCase(RHEL8_TestCase):
-    pass
+    def runTest(self):
+        # run all RHEL8 tests
+        super().runTest()
+
+        # test --flatpak-registry-url option parsing
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com"'
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com" --connect-to-insights'
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com" --server-hostname="https://rhsm.example.com"'
+        )
+
+        # test output kickstart generation with --flatpak-registry-url
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com"',
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com"\n',
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --activation-key="efgh" --flatpak-registry-url="https://flatpak.example.com"',
+            'rhsm --organization="12345" --activation-key="abcd" --activation-key="efgh" --flatpak-registry-url="https://flatpak.example.com"\n',
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com" --connect-to-insights',
+            'rhsm --organization="12345" --activation-key="abcd" --connect-to-insights --flatpak-registry-url="https://flatpak.example.com"\n',
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com" --server-hostname="https://rhsm.example.com"',
+            'rhsm --organization="12345" --activation-key="abcd" --server-hostname="https://rhsm.example.com" --flatpak-registry-url="https://flatpak.example.com"\n',
+        )
+        self.assert_parse(
+            'rhsm --organization="12345" --activation-key="abcd" --flatpak-registry-url="https://flatpak.example.com" --rhsm-baseurl="https://content.example.com"',
+            'rhsm --organization="12345" --activation-key="abcd" --rhsm-baseurl="https://content.example.com" --flatpak-registry-url="https://flatpak.example.com"\n',
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
