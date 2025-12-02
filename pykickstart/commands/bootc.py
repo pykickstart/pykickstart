@@ -61,8 +61,6 @@ class F43_Bootc(KickstartCommand):
                             Used for Bootc installations from native container. See
                             https://bootc-dev.github.io/bootc//man/bootc-install-to-filesystem.html
                             for more information about Bootc install to filesystem.
-
-                            **Experimental. Use on your own risk.**
                             """, version=F43, conflicts=self.conflictingCommands)
         # Rename the osname to stateroot and set default as proposed by
         # https://github.com/ostreedev/ostree/issues/2794
