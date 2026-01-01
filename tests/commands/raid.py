@@ -313,7 +313,11 @@ class F15_TestCase(F14_TestCase):
 
         # pass
         self.assert_parse("raid / --device=md0 --label=ROOT --level=1 raid.01 raid.02",
-                          "raid / --device=0 --level=RAID1 --label=ROOT raid.01 raid.02\n")
+                          "raid / --device=0 --level=RAID1 --label=\"ROOT\" raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --label=\"ROOT\" --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --label=\"ROOT\" raid.01 raid.02\n")
+        self.assert_parse("raid / --device=md0 --label=\"ROOT LABEL WITH SPACES\" --level=1 raid.01 raid.02",
+                          "raid / --device=0 --level=RAID1 --label=\"ROOT LABEL WITH SPACES\" raid.01 raid.02\n")
 
 class F18_TestCase(F15_TestCase):
     def runTest(self):

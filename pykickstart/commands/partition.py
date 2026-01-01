@@ -111,7 +111,7 @@ class FC4_PartData(FC3_PartData):
         if self.fsopts:
             retval += " --fsoptions=\"%s\"" % self.fsopts
         if self.label:
-            retval += " --label=%s" % self.label
+            retval += " --label=\"%s\"" % self.label
 
         return retval
 

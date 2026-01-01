@@ -143,12 +143,12 @@ class F17_TestCase(CommandTest):
                           "btrfs /home --noformat --useexisting --subvol --name=home LABEL=test\n")
 
         # pass
-        self.assert_parse("btrfs / --label=ROOT --data=1 part.01 part.02",
-                          "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
+        self.assert_parse("btrfs / --label=\"ROOT\" --data=1 part.01 part.02",
+                          "btrfs / --label=\"ROOT\" --data=raid1 part.01 part.02\n")
         self.assert_parse("btrfs / --data=RAID1 --label=ROOT part.01 part.02",
-                          "btrfs / --label=ROOT --data=raid1 part.01 part.02\n")
-        self.assert_parse("btrfs / --label=ROOT --metadata=1 part.01 part.02",
-                          "btrfs / --label=ROOT --metadata=raid1 part.01 part.02\n")
+                          "btrfs / --label=\"ROOT\" --data=raid1 part.01 part.02\n")
+        self.assert_parse("btrfs / --label=\"LABEL WITH SPACES\" --metadata=1 part.01 part.02",
+                          "btrfs / --label=\"LABEL WITH SPACES\" --metadata=raid1 part.01 part.02\n")
 
         # extra test coverage
         btrfs = self.handler().commands["btrfs"]

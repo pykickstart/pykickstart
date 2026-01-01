@@ -61,7 +61,7 @@ class F17_BTRFSData(BaseData):
         if self.preexist:
             retval += " --useexisting"
         if self.label:
-            retval += " --label=%s" % self.label
+            retval += " --label=\"%s\"" % self.label
         if self.dataLevel:
             retval += " --data=%s" % self.dataLevel.lower()
         if self.metaDataLevel:

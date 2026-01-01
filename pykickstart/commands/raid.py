@@ -221,7 +221,7 @@ class F15_RaidData(F14_RaidData):
         retval = F14_RaidData._getArgsAsStr(self)
 
         if self.label:
-            retval += " --label=%s" % self.label
+            retval += " --label=\"%s\"" % self.label
 
         return retval
 

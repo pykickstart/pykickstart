@@ -130,18 +130,24 @@ class FC4_TestCase(FC3_TestCase):
 
         if "--bytes-per-inode" in self.optionList:
             # pass
-            self.assert_parse("part /home --bytes-per-inode=2048 --fsoptions=blah --label=home",
-                              "part /home --bytes-per-inode=2048 --fsoptions=\"blah\" --label=home\n")
+            self.assert_parse("part /home --bytes-per-inode=2048 --fsoptions=blah --label=\"long home label\"",
+                              "part /home --bytes-per-inode=2048 --fsoptions=\"blah\" --label=\"long home label\"\n")
+            self.assert_parse("part /home --bytes-per-inode=4096 --label=HOME",
+                              "part /home --bytes-per-inode=4096 --label=\"HOME\"\n")
+            self.assert_parse("part /home --bytes-per-inode=4096 --label=\"HOME\"",
+                              "part /home --bytes-per-inode=4096 --label=\"HOME\"\n")
 
             # fail
             # --bytes-per-inode requires int argument
             self.assert_parse_error("part /home --bytes-per-inode=string")
             self.assert_parse_error("part /home --bytes-per-inode")
 
+
         # missing required arguments
         for opt in ("--fsoptions", "--label"):
             if opt in self.optionList:
                 self.assert_parse_error("part /home %s" % opt)
+
 
 class RHEL5_TestCase(FC4_TestCase):
     def runTest(self):
