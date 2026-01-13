@@ -31,6 +31,7 @@ class RHEL10Handler(BaseHandler):
         "autopart": commands.autopart.RHEL10_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
         "bootloader": commands.bootloader.F39_Bootloader,
+        "bootc": commands.bootc.F43_Bootc,
         "btrfs": commands.btrfs.RHEL10_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
         "clearpart": commands.clearpart.F28_ClearPart,
@@ -66,8 +67,8 @@ class RHEL10Handler(BaseHandler):
         "nfs": commands.nfs.FC6_NFS,
         "nvdimm": commands.nvdimm.RHEL10_Nvdimm, # RemovedCommand
         "timesource": commands.timesource.F33_Timesource,
-        "ostreecontainer": commands.ostreecontainer.F38_OSTreeContainer,
-        "ostreesetup": commands.ostreesetup.F38_OSTreeSetup,
+        "ostreecontainer": commands.ostreecontainer.F43_OSTreeContainer,
+        "ostreesetup": commands.ostreesetup.F43_OSTreeSetup,
         "part": commands.partition.RHEL10_Partition,
         "partition": commands.partition.RHEL10_Partition,
         "poweroff": commands.reboot.F23_Reboot,

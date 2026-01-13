@@ -78,3 +78,6 @@ class F43_Conflict_TestCase(CommandSequenceTest):
         bootc --source-imgref=quay.io/centos-bootc/centos-bootc:stream9
         ostreesetup --osname=fedora-atomic --url=http://example.com/repo --ref=fedora-atomic/sometest/base/core
         """)
+
+class RHEL10_TestCase(F43_TestCase):
+    pass
