@@ -6,3 +6,4 @@ pylint
 setuptools
 build
 pytest
+pytest-xdist
