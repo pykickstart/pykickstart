@@ -792,9 +792,6 @@ class RHEL8_Raid(F29_Raid):
 class RHEL9_Raid(RHEL8_Raid):
     pass
 
-class RHEL10_Raid(RHEL8_Raid):
-    pass
-
 class F43_Raid(F29_Raid):
     removedKeywords = F29_Raid.removedKeywords
     removedAttrs = F29_Raid.removedAttrs
@@ -802,3 +799,7 @@ class F43_Raid(F29_Raid):
     def _device_cb(self, value):
         # do not remove the "md" prefix from array name in F43 and later
         return value
+
+class RHEL10_Raid(F43_Raid):
+    removedKeywords = F43_Raid.removedKeywords
+    removedAttrs = F43_Raid.removedAttrs

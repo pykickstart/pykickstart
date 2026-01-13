@@ -422,5 +422,8 @@ class F43_TestCase(F29_TestCase):
         self.assert_parse("raid / --device=md_test --level=1 raid.01 raid.02",
                           "raid / --device=md_test --level=RAID1 raid.01 raid.02\n")
 
+class RHEL10_TestCase(F43_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
