@@ -40,5 +40,8 @@ class F43_TestCase(CommandTest):
         self.assert_parse_error("rdp --password")
         self.assert_parse_error("rdp --username")
 
+class RHEL10_TestCase(F43_TestCase):
+    pass
+
 if __name__ == "__main__":
     unittest.main()
