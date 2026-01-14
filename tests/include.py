@@ -1,7 +1,9 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import os
-import unittest
 import tempfile
+import threading
+import unittest
+
 from tests.baseclass import ParserTest
 
 from pykickstart import constants
@@ -170,6 +172,14 @@ ls /tmp
         # Also verify the body, which is the most important part.
         self.assertEqual(script.script.rstrip(), "ls /tmp")
 
+class DirServer(ThreadingHTTPServer):
+    def __init__(self, address, directory):
+        super().__init__(address, SimpleHTTPRequestHandler)
+        self.directory = directory
+
+    def finish_request(self, request, client_address):
+        SimpleHTTPRequestHandler(request, client_address, self, directory=self.directory)
+
 class Include_URL_TestCase(Base_Include):
     def __init__(self, *args, **kwargs):
         Base_Include.__init__(self, *args, **kwargs)
@@ -186,28 +196,15 @@ ls /tmp
     def setUp(self):
         super(Include_URL_TestCase, self).setUp()
 
-        # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
-        httphandler = SimpleHTTPRequestHandler
-
-        def shutup(*args, **kwargs):
-            pass
-        httphandler.log_message = shutup
-
-        self._server = HTTPServer(('127.0.0.1', 0), httphandler)
+        self._server = DirServer(('127.0.0.1', 0), os.path.dirname(self._path))
         httpd_port = self._server.server_port
-        self._httpd_pid = os.fork()
-        if self._httpd_pid == 0:
-            os.chdir(os.path.dirname(self._path))
-            self._server.serve_forever()
-
         self._url = 'http://127.0.0.1:%d/%s' % (httpd_port, os.path.basename(self._path))
+        # wrong URL (HTTPS request won't be handled correctly by the HTTP server)
+        threading.Thread(target=self._server.serve_forever).start()
 
     def tearDown(self):
         super(Include_URL_TestCase, self).tearDown()
-        self._server.server_close()
-
-        import signal
-        os.kill(self._httpd_pid, signal.SIGTERM)
+        self._server.shutdown()
 
     def runTest(self):
         self.parser.readKickstartFromString(self.ks % self._url)

@@ -1,11 +1,11 @@
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 import unittest
 import os
 import tempfile
+import threading
 
 from pykickstart import load
 from pykickstart.errors import KickstartError
-from signal import SIGTERM
 
 class LoadTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
@@ -69,31 +69,28 @@ class Load_To_File_TestCase(LoadTest):
         super(Load_To_File_TestCase, self).tearDown()
         os.unlink(self._target_path)
 
+class DirServer(ThreadingHTTPServer):
+    def __init__(self, address, directory):
+        super().__init__(address, SimpleHTTPRequestHandler)
+        self.directory = directory
+
+    def finish_request(self, request, client_address):
+        SimpleHTTPRequestHandler(request, client_address, self, directory=self.directory)
+
 class Load_From_URL_Test(LoadTest):
     def setUp(self):
         super(Load_From_URL_Test, self).setUp()
 
-        # Disable logging in the handler, mostly to keep the HTTPS binary garbage off the screen
-        httphandler = SimpleHTTPRequestHandler
-
-        def shutup(*args, **kwargs):
-            pass
-        httphandler.log_message = shutup
-
-        self._server = HTTPServer(('127.0.0.1', 0), httphandler)
+        self._server = DirServer(('127.0.0.1', 0), os.path.dirname(self._path))
         httpd_port = self._server.server_port
-        self._httpd_pid = os.fork()
-        if self._httpd_pid == 0:
-            os.chdir(os.path.dirname(self._path))
-            self._server.serve_forever()
         self._url = 'http://127.0.0.1:%d/%s' % (httpd_port, os.path.basename(self._path))
         # wrong URL (HTTPS request won't be handled correctly by the HTTP server)
         self._url_https = "https" + self._url.lstrip("http")
+        threading.Thread(target=self._server.serve_forever).start()
 
     def tearDown(self):
         super(Load_From_URL_Test, self).tearDown()
-        self._server.server_close()
-        os.kill(self._httpd_pid, SIGTERM)
+        self._server.shutdown()
 
 class Load_From_URL_To_Str_TestCase(Load_From_URL_Test):
     def runTest(self):
