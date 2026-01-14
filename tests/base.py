@@ -108,12 +108,15 @@ class KickstartCommandNoParseMethod(KickstartCommand):
     """ The parse() method is not defined """
 
 class TestDeprecatedCommand(DeprecatedCommand):
+    __test__ = False
     pass
 
 class TestRemovedCommand(RemovedCommand):
+    __test__ = False
     pass
 
 class TestBaseData(BaseData):
+    __test__ = False
     def __init__(self, *args, **kwargs):
         BaseData.__init__(self, *args, **kwargs)
         self.testAttr = kwargs.get('testAttr', '')

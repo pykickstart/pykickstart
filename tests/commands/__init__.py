@@ -69,6 +69,7 @@ class TestKSOptionParser(KSOptionParser):
         Wrapper class that will raise exception if some of the
         help attributes are empty.
     """
+    __test__ = False
     def __init__(self, *args, **kwargs):
         self._test_errors = []
         for arg_name in ['prog', 'version', 'description']:
