@@ -7,3 +7,4 @@ setuptools
 build
 pytest
 pytest-xdist
+pytest-cov

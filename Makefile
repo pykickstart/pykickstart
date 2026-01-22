@@ -2,7 +2,6 @@ VERSION     = $(shell grep -o version=\'.\*\' setup.py | awk -F= -e '/version=/ 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 TAG         = r$(VERSION)
 PREVTAG    := $(shell git tag --sort=-creatordate | head -n 2 | tail -n 1)
-COVERAGE   ?= coverage3
 PYTHON     ?= python3
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
@@ -53,11 +52,8 @@ coverage:
 ifneq ($(PYTHON_VERSION),3)
 	$(error The coverage/test target is only supported for python3)
 endif
-	@which $(COVERAGE) || (echo "*** Please install coverage (python3-coverage) ***"; exit 2)
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(COVERAGE) run -p --branch --source=pykickstart,tools -m pytest -n auto -v $(tests)
-	-$(COVERAGE) combine
-	-$(COVERAGE) report -m | tee coverage-report.log
+	PYTHONPATH=. $(PYTHON) -m pytest --cov-branch --cov -n auto -v $(tests) | tee coverage-report.log
 
 test-no-coverage:
 	@echo "*** Running unittests without coverage ***"

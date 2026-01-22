@@ -24,6 +24,7 @@ BuildRequires: python3-setuptools
 BuildRequires: make
 BuildRequires: python3-pytest
 BuildRequires: python3-pytest-xdist
+BuildRequires: python3-pytest-cov
 
 # Only required when building with runtests
 %if %{with runtests}
