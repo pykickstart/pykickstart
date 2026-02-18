@@ -8,7 +8,6 @@ pykickstart*.tar.bz2
 pylint-log
 tests/pylint/.pylint.d/
 .coverage
-coverage-report.log
 docs/_build
 docs/modules.rst
 docs/pykickstart*.rst

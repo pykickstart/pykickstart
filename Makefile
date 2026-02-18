@@ -53,7 +53,7 @@ ifneq ($(PYTHON_VERSION),3)
 	$(error The coverage/test target is only supported for python3)
 endif
 	@echo "*** Running unittests with coverage ***"
-	PYTHONPATH=. $(PYTHON) -m pytest --cov-branch --cov -n auto -v $(tests) | tee coverage-report.log
+	PYTHONPATH=. $(PYTHON) -m pytest --cov-branch --cov -n auto -v $(tests)
 
 test-no-coverage:
 	@echo "*** Running unittests without coverage ***"
