@@ -1,5 +1,4 @@
 import unittest
-import shlex
 import re
 
 from pykickstart.parser import KickstartParser
@@ -40,12 +39,10 @@ class ArgumentNamesStatic_TestCase(unittest.TestCase):
             if command == "method":
                 continue
 
-            args = shlex.split(command, comments=True)
-            cmd = args[0]
-
+            cmd = command.split(" ")[0]
             ks_parser = self._handler.commands[cmd]
             ks_parser.currentLine = command
-            ks_parser.currentCmd = args[0]
+            ks_parser.currentCmd = cmd
             ks_parser.seen = True
             arg_parser = ks_parser._getParser()
 
