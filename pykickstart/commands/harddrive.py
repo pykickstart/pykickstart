@@ -55,9 +55,9 @@ class FC3_HardDrive(KickstartCommand):
         retval += "# Use hard drive installation media\n"
 
         if self.biospart is not None:
-            retval += "harddrive --dir=%s --biospart=%s\n" % (self.dir, self.biospart)
+            retval += "harddrive --dir=\"%s\" --biospart=%s\n" % (self.dir, self.biospart)
         else:
-            retval += "harddrive --dir=%s --partition=%s\n" % (self.dir, self.partition)
+            retval += "harddrive --dir=\"%s\" --partition=%s\n" % (self.dir, self.partition)
 
         return retval
 
@@ -111,7 +111,7 @@ class F33_HardDrive(FC3_HardDrive):
             return retval
 
         retval += "# Use hard drive installation media\n"
-        retval += "harddrive --dir=%s --partition=%s\n" % (self.dir, self.partition)
+        retval += "harddrive --dir=\"%s\" --partition=%s\n" % (self.dir, self.partition)
 
         return retval
 

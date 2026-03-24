@@ -46,7 +46,7 @@ class FC3_NFS(KickstartCommand):
         if not self.seen:
             return retval
 
-        retval += "# Use NFS installation media\nnfs --server=%s --dir=%s\n" % (self.server, self.dir)
+        retval += "# Use NFS installation media\nnfs --server=%s --dir=\"%s\"\n" % (self.server, self.dir)
         return retval
 
     def _getParser(self):

@@ -52,20 +52,31 @@ class HardDrive_TestCase(unittest.TestCase):
                        data1, data2,
                        ['biospart', 'partition', 'dir'])
 
+        complicated_dir = """/OS ISO/dir iso's/the.iso"""
+        expected_dir = "--dir=\"%s\"" % complicated_dir
+        data3 = FC3_HardDrive(dir=complicated_dir)
+        data3.seen = True
+        line3 = [line[len("harddrive "):] for line in str(data3).splitlines() if line.startswith("harddrive ")][0]
+        assert expected_dir in line3
+        data4 = FC3_HardDrive(dir=complicated_dir, biospart="sda1")
+        data4.seen = True
+        line4 = [line[len("harddrive "):] for line in str(data4).splitlines() if line.startswith("harddrive ")][0]
+        assert expected_dir in line4
+
 
 class FC3_TestCase(CommandTest):
     def runTest(self):
         # pass
-        self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=/install --biospart=part\n")
-        self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
+        self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=\"/install\" --biospart=part\n")
+        self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=\"/install\" --partition=part\n")
 
-        self.assertFalse(self.assert_parse("harddrive --dir=/install --partition=sda1") is None)
-        self.assertTrue(self.assert_parse("harddrive --dir=/install --partition=sda1") !=
-                        self.assert_parse("harddrive --dir=/install --partition=sda2"))
-        self.assertFalse(self.assert_parse("harddrive --dir=/install --biospart=80p1") ==
-                         self.assert_parse("harddrive --dir=/install --biospart=80p2"))
-        self.assertFalse(self.assert_parse("harddrive --dir=/install --biospart=sda1") ==
-                         self.assert_parse("harddrive --dir=/other-install --biospart=sda1"))
+        self.assertFalse(self.assert_parse("harddrive --dir=\"/install\" --partition=sda1") is None)
+        self.assertTrue(self.assert_parse("harddrive --dir=\"/install\" --partition=sda1") !=
+                        self.assert_parse("harddrive --dir=\"/install\" --partition=sda2"))
+        self.assertFalse(self.assert_parse("harddrive --dir=\"/install\" --biospart=80p1") ==
+                         self.assert_parse("harddrive --dir=\"/install\" --biospart=80p2"))
+        self.assertFalse(self.assert_parse("harddrive --dir=\"/install\" --biospart=sda1") ==
+                         self.assert_parse("harddrive --dir=\"/other-install\" --biospart=sda1"))
 
         # fail
         # required option --dir missing
@@ -73,12 +84,12 @@ class FC3_TestCase(CommandTest):
         # required --dir argument missing
         self.assert_parse_error("harddrive --dir")
         # missing --biospart or --partition option
-        self.assert_parse_error("harddrive --dir=/install")
+        self.assert_parse_error("harddrive --dir=\"/install\"")
         # both --biospart and --partition specified
-        self.assert_parse_error("harddrive --dir=/install --biospart=bios --partition=part")
+        self.assert_parse_error("harddrive --dir=\"/install\" --biospart=bios --partition=part")
         # --biospart and --partition require argument
-        self.assert_parse_error("harddrive --dir=/install --biospart")
-        self.assert_parse_error("harddrive --dir=/install --partition")
+        self.assert_parse_error("harddrive --dir=\"/install\" --biospart")
+        self.assert_parse_error("harddrive --dir=\"/install\" --partition")
         # unknown option
         self.assert_parse_error("harddrive --unknown=value")
 
@@ -92,14 +103,21 @@ class F33HardDrive_TestCase(unittest.TestCase):
                        data1, data2,
                        ['partition', 'dir'])
 
+        complicated_dir = "/OS ISO/dir iso's/the.iso"
+        expected_dir = "--dir=\"%s\"" % complicated_dir
+        data3 = F33_HardDrive(dir=complicated_dir)
+        data3.seen = True
+        line3 = [line[len("harddrive "):] for line in str(data3).splitlines() if line.startswith("harddrive ")][0]
+        assert expected_dir in line3
+
 
 class F33_TestCase(CommandTest):
     def runTest(self):
         # pass
-        self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
-        self.assertFalse(self.assert_parse("harddrive --dir=/install --partition=sda1") is None)
-        self.assertTrue(self.assert_parse("harddrive --dir=/install --partition=sda1") !=
-                        self.assert_parse("harddrive --dir=/install --partition=sda2"))
+        self.assert_parse("harddrive --dir=\"/install\" --partition=part", "harddrive --dir=\"/install\" --partition=part\n")
+        self.assertFalse(self.assert_parse("harddrive --dir=\"/install\" --partition=sda1") is None)
+        self.assertTrue(self.assert_parse("harddrive --dir=\"/install\" --partition=sda1") !=
+                        self.assert_parse("harddrive --dir=\"/install\" --partition=sda2"))
 
         # fail
         # Ensure these options have been removed.
@@ -109,7 +127,7 @@ class F33_TestCase(CommandTest):
         # required --dir argument missing
         self.assert_parse_error("harddrive --dir")
         # missing --partition option
-        self.assert_parse_error("harddrive --dir=/install")
+        self.assert_parse_error("harddrive --dir=\"/install\"")
         # missing --dir option
         self.assert_parse_error("harddrive --partition=sda1")
         # unknown option

@@ -2,6 +2,7 @@ import unittest
 from tests.baseclass import ParserTest
 
 from pykickstart.errors import KickstartParseError
+from pykickstart.parser import Certificate
 from pykickstart import version         # pylint: disable=unused-import
 
 CERT_CONTENT="""-----BEGIN CERTIFICATE-----
@@ -83,6 +84,39 @@ class Simple_Header_TestCase(ParserTest):
         self.assertEqual(cert.filename, "custom_certificate.pem")
         self.assertEqual(cert.dir, "/etc/pki/ca-trust/source/anchors/")
         self.assertEqual(cert.cert, CERT_CONTENT)
+
+class No_Closing_Quotation_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom's-certificate.pem --dir=/etc/pki/edns
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        with self.assertRaises(ValueError) as cm:
+            self.parser.readKickstartFromString(self.ks)
+
+        expected = "No closing quotation"
+        self.assertIn(expected, str(cm.exception))
+
+class Space_Without_Quotation_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom certificate.pem --dir=/etc/pki/edns
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        with self.assertRaises(KickstartParseError) as cm:
+            self.parser.readKickstartFromString(self.ks)
+
+        expected = "unrecognized arguments: certificate.pem"
+        self.assertIn(expected, str(cm.exception))
+
 
 class Missing_Dir_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
@@ -194,6 +228,16 @@ class Cert_Content_Empty_Line_TestCase(ParserTest):
         cert = self.handler.certificates[1]
         self.assertEqual(cert.filename, "custom_certificate_2.pem")
         self.assertEqual(cert.cert, CERT_CONTENT_WITH_TRAILING_NEWLINE)
+
+class Certificate_Quoting_TestCase(unittest.TestCase):
+    def runTest(self):
+        complicated_dir = """/very /s'trange/ path"""
+        expected_list = ["--filename=\"%s\"" % complicated_dir, "--dir=\"%s\"" % complicated_dir]
+        data = Certificate(cert="cert", dir=complicated_dir, filename=complicated_dir)
+        line = [line[len("%certificate "):] for line in str(data).splitlines() if line.startswith("%certificate ")][0]
+        for item in expected_list:
+            with self.subTest(item=item):
+                self.assertIn(item, line)
 
 
 if __name__ == "__main__":

@@ -18,8 +18,8 @@
 # with the express permission of Red Hat, Inc.
 #
 
-import unittest
 import copy
+import unittest
 from tests.baseclass import CommandTest
 from pykickstart.base import DeprecatedCommand, RemovedCommand
 
@@ -189,11 +189,16 @@ class FC3_TestCase(CommandTest):
 
         # harddrive
         if "biospart" not in self.handler.commandMap["harddrive"].removedKeywords:
-            self.assert_parse("harddrive --dir=/install --biospart=part", "harddrive --dir=/install --biospart=part\n")
-        self.assert_parse("harddrive --dir=/install --partition=part", "harddrive --dir=/install --partition=part\n")
+            self.assert_parse("harddrive --dir=\"/install\" --biospart=part", "harddrive --dir=\"/install\" --biospart=part\n")
+        self.assert_parse("harddrive --dir=\"/install\" --partition=part", "harddrive --dir=\"/install\" --partition=part\n")
+
+        complicated_dir = """/OS ISO/dir iso's/the.iso"""
+        self.assert_parse("harddrive --dir=\"%s\" --partition=part" % complicated_dir)
+
 
         # nfs
-        self.assert_parse("nfs --server=1.2.3.4 --dir=/install", "nfs --server=1.2.3.4 --dir=/install\n")
+        self.assert_parse("nfs --server=1.2.3.4 --dir=\"/install\"", "nfs --server=1.2.3.4 --dir=\"/install\"\n")
+        self.assert_parse("nfs --server=1.2.3.4 --dir=\"%s\"" % complicated_dir)
 
         # url
         self.assert_parse("url --url=http://domain.com", "url --url=\"http://domain.com\"\n")
@@ -205,24 +210,37 @@ class FC3_TestCase(CommandTest):
         # required --dir argument missing
         self.assert_parse_error("harddrive --dir")
         # missing --biospart or --partition option
-        self.assert_parse_error("harddrive --dir=/install")
+        self.assert_parse_error("harddrive --dir=\"/install\"")
         # both --biospart and --partition specified
-        self.assert_parse_error("harddrive --dir=/install --biospart=bios --partition=part")
+        self.assert_parse_error("harddrive --dir=\"/install\" --biospart=bios --partition=part")
         # --biospart and --partition require argument
-        self.assert_parse_error("harddrive --dir=/install --biospart")
-        self.assert_parse_error("harddrive --dir=/install --partition")
+        self.assert_parse_error("harddrive --dir=\"/install\" --biospart")
+        self.assert_parse_error("harddrive --dir=\"/install\" --partition")
         # unknown option
         self.assert_parse_error("harddrive --unknown=value")
+        # Space without quotation
+        self.assert_parse_error("harddrive --dir=/OS /space.iso --partition=/sdb3")
+
+        # No closing quotation
+        with self.assertRaises(ValueError, msg="No closing quotation"):
+            self.assert_parse("harddrive --biospart=bios --dir=/the'/thingy.iso")
+        with self.assertRaises(ValueError, msg="No closing quotation"):
+            self.assert_parse("harddrive --biospart=bios --dir=/the\"/thingy.iso")
 
         # nfs
         # missing required options --server and --dir
         self.assert_parse_error("nfs")
         self.assert_parse_error("nfs --server=1.2.3.4")
         self.assert_parse_error("nfs --server")
-        self.assert_parse_error("nfs --dir=/install")
+        self.assert_parse_error("nfs --dir=\"/install\"")
         self.assert_parse_error("nfs --dir")
         # unknown option
         self.assert_parse_error("nfs --unknown=value")
+        # No closing quotation
+        with self.assertRaises(ValueError, msg="No closing quotation"):
+            self.assert_parse_error("nfs --server=1.2.3.4 --dir=/'oops")
+        # Space without quotation
+        self.assert_parse_error("nfs --server=1.2.3.4 --dir=/ oops", regex="unrecognized arguments: oops")
 
         # url
         # missing required option --url
@@ -236,12 +254,12 @@ class FC6_TestCase(FC3_TestCase):
 
         # pass
         # nfs
-        self.assert_parse("nfs --server=1.2.3.4 --dir=/install --opts=options", "nfs --server=1.2.3.4 --dir=/install --opts=\"options\"\n")
+        self.assert_parse("nfs --server=1.2.3.4 --dir=\"/install\" --opts=options", "nfs --server=1.2.3.4 --dir=\"/install\" --opts=\"options\"\n")
 
         # fail
         # nfs
         # --opts requires argument if specified
-        self.assert_parse_error("nfs --server=1.2.3.4 --dir=/install --opts")
+        self.assert_parse_error("nfs --server=1.2.3.4 --dir=\"/install\" --opts")
 
 
 class F13_TestCase(FC6_TestCase):
