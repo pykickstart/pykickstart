@@ -76,6 +76,8 @@ class F43_Bootc(KickstartCommand):
                         version=F43,
                         help="""
                         Install the system from an explicitly given source.
+                        A transport prefix (e. g. 'registry:') is required to specify
+                        the source.
                         """)
         op.add_argument("--target-imgref",
                         dest="targetImgRef",
@@ -83,6 +85,10 @@ class F43_Bootc(KickstartCommand):
                         help="""
                         Specify the image to fetch for subsequent updates.
                         If not presented defaults to '--source-imgref' value.
+                        In order for the bootc updates in the installed system to work
+                        properly, you currently need to specify this argument.
+                        Note that as opposed to `--source-imgref`, a transport prefix
+                        (e. g. 'registry:') must not be used here.
                         """)
 
         return op
