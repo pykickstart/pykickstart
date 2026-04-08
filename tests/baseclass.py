@@ -71,6 +71,7 @@ class ParserTest(unittest.TestCase):
             self.fail("Failed while parsing commands %s: %s" % (ks_string, e))
 
 
+
 class CommandSequenceTest(ParserTest):
     """Kickstart command sequence testing
 
@@ -145,12 +146,11 @@ class CommandTest(unittest.TestCase):
     def getParser(self, inputStr):
         '''Find a handler using the class name.  Return the requested command
         object.'''
-        args = shlex.split(inputStr, comments=True)
-        cmd = args[0]
+        cmd = inputStr.split(" ")[0]
 
         parser = self.handler().commands[cmd]  # pylint: disable=not-callable
         parser.currentLine = inputStr
-        parser.currentCmd = args[0]
+        parser.currentCmd = cmd
         parser.seen = True
 
         return parser
