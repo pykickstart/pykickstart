@@ -81,3 +81,23 @@ class F43_Conflict_TestCase(CommandSequenceTest):
 
 class RHEL10_TestCase(F43_TestCase):
     pass
+
+class F45_TestCase(F43_TestCase):
+    command = "bootc"
+
+    def runTest(self):
+        # PASS tests
+        cmdstr = "bootc --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --bootloader=grub --composefs"
+        self.assert_parse(cmdstr)
+
+        cmdstr = "bootc --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --bootloader=grub"
+        cmdstr_expected = "bootc --stateroot=\"default\" --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --target-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --bootloader=\"grub\"" + "\n"
+        self.assert_parse(cmdstr, cmdstr_expected)
+
+        cmdstr = "bootc --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --composefs"
+        cmdstr_expected = "bootc --stateroot=\"default\" --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --target-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --composefs" + "\n"
+        self.assert_parse(cmdstr, cmdstr_expected)
+
+        cmdstr = "bootc --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --bootloader=grub --composefs"
+        cmdstr_expected = "bootc --stateroot=\"default\" --source-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --target-imgref=\"quay.io/centos-bootc/centos-bootc:stream9\" --bootloader=\"grub\" --composefs" + "\n"
+        self.assert_parse(cmdstr, cmdstr_expected)

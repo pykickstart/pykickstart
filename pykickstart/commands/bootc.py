@@ -15,7 +15,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-from pykickstart.version import F43
+from pykickstart.version import F43, F45
 from pykickstart.base import KickstartCommand
 from pykickstart.options import KSOptionParser
 
@@ -102,3 +102,37 @@ class F43_Bootc(KickstartCommand):
 
         return self
 
+class F45_Bootc(F43_Bootc):
+    removedKeywords = F43_Bootc.removedKeywords
+    removedAttrs = F43_Bootc.removedAttrs
+
+    def __init__(self, *args, **kwargs):
+        F43_Bootc.__init__(self, *args, **kwargs)
+        self.bootloader = kwargs.get("bootloader", None)
+        self.composefs = kwargs.get("composefs", False)
+
+    def _getArgsAsStr(self):
+        retval = F43_Bootc._getArgsAsStr(self)
+
+        if self.bootloader:
+            retval += ' --bootloader="%s"' % self.bootloader
+        if self.composefs:
+            retval += " --composefs"
+
+        return retval
+
+    def _getParser(self):
+        op = F43_Bootc._getParser(self)
+        op.add_argument("--bootloader",
+                        version=F45,
+                        help="""
+                        Bootloader selection: none, grub, systemd
+                        """)
+        op.add_argument("--composefs",
+                        version=F45,
+                        action="store_true",
+                        default=False,
+                        help="""
+                        Use the composefs backend instead of the the default which is ostree.
+                        """)
+        return op

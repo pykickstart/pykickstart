@@ -30,7 +30,7 @@ class F45Handler(BaseHandler):
         "authselect": commands.authselect.F28_Authselect,
         "autopart": commands.autopart.F41_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
-        "bootc": commands.bootc.F43_Bootc,
+        "bootc": commands.bootc.F45_Bootc,
         "bootloader": commands.bootloader.F39_Bootloader,
         "btrfs": commands.btrfs.F23_BTRFS,
         "cdrom": commands.cdrom.FC3_Cdrom,
