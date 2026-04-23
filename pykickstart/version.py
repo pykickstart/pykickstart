@@ -106,6 +106,8 @@ F42 = 42000
 F43 = 43000
 F44 = 44000
 F45 = 45000
+#F46 = 46000
+RHEL11 = 46100
 
 # This always points at the latest version and is the default.
 DEVEL = F45
@@ -128,6 +130,7 @@ versionMap = {
     "F44": F44, "F45": F45,
     "RHEL3": RHEL3, "RHEL4": RHEL4, "RHEL5": RHEL5, "RHEL6": RHEL6,
     "RHEL7": RHEL7, "RHEL8": RHEL8, "RHEL9": RHEL9, "RHEL10": RHEL10,
+    "RHEL11": RHEL11
 }
 
 def stringToVersion(s):
