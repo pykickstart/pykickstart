@@ -28,7 +28,7 @@ class RHEL11Handler(BaseHandler):
         "auth": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authconfig": commands.authconfig.F35_Authconfig, # RemovedCommand
         "authselect": commands.authselect.F28_Authselect,
-        "autopart": commands.autopart.RHEL10_AutoPart,
+        "autopart": commands.autopart.F41_AutoPart,
         "autostep": commands.autostep.F40_Autostep, # RemovedCommand
         "bootc": commands.bootc.F45_Bootc,
         "bootloader": commands.bootloader.F39_Bootloader,
