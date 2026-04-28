@@ -40,7 +40,7 @@ class RHEL11Handler(BaseHandler):
         "deviceprobe": commands.deviceprobe.F34_DeviceProbe,
         "dmraid": commands.dmraid.F34_DmRaid,
         "driverdisk": commands.driverdisk.F14_DriverDisk,
-        "module": commands.module.RHEL10_Module,
+        "module": commands.module.F45_Module, #RemovedCommand
         "eula": commands.eula.F20_Eula,
         "fcoe": commands.fcoe.RHEL10_Fcoe,
         "firewall": commands.firewall.F28_Firewall,
@@ -65,7 +65,7 @@ class RHEL11Handler(BaseHandler):
         "multipath": commands.multipath.F34_MultiPath,
         "network": commands.network.RHEL10_Network,
         "nfs": commands.nfs.FC6_NFS,
-        "nvdimm": commands.nvdimm.RHEL10_Nvdimm, # RemovedCommand
+        "nvdimm": commands.nvdimm.F45_Nvdimm, # RemovedCommand
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F43_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F43_OSTreeSetup,
@@ -94,7 +94,7 @@ class RHEL11Handler(BaseHandler):
         "updates": commands.updates.F34_Updates,
         "url": commands.url.F30_Url,
         "user": commands.user.F24_User,
-        "vnc": commands.vnc.RHEL10_Vnc,
+        "vnc": commands.vnc.F45_Vnc, # RemovedCommand
         "volgroup": commands.volgroup.RHEL10_VolGroup,
         "xconfig": commands.xconfig.F14_XConfig,
         "zerombr": commands.zerombr.F9_ZeroMbr,
