@@ -24,7 +24,7 @@ from pykickstart.errors import KickstartParseError, KickstartParseWarning
 from pykickstart.options import KSOptionParser, commaSplit
 from pykickstart.constants import NVDIMM_MODE_SECTOR, NVDIMM_ACTION_RECONFIGURE, \
     NVDIMM_ACTION_USE
-from pykickstart.version import F28, F40, RHEL10, versionToLongString
+from pykickstart.version import F28, F40, F45, RHEL10, versionToLongString
 
 from pykickstart.i18n import _
 
@@ -180,8 +180,16 @@ class F40_Nvdimm(DeprecatedCommand, F28_Nvdimm):
         op.description += "\n\n.. deprecated:: %s" % versionToLongString(F40)
         return op
 
+
 class RHEL10_Nvdimm(RemovedCommand, F40_Nvdimm):
     def _getParser(self):
         op = F40_Nvdimm._getParser(self)
         op.description += "\n\n.. versionremoved:: %s" % versionToLongString(RHEL10)
+        return op
+
+
+class F45_Nvdimm(RemovedCommand, F40_Nvdimm):
+    def _getParser(self):
+        op = F40_Nvdimm._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F45)
         return op

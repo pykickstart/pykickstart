@@ -75,5 +75,12 @@ class RHEL10_TestCase(F40_TestCase):
         self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
 
 
+class F45_TestCase(F40_TestCase):
+    def runTest(self):
+        # make sure we've been removed
+        parser = self.getParser("nvdimm")
+        self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
+
+
 if __name__ == "__main__":
     unittest.main()

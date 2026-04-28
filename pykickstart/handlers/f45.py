@@ -65,7 +65,7 @@ class F45Handler(BaseHandler):
         "multipath": commands.multipath.F34_MultiPath,
         "network": commands.network.F39_Network,
         "nfs": commands.nfs.FC6_NFS,
-        "nvdimm": commands.nvdimm.F40_Nvdimm,
+        "nvdimm": commands.nvdimm.F45_Nvdimm, # RemovedCommand
         "timesource": commands.timesource.F33_Timesource,
         "ostreecontainer": commands.ostreecontainer.F43_OSTreeContainer,
         "ostreesetup": commands.ostreesetup.F43_OSTreeSetup,
