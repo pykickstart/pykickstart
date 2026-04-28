@@ -20,13 +20,14 @@
 
 from textwrap import dedent
 
-from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand
+from pykickstart.base import BaseData, DeprecatedCommand, KickstartCommand, RemovedCommand
 from pykickstart.errors import KickstartParseError
 from pykickstart.options import KSOptionParser
-from pykickstart.version import versionToLongString, F29, RHEL8, F41
+from pykickstart.version import versionToLongString, F29, RHEL8, F41, F45
 
 from pykickstart.i18n import _
 
+# pylint: disable=too-many-ancestors
 
 class F29_ModuleData(BaseData):
     removedKeywords = BaseData.removedKeywords
@@ -189,3 +190,9 @@ class F41_Module(DeprecatedCommand, F31_Module):
 class RHEL10_Module(F41_Module):
     removedKeywords = F41_Module.removedKeywords
     removedAttrs = F41_Module.removedAttrs
+
+class F45_Module(RemovedCommand, F41_Module):
+    def _getParser(self):
+        op = F41_Module._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F45)
+        return op

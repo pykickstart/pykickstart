@@ -40,7 +40,7 @@ class F45Handler(BaseHandler):
         "deviceprobe": commands.deviceprobe.F34_DeviceProbe,
         "dmraid": commands.dmraid.F34_DmRaid,
         "driverdisk": commands.driverdisk.F14_DriverDisk,
-        "module": commands.module.F41_Module,
+        "module": commands.module.F45_Module, # RemovedCommand
         "eula": commands.eula.F20_Eula,
         "fcoe": commands.fcoe.F28_Fcoe,
         "firewall": commands.firewall.F28_Firewall,

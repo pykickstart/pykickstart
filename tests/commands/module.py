@@ -21,7 +21,7 @@
 
 import unittest
 from tests.baseclass import CommandTest
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 
 class F29_TestCase(CommandTest):
     def runTest(self):
@@ -88,6 +88,14 @@ class RHEL10_TestCase(F41_TestCase):
     def runTest(self):
         # run F41 test case.
         F41_TestCase.runTest(self)
+
+
+class F45_TestCase(F41_TestCase):
+    def runTest(self):
+        # make sure we've been removed
+        parser = self.getParser("module")
+        self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
+
 
 if __name__ == "__main__":
     unittest.main()
