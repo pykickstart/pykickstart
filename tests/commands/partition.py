@@ -382,5 +382,10 @@ class F41_TestCase(F34_TestCase):
         self.assert_parse_error("part / --passphrase=\"test\" --hw-passphrase=\"testhw\"")
         self.assert_parse_error("part / --encrypted --passphrase=\"test\" --luks-version=luks1 --hw-passphrase=\"testhw\"")
 
+class RHEL11_TestCase(F41_TestCase):
+    def  runTest(self):
+        F41_TestCase.runTest(self)
+        self.assert_parse_error("part / --fstype=btrfs")
+
 if __name__ == "__main__":
     unittest.main()

@@ -813,3 +813,25 @@ class F41_Partition(F34_Partition):
             raise KickstartParseError(msg, lineno=self.lineno)
 
         return retval
+
+class RHEL11_Partition(F41_Partition):
+    removedKeywords = F41_Partition.removedKeywords
+    removedAttrs = F41_Partition.removedAttrs
+
+    def parse(self, args):
+        retval = F41_Partition.parse(self, args)
+        if retval.mountpoint.startswith("btrfs.") or retval.fstype == "btrfs":
+            raise KickstartParseError(_("Btrfs file system is not supported"), lineno=self.lineno)
+        return retval
+
+    def _getParser(self):
+        "Only necessary for the type change documentation"
+        op = F41_Partition._getParser(self)
+        for action in op._actions:
+            if "--fstype" in action.option_strings:
+                action.help += """
+
+                    .. versionchanged:: %s
+
+                    Btrfs support was removed.""" % versionToLongString(RHEL8)
+        return op
