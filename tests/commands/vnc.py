@@ -1,7 +1,7 @@
 import unittest
 from tests.baseclass import CommandTest
 from pykickstart.commands.vnc import FC3_Vnc
-from pykickstart.base import DeprecatedCommand
+from pykickstart.base import DeprecatedCommand, RemovedCommand
 
 class Vnc_TestCase(unittest.TestCase):
     def runTest(self):
@@ -75,6 +75,14 @@ class F43_TestCase(F9_TestCase):
         # make sure the vnc command has been deprecated on Fedora 43
         parser = self.getParser("vnc")
         self.assertEqual(issubclass(parser.__class__, DeprecatedCommand), True)
+
+
+class F45_TestCase(F43_TestCase):
+    def runTest(self):
+        # make sure the vnc command has been removed on Fedora 45
+        parser = self.getParser("vnc")
+        self.assertEqual(issubclass(parser.__class__, RemovedCommand), True)
+
 
 if __name__ == "__main__":
     unittest.main()

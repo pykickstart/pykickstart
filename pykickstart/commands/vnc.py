@@ -17,9 +17,11 @@
 # subject to the GNU General Public License and may only be used or replicated
 # with the express permission of Red Hat, Inc.
 #
-from pykickstart.version import FC3, FC6, F9, F43, RHEL10, versionToLongString
-from pykickstart.base import KickstartCommand, DeprecatedCommand
+from pykickstart.version import FC3, FC6, F9, F43, F45, RHEL10, versionToLongString
+from pykickstart.base import KickstartCommand, DeprecatedCommand, RemovedCommand
 from pykickstart.options import KSOptionParser
+
+# pylint: disable=too-many-ancestors
 
 class FC3_Vnc(KickstartCommand):
     removedKeywords = KickstartCommand.removedKeywords
@@ -155,4 +157,11 @@ class F43_Vnc(RHEL10_Vnc):
     def _getParser(self):
         op = F9_Vnc._getParser(self)
         op.description += "\nPlease use the ``inst.rdp`` boot option instead.\n\n.. deprecated:: %s" % versionToLongString(F43)
+        return op
+
+
+class F45_Vnc(RemovedCommand, F43_Vnc):
+    def _getParser(self):
+        op = F43_Vnc._getParser(self)
+        op.description += "\n\n.. versionremoved:: %s" % versionToLongString(F45)
         return op
