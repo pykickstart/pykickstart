@@ -249,9 +249,10 @@ pykickstart processes arguments to commands just like the shell does:
    arguments list, they must be escaped.
 
 .. note::
-    Documentation for RHEL 8 commands can be `found here <commands_rhel8.html>`_
+    Documentation for RHEL 8 can be `found here <commands_rhel8.html>`_, and
+    Documentation for RHEL 9 can be `found here <commands_rhel9.html>`_
 
-Commands for RHEL 9:
+Commands for RHEL 10:
 
 .. include:: commands_rhel.rst
 
