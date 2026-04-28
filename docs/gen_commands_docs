@@ -12,8 +12,11 @@ def _format_title(title):
 
 if __name__ == "__main__":
     handler_version = DEVEL
+    page_title_prefix = None
     if len(sys.argv) > 1:
         handler_version = stringToVersion(sys.argv[1])
+    if len(sys.argv) > 2:
+        page_title_prefix = sys.argv[2]
     handler_string = versionToString(handler_version)
 
     # build a list of all possible commands, with their respective latest versions
@@ -44,6 +47,9 @@ if __name__ == "__main__":
                 last_version = getVersionFromCommandClass(all_commands[command_name])
                 if command_version > last_version:
                     all_commands[command_name] = command_class
+
+    if page_title_prefix:
+        print(f".. title:: {page_title_prefix}")
 
     # now loop over all commands and document them
     already_documented = []
