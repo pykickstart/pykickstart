@@ -1,8 +1,8 @@
 import unittest
 from tests.baseclass import ParserTest
 
-from pykickstart import constants
 from pykickstart.errors import KickstartParseError
+from pykickstart.parser import Certificate
 from pykickstart import version         # pylint: disable=unused-import
 
 CERT_CONTENT="""-----BEGIN CERTIFICATE-----
@@ -85,7 +85,7 @@ class Simple_Header_TestCase(ParserTest):
         self.assertEqual(cert.dir, "/etc/pki/ca-trust/source/anchors/")
         self.assertEqual(cert.cert, CERT_CONTENT)
 
-class Missing_Dir_TestCase(ParserTest):
+class Missing_Dir_And_Type_TestCase(ParserTest):
     def __init__(self, *args, **kwargs):
         ParserTest.__init__(self, *args, **kwargs)
         self.ks = f"""
@@ -98,7 +98,7 @@ class Missing_Dir_TestCase(ParserTest):
         with self.assertRaises(KickstartParseError) as cm:
             self.parser.readKickstartFromString(self.ks)
 
-        expected = "the following arguments are required: --dir"
+        expected = "One of --dir or --type must be specified"
         self.assertIn(expected, str(cm.exception))
 
 class Missing_Filename_TestCase(ParserTest):
@@ -195,6 +195,77 @@ class Cert_Content_Empty_Line_TestCase(ParserTest):
         cert = self.handler.certificates[1]
         self.assertEqual(cert.filename, "custom_certificate_2.pem")
         self.assertEqual(cert.cert, CERT_CONTENT_WITH_TRAILING_NEWLINE)
+
+class Type_Anchor_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom_ca.pem --type anchor
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+        self.assertEqual(len(self.handler.certificates), 1)
+
+        cert = self.handler.certificates[0]
+        self.assertEqual(cert.filename, "custom_ca.pem")
+        self.assertEqual(cert.type, "anchor")
+        self.assertIsNone(cert.dir)
+        self.assertEqual(cert.cert, CERT_CONTENT)
+
+class Type_Anchor_With_Dir_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom_ca.pem --type anchor --dir /etc/pki/custom/
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+        self.assertEqual(len(self.handler.certificates), 1)
+
+        cert = self.handler.certificates[0]
+        self.assertEqual(cert.filename, "custom_ca.pem")
+        self.assertEqual(cert.type, "anchor")
+        self.assertEqual(cert.dir, "/etc/pki/custom/")
+        self.assertEqual(cert.cert, CERT_CONTENT)
+
+class Dir_Only_No_Type_TestCase(ParserTest):
+    def __init__(self, *args, **kwargs):
+        ParserTest.__init__(self, *args, **kwargs)
+        self.ks = f"""
+%certificate --filename=custom_certificate.pem --dir /etc/pki/edns
+{CERT_CONTENT}
+%end
+"""
+
+    def runTest(self):
+        self.parser.readKickstartFromString(self.ks)
+        self.assertEqual(len(self.handler.certificates), 1)
+
+        cert = self.handler.certificates[0]
+        self.assertEqual(cert.filename, "custom_certificate.pem")
+        self.assertEqual(cert.dir, "/etc/pki/edns")
+        self.assertIsNone(cert.type)
+        self.assertEqual(cert.cert, CERT_CONTENT)
+
+class Type_Anchor_Str_TestCase(unittest.TestCase):
+    def runTest(self):
+        data = Certificate(cert="cert", filename="ca.pem", type="anchor")
+        output = str(data)
+        self.assertIn("--type=anchor", output)
+        self.assertNotIn("--dir", output)
+
+class Type_And_Dir_Str_TestCase(unittest.TestCase):
+    def runTest(self):
+        data = Certificate(cert="cert", filename="ca.pem", type="anchor", dir="/custom")
+        output = str(data)
+        self.assertIn("--type=anchor", output)
+        self.assertIn("--dir=/custom", output)
 
 
 if __name__ == "__main__":
