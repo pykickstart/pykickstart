@@ -36,7 +36,7 @@ from pykickstart.constants import KS_SCRIPT_PRE, KS_SCRIPT_POST, KS_SCRIPT_TRACE
                                   KS_BROKEN_IGNORE, KS_BROKEN_REPORT
 from pykickstart.errors import KickstartParseError, KickstartDeprecationWarning
 from pykickstart.options import KSOptionParser
-from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40, F42
+from pykickstart.version import FC4, F7, F9, F18, F21, F22, F24, F32, F34, F40, F42, F45
 from pykickstart.version import isRHEL, RHEL6, RHEL7, RHEL9, RHEL10
 from pykickstart.i18n import _
 
@@ -860,6 +860,7 @@ class CertificateSection(Section):
         self._certificate = {
             "filename": None,
             "dir": None,
+            "type": None,
             "cert": []
         }
 
@@ -868,9 +869,14 @@ class CertificateSection(Section):
                             The %certificate section is used to specify certificates to be
                             installed into the installer environment and the installed system.
 
-                            The certificate content should be in a Base64 ASCII enconding
+                            The certificate content should be in a Base64 ASCII encoding
                             format. It will be written into a file specified by the
                             --dir and --filename options.
+
+                            The --type option can be used to specify the type of the
+                            certificate and handle its placement and import automatically.
+
+                            At least one of --dir or --type must be specified.
 
                             Example::
 
@@ -888,6 +894,14 @@ class CertificateSection(Section):
                                 -----END CERTIFICATE-----
                                 %end
 
+                            To install a CA trust anchor::
+
+                                %certificate --filename custom_ca.pem --type anchor
+                                -----BEGIN CERTIFICATE-----
+                                ...
+                                -----END CERTIFICATE-----
+                                %end
+
                             A certificate bundle can be installed as a content of a single
                             %certificate section.
 
@@ -896,8 +910,22 @@ class CertificateSection(Section):
         op.add_argument("--filename", dest="filename", required=True, version=F42,
                         help="""The name of the certificate file.""")
 
-        op.add_argument("--dir", dest="dir", required=True, version=F42, help="""
-                        The directory where the certificate should be installed.""")
+        op.add_argument("--dir", dest="dir", required=False, version=F42, help="""
+                        The directory where the certificate should be installed.
+                        Required if --type is not specified.""")
+
+        op.add_argument("--type", dest="type", required=False, version=F45, help="""
+                        The type of the certificate. When specified, the certificate
+                        placement and import is handled automatically.
+
+                        Supported values:
+
+                        ``anchor``
+
+                        will install the certificate as a CA trust anchor and
+                        run the tool (``update-ca-trust extract``) to update the
+                        system trust store.
+                        """)
 
         return op
 
@@ -909,10 +937,19 @@ class CertificateSection(Section):
 
         ns = op.parse_args(args=args[1:], lineno=lineno)
 
+        if not ns.dir and not ns.type:
+            raise KickstartParseError(
+                _("One of --dir or --type must be specified for %certificate"),
+                lineno=lineno
+            )
+
         self._certificate["filename"] = ns.filename
 
         if ns.dir:
             self._certificate["dir"] = ns.dir
+
+        if ns.type:
+            self._certificate["type"] = ns.type
 
     def handleLine(self, line):
         """Collect lines between %certificate and %end."""
@@ -931,6 +968,7 @@ class CertificateSection(Section):
             "cert": cert,
             "filename": self._certificate["filename"],
             "dir": self._certificate["dir"],
+            "type": self._certificate["type"],
         }
 
         if self.dataObj is not None:
@@ -939,5 +977,6 @@ class CertificateSection(Section):
                 "cert": [],
                 "filename": None,
                 "dir": None,
+                "type": None,
             }
             self.handler.certificates.append(s)
