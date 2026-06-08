@@ -23,8 +23,9 @@ BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: make
 BuildRequires: python3-pytest
+%if %{undefined rhel}
 BuildRequires: python3-pytest-xdist
-BuildRequires: python3-pytest-cov
+%endif
 
 # Only required when building with runtests
 %if %{with runtests}
@@ -46,6 +47,10 @@ the pykickstart package.
 
 %prep
 %setup -q
+%if %{defined rhel}
+# no xdist, run tests serially
+sed -i -e '/pytest/s/ -n auto / /' Makefile
+%endif
 
 %build
 make PYTHON=%{__python3}
