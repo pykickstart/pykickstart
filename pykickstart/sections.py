@@ -358,7 +358,7 @@ class PostScriptSection(ScriptSection):
     installed::
 
         %post --nochroot
-        if [ ! -e /mnt/sysimage/etc/resolf.conf ]; then
+        if [ ! -e /mnt/sysimage/etc/resolv.conf ]; then
             cp -P /etc/resolv.conf /mnt/sysimage/etc/resolv.conf
         fi
         %end
