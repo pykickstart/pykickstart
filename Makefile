@@ -9,7 +9,8 @@ PYTHON_VERSION = $(shell ${PYTHON} -c "print(__import__('sys').version_info[0])"
 
 GPGKEY ?= $(shell git config user.signingkey)
 
-WEBLATE_REPO = git@github.com:pykickstart/weblate
+WEBLATE_SSH_REPO = git@github.com:pykickstart/weblate
+WEBLATE_HTTPS_REPO = https://github.com/pykickstart/weblate
 WEBLATE_BRANCH ?= $(shell git branch --show-current)
 
 SPECFILE ?= pykickstart.spec
@@ -21,13 +22,13 @@ all:
 
 po-pull:
 	-rm -rf ./weblate/
-	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_HTTPS_REPO) ./weblate/
 	cp ./weblate/*.po ./weblate/*.pot ./po/
 
 po-push:
 	make -C po pykickstart.pot
 	-rm -rf ./weblate/
-	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_REPO) ./weblate/
+	git clone --depth=1 -b $(WEBLATE_BRANCH) $(WEBLATE_SSH_REPO) ./weblate/
 	cp po/pykickstart.pot ./weblate/
 	git -C ./weblate/ commit -m "Update pykickstart.pot" -- pykickstart.pot
 	git -C ./weblate/ push
