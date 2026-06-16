@@ -13,6 +13,8 @@ srpm_build_deps:
   - python3-sphinx
 
 actions:
+  post-upstream-clone:
+    - make pykickstart.spec
   get-current-version:
     - python3 setup.py --version
   create-archive:
