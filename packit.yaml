@@ -19,7 +19,7 @@ actions:
     - python3 setup.py --version
   create-archive:
     - make local WEBLATE_BRANCH=master
-    - bash -c "ls *.tar*"
+    - bash -c "ls *.tar.gz"
 
 jobs:
   - job: copr_build
