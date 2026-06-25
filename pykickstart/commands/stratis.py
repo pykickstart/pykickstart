@@ -19,6 +19,11 @@ class F45_StratisFs(KickstartCommand):
         op = KSOptionParser(prog="stratisfs", description="""
                             Configure a Stratis filesystem.
                             """, version=F45)
+        op.add_argument("mountpoint", version=F45,
+                        help="""
+                        Filesystem mountpoint. "none" is a valid value, which
+                        means do not mount.
+                        """)
         op.add_argument("name", version=F45,
                         help="""
                         Name of filesystem.
@@ -26,10 +31,6 @@ class F45_StratisFs(KickstartCommand):
         op.add_argument("--pool-name", version=F45,
                         help="""
                         Name of this filesystem's pool.
-                        """)
-        op.add_argument("--mountpoint", version=F45,
-                        help="""
-                        Filesystem mountpoint.
                         """)
         op.add_argument("--size", version=F45,
                         help="""
