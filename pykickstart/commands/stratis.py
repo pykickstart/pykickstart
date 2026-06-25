@@ -24,7 +24,7 @@ class F45_StratisFs(KickstartCommand):
                         Filesystem mountpoint. "none" is a valid value, which
                         means do not mount.
                         """)
-        op.add_argument("name", version=F45,
+        op.add_argument("--name", version=F45, required=True,
                         help="""
                         Name of filesystem.
                         """)
