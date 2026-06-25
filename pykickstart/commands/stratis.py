@@ -92,13 +92,6 @@ class F45_StratisPool(KickstartCommand):
                         On reboot, request the user during setup to encrypt
                         this pool.
                         """)
-        op.add_argument("--cache-device", version=F45,
-                        help="""
-                        Specify a particular device for a pool's cache. This
-                        must be a device, not a partition, and should be
-                        reasonably fast. It may be added after the install,
-                        on reboot.
-                        """)
         return op
 
     def parse(self, args):
