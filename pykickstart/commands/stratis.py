@@ -28,7 +28,7 @@ class F45_StratisFs(KickstartCommand):
                         help="""
                         Name of filesystem.
                         """)
-        op.add_argument("--pool-name", version=F45,
+        op.add_argument("--pool-name", version=F45, required=True,
                         help="""
                         Name of this filesystem's pool.
                         """)
