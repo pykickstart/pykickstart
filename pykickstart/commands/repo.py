@@ -225,15 +225,16 @@ class FC6_Repo(KickstartCommand):
                             used as sources for package installation. Multiple
                             repo lines may be specified. By default, anaconda
                             has a configured set of repos taken from
-                            /etc/anaconda.repos.d plus a special Installation
-                            Repo in the case of a media install. The exact set
-                            of repos in this directory changes from release to
-                            release and cannot be listed here. There will
-                            likely always be a repo named "updates".
+                            the system package manager configuration plus a
+                            special Installation Repo in the case of a media
+                            install. The exact set of repos changes from
+                            release to release and cannot be listed here.
+                            There will likely always be a repo named
+                            "updates".
 
-                            Note: If you want to enable one of the repos in
-                            /etc/anaconda.repos.d that is disabled by default
-                            (like "updates"), you should use --name= but none
+                            Note: If you want to enable one of the default
+                            repos that is disabled by default (like
+                            "updates"), you should use --name= but none
                             of the other options. anaconda will look for a repo
                             by this name automatically. Providing a baseurl or
                             mirrorlist URL will result in anaconda attempting
@@ -248,7 +249,7 @@ class FC6_Repo(KickstartCommand):
                         Because anaconda has a populated list of repos when it 
                         starts, this means that users cannot create new repos 
                         that override these names.
-                        Please check /etc/anaconda.repos.d from the operating
+                        Please check the repo configuration from the operating
                         system you wish to install to see what names are not
                         available.""")
         op.add_argument("--baseurl", version=FC6, help="""
