@@ -1,7 +1,0 @@
-specfile_path: pykickstart.spec.in
-synced_files:
-  - packit.yaml
-  - pykickstart.spec.in
-upstream_project_name: pykickstart
-downstream_package_name: pykickstart
-dist_git_url: https://src.fedoraproject.org/rpms/pykickstart.git
